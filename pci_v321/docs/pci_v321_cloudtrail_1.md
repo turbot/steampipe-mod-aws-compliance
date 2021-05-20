@@ -1,17 +1,20 @@
 ## Description
 
-This control checks whether your Auto Scaling groups that are associated with a load balancer are using Elastic Load Balancing health checks.
+This control checks whether AWS CloudTrail is configured to use the server-side encryption (SSE) AWS KMS customer master key (CMK) encryption.
 
-PCI DSS does not require load balancing or highly available configurations. However, this check aligns with AWS best practices.
+If you are only using the default encryption option, you can choose to disable this check.
 
 ## Remediation
 
-To enable Elastic Load Balancing health checks
+To enable encryption for CloudTrail logs
 
-1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
-1. On the navigation pane, under Auto Scaling, choose Auto Scaling Groups.
-1. To select the group from the list, choose the right box.
-1. From Actions, choose Edit
-1. For Health Check Type, choose ELB.
-1. For Health Check Grace Period, enter 300.
-1. Choose Save.
+1. Open the CloudTrail console at [CloudTrail](https://console.aws.amazon.com/cloudtrail/).
+1. Choose **Trails**.
+1. Choose the trail to update.
+1. Under General details, choose **Edit**.
+1. For Log file SSE-KMS encryption, select **Enabled**.
+1. Under AWS KMS customer managed CMK, do one of the following:
+    - To create a key, choose **New**. Then in AWS KMS alias, enter an alias for the key. The key is created in the same Region as the S3 bucket.
+    - To use an existing key, choose **Existing** and then from AWS KMS alias, select the key.
+    - The AWS KMS key and S3 bucket must be in the same Region.
+1. Choose **Save changes**.
