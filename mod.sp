@@ -1,7 +1,7 @@
 mod "aws_compliance" {
   # hub metadata
   title          = "AWS Compliance"
-  description    = "Steampipe mod for checking if Amazon Web Services (AWS) resources are compliant with popular benchmarks like CIS, PCI and more."
+  description    = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS and PCI across all your AWS accounts using Steampipe."
   color          = "#FF9900"
   documentation  = file("./docs/index.md")
   icon           = "/images/mods/turbot/aws-compliance.svg"
