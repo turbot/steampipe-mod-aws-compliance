@@ -19,7 +19,8 @@ benchmark "pci_v321" {
     benchmark.pci_v321_iam,
     benchmark.pci_v321_kms,
     benchmark.pci_v321_lambda,
-    benchmark.pci_v321_redshift
+    benchmark.pci_v321_redshift,
+    benchmark.pci_v321_s3
   ]
   tags = local.pci_v321_common_tags
 }
