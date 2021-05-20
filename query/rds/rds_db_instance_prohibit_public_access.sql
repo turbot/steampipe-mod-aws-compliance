@@ -6,8 +6,8 @@ select
     else 'ok'
   end status,
   case
-    when publicly_accessible then title || ' is publicly accessible.'
-    else title || ' is not publicly accessible.'
+    when publicly_accessible then title || ' publicly accessible.'
+    else title || ' not publicly accessible.'
   end reason,
   -- Additional Dimensions
   region,
