@@ -9,6 +9,7 @@ mod "aws_compliance" {
 
   opengraph {
     title         = "Steampipe Mod for AWS Compliance"
-    description   = "Compliance and audit reports, queries, and actions for AWS. Open source CLI. No DB required."
+    description   = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS and PCI across all your AWS accounts using Steampipe."
+    #image        = "/images/mods/turbot/aws-compliance-social-graphic.png"  
   }
 }

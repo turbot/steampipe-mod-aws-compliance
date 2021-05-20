@@ -1,4 +1,4 @@
-![image](https://hub.steampipe.io/public/images/mods/turbot/aws-compliance-social-graphic.png)
+![image](https://hub.steampipe.io/images/mods/turbot/aws-compliance-social-graphic.png)
 
 # AWS Compliance Mod for Steampipe
 
