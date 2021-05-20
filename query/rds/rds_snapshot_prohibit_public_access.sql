@@ -7,8 +7,8 @@ select
     else 'ok'
   end status,
   case
-    when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' is publicly restorable.'
-    else title || ' is not publicly restorable.'
+    when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
+    else title || ' not publicly restorable.'
   end reason,
   -- Additional Dimensions
   region,
@@ -27,8 +27,8 @@ select
     else 'ok'
   end status,
   case
-    when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' is publicly restorable.'
-    else title || ' is not publicly restorable.'
+    when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
+    else title || ' not publicly restorable.'
   end reason,
   -- Additional Dimensions
   region,
