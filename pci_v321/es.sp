@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "pci_v321_es" {
-  title         = "Amazon Elasticsearch Service"
+  title         = "Elasticsearch"
   #documentation = file("./pci_v321/docs/pci_v321_es.md")
   children = [
     control.pci_v321_es_1,
