@@ -6,8 +6,8 @@ select
     else 'ok'
   end status,
   case
-    when encryption_at_rest_options ->> 'Enabled' = 'false' then 'Encryption at rest not enabled for ' || title || '.'
-    else 'Encryption at rest enabled for ' || title || '.'
+    when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
+    else title || ' encryption at rest enabled.'
   end reason,
   -- Additional Dimensions
   region,
