@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  'arn:' || partition || ':::' || account_id as resource,
+  'arn:' || a.partition || ':::' || a.account_id as resource,
   case
     when
       minimum_password_length >= 14
@@ -13,6 +13,7 @@ select
     else 'alarm'
   end status,
   case
+    when minimum_password_length is null then 'No password policy set.'
     when
       minimum_password_length >= 14
       and password_reuse_prevention >= 5
@@ -20,10 +21,11 @@ select
       and require_uppercase_characters = 'true'
       and require_numbers = 'true'
       and max_password_age <= 90
-    then 'Strong password policies configured for IAM users.'
-    else 'Strong password policies not configured for IAM users.'
+    then 'Strong password policies configured.'
+    else 'Strong password policies not configured.'
   end reason,
   -- Additional Dimensions
-  account_id
+  a.account_id
 from
-  aws_iam_account_password_policy;
+  aws_account as a
+  left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
