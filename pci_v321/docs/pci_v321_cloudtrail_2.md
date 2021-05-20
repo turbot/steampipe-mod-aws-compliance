@@ -19,8 +19,8 @@ To create a new trail in CloudTrail
 1. In Management Events, make sure Read/Write events is set to **All**.
 1. In Data Events, do not make any changes. This trail will not log any data events.
 1. Create a new S3 bucket for the logs:
-  1. In Storage Location, in Create a new S3 bucket, choose **Yes**.
-  1. In S3 bucket, give your bucket a name, such as my-bucket-for-storing-cloudtrail-logs.
-  1. The name of your S3 bucket must be globally unique. For more information about S3 bucket naming requirements, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-s3-bucket-naming-requirements.html).
+    1. In Storage Location, in Create a new S3 bucket, choose **Yes**.
+    1. In S3 bucket, give your bucket a name, such as my-bucket-for-storing-cloudtrail-logs.
+    1. The name of your S3 bucket must be globally unique. For more information about S3 bucket naming requirements, see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-s3-bucket-naming-requirements.html).
 1. Under Advanced, choose **Yes** for both Encrypt log files with SSE-KMS and Enable log file validation.
 1. Choose **Create**.
