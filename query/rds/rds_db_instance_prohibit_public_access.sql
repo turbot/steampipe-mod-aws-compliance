@@ -1,0 +1,16 @@
+select
+  -- Required Columns
+  arn as resource,
+  case
+    when publicly_accessible then 'alarm'
+    else 'ok'
+  end status,
+  case
+    when publicly_accessible then title || ' is publicly accessible.'
+    else title || ' is not publicly accessible.'
+  end reason,
+  -- Additional Dimensions
+  region,
+  account_id
+from
+  aws_rds_db_instance;
