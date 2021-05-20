@@ -6,7 +6,7 @@ locals {
 
 benchmark "cis_v130_5" {
   title         = "5 Networking"
-  #documentation = file("./cis_v130/docs/cis_v130_5.md")
+  documentation = file("./cis_v130/docs/cis_v130_5.md")
   tags = local.cis_v130_5_common_tags
   children = [
     control.cis_v130_5_1,

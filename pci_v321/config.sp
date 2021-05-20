@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "pci_v321_config" {
-  title         = "AWS Config"
+  title         = "Config"
   #documentation = file("./pci_v321/docs/pci_v321_config.md")
   children = [
     control.pci_v321_config_1
