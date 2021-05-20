@@ -1,12 +1,16 @@
 select
   -- Required Columns
-  'arn:' || partition || ':::' || account_id as resource,
+  'arn:' || a.partition || ':::' || a.account_id as resource,
   case
     when minimum_password_length >= 14 then 'ok'
     else 'alarm'
   end as status,
-  'Minimum password length set to ' || minimum_password_length as reason,
+  case
+    when minimum_password_length is null then 'No password policy set.'
+    else 'Minimum password length set to ' || minimum_password_length || '.'
+  end as reason,
   -- Additional Dimensions
-  account_id
+  a.account_id
 from
-  aws_iam_account_password_policy
+  aws_account as a
+  left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
