@@ -13,11 +13,16 @@ benchmark "pci_v321" {
   children = [
     benchmark.pci_v321_autoscaling,
     benchmark.pci_v321_cloudtrail,
+    benchmark.pci_v321_config,
     benchmark.pci_v321_dms,
     benchmark.pci_v321_ec2,
+    benchmark.pci_v321_es,
     benchmark.pci_v321_iam,
     benchmark.pci_v321_kms,
     benchmark.pci_v321_lambda,
+    benchmark.pci_v321_rds,
+    benchmark.pci_v321_redshift,
+    benchmark.pci_v321_s3,
     benchmark.pci_v321_sagemaker
   ]
   tags = local.pci_v321_common_tags
