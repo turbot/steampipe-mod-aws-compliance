@@ -2,7 +2,7 @@
 
 select
   -- Required columns
-  'arn:aws::' || r.region || ':' || r.account_id as resource,
+  'arn:aws::' || a.region || ':' || a.account_id as resource,
   case
     when
       recording_group -> 'IncludeGlobalResourceTypes' = 'true'
@@ -13,27 +13,24 @@ select
     else 'alarm'
   end as status,
   case
-    when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then ' "IncludeGlobalResourceTypes" enabled,'
-    else ' "IncludeGlobalResourceTypes" disabled,'
+    when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then a.region || ' IncludeGlobalResourceTypes enabled,'
+    else a.region || ' IncludeGlobalResourceTypes disabled,'
   end ||
   case
-    when recording_group -> 'AllSupported' = 'true' then ' "AllSupported" enabled,'
-    else ' "AllSupported" disabled,'
+    when recording_group -> 'AllSupported' = 'true' then ' AllSupported enabled,'
+    else ' AllSupported disabled,'
   end ||
   case
-    when status ->> 'Recording' = 'true' then ' "Recording" enabled'
-    else ' "Recording" disabled'
+    when status ->> 'Recording' = 'true' then ' Recording enabled'
+    else ' Recording disabled'
   end ||
   case
-    when status ->> 'LastStatus' = 'SUCCESS' then ' and "LastStatus" is SUCCESS.'
-    else ' and "LastStatus" is not SUCCESS.'
+    when status ->> 'LastStatus' = 'SUCCESS' then ' and LastStatus is SUCCESS.'
+    else ' and LastStatus is not SUCCESS.'
   end as reason,
   -- Additional columns
   a.region,
   a.account_id
 from
   aws_region as a
-  left join aws_config_configuration_recorder as r on r.region = a.name
-order by
-  status desc,
-  resource;
+  left join aws_config_configuration_recorder as r on r.region = a.name;

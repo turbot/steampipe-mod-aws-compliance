@@ -16,6 +16,4 @@ from
   aws_region as r
   left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region
 where
-  r.opt_in_status != 'not-opted-in'
-order by
-  r.region;
+  r.opt_in_status != 'not-opted-in';

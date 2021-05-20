@@ -40,6 +40,4 @@ group by
   flow_log_status,
   resource,
   region,
-  account_id
-order by
-  status desc;
+  account_id;
