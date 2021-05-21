@@ -25,4 +25,3 @@ To enable CloudTrail log file validation
     - The new role is assigned a policy that grants the necessary permissions.
     To view the permissions granted to the role, expand the **Policy document**.
 1. Choose **Save** changes.
-

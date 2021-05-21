@@ -14,5 +14,5 @@ To enable CloudTrail log file validation
 1. In the navigation pane, choose **Trails**.
 1. In the Name column, choose the **Trail Name** to edit.
 1. Under General details, choose **Edit**.
-1. Under Additional settings, for Log file validation,, select **Enabled.**
+1. Under Additional settings, for Log file validation,, select **Enabled**.
 1. Choose **Save**.
