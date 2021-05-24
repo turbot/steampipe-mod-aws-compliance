@@ -45,7 +45,7 @@ control "foundational_security_es_3" {
   title         = "3 Amazon Elasticsearch Service domains should encrypt data sent between nodes"
   description   = "This control checks whether Amazon ES domains have node-to-node encryption enabled."
   severity      = "medium"
-  sql           = query.es_domain_encryption_between_nodes.sql
+  sql           = query.es_domain_node_to_node_encryption_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_es_3.md")
 
   tags = merge(local.foundational_security_es_common_tags, {
