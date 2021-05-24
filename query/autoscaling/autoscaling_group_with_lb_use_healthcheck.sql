@@ -2,14 +2,15 @@ select
   -- Required Columns
   autoscaling_group_arn as resource,
   case
+    when load_balancer_names is null and target_group_arns is null then 'alarm'
     when health_check_type != 'ELB' then 'alarm'
     else 'ok'
-  end status,
-    case
-    when load_balancer_names is not null and health_check_type = 'ELB' then title || ' using ELB health checks.'
-    when load_balancer_names is not null and health_check_type = 'EC2'  then title || ' using EC2 health checks.'
-    else title || ' not associated with a load balancer.'
-  end reason,
+  end as status,
+  case
+    when load_balancer_names is null and target_group_arns is null then  title || ' not associated with ELBs.'
+    when health_check_type != 'ELB' then title || ' not using ELB health check type.'
+    else title || ' using ELB health check type.'
+  end as reason,
   -- Additional Dimensions
   region,
   account_id
