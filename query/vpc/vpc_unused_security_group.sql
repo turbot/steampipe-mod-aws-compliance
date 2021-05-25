@@ -14,8 +14,8 @@ select
     else 'alarm'
   end as status,
   case
-    when a.secgrp_id = s.group_id then s.title || ' is associated'
-    else s.title || ' not associated'
+    when a.secgrp_id = s.group_id then s.title || ' is associated.'
+    else s.title || ' not associated.'
   end as reason,
   -- Additional Dimensions
   s.region,
