@@ -2,7 +2,7 @@ select
   -- Required Columns
   autoscaling_group_arn as resource,
   case
-    when load_balancer_names is null and target_group_arns is null then 'alarm'
+    when load_balancer_names is null and target_group_arns is null then 'skip'
     when health_check_type != 'ELB' then 'alarm'
     else 'ok'
   end as status,
