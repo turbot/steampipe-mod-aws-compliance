@@ -8,16 +8,15 @@ with multi_trail as (
     and is_logging
 )
 select
-  distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
+  -- Required Columns
+  distinct 'arn:' || partition || ':::' || account_id as resource,
   case
-    when multi_trail.count > 0 then 'ok'
-    else 'alarm'
+    when multi_trail.count = 0 then 'alarm'
+    else 'ok'
   end as status,
-  case
-    when multi_trail.count > 0 then multi_trail.count || ' multi-region trail(s) configured.'
-    else 'No multi-region trail configured.'
-  end as reason,
-  a.account_id
+  multi_trail.count || ' multi-region trail(s) configured.' as reason,
+  -- Additional Dimensions
+  account_id
 from
-  aws_cloudtrail_trail as a,
+  aws_account,
   multi_trail;
