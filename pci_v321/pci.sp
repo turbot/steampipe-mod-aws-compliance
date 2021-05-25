@@ -13,6 +13,7 @@ benchmark "pci_v321" {
   children = [
     benchmark.pci_v321_autoscaling,
     benchmark.pci_v321_cloudtrail,
+    benchmark.pci_v321_codebuild,
     benchmark.pci_v321_config,
     benchmark.pci_v321_cw,
     benchmark.pci_v321_dms,
