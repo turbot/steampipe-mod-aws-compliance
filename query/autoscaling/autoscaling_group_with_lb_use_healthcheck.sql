@@ -7,9 +7,9 @@ select
     else 'ok'
   end as status,
   case
-    when load_balancer_names is null and target_group_arns is null then title || ' not associated with ELBs.'
-    when health_check_type != 'ELB' then title || ' not using ELB health check type.'
-    else title || ' using ELB health check type.'
+    when load_balancer_names is null and target_group_arns is null then title || ' not associated with a load balancer.'
+    when health_check_type != 'ELB' then title || ' does not use ELB health check.'
+    else title || ' uses ELB health check.'
   end as reason,
   -- Additional Dimensions
   region,
