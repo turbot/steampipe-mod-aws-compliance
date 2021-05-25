@@ -1,13 +1,13 @@
 with associated_sg as (
-select
-  sg ->> 'GroupId' as secgrp_id,
-  sg ->> 'GroupName' as secgrp_name
-from
-  aws_ec2_network_interface,
-  jsonb_array_elements(groups) as sg
+  select
+    sg ->> 'GroupId' as secgrp_id,
+    sg ->> 'GroupName' as secgrp_name
+  from
+    aws_ec2_network_interface,
+    jsonb_array_elements(groups) as sg
 )
 select
-  -- Required columns
+  -- Required Columns
   s.arn as resource,
   case
     when a.secgrp_id = s.group_id then 'ok'
