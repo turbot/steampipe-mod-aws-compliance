@@ -20,6 +20,7 @@ benchmark "pci_v321" {
     benchmark.pci_v321_ec2,
     benchmark.pci_v321_elbv2,
     benchmark.pci_v321_es,
+    benchmark.pci_v321_guardduty,
     benchmark.pci_v321_iam,
     benchmark.pci_v321_kms,
     benchmark.pci_v321_lambda,
