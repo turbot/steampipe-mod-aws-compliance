@@ -49,7 +49,7 @@ control "pci_v321_ec2_3" {
   description   = "This control helps you maintain an accurate asset inventory of needed security groups in your cardholder data environment (CDE). It does so by checking that security groups are attached to Amazon EC2 instances or to an ENI. A failed finding indicates you may have unused Amazon EC2 security groups."
   severity      = "low"
   sql           = query.vpc_unused_security_group.sql
-  #documentation = file("./pci_v321/docs/pci_v321_ec2_3.md")
+  documentation = file("./pci_v321/docs/pci_v321_ec2_3.md")
 
   tags = merge(local.pci_v321_ec2_common_tags, {
     pci_item_id      = "ec2_3"

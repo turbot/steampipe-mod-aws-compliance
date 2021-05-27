@@ -77,7 +77,7 @@ control "pci_v321_iam_5" {
   description   = "This control checks whether users of your AWS account require a multi-factor authentication (MFA) device to sign in with root user credentials. It does not check whether you are using hardware MFA."
   severity      = "critical"
   sql           = query.iam_root_user_virtual_mfa.sql
-  documentation = file("./pci_v321/docs/pci_v321_iam_5.md")
+  #documentation = file("./pci_v321/docs/pci_v321_iam_5.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_5"
@@ -90,7 +90,7 @@ control "pci_v321_iam_6" {
   description   = "This control checks whether the IAM users have multi-factor authentication (MFA) enabled."
   severity      = "medium"
   sql           = query.iam_user_mfa.sql
-  documentation = file("./pci_v321/docs/pci_v321_iam_6.md")
+  #documentation = file("./pci_v321/docs/pci_v321_iam_6.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_6"
@@ -103,7 +103,7 @@ control "pci_v321_iam_7" {
   description   = "This control checks whether your IAM users have passwords or active access keys that have not been used within a specified number of days. The default is 90 days."
   severity      = "medium"
   sql           = query.iam_user_unused_credentials_90.sql
-  documentation = file("./pci_v321/docs/pci_v321_iam_7.md")
+  #documentation = file("./pci_v321/docs/pci_v321_iam_7.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_7"
@@ -116,7 +116,7 @@ control "pci_v321_iam_8" {
   description   = "This control checks whether the account password policy for IAM users uses the following minimum PCI DSS configurations."
   severity      = "medium"
   sql           = query.iam_account_password_policy_strong.sql
-  documentation = file("./pci_v321/docs/pci_v321_iam_8.md")
+  #documentation = file("./pci_v321/docs/pci_v321_iam_8.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_8"

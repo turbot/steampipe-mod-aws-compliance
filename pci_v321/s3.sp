@@ -49,7 +49,7 @@ control "pci_v321_s3_3" {
   description   = "This control checks whether S3 buckets have cross-region replication enabled. PCI DSS does not require data replication or highly available configurations. However, this check aligns with AWS best practices for this control."
   severity      = "low"
   sql           = query.s3_bucket_cross_region_replication_enabled.sql
-  #documentation = file("./pci_v321/docs/pci_v321_s3_3.md")
+  documentation = file("./pci_v321/docs/pci_v321_s3_3.md")
 
   tags = merge(local.pci_v321_s3_common_tags, {
     pci_item_id      = "s3_3"

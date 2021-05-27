@@ -6,7 +6,7 @@ locals {
 
 benchmark "pci_v321_guardduty" {
   title         = "GuardDuty"
-  #documentation = file("./pci_v321/docs/pci_v321_guardduty.md")
+  documentation = file("./pci_v321/docs/pci_v321_guardduty.md")
   children = [
     control.pci_v321_guardduty_1
   ]
@@ -18,7 +18,7 @@ control "pci_v321_guardduty_1" {
   description   = "This control checks whether Amazon GuardDuty is enabled in your AWS account and Region."
   severity      = "high"
   sql           = query.guardduty_enabled.sql
-  #documentation = file("./pci_v321/docs/pci_v321_guardduty_1.md")
+  documentation = file("./pci_v321/docs/pci_v321_guardduty_1.md")
 
   tags = merge(local.pci_v321_guardduty_common_tags, {
     pci_item_id      = "guardduty_1"
