@@ -4,7 +4,7 @@ This control checks whether your AWS account is enabled to use multi-factor auth
 
 It does not check whether you are using virtual MFA.
 
-To address PCI DSS requirement 8.3.1, you can choose between hardware MFA (this control) or virtual MFA [PCI.IAM.5](pci_v321_iam_5.md) (Virtual MFA should be enabled for the root user).
+To address PCI DSS requirement 8.3.1, you can choose between hardware MFA (this control) or virtual MFA `PCI.IAM.5`(Virtual MFA should be enabled for the root user).
 
 ## Remediation
 

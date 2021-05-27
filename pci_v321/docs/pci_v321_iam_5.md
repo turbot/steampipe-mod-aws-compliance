@@ -4,7 +4,7 @@ This control checks whether users of your AWS account require a multi-factor aut
 
 It does not check whether you are using hardware MFA.
 
-To address PCI DSS requirement 8.3.1, you can choose between virtual MFA (this control) or hardware MFA [PCI.IAM.4](pci_v321_iam_4.md) (Hardware MFA should be enabled for the root user).
+To address PCI DSS requirement 8.3.1, you can choose between virtual MFA (this control) or hardware MFA `PCI.IAM.4`(Hardware MFA should be enabled for the root user).
 
 ## Remediation
 
