@@ -10,6 +10,7 @@ benchmark "pci_v321_ec2" {
   children = [
     control.pci_v321_ec2_1,
     control.pci_v321_ec2_2,
+    control.pci_v321_ec2_3,
     control.pci_v321_ec2_4,
     control.pci_v321_ec2_5,
     control.pci_v321_ec2_6,
@@ -33,13 +34,26 @@ control "pci_v321_ec2_1" {
 control "pci_v321_ec2_2" {
   title         = "2 VPC default security group should prohibit inbound and outbound traffic"
   description   = "This control checks that the default security group of a VPC does not allow inbound or outbound traffic. It does not check for access restrictions for other security groups that are not default, and other VPC configurations."
-  severity      = "critical"
+  severity      = "medium"
   sql           = query.vpc_default_security_group_restricts_all_traffic.sql
-  documentation = file("./pci_v321/docs/pci_v321_ec2_1.md")
+  documentation = file("./pci_v321/docs/pci_v321_ec2_2.md")
 
   tags = merge(local.pci_v321_ec2_common_tags, {
     pci_item_id      = "ec2_2"
     pci_requirements = "1.2.1,1.3.4,2.1"
+  })
+}
+
+control "pci_v321_ec2_3" {
+  title         = "3 Unused EC2 security groups should be removed"
+  description   = "This control helps you maintain an accurate asset inventory of needed security groups in your cardholder data environment (CDE). It does so by checking that security groups are attached to Amazon EC2 instances or to an ENI. A failed finding indicates you may have unused Amazon EC2 security groups."
+  severity      = "low"
+  sql           = query.vpc_unused_security_group.sql
+  #documentation = file("./pci_v321/docs/pci_v321_ec2_3.md")
+
+  tags = merge(local.pci_v321_ec2_common_tags, {
+    pci_item_id      = "ec2_3"
+    pci_requirements = "2.4"
   })
 }
 
@@ -65,7 +79,7 @@ control "pci_v321_ec2_5" {
 
   tags = merge(local.pci_v321_ec2_common_tags, {
     pci_item_id      = "ec2_5"
-    pci_requirements = "1.2.1,1.3.1,2.2.2,"
+    pci_requirements = "1.2.1,1.3.1,2.2.2"
   })
 }
 
