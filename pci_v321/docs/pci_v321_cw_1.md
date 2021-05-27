@@ -23,7 +23,7 @@ To create an Amazon SNS topic
 3. Create at least one subscriber to the topic.
 4. For more information about creating Amazon SNS topics, see the Amazon Simple Notification Service Developer Guide.
 5. Set up an active CloudTrail trail that applies to all Regions.
-6. To do this, follow the remediation steps in 3.1 (CIS v1.3.0) – [Ensure CloudTrail is enabled in all Regions](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/control.cis_v130_3_1).
+6. To do this, follow the remediation steps in CIS v1.3.0 [3.1 Ensure CloudTrail is enabled in all Regions](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/control.cis_v130_3_1).
 7. Make a note of the associated log group name.
 
 To create a metric filter and alarm
