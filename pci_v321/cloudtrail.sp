@@ -47,11 +47,11 @@ control "pci_v321_cloudtrail_3" {
   description   = "This control checks whether CloudTrail log file validation is enabled."
   severity      = "low"
   sql           = query.cloudtrail_validation_enabled.sql
-  #documentation = file("./pci_v321/docs/pci_v321_cloudtrail_3.md")
+  documentation = file("./pci_v321/docs/pci_v321_cloudtrail_3.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
     pci_item_id      = "cloudtrail_3"
-    pci_requirements = "10.5.2, 10.5.5"
+    pci_requirements = "10.5.2,10.5.5"
   })
 }
 
@@ -60,7 +60,7 @@ control "pci_v321_cloudtrail_4" {
   description   = "This control checks whether CloudTrail trails are configured to send logs to CloudWatch Logs."
   severity      = "low"
   sql           = query.cloudtrail_integrated_with_logs.sql
-  #documentation = file("./pci_v321/docs/pci_v321_cloudtrail_4.md")
+  documentation = file("./pci_v321/docs/pci_v321_cloudtrail_4.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
     pci_item_id      = "cloudtrail_4"
