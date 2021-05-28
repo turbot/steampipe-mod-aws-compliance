@@ -9,7 +9,7 @@ locals {
 benchmark "cis_v130" {
   title         = "CIS v1.3.0"
   description   = "The CIS Amazon Web Services Foundations Benchmark provides prescriptive guidance for configuring security options for a subset of Amazon Web Services with an emphasis on foundational, testable, and architecture agnostic settings."
-  documentation = file("./cis_v130/docs/cis-overview.md")
+  documentation = file("./cis_v130/docs/cis_overview.md")
   children = [
     benchmark.cis_v130_1,
     benchmark.cis_v130_2,
