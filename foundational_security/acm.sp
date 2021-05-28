@@ -22,6 +22,6 @@ control "foundational_security_acm_1" {
 
   tags = merge(local.foundational_security_acm_common_tags, {
     foundational_security_item_id  = "acm_1"
-    #foundational_security_category = "encryption_of_data_in_transit"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
