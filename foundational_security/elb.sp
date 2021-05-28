@@ -25,7 +25,7 @@ control "foundational_security_elb_3" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_3"
-    #foundational_security_category = "encryption_of_data_in_transit"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
 
@@ -38,7 +38,7 @@ control "foundational_security_elb_4" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_4"
-    #foundational_security_category = "network_security"
+    foundational_security_category = "network_security"
   })
 }
 
@@ -51,7 +51,7 @@ control "foundational_security_elb_5" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_5"
-    #foundational_security_category = "logging"
+    foundational_security_category = "logging"
   })
 }
 
@@ -64,6 +64,6 @@ control "foundational_security_elb_6" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_6"
-    #foundational_security_category = "high_availability"
+    foundational_security_category = "high_availability"
   })
 }
