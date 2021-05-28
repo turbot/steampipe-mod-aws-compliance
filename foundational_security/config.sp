@@ -22,6 +22,6 @@ control "foundational_security_config_1" {
 
   tags = merge(local.foundational_security_config_common_tags, {
     foundational_security_item_id  = "config_1"
-    #foundational_security_category = "inventory"
+    foundational_security_category = "inventory"
   })
 }
