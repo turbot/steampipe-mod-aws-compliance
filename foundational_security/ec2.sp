@@ -28,7 +28,7 @@ control "foundational_security_ec2_1" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_1"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -41,7 +41,7 @@ control "foundational_security_ec2_2" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_2"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -54,7 +54,7 @@ control "foundational_security_ec2_3" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_3"
-    #foundational_security_category = "encryption_of_data_at_rest"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 
@@ -67,7 +67,7 @@ control "foundational_security_ec2_6" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_6"
-    #foundational_security_category = "logging"
+    foundational_security_category = "logging"
   })
 }
 
@@ -80,7 +80,7 @@ control "foundational_security_ec2_8" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_8"
-    #foundational_security_category = "network_security"
+    foundational_security_category = "network_security"
   })
 }
 
@@ -93,7 +93,7 @@ control "foundational_security_ec2_9" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_9"
-    #foundational_security_category = "public_ip_addresses"
+    foundational_security_category = "public_ip_addresses"
   })
 }
 
@@ -106,6 +106,6 @@ control "foundational_security_ec2_10" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_10"
-    #foundational_security_category = "api_private_access"
+    foundational_security_category = "api_private_access"
   })
 }
