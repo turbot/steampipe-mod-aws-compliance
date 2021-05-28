@@ -29,7 +29,7 @@ control "foundational_security_iam_1" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_1"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -42,7 +42,7 @@ control "foundational_security_iam_2" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_2"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -68,7 +68,7 @@ control "foundational_security_iam_4" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_4"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -81,7 +81,7 @@ control "foundational_security_iam_5" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_5"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -94,7 +94,7 @@ control "foundational_security_iam_6" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_6"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -107,7 +107,7 @@ control "foundational_security_iam_7" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_7"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
@@ -120,7 +120,7 @@ control "foundational_security_iam_8" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_8"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
