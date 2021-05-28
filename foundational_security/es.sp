@@ -24,7 +24,7 @@ control "foundational_security_es_1" {
 
   tags = merge(local.foundational_security_es_common_tags, {
     foundational_security_item_id  = "es_1"
-    #foundational_security_category = "encryption_of_data_at_rest"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 
@@ -37,7 +37,7 @@ control "foundational_security_es_2" {
 
   tags = merge(local.foundational_security_es_common_tags, {
     foundational_security_item_id  = "es_2"
-    #foundational_security_category = "resources_within_vpc"
+    foundational_security_category = "resources_within_vpc"
   })
 }
 
@@ -50,6 +50,6 @@ control "foundational_security_es_3" {
 
   tags = merge(local.foundational_security_es_common_tags, {
     foundational_security_item_id  = "es_3"
-    #foundational_security_category = "encryption_of_data_in_transit"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
