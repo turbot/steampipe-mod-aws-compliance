@@ -6,7 +6,7 @@ locals {
 
 benchmark "pci_v321_redshift" {
   title         = "Redshift"
-  #documentation = file("./pci_v321/docs/pci_v321_redshift.md")
+  documentation = file("./pci_v321/docs/pci_v321_redshift.md")
   children = [
     control.pci_v321_redshift_1
   ]
@@ -18,7 +18,7 @@ control "pci_v321_redshift_1" {
   description   = "This control checks whether Amazon Redshift clusters are publicly accessible by evaluating the publiclyAccessible field in the cluster configuration item."
   severity      = "critical"
   sql           = query.redshift_cluster_prohibit_public_access.sql
-  #documentation = file("./pci_v321/docs/pci_v321_redshift_1.md")
+  documentation = file("./pci_v321/docs/pci_v321_redshift_1.md")
 
   tags = merge(local.pci_v321_redshift_common_tags, {
     pci_item_id      = "redshift_1"
