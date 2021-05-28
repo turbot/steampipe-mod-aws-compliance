@@ -22,6 +22,6 @@ control "foundational_security_dms_1" {
 
   tags = merge(local.foundational_security_dms_common_tags, {
     foundational_security_item_id  = "dms_1"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
