@@ -6,7 +6,7 @@ locals {
 
 benchmark "pci_v321_iam" {
   title         = "IAM"
-  #documentation = file("./pci_v321/docs/pci_v321_iam.md")
+  documentation = file("./pci_v321/docs/pci_v321_iam.md")
   children = [
     control.pci_v321_iam_1,
     control.pci_v321_iam_2,
@@ -17,7 +17,7 @@ benchmark "pci_v321_iam" {
     control.pci_v321_iam_7,
     control.pci_v321_iam_8,
   ]
-  tags          = local.pci_v321_iam_common_tags
+  tags = local.pci_v321_iam_common_tags
 }
 
 control "pci_v321_iam_1" {
@@ -25,7 +25,7 @@ control "pci_v321_iam_1" {
   description   = "This control checks whether user access keys exist for the root user."
   severity      = "critical"
   sql           = query.iam_root_user_access_key.sql
-  #documentation = file("./pci_v321/docs/pci_v321_iam_1.md")
+  documentation = file("./pci_v321/docs/pci_v321_iam_1.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_1"
@@ -38,7 +38,7 @@ control "pci_v321_iam_2" {
   description   = "This control checks that none of your IAM users have policies attached. IAM users must inherit permissions from IAM groups or roles. It does not check whether least privileged policies are applied to IAM roles and groups."
   severity      = "low"
   sql           = query.iam_user_no_policies.sql
-  #documentation = file("./pci_v321/docs/pci_v321_iam_2.md")
+  documentation = file("./pci_v321/docs/pci_v321_iam_2.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_2"
@@ -51,7 +51,7 @@ control "pci_v321_iam_3" {
   description   = "This control checks whether the default version of AWS Identity and Access Management policies (also known as customer managed policies) do not have administrator access with a statement that has 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
   severity      = "high"
   sql           = query.iam_policy_no_star_star.sql
-  #documentation = file("./pci_v321/docs/pci_v321_iam_3.md")
+  documentation = file("./pci_v321/docs/pci_v321_iam_3.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_3"
@@ -64,7 +64,7 @@ control "pci_v321_iam_4" {
   description   = "This control checks whether your AWS account is enabled to use multi-factor authentication (MFA) hardware device to sign in with root user credentials. It does not check whether you are using virtual MFA."
   severity      = "critical"
   sql           = query.iam_root_user_hardware_mfa.sql
-  #documentation = file("./pci_v321/docs/pci_v321_iam_4.md")
+  documentation = file("./pci_v321/docs/pci_v321_iam_4.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
     pci_item_id      = "iam_4"
