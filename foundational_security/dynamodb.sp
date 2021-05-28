@@ -23,7 +23,7 @@ control "foundational_security_dynamodb_2" {
 
   tags = merge(local.foundational_security_dynamodb_common_tags, {
     foundational_security_item_id  = "dynamodb_2"
-    #foundational_security_category = "backups_enabled"
+    foundational_security_category = "backups_enabled"
   })
 }
 
@@ -36,6 +36,6 @@ control "foundational_security_dynamodb_3" {
 
   tags = merge(local.foundational_security_dynamodb_common_tags, {
     foundational_security_item_id  = "dynamodb_3"
-    #foundational_security_category = "encryption_of_data_at_rest"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
