@@ -22,6 +22,6 @@ control "foundational_security_efs_1" {
 
   tags = merge(local.foundational_security_efs_common_tags, {
     foundational_security_item_id  = "efs_1"
-    #foundational_security_category = "encryption_of_data_at_rest"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
