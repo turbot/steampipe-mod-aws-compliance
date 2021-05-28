@@ -1,8 +1,6 @@
 ## Description
 
-This control checks whether Amazon Elasticsearch Service (Amazon ES) domains have encryption at rest configuration enabled. The check fails if encryption at rest is not enabled.
-
-For an added layer of security for your sensitive data in Elasticsearch, you should configure your Elasticsearch to be encrypted at rest. Elasticsearch domains offer encryption of data at rest. The feature uses AWS KMS to store and manage your encryption keys. To perform the encryption, it uses the Advanced Encryption Standard algorithm with 256-bit keys (AES-256).
+This control checks whether Amazon ES domains have encryption at rest configuration enabled.
 
 ## Remediation
 
