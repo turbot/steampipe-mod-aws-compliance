@@ -12,7 +12,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_2,
     control.foundational_security_s3_3,
     control.foundational_security_s3_4,
-    control.foundational_security_s3_5
+    control.foundational_security_s3_5,
+    control.foundational_security_s3_6
   ]
   tags          = local.foundational_security_s3_common_tags
 }
@@ -79,6 +80,19 @@ control "foundational_security_s3_5" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_5"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_s3_6" {
+  title         = "6 Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
+  description   = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
+  severity      = "high"
+  sql           = query.s3_bucket_policies_restricts_permissions_to_other_aws_account.sql
+  #documentation = file("./foundational_security/docs/foundational_security_s3_6.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_6"
+    foundational_security_category = "sensitive_api_operations_actions_restricted"
   })
 }
 
