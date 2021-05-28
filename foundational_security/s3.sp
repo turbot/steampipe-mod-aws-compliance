@@ -26,7 +26,7 @@ control "foundational_security_s3_1" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_1"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -39,7 +39,7 @@ control "foundational_security_s3_2" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_2"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -52,7 +52,7 @@ control "foundational_security_s3_3" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_3"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -65,7 +65,7 @@ control "foundational_security_s3_4" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_4"
-    #foundational_security_category = "encryption_of_data_at_rest"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 
@@ -78,7 +78,7 @@ control "foundational_security_s3_5" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_5"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
