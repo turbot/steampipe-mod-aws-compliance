@@ -9,7 +9,8 @@ benchmark "foundational_security_kms" {
   #documentation = file("./foundational_security/docs/foundational_security_kms.md")
   children = [
     control.foundational_security_kms_1,
-    control.foundational_security_kms_2
+    control.foundational_security_kms_2,
+    control.foundational_security_kms_3
   ]
   tags          = local.foundational_security_kms_common_tags
 }
@@ -37,5 +38,18 @@ control "foundational_security_kms_2" {
   tags = merge(local.foundational_security_kms_common_tags, {
     foundational_security_item_id  = "kms_2"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_kms_3" {
+  title         = "3 AWS KMS keys should not be unintentionally deleted"
+  description   = "This control checks whether AWS KMS customer managed keys (CMK) are scheduled for deletion. The control fails if a CMK is scheduled for deletion. CMKs cannot be recovered once deleted. Data encrypted under a KMS CMK is also permanently unrecoverable if the CMK is deleted. If meaningful data has been encrypted under a CMK scheduled for deletion,consider decrypting the data or re-encrypting the data under a new CMK unless you are intentionally performing a cryptographic erasure."
+  severity      = "critical"
+  sql           = query.kms_key_not_unintentionally_deleted.sql
+  #documentation = file("./foundational_security/docs/foundational_security_kms_3.md")
+
+  tags = merge(local.foundational_security_kms_common_tags, {
+    foundational_security_item_id  = "kms_3"
+    foundational_security_category = "data_deletion_protection"
   })
 }
