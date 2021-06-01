@@ -43,6 +43,3 @@ To remediate this issue, create a new multi-Region trail in CloudTrail.
 4. For `Management events`, choose `Edit`.
 5. For `Read/Write events`, select `Management events`.
 6. Under `API Activity`, select `Read and Write`.
-
-
-
