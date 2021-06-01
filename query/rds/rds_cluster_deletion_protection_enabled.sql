@@ -1,5 +1,5 @@
  select
- -- Required Columns
+  -- Required Columns
   db_cluster_identifier as resource,
   case
     when deletion_protection then 'ok'

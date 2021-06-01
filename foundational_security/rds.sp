@@ -16,6 +16,7 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_6,
     control.foundational_security_rds_7,
     control.foundational_security_rds_8,
+    control.foundational_security_rds_9,
     control.foundational_security_rds_10,
     control.foundational_security_rds_12,
     control.foundational_security_rds_13,
@@ -127,6 +128,20 @@ control "foundational_security_rds_8" {
     foundational_security_category = "data_deletion_protection"
   })
 }
+
+control "foundational_security_rds_9" {
+  title         = "9 Database logging should be enabled"
+  description   = "This control checks whether the logs of Amazon RDS are enabled and sent to CloudWatch Logs. RDS databases should have relevant logs enabled. Database logging provides detailed records of requests made to RDS. Database logs can assist with security and access audits and can help to diagnose availability issues."
+  severity      = "medium"
+  sql           = query.rds_db_instance_logging_enabled.sql
+  #documentation = file("./foundational_security/docs/foundational_security_rds_9.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_9"
+    foundational_security_category = "logging"
+  })
+}
+
 
 control "foundational_security_rds_10" {
   title         = "10 IAM authentication should be configured for RDS instances"
