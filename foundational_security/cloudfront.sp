@@ -10,6 +10,7 @@ benchmark "foundational_security_cloudfront" {
   children = [
     control.foundational_security_cloudfront_1,
     control.foundational_security_cloudfront_2,
+    control.foundational_security_cloudfront_3,
     control.foundational_security_cloudfront_4
   ]
   tags          = local.foundational_security_cloudfront_common_tags
@@ -38,6 +39,19 @@ control "foundational_security_cloudfront_2" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_2"
     foundational_security_category = "resource_policy_configuration"
+  })
+}
+
+control "foundational_security_cloudfront_3" {
+  title         = "3 CloudFront distributions should require encryption in transit"
+  description   = "This control checks whether an Amazon CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_encryption_in_transit.sql
+  #documentation = file("./foundational_security/docs/foundational_security_cloudfront_3.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_3"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
 
