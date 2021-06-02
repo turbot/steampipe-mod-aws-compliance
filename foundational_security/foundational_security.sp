@@ -12,6 +12,7 @@ benchmark "foundational_security" {
   children = [
     benchmark.foundational_security_acm,
     benchmark.foundational_security_autoscaling,
+    benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_config,
     benchmark.foundational_security_dms,
     benchmark.foundational_security_dynamodb,
