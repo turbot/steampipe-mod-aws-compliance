@@ -19,7 +19,7 @@ control "foundational_security_dynamodb_1" {
   title         = "1 DynamoDB tables should automatically scale capacity with demand"
   description   = "This control checks whether an Amazon DynamoDB table can scale its read and write capacity as needed. This control passes if the table uses either on-demand capacity mode or provisioned mode with auto scaling configured. Scaling capacity with demand avoids throttling exceptions, which helps to maintain availability of your applications."
   severity      = "medium"
-  sql           = query.dynamodb_table_should_automatic_scale_capacity_on_demand.sql
+  sql           = query.dynamodb_table_auto_scaling_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_dynamodb_1.md")
 
   tags = merge(local.foundational_security_dynamodb_common_tags, {
