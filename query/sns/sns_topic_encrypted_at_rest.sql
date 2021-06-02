@@ -6,8 +6,8 @@ case
   else 'ok'
 end as status,
 case
-  when kms_master_key_id is null then title || ' encryption at-rest disabled.'
-  else title || ' encryption at-rest enabled.'
+  when kms_master_key_id is null then title || ' encryption at rest disabled.'
+  else title || ' encryption at rest enabled.'
 end as reason,
   -- Additional Dimensions
   region,
