@@ -12,7 +12,8 @@ benchmark "foundational_security" {
   children = [
     benchmark.foundational_security_acm,
     benchmark.foundational_security_dms,
-    benchmark.foundational_security_es
+    benchmark.foundational_security_es,
+    benchmark.foundational_security_iam
   ]
   tags = local.foundational_security_common_tags
 }
