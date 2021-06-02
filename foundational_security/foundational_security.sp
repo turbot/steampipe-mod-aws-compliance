@@ -11,6 +11,7 @@ benchmark "foundational_security" {
   documentation = file("./foundational_security/docs/foundational_security_overview.md")
   children = [
     benchmark.foundational_security_acm,
+    benchmark.foundational_security_es,
     benchmark.foundational_security_autoscaling,
     benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_config,
@@ -26,7 +27,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_iam,
     benchmark.foundational_security_lambda,
     benchmark.foundational_security_sagemaker,
-    benchmark.foundational_security_sns
+    benchmark.foundational_security_sns,
+    benchmark.foundational_security_ssm
   ]
   tags = local.foundational_security_common_tags
 }
