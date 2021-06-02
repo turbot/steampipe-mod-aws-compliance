@@ -13,7 +13,7 @@ select
     and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then title || ' origin access identity not configured.'
     else title || ' origin access identity configured.'
   end as reason,
-  -- Additinal Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
