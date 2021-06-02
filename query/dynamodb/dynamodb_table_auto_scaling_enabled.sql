@@ -16,8 +16,8 @@ select
     else 'ok'
   end as status,
   case
-    when t.count = 0 then d.title || ' autoscaling not configured.'
-    when t.count < 2 then d.title || ' autoscaling not enabled for both read and write capacity.'
+    when t.count = 0 then d.title || ' auto scaling not configured.'
+    when t.count < 2 then d.title || ' auto scaling not enabled for both read and write capacity.'
     else d.title || ' autoscaling enabled for both read and write capacity.'
   end as reason,
   -- Additional Dimensions
