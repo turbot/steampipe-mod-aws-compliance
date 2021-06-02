@@ -102,7 +102,7 @@ control "foundational_security_iam_7" {
   title         = "7 Password policies for IAM users should have strong configurations"
   description   = "This control checks whether the account password policy for IAM users uses the recommended configurations."
   severity      = "medium"
-  sql           = query.iam_account_password_policy_min_length_8.sql
+  sql           = query.iam_account_password_policy_strong_min_length_8.sql
   #documentation = file("./foundational_security/docs/foundational_security_iam_7.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
@@ -123,4 +123,3 @@ control "foundational_security_iam_8" {
     foundational_security_category = "secure_access_management"
   })
 }
-
