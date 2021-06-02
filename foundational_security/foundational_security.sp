@@ -20,6 +20,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_dms,
     benchmark.foundational_security_es,
     benchmark.foundational_security_iam,
+    benchmark.foundational_security_lambda,
     benchmark.foundational_security_sns
   ]
   tags = local.foundational_security_common_tags
