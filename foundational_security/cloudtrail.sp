@@ -8,7 +8,9 @@ benchmark "foundational_security_cloudtrail" {
   title         = "CloudTrail"
   #documentation = file("./foundational_security/docs/foundational_security_cloudtrail.md")
   children = [
-    control.foundational_security_cloudtrail_2
+    control.foundational_security_cloudtrail_2,
+    control.foundational_security_cloudtrail_4,
+    control.foundational_security_cloudtrail_5
   ]
   tags          = local.foundational_security_cloudtrail_common_tags
 }
@@ -23,5 +25,31 @@ control "foundational_security_cloudtrail_2" {
   tags = merge(local.foundational_security_cloudtrail_common_tags, {
     foundational_security_item_id  = "cloudtrail_2"
     foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
+control "foundational_security_cloudtrail_4" {
+  title         = "4 Ensure CloudTrail log file validation is enabled"
+  description   = "This control checks whether log file integrity validation is enabled on a CloudTrail trail. CloudTrail log file validation creates a digitally signed digest file that contains a hash of each log that CloudTrail writes to Amazon S3. You can use these digest files to determine whether a log file was changed, deleted, or unchanged after CloudTrail delivered the log."
+  severity      = "low"
+  sql           = query.cloudtrail_validation_enabled.sql
+  #documentation = file("./foundational_security/docs/foundational_security_cloudtrail_4.md")
+
+  tags = merge(local.foundational_security_cloudtrail_common_tags, {
+    foundational_security_item_id  = "cloudtrail_4"
+    foundational_security_category = "data_integrity"
+  })
+}
+
+control "foundational_security_cloudtrail_5" {
+  title         = "5 Ensure CloudTrail trails are integrated with Amazon CloudWatch Logs"
+  description   = "This control checks whether CloudTrail trails are configured to send logs to CloudWatch Logs. The control fails if the CloudWatchLogsLogGroupArn property of the trail is empty."
+  severity      = "low"
+  sql           = query.cloudtrail_integrated_with_logs.sql
+  #documentation = file("./foundational_security/docs/foundational_security_cloudtrail_5.md")
+
+  tags = merge(local.foundational_security_cloudtrail_common_tags, {
+    foundational_security_item_id  = "cloudtrail_5"
+    foundational_security_category = "logging"
   })
 }
