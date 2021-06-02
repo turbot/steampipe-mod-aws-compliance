@@ -14,6 +14,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_config,
     benchmark.foundational_security_dynamodb,
     benchmark.foundational_security_efs,
+    benchmark.foundational_security_elbv2,
     benchmark.foundational_security_es,
     benchmark.foundational_security_ec2,
     benchmark.foundational_security_es,
