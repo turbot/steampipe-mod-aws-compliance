@@ -12,6 +12,7 @@ benchmark "foundational_security" {
   children = [
     benchmark.foundational_security_acm,
     benchmark.foundational_security_config,
+    benchmark.foundational_security_efs,
     benchmark.foundational_security_es,
     benchmark.foundational_security_ec2,
     benchmark.foundational_security_es,
