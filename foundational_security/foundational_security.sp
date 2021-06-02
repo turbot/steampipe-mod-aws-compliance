@@ -12,7 +12,19 @@ benchmark "foundational_security" {
   children = [
     benchmark.foundational_security_acm,
     benchmark.foundational_security_autoscaling,
-    benchmark.foundational_security_es
+    benchmark.foundational_security_config,
+    benchmark.foundational_security_dms,
+    benchmark.foundational_security_dynamodb,
+    benchmark.foundational_security_efs,
+    benchmark.foundational_security_elbv2,
+    benchmark.foundational_security_es,
+    benchmark.foundational_security_ec2,
+    benchmark.foundational_security_es,
+    benchmark.foundational_security_guardduty,
+    benchmark.foundational_security_iam,
+    benchmark.foundational_security_lambda,
+    benchmark.foundational_security_sagemaker,
+    benchmark.foundational_security_sns
   ]
   tags = local.foundational_security_common_tags
 }
