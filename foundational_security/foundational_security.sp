@@ -11,6 +11,7 @@ benchmark "foundational_security" {
   documentation = file("./foundational_security/docs/foundational_security_overview.md")
   children = [
     benchmark.foundational_security_acm,
+    benchmark.foundational_security_apigateway,
     benchmark.foundational_security_autoscaling,
     benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_config,
