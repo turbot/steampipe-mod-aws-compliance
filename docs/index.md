@@ -15,7 +15,7 @@ Run individual configuration, compliance and security controls or full complianc
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
-[Steampipe Mods](https://steampipe.io/docs/steampipe-mods/) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
+[Steampipe Mods](https://steampipe.io/docs/reference/mod-resources#mod) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
 
 
 ## Documentation
