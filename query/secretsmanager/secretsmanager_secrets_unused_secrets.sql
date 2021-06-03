@@ -9,7 +9,7 @@ select
     when date(last_accessed_date)- date(created_date) >= 1 then title || ' recently used.'
     else title || ' not used recently.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
