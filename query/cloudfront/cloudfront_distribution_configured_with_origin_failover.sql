@@ -9,7 +9,7 @@ select
     when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
     else title || ' origin group not configured.'
   end as reason,
-  -- Additinal Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from

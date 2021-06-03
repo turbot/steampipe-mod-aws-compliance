@@ -9,7 +9,7 @@ select
     when default_root_object = '' then title || ' default root object not configured.'
     else title || ' default root object configured.'
   end as reason,
-  -- Additinal Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
