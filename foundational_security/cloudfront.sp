@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_cloudfront" {
   title         = "CloudFront"
-  #documentation = file("./foundational_security/docs/foundational_security_cloudfront.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront.md")
   children = [
     control.foundational_security_cloudfront_1,
     control.foundational_security_cloudfront_2,
@@ -21,7 +21,7 @@ control "foundational_security_cloudfront_1" {
   description   = "This control checks whether an Amazon CloudFront distribution is configured to return a specific object that is the default root object. The control fails if the CloudFront distribution does not have a default root object configured."
   severity      = "critical"
   sql           = query.cloudfront_distribution_default_root_object_configured.sql
-  #documentation = file("./foundational_security/docs/foundational_security_cloudfront_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_1.md")
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_1"
@@ -34,7 +34,7 @@ control "foundational_security_cloudfront_2" {
   description   = "This control checks whether an Amazon CloudFront distribution with Amazon S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
   severity      = "medium"
   sql           = query.cloudfront_distribution_origin_access_identity_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_cloudfront_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_2.md")
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_2"
@@ -47,7 +47,7 @@ control "foundational_security_cloudfront_3" {
   description   = "This control checks whether an Amazon CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
   severity      = "medium"
   sql           = query.cloudfront_distribution_encryption_in_transit_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_cloudfront_3.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_3.md")
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_3"
@@ -60,7 +60,7 @@ control "foundational_security_cloudfront_4" {
   description   = "This control checks whether an Amazon CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
   severity      = "low"
   sql           = query.cloudfront_distribution_configured_with_origin_failover.sql
-  #documentation = file("./foundational_security/docs/foundational_security_cloudfront_4.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_4.md")
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_4"

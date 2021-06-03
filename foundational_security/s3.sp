@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_s3" {
   title         = "S3"
-  #documentation = file("./foundational_security/docs/foundational_security_s3.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3.md")
   children = [
     control.foundational_security_s3_1,
     control.foundational_security_s3_2,
@@ -23,7 +23,7 @@ control "foundational_security_s3_1" {
   description   = "This control checks whether the following Amazon S3 public access block settings are configured at the account level"
   severity      = "medium"
   sql           = query.s3_public_access_block_account.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_1.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_1"
@@ -36,7 +36,7 @@ control "foundational_security_s3_2" {
   description   = "This control checks whether your S3 buckets allow public read access. It evaluates the Block Public Access settings, the bucket policy, and the bucket access control list (ACL)."
   severity      = "critical"
   sql           = query.s3_bucket_restrict_public_read_access.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_2.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_2"
@@ -49,7 +49,7 @@ control "foundational_security_s3_3" {
   description   = "This control checks whether your S3 buckets allow public write access. It evaluates the block public access settings, the bucket policy, and the bucket access control list (ACL)."
   severity      = "critical"
   sql           = query.s3_bucket_restrict_public_write_access.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_3.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_3.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_3"
@@ -62,7 +62,7 @@ control "foundational_security_s3_4" {
   description   = "This control checks that your S3 bucket either has Amazon S3 default encryption enabled or that the S3 bucket policy explicitly denies put-object requests without server-side encryption."
   severity      = "medium"
   sql           = query.s3_bucket_default_encryption_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_4.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_4.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_4"
@@ -75,7 +75,7 @@ control "foundational_security_s3_5" {
   description   = "This control checks whether S3 buckets have policies that require requests to use Secure Socket Layer (SSL). S3 buckets should have policies that require all requests (Action: S3:*)to only accept transmission of data over HTTPS in the S3 resource policy, indicated by the condition key aws:SecureTransport."
   severity      = "medium"
   sql           = query.s3_bucket_enforces_ssl.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_5.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_5.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_5"
@@ -88,7 +88,7 @@ control "foundational_security_s3_6" {
   description   = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
   severity      = "high"
   sql           = query.s3_bucket_policy_restricts_cross_account_permission_changes.sql
-  #documentation = file("./foundational_security/docs/foundational_security_s3_6.md")
+  documentation = file("./foundational_security/docs/foundational_security_s3_6.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_6"

@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_rds" {
   title         = "RDS"
-  #documentation = file("./foundational_security/docs/foundational_security_rds.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds.md")
   children = [
     control.foundational_security_rds_1,
     control.foundational_security_rds_2,
@@ -30,7 +30,7 @@ control "foundational_security_rds_1" {
   description   = "This control checks whether Amazon RDS snapshots are public. This control is intended for RDS instances. It can also return findings for snapshots of Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters, even though they are not evaluated for public accessibility. If these findings are not useful, you can suppress them."
   severity      = "critical"
   sql           = query.rds_snapshot_prohibit_public_access.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_1.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_1"
@@ -43,7 +43,7 @@ control "foundational_security_rds_2" {
   description   = "This control checks whether Amazon RDS instances are publicly accessible by evaluating the PubliclyAccessible field in the instance configuration item. Neptune DB instances and Amazon DocumentDB clusters do not have the PubliclyAccessible flag and cannot be evaluated. However, this control can still generate findings for these resources. You can suppress these findings. "
   severity      = "critical"
   sql           = query.rds_db_instance_prohibit_public_access.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_2.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_2"
@@ -56,7 +56,7 @@ control "foundational_security_rds_3" {
   description   = "This control checks whether storage encryption is enabled for your Amazon RDS DB instances. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful, then you can suppress them."
   severity      = "medium"
   sql           = query.rds_db_instance_encryption_at_rest_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_3.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_3.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_3"
@@ -69,7 +69,7 @@ control "foundational_security_rds_4" {
   description   = "This control checks whether RDS DB snapshots are encrypted. This control is intended for RDS DB instances. However, it can also generate findings for snapshots of Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful, then you can suppress them."
   severity      = "medium"
   sql           = query.rds_db_snapshot_encrypted_at_rest.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_4.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_4.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_4"
@@ -82,7 +82,7 @@ control "foundational_security_rds_5" {
   description   = "This control checks whether high availability is enabled for your RDS DB instances. RDS DB instances should be configured for multiple Availability Zones (AZs). This ensures the availability of the data stored. Multi-AZ deployments allow for automated failover if there is an issue with Availability Zone availability and during regular RDS maintenance."
   severity      = "medium"
   sql           = query.rds_db_instance_multiple_az_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_5.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_5.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_5"
@@ -95,7 +95,7 @@ control "foundational_security_rds_6" {
   description   = "This control checks whether enhanced monitoring is enabled for your RDS DB instances. In Amazon RDS, Enhanced Monitoring enables a more rapid response to performance changes in underlying infrastructure. These performance changes could result in a lack of availability of the data. Enhanced Monitoring provides real-time metrics of the operating system that your RDS DB instance runs on. An agent is installed on the instance. The agent can obtain metrics more accurately than is possible from the hypervisor layer."
   severity      = "low"
   sql           = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_6.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_6.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_6"
@@ -108,7 +108,7 @@ control "foundational_security_rds_7" {
   description   = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
   severity      = "low"
   sql           = query.rds_db_cluster_deletion_protection_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_7.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_7.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_7"
@@ -121,7 +121,7 @@ control "foundational_security_rds_8" {
   description   = "This control checks whether your RDS DB instances that use one of the listed database engines have deletion protection enabled. DatabaseEngines: mariadb,mysql,oracle-ee,oracle-se2,oracle-se1,oracle-se,postgres,sqlserver-ee,sqlserver-se,sqlserver-ex,sqlserver-web."
   severity      = "low"
   sql           = query.rds_db_instance_deletion_protection_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_8.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_8.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_8"
@@ -134,7 +134,7 @@ control "foundational_security_rds_9" {
   description   = "This control checks whether the logs of Amazon RDS are enabled and sent to CloudWatch Logs. RDS databases should have relevant logs enabled. Database logging provides detailed records of requests made to RDS. Database logs can assist with security and access audits and can help to diagnose availability issues."
   severity      = "medium"
   sql           = query.rds_db_instance_logging_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_9.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_9.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_9"
@@ -147,7 +147,7 @@ control "foundational_security_rds_10" {
   description   = "This control checks whether an RDS DB instance has IAM database authentication enabled IAM database authentication allows authentication to database instances with an authentication token instead of a password. Network traffic to and from the database is encrypted using SSL."
   severity      = "medium"
   sql           = query.rds_db_instance_iam_authentication_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_10.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_10.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_10"
@@ -160,7 +160,7 @@ control "foundational_security_rds_12" {
   description   = "This control checks whether an RDS DB cluster has IAM database authentication enabled. IAM database authentication allows for password-free authentication to database instances. The authentication uses an authentication token. Network traffic to and from the database is encrypted using SSL."
   severity      = "medium"
   sql           = query.rds_db_cluster_iam_authentication_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_12.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_12.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_12"
@@ -173,7 +173,7 @@ control "foundational_security_rds_13" {
   description   = "This control checks whether automatic minor version upgrades are enabled for the RDS database instance. Enabling automatic minor version upgrades ensures that the latest minor version updates to the relational database management system (RDBMS) are installed. These upgrades might include security patches and bug fixes. Keeping up to date with patch installation is an important step in securing systems."
   severity      = "high"
   sql           = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_13.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_13.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_13"
@@ -186,7 +186,7 @@ control "foundational_security_rds_14" {
   description   = "This control checks whether Amazon Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthens the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
   severity      = "medium"
   sql           = query.rds_db_cluster_aurora_backtracking_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_rds_14.md")
+  documentation = file("./foundational_security/docs/foundational_security_rds_14.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_14"

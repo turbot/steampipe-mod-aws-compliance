@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_secretsmanager" {
   title         = "Secrets Manager"
-  #documentation = file("./foundational_security/docs/foundational_security_secretsmanager.md")
+  documentation = file("./foundational_security/docs/foundational_security_secretsmanager.md")
   children = [
     control.foundational_security_secretsmanager_1,
     control.foundational_security_secretsmanager_2,
@@ -21,7 +21,7 @@ control "foundational_security_secretsmanager_1" {
   description   = "This control checks whether a secret stored in AWS Secrets Manager is configured with automatic rotation. Secrets Manager helps you improve the security posture of your organization. Secrets include database credentials, passwords, and third-party API keys. You can use Secrets Manager to store secrets centrally, encrypt secrets automatically, control access to secrets, and rotate secrets safely and automatically."
   severity      = "medium"
   sql           = query.secretsmanager_secrets_automatic_rotation_enabled.sql
-  #documentation = file("./foundational_security/docs/foundational_security_secretsmanager_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_secretsmanager_1.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
     foundational_security_item_id  = "secretsmanager_1"
@@ -34,7 +34,7 @@ control "foundational_security_secretsmanager_2" {
   description   = "This control checks whether an AWS Secrets Manager secret rotated successfully based on the rotation schedule. The control fails if RotationOccurringAsScheduled is false. The control does not evaluate secrets that do not have rotation configured."
   severity      = "medium"
   sql           = query.secretsmanager_secrets_auotmatic_rotation_should_rotate_scccessfully.sql
-  #documentation = file("./foundational_security/docs/foundational_security_secretsmanager_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_secretsmanager_2.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
     foundational_security_item_id  = "secretsmanager_2"
@@ -47,7 +47,7 @@ control "foundational_security_secretsmanager_3" {
   description   = "This control checks whether your secrets have been accessed within a specified number of days. The default value is 90 days. If a secret was accessed even once within the defined number of days, this control fails."
   severity      = "medium"
   sql           = query.secretsmanager_secrets_unused_secrets.sql
-  #documentation = file("./foundational_security/docs/foundational_security_secretsmanager_3.md")
+  documentation = file("./foundational_security/docs/foundational_security_secretsmanager_3.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
     foundational_security_item_id  = "secretsmanager_3"
@@ -60,7 +60,7 @@ control "foundational_security_secretsmanager_4" {
   description   = "This control checks whether your secrets have been rotated at least once within 90 days. Rotating secrets can help you to reduce the risk of an unauthorized use of your secrets in your AWS account. Examples include database credentials, passwords, third-party API keys, and even arbitrary text. If you do not change your secrets for a long period of time, the secrets are more likely to be compromised."
   severity      = "medium"
   sql           = query.secretsmanager_should_rotate_within_specified_no_of_days.sql
-  #documentation = file("./foundational_security/docs/foundational_security_secretsmanager_4.md")
+  documentation = file("./foundational_security/docs/foundational_security_secretsmanager_4.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
     foundational_security_item_id  = "secretsmanager_4"
