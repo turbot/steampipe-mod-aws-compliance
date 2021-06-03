@@ -26,6 +26,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_es,
     benchmark.foundational_security_guardduty,
     benchmark.foundational_security_iam,
+    benchmark.foundational_security_kms,
     benchmark.foundational_security_lambda,
     benchmark.foundational_security_s3,
     benchmark.foundational_security_sagemaker,
