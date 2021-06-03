@@ -8,8 +8,8 @@ select
   end as status,
   case
     when engine not ilike '%aurora-mysql%' then title || ' not Aurora MySQL-compatible edition.'
-    when backtrack_window is not null then title || ' Aurora MySQL-compatible cluster configured with backtracking.'
-    else title || ' Aurora MySQL-compatible cluster not configured with backtracking.'
+    when backtrack_window is not null then title || ' backtracking enabled.'
+    else title || ' backtracking not enabled.'
   end as reason,
   -- Additional Dimensions
   region,

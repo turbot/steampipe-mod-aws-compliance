@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when iam_database_authentication_enabled then title || ' IAM authentication configured.'
-    else title || ' IAM authentication not configured.'
+    when iam_database_authentication_enabled then title || ' IAM authentication enabled.'
+    else title || ' IAM authentication not enabled.'
   end as reason,
   -- Additional Dimensions
   region,

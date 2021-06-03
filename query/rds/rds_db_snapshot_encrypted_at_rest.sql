@@ -7,8 +7,8 @@ select
     else 'alarm'
   end as status,
   case
-    when storage_encrypted then title || ' db cluster snapshot encrypted.'
-    else title || ' db cluster snapshot unencrypted.'
+    when storage_encrypted then title || ' encrypted at rest.'
+    else title || ' not encrypted at rest.'
   end as reason,
   -- Additional Dimensions
   region,
@@ -26,8 +26,8 @@ select
     else 'alarm'
   end as status,
   case
-    when encrypted then title || ' db instance snapshot encrypted.'
-    else title || ' db instance snapshot unencrypted.'
+    when encrypted then title || ' encrypted at rest.'
+    else title || ' not encrypted at rest.'
   end as reason,
   -- Additional Dimensions
   region,

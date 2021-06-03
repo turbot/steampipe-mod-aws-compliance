@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when auto_minor_version_upgrade then title || ' automatic minor version upgrades configured.'
-    else title || ' automatic minor version upgrades not configured.'
+    when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
+    else title || ' automatic minor version upgrades not enabled.'
   end as reason,
   -- Additional Dimensions
   region,

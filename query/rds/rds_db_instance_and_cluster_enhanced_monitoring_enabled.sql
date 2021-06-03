@@ -7,8 +7,8 @@ select
     else 'alarm'
   end as status,
   case
-    when enabled_cloudwatch_logs_exports is not null then title || ' db cluster enhanced monitoring configured.'
-    else title || ' db cluster enhanced monitoring not configured.'
+    when enabled_cloudwatch_logs_exports is not null then title || ' enhanced monitoring enabled.'
+    else title || ' enhanced monitoring not enabled.'
   end as reason,
   -- Additional Dimensions
   region,
@@ -28,8 +28,8 @@ select
   end as status,
   case
     when class = 'db.m1.small' then title || ' enhanced monitoring not supported.'
-    when enhanced_monitoring_resource_arn is not null then title || ' instance enhanced monitoring configured.'
-    else title || ' instance enhanced monitoring not configured.'
+    when enhanced_monitoring_resource_arn is not null then title || ' enhanced monitoring enabled.'
+    else title || ' enhanced monitoring not enabled.'
   end as reason,
   -- Additional Dimensions
   region,

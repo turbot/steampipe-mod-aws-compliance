@@ -7,7 +7,7 @@
   end as status,
   case
     when deletion_protection then title || ' deletion protection enabled.'
-    else title || ' deletion protection disabled.'
+    else title || ' deletion protection not enabled.'
   end as reason,
   -- Additional Dimensions
   region,

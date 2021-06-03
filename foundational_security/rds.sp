@@ -68,7 +68,7 @@ control "foundational_security_rds_4" {
   title         = "4 RDS cluster snapshots and database snapshots should be encrypted at rest"
   description   = "This control checks whether RDS DB snapshots are encrypted. This control is intended for RDS DB instances. However, it can also generate findings for snapshots of Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful, then you can suppress them."
   severity      = "medium"
-  sql           = query.rds_cluster_and_database_snapshot_encrypted_at_rest.sql
+  sql           = query.rds_db_snapshot_encrypted_at_rest.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_4.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -81,7 +81,7 @@ control "foundational_security_rds_5" {
   title         = "5 RDS DB instances should be configured with multiple Availability Zones"
   description   = "This control checks whether high availability is enabled for your RDS DB instances. RDS DB instances should be configured for multiple Availability Zones (AZs). This ensures the availability of the data stored. Multi-AZ deployments allow for automated failover if there is an issue with Availability Zone availability and during regular RDS maintenance."
   severity      = "medium"
-  sql           = query.rds_db_instance_configured_with_multiple_az.sql
+  sql           = query.rds_db_instance_multiple_az_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_5.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -94,7 +94,7 @@ control "foundational_security_rds_6" {
   title         = "6 Enhanced monitoring should be configured for RDS DB instances and clusters"
   description   = "This control checks whether enhanced monitoring is enabled for your RDS DB instances. In Amazon RDS, Enhanced Monitoring enables a more rapid response to performance changes in underlying infrastructure. These performance changes could result in a lack of availability of the data. Enhanced Monitoring provides real-time metrics of the operating system that your RDS DB instance runs on. An agent is installed on the instance. The agent can obtain metrics more accurately than is possible from the hypervisor layer."
   severity      = "low"
-  sql           = query.rds_instance_and_cluster_configured_with_enhanced_monitoring.sql
+  sql           = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_6.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -107,7 +107,7 @@ control "foundational_security_rds_7" {
   title         = "7 RDS clusters should have deletion protection enabled"
   description   = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
   severity      = "low"
-  sql           = query.rds_cluster_deletion_protection_enabled.sql
+  sql           = query.rds_db_cluster_deletion_protection_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_7.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -142,12 +142,11 @@ control "foundational_security_rds_9" {
   })
 }
 
-
 control "foundational_security_rds_10" {
   title         = "10 IAM authentication should be configured for RDS instances"
   description   = "This control checks whether an RDS DB instance has IAM database authentication enabled IAM database authentication allows authentication to database instances with an authentication token instead of a password. Network traffic to and from the database is encrypted using SSL."
   severity      = "medium"
-  sql           = query.rds_db_instance_configured_with_iam_authentication.sql
+  sql           = query.rds_db_instance_iam_authentication_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_10.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -160,7 +159,7 @@ control "foundational_security_rds_12" {
   title         = "12 IAM authentication should be configured for RDS clusters"
   description   = "This control checks whether an RDS DB cluster has IAM database authentication enabled. IAM database authentication allows for password-free authentication to database instances. The authentication uses an authentication token. Network traffic to and from the database is encrypted using SSL."
   severity      = "medium"
-  sql           = query.rds_cluster_configured_with_iam_authentication.sql
+  sql           = query.rds_db_cluster_iam_authentication_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_12.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -173,7 +172,7 @@ control "foundational_security_rds_13" {
   title         = "13 RDS automatic minor version upgrades should be enabled"
   description   = "This control checks whether automatic minor version upgrades are enabled for the RDS database instance. Enabling automatic minor version upgrades ensures that the latest minor version updates to the relational database management system (RDBMS) are installed. These upgrades might include security patches and bug fixes. Keeping up to date with patch installation is an important step in securing systems."
   severity      = "high"
-  sql           = query.rds_automatic_minor_version_upgrade_enabled.sql
+  sql           = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_13.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -186,7 +185,7 @@ control "foundational_security_rds_14" {
   title         = "14 Amazon Aurora clusters should have backtracking enabled"
   description   = "This control checks whether Amazon Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthens the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
   severity      = "medium"
-  sql           = query.rds_amazon_aurora_cluster_backtracking_enabled.sql
+  sql           = query.rds_db_cluster_aurora_backtracking_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_14.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {

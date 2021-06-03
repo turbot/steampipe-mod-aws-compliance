@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when storage_encrypted then title || ' encryption enabled.'
-    else title || ' encryption disabled.'
+    when storage_encrypted then title || ' encrypted at rest.'
+    else title || ' not encrypted at rest.'
   end as reason,
   -- Additional Dimensions
   region,
