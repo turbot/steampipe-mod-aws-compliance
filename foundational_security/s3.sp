@@ -87,7 +87,7 @@ control "foundational_security_s3_6" {
   title         = "6 Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
   description   = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
   severity      = "high"
-  sql           = query.s3_bucket_policies_restricts_permissions_to_other_aws_account.sql
+  sql           = query.s3_bucket_policy_restricts_cross_account_permission_changes.sql
   #documentation = file("./foundational_security/docs/foundational_security_s3_6.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
