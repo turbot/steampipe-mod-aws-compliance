@@ -34,6 +34,7 @@ benchmark "cis_v140_2_1" {
     control.cis_v140_2_1_1,
     control.cis_v140_2_1_2,
     control.cis_v140_2_1_3,
+    control.cis_v140_2_1_4,
     control.cis_v140_2_1_5
   ]
   tags = local.cis_v140_2_1_common_tags
