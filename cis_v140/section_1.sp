@@ -73,8 +73,8 @@ control "cis_v140_1_3" {
 }
 
 control "cis_v140_1_4" {
-  title         = "1.4 Ensure no root user account access key exists"
-  description   = "The root user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the root user account be removed."
+  title         = "1.4 Ensure no 'root' user account access key exists"
+  description   = "The 'root' user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the 'root' user account be removed."
   sql           = query.iam_root_user_access_key.sql
   documentation = file("./cis_v140/docs/cis_v140_1_4.md")
 
@@ -86,8 +86,8 @@ control "cis_v140_1_4" {
 }
 
 control "cis_v140_1_5" {
-  title         = "1.5 Ensure MFA is enabled for the \"root user\" account"
-  description   = "The root user account is the most privileged user in an AWS account. Multi-factor Authentication (MFA) adds an extra layer of protection on top of a username and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their username and password as well as for an authentication code from their AWS MFA device."
+  title         = "1.5 Ensure MFA is enabled for the 'root' user account"
+  description   = "The 'root' user account is the most privileged user in an AWS account. Multi-factor Authentication (MFA) adds an extra layer of protection on top of a username and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their username and password as well as for an authentication code from their AWS MFA device."
   sql           = query.iam_root_user_mfa.sql
   documentation = file("./cis_v140/docs/cis_v140_1_5.md")
 
@@ -99,8 +99,8 @@ control "cis_v140_1_5" {
 }
 
 control "cis_v140_1_6" {
-  title         = "1.6 Ensure hardware MFA is enabled for the \"root user\" account"
-  description   = "The root user account is the most privileged user in an AWS account. MFA adds an extra layer of protection on top of a user name and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their user name and password as well as for an authentication code from their AWS MFA device. For Level 2, it is recommended that the root user account be protected with a hardware MFA."
+  title         = "1.6 Ensure hardware MFA is enabled for the 'root' user account"
+  description   = "The 'root' user account is the most privileged user in an AWS account. MFA adds an extra layer of protection on top of a user name and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their user name and password as well as for an authentication code from their AWS MFA device. For Level 2, it is recommended that the root user account be protected with a hardware MFA."
   sql           = query.iam_root_user_hardware_mfa.sql
   documentation = file("./cis_v140/docs/cis_v140_1_6.md")
 
@@ -112,8 +112,8 @@ control "cis_v140_1_6" {
 }
 
 control "cis_v140_1_7" {
-  title         = "1.7 Eliminate use of the root user for administrative and daily tasks"
-  description   = "With the creation of an AWS account, a root user is created that cannot be disabled or deleted. That user has unrestricted access to and control over all resources in the AWS account. It is highly recommended that the use of this account be avoided for everyday tasks."
+  title         = "1.7 Eliminate use of the 'root' user for administrative and daily tasks"
+  description   = "With the creation of an AWS account, a 'root user' is created that cannot be disabled or deleted. That user has unrestricted access to and control over all resources in the AWS account. It is highly recommended that the use of this account be avoided for everyday tasks."
   sql           = query.iam_root_last_used.sql
   documentation = file("./cis_v140/docs/cis_v140_1_7.md")
 
@@ -177,9 +177,9 @@ control "cis_v140_1_11" {
 }
 
 control "cis_v140_1_12" {
-  title         = "1.12 Ensure credentials unused for 90 days or greater are disabled"
-  description   = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 90 or greater days be deactivated or removed."
-  sql           = query.iam_user_unused_credentials_90.sql
+  title         = "1.12 Ensure credentials unused for 45 days or greater are disabled"
+  description   = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 45 or greater days be deactivated or removed."
+  sql           = query.iam_user_unused_credentials_45.sql
   documentation = file("./cis_v140/docs/cis_v140_1_12.md")
 
   tags = merge(local.cis_v140_1_common_tags, {

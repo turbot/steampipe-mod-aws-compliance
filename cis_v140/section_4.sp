@@ -54,7 +54,7 @@ control "cis_v140_4_2" {
 }
 
 control "cis_v140_4_3" {
-  title         = "4.3 Ensure a log metric filter and alarm exist for usage of \"root\" account"
+  title         = "4.3 Ensure a log metric filter and alarm exist for usage of 'root' account"
   description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for root login attempts."
   sql           = query.log_metric_filter_root_login.sql
   documentation = file("./cis_v140/docs/cis_v140_4_3.md")

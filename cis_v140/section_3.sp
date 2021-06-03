@@ -37,7 +37,7 @@ control "cis_v140_3_1" {
 }
 
 control "cis_v140_3_2" {
-  title         = "3.2 Ensure CloudTrail log file validation is enabled."
+  title         = "3.2 Ensure CloudTrail log file validation is enabled"
   description   = "CloudTrail log file validation creates a digitally signed digest file containing a hash of each log that CloudTrail writes to S3. These digest files can be used to determine whether a log file was changed, deleted, or unchanged after CloudTrail delivered the log. It is recommended that file validation be enabled on all CloudTrails."
   sql           = query.cloudtrail_validation_enabled.sql
   documentation = file("./cis_v140/docs/cis_v140_3_2.md")
@@ -83,7 +83,7 @@ control "cis_v140_3_5" {
 
   tags = merge(local.cis_v140_3_common_tags, {
     "cis_item_id" = "3.5"
-    "cis_level"   = "1"
+    "cis_level"   = "2"
     "cis_type"    = "automated"
   })
 }
