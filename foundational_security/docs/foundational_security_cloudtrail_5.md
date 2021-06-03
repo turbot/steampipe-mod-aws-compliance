@@ -35,4 +35,4 @@ To enable CloudTrail integration with CloudWatch Logs
    - To use an existing role, choose `Existing` and then choose the role from the drop-down list.
    - To create a new role, choose `New` and then enter a name for the role to create. The new role is assigned a policy that grants the necessary permissions.
    - To view the permissions granted to the role, expand `Policy document`.
-1. Choose `Save changes`.
+8. Choose `Save changes`.
