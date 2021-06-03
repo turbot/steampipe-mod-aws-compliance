@@ -1,3 +1,10 @@
+## v0.4 [2021-06-03]
+
+_What's new?_
+
+- Added: CIS v1.4.0 benchmark (`steampipe check benchmark.cis_v140`)
+- Added: AWS Foundational Security Best Practices benchmark (`steampipe check benchmark.foundational_security`)
+
 ## v0.3 [2021-05-28]
 
 _Bug fixes_
