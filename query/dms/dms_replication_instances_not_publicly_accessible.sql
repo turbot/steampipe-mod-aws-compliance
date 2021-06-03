@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  replication_instance_arn as resource,
+  arn as resource,
   case
     when publicly_accessible then 'alarm'
     else 'ok'
