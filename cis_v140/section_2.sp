@@ -49,15 +49,6 @@ benchmark "cis_v140_2_2" {
   tags = local.cis_v140_2_2_common_tags
 }
 
-benchmark "cis_v140_2_3" {
-  title         = "2.3 Relational Database Service (RDS)"
-  #documentation = file("./cis_v140/docs/cis_v140_2_3.md")
-  children = [
-    control.cis_v140_2_3_1
-  ]
-  tags = local.cis_v140_2_3_common_tags
-}
-
 control "cis_v140_2_1_1" {
   title         = "2.1.1 Ensure all S3 buckets employ encryption-at-rest"
   description   = "Amazon S3 provides a variety of no, or low, cost encryption options to protect data at rest."
@@ -87,7 +78,7 @@ control "cis_v140_2_1_2" {
 control "cis_v140_2_1_3" {
   title         = "2.1.3 Ensure MFA Delete is enable on S3 buckets"
   description   = "Once MFA Delete is enable on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
-  #documentation = file("./cis_v140/docs/cis_v140_2_1_3.md")
+  documentation = file("./cis_v140/docs/cis_v140_2_1_3.md")
   sql           = query.s3_bucket_mfa_delete_enabled.sql
 
   tags = merge(local.cis_v140_2_1_common_tags, {
@@ -123,10 +114,19 @@ control "cis_v140_2_2_1" {
   })
 }
 
+benchmark "cis_v140_2_3" {
+  title         = "2.3 Relational Database Service (RDS)"
+  documentation = file("./cis_v140/docs/cis_v140_2_3.md")
+  children = [
+    control.cis_v140_2_3_1
+  ]
+  tags = local.cis_v140_2_3_common_tags
+}
+
 control "cis_v140_2_3_1" {
   title         = "2.3.1 Ensure that encryption is enabled for RDS Instances"
   description   = "Amazon RDS encrypted DB instances use the industry standard AES-256 encryption algorithm to encrypt your data on the server that hosts your Amazon RDS DB instances. After your data is encrypted, Amazon RDS handles authentication of access and decryption of your data transparently with a minimal impact on performance."
-  #documentation = file("./cis_v140/docs/cis_v140_2_3_1.md")
+  documentation = file("./cis_v140/docs/cis_v140_2_3_1.md")
   sql           = query.rds_instance_encryption_enabled.sql
 
   tags = merge(local.cis_v140_2_3_common_tags, {
