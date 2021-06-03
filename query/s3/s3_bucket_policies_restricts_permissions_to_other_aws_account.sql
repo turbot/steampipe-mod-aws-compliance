@@ -1,4 +1,4 @@
-with crossaccount_buckets as (
+with cross_account_buckets as (
   select
     distinct arn
   from
@@ -29,12 +29,12 @@ select
     else 'alarm'
   end as status,
   case
-    when b.arn is null then title || ' having no across-account access.'
-    else title || ' having across-account access.'
+    when b.arn is null then title || ' restricts cross-account bucket access.'
+    else title || ' allows cross-account bucket access.'
   end as reason,
   -- Additionl Dimensions
   a.region,
   a.account_id
 from
   aws_s3_bucket a
-  left join crossaccount_buckets b on a.arn = b.arn;
+  left join cross_account_buckets b on a.arn = b.arn;

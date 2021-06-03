@@ -95,6 +95,3 @@ control "foundational_security_s3_6" {
     foundational_security_category = "sensitive_api_operations_actions_restricted"
   })
 }
-
-
-
