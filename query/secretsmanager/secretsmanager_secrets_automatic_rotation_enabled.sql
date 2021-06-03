@@ -9,7 +9,7 @@ select
     when rotation_rules is null then title || ' automatic rotation not enabled.'
     else title || ' automatic rotation enabled.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
