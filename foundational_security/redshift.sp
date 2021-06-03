@@ -34,7 +34,7 @@ control "foundational_security_redshift_2" {
   title         = "2 Connections to Amazon Redshift clusters should be encrypted in transit"
   description   = "This control checks whether connections to Amazon Redshift clusters are required to use encryption in transit. The check fails if the Amazon Redshift cluster parameter require_SSL is not set to 1. TLS can be used to help prevent potential attackers from using person-in-the-middle or similar attacks to eavesdrop on or manipulate network traffic. Only encrypted connections over TLS should be allowed. Encrypting data in transit can affect performance. You should test your application with this feature to understand the performance profile and the impact of TLS."
   severity      = "medium"
-  sql           = query.redshift_cluster_encryption_in_transit.sql
+  sql           = query.redshift_cluster_encryption_in_transit_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_redshift_2.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -47,7 +47,7 @@ control "foundational_security_redshift_3" {
   title         = "3 Amazon Redshift clusters should have automatic snapshots enabled"
   description   = "This control checks whether Amazon Redshift clusters have automated snapshots enabled. It also checks whether the snapshot retention period is greater than or equal to seven."
   severity      = "medium"
-  sql           = query.redshift_cluster_automatic_snapshot_enabled.sql
+  sql           = query.redshift_cluster_automatic_snapshots_min_7_days.sql
   #documentation = file("./foundational_security/docs/foundational_security_redshift_3.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -60,7 +60,7 @@ control "foundational_security_redshift_6" {
   title         = "6 Amazon Redshift should have automatic upgrades to major versions enabled"
   description   = "This control checks whether automatic major version upgrades are enabled for the Amazon Redshift cluster."
   severity      = "medium"
-  sql           = query.redshift_cluster_automatic_upgrade_major_version_enabled.sql
+  sql           = query.redshift_cluster_automatic_upgrade_major_versions_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_redshift_6.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -73,7 +73,7 @@ control "foundational_security_redshift_7" {
   title         = "7 Amazon Redshift clusters should use enhanced VPC routing"
   description   = "This control checks whether an Amazon Redshift cluster has EnhancedVpcRouting enabled."
   severity      = "high"
-  sql           = query.redshift_cluster_enhanced_vpc_routing.sql
+  sql           = query.redshift_cluster_enhanced_vpc_routing_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_redshift_7.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
