@@ -11,6 +11,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_1,
     control.foundational_security_ec2_2,
     control.foundational_security_ec2_3,
+    control.foundational_security_ec2_4,
     control.foundational_security_ec2_6,
     control.foundational_security_ec2_8,
     control.foundational_security_ec2_9,
@@ -55,6 +56,19 @@ control "foundational_security_ec2_3" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_3"
     foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
+control "foundational_security_ec2_4" {
+  title         = "4 Stopped EC2 instances should be removed after a specified time period"
+  description   = "This control checks whether any EC2 instances have been stopped for more than the allowed number of days. An EC2 instance fails this check if it is stopped for longer than the maximum allowed time period, which by default is 30 days."
+  severity      = "medium"
+  sql           = query.ec2_stopped_instance_removed_after_specified_time_period.sql
+  #documentation = file("./foundational_security/docs/foundational_security_ec2_4.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_4"
+    foundational_security_category = "inventory"
   })
 }
 
