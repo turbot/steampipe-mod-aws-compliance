@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when client_certificate_id is null then title || ' not configured to use SSL certificates.'
-    else title || ' configured to use SSL certificates.'
+    when client_certificate_id is null then title || ' not uses SSL certificate.'
+    else title || ' uses SSL certificate.'
   end as reason,
   -- Additional Dimensions
   region,

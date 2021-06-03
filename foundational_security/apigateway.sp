@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "foundational_security_apigateway" {
-  title         = "APIGateway"
+  title         = "API Gateway"
   #documentation = file("./foundational_security/docs/foundational_security_apigateway.md")
   children = [
     control.foundational_security_apigateway_1,
@@ -31,7 +31,7 @@ control "foundational_security_apigateway_2" {
   title         = "2 API Gateway REST API stages should be configured to use SSL certificates for backend authentication"
   description   = "This control checks whether Amazon API Gateway REST API stages have SSL certificates configured. Backend systems use these certificates to authenticate that incoming requests are from API Gateway."
   severity      = "medium"
-  sql           = query.apigateway_rest_api_stages_configured_with_ssl_certificate.sql
+  sql           = query.apigateway_rest_api_stage_use_ssl_certificate.sql
   #documentation = file("./foundational_security/docs/foundational_security_apigateway_2.md")
 
   tags = merge(local.foundational_security_apigateway_common_tags, {
