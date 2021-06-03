@@ -18,7 +18,7 @@ control "foundational_security_apigateway_1" {
   title         = "1 API Gateway REST and WebSocket API logging should be enabled"
   description   = "This control checks whether all stages of an Amazon API Gateway REST or WebSocket API have logging enabled. The control fails if logging is not enabled for all methods of a stage or if loggingLevel is neither ERROR nor INFO."
   severity      = "medium"
-  sql           = query.apigateway_rest_and_websocket_api_logging_enabled.sql
+  sql           = query.apigateway_stage_logging_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_apigateway_1.md")
 
   tags = merge(local.foundational_security_apigateway_common_tags, {

@@ -27,7 +27,7 @@ select
     else 'ok'
   end as status,
   case
-    when log_level is null or log_level = 'OFF' then title || ' logging disabled.'
+    when log_level is null or log_level = 'OFF' then title || ' logging not enabled.'
     else title || ' logging enabled.'
   end as reason,
   -- Additional Dimensions
