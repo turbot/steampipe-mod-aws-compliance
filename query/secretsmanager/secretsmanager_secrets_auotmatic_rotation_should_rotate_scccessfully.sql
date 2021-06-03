@@ -17,7 +17,7 @@ select
     and (date(current_date) - date(created_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer
     then title || ' not rotated as per schedule.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
