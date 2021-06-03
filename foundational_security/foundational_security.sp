@@ -13,6 +13,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_acm,
     benchmark.foundational_security_apigateway,
     benchmark.foundational_security_autoscaling,
+    benchmark.foundational_security_cloudfront,
     benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_config,
     benchmark.foundational_security_dms,
