@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_iam" {
   title         = "IAM"
-  #documentation = file("./foundational_security/docs/foundational_security_iam.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam.md")
   children = [
     control.foundational_security_iam_1,
     control.foundational_security_iam_2,
@@ -25,7 +25,7 @@ control "foundational_security_iam_1" {
   description   = "This control checks whether the default version of IAM policies (also known as customer managed policies) has administrator access that includes a statement with 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'. The control only checks the customer managed policies that you create. It does not check inline and AWS managed policies."
   severity      = "high"
   sql           = query.iam_policy_no_star_star.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_1.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_1"
@@ -38,7 +38,7 @@ control "foundational_security_iam_2" {
   description   = "This control checks that none of your IAM users have policies attached. Instead, IAM users must inherit permissions from IAM groups or roles."
   severity      = "low"
   sql           = query.iam_user_no_policies.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_2.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_2"
@@ -51,7 +51,7 @@ control "foundational_security_iam_3" {
   description   = "This control checks whether the active access keys are rotated within 90 days."
   severity      = "medium"
   sql           = query.iam_user_access_key_age_90.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_3.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_3.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_3"
@@ -64,7 +64,7 @@ control "foundational_security_iam_4" {
   description   = "This control checks whether the root user access key is present. The root account is the most privileged user in an AWS account. AWS access keys provide programmatic access to a given account."
   severity      = "critical"
   sql           = query.iam_root_user_access_key.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_4.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_4.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_4"
@@ -77,7 +77,7 @@ control "foundational_security_iam_5" {
   description   = "This control checks whether AWS multi-factor authentication (MFA) is enabled for all IAM users that use a console password."
   severity      = "medium"
   sql           = query.iam_user_mfa.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_5.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_5.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_5"
@@ -90,7 +90,7 @@ control "foundational_security_iam_6" {
   description   = "This control checks whether your AWS account is enabled to use a hardware multi-factor authentication (MFA) device to sign in with root user credentials."
   severity      = "critical"
   sql           = query.iam_root_user_hardware_mfa.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_6.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_6.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_6"
@@ -103,7 +103,7 @@ control "foundational_security_iam_7" {
   description   = "This control checks whether the account password policy for IAM users uses the recommended configurations."
   severity      = "medium"
   sql           = query.iam_account_password_policy_strong_min_length_8.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_7.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_7.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_7"
@@ -116,7 +116,7 @@ control "foundational_security_iam_8" {
   description   = "This control checks whether your IAM users have passwords or active access keys that have not been used for 90 days."
   severity      = "medium"
   sql           = query.iam_user_unused_credentials_90.sql
-  #documentation = file("./foundational_security/docs/foundational_security_iam_8.md")
+  documentation = file("./foundational_security/docs/foundational_security_iam_8.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_8"

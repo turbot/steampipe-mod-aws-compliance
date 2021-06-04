@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_lambda" {
   title         = "Lambda"
-  #documentation = file("./foundational_security/docs/foundational_security_lambda.md")
+  documentation = file("./foundational_security/docs/foundational_security_lambda.md")
   children = [
     control.foundational_security_lambda_1,
     control.foundational_security_lambda_2
@@ -19,7 +19,7 @@ control "foundational_security_lambda_1" {
   description   = "This control checks whether the Lambda function resource-based policy prohibits public access outside of your account. The Lambda function should not be publicly accessible, as this may allow unintended access to your code stored in the function."
   severity      = "critical"
   sql           = query.lambda_function_restrict_public_access.sql
-  #documentation = file("./foundational_security/docs/foundational_security_lambda_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_lambda_1.md")
 
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_1"
@@ -32,7 +32,7 @@ control "foundational_security_lambda_2" {
   description   = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs14.x, nodejs12.x, nodejs10.x, python3.8, python3.7, python3.6, ruby2.7, ruby2.5,java11, java8, go1.x, dotnetcore3.1, dotnetcore2.1."
   severity      = "medium"
   sql           = query.lambda_function_use_latest_runtime.sql
-  #documentation = file("./foundational_security/docs/foundational_security_lambda_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_lambda_2.md")
 
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_2"
