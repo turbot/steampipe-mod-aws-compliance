@@ -1,38 +1,59 @@
-![image](https://hub.steampipe.io/images/mods/turbot/aws-compliance-social-graphic.png)
+# AWS Compliance Scanning Tool
 
-# AWS Compliance Mod for Steampipe
+230+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, Foundational Security Best Practices **and the latest (v1.4.0) CIS benchmarks**:
 
-Run individual configuration, compliance and security controls
-or full compliance benchmarks for CIS and PCI across all your AWS accounts.
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_output.png)
 
-Can you write SQL and HCL? [Fork this repo](#developing) as the basis for your own custom compliance checks!
-
-* **[Get started →](https://hub.steampipe.io/mods/turbot/aws_compliance)**
-* Documentation: [Controls](https://hub.steampipe.io/mods/turbot/aws_compliance/controls)
-* Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
-* Get involved: [Issues](https://github.com/turbot/steampipe-mod-aws-compliance/issues)
+Includes support for:
+* [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
+* [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140) 🚀 New!
+* [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
+* [AWS Foundational Security Best Practice](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security) 🚀 New!
 
 ## Quick start
 
-Install the AWS plugin with [Steampipe](https://steampipe.io):
+
+1) Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
+
+```shell
+brew tap turbot/tap
+brew install steampipe
+
+steampipe -v 
+steampipe version 0.5.1
+```
+
+2) Install the AWS plugin
 ```shell
 steampipe plugin install aws
 ```
 
-Clone:
+3) Clone this repo
 ```sh
 git clone git@github.com:turbot/steampipe-mod-aws-compliance
 cd steampipe-mod-aws-compliance
 ```
 
-Run all benchmarks:
+4) Generate your AWS credential report
+```sh
+aws iam generate-credential-report
+```
+
+5) Run all benchmarks:
 ```shell
 steampipe check all
 ```
 
-Run a benchmark:
+### Other things to checkout
+
+Run an individual benchmark:
 ```shell
-steampipe check benchmark.cis_v130
+steampipe check benchmark.cis_v140
+```
+
+Use Steampipe introspection to view all current controls:
+```
+steampipe query "select resource_name from steampipe_control;"
 ```
 
 Run a specific control:
@@ -40,47 +61,12 @@ Run a specific control:
 steampipe check control.cis_v130_2_1_1
 ```
 
-## Developing
-
-Have an idea but aren't sure how to get started?
-- **[Join our Slack community →](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)**
-- **[Mod developer guide →](https://steampipe.io/docs/steampipe-mods/writing-mods.md)**
-
-**Prerequisites**:
-- [Steampipe installed](https://steampipe.io/downloads)
-- Steampipe AWS plugin installed (see above)
-
-**Fork**:
-Click on the GitHub Fork Widget. (Don't forget to :star: the repo!)
-
-**Clone**:
-
-1. Change the current working directory to the location where you want to put the cloned directory on your local filesystem.
-2. Type the clone command below inserting your GitHub username instead of `YOUR-USERNAME`:
-
-```sh
-git clone git@github.com:YOUR-USERNAME/steampipe-mod-aws-compliance
-cd steampipe-mod-aws-compliance
-```
-
-**View controls and benchmarks**:
-```
-steampipe query "select resource_name from steampipe_control;"
-```
-
-```sql
-steampipe query
-> select
-    resource_name
-  from
-    steampipe_benchmark
-  order by
-    resource_name;
-```
-
 ## Contributing
 
-Thanks for getting involved! We would love to have you [join our Slack community](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g) and hang out with other Mod developers.
+If you have an idea for additional compliance controls, or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing. (Even if you just want to help with the docs.)
+
+- **[Join our Slack community →](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)** and hang out with other Mod developers.
+- **[Mod developer guide →](https://steampipe.io/docs/steampipe-mods/writing-mods.md)**
 
 Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-aws-compliance/blob/main/LICENSE).
 
