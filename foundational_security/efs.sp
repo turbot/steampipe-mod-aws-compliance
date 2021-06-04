@@ -6,7 +6,7 @@ locals {
 
 benchmark "foundational_security_efs" {
   title         = "EFS"
-  #documentation = file("./foundational_security/docs/foundational_security_efs.md")
+  documentation = file("./foundational_security/docs/foundational_security_efs.md")
   children = [
     control.foundational_security_efs_1
   ]
@@ -18,7 +18,7 @@ control "foundational_security_efs_1" {
   description   = "This control checks whether Amazon Elastic File System is configured to encrypt the file data using AWS KMS. "
   severity      = "medium"
   sql           = query.efs_file_system_encrypt_data_at_rest.sql
-  #documentation = file("./foundational_security/docs/foundational_security_efs_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_efs_1.md")
 
   tags = merge(local.foundational_security_efs_common_tags, {
     foundational_security_item_id  = "efs_1"
