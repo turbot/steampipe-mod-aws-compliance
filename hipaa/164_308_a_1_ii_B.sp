@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_1_ii_B" {
-  title         = "64.308(a)(1)(ii)(B)"
+  title         = "164.308(a)(1)(ii)(B)"
   #documentation = file("./hipaa/docs/hipaa_164_308_a_1_ii_B.md")
   children = [
     control.hipaa_164_308_a_1_ii_B_apigateway_stage_cache_encrytion_at_rest_enabled,
@@ -51,7 +51,6 @@ benchmark "hipaa_164_308_a_1_ii_B" {
     control.hipaa_164_308_a_1_ii_B_sagemaker_notebook_instance_encryption_enabled,
     control.hipaa_164_308_a_1_ii_B_sagemaker_notebook_instance_direct_internet_access_disabled,
     control.hipaa_164_308_a_1_ii_B_sns_topic_encrypted_at_rest,
-
   ]
   tags          = local.hipaa_164_308_a_1_ii_B_common_tags
 }
@@ -527,4 +526,3 @@ control "hipaa_164_308_a_1_ii_B_sagemaker_notebook_instance_direct_internet_acce
     hipaa_item_id  = "hipaa_164_308_a_1_ii_B_sagemaker_notebook_instance_direct_internet_access_disabled"
   })
 }
-
