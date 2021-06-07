@@ -24,6 +24,7 @@ benchmark "hipaa" {
     benchmark.hipaa_164_308_a_7_ii_A,
     benchmark.hipaa_164_312_a_1,
     benchmark.hipaa_164_312_a_2_i,
+    benchmark.hipaa_164_312_a_2_ii,
     benchmark.hipaa_164_312_a_2_iv,
     benchmark.hipaa_164_312_b,
     benchmark.hipaa_164_312_c_1,
