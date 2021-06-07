@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_3_ii_b" {
-  title         = "164.308(a)(3)(ii)(B)"
+  title         = "164.308(a)(3)(ii)(B) Workforce clearance procedure"
+  description   = "Implement procedures to determine that the access of a workforce member to electronic protected health information is appropriate."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_3_ii_b.md")
   children = [
     control.hipaa_164_308_a_3_ii_b_iam_group_not_empty,

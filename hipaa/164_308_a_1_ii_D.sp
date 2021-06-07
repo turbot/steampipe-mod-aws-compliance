@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_1_ii_d" {
-  title         = "164.308(a)(1)(ii)(D)"
+  title         = "164.308(a)(1)(ii)(D) Information system activity review"
+  description   = "Implement procedures to regularly review records of information system activity, such as audit logs, access reports, and security incident tracking reports."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_1_ii_d.md")
   children = [
     control.hipaa_164_308_a_1_ii_d_apigateway_stage_logging_enabled,

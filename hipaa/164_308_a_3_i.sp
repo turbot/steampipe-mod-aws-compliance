@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_3_i" {
-  title         = "164.308(a)(3)(i)"
+  title         = "164.308(a)(3)(i) Workforce security"
+  description   = "Implement policies and procedures to ensure that all members of its workforce have appropriate access to electronic protected health information, as provided under paragraph (a)(4) of this section, and to prevent those workforce members who do not have access under paragraph (a)(4) of this section from obtaining access to electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_3_i.md")
   children = [
     control.hipaa_164_308_a_3_i_dms_replication_instances_not_publicly_accessible,

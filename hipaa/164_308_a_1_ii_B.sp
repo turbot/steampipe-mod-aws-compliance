@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_1_ii_b" {
-  title         = "164.308(a)(1)(ii)(B)"
+  title         = "164.308(a)(1)(ii)(B) Risk Management"
+  description   = "Implement security measures sufficient to reduce risks and vulnerabilities to a reasonable and appropriate level to comply with 164.306(a): Ensure the confidentiality, integrity, and availability of all electronic protected health information the covered entity or business associate creates, receives, maintains, or transmits."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_1_ii_b.md")
   children = [
     control.hipaa_164_308_a_1_ii_b_apigateway_stage_cache_encrytion_at_rest_enabled,
