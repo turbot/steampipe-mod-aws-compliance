@@ -9,6 +9,7 @@ benchmark "hipaa_164_308_a_3_ii_A" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_3_ii_A.md")
   children = [
     control.hipaa_164_308_a_3_ii_A_elb_application_classic_logging_enabled,
+    control.hipaa_164_308_a_3_ii_A_emr_cluster_kerberos_enabled,
     control.hipaa_164_308_a_3_ii_A_guardduty_enabled,
     control.hipaa_164_308_a_3_ii_A_iam_user_mfa_enabled,
     control.hipaa_164_308_a_3_ii_A_iam_console_access_mfa_enabled,
@@ -27,6 +28,17 @@ control "hipaa_164_308_a_3_ii_A_elb_application_classic_logging_enabled" {
 
   tags = merge(local.hipaa_164_308_a_3_ii_A_common_tags, {
     hipaa_item_id  = "hipaa_164_308_a_3_ii_A_elb_application_classic_logging_enabled"
+  })
+}
+
+control "hipaa_164_308_a_3_ii_A_emr_cluster_kerberos_enabled" {
+  title         = "EMR cluster kerberos enabled"
+  description   = "The access permissions and authorizations can be managed and incorporated with the principles of least privilege and separation of duties, by enabling Kerberos for Amazon EMR clusters."
+  sql           = query.emr_cluster_kerberos_enabled.sql
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_3_ii_A_emr_cluster_kerberos_enabled.md")
+
+  tags = merge(local.hipaa_164_308_a_3_ii_A_common_tags, {
+    hipaa_item_id  = "hipaa_164_308_a_3_ii_A_emr_cluster_kerberos_enabled"
   })
 }
 
