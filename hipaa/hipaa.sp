@@ -12,7 +12,8 @@ benchmark "hipaa" {
   children = [
     benchmark.hipaa_164_308_a_3_ii_A,
     benchmark.hipaa_164_308_a_1_ii_B,
-    benchmark.hipaa_164_308_a_1_ii_D
+    benchmark.hipaa_164_308_a_1_ii_D,
+    benchmark.hipaa_164_312_a_2_iv,
   ]
   tags = local.hipaa_common_tags
 }
