@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_7_ii_A" {
-  title         = "164_308_a_7_ii_A"
+  title         = "164.308(a)(7)(ii)(A)"
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_A.md")
   children = [
     control.hipaa_164_308_a_7_ii_A_rds_db_instance_backup_enabled,
