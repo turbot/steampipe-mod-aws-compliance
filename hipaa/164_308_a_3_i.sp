@@ -122,10 +122,10 @@ control "hipaa_164_308_a_3_i_iam_user_with_no_policy" {
   title         = "IAM users should not have IAM policies attached"
   description   = "This rule ensures AWS Identity and Access Management (IAM) policies are attached only to groups or roles to control access to systems and assets."
   sql           = query.iam_user_no_policies.sql
-  #documentation = file("./hipaa/docs/hipaa_164_308_a_3_i_iam_user_no_policy.md")
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_3_i_iam_user_with_no_policy.md")
 
   tags = merge(local.hipaa_164_308_a_3_i_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_3_i_iam_user_no_policy"
+    hipaa_item_id = "hipaa_164_308_a_3_i_iam_user_with_no_policy"
   })
 }
 
