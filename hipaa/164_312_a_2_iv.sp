@@ -1,11 +1,12 @@
 locals {
   hipaa_164_312_a_2_iv_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_312_a_2_iv"
+    hipaa_item_id = "164_312_a_2_iv"
   })
 }
 
 benchmark "hipaa_164_312_a_2_iv" {
-  title         = "164.312(a)(2)(iv))"
+  title         = "164.312(a)(2)(iv) Encryption and decryption"
+  description   = "Implement a mechanism to encrypt and decrypt electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv.md")
   children = [
     control.hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled,
@@ -34,7 +35,7 @@ control "hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled" 
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled"
+    service     = "apigateway"
   })
 }
 
@@ -45,7 +46,7 @@ control "hipaa_164_312_a_2_iv_cloudtrail_logs_encrypted_with_kms_cmk" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_cloudtrail_logs_encrypted_with_kms_cmk.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_cloudtrail_logs_encrypted_with_kms_cmk"
+    service     = "cloudtrail"
   })
 }
 
@@ -56,7 +57,7 @@ control "hipaa_164_312_a_2_iv_log_group_encryption_at_rest_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_log_group_encryption_at_rest_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_log_group_encryption_at_rest_enabled"
+    service     = "cloudwatch"
   })
 }
 
@@ -67,7 +68,7 @@ control "hipaa_164_312_a_2_iv_efs_file_system_encrypt_data_at_rest" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_efs_file_system_encrypt_data_at_rest.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_efs_file_system_encrypt_data_at_rest"
+    service     = "efs"
   })
 }
 
@@ -78,7 +79,7 @@ control "hipaa_164_312_a_2_iv_es_domain_encryption_at_rest_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_es_domain_encryption_at_rest_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_es_domain_encryption_at_rest_enabled"
+    service     = "es"
   })
 }
 
@@ -89,7 +90,7 @@ control "hipaa_164_312_a_2_iv_ebs_volume_encryption_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_ebs_volume_encryption_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_ebs_volume_encryption_enabled"
+    service     = "ebs"
   })
 }
 
@@ -100,7 +101,7 @@ control "hipaa_164_312_a_2_iv_kms_key_not_pending_deletion" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_kms_key_not_pending_deletion.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_kms_key_not_pending_deletion"
+    service     = "kms"
   })
 }
 
@@ -111,7 +112,7 @@ control "hipaa_164_312_a_2_iv_rds_db_snapshot_encrypted_at_rest" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_rds_db_snapshot_encrypted_at_rest.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_rds_db_snapshot_encrypted_at_rest"
+    service     = "rds"
   })
 }
 
@@ -122,7 +123,7 @@ control "hipaa_164_312_a_2_iv_rds_db_instance_encryption_at_rest_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_rds_db_instance_encryption_at_rest_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_rds_db_instance_encryption_at_rest_enabled"
+    service     = "rds"
   })
 }
 
@@ -133,7 +134,7 @@ control "hipaa_164_312_a_2_iv_redshift_cluster_encryption_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_redshift_cluster_encryption_logging_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_redshift_cluster_encryption_logging_enabled"
+    service     = "redshift"
   })
 }
 
@@ -144,7 +145,7 @@ control "hipaa_164_312_a_2_iv_redshift_cluster_encryption_in_transit_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_redshift_cluster_encryption_in_transit_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_redshift_cluster_encryption_in_transit_enabled"
+    service     = "redshift"
   })
 }
 
@@ -155,7 +156,7 @@ control "hipaa_164_312_a_2_iv_s3_bucket_default_encryption_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_s3_bucket_default_encryption_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_s3_bucket_default_encryption_enabled"
+    service     = "s3"
   })
 }
 
@@ -166,7 +167,7 @@ control "hipaa_164_312_a_2_iv_s3_bucket_enforces_ssl" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_s3_bucket_enforces_ssl.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_s3_bucket_enforces_ssl"
+    service     = "s3"
   })
 }
 
@@ -177,7 +178,7 @@ control "hipaa_164_312_a_2_iv_sagemaker_notebook_instance_encryption_at_rest_ena
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_sagemaker_notebook_instance_encryption_at_rest_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_sagemaker_notebook_instance_encryption_at_rest_enabled"
+    service     = "sagemaker"
   })
 }
 
@@ -188,6 +189,6 @@ control "hipaa_164_312_a_2_iv_sns_topic_encrypted_at_rest" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_iv_sns_topic_encrypted_at_rest.md")
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
-    hipaa_item_id  = "hipaa_164_312_a_2_iv_sns_topic_encrypted_at_rest"
+    service     = "sns"
   })
 }
