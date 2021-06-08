@@ -41,9 +41,9 @@ control "hipaa_164_312_a_2_ii_rds_db_instance_backup_enabled" {
 }
 
 control "hipaa_164_312_a_2_ii_elasticache_redis_cluster_automatic_backup_enabled" {
-  title         = "Elasticache redis cluster automatic backup should be enabled"
+  title         = "ElastiCache Redis cluster automatic backup should be enabled"
   description   = "When automatic backups are enabled, Amazon ElastiCache creates a backup of the cluster on a daily basis. The backup can be retained for a number of days as specified by your organization. Automatic backups can help guard against data loss."
-  sql           = query.elasticache_redis_cluster_automatic_backup_enabled.sql
+  sql           = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_ii_elasticache_redis_cluster_automatic_backup_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_2_ii_common_tags, {
