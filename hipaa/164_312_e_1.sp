@@ -101,7 +101,7 @@ control "hipaa_164_312_e_1_s3_bucket_enforces_ssl" {
 control "hipaa_164_312_e_1_vpc_security_group_authorized_port" {
   title         = "Security groups with inbound 0.0.0.0/0 should not have TCP or UDP ports accessible"
   description   = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) Security Groups."
-  sql           = query.vpc_security_group_authorized_port.sql
+  sql           = query.vpc_security_group_no_ingress_tcp_udp_all.sql
   #documentation = file("./hipaa/docs/hipaa_164_312_e_1_vpc_security_group_authorized_port.md")
 
   tags = merge(local.hipaa_164_312_e_1_common_tags, {
