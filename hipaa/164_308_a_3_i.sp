@@ -12,6 +12,7 @@ benchmark "hipaa_164_308_a_3_i" {
     control.hipaa_164_308_a_3_i_dms_replication_instances_not_publicly_accessible,
     control.hipaa_164_308_a_3_i_ebs_snapshot_not_publicly_restorable,
     control.hipaa_164_308_a_3_i_ec2_instance_no_public_ip,
+    control.hipaa_164_308_a_3_i_ec2_instance_in_vpc,
     control.hipaa_164_308_a_3_i_es_domain_in_vpc,
     control.hipaa_164_308_a_3_i_iam_group_not_empty,
     control.hipaa_164_308_a_3_i_iam_policy_no_star_star,
@@ -61,6 +62,17 @@ control "hipaa_164_308_a_3_i_ec2_instance_no_public_ip" {
 
   tags = merge(local.hipaa_164_308_a_3_i_common_tags, {
     service = "ec2"
+  })
+}
+
+control "hipaa_164_308_a_3_i_ec2_instance_in_vpc" {
+  title         = "EC2 instance should be in VPC"
+  description   = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
+  sql           = query.ec2_instance_in_vpc.sql
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_3_i_ec2_instance_in_vpc.md")
+
+  tags = merge(local.hipaa_164_308_a_3_i_common_tags, {
+    service     = "ec2"
   })
 }
 
