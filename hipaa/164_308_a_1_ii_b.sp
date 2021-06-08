@@ -277,7 +277,7 @@ control "hipaa_164_308_a_1_ii_b_emr_cluster_master_nodes_no_public_ip" {
 
 control "hipaa_164_308_a_1_ii_b_ebs_volume_encryption_enabled" {
   title         = "EBS volume encryption should be enabled"
-  description   = "Because senstive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  description   = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
   sql           = query.ebs_volume_encryption_enabled.sql
   #documentation = file("./hipaa/docs/hipaa_164_308_a_1_ii_b_ebs_volume_encryption_enabled.md")
 
