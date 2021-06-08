@@ -20,6 +20,7 @@ benchmark "hipaa_164_308_a_3_ii_a" {
     control.hipaa_164_308_a_3_ii_a_iam_root_user_hardware_mfa,
     control.hipaa_164_308_a_3_ii_a_iam_root_user_mfa,
     control.hipaa_164_308_a_3_ii_a_s3_bucket_logging_enabled,
+    control.hipaa_164_308_a_3_ii_a_securityhub_enabled,
     control.hipaa_164_308_a_3_ii_a_vpc_flow_log_enabled
   ]
   tags          = local.hipaa_164_308_a_3_ii_a_common_tags
@@ -143,6 +144,17 @@ control "hipaa_164_308_a_3_ii_a_s3_bucket_logging_enabled" {
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service  = "s3"
+  })
+}
+
+control "hipaa_164_308_a_3_ii_a_securityhub_enabled" {
+  title         = "AWS Security Hub should be enabled for an AWS Account"
+  description   = "AWS Security Hub helps to monitor unauthorized personnel, connections, devices, and software. AWS Security Hub aggregates, organizes, and prioritizes the security alerts, or findings, from multiple AWS services."
+  sql           = query.securityhub_enabled.sql
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_3_ii_a_securityhub_enabled.md")
+
+  tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
+    service = "securityhub"
   })
 }
 

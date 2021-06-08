@@ -10,6 +10,7 @@ benchmark "hipaa_164_308_a_6_i" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_i.md")
   children = [
     control.hipaa_164_308_a_6_i_guardduty_enabled,
+    control.hipaa_164_308_a_6_i_securityhub_enabled
   ]
   tags          = local.hipaa_164_308_a_6_i_common_tags
 }
@@ -22,5 +23,16 @@ control "hipaa_164_308_a_6_i_guardduty_enabled" {
 
   tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
     service     = "guardduty"
+  })
+}
+
+control "hipaa_164_308_a_6_i_securityhub_enabled" {
+  title         = "AWS Security Hub should be enabled for an AWS Account"
+  description   = "AWS Security Hub helps to monitor unauthorized personnel, connections, devices, and software. AWS Security Hub aggregates, organizes, and prioritizes the security alerts, or findings, from multiple AWS services."
+  sql           = query.securityhub_enabled.sql
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_6_i_securityhub_enabled.md")
+
+  tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
+    service = "securityhub"
   })
 }
