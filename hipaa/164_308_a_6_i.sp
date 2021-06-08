@@ -1,11 +1,11 @@
 locals {
   hipaa_164_308_a_6_i_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_6_i"
+    hipaa_item_id = "164_308_a_6_i"
   })
 }
 
 benchmark "hipaa_164_308_a_6_i" {
-  title         = "164.308(a)(6)(i)"
+  title         = "164.308(a)(6)(i) Security incident procedures"
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_i.md")
   children = [
     control.hipaa_164_308_a_6_i_guardduty_enabled,
@@ -20,6 +20,6 @@ control "hipaa_164_308_a_6_i_guardduty_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_i_guardduty_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_i_guardduty_enabled"
+    service     = "guardduty"
   })
 }
