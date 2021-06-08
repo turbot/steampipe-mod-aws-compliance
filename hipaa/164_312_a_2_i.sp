@@ -6,6 +6,7 @@ locals {
 
 benchmark "hipaa_164_312_a_2_i" {
   title         = "164.312(a)(2)(i) Unique user identification"
+  description   = "Assign a unique name and/or number for identifying and tracking user identity."
   #documentation = file("./hipaa/docs/hipaa_164_312_a_2_i.md")
   children = [
     control.hipaa_164_312_a_2_i_iam_root_user_with_no_access_key

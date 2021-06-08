@@ -6,6 +6,7 @@ locals {
 
 benchmark "hipaa_164_308_a_4_ii_b" {
   title         = "164.308(a)(4)(ii)(B) Access authorization"
+  description   = "iImplement policies and procedures for granting access to electronic protected health information, As one illustrative example, through access to a workstation, transaction, program, process, or other mechanism."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_b.md")
   children = [
     control.hipaa_164_308_a_4_ii_b_iam_group_not_empty,
