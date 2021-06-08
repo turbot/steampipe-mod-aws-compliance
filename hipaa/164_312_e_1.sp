@@ -9,14 +9,14 @@ benchmark "hipaa_164_312_e_1" {
   description   = "Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network."
   #documentation = file("./hipaa/docs/hipaa_164_312_e_1.md")
   children = [
-    control.hipaa_164_312_e_1_es_domain_in_vpc,
-    control.hipaa_164_312_e_1_elb_classic_lb_use_ssl_certificate,
-    control.hipaa_164_312_e_1_vpc_security_group_remote_administration,
     control.hipaa_164_312_e_1_ec2_instance_in_vpc,
+    control.hipaa_164_312_e_1_elb_classic_lb_use_ssl_certificate,
+    control.hipaa_164_312_e_1_es_domain_in_vpc,
     control.hipaa_164_312_e_1_lambda_function_in_vpc,
     control.hipaa_164_312_e_1_redshift_cluster_encryption_in_transit_enabled,
     control.hipaa_164_312_e_1_s3_bucket_enforces_ssl,
-    control.hipaa_164_312_e_1_vpc_security_group_authorized_port
+    control.hipaa_164_312_e_1_vpc_security_group_authorized_port,
+    control.hipaa_164_312_e_1_vpc_security_group_remote_administration,
   ]
   tags = local.hipaa_164_312_e_1_common_tags
 }

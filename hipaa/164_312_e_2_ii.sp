@@ -9,21 +9,21 @@ benchmark "hipaa_164_312_e_2_ii" {
   description   = "Implement a mechanism to encrypt electronic protected health information whenever deemed appropriate."
   #documentation = file("./hipaa/docs/hipaa_1164_312_e_2_ii.md")
   children = [
-    control.hipaa_164_312_e_2_ii_ec2_application_lb_configured_to_redirect_http_request_to_https,
     control.hipaa_164_312_e_2_ii_apigateway_stage_cache_encrytion_at_rest_enabled,
     control.hipaa_164_312_e_2_ii_cloudtrail_logs_encrypted_with_kms_cmk,
-    control.hipaa_164_312_e_2_ii_log_group_encryption_at_rest_enabled,
-    control.hipaa_164_312_e_2_ii_efs_file_system_encrypt_data_at_rest,
-    control.hipaa_164_312_e_2_ii_es_domain_encryption_at_rest_enabled,
-    control.hipaa_164_312_e_2_ii_elb_classic_lb_use_ssl_certificate,
     control.hipaa_164_312_e_2_ii_ebs_volume_encryption_enabled,
+    control.hipaa_164_312_e_2_ii_ec2_application_lb_configured_to_redirect_http_request_to_https,
+    control.hipaa_164_312_e_2_ii_efs_file_system_encrypt_data_at_rest,
+    control.hipaa_164_312_e_2_ii_elb_classic_lb_use_ssl_certificate,
+    control.hipaa_164_312_e_2_ii_es_domain_encryption_at_rest_enabled,
+    control.hipaa_164_312_e_2_ii_log_group_encryption_at_rest_enabled,
     control.hipaa_164_312_e_2_ii_rds_db_instance_encryption_at_rest_enabled,
+    control.hipaa_164_312_e_2_ii_rds_db_snapshot_encrypted_at_rest,
     control.hipaa_164_312_e_2_ii_redshift_cluster_encryption_in_transit_enabled,
     control.hipaa_164_312_e_2_ii_s3_bucket_default_encryption_enabled,
     control.hipaa_164_312_e_2_ii_s3_bucket_enforces_ssl,
     control.hipaa_164_312_e_2_ii_sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.hipaa_164_312_e_2_ii_sns_topic_encrypted_at_rest,
-    control.hipaa_164_312_e_2_ii_rds_db_snapshot_encrypted_at_rest
   ]
   tags          = local.hipaa_164_312_e_2_ii_common_tags
 }

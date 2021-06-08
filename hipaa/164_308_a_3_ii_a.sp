@@ -14,11 +14,11 @@ benchmark "hipaa_164_308_a_3_ii_a" {
     control.hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_emr_cluster_kerberos_enabled,
     control.hipaa_164_308_a_3_ii_a_guardduty_enabled,
-    control.hipaa_164_308_a_3_ii_a_iam_user_mfa_enabled,
     control.hipaa_164_308_a_3_ii_a_iam_console_access_mfa_enabled,
-    control.hipaa_164_308_a_3_ii_a_redshift_cluster_encryption_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_iam_root_user_hardware_mfa,
     control.hipaa_164_308_a_3_ii_a_iam_root_user_mfa,
+    control.hipaa_164_308_a_3_ii_a_iam_user_mfa_enabled,
+    control.hipaa_164_308_a_3_ii_a_redshift_cluster_encryption_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_s3_bucket_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_securityhub_enabled,
     control.hipaa_164_308_a_3_ii_a_vpc_flow_log_enabled

@@ -11,24 +11,24 @@ benchmark "hipaa_164_312_a_1" {
   children = [
     control.hipaa_164_312_a_1_dms_replication_instances_not_publicly_accessible,
     control.hipaa_164_312_a_1_ebs_snapshot_not_publicly_restorable,
+    control.hipaa_164_312_a_1_ec2_instance_in_vpc,
     control.hipaa_164_312_a_1_ec2_instance_no_public_ip,
-    control.hipaa_164_312_a_1_es_domain_in_vpc,
     control.hipaa_164_312_a_1_emr_cluster_kerberos_enabled,
     control.hipaa_164_312_a_1_emr_cluster_master_nodes_no_public_ip,
+    control.hipaa_164_312_a_1_es_domain_in_vpc,
     control.hipaa_164_312_a_1_iam_group_not_empty,
     control.hipaa_164_312_a_1_iam_policy_no_star_star,
     control.hipaa_164_312_a_1_iam_user_with_group,
     control.hipaa_164_312_a_1_iam_user_with_no_policy,
-    control.hipaa_164_312_a_1_ec2_instance_in_vpc,
-    control.hipaa_164_312_a_1_lambda_function_restrict_public_access,
     control.hipaa_164_312_a_1_lambda_function_in_vpc,
+    control.hipaa_164_312_a_1_lambda_function_restrict_public_access,
     control.hipaa_164_312_a_1_rds_db_instance_prohibit_public_access,
     control.hipaa_164_312_a_1_rds_snapshot_prohibit_public_access,
     control.hipaa_164_312_a_1_redshift_cluster_prohibit_public_access,
-    control.hipaa_164_312_a_1_s3_public_access_block_bucket_account,
     control.hipaa_164_312_a_1_s3_bucket_restrict_public_read_access,
     control.hipaa_164_312_a_1_s3_bucket_restrict_public_write_access,
-    control.hipaa_164_312_a_1_sagemaker_notebook_instance_no_direct_internet_access
+    control.hipaa_164_312_a_1_s3_public_access_block_bucket_account,
+    control.hipaa_164_312_a_1_sagemaker_notebook_instance_no_direct_internet_access,
   ]
   tags = local.hipaa_164_312_a_1_common_tags
 }

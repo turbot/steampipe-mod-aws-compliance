@@ -9,10 +9,10 @@ benchmark "hipaa_164_308_a_7_ii_a" {
   description   = "Establish and implement procedures to create and maintain retrievable exact copies of electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a.md")
   children = [
-    control.hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled,
     control.hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled,
-    control.hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled,
+    control.hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled,
     control.hipaa_164_308_a_7_ii_a_s3_bucket_cross_region_replication_enabled,
+    control.hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled,
   ]
   tags          = local.hipaa_164_308_a_7_ii_a_common_tags
 }

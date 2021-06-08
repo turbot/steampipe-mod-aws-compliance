@@ -9,15 +9,15 @@ benchmark "hipaa_164_308_a_4_ii_c" {
   description   = "Implement policies and procedures that, based upon the covered entity's or the business associate's access authorization policies, establish, document, review, and modify a user's right of access to a workstation, transaction, program, or process."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c.md")
   children = [
-    control.hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled,
-    control.hipaa_164_308_a_4_ii_c_iam_user_access_key_age_90,
-    control.hipaa_164_308_a_4_ii_c_iam_group_not_empty,
     control.hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24,
+    control.hipaa_164_308_a_4_ii_c_iam_group_not_empty,
     control.hipaa_164_308_a_4_ii_c_iam_policy_no_statements_with_admin_access,
     control.hipaa_164_308_a_4_ii_c_iam_root_user_access_key,
-    control.hipaa_164_308_a_4_ii_c_iam_user_with_group,
+    control.hipaa_164_308_a_4_ii_c_iam_user_access_key_age_90,
     control.hipaa_164_308_a_4_ii_c_iam_user_no_policies,
-    control.hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90
+    control.hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90,
+    control.hipaa_164_308_a_4_ii_c_iam_user_with_group,
+    control.hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled
   ]
   tags          = local.hipaa_164_308_a_4_ii_c_common_tags
 }

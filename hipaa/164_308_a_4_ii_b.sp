@@ -5,13 +5,13 @@ locals {
 }
 
 benchmark "hipaa_164_308_a_4_ii_b" {
-  title         = "164.308(a)(4)(ii)(B)"
+  title         = "164.308(a)(4)(ii)(B) Access authorization"
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_b.md")
   children = [
     control.hipaa_164_308_a_4_ii_b_iam_group_not_empty,
     control.hipaa_164_308_a_4_ii_b_iam_policy_no_star_star,
-    control.hipaa_164_308_a_4_ii_b_iam_user_with_group,
-    control.hipaa_164_308_a_4_ii_b_iam_user_no_policies
+    control.hipaa_164_308_a_4_ii_b_iam_user_no_policies,
+    control.hipaa_164_308_a_4_ii_b_iam_user_with_group
   ]
   tags          = local.hipaa_164_308_a_4_ii_b_common_tags
 }

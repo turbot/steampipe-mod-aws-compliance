@@ -9,14 +9,14 @@ benchmark "hipaa_164_312_e_2_i" {
   description   = "Implement security measures to ensure that electronically transmitted electronic protected health information is not improperly modified without detection until disposed of."
   #documentation = file("./hipaa/docs/hipaa_164_312_e_2_i.md")
   children = [
-    control.hipaa_164_312_e_2_i_ec2_application_lb_configured_to_redirect_http_request_to_https,
     control.hipaa_164_312_e_2_i_cloudtrail_integrated_with_logs,
     control.hipaa_164_312_e_2_i_cloudtrail_s3_data_events_enabled,
+    control.hipaa_164_312_e_2_i_ec2_application_lb_configured_to_redirect_http_request_to_https,
     control.hipaa_164_312_e_2_i_elb_classic_lb_use_ssl_certificate,
     control.hipaa_164_312_e_2_i_guardduty_enabled,
     control.hipaa_164_312_e_2_i_redshift_cluster_encryption_in_transit_enabled,
-    control.hipaa_164_312_e_2_i_s3_bucket_logging_enabled,
     control.hipaa_164_312_e_2_i_s3_bucket_enforces_ssl,
+    control.hipaa_164_312_e_2_i_s3_bucket_logging_enabled,
     control.hipaa_164_312_e_2_i_securityhub_enabled
   ]
   tags          = local.hipaa_164_312_e_2_i_common_tags
