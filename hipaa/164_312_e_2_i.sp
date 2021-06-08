@@ -110,6 +110,7 @@ control "hipaa_164_312_e_2_i_s3_bucket_enforces_ssl" {
   })
 }
 
+/*
 control "hipaa_164_312_e_2_i_securityhub_enabled" {
   title         = "AWS Security Hub should be enabled for an AWS Account"
   description   = "AWS Security Hub helps to monitor unauthorized personnel, connections, devices, and software. AWS Security Hub aggregates, organizes, and prioritizes the security alerts, or findings, from multiple AWS services."
@@ -120,3 +121,4 @@ control "hipaa_164_312_e_2_i_securityhub_enabled" {
     service     = "securityhub"
   })
 }
+*/
