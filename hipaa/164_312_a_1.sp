@@ -1,11 +1,12 @@
 locals {
   hipaa_164_312_a_1_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_control_id = "hipaa_164_312_a_1"
+    hipaa_item_id = "hipaa_164_312_a_1"
   })
 }
 
 benchmark "hipaa_164_312_a_1" {
-  title         = "164.312(a)(1)"
+  title         = "164.312(a)(1) Access control"
+  description   = "Implement technical policies and procedures for electronic information systems that maintain electronic protected health information to allow access only to those persons or software programs that have been granted access rights as specified in 164.308(a)(4)."
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1.md")
   children = [
     control.hipaa_164_312_a_1_dms_replication_instances_not_publicly_accessible,
@@ -18,6 +19,7 @@ benchmark "hipaa_164_312_a_1" {
     control.hipaa_164_312_a_1_iam_policy_no_star_star,
     control.hipaa_164_312_a_1_iam_user_with_group,
     control.hipaa_164_312_a_1_iam_user_with_no_policy,
+    control.hipaa_164_312_a_1_ec2_instance_in_vpc,
     control.hipaa_164_312_a_1_lambda_function_restrict_public_access,
     control.hipaa_164_312_a_1_lambda_function_in_vpc,
     control.hipaa_164_312_a_1_rds_db_instance_prohibit_public_access,
@@ -32,24 +34,24 @@ benchmark "hipaa_164_312_a_1" {
 }
 
 control "hipaa_164_312_a_1_dms_replication_instances_not_publicly_accessible" {
-  title         = "AWS Database Migration Service replication instances should not be public"
+  title         = "AWS Database Migration Service replication instances should not be publicly accessible"
   description   = "Manage access to the AWS Cloud by ensuring DMS replication instances cannot be publicly accessed."
   sql           = query.dms_replication_instances_not_publicly_accessible.sql
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_dms_replication_instances_not_publicly_accessible.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_dms_replication_instances_not_publicly_accessible"
+    service = "dms"
   })
 }
 
 control "hipaa_164_312_a_1_ebs_snapshot_not_publicly_restorable" {
-  title         = "Amazon EBS snapshots should not publicly restorable"
+  title         = "Amazon EBS snapshots should not be publicly restorable"
   description   = "Manage access to the AWS Cloud by ensuring EBS snapshots are not publicly restorable."
   sql           = query.ebs_snapshot_not_publicly_restorable.sql
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_ebs_snapshot_not_publicly_restorable.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_ebs_snapshot_not_publicly_restorable"
+    service = "ebs"
   })
 }
 
@@ -60,7 +62,7 @@ control "hipaa_164_312_a_1_ec2_instance_no_public_ip" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_ec2_instance_no_public_ip.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_ec2_instance_no_public_ip"
+    service = "ec2"
   })
 }
 
@@ -71,7 +73,7 @@ control "hipaa_164_312_a_1_es_domain_in_vpc" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_es_domain_in_vpc.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_es_domain_in_vpc"
+    service = "es"
   })
 }
 
@@ -82,7 +84,7 @@ control "hipaa_164_312_a_1_emr_cluster_kerberos_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_emr_cluster_kerberos_enabled.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_emr_cluster_kerberos_enabled"
+    service = "emr"
   })
 }
 
@@ -93,7 +95,7 @@ control "hipaa_164_312_a_1_emr_cluster_master_nodes_no_public_ip" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_emr_cluster_master_nodes_no_public_ip.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_emr_cluster_master_nodes_no_public_ip"
+    service = "emr"
   })
 }
 
@@ -104,7 +106,7 @@ control "hipaa_164_312_a_1_iam_group_not_empty" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_iam_group_not_empty.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_iam_group_not_empty"
+    service = "iam"
   })
 }
 
@@ -115,7 +117,7 @@ control "hipaa_164_312_a_1_iam_policy_no_star_star" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_iam_policy_no_star_star.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_iam_policy_no_star_star"
+    service = "iam"
   })
 }
 
@@ -126,7 +128,7 @@ control "hipaa_164_312_a_1_iam_user_with_group" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_iam_user_with_group.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_iam_user_with_group"
+    service = "iam"
   })
 }
 
@@ -137,7 +139,18 @@ control "hipaa_164_312_a_1_iam_user_with_no_policy" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_iam_user_with_no_policy.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_iam_user_with_no_policy"
+    service = "iam"
+  })
+}
+
+control "hipaa_164_312_a_1_ec2_instance_in_vpc" {
+  title         = "EC2 instance should be in VPC"
+  description   = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
+  sql           = query.ec2_instance_in_vpc.sql
+  #documentation = file("./hipaa/docs/hipaa_164_312_a_1_ec2_instance_in_vpc.md")
+
+  tags = merge(local.hipaa_164_312_a_1_common_tags, {
+    service     = "ec2"
   })
 }
 
@@ -148,7 +161,7 @@ control "hipaa_164_312_a_1_lambda_function_restrict_public_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_lambda_function_restrict_public_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_lambda_function_restrict_public_access"
+    service = "lambda"
   })
 }
 
@@ -159,7 +172,7 @@ control "hipaa_164_312_a_1_lambda_function_in_vpc" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_lambda_function_in_vpc.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_lambda_function_in_vpc"
+    service = "lambda"
   })
 }
 
@@ -170,7 +183,7 @@ control "hipaa_164_312_a_1_rds_db_instance_prohibit_public_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_rds_db_instance_prohibit_public_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_rds_db_instance_prohibit_public_access"
+    service = "rds"
   })
 }
 
@@ -181,7 +194,7 @@ control "hipaa_164_312_a_1_rds_snapshot_prohibit_public_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_rds_snapshot_prohibit_public_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_rds_snapshot_prohibit_public_access"
+    service = "rds"
   })
 }
 
@@ -192,7 +205,7 @@ control "hipaa_164_312_a_1_redshift_cluster_prohibit_public_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_redshift_cluster_prohibit_public_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_redshift_cluster_prohibit_public_access"
+    service = "redshift"
   })
 }
 
@@ -203,7 +216,7 @@ control "hipaa_164_312_a_1_s3_public_access_block_bucket_account" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_s3_public_access_block_bucket_account.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_s3_public_access_block_bucket_account"
+    service = "s3"
   })
 }
 
@@ -214,7 +227,7 @@ control "hipaa_164_312_a_1_s3_bucket_restrict_public_read_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_s3_bucket_restrict_public_read_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_s3_bucket_restrict_public_read_access"
+    service = "s3"
   })
 }
 
@@ -225,7 +238,7 @@ control "hipaa_164_312_a_1_s3_bucket_restrict_public_write_access" {
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_s3_bucket_restrict_public_write_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_s3_bucket_restrict_public_write_access"
+    service = "s3"
   })
 }
 
@@ -236,6 +249,6 @@ control "hipaa_164_312_a_1_sagemaker_notebook_instance_no_direct_internet_access
   #documentation = file("./hipaa/docs/hipaa_164_312_a_1_sagemaker_notebook_instance_no_direct_internet_access.md")
 
   tags = merge(local.hipaa_164_312_a_1_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_1_sagemaker_notebook_instance_no_direct_internet_access"
+    service = "sagemaker"
   })
 }

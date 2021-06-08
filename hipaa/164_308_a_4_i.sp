@@ -1,11 +1,12 @@
 locals {
   hipaa_164_308_a_4_i_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_control_id = "hipaa_164_308_a_4_i"
+    hipaa_item_id = "hipaa_164_308_a_4_i"
   })
 }
 
 benchmark "hipaa_164_308_a_4_i" {
-  title         = "164.308(a)(4)(i)"
+  title         = "164.308(a)(4)(i) Information access management"
+  description   = "Implement policies and procedures for authorizing access to electronic protected health information that are consistent with the applicable requirements of subpart E of this part."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_i.md")
   children = [
     control.hipaa_164_308_a_4_i_iam_group_not_empty,
@@ -23,7 +24,7 @@ control "hipaa_164_308_a_4_i_iam_group_not_empty" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_i_iam_group_not_empty.md")
 
   tags = merge(local.hipaa_164_308_a_4_i_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_i_iam_group_not_empty"
+    service = "iam"
   })
 }
 
@@ -34,7 +35,7 @@ control "hipaa_164_308_a_4_i_iam_policy_no_star_star" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_i_iam_policy_no_star_star.md")
 
   tags = merge(local.hipaa_164_308_a_4_i_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_i_iam_policy_no_star_star"
+    service = "iam"
   })
 }
 
@@ -45,7 +46,7 @@ control "hipaa_164_308_a_4_i_iam_user_with_group" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_i_iam_user_with_group.md")
 
   tags = merge(local.hipaa_164_308_a_4_i_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_i_iam_user_with_group"
+    service = "iam"
   })
 }
 
@@ -56,6 +57,6 @@ control "hipaa_164_308_a_4_i_iam_user_with_no_policy" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_i_iam_user_with_no_policy.md")
 
   tags = merge(local.hipaa_164_308_a_4_i_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_i_iam_user_with_no_policy"
+    service = "iam"
   })
 }

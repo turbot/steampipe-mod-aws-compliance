@@ -1,11 +1,12 @@
 locals {
   hipaa_164_308_a_7_ii_a_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_7_ii_a"
+    hipaa_item_id = "164_308_a_7_ii_a"
   })
 }
 
 benchmark "hipaa_164_308_a_7_ii_a" {
-  title         = "164.308(a)(7)(ii)(A)"
+  title         = "164.308(a)(7)(ii)(A) Data backup plan"
+  description   = "Establish and implement procedures to create and maintain retrievable exact copies of electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a.md")
   children = [
     control.hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled,
@@ -23,7 +24,7 @@ control "hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled"
+    service     = "rds"
   })
 }
 
@@ -34,7 +35,7 @@ control "hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled"
+    service     = "dynamodb"
   })
 }
 
@@ -45,7 +46,7 @@ control "hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled"
+    service     = "s3"
   })
 }
 
@@ -56,6 +57,6 @@ control "hipaa_164_308_a_7_ii_a_s3_bucket_cross_region_replication_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_ii_a_s3_bucket_cross_region_replication_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_ii_a_s3_bucket_cross_region_replication_enabled"
+    service     = "s3"
   })
 }

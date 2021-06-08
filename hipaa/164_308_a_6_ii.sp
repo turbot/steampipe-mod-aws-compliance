@@ -1,11 +1,12 @@
 locals {
   hipaa_164_308_a_6_ii_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_1_ii_B"
+    hipaa_item_id = "164_308_a_6_ii"
   })
 }
 
 benchmark "hipaa_164_308_a_6_ii" {
-  title         = "164.308(a)(6)(ii))"
+  title         = "164.308(a)(6)(ii) Response and reporting"
+  description   = "Identify and respond to suspected or known security incidents; mitigate, to the extent practicable, harmful effects of security incidents that are known to the covered entity or business associate; and document security incidents and their outcomes."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_iiB.md")
   children = [
     control.hipaa_164_308_a_6_ii_apigateway_stage_logging_enabled,
@@ -14,7 +15,8 @@ benchmark "hipaa_164_308_a_6_ii" {
     control.hipaa_164_308_a_6_ii_elb_application_classic_logging_enabled,
     control.hipaa_164_308_a_6_ii_guardduty_enabled,
     control.hipaa_164_308_a_6_ii_s3_bucket_logging_enabled,
-    control.hipaa_164_308_a_6_ii_vpc_flow_log_enabled,
+    control.hipaa_164_308_a_6_ii_securityhub_enabled,
+    control.hipaa_164_308_a_6_ii_vpc_flow_log_enabled
   ]
   tags          = local.hipaa_164_308_a_6_ii_common_tags
 }
@@ -26,7 +28,7 @@ control "hipaa_164_308_a_6_ii_apigateway_stage_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_apigateway_stage_logging_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_apigateway_stage_logging_enabled"
+    service     = "apigateway"
   })
 }
 
@@ -37,7 +39,7 @@ control "hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs"
+    service     = "cloudtrail"
   })
 }
 
@@ -48,7 +50,7 @@ control "hipaa_164_308_a_6_ii_cloudtrail_s3_data_events_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_cloudtrail_s3_data_events_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_cloudtrail_s3_data_events_enabled"
+    service     = "cloudtrail"
   })
 }
 
@@ -59,7 +61,7 @@ control "hipaa_164_308_a_6_ii_elb_application_classic_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_elb_application_classic_logging_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_elb_application_classic_logging_enabled"
+    service     = "elb"
   })
 }
 
@@ -70,7 +72,7 @@ control "hipaa_164_308_a_6_ii_guardduty_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_guardduty_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_guardduty_enabled"
+    service     = "guardduty"
   })
 }
 
@@ -81,7 +83,18 @@ control "hipaa_164_308_a_6_ii_s3_bucket_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_s3_bucket_logging_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_s3_bucket_logging_enabled"
+    service     = "s3"
+  })
+}
+
+control "hipaa_164_308_a_6_ii_securityhub_enabled" {
+  title         = "AWS Security Hub should be enabled for an AWS Account"
+  description   = "AWS Security Hub helps to monitor unauthorized personnel, connections, devices, and software. AWS Security Hub aggregates, organizes, and prioritizes the security alerts, or findings, from multiple AWS services."
+  sql           = query.securityhub_enabled.sql
+  #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_securityhub_enabled.md")
+
+  tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
+    service = "securityhub"
   })
 }
 
@@ -92,6 +105,6 @@ control "hipaa_164_308_a_6_ii_vpc_flow_log_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_6_ii_vpc_flow_log_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_6_ii_vpc_flow_log_enabled"
+    service     = "vpc"
   })
 }

@@ -1,11 +1,12 @@
 locals {
   hipaa_164_312_b_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_control_id = "hipaa_164_312_b"
+    hipaa_item_id = "hipaa_164_312_b"
   })
 }
 
 benchmark "hipaa_164_312_b" {
-  title         = "164.312(b)"
+  title         = "164.312(b) Audit controls"
+  description   = "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_312_b.md")
   children = [
     control.hipaa_164_312_b_apigateway_stage_logging_enabled,
@@ -15,6 +16,7 @@ benchmark "hipaa_164_312_b" {
     control.hipaa_164_312_b_guardduty_enabled,
     control.hipaa_164_312_b_redshift_cluster_encryption_logging_enabled,
     control.hipaa_164_312_b_s3_bucket_logging_enabled,
+    control.hipaa_164_312_b_securityhub_enabled,
     control.hipaa_164_312_b_vpc_flow_log_enabled
   ]
   tags = local.hipaa_164_312_b_common_tags
@@ -27,7 +29,7 @@ control "hipaa_164_312_b_apigateway_stage_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_apigateway_stage_logging_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_apigateway_stage_logging_enabled"
+    service = "apigateway"
   })
 }
 
@@ -38,7 +40,7 @@ control "hipaa_164_312_b_cloudtrail_cloudwatch_logs_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_cloudtrail_cloudwatch_logs_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_cloudtrail_cloudwatch_logs_enabled"
+    service = "cloudtrail"
   })
 }
 
@@ -49,7 +51,7 @@ control "hipaa_164_312_b_cloudtrail_s3_data_events_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_cloudtrail_s3_data_events_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_cloudtrail_s3_data_events_enabled"
+    service = "cloudtrail"
   })
 }
 
@@ -60,7 +62,7 @@ control "hipaa_164_312_b_elb_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_elb_logging_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_elb_logging_enabled"
+    service = "elb"
   })
 }
 
@@ -71,7 +73,7 @@ control "hipaa_164_312_b_guardduty_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_guardduty_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_guardduty_enabled"
+    service = "guardduty"
   })
 }
 
@@ -82,7 +84,7 @@ control "hipaa_164_312_b_redshift_cluster_encryption_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_redshift_cluster_encryption_logging_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_redshift_cluster_encryption_logging_enabled"
+    service = "redshift"
   })
 }
 
@@ -93,7 +95,18 @@ control "hipaa_164_312_b_s3_bucket_logging_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_s3_bucket_logging_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_s3_bucket_logging_enabled"
+    service = "s3"
+  })
+}
+
+control "hipaa_164_312_b_securityhub_enabled" {
+  title         = "AWS Security Hub should be enabled for an AWS Account"
+  description   = "AWS Security Hub helps to monitor unauthorized personnel, connections, devices, and software. AWS Security Hub aggregates, organizes, and prioritizes the security alerts, or findings, from multiple AWS services."
+  sql           = query.securityhub_enabled.sql
+  #documentation = file("./hipaa/docs/hipaa_164_312_b_securityhub_enabled.md")
+
+  tags = merge(local.hipaa_164_312_b_common_tags, {
+    service = "securityhub"
   })
 }
 
@@ -104,6 +117,6 @@ control "hipaa_164_312_b_vpc_flow_log_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_312_b_vpc_flow_log_enabled.md")
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
-    hipaa_item_id = "hipaa_164_312_b_vpc_flow_log_enabled"
+    service = "vpc"
   })
 }

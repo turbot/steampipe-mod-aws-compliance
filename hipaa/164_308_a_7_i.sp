@@ -1,11 +1,12 @@
 locals {
   hipaa_164_308_a_7_i_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_7_i"
+    hipaa_item_id = "164_308_a_7_i"
   })
 }
 
 benchmark "hipaa_164_308_a_7_i" {
-  title         = "164.308(a)(7)(i)"
+  title         = "164.308(a)(7)(i) Contingency plan"
+  description   = "Establish (and implement as needed) policies and procedures for responding to an emergency or other occurrence (for example, fire, vandalism, system failure, and natural disaster) that damages systems that contain electronic protected health information."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_i.md")
   children = [
     control.hipaa_164_308_a_7_i_autoscaling_group_with_lb_use_healthcheck,
@@ -17,13 +18,13 @@ benchmark "hipaa_164_308_a_7_i" {
 }
 
 control "hipaa_164_308_a_7_i_autoscaling_group_with_lb_use_healthcheck" {
-  title         = "AutoScaling group with lb should use healthcheck"
+  title         = "AutoScaling group with LB should use healthcheck"
   description   = "The Elastic Load Balancer (ELB) health checks for Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling groups support maintenance of adequate capacity and availability."
   sql           = query.autoscaling_group_with_lb_use_healthcheck.sql
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_i_autoscaling_group_with_lb_use_healthcheck.md")
 
   tags = merge(local.hipaa_164_308_a_7_i_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_i_autoscaling_group_with_lb_use_healthcheck"
+    service     = "autoscaling"
   })
 }
 
@@ -34,7 +35,7 @@ control "hipaa_164_308_a_7_i_dynamodb_table_auto_scaling_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_i_dynamodb_table_auto_scaling_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_i_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_i_dynamodb_table_auto_scaling_enabled"
+    service     = "dynamodb"
   })
 }
 
@@ -45,7 +46,7 @@ control "hipaa_164_308_a_7_i_rds_db_instance_multiple_az_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_i_rds_db_instance_multiple_az_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_i_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_i_rds_db_instance_multiple_az_enabled"
+    service     = "rds"
   })
 }
 
@@ -56,6 +57,6 @@ control "hipaa_164_308_a_7_i_s3_bucket_cross_region_replication_enabled" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_7_i_s3_bucket_cross_region_replication_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_7_i_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_7_i_s3_bucket_cross_region_replication_enabled"
+    service     = "s3"
   })
 }

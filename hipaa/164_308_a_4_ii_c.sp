@@ -1,11 +1,12 @@
 locals {
   hipaa_164_308_a_4_ii_c_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_4_ii_c"
+    hipaa_item_id = "164_308_a_4_ii_c"
   })
 }
 
 benchmark "hipaa_164_308_a_4_ii_c" {
-  title         = "164.308(a)(4)(ii)(C)"
+  title         = "164.308(a)(4)(ii)(C) Access establishment and modification"
+  description   = "Implement policies and procedures that, based upon the covered entity's or the business associate's access authorization policies, establish, document, review, and modify a user's right of access to a workstation, transaction, program, or process."
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c.md")
   children = [
     control.hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled,
@@ -28,7 +29,7 @@ control "hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enable
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled"
+    service     = "secretsmanager"
   })
 }
 
@@ -39,7 +40,7 @@ control "hipaa_164_308_a_4_ii_c_iam_user_access_key_age_90" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_user_access_key_age_90.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_user_access_key_age_90"
+    service     = "iam"
   })
 }
 
@@ -50,7 +51,7 @@ control "hipaa_164_308_a_4_ii_c_iam_group_not_empty" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_group_not_empty.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_ii_c_iam_group_not_empty"
+    service     = "iam"
   })
 }
 
@@ -61,7 +62,7 @@ control "hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24"
+    service     = "iam"
   })
 }
 
@@ -72,7 +73,7 @@ control "hipaa_164_308_a_4_ii_c_iam_policy_no_statements_with_admin_access" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_policy_no_statements_with_admin_access.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_policy_no_statements_with_admin_access"
+    service     = "iam"
   })
 }
 
@@ -83,7 +84,7 @@ control "hipaa_164_308_a_4_ii_c_iam_root_user_access_key" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_root_user_access_key.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_root_user_access_key"
+    service     = "iam"
   })
 }
 
@@ -94,7 +95,7 @@ control "hipaa_164_308_a_4_ii_c_iam_user_with_group" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_user_with_group.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id = "hipaa_164_308_a_4_ii_c_iam_user_with_group"
+    service     = "iam"
   })
 }
 
@@ -105,7 +106,7 @@ control "hipaa_164_308_a_4_ii_c_iam_user_no_policies" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_user_no_policies.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_user_no_policies"
+    service     = "iam"
   })
 }
 
@@ -116,6 +117,6 @@ control "hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90" {
   #documentation = file("./hipaa/docs/hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90.md")
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90"
+    service     = "iam"
   })
 }
