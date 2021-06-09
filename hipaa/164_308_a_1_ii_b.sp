@@ -55,10 +55,9 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.hipaa_164_308_a_1_ii_b_sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.hipaa_164_308_a_1_ii_b_sns_topic_encrypted_at_rest,
     control.hipaa_164_308_a_1_ii_b_vpc_internet_gw_attached_to_authorized_vpc,
-    control.hipaa_164_308_a_1_ii_b_vpc_security_group_open_to_authorized_port,
+    control.hipaa_164_308_a_1_ii_b_vpc_security_group_authorized_port,
     control.hipaa_164_308_a_1_ii_b_vpc_security_group_restrict_common_port,
     control.hipaa_164_308_a_1_ii_b_vpc_security_group_restrict_ssh,
-
   ]
   tags          = local.hipaa_164_308_a_1_ii_b_common_tags
 }
@@ -552,12 +551,12 @@ control "hipaa_164_308_a_1_ii_b_vpc_security_group_restrict_common_port" {
   })
 }
 
-control "hipaa_164_308_a_1_ii_b_vpc_security_group_open_to_authorized_port" {
-  title         = "VPC security group should open only authorized ports"
-  description   = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) Security Groups."
-  sql           = query.vpc_security_group_open_to_authorized_port.sql
+control "hipaa_164_308_a_1_ii_b_vpc_security_group_authorized_port" {
+  title       = "Security groups with inbound 0.0.0.0/0 should not have TCP or UDP ports accessible"
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) Security Groups."
+  sql         = query.vpc_security_group_no_ingress_tcp_udp_all.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "vpc"
+    service = "vpc"
   })
 }
