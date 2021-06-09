@@ -102,11 +102,11 @@ control "hipaa_164_312_e_1_vpc_security_group_authorized_port" {
 }
 
 control "hipaa_164_312_e_1_vpc_security_group_restrict_common_port" {
-  title         = "VPC security group should restrict common ports"
-  description   = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
-  sql           = query.vpc_security_group_restrict_common_port.sql
+  title       = "VPC security group should restrict common ports"
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
+  sql         = query.vpc_security_group_restrict_common_port.sql
 
   tags = merge(local.hipaa_164_312_e_1_common_tags, {
-    service     = "vpc"
+    service = "vpc"
   })
 }

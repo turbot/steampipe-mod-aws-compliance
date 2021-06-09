@@ -31,7 +31,7 @@ control "hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled" {
   sql         = query.apigateway_stage_logging_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "apigateway"
+    service = "apigateway"
   })
 }
 
@@ -41,7 +41,7 @@ control "hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled" {
   sql         = query.cloudtrail_s3_data_events_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "cloudtrail"
+    service = "cloudtrail"
   })
 }
 
@@ -51,7 +51,7 @@ control "hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled" {
   sql         = query.elb_application_classic_logging_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "elb"
+    service = "elb"
   })
 }
 
@@ -61,7 +61,7 @@ control "hipaa_164_308_a_3_ii_a_emr_cluster_kerberos_enabled" {
   sql         = query.emr_cluster_kerberos_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "emr"
+    service = "emr"
   })
 }
 
@@ -71,7 +71,7 @@ control "hipaa_164_308_a_3_ii_a_guardduty_enabled" {
   sql         = query.guardduty_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "guardduty"
+    service = "guardduty"
   })
 }
 
@@ -81,7 +81,7 @@ control "hipaa_164_308_a_3_ii_a_iam_user_mfa_enabled" {
   sql         = query.iam_user_mfa.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -91,7 +91,7 @@ control "hipaa_164_308_a_3_ii_a_iam_console_access_mfa_enabled" {
   sql         = query.iam_user_mfa.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -101,7 +101,7 @@ control "hipaa_164_308_a_3_ii_a_redshift_cluster_encryption_logging_enabled" {
   sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "redshift"
+    service = "redshift"
   })
 }
 
@@ -111,7 +111,7 @@ control "hipaa_164_308_a_3_ii_a_iam_root_user_hardware_mfa" {
   sql         = query.iam_root_user_hardware_mfa.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -121,7 +121,7 @@ control "hipaa_164_308_a_3_ii_a_iam_root_user_mfa" {
   sql         = query.iam_root_user_mfa.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -131,7 +131,7 @@ control "hipaa_164_308_a_3_ii_a_s3_bucket_logging_enabled" {
   sql         = query.s3_bucket_logging_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "s3"
+    service = "s3"
   })
 }
 
@@ -151,6 +151,6 @@ control "hipaa_164_308_a_3_ii_a_vpc_flow_log_enabled" {
   sql         = query.vpc_flow_log_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service  = "vpc"
+    service = "vpc"
   })
 }

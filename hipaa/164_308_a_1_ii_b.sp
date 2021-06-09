@@ -183,12 +183,12 @@ control "hipaa_164_308_a_1_ii_b_ebs_snapshot_not_publicly_restorable" {
 }
 
 control "hipaa_164_308_a_1_ii_b_ec2_instance_in_vpc" {
-  title         = "EC2 instance should be in VPC"
-  description   = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
-  sql           = query.ec2_instance_in_vpc.sql
+  title       = "EC2 instance should be in VPC"
+  description = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
+  sql         = query.ec2_instance_in_vpc.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "ec2"
+    service = "ec2"
   })
 }
 
@@ -383,12 +383,12 @@ control "hipaa_164_308_a_1_ii_b_rds_db_instance_encryption_at_rest_enabled" {
 }
 
 control "hipaa_164_308_a_1_ii_b_redshift_cluster_encryption_logging_enabled" {
-  title         = "Redshift cluster encryption and logging should be enabled"
-  description   = "To protect data at rest, ensure that encryption is enabled for your Amazon Redshift clusters. You must also ensure that required configurations are deployed on Amazon Redshift clusters. The audit logging should be enabled to provide information about connections and user activities in the database."
-  sql           = query.redshift_cluster_encryption_logging_enabled.sql
+  title       = "Redshift cluster encryption and logging should be enabled"
+  description = "To protect data at rest, ensure that encryption is enabled for your Amazon Redshift clusters. You must also ensure that required configurations are deployed on Amazon Redshift clusters. The audit logging should be enabled to provide information about connections and user activities in the database."
+  sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "redshift"
+    service = "redshift"
   })
 }
 
@@ -423,12 +423,12 @@ control "hipaa_164_308_a_1_ii_b_s3_public_access_block_account" {
 }
 
 control "hipaa_164_308_a_1_ii_b_s3_bucket_object_lock_enabled" {
-  title         = "S3 bucket object lock should be enabled"
-  description   = "Ensure that your Amazon Simple Storage Service (Amazon S3) bucket has lock enabled, by default."
-  sql           = query.s3_bucket_object_lock_enabled.sql
+  title       = "S3 bucket object lock should be enabled"
+  description = "Ensure that your Amazon Simple Storage Service (Amazon S3) bucket has lock enabled, by default."
+  sql         = query.s3_bucket_object_lock_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "s3"
+    service = "s3"
   })
 }
 
@@ -522,32 +522,32 @@ control "hipaa_164_308_a_1_ii_b_sagemaker_notebook_instance_direct_internet_acce
 }
 
 control "hipaa_164_308_a_1_ii_b_vpc_internet_gw_attached_to_authorized_vpc" {
-  title         = "VPC internet gateway should be attached to authorized vpc"
-  description   = "Manage access to resources in the AWS Cloud by ensuring that internet gateways are only attached to authorized Amazon Virtual Private Cloud (Amazon VPC)."
-  sql           = query.vpc_internet_gw_attached_to_authorized_vpc.sql
+  title       = "VPC internet gateway should be attached to authorized vpc"
+  description = "Manage access to resources in the AWS Cloud by ensuring that internet gateways are only attached to authorized Amazon Virtual Private Cloud (Amazon VPC)."
+  sql         = query.vpc_internet_gw_attached_to_authorized_vpc.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "vpc"
+    service = "vpc"
   })
 }
 
 control "hipaa_164_308_a_1_ii_b_vpc_security_group_restrict_ssh" {
-  title         = "VPC security group should restrict SSH"
-  description   = "Amazon Elastic Compute Cloud (Amazon EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
-  sql           = query.vpc_security_group_restrict_ssh.sql
+  title       = "VPC security group should restrict SSH"
+  description = "Amazon Elastic Compute Cloud (Amazon EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_security_group_restrict_ssh.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "vpc"
+    service = "vpc"
   })
 }
 
 control "hipaa_164_308_a_1_ii_b_vpc_security_group_restrict_common_port" {
-  title         = "VPC security group should restrict common ports"
-  description   = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
-  sql           = query.vpc_security_group_restrict_common_port.sql
+  title       = "VPC security group should restrict common ports"
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
+  sql         = query.vpc_security_group_restrict_common_port.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
-    service     = "vpc"
+    service = "vpc"
   })
 }
 
