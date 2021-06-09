@@ -17,4 +17,4 @@ select
   region,
   account_id
 from
-  aws_vpc_internet_gateway; 
+  aws_vpc_internet_gateway;

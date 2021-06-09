@@ -41,7 +41,7 @@ with ingress_ssh_rules as (
 )
 select
   -- Required Columns
-  arn  as resource,
+  arn as resource,
   case
     when ingress_ssh_rules.group_id is null then 'ok'
     else 'alarm'
