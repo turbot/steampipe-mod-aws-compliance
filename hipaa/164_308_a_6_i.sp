@@ -8,10 +8,21 @@ benchmark "hipaa_164_308_a_6_i" {
   title       = "164.308(a)(6)(i) Security incident procedures"
   description = "Implement policies and procedures to address security incidents."
   children = [
+    control.hipaa_164_308_a_6_i_cloudwatch_alarm_action_enabled,
     control.hipaa_164_308_a_6_i_guardduty_enabled,
     control.hipaa_164_308_a_6_i_securityhub_enabled
   ]
   tags          = local.hipaa_164_308_a_6_i_common_tags
+}
+
+control "hipaa_164_308_a_6_i_cloudwatch_alarm_action_enabled" {
+  title       = "CloudWatch alarm action should be enabled"
+  description = "	Amazon CloudWatch alarms alert when a metric breaches the threshold for a specified number of evaluation periods. The alarm performs one or more actions based on the value of the metric or expression relative to a threshold over a number of time periods."
+  sql         = query.cloudwatch_alarm_action_enabled.sql
+
+  tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
+    service = "cloudwatch"
+  })
 }
 
 control "hipaa_164_308_a_6_i_guardduty_enabled" {

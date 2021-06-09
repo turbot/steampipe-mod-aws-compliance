@@ -6,8 +6,8 @@ locals {
 }
 
 benchmark "hipaa" {
-  title         = "HIPAA"
-  description   = "The AWS Health Insurance Portability and Accountability (HIPAA) is a set of controls to use the secure AWS environment to process, maintain, and store protected health information."
+  title       = "HIPAA"
+  description = "The AWS Health Insurance Portability and Accountability (HIPAA) is a set of controls to use the secure AWS environment to process, maintain, and store protected health information."
   children = [
     benchmark.hipaa_164_308_a_1_ii_b,
     benchmark.hipaa_164_308_a_1_ii_d,
@@ -29,6 +29,7 @@ benchmark "hipaa" {
     benchmark.hipaa_164_312_b,
     benchmark.hipaa_164_312_c_1,
     benchmark.hipaa_164_312_c_2,
+    benchmark.hipaa_164_312_d,
     benchmark.hipaa_164_312_e_1,
     benchmark.hipaa_164_312_e_2_i,
     benchmark.hipaa_164_312_e_2_ii

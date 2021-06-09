@@ -1,6 +1,6 @@
 locals {
   hipaa_164_308_a_4_ii_b_common_tags = merge(local.hipaa_common_tags, {
-    service = "164_308_a_4_ii_b"
+    hipaa_item_id = "164_308_a_4_ii_b"
   })
 }
 
@@ -17,32 +17,32 @@ benchmark "hipaa_164_308_a_4_ii_b" {
 }
 
 control "hipaa_164_308_a_4_ii_b_iam_group_not_empty" {
-  title       = "IAM group not empty"
+  title       = "IAM groups should have at least one IAM user"
   description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, by ensuring that IAM groups have at least one IAM user."
   sql         = query.iam_group_not_empty.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_b_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_b_iam_group_not_empty"
+    service = "iam"
   })
 }
 
 control "hipaa_164_308_a_4_ii_b_iam_policy_no_star_star" {
-  title       = "IAM policy no star star"
+  title       = "IAM policy no statements with admin access"
   description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, restricting policies from containing 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
   sql         = query.iam_policy_no_star_star.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_b_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_b_iam_policy_no_star_star"
+    service = "iam"
   })
 }
 
 control "hipaa_164_308_a_4_ii_b_iam_user_with_group" {
-  title       = "IAM user with group"
+  title       = "IAM users are members of at least one group"
   description = "AWS Identity and Access Management (IAM) can help you restrict access permissions and authorizations, by ensuring IAM users are members of at least one group."
   sql         = query.iam_user_with_group.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_b_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_b_iam_user_with_group"
+    service = "iam"
   })
 }
 
@@ -52,6 +52,6 @@ control "hipaa_164_308_a_4_ii_b_iam_user_no_policies" {
   sql         = query.iam_user_no_policies.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_b_common_tags, {
-    hipaa_item_id  = "hipaa_164_308_a_4_ii_b_iam_user_no_policies"
+    service = "iam"
   })
 }

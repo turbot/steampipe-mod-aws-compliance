@@ -1,6 +1,6 @@
 locals {
   hipaa_164_312_a_2_i_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_control_id = "hipaa_164_312_a_2_i"
+    hipaa_item_id = "164_312_a_2_i"
   })
 }
 
@@ -19,6 +19,6 @@ control "hipaa_164_312_a_2_i_iam_root_user_with_no_access_key" {
   sql         = query.iam_root_user_access_key.sql
 
   tags = merge(local.hipaa_164_312_a_2_i_common_tags, {
-    hipaa_item_id = "hipaa_164_312_a_2_i_iam_root_user_with_no_access_key"
+    service = "iam"
   })
 }

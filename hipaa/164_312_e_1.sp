@@ -1,6 +1,6 @@
 locals {
   hipaa_164_312_e_1_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "hipaa_164_312_e_1"
+    hipaa_item_id = "164_312_e_1"
   })
 }
 
@@ -15,7 +15,8 @@ benchmark "hipaa_164_312_e_1" {
     control.hipaa_164_312_e_1_redshift_cluster_encryption_in_transit_enabled,
     control.hipaa_164_312_e_1_s3_bucket_enforces_ssl,
     control.hipaa_164_312_e_1_vpc_security_group_authorized_port,
-    control.hipaa_164_312_e_1_vpc_security_group_remote_administration,
+    control.hipaa_164_312_e_1_vpc_security_group_restrict_common_port,
+    control.hipaa_164_312_e_1_vpc_security_group_restrict_ssh,
   ]
   tags = local.hipaa_164_312_e_1_common_tags
 }
@@ -40,10 +41,10 @@ control "hipaa_164_312_e_1_elb_classic_lb_use_ssl_certificate" {
   })
 }
 
-control "hipaa_164_312_e_1_vpc_security_group_remote_administration" {
-  title       = "Security groups should not allow ingress from 0.0.0.0/0 to remote server administration ports"
+control "hipaa_164_312_e_1_vpc_security_group_restrict_ssh" {
+  title       = "VPC security group should restrict SSH"
   description = "Amazon Elastic Compute Cloud (Amazon EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources. Not allowing ingress (or remote) traffic from 0.0.0.0/0 to port 22 on your resources help you restricting remote access."
-  sql         = query.vpc_security_group_remote_administration.sql
+  sql         = query.vpc_security_group_restrict_ssh.sql
 
   tags = merge(local.hipaa_164_312_e_1_common_tags, {
     service = "vpc"
@@ -94,6 +95,16 @@ control "hipaa_164_312_e_1_vpc_security_group_authorized_port" {
   title       = "Security groups with inbound 0.0.0.0/0 should not have TCP or UDP ports accessible"
   description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) Security Groups."
   sql         = query.vpc_security_group_no_ingress_tcp_udp_all.sql
+
+  tags = merge(local.hipaa_164_312_e_1_common_tags, {
+    service = "vpc"
+  })
+}
+
+control "hipaa_164_312_e_1_vpc_security_group_restrict_common_port" {
+  title       = "VPC security group should restrict common ports"
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
+  sql         = query.vpc_security_group_restrict_common_port.sql
 
   tags = merge(local.hipaa_164_312_e_1_common_tags, {
     service = "vpc"

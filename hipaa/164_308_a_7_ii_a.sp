@@ -9,6 +9,7 @@ benchmark "hipaa_164_308_a_7_ii_a" {
   description = "Establish and implement procedures to create and maintain retrievable exact copies of electronic protected health information."
   children = [
     control.hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled,
+    control.hipaa_164_308_a_7_ii_a_hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.hipaa_164_308_a_7_ii_a_rds_db_instance_backup_enabled,
     control.hipaa_164_308_a_7_ii_a_s3_bucket_cross_region_replication_enabled,
     control.hipaa_164_308_a_7_ii_a_s3_bucket_versioning_enabled,
@@ -33,6 +34,16 @@ control "hipaa_164_308_a_7_ii_a_dynamodb_table_point_in_time_recovery_enabled" {
 
   tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
     service = "dynamodb"
+  })
+}
+
+control "hipaa_164_308_a_7_ii_a_hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_retention_15_days" {
+  title       = "ElastiCache Redis cluster automatic backup should be enabled with retention period 15 days"
+  description = "When automatic backups are enabled, Amazon ElastiCache creates a backup of the cluster on a daily basis. The backup can be retained for a number of days as specified by your organization. Automatic backups can help guard against data loss."
+  sql         = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
+
+  tags = merge(local.hipaa_164_308_a_7_ii_a_common_tags, {
+    service = "elasticache"
   })
 }
 

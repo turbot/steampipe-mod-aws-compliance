@@ -24,7 +24,7 @@ control "hipaa_164_308_a_3_ii_b_iam_group_not_empty" {
   sql         = query.iam_group_not_empty.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_b_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -34,7 +34,7 @@ control "hipaa_164_308_a_3_ii_b_iam_policy_no_star_star" {
   sql         = query.iam_policy_no_star_star.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_b_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -44,7 +44,7 @@ control "hipaa_164_308_a_3_ii_b_iam_root_user_access_key" {
   sql         = query.iam_root_user_access_key.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_b_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -54,7 +54,7 @@ control "hipaa_164_308_a_3_ii_b_iam_user_with_group" {
   sql         = query.iam_user_with_group.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_b_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 
@@ -64,7 +64,7 @@ control "hipaa_164_308_a_3_ii_b_iam_user_no_policies" {
   sql         = query.iam_user_no_policies.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_b_common_tags, {
-    service  = "iam"
+    service = "iam"
   })
 }
 

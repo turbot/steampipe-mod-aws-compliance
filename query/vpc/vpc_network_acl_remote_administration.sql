@@ -34,7 +34,7 @@ with bad_rules as (
 
 select
   -- Required Columns
-  'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' ||  acl.network_acl_id  as resource,
+  'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
   case
     when bad_rules.network_acl_id is null then 'ok'
     else 'alarm'
