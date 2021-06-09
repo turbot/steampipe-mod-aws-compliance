@@ -1,6 +1,6 @@
 locals {
   hipaa_164_312_e_1_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "hipaa_164_312_e_1"
+    hipaa_item_id = "164_312_e_1"
   })
 }
 
