@@ -19,6 +19,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.hipaa_164_308_a_1_ii_b_ebs_snapshot_not_publicly_restorable,
     control.hipaa_164_308_a_1_ii_b_ebs_volume_encryption_enabled,
     control.hipaa_164_308_a_1_ii_b_ec2_application_lb_configured_to_redirect_http_request_to_https,
+    control.hipaa_164_308_a_1_ii_b_ec2_ebs_default_encryption_enabled,
     control.hipaa_164_308_a_1_ii_b_ec2_instance_in_vpc,
     control.hipaa_164_308_a_1_ii_b_ec2_instance_not_publicly_accessible,
     control.hipaa_164_308_a_1_ii_b_ec2_stopped_instance_30_days,
@@ -176,6 +177,16 @@ control "hipaa_164_308_a_1_ii_b_ebs_snapshot_not_publicly_restorable" {
   title       = "EBS snapshot should not be publicly restorable"
   description = "Manage access to the AWS Cloud by ensuring EBS snapshots are not publicly restorable."
   sql         = query.ebs_snapshot_not_publicly_restorable.sql
+
+  tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
+    service = "ec2"
+  })
+}
+
+control "hipaa_164_308_a_1_ii_b_ec2_ebs_default_encryption_enabled" {
+  title       = "Amazon Elastic Block Store (EBS) encryption should be enabled by default"
+  description = "To help protect data at rest, ensure that encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
     service = "ec2"

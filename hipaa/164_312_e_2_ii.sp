@@ -12,6 +12,7 @@ benchmark "hipaa_164_312_e_2_ii" {
     control.hipaa_164_312_e_2_ii_cloudtrail_logs_encrypted_with_kms_cmk,
     control.hipaa_164_312_e_2_ii_ebs_volume_encryption_enabled,
     control.hipaa_164_312_e_2_ii_ec2_application_lb_configured_to_redirect_http_request_to_https,
+    control.hipaa_164_312_e_2_ii_ec2_ebs_default_encryption_enabled,
     control.hipaa_164_312_e_2_ii_efs_file_system_encrypt_data_at_rest,
     control.hipaa_164_312_e_2_ii_elb_classic_lb_use_ssl_certificate,
     control.hipaa_164_312_e_2_ii_es_domain_encryption_at_rest_enabled,
@@ -164,6 +165,16 @@ control "hipaa_164_312_e_2_ii_sns_topic_encrypted_at_rest" {
 
   tags = merge(local.hipaa_164_312_e_2_ii_common_tags, {
     service = "sns"
+  })
+}
+
+control "hipaa_164_312_e_2_ii_ec2_ebs_default_encryption_enabled" {
+  title       = "Amazon Elastic Block Store (EBS) encryption should be enabled by default"
+  description = "To help protect data at rest, ensure that encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  sql         = query.ec2_ebs_default_encryption_enabled.sql
+
+  tags = merge(local.hipaa_164_312_e_2_ii_common_tags, {
+    service = "ec2"
   })
 }
 
