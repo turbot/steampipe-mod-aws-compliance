@@ -7,7 +7,13 @@ with bad_rules as (
   where
     type = 'ingress'
     and cidr_ip = '0.0.0.0/0'
-    and ip_protocol in ('tcp', 'udp')
+    and (
+      ip_protocol in ('tcp', 'udp')
+      or (
+        ip_protocol = '-1'
+        and from_port is null
+      )
+    )
   group by
     group_id
 )
@@ -25,6 +31,6 @@ select
   -- Additional Dimensions
   sg.region,
   sg.account_id
-from	
+from 
   aws_vpc_security_group as sg
   left join bad_rules on bad_rules.group_id = sg.group_id;
