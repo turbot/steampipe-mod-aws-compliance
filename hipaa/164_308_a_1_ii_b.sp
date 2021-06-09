@@ -23,7 +23,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.hipaa_164_308_a_1_ii_b_ec2_instance_not_publicly_accessible,
     control.hipaa_164_308_a_1_ii_b_ec2_stopped_instance_30_days,
     control.hipaa_164_308_a_1_ii_b_efs_file_system_encrypt_data_at_rest,
-    control.hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_enabled,
+    control.hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.hipaa_164_308_a_1_ii_b_elb_application_deletion_protection_enabled,
     control.hipaa_164_308_a_1_ii_b_elb_classic_lb_use_ssl_certificate,
     control.hipaa_164_308_a_1_ii_b_emr_cluster_master_nodes_no_public_ip,
@@ -242,8 +242,8 @@ control "hipaa_164_308_a_1_ii_b_es_domain_in_vpc" {
   })
 }
 
-control "hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_enabled" {
-  title       = "ElastiCache Redis cluster automatic backup should be enabled"
+control "hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_retention_15_days" {
+  title       = "ElastiCache Redis cluster automatic backup should be enabled with retention period of 15 days"
   description = "When automatic backups are enabled, Amazon ElastiCache creates a backup of the cluster on a daily basis. The backup can be retained for a number of days as specified by your organization. Automatic backups can help guard against data loss."
   sql         = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
 
