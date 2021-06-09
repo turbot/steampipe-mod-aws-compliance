@@ -8,7 +8,7 @@ benchmark "hipaa_164_308_a_4_ii_c" {
   title       = "164.308(a)(4)(ii)(C) Access establishment and modification"
   description = "Implement policies and procedures that, based upon the covered entity's or the business associate's access authorization policies, establish, document, review, and modify a user's right of access to a workstation, transaction, program, or process."
   children = [
-    control.hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24,
+    control.hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_reuse_24,
     control.hipaa_164_308_a_4_ii_c_iam_group_not_empty,
     control.hipaa_164_308_a_4_ii_c_iam_policy_no_statements_with_admin_access,
     control.hipaa_164_308_a_4_ii_c_iam_root_user_access_key,
@@ -51,10 +51,10 @@ control "hipaa_164_308_a_4_ii_c_iam_group_not_empty" {
   })
 }
 
-control "hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_resuse_24" {
+control "hipaa_164_308_a_4_ii_c_iam_account_password_policy_strong_min_reuse_24" {
   title       = "Password policies for IAM users should have strong configurations"
   description = "The identities and the credentials are issued, managed, and verified based on an organizational IAM password policy."
-  sql         = query.iam_account_password_policy_strong_min_resuse_24.sql
+  sql         = query.iam_account_password_policy_strong_min_reuse_24.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
     service = "iam"
@@ -83,7 +83,7 @@ control "hipaa_164_308_a_4_ii_c_iam_root_user_access_key" {
 
 control "hipaa_164_308_a_4_ii_c_iam_user_with_group" {
   title       = "IAM users are members of at least one group"
-  description = "AAWS Identity and Access Management (IAM) can help you restrict access permissions and authorizations, by ensuring IAM users are members of at least one group."
+  description = "AWS Identity and Access Management (IAM) can help you restrict access permissions and authorizations, by ensuring IAM users are members of at least one group."
   sql         = query.iam_user_with_group.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
