@@ -8,7 +8,7 @@ benchmark "hipaa_164_312_d" {
   title          = "164.312(d) Person or entity authentication"
   description    = "Implement procedures to verify that a person or entity seeking access to electronic protected health information is the one claimed."
   children = [
-    control.hipaa_164_312_d_iam_account_password_policy_strong_min_resuse_24,
+    control.hipaa_164_312_d_iam_account_password_policy_strong_min_reuse_24,
     control.hipaa_164_312_d_iam_user_mfa_enabled,
     control.hipaa_164_312_d_iam_user_console_access_mfa_enabled,
     control.hipaa_164_312_d_iam_root_user_hardware_mfa,
@@ -17,7 +17,7 @@ benchmark "hipaa_164_312_d" {
   tags          = local.hipaa_164_312_d_common_tags
 }
 
-control "hipaa_164_312_d_iam_account_password_policy_strong_min_resuse_24" {
+control "hipaa_164_312_d_iam_account_password_policy_strong_min_reuse_24" {
   title         = "Password policies for IAM users should have strong configurations"
   description   = "The identities and the credentials are issued, managed, and verified based on an organizational IAM password policy."
   sql           = query.iam_account_password_policy_strong_min_reuse_24.sql
@@ -48,7 +48,7 @@ control "hipaa_164_312_d_iam_user_console_access_mfa_enabled" {
 }
 
 control "hipaa_164_312_d_iam_root_user_hardware_mfa" {
-  title         = "IAM root user hardware MFA should be enbled"
+  title         = "IAM root user hardware MFA should be enabled"
   description   = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the root user."
   sql           = query.iam_root_user_hardware_mfa.sql
 
