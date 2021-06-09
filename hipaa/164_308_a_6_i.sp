@@ -10,6 +10,7 @@ benchmark "hipaa_164_308_a_6_i" {
   children = [
     control.hipaa_164_308_a_6_i_cloudwatch_alarm_action_enabled,
     control.hipaa_164_308_a_6_i_guardduty_enabled,
+    control.hipaa_164_308_a_6_i_lambda_function_dead_letter_queue_configured,
     control.hipaa_164_308_a_6_i_securityhub_enabled
   ]
   tags          = local.hipaa_164_308_a_6_i_common_tags
@@ -32,6 +33,16 @@ control "hipaa_164_308_a_6_i_guardduty_enabled" {
 
   tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
     service = "guardduty"
+  })
+}
+
+control "hipaa_164_308_a_6_i_lambda_function_dead_letter_queue_configured" {
+  title       = "AWS Lambda function should be configured with a dead-letter queue"
+  description = "Enable this rule to help notify the appropriate personnel through Amazon Simple Queue Service (Amazon SQS) or Amazon Simple Notification Service (Amazon SNS) when a function has failed."
+  sql         = query.lambda_function_dead_letter_queue_configured.sql
+
+  tags = merge(local.hipaa_164_308_a_6_i_common_tags, {
+    service = "lambda"
   })
 }
 

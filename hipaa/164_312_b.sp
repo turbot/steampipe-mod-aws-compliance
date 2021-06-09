@@ -10,6 +10,7 @@ benchmark "hipaa_164_312_b" {
   children = [
     control.hipaa_164_312_b_apigateway_stage_logging_enabled,
     control.hipaa_164_312_b_cloudtrail_cloudwatch_logs_enabled,
+    control.hipaa_164_312_b_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_312_b_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_312_b_elb_logging_enabled,
     control.hipaa_164_312_b_guardduty_enabled,
@@ -68,6 +69,16 @@ control "hipaa_164_312_b_guardduty_enabled" {
 
   tags = merge(local.hipaa_164_312_b_common_tags, {
     service = "guardduty"
+  })
+}
+
+control "hipaa_164_312_b_cloudtrail_multi_region_trail_enabled" {
+  title       = "At least one multi-region AWS CloudTrail should be present in an account"
+  description = "AWS CloudTrail records AWS Management Console actions and API calls. You can identify which users and accounts called AWS, the source IP address from where the calls were made, and when the calls occurred. CloudTrail will deliver log files from all AWS Regions to your S3 bucket if MULTI_REGION_CLOUD_TRAIL_ENABLED is enabled."
+  sql         = query.cloudtrail_multi_region_trail_enabled.sql
+
+  tags = merge(local.hipaa_164_312_b_common_tags, {
+    service = "cloudtrail"
   })
 }
 
