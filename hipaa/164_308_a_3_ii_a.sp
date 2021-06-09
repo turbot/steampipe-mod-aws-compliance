@@ -78,7 +78,7 @@ control "hipaa_164_308_a_3_ii_a_guardduty_enabled" {
 control "hipaa_164_308_a_3_ii_a_iam_user_mfa_enabled" {
   title       = "IAM user MFA should be enabled"
   description = "Enable this rule to restrict access to resources in the AWS Cloud."
-  sql         = query.iam_user_mfa.sql
+  sql         = query.iam_user_mfa_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service = "iam"
@@ -88,7 +88,7 @@ control "hipaa_164_308_a_3_ii_a_iam_user_mfa_enabled" {
 control "hipaa_164_308_a_3_ii_a_iam_console_access_mfa_enabled" {
   title       = "IAM console access user MFA should be enabled"
   description = "Manage access to resources in the AWS Cloud by ensuring that MFA is enabled for all AWS Identity and Access Management (IAM) users that have a console password."
-  sql         = query.iam_user_mfa.sql
+  sql         = query.iam_user_console_access_mfa_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service = "iam"
