@@ -9,6 +9,7 @@ benchmark "hipaa_164_312_e_2_i" {
   description = "Implement security measures to ensure that electronically transmitted electronic protected health information is not improperly modified without detection until disposed of."
   children = [
     control.hipaa_164_312_e_2_i_cloudtrail_integrated_with_logs,
+    control.hipaa_164_312_e_2_i_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_312_e_2_i_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_312_e_2_i_ec2_application_lb_configured_to_redirect_http_request_to_https,
     control.hipaa_164_312_e_2_i_elb_classic_lb_use_ssl_certificate,
@@ -68,6 +69,16 @@ control "hipaa_164_312_e_2_i_guardduty_enabled" {
 
   tags = merge(local.hipaa_164_312_e_2_i_common_tags, {
     service = "guardduty"
+  })
+}
+
+control "hipaa_164_312_e_2_i_cloudtrail_multi_region_trail_enabled" {
+  title       = "At least one multi-region AWS CloudTrail should be present in an account"
+  description = "AWS CloudTrail records AWS Management Console actions and API calls. You can identify which users and accounts called AWS, the source IP address from where the calls were made, and when the calls occurred. CloudTrail will deliver log files from all AWS Regions to your S3 bucket if MULTI_REGION_CLOUD_TRAIL_ENABLED is enabled."
+  sql         = query.cloudtrail_multi_region_trail_enabled.sql
+
+  tags = merge(local.hipaa_164_312_e_2_i_common_tags, {
+    service = "cloudtrail"
   })
 }
 

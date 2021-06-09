@@ -9,6 +9,7 @@ benchmark "hipaa_164_308_a_3_ii_a" {
   description = "Implement procedures for the authorization and/or supervision of workforce members who work with electronic protected health information or in locations where it might be accessed."
   children = [
     control.hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled,
+    control.hipaa_164_308_a_3_ii_a_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_emr_cluster_kerberos_enabled,
@@ -92,6 +93,16 @@ control "hipaa_164_308_a_3_ii_a_iam_console_access_mfa_enabled" {
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service = "iam"
+  })
+}
+
+control "hipaa_164_308_a_3_ii_a_cloudtrail_multi_region_trail_enabled" {
+  title       = "At least one multi-region AWS CloudTrail should be present in an account"
+  description = "AWS CloudTrail records AWS Management Console actions and API calls. You can identify which users and accounts called AWS, the source IP address from where the calls were made, and when the calls occurred. CloudTrail will deliver log files from all AWS Regions to your S3 bucket if MULTI_REGION_CLOUD_TRAIL_ENABLED is enabled."
+  sql         = query.cloudtrail_multi_region_trail_enabled.sql
+
+  tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
+    service = "cloudtrail"
   })
 }
 
