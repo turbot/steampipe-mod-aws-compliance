@@ -247,7 +247,6 @@ control "hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_reten
   title         = "Elasticache redis cluster automatic backup should be enabled"
   description   = "When automatic backups are enabled, Amazon ElastiCache creates a backup of the cluster on a daily basis"
   sql           = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
-  #documentation = file("./hipaa/docs/hipaa_164_308_a_1_ii_b_elasticache_redis_cluster_automatic_backup_retention_15_days.md")
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
     service     = "elasticache"
