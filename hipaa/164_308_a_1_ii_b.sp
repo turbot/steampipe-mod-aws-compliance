@@ -8,7 +8,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
   title       = "164.308(a)(1)(ii)(B) Risk Management"
   description = "Implement security measures sufficient to reduce risks and vulnerabilities to a reasonable and appropriate level to comply with 164.306(a): Ensure the confidentiality, integrity, and availability of all electronic protected health information the covered entity or business associate creates, receives, maintains, or transmits."
   children = [
-    control.hipaa_164_308_a_1_ii_b_apigateway_stage_cache_encrytion_at_rest_enabled,
+    control.hipaa_164_308_a_1_ii_b_apigateway_stage_cache_encryption_at_rest_enabled,
     control.hipaa_164_308_a_1_ii_b_autoscaling_group_with_lb_use_healthcheck,
     control.hipaa_164_308_a_1_ii_b_cloudtrail_logs_encrypted_with_kms_cmk,
     control.hipaa_164_308_a_1_ii_b_cloudtrail_validation_enabled,
@@ -64,10 +64,10 @@ control "hipaa_164_308_a_1_ii_b_ec2_application_lb_configured_to_redirect_http_r
   })
 }
 
-control "hipaa_164_308_a_1_ii_b_apigateway_stage_cache_encrytion_at_rest_enabled" {
-  title       = "API Gateway stage cache encrytion at rest should be enabled"
+control "hipaa_164_308_a_1_ii_b_apigateway_stage_cache_encryption_at_rest_enabled" {
+  title       = "API Gateway stage cache encryption at rest should be enabled"
   description = "To help protect data at rest, ensure encryption is enabled for your API Gateway stage's cache."
-  sql         = query.apigateway_stage_cache_encrytion_at_rest_enabled.sql
+  sql         = query.apigateway_stage_cache_encryption_at_rest_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
     service = "apigateway"

@@ -8,7 +8,7 @@ benchmark "hipaa_164_312_a_2_iv" {
   title       = "164.312(a)(2)(iv) Encryption and decryption"
   description = "Implement a mechanism to encrypt and decrypt electronic protected health information."
   children = [
-    control.hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled,
+    control.hipaa_164_312_a_2_iv_apigateway_stage_cache_encryption_at_rest_enabled,
     control.hipaa_164_312_a_2_iv_cloudtrail_logs_encrypted_with_kms_cmk,
     control.hipaa_164_312_a_2_iv_ebs_volume_encryption_enabled,
     control.hipaa_164_312_a_2_iv_efs_file_system_encrypt_data_at_rest,
@@ -27,10 +27,10 @@ benchmark "hipaa_164_312_a_2_iv" {
   tags          = local.hipaa_164_312_a_2_iv_common_tags
 }
 
-control "hipaa_164_312_a_2_iv_apigateway_stage_cache_encrytion_at_rest_enabled" {
-  title       = "API Gateway stage cache encrytion at rest should be enabled"
+control "hipaa_164_312_a_2_iv_apigateway_stage_cache_encryption_at_rest_enabled" {
+  title       = "API Gateway stage cache encryption at rest should be enabled"
   description = "To help protect data at rest, ensure encryption is enabled for your API Gateway stage's cache."
-  sql         = query.apigateway_stage_cache_encrytion_at_rest_enabled.sql
+  sql         = query.apigateway_stage_cache_encryption_at_rest_enabled.sql
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
     service = "apigateway"
@@ -79,7 +79,7 @@ control "hipaa_164_312_a_2_iv_es_domain_encryption_at_rest_enabled" {
 
 control "hipaa_164_312_a_2_iv_ebs_volume_encryption_enabled" {
   title       = "EBS volume encryption should be enabled"
-  description = "Because senstive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
   sql         = query.ebs_volume_encryption_enabled.sql
 
   tags = merge(local.hipaa_164_312_a_2_iv_common_tags, {
