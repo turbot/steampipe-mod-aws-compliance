@@ -16,15 +16,15 @@ benchmark "hipaa_164_308_a_4_ii_c" {
     control.hipaa_164_308_a_4_ii_c_iam_user_no_policies,
     control.hipaa_164_308_a_4_ii_c_iam_user_unused_credentials_90,
     control.hipaa_164_308_a_4_ii_c_iam_user_with_group,
-    control.hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled
+    control.hipaa_164_308_a_4_ii_c_secretsmanager_secret_automatic_rotation_enabled
   ]
   tags          = local.hipaa_164_308_a_4_ii_c_common_tags
 }
 
-control "hipaa_164_308_a_4_ii_c_secretsmanager_secrets_automatic_rotation_enabled" {
+control "hipaa_164_308_a_4_ii_c_secretsmanager_secret_automatic_rotation_enabled" {
   title       = "Secretsmanager secrets automatic rotation should be enabled"
   description = "This rule ensures AWS Secrets Manager secrets have rotation enabled. Rotating secrets on a regular schedule can shorten the period a secret is active, and potentially reduce the business impact if the secret is compromised."
-  sql         = query.secretsmanager_secrets_automatic_rotation_enabled.sql
+  sql         = query.secretsmanager_secret_automatic_rotation_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_4_ii_c_common_tags, {
     service = "secretsmanager"
