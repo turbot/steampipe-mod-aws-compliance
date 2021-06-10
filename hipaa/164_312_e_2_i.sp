@@ -8,6 +8,7 @@ benchmark "hipaa_164_312_e_2_i" {
   title       = "164.312(e)(2)(i) Integrity controls"
   description = "Implement security measures to ensure that electronically transmitted electronic protected health information is not improperly modified without detection until disposed of."
   children = [
+    control.hipaa_164_312_e_2_i_cloudtrail_enabled,
     control.hipaa_164_312_e_2_i_cloudtrail_integrated_with_logs,
     control.hipaa_164_312_e_2_i_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_312_e_2_i_cloudtrail_s3_data_events_enabled,
@@ -36,6 +37,16 @@ control "hipaa_164_312_e_2_i_cloudtrail_integrated_with_logs" {
   title       = "Cloudtrail should be integrated with logs"
   description = "Use Amazon CloudWatch to centrally collect and manage log event activity."
   sql         = query.cloudtrail_integrated_with_logs.sql
+
+  tags = merge(local.hipaa_164_312_e_2_i_common_tags, {
+    service = "cloudtrail"
+  })
+}
+
+control "hipaa_164_312_e_2_i_cloudtrail_enabled" {
+  title       = "Cloudtrail should be enabled"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls."
+  sql         = query.cloudtrail_enabled.sql
 
   tags = merge(local.hipaa_164_312_e_2_i_common_tags, {
     service = "cloudtrail"

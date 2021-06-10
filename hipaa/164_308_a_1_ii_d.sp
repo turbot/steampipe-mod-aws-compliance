@@ -10,6 +10,7 @@ benchmark "hipaa_164_308_a_1_ii_d" {
   children = [
     control.hipaa_164_308_a_1_ii_d_apigateway_stage_logging_enabled,
     control.hipaa_164_308_a_1_ii_d_cloudtrail_cloudwatch_logs_enabled,
+    control.hipaa_164_308_a_1_ii_d_cloudtrail_enabled,
     control.hipaa_164_308_a_1_ii_d_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_308_a_1_ii_d_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_1_ii_d_elb_logging_enabled,
@@ -36,6 +37,16 @@ control "hipaa_164_308_a_1_ii_d_cloudtrail_cloudwatch_logs_enabled" {
   title       = "CloudTrail trails should be integrated with CloudWatch Logs"
   description = "Use Amazon CloudWatch to centrally collect and manage log event activity."
   sql         = query.cloudtrail_integrated_with_logs.sql
+
+  tags = merge(local.hipaa_164_308_a_1_ii_d_common_tags, {
+    service = "cloudtrail"
+  })
+}
+
+control "hipaa_164_308_a_1_ii_d_cloudtrail_enabled" {
+  title       = "Cloudtrail should be enabled"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls."
+  sql         = query.cloudtrail_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_d_common_tags, {
     service = "cloudtrail"

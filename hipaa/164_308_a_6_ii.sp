@@ -9,6 +9,7 @@ benchmark "hipaa_164_308_a_6_ii" {
   description = "Identify and respond to suspected or known security incidents; mitigate, to the extent practicable, harmful effects of security incidents that are known to the covered entity or business associate; and document security incidents and their outcomes."
   children = [
     control.hipaa_164_308_a_6_ii_apigateway_stage_logging_enabled,
+    control.hipaa_164_308_a_6_ii_cloudtrail_enabled,
     control.hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs,
     control.hipaa_164_308_a_6_ii_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_308_a_6_ii_cloudtrail_s3_data_events_enabled,
@@ -35,6 +36,16 @@ control "hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs" {
   title       = "Cloudtrail should be integrated with logs"
   description = "Use Amazon CloudWatch to centrally collect and manage log event activity. Inclusion of AWS CloudTrail data provides details of API call activity within your AWS account."
   sql         = query.cloudtrail_integrated_with_logs.sql
+
+  tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
+    service = "cloudtrail"
+  })
+}
+
+control "hipaa_164_308_a_6_ii_cloudtrail_enabled" {
+  title       = "Cloudtrail should be enabled"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls."
+  sql         = query.cloudtrail_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
     service = "cloudtrail"

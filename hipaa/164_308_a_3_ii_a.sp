@@ -9,6 +9,7 @@ benchmark "hipaa_164_308_a_3_ii_a" {
   description = "Implement procedures for the authorization and/or supervision of workforce members who work with electronic protected health information or in locations where it might be accessed."
   children = [
     control.hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled,
+    control.hipaa_164_308_a_3_ii_a_cloudtrail_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_multi_region_trail_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled,
@@ -33,6 +34,16 @@ control "hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled" {
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service = "apigateway"
+  })
+}
+
+control "hipaa_164_308_a_3_ii_a_cloudtrail_enabled" {
+  title       = "Cloudtrail should be enabled"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls."
+  sql         = query.cloudtrail_enabled.sql
+
+  tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
+    service = "cloudtrail"
   })
 }
 
