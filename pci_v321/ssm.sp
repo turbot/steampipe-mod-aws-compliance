@@ -17,7 +17,7 @@ control "pci_v321_ssm_3" {
   title         = "3 EC2 instances should be managed by AWS Systems Manager"
   description   = "This control checks whether the EC2 instances in your account are managed by Systems Manager."
   severity      = "medium"
-  sql           = query.ec2_instance_ssm_manged.sql
+  sql           = query.ec2_instance_ssm_managed.sql
   documentation = file("./pci_v321/docs/pci_v321_ssm_1.md")
 
   tags = merge(local.pci_v321_ssm_common_tags, {
