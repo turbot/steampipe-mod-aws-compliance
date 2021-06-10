@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  alarm_arn as resource,
+  arn as resource,
   case
     when alarm_actions is null
     and insufficient_data_actions is null
