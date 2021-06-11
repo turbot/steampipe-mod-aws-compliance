@@ -20,7 +20,7 @@ control "foundational_security_elb_3" {
   title         = "3 Classic Load Balancer listeners should be configured with HTTPS or TLS termination"
   description   = "This control checks whether your Classic Load Balancer listeners are configured with HTTPS or TLS protocol for front-end (client to load balancer) connections. The control is applicable if a Classic Load Balancer has listeners. If your Classic Load Balancer does not have a listener configured, then the control does not report any findings. The control passes if the Classic Load Balancer listeners are configured with TLS or HTTPS for front-end connections. The control fails if the listener is not configured with TLS or HTTPS for front-end connections."
   severity      = "medium"
-  sql           = query.elb_classis_configured_with_https_tls_termination.sql
+  sql           = query.elb_classic_configured_with_https_tls_termination.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_3.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {
