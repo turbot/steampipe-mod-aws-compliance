@@ -41,16 +41,6 @@ control "hipaa_164_308_a_6_ii_cloudtrail_integrated_with_logs" {
   })
 }
 
-control "hipaa_164_308_a_6_ii_cloudtrail_s3_data_events_enabled" {
-  title       = "Cloudtrail s3 data events should be enabled"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
-  sql         = query.cloudtrail_s3_data_events_enabled.sql
-
-  tags = merge(local.hipaa_164_308_a_6_ii_common_tags, {
-    service = "cloudtrail"
-  })
-}
-
 control "hipaa_164_308_a_6_ii_elb_application_classic_logging_enabled" {
   title       = "ELB logging should be enabled"
   description = "Elastic Load Balancing activity is a central point of communication within an environment. Ensure ELB logging is enabled. The collected data provides detailed information about requests sent to the ELB."

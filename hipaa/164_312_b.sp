@@ -42,16 +42,6 @@ control "hipaa_164_312_b_cloudtrail_cloudwatch_logs_enabled" {
   })
 }
 
-control "hipaa_164_312_b_cloudtrail_s3_data_events_enabled" {
-  title       = "CloudTrail trail should exist for logging Amazon S3 data events for all S3 buckets"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
-  sql         = query.cloudtrail_s3_data_events_enabled.sql
-
-  tags = merge(local.hipaa_164_312_b_common_tags, {
-    service = "cloudtrail"
-  })
-}
-
 control "hipaa_164_312_b_elb_logging_enabled" {
   title       = "Application Load Balancer and Classic Load Balancer should have logging enabled"
   description = "Elastic Load Balancing activity is a central point of communication within an environment. Ensure ELB logging is enabled."

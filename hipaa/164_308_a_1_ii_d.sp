@@ -12,7 +12,6 @@ benchmark "hipaa_164_308_a_1_ii_d" {
     control.hipaa_164_308_a_1_ii_d_cloudtrail_cloudwatch_logs_enabled,
     control.hipaa_164_308_a_1_ii_d_cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
-    control.hipaa_164_308_a_1_ii_d_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_1_ii_d_elb_logging_enabled,
     control.hipaa_164_308_a_1_ii_d_guardduty_enabled,
     control.hipaa_164_308_a_1_ii_d_redshift_cluster_encryption_logging_enabled,
@@ -37,16 +36,6 @@ control "hipaa_164_308_a_1_ii_d_cloudtrail_cloudwatch_logs_enabled" {
   title       = "CloudTrail trails should be integrated with CloudWatch Logs"
   description = "Use Amazon CloudWatch to centrally collect and manage log event activity."
   sql         = query.cloudtrail_integrated_with_logs.sql
-
-  tags = merge(local.hipaa_164_308_a_1_ii_d_common_tags, {
-    service = "cloudtrail"
-  })
-}
-
-control "hipaa_164_308_a_1_ii_d_cloudtrail_s3_data_events_enabled" {
-  title       = "CloudTrail trail should exist for logging Amazon S3 data events for all S3 buckets"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
-  sql         = query.cloudtrail_s3_data_events_enabled.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_d_common_tags, {
     service = "cloudtrail"

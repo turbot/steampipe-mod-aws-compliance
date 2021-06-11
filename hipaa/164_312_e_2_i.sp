@@ -42,16 +42,6 @@ control "hipaa_164_312_e_2_i_cloudtrail_integrated_with_logs" {
   })
 }
 
-control "hipaa_164_312_e_2_i_cloudtrail_s3_data_events_enabled" {
-  title       = "CloudTrail trail should exist for logging Amazon S3 data events for all S3 buckets"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
-  sql         = query.cloudtrail_s3_data_events_enabled.sql
-
-  tags = merge(local.hipaa_164_312_e_2_i_common_tags, {
-    service = "cloudtrail"
-  })
-}
-
 control "hipaa_164_312_e_2_i_elb_classic_lb_use_ssl_certificate" {
   title       = "ELB classic LB should use SSL certificate"
   description = "Because sensitive data can exist and to help protect data at transit, ensure encryption is enabled for your Elastic Load Balancing."

@@ -11,7 +11,6 @@ benchmark "hipaa_164_308_a_3_ii_a" {
     control.hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
-    control.hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_emr_cluster_kerberos_enabled,
     control.hipaa_164_308_a_3_ii_a_guardduty_enabled,
@@ -34,16 +33,6 @@ control "hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled" {
 
   tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
     service = "apigateway"
-  })
-}
-
-control "hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled" {
-  title       = "CloudTrail trail should exist for logging Amazon S3 data events for all S3 buckets"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
-  sql         = query.cloudtrail_s3_data_events_enabled.sql
-
-  tags = merge(local.hipaa_164_308_a_3_ii_a_common_tags, {
-    service = "cloudtrail"
   })
 }
 
