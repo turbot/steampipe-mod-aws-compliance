@@ -125,7 +125,7 @@ control "hipaa_164_308_a_1_ii_b_log_group_encryption_at_rest_enabled" {
 
 control "hipaa_164_308_a_1_ii_b_codebuild_project_env_variables_no_clear_text" {
   title       = "CodeBuild project env variables should be with no clear text"
-  description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS Codebuild project environments."
+  description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS CodeBuild project environments. Do not store these variables in clear text. Storing these variables in clear text leads to unintended data exposure and unauthorized access."
   sql         = query.codebuild_project_env_variables_no_clear_text.sql
 
   tags = merge(local.hipaa_164_308_a_1_ii_b_common_tags, {
