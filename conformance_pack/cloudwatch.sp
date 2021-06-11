@@ -17,4 +17,3 @@ control "log_group_encryption_at_rest_enabled" {
   sql         = query.log_group_encryption_at_rest_enabled.sql
   tags        = local.conformance_pack_cloudwatch_common_tags
 }
-
