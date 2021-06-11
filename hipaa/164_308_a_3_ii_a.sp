@@ -10,6 +10,7 @@ benchmark "hipaa_164_308_a_3_ii_a" {
   children = [
     control.hipaa_164_308_a_3_ii_a_apigateway_stage_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_3_ii_a_cloudtrail_s3_data_events_enabled,
     control.hipaa_164_308_a_3_ii_a_elb_application_classic_logging_enabled,
     control.hipaa_164_308_a_3_ii_a_emr_cluster_kerberos_enabled,
