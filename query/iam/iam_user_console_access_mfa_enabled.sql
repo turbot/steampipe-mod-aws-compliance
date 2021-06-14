@@ -13,4 +13,4 @@ select
   -- Additional Dimensions
   account_id
 from
-  aws_iam_credential_report
+  aws_iam_credential_report;
