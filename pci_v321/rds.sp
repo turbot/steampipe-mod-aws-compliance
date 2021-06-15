@@ -18,7 +18,7 @@ control "pci_v321_rds_1" {
   title         = "1 RDS snapshots should prohibit public access"
   description   = "This control checks whether Amazon RDS DB snapshots prohibit access by other accounts. You should also ensure that access to the snapshot and permission to change Amazon RDS configuration is restricted to authorized principals only."
   severity      = "critical"
-  sql           = query.rds_snapshot_prohibit_public_access.sql
+  sql           = query.rds_db_snapshot_prohibit_public_access.sql
   documentation = file("./pci_v321/docs/pci_v321_rds_1.md")
 
   tags = merge(local.pci_v321_rds_common_tags, {

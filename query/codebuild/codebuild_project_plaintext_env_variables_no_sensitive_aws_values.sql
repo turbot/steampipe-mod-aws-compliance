@@ -17,8 +17,8 @@ select
     else 'alarm'
   end as status,
   case
-    when b.arn is null then a.title || ' environment variables for AWS access keys not in plain text format.'
-    else a.title || ' environment variables for AWS access keys in plain text format.'
+    when b.arn is null then a.title || ' has no plaintext environment variables with sensitive AWS values.'
+    else a.title || ' has plaintext environment variables with sensitive AWS values.'
   end as reason,
   -- Additional Dimensions
   a.region,

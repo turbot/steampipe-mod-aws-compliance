@@ -76,7 +76,7 @@ control "cis_v130_1_3" {
 control "cis_v130_1_4" {
   title         = "1.4 Ensure no root user account access key exists"
   description   = "The root user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the root user account be removed."
-  sql           = query.iam_root_user_access_key.sql
+  sql           = query.iam_root_user_no_access_keys.sql
   documentation = file("./cis_v130/docs/cis_v130_1_4.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
@@ -89,7 +89,7 @@ control "cis_v130_1_4" {
 control "cis_v130_1_5" {
   title         = "1.5 Ensure MFA is enabled for the \"root user\" account"
   description   = "The root user account is the most privileged user in an AWS account. Multi-factor Authentication (MFA) adds an extra layer of protection on top of a username and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their username and password as well as for an authentication code from their AWS MFA device."
-  sql           = query.iam_root_user_mfa.sql
+  sql           = query.iam_root_user_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_5.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
@@ -102,7 +102,7 @@ control "cis_v130_1_5" {
 control "cis_v130_1_6" {
   title         = "1.6 Ensure hardware MFA is enabled for the \"root user\" account"
   description   = "The root user account is the most privileged user in an AWS account. MFA adds an extra layer of protection on top of a user name and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their user name and password as well as for an authentication code from their AWS MFA device. For Level 2, it is recommended that the root user account be protected with a hardware MFA."
-  sql           = query.iam_root_user_hardware_mfa.sql
+  sql           = query.iam_root_user_hardware_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_6.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
@@ -154,7 +154,7 @@ control "cis_v130_1_9" {
 control "cis_v130_1_10" {
   title         = "1.10 Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password"
   description   = "Multi-Factor Authentication (MFA) adds an extra layer of authentication assurance beyond traditional credentials. With MFA enabled, when a user signs in to the AWS Console, they will be prompted for their user name and password as well as for an authentication code from their physical or virtual MFA token. It is recommended that MFA be enabled for all accounts that have a console password."
-  sql           = query.iam_user_mfa.sql
+  sql           = query.iam_user_console_access_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_10.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
@@ -219,7 +219,7 @@ control "cis_v130_1_14" {
 control "cis_v130_1_15" {
   title         = "1.15 Ensure IAM Users Receive Permissions Only Through Groups"
   description   = "IAM users are granted access to services, functions, and data through IAM policies. There are three ways to define policies for a user: 1) Edit the user policy directly, aka an inline, or user, policy; 2) attach a policy directly to a user; 3) add the user to an IAM group that has an attached policy.  Only the third implementation is recommended."
-  sql           = query.iam_user_no_policies.sql
+  sql           = query.iam_user_no_inline_attached_policies.sql
   documentation = file("./cis_v130/docs/cis_v130_1_15.md")
 
   tags = merge(local.cis_v130_1_common_tags, {

@@ -1,17 +1,17 @@
 # AWS Compliance Scanning Tool
 
-230+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, Foundational Security Best Practices **and the latest (v1.4.0) CIS benchmarks**:
+300+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including HIPAA, PCI DSS, Foundational Security Best Practices **and the latest (v1.4.0) CIS benchmarks**:
 
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png)
 
 Includes support for:
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140) 🚀 New!
+* [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa) 🚀 New!
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
-* [AWS Foundational Security Best Practice](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security) 🚀 New!
+* [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security) 🚀 New!
 
 ## Quick start
-
 
 1) Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
 
@@ -19,7 +19,7 @@ Includes support for:
 brew tap turbot/tap
 brew install steampipe
 
-steampipe -v 
+steampipe -v
 steampipe version 0.5.1
 ```
 

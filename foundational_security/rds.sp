@@ -29,7 +29,7 @@ control "foundational_security_rds_1" {
   title         = "1 RDS snapshots should be private"
   description   = "This control checks whether Amazon RDS snapshots are public. This control is intended for RDS instances. It can also return findings for snapshots of Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters, even though they are not evaluated for public accessibility. If these findings are not useful, you can suppress them."
   severity      = "critical"
-  sql           = query.rds_snapshot_prohibit_public_access.sql
+  sql           = query.rds_db_snapshot_prohibit_public_access.sql
   documentation = file("./foundational_security/docs/foundational_security_rds_1.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
