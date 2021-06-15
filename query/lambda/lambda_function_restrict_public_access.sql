@@ -14,7 +14,7 @@ select
     when policy_std -> 'Statement' ->> 'Effect' = 'Allow'
     and (
       policy_std -> 'Statement' ->> 'Prinipal' = '*'
-      or ( policy_std -> 'Principal' -> 'AWS' ) :: text  = '*'
+      or ( policy_std -> 'Principal' -> 'AWS' ) :: text = '*'
     ) then title || ' allows public access.'
     else title || ' does not allow public access.'
   end reason,

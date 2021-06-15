@@ -154,7 +154,7 @@ control "cis_v130_1_9" {
 control "cis_v130_1_10" {
   title         = "1.10 Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password"
   description   = "Multi-Factor Authentication (MFA) adds an extra layer of authentication assurance beyond traditional credentials. With MFA enabled, when a user signs in to the AWS Console, they will be prompted for their user name and password as well as for an authentication code from their physical or virtual MFA token. It is recommended that MFA be enabled for all accounts that have a console password."
-  sql           = query.iam_user_mfa.sql
+  sql           = query.iam_user_console_access_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_10.md")
 
   tags = merge(local.cis_v130_1_common_tags, {

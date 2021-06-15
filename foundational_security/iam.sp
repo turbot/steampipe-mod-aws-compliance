@@ -76,7 +76,7 @@ control "foundational_security_iam_5" {
   title         = "5 MFA should be enabled for all IAM users that have a console password"
   description   = "This control checks whether AWS multi-factor authentication (MFA) is enabled for all IAM users that use a console password."
   severity      = "medium"
-  sql           = query.iam_user_mfa.sql
+  sql           = query.iam_user_console_access_mfa_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_5.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
