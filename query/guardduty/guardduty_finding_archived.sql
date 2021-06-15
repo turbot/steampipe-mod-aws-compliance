@@ -6,7 +6,7 @@ select
     else 'ok'
   end as status,
   case
-    when service ->> 'Archived' = 'false' then title || ' non archived.'
+    when service ->> 'Archived' = 'false' then title || ' not archived.'
     else title || ' archived.'
   end as reason,
   -- Additional Dimensions
