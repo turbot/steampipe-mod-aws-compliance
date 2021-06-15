@@ -16,9 +16,9 @@ select
     else 'ok'
   end as status,
   case
-    when b.count is null then a.title || ' has both tunnel offline.'
+    when b.count is null then a.title || ' has both tunnels offline.'
     when b.count = 1 then a.title || ' has one tunnel offline.'
-    else a.title || ' has both tunnel online.'
+    else a.title || ' has both tunnels online.'
   end as reason,
   -- Additional Dimensions
   a.region,
