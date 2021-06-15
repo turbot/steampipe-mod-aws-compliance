@@ -13,7 +13,7 @@ benchmark "rbi" {
     benchmark.rbi_annex_i_5_1,
     benchmark.rbi_annex_i_7_1,
     benchmark.rbi_annex_i_7_2,
-    benchmark.rbi_annex_i_7_3
+    benchmark.rbi_annex_i_7_3,
     benchmark.rbi_annex_i_7_4,
     benchmark.rbi_annex_i_12
   ]
