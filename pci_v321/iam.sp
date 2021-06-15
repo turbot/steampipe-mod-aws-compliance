@@ -24,7 +24,7 @@ control "pci_v321_iam_1" {
   title         = "1 IAM root user access key should not exist"
   description   = "This control checks whether user access keys exist for the root user."
   severity      = "critical"
-  sql           = query.iam_root_user_access_key.sql
+  sql           = query.iam_root_user_no_access_keys.sql
   documentation = file("./pci_v321/docs/pci_v321_iam_1.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
@@ -37,7 +37,7 @@ control "pci_v321_iam_2" {
   title         = "2 IAM users should not have IAM policies attached"
   description   = "This control checks that none of your IAM users have policies attached. IAM users must inherit permissions from IAM groups or roles. It does not check whether least privileged policies are applied to IAM roles and groups."
   severity      = "low"
-  sql           = query.iam_user_no_policies.sql
+  sql           = query.iam_user_no_inline_attached_policies.sql
   documentation = file("./pci_v321/docs/pci_v321_iam_2.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
@@ -63,7 +63,7 @@ control "pci_v321_iam_4" {
   title         = "4 Hardware MFA should be enabled for the root user"
   description   = "This control checks whether your AWS account is enabled to use multi-factor authentication (MFA) hardware device to sign in with root user credentials. It does not check whether you are using virtual MFA."
   severity      = "critical"
-  sql           = query.iam_root_user_hardware_mfa.sql
+  sql           = query.iam_root_user_hardware_mfa_enabled.sql
   documentation = file("./pci_v321/docs/pci_v321_iam_4.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
