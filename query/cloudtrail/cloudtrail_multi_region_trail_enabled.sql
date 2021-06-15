@@ -1,4 +1,3 @@
-
 with multi_region_trails as (
   select
     count(account_id),
@@ -19,8 +18,8 @@ select
     else 'ok'
   end as status,
   case
-    when b.count < 1 then a.title || ' has no multi-region trail enabled.'
-    else a.title || ' has multi-region trail enabled.'
+    when b.count < 1 then a.title || ' has no enabled multi-region trail.'
+    else a.title || ' has enabled multi-region trail.'
   end as reason,
   -- Additional Dimensions
   a.account_id

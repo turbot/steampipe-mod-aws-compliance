@@ -6,12 +6,11 @@ select
     else 'alarm'
   end as status,
   case
-    when automatic_backups = 'enabled' then title || ' backup plans enabled.'
-    else title || ' backup plans not enabled.'
+    when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
+    else title || ' automatic backups not enabled.'
   end as reason,
   -- Additional Dimensions
   region,
   account_id
 from
   aws_efs_file_system;
-
