@@ -14,7 +14,7 @@ benchmark "hipaa_164_308_a_6_ii" {
     control.cloudtrail_trail_integrated_with_logs,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
-    control.guardduty_finding_archived,
+    #control.guardduty_finding_archived,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled

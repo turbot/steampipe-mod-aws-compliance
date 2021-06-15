@@ -60,7 +60,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_vpn_tunnel_up
+    #control.vpc_vpn_tunnel_up
   ]
   tags          = local.hipaa_164_308_a_1_ii_b_common_tags
 }
