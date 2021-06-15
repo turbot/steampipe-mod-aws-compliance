@@ -38,3 +38,10 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   sql         = query.vpc_security_group_restrict_ingress_ssh_all.sql
   tags        = local.conformance_pack_vpc_common_tags
 }
+
+control "vpc_vpn_tunnel_up" {
+  title       = "Both VPN tunnels provided by AWS Site-to-Site VPN should be in UP status"
+  description = "Redundant Site-to-Site VPN tunnels can be implemented to achieve resilience requirements."
+  sql         = query.vpc_vpn_tunnel_up.sql
+  tags        = local.conformance_pack_vpc_common_tags
+}

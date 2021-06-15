@@ -22,6 +22,7 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
   ]

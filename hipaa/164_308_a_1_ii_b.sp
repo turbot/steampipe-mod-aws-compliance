@@ -52,6 +52,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_versioning_enabled,
     control.s3_public_access_block_account,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
@@ -59,6 +60,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_vpn_tunnel_up
   ]
   tags          = local.hipaa_164_308_a_1_ii_b_common_tags
 }
