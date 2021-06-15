@@ -89,7 +89,7 @@ control "pci_v321_iam_6" {
   title         = "6 MFA should be enabled for all IAM users"
   description   = "This control checks whether the IAM users have multi-factor authentication (MFA) enabled."
   severity      = "medium"
-  sql           = query.iam_user_mfa.sql
+  sql           = query.iam_user_mfa_enabled.sql
   #documentation = file("./pci_v321/docs/pci_v321_iam_6.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {
