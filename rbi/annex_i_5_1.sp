@@ -6,7 +6,7 @@ locals {
 
 benchmark "rbi_annex_i_5_1" {
   title       = "Annex_I(5.1)"
-  description = "The firewall configurations should be set to the highest security level and evaluation of critical device (such as firewall, network switches, security devices, etc.) configurations should be done periodically."
+  description = "TODO"
   children = [
     control.elb_application_waf_enabled,
     control.vpc_default_security_group_restricts_all_traffic,

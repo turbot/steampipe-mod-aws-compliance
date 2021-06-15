@@ -6,7 +6,7 @@ locals {
 
 benchmark "rbi_annex_i_12" {
   title       = "Annex_I(12)"
-  description = "Take periodic back up of the important data and store this data 'off line' (i.e., transferring important files to a storage device that can be detached from a computer/system after copying all the files)."
+  description = "TODO"
   children = [
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,

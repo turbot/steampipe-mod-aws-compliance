@@ -6,7 +6,7 @@ locals {
 
 benchmark "rbi_annex_i_7_4" {
   title       = "Annex_I(7.4)"
-  description = " Implement appropriate (e.g. centralised) systems and controls to allow, manage, log and monitor privileged/super user/administrative access to critical systems (servers/databases, applications, network devices etc.)."
+  description = "TODO"
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_integrated_with_logs,
