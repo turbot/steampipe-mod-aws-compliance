@@ -5,7 +5,7 @@ locals {
 }
 
 control "s3_bucket_cross_region_replication_enabled" {
-  title       = "S3 bucket cross region replication enabled"
+  title       = "S3 bucket cross-region replication should enabled"
   description = "Amazon Simple Storage Service (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
   tags        = local.conformance_pack_s3_common_tags
@@ -19,14 +19,14 @@ control "s3_bucket_default_encryption_enabled" {
 }
 
 control "s3_bucket_enforces_ssl" {
-  title       = "S3 bucket should enforce SSL"
+  title       = "S3 buckets should enforce SSL"
   description = "To help protect data in transit, ensure that your Amazon Simple Storage Service (Amazon S3) buckets require requests to use Secure Socket Layer (SSL)."
   sql         = query.s3_bucket_enforces_ssl.sql
   tags        = local.conformance_pack_s3_common_tags
 }
 
 control "s3_bucket_logging_enabled" {
-  title       = "Logging should be enabled for all S3 buckets"
+  title       = "S3 bucket logging should be enabled"
   description = "Amazon Simple Storage Service (Amazon S3) server access logging provides a method to monitor the network for potential cybersecurity events."
   sql         = query.s3_bucket_logging_enabled.sql
   tags        = local.conformance_pack_s3_common_tags
@@ -68,7 +68,7 @@ control "s3_public_access_block_account" {
 }
 
 control "s3_public_access_block_bucket_account" {
-  title       = "S3 Block Public Access setting should be enabled"
+  title       = "S3 public access should be blocked at account and bucket levels"
   description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed."
   sql         = query.s3_public_access_block_bucket_account.sql
   tags        = local.conformance_pack_s3_common_tags

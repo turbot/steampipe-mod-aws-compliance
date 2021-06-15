@@ -4,9 +4,9 @@ locals {
   }
 }
 
-control "dms_replication_instances_not_publicly_accessible" {
-  title       = "AWS Database Migration Service replication instances should not be publicly accessible"
+control "dms_replication_instance_not_publicly_accessible" {
+  title       = "DMS replication instances should not be publicly accessible"
   description = "Manage access to the AWS Cloud by ensuring DMS replication instances cannot be publicly accessed."
-  sql         = query.dms_replication_instances_not_publicly_accessible.sql
+  sql         = query.dms_replication_instance_not_publicly_accessible.sql
   tags        = local.conformance_pack_dms_common_tags
 }

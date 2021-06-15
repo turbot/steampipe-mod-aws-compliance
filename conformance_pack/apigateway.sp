@@ -12,7 +12,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
 }
 
 control "apigateway_stage_logging_enabled" {
-  title       = "Logging should be enabled for API Gateway stage"
+  title       = "API Gateway stage logging should be enabled"
   description = "API Gateway logging displays detailed views of users who accessed the API and the way they accessed the API."
   sql         = query.apigateway_stage_logging_enabled.sql
   tags        = local.conformance_pack_autoscaling_common_tags
