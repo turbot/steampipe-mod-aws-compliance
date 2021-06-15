@@ -17,3 +17,10 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
   sql         = query.sagemaker_notebook_instance_encryption_at_rest_enabled.sql
   tags        = local.conformance_pack_sagemaker_common_tags
 }
+
+control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
+  title       = "Sagemaker endpoint configuration encryption at rest should be enabled"
+  description = "To help protect data at rest, ensure encryption with AWS Key Management Service (AWS KMS) is enabled for your SageMaker endpoint."
+  sql         = query.sagemaker_endpoint_configuration_encryption_at_rest_enabled.sql
+  tags        = local.conformance_pack_sagemaker_common_tags
+}
