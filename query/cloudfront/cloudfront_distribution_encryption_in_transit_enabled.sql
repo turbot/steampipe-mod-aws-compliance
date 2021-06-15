@@ -19,7 +19,7 @@ select
     else 'ok'
   end as status,
   case
-    when d.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all')  then title || ' data not encrypted in transit.'
+    when d.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') then title || ' data not encrypted in transit.'
     else title || ' data encrypted in transit.'
   end as reason,
   -- Additional Dimensions
