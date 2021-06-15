@@ -38,3 +38,10 @@ control "vpc_security_group_restrict_ssh" {
   sql         = query.vpc_security_group_restrict_ssh.sql
   tags        = local.conformance_pack_vpc_common_tags
 }
+
+control "vpc_default_security_group_restricts_all_traffic" {
+  title       = "VPC default security group should prohibit inbound and outbound traffic"
+  description = "Amazon Elastic Compute Cloud (Amazon EC2) security groups can help in the management of network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_default_security_group_restricts_all_traffic.sql
+  tags        = local.conformance_pack_vpc_common_tags
+}
