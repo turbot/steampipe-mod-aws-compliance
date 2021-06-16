@@ -18,9 +18,9 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   tags        = local.conformance_pack_dynamodb_common_tags
 }
 
-control "dynamodb_table_encryption_enabled" {
-  title       = "DynamoDB table encryption should be enabled"
+control "dynamodb_table_encrypted_with_kms_cmk" {
+  title       = "DynamoDB table should be encrypted with AWS KMS"
   description = "Ensure that encryption is enabled for your Amazon DynamoDB tables. Because sensitive data can exist at rest in these tables, enable encryption at rest to help protect that data."
-  sql         = query.dynamodb_table_encryption_enabled.sql
+  sql         = query.dynamodb_table_encrypted_with_kms_cmk.sql
   tags        = local.conformance_pack_dynamodb_common_tags
 }
