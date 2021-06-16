@@ -45,3 +45,10 @@ control "rds_db_snapshot_prohibit_public_access" {
   sql         = query.rds_db_snapshot_prohibit_public_access.sql
   tags        = local.conformance_pack_rds_common_tags
 }
+
+control "rds_db_instance_logging_enabled" {
+  title       = "Database logging should be enabled"
+  description = "To help with logging and monitoring within your environment, ensure Amazon Relational Database Service (Amazon RDS) logging is enabled."
+  sql         = query.rds_db_instance_logging_enabled.sql
+  tags        = local.conformance_pack_rds_common_tags
+}

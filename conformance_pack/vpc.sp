@@ -39,11 +39,16 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   tags        = local.conformance_pack_vpc_common_tags
 }
 
-/*
+control "vpc_default_security_group_restricts_all_traffic" {
+  title       = "VPC default security group should not allow inbound and outbound traffic"
+  description = "Amazon Elastic Compute Cloud (Amazon EC2) security groups can help in the management of network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_default_security_group_restricts_all_traffic.sql
+  tags        = local.conformance_pack_vpc_common_tags
+}
+
 control "vpc_vpn_tunnel_up" {
   title       = "Both VPN tunnels provided by AWS Site-to-Site VPN should be in UP status"
   description = "Redundant Site-to-Site VPN tunnels can be implemented to achieve resilience requirements."
   sql         = query.vpc_vpn_tunnel_up.sql
   tags        = local.conformance_pack_vpc_common_tags
 }
-*/
