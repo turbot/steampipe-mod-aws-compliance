@@ -14,9 +14,9 @@ benchmark "hipaa_164_312_e_1" {
     control.lambda_function_in_vpc,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
-    control.vpc_security_group_no_ingress_tcp_udp_all,
-    control.vpc_security_group_restrict_common_port,
-    control.vpc_security_group_restrict_ssh,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
   tags = local.common_tags
 }

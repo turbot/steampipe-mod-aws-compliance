@@ -4,24 +4,24 @@ locals {
   }
 }
 
-control "cloudtrail_integrated_with_logs" {
-  title       = "CloudTrail should be integrated with logs"
+control "cloudtrail_trail_integrated_with_logs" {
+  title       = "CloudTrail trails should be integrated with CloudWatch logs"
   description = "Use Amazon CloudWatch to centrally collect and manage log event activity. Inclusion of AWS CloudTrail data provides details of API call activity within your AWS account."
-  sql         = query.cloudtrail_integrated_with_logs.sql
+  sql         = query.cloudtrail_trail_integrated_with_logs.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
 
 control "cloudtrail_s3_data_events_enabled" {
-  title       = "CloudTrail trail should exist for logging Amazon S3 data events for all S3 buckets"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
+  title       = "All S3 buckets should log S3 data events in CloudTrail"
+  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity. The details include AWS account information that accessed an Amazon S3 bucket, IP address, and time of event."
   sql         = query.cloudtrail_s3_data_events_enabled.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
 
-control "cloudtrail_logs_encrypted_with_kms_cmk" {
-  title       = "CloudTrail logs should be encrypted with KMS CMK"
+control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
+  title       = "CloudTrail trail logs should be encrypted with KMS CMK"
   description = "To help protect sensitive data at rest, ensure encryption is enabled for your Amazon CloudWatch Log Groups."
-  sql         = query.cloudtrail_logs_encrypted_with_kms_cmk.sql
+  sql         = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
 
@@ -32,9 +32,16 @@ control "cloudtrail_multi_region_trail_enabled" {
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
 
-control "cloudtrail_validation_enabled" {
-  title       = "CloudTrail log file validation should be enabled"
-  description = "Utilize AWS CloudTrail log file validation to check the integrity of CloudTrail logs."
-  sql         = query.cloudtrail_validation_enabled.sql
+control "cloudtrail_trail_validation_enabled" {
+  title       = "CloudTrail trail log file validation should be enabled"
+  description = "Utilize AWS CloudTrail log file validation to check the integrity of CloudTrail logs. Log file validation helps determine if a log file was modified or deleted or unchanged after CloudTrail delivered it. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. This makes it computationally infeasible to modify, delete or forge CloudTrail log files without detection."
+  sql         = query.cloudtrail_trail_validation_enabled.sql
+  tags        = local.conformance_pack_cloudtrail_common_tags
+}
+
+control "cloudtrail_trail_enabled" {
+  title       = "At least one enabled trail should be present in a region"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls. You can identify the users and AWS accounts that called an AWS service, the source IP address where the calls generated, and the timings of the calls. Details of captured data are seen within AWS CloudTrail Record Contents."
+  sql         = query.cloudtrail_trail_enabled.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
