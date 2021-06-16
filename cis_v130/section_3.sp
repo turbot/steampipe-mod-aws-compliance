@@ -39,7 +39,7 @@ control "cis_v130_3_1" {
 control "cis_v130_3_2" {
   title         = "3.2 Ensure CloudTrail log file validation is enabled."
   description   = "CloudTrail log file validation creates a digitally signed digest file containing a hash of each log that CloudTrail writes to S3. These digest files can be used to determine whether a log file was changed, deleted, or unchanged after CloudTrail delivered the log. It is recommended that file validation be enabled on all CloudTrails."
-  sql           = query.cloudtrail_validation_enabled.sql
+  sql           = query.cloudtrail_trail_validation_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_2.md")
 
   tags = merge(local.cis_v130_3_common_tags, {
@@ -65,7 +65,7 @@ control "cis_v130_3_3" {
 control "cis_v130_3_4" {
   title         = "3.4 Ensure CloudTrail trails are integrated with CloudWatch Logs"
   description   = "AWS CloudTrail is a web service that records AWS API calls made in a given AWS account. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service. CloudTrail uses Amazon S3 for log file storage and delivery, so log files are stored durably. In addition to capturing CloudTrail logs within a specified S3 bucket for long term analysis, realtime analysis can be performed by configuring CloudTrail to send logs to CloudWatch Logs. For a trail that is enabled in all regions in an account, CloudTrail sends log files from all those regions to a CloudWatch Logs log group. It is recommended that CloudTrail logs be sent to CloudWatch Logs."
-  sql           = query.cloudtrail_integrated_with_logs.sql
+  sql           = query.cloudtrail_trail_integrated_with_logs.sql
   documentation = file("./cis_v130/docs/cis_v130_3_4.md")
 
   tags = merge(local.cis_v130_3_common_tags, {
@@ -104,7 +104,7 @@ control "cis_v130_3_6" {
 control "cis_v130_3_7" {
   title         = "3.7 Ensure CloudTrail logs are encrypted at rest using KMS CMKs"
   description   = "AWS CloudTrail is a web service that records AWS API calls for an account and makes those logs available to users and resources in accordance with IAM policies. AWS Key Management Service (KMS) is a managed service that helps create and control the encryption keys used to encrypt account data, and uses Hardware Security Modules (HSMs) to protect the security of encryption keys. CloudTrail logs can be configured to leverage server side encryption (SSE) and KMS customer created master keys (CMK) to further protect CloudTrail logs. It is recommended that CloudTrail be configured to use SSE-KMS."
-  sql           = query.cloudtrail_logs_encrypted_with_kms_cmk.sql
+  sql           = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
   documentation = file("./cis_v130/docs/cis_v130_3_7.md")
 
   tags = merge(local.cis_v130_3_common_tags, {
@@ -130,7 +130,7 @@ control "cis_v130_3_8" {
 control "cis_v130_3_9" {
   title         = "3.9 Ensure VPC flow logging is enabled in all VPCs"
   description   = "VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. After you've created a flow log, you can view and retrieve its data in Amazon CloudWatch Logs. It is recommended that VPC Flow Logs be enabled for packet \"Rejects\" for VPCs."
-  sql           = query.vpc_flow_log_enabled.sql
+  sql           = query.vpc_flow_logs_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_9.md")
 
   tags = merge(local.cis_v130_3_common_tags, {
