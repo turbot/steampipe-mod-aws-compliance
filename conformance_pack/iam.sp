@@ -89,7 +89,7 @@ control "iam_user_in_group" {
 }
 
 control "iam_group_user_role_no_inline_policies" {
-  title       = "IAM user, role, or group should not have any inline policy attached"
+  title       = "IAM groups, users, and roles should not have any inline policies"
   description = "Ensure an AWS Identity and Access Management (IAM) user, IAM role or IAM group does not have an inline policy to control access to systems and assets."
   sql         = query.iam_group_user_role_no_inline_policies.sql
   tags        = local.conformance_pack_iam_common_tags
