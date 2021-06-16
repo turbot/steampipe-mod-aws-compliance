@@ -19,7 +19,7 @@ control "log_group_encryption_at_rest_enabled" {
 }
 
 control "cloudwatch_log_group_retention_period_365" {
-  title       = "Amazon CloudWatch LogGroup retention period should be set"
+  title       = "Log group retention period should be at least 365 days"
   description = "Ensure a minimum duration of event log data is retained for your log groups to help with troubleshooting and forensics investigations."
   sql         = query.cloudwatch_log_group_retention_period_365.sql
   tags        = local.conformance_pack_cloudwatch_common_tags
