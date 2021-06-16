@@ -10,7 +10,7 @@ benchmark "rbi_annex_i_5_1" {
   children = [
     control.elb_application_waf_enabled,
     control.vpc_default_security_group_restricts_all_traffic,
-    control.vpc_security_group_no_ingress_tcp_udp_all
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
   tags = local.rbi_annex_i_5_1_common_tags
 }
