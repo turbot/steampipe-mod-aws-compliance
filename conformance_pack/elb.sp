@@ -38,3 +38,17 @@ control "elb_classic_lb_use_ssl_certificate" {
   sql         = query.elb_classic_lb_use_ssl_certificate.sql
   tags        = local.conformance_pack_elb_common_tags
 }
+
+control "elb_application_drop_http_headers" {
+  title       = "ELB application load balancer should be configured to drop http headers"
+  description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop http headers."
+  sql         = query.elb_application_drop_http_headers.sql
+  tags        = local.conformance_pack_elb_common_tags
+}
+
+control "elb_classic_configured_with_https_tls_termination" {
+  title       = "ELB classic load balancer should be configured with https tls termination"
+  description = "Ensure that your Elastic Load Balancers (ELBs) are configured with SSL or HTTPS listeners. Because sensitive data can exist, enable encryption in transit to help protect that data."
+  sql         = query.elb_classic_configured_with_https_tls_termination.sql
+  tags        = local.conformance_pack_elb_common_tags
+}

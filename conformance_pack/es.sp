@@ -17,3 +17,10 @@ control "es_domain_in_vpc" {
   sql         = query.es_domain_in_vpc.sql
   tags        = local.conformance_pack_es_common_tags
 }
+
+control "es_domain_node_to_node_encryption_enabled" {
+  title       = "Elasticsearch domain node to node encryption should be enabled"
+  description = "Ensure node-to-node encryption for Amazon Elasticsearch Service is enabled. Node-to-node encryption enables TLS 1.2 encryption for all communications within the Amazon Virtual Private Cloud (Amazon VPC)."
+  sql         = query.es_domain_node_to_node_encryption_enabled.sql
+  tags        = local.conformance_pack_es_common_tags
+}
