@@ -15,7 +15,7 @@ benchmark "rbi_annex_i_7_4" {
     control.rbi_annex_i_7_4_cloudwatch_log_group_retention_period_365,
     control.rbi_annex_i_7_4_elb_application_classic_logging_enabled,
     control.rbi_annex_i_7_4_rds_db_instance_logging_enabled,
-    control.rbi_annex_i_7_4_redshift_cluster_encryption_logging_enabled
+    control.rbi_annex_i_7_4_redshift_cluster_encryption_logging_enabled,
     control.rbi_annex_i_7_4_s3_bucket_logging_enabled,
     control.rbi_annex_i_7_4_vpc_flow_log_enabled
   ]
