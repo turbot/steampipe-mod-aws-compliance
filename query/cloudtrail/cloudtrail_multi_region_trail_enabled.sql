@@ -17,10 +17,7 @@ select
     when b.count < 1 then 'alarm'
     else 'ok'
   end as status,
-  case
-    when b.count < 1 then a.title || ' has no enabled multi-region trail.'
-    else a.title || ' has enabled multi-region trail.'
-  end as reason,
+  a.title || ' has ' || b.count || ' multi-region trail(s).' as reason,
   -- Additional Dimensions
   a.account_id
 from
