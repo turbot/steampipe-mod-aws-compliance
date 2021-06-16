@@ -8,11 +8,25 @@ benchmark "foundational_security_cloudtrail" {
   title         = "CloudTrail"
   documentation = file("./foundational_security/docs/foundational_security_cloudtrail.md")
   children = [
+    control.foundational_security_cloudtrail_1,
     control.foundational_security_cloudtrail_2,
     control.foundational_security_cloudtrail_4,
     control.foundational_security_cloudtrail_5
   ]
   tags          = local.foundational_security_cloudtrail_common_tags
+}
+
+control "foundational_security_cloudtrail_1" {
+  title         = "1 CloudTrail should be enabled and configured with at least one multi-Region trail"
+  description   = "This control checks that there is at least one multi-Region CloudTrail trail."
+  severity      = "high"
+  sql           = query.cloudtrail_multi_region_trail_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudtrail_2.md")
+
+  tags = merge(local.foundational_security_cloudtrail_common_tags, {
+    foundational_security_item_id  = "cloudtrail_1"
+    foundational_security_category = "logging"
+  })
 }
 
 control "foundational_security_cloudtrail_2" {
