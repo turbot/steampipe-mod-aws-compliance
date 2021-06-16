@@ -10,10 +10,10 @@ benchmark "hipaa_164_308_a_3_ii_b" {
   children = [
     control.iam_group_not_empty,
     control.iam_policy_no_star_star,
-    control.iam_root_user_access_key,
-    control.iam_user_no_policies,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
-    control.iam_user_with_group
   ]
   tags          = local.common_tags
 }

@@ -27,8 +27,8 @@ select
     else 'alarm'
   end as status,
   case
-    when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for ssh from 0.0.0.0/0.'
-    else  sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' rule(s) allows ssh from 0.0.0.0/0.'
+    when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for SSH from 0.0.0.0/0.'
+    else  sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing SSH from 0.0.0.0/0.'
   end as reason,
   -- Additional Dimensions
   sg.region,

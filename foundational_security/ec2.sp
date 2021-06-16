@@ -76,7 +76,7 @@ control "foundational_security_ec2_6" {
   title         = "6 VPC flow logging should be enabled in all VPCs"
   description   = "This control checks whether Amazon VPC Flow Logs are found and enabled for VPCs. The traffic type is set to Reject. With the VPC Flow Logs feature, you can capture information about the IP address traffic going to and from network interfaces in your VPC. After you create a flow log, you can view and retrieve its data in CloudWatch Logs. To reduce cost, you can also send your flow logs to Amazon S3."
   severity      = "medium"
-  sql           = query.vpc_flow_log_enabled.sql
+  sql           = query.vpc_flow_logs_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_ec2_6.md")
 
   tags = merge(local.foundational_security_ec2_common_tags, {

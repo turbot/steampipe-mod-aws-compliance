@@ -12,7 +12,7 @@ control "es_domain_encryption_at_rest_enabled" {
 }
 
 control "es_domain_in_vpc" {
-  title       = "Amazon ES domains are in VPC"
+  title       = "ES domains should be in a VPC"
   description = "Manage access to the AWS Cloud by ensuring Amazon Elasticsearch Service (Amazon ES) Domains are within an Amazon Virtual Private Cloud (Amazon VPC)."
   sql         = query.es_domain_in_vpc.sql
   tags        = local.conformance_pack_es_common_tags

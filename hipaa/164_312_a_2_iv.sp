@@ -9,8 +9,8 @@ benchmark "hipaa_164_312_a_2_iv" {
   description = "Implement a mechanism to encrypt and decrypt electronic protected health information."
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
-    control.cloudtrail_logs_encrypted_with_kms_cmk,
-    control.ebs_volume_encryption_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.ebs_volume_encryption_at_rest_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.es_domain_encryption_at_rest_enabled,
@@ -22,6 +22,7 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
   ]

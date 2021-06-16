@@ -37,7 +37,7 @@ control "foundational_security_iam_2" {
   title         = "2 IAM users should not have IAM policies attached"
   description   = "This control checks that none of your IAM users have policies attached. Instead, IAM users must inherit permissions from IAM groups or roles."
   severity      = "low"
-  sql           = query.iam_user_no_policies.sql
+  sql           = query.iam_user_no_inline_attached_policies.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_2.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
@@ -63,7 +63,7 @@ control "foundational_security_iam_4" {
   title         = "4 IAM root user access key should not exist"
   description   = "This control checks whether the root user access key is present. The root account is the most privileged user in an AWS account. AWS access keys provide programmatic access to a given account."
   severity      = "critical"
-  sql           = query.iam_root_user_access_key.sql
+  sql           = query.iam_root_user_no_access_keys.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_4.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
@@ -89,7 +89,7 @@ control "foundational_security_iam_6" {
   title         = "6 Hardware MFA should be enabled for the root user"
   description   = "This control checks whether your AWS account is enabled to use a hardware multi-factor authentication (MFA) device to sign in with root user credentials."
   severity      = "critical"
-  sql           = query.iam_root_user_hardware_mfa.sql
+  sql           = query.iam_root_user_hardware_mfa_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_6.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
