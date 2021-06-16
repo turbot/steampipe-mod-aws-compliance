@@ -10,6 +10,7 @@ benchmark "hipaa_164_312_e_2_i" {
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,

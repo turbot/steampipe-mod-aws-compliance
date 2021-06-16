@@ -25,10 +25,10 @@ control "elb_application_lb_redirect_http_request_to_https" {
   tags        = local.conformance_pack_elb_common_tags
 }
 
-control "elb_application_waf_enabled" {
-  title       = "Web Application Firewall (WAF) should be enabled on Application Load Balancers"
+control "elb_application_lb_waf_enabled" {
+  title       = "ELB application load balancers should have Web Application Firewall (WAF) enabled"
   description = "Ensure AWS WAF is enabled on Elastic Load Balancers (ELB) to help protect web applications."
-  sql         = query.elb_application_waf_enabled.sql
+  sql         = query.elb_application_lb_waf_enabled.sql
   tags        = local.conformance_pack_elb_common_tags
 }
 
