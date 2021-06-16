@@ -11,6 +11,7 @@ benchmark "hipaa_164_312_b" {
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
