@@ -13,7 +13,7 @@ control "cloudtrail_trail_integrated_with_logs" {
 
 control "cloudtrail_s3_data_events_enabled" {
   title       = "All S3 buckets should log S3 data events in CloudTrail"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity."
+  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity. The details include AWS account information that accessed an Amazon S3 bucket, IP address, and time of event."
   sql         = query.cloudtrail_s3_data_events_enabled.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
@@ -34,14 +34,14 @@ control "cloudtrail_multi_region_trail_enabled" {
 
 control "cloudtrail_trail_validation_enabled" {
   title       = "CloudTrail trail log file validation should be enabled"
-  description = "Utilize AWS CloudTrail log file validation to check the integrity of CloudTrail logs."
+  description = "Utilize AWS CloudTrail log file validation to check the integrity of CloudTrail logs. Log file validation helps determine if a log file was modified or deleted or unchanged after CloudTrail delivered it. This feature is built using industry standard algorithms: SHA-256 for hashing and SHA-256 with RSA for digital signing. This makes it computationally infeasible to modify, delete or forge CloudTrail log files without detection."
   sql         = query.cloudtrail_trail_validation_enabled.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
 
 control "cloudtrail_trail_enabled" {
-  title       = "Cloudtrail trails should be enabled"
-  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls."
+  title       = "At least one enabled trail should be present in a region"
+  description = "AWS CloudTrail can help in non-repudiation by recording AWS Management Console actions and API calls. You can identify the users and AWS accounts that called an AWS service, the source IP address where the calls generated, and the timings of the calls. Details of captured data are seen within AWS CloudTrail Record Contents."
   sql         = query.cloudtrail_trail_enabled.sql
   tags        = local.conformance_pack_cloudtrail_common_tags
 }
