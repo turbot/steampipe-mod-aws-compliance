@@ -1,3 +1,9 @@
+## v0.5 [2021-06-15]
+
+_What's new?_
+
+- Added: HIPAA benchmark (`steampipe check benchmark.hipaa`)
+
 ## v0.4 [2021-06-03]
 
 _What's new?_

@@ -87,7 +87,7 @@ control "pci_v321_ec2_6" {
   title         = "6 VPC flow logging should be enabled in all VPCs"
   description   = "This control checks whether VPC flow logs are found and enabled for VPCs. The traffic type is set to REJECT. With VPC Flow Logs, you can capture information about the IP address traffic to and from network interfaces in your VPC. After you create a flow log, you can use CloudWatch Logs to view and retrieve the log data. Security Hub recommends that you enable flow logging for packet rejects for VPCs. Flow logs provide visibility into network traffic that traverses the VPC. They can detect anomalous traffic and provide insight into security workflows. By default, the record includes values for the different components of the IP address flow, including the source, destination, and protocol."
   severity      = "medium"
-  sql           = query.vpc_flow_log_enabled.sql
+  sql           = query.vpc_flow_logs_enabled.sql
   documentation = file("./pci_v321/docs/pci_v321_ec2_6.md")
 
   tags = merge(local.pci_v321_ec2_common_tags, {

@@ -46,7 +46,7 @@ control "foundational_security_elb_5" {
   title         = "5 Application and Classic Load Balancers logging should be enabled"
   description   = "This control checks whether the Application Load Balancer and the Classic Load Balancer have logging enabled. The control fails if access_logs.s3.enabled is false."
   severity      = "medium"
-  sql           = query.elb_application_classic_logging_enabled.sql
+  sql           = query.elb_application_classic_lb_logging_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_5.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {
@@ -59,7 +59,7 @@ control "foundational_security_elb_6" {
   title         = "6 Application Load Balancer deletion protection should be enabled"
   description   = "This control checks whether an Application Load Balancer has deletion protection enabled. The control fails if deletion protection is not configured. Enable deletion protection to protect your Application Load Balancer from deletion."
   severity      = "medium"
-  sql           = query.elb_application_deletion_protection_enabled.sql
+  sql           = query.elb_application_lb_deletion_protection_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_6.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {

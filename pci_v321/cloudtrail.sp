@@ -20,7 +20,7 @@ control "pci_v321_cloudtrail_1" {
   title         = "1 CloudTrail logs should be encrypted at rest using AWS KMS CMKs"
   description   = "This control checks whether AWS CloudTrail is configured to use the server-side encryption (SSE) AWS KMS customer master key (CMK) encryption. If you are only using the default encryption option, you can choose to disable this check."
   severity      = "medium"
-  sql           = query.cloudtrail_logs_encrypted_with_kms_cmk.sql
+  sql           = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
   documentation = file("./pci_v321/docs/pci_v321_cloudtrail_1.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
@@ -46,7 +46,7 @@ control "pci_v321_cloudtrail_3" {
   title         = "3 CloudTrail log file validation should be enabled"
   description   = "This control checks whether CloudTrail log file validation is enabled."
   severity      = "low"
-  sql           = query.cloudtrail_validation_enabled.sql
+  sql           = query.cloudtrail_trail_validation_enabled.sql
   documentation = file("./pci_v321/docs/pci_v321_cloudtrail_3.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
@@ -59,7 +59,7 @@ control "pci_v321_cloudtrail_4" {
   title         = "4 CloudTrail trails should be integrated with CloudWatch Logs"
   description   = "This control checks whether CloudTrail trails are configured to send logs to CloudWatch Logs."
   severity      = "low"
-  sql           = query.cloudtrail_integrated_with_logs.sql
+  sql           = query.cloudtrail_trail_integrated_with_logs.sql
   documentation = file("./pci_v321/docs/pci_v321_cloudtrail_4.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
