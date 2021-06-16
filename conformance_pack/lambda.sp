@@ -5,7 +5,7 @@ locals {
 }
 
 control "lambda_function_dead_letter_queue_configured" {
-  title       = "AWS Lambda function should be configured with a dead-letter queue"
+  title       = "Lambda functions should be configured with a dead-letter queue"
   description = "Enable this rule to help notify the appropriate personnel through Amazon Simple Queue Service (Amazon SQS) or Amazon Simple Notification Service (Amazon SNS) when a function has failed."
   sql         = query.lambda_function_dead_letter_queue_configured.sql
   tags        = local.conformance_pack_lambda_common_tags
@@ -19,7 +19,7 @@ control "lambda_function_in_vpc" {
 }
 
 control "lambda_function_restrict_public_access" {
-  title       = "Lambda functions should prohibit public access"
+  title       = "Lambda functions should restrict public access"
   description = "Manage access to resources in the AWS Cloud by ensuring AWS Lambda functions cannot be publicly accessed."
   sql         = query.lambda_function_restrict_public_access.sql
   tags        = local.conformance_pack_lambda_common_tags

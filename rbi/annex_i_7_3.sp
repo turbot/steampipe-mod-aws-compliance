@@ -8,7 +8,7 @@ benchmark "rbi_annex_i_7_3" {
   title       = "Annex_I(7.3)"
   description = "TODO"
   children = [
-    control.vpc_security_group_restrict_ssh
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
   tags = local.rbi_annex_i_7_3_common_tags
 }

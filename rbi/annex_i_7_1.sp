@@ -10,8 +10,8 @@ benchmark "rbi_annex_i_7_1" {
   children = [
     control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
-    control.iam_root_user_access_key,
-    control.iam_user_no_policies
+    control.iam_root_user_no_access_keys,
+    control.iam_user_no_inline_attached_policies
   ]
   tags = local.rbi_annex_i_7_1_common_tags
 }

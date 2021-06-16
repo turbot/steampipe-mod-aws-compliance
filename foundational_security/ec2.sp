@@ -13,6 +13,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_3,
     control.foundational_security_ec2_4,
     control.foundational_security_ec2_6,
+    control.foundational_security_ec2_7,
     control.foundational_security_ec2_8,
     control.foundational_security_ec2_9,
     control.foundational_security_ec2_10
@@ -76,12 +77,25 @@ control "foundational_security_ec2_6" {
   title         = "6 VPC flow logging should be enabled in all VPCs"
   description   = "This control checks whether Amazon VPC Flow Logs are found and enabled for VPCs. The traffic type is set to Reject. With the VPC Flow Logs feature, you can capture information about the IP address traffic going to and from network interfaces in your VPC. After you create a flow log, you can view and retrieve its data in CloudWatch Logs. To reduce cost, you can also send your flow logs to Amazon S3."
   severity      = "medium"
-  sql           = query.vpc_flow_log_enabled.sql
+  sql           = query.vpc_flow_logs_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_ec2_6.md")
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_6"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_ec2_7" {
+  title         = "7 EBS default encryption should be enabled"
+  description   = "This control checks whether account-level encryption is enabled by default for Amazon Elastic Block Store(Amazon EBS). The control fails if the account level encryption is not enabled."
+  severity      = "medium"
+  sql           = query.ec2_ebs_default_encryption_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_7.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_7"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 

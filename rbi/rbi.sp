@@ -11,6 +11,7 @@ benchmark "rbi" {
   children = [
     benchmark.rbi_annex_i_1_1,
     benchmark.rbi_annex_i_5_1,
+    benchmark.rbi_annex_i_6,
     benchmark.rbi_annex_i_7_1,
     benchmark.rbi_annex_i_7_2,
     benchmark.rbi_annex_i_7_3,

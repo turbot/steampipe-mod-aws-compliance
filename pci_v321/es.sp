@@ -39,4 +39,3 @@ control "pci_v321_es_2" {
     pci_requirements = "3.4"
   })
 }
-

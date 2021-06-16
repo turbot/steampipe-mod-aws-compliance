@@ -25,4 +25,3 @@ control "pci_v321_config_1" {
     pci_requirements = "10.5.2,11.5"
   })
 }
-

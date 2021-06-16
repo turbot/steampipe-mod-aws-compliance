@@ -39,4 +39,3 @@ control "foundational_security_apigateway_2" {
     foundational_security_category = "data_protection"
   })
 }
-
