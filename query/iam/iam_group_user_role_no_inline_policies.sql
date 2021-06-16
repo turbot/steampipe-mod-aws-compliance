@@ -5,7 +5,7 @@ select
     when inline_policies is null then 'ok'
     else 'alarm'
   end status,
-  title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
+  'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
   -- Additional Dimensions
   account_id
 from
@@ -18,7 +18,7 @@ select
     when inline_policies is null then 'ok'
     else 'alarm'
   end status,
-  title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
+  'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
   -- Additional Dimensions
   account_id
 from
@@ -33,7 +33,7 @@ select
     when inline_policies is null then 'ok'
     else 'alarm'
   end status,
-  title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
+  'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
   -- Additional Dimensions
   account_id
 from
