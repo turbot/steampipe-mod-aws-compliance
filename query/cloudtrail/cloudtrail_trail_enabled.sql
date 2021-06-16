@@ -16,9 +16,9 @@ select
     else 'alarm'
   end as status,
   case
-    when b.is_logging is null and a.is_logging then a.title || ' trail enabled.'
-    when b.is_logging then a.title || ' trail enabled.'
-    else a.title || ' trail disabled.'
+    when b.is_logging is null and a.is_logging then a.title || ' enabled.'
+    when b.is_logging then a.title || ' enabled.'
+    else a.title || ' disabled.'
   end as reason,
   -- Additional Dimensions
   a.region,
