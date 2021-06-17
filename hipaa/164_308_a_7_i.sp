@@ -12,7 +12,7 @@ benchmark "hipaa_164_308_a_7_i" {
     control.dynamodb_table_auto_scaling_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.s3_bucket_cross_region_replication_enabled,
-    #control.vpc_vpn_tunnel_up
+    control.vpc_vpn_tunnel_up
   ]
   tags          = local.common_tags
 }

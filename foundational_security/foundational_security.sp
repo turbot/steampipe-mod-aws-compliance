@@ -1,7 +1,7 @@
 locals {
   foundational_security_common_tags = {
-    benchmark = "foundational_security"
-    plugin    = "aws"
+    aws_foundational_seceurity = "true"
+    plugin                     = "aws"
   }
 }
 

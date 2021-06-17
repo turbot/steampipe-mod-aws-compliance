@@ -1,6 +1,6 @@
 locals {
   pci_v321_common_tags = {
-    benchmark   = "pci"
+    pci         = "true"
     pci_version = "v3.2.1"
     plugin      = "aws"
   }

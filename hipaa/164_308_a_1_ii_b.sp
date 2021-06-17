@@ -1,12 +1,7 @@
-locals {
-  hipaa_164_308_a_1_ii_b_common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_1_ii_b"
-  })
-}
-
 benchmark "hipaa_164_308_a_1_ii_b" {
   title       = "164.308(a)(1)(ii)(B) Risk Management"
   description = "Implement security measures sufficient to reduce risks and vulnerabilities to a reasonable and appropriate level to comply with 164.306(a): Ensure the confidentiality, integrity, and availability of all electronic protected health information the covered entity or business associate creates, receives, maintains, or transmits."
+
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -60,7 +55,10 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    #control.vpc_vpn_tunnel_up
+    control.vpc_vpn_tunnel_up
   ]
-  tags          = local.hipaa_164_308_a_1_ii_b_common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_1_ii_b"
+  })
 }

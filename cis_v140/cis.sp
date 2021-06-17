@@ -1,6 +1,6 @@
 locals {
   cis_v140_common_tags = {
-    benchmark   = "cis"
+    cis         = "true"
     cis_version = "v1.4.0"
     plugin      = "aws"
   }
