@@ -12,14 +12,14 @@ control "ec2_instance_ssm_managed" {
 }
 
 control "ssm_managed_instance_compliance_association_compliant" {
-  title       = "AWS SSM association compliance should be COMPLIANT after association execution on instance"
+  title       = "EC2 instances managed by Systems Manager should be compliant after association execution on instance"
   description = "Use AWS Systems Manager Associations to help with inventory of software platforms and applications within an organization."
   sql         = query.ssm_managed_instance_compliance_association_compliant.sql
   tags        = local.conformance_pack_ssm_common_tags
 }
 
 control "ssm_managed_instance_compliance_patch_compliant" {
-  title       = "AWS SSM patch compliance should be COMPLIANT after patch installation on instance"
+  title       = "EC2 instances managed by Systems Manager should be compliant with patching requirements"
   description = "Enable this rule to help with identification and documentation of Amazon Elastic Compute Cloud (Amazon EC2) vulnerabilities."
   sql         = query.ssm_managed_instance_compliance_patch_compliant.sql
   tags        = local.conformance_pack_ssm_common_tags
