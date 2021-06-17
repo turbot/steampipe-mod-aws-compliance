@@ -17,7 +17,7 @@ select
     when b.count < 1 then 'alarm'
     else 'ok'
   end as status,
-  a.title || ' has ' || b.count || ' multi-region trail(s).' as reason,
+  a.title || ' has ' || coalesce(b.count, 0) || ' multi-region trail(s).' as reason,
   -- Additional Dimensions
   a.account_id
 from
