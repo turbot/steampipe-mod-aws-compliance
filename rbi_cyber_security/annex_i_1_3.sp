@@ -1,12 +1,7 @@
-locals {
-  rbi_annex_i_1_3_common_tags = merge(local.rbi_common_tags, {
-    rbi_item_id = "annex_i_1_3"
-  })
-}
+benchmark "rbi_cyber_security_annex_i_1_3" {
+  title       = "Annex I (1.3)"
+  description = "Appropriately manage and provide protection within and outside UCB/network, keeping in mind how the data/information is stored, transmitted, processed, accessed and put to use within/outside the UCB’s network, and level of risk they are exposed to depending on the sensitivity of the data/information."
 
-benchmark "rbi_annex_i_1_3" {
-  title       = "Annex_I(1.3)"
-  description = "TODO"
   children = [
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
@@ -51,5 +46,8 @@ benchmark "rbi_annex_i_1_3" {
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_security_group_restrict_ingress_common_ports_all
   ]
-  tags          = local.rbi_annex_i_1_3_common_tags
+
+  tags = merge(local.rbi_cyber_security_common_tags, {
+    rbi_cyber_security_item_id = "annex_i_1_3"
+  })
 }

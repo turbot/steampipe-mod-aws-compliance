@@ -1,12 +1,7 @@
-locals {
-  rbi_annex_i_7_4_common_tags = merge(local.rbi_common_tags, {
-    rbi_item_id = "annex_i_7_4"
-  })
-}
+benchmark "rbi_cyber_security_annex_i_7_4" {
+  title       = "Annex I (7.4)"
+  description = "Implement appropriate (e.g. centralised) systems and controls to allow, manage, log and monitor privileged/super user/administrative access to critical systems (servers/databases, applications, network devices etc.)"
 
-benchmark "rbi_annex_i_7_4" {
-  title       = "Annex_I(7.4)"
-  description = "TODO"
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -21,5 +16,8 @@ benchmark "rbi_annex_i_7_4" {
     control.vpc_flow_logs_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
-  tags = local.rbi_annex_i_7_4_common_tags
+
+  tags = merge(local.rbi_cyber_security_common_tags, {
+    rbi_cyber_security_item_id = "annex_i_7_4"
+  })
 }
