@@ -8,7 +8,9 @@ benchmark "rbi_annex_i_6" {
   title       = "Annex_I(6)"
   description = "TODO"
   children = [
-    control.guardduty_finding_archived
+    control.guardduty_finding_archived,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
   tags = local.rbi_annex_i_6_common_tags
 }

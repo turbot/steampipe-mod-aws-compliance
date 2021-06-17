@@ -9,9 +9,10 @@ benchmark "rbi_annex_i_7_4" {
   description = "TODO"
   children = [
     control.apigateway_stage_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_log_group_retention_period_365,
     control.elb_application_classic_lb_logging_enabled,
     control.rds_db_instance_logging_enabled,
