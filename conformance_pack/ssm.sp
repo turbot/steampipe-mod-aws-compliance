@@ -9,7 +9,7 @@ control "ec2_instance_ssm_managed" {
   description = "An inventory of the software platforms and applications within the organization is possible by managing Amazon Elastic Compute Cloud (Amazon EC2) instances with AWS Systems Manager."
   sql         = query.ec2_instance_ssm_managed.sql
 
-  tags = merge(local.conformance_pack_apigateway_common_tags, {
+  tags = merge(local.conformance_pack_ssm_common_tags, {
     rbi_cyber_security = "true"
   })
 }
