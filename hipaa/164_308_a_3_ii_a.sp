@@ -1,14 +1,9 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_3_ii_a"
-  })
-}
-
 benchmark "hipaa_164_308_a_3_ii_a" {
   title       = "164.308(a)(3)(ii)(A) Authorization and/or supervision"
   description = "Implement procedures for the authorization and/or supervision of workforce members who work with electronic protected health information or in locations where it might be accessed."
   children = [
     control.apigateway_stage_logging_enabled,
+    control.cloudtrail_trail_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.elb_application_classic_lb_logging_enabled,
@@ -23,5 +18,8 @@ benchmark "hipaa_164_308_a_3_ii_a" {
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_3_ii_a"
+  })
 }

@@ -52,6 +52,7 @@ control "cis_v130_2_1_1" {
     cis_item_id = "2.1.1"
     cis_level   = "1,2"
     cis_type    = "manual"
+    service     = "s3"
   })
 }
 
@@ -65,6 +66,7 @@ control "cis_v130_2_1_2" {
     cis_item_id = "2.1.2"
     cis_level   = "1,2"
     cis_type    = "manual"
+    service     = "s3"
   })
 }
 
@@ -78,5 +80,6 @@ control "cis_v130_2_2_1" {
     cis_item_id = "2.2.1"
     cis_level   = "1,2"
     cis_type    = "manual"
+    service     = "ebs"
   })
 }

@@ -20,7 +20,7 @@ control "foundational_security_elb_3" {
   title         = "3 Classic Load Balancer listeners should be configured with HTTPS or TLS termination"
   description   = "This control checks whether your Classic Load Balancer listeners are configured with HTTPS or TLS protocol for front-end (client to load balancer) connections. The control is applicable if a Classic Load Balancer has listeners. If your Classic Load Balancer does not have a listener configured, then the control does not report any findings. The control passes if the Classic Load Balancer listeners are configured with TLS or HTTPS for front-end connections. The control fails if the listener is not configured with TLS or HTTPS for front-end connections."
   severity      = "medium"
-  sql           = query.elb_classis_configured_with_https_tls_termination.sql
+  sql           = query.elb_classic_lb_use_tls_https_listeners.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_3.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {
@@ -33,7 +33,7 @@ control "foundational_security_elb_4" {
   title         = "4 Application load balancers should be configured to drop HTTP headers"
   description   = "This control evaluates AWS Application Load Balancers (ALB) to ensure they are configured to drop invalid HTTP headers. The control fails if the value of routing.http.drop_invalid_header_fields.enabled is set to false. By default, ALBs are not configured to drop invalid HTTP header values. Removing these header values prevents HTTP desync attacks."
   severity      = "medium"
-  sql           = query.elb_application_drop_http_headers.sql
+  sql           = query.elb_application_lb_drop_http_headers.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_4.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {

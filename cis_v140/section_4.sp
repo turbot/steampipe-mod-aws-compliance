@@ -37,6 +37,7 @@ control "cis_v140_4_1" {
     cis_item_id = "4.1"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -50,6 +51,7 @@ control "cis_v140_4_2" {
     cis_item_id = "4.2"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -63,6 +65,7 @@ control "cis_v140_4_3" {
     cis_item_id = "4.3"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -76,6 +79,7 @@ control "cis_v140_4_4" {
     cis_item_id = "4.4"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -89,6 +93,7 @@ control "cis_v140_4_5" {
     cis_item_id = "4.5"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -102,6 +107,7 @@ control "cis_v140_4_6" {
     cis_item_id = "4.6"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -115,6 +121,7 @@ control "cis_v140_4_7" {
     cis_item_id = "4.7"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -128,6 +135,7 @@ control "cis_v140_4_8" {
     cis_item_id = "4.8"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -141,6 +149,7 @@ control "cis_v140_4_9" {
     cis_item_id = "4.9"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -154,6 +163,7 @@ control "cis_v140_4_10" {
     cis_item_id = "4.10"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -167,6 +177,7 @@ control "cis_v140_4_11" {
     cis_item_id = "4.11"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -180,6 +191,7 @@ control "cis_v140_4_12" {
     cis_item_id = "4.12"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -193,6 +205,7 @@ control "cis_v140_4_13" {
     cis_item_id = "4.13"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -206,6 +219,7 @@ control "cis_v140_4_14" {
     cis_item_id = "4.14"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }
 
@@ -219,5 +233,6 @@ control "cis_v140_4_15" {
     cis_item_id = "4.15"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudwatch"
   })
 }

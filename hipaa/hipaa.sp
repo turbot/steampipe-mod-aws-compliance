@@ -1,7 +1,7 @@
 locals {
   hipaa_common_tags = {
-    benchmark = "hipaa"
-    plugin    = "aws"
+    hipaa  = "true"
+    plugin = "aws"
   }
 }
 

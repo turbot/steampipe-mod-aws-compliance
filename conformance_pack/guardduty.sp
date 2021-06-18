@@ -8,14 +8,19 @@ control "guardduty_enabled" {
   title       = "GuardDuty should be enabled"
   description = "Amazon GuardDuty can help to monitor and detect potential cybersecurity events by using threat intelligence feeds."
   sql         = query.guardduty_enabled.sql
-  tags        = local.conformance_pack_guardduty_common_tags
+
+  tags = merge(local.conformance_pack_guardduty_common_tags, {
+    hipaa = "true"
+  })
 }
 
-/*
 control "guardduty_finding_archived" {
-  title       = "Amazon GuardDuty should not have non archived findings"
+  title       = "GuardDuty findings should be archived"
   description = "Amazon GuardDuty helps you understand the impact of an incident by classifying findings by severity: low, medium, and high."
   sql         = query.guardduty_finding_archived.sql
-  tags        = local.conformance_pack_guardduty_common_tags
+
+  tags = merge(local.conformance_pack_guardduty_common_tags, {
+    hipaa              = "true"
+    rbi_cyber_security = "true"
+  })
 }
-*/

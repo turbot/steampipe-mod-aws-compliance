@@ -50,6 +50,7 @@ control "cis_v140_2_1_1" {
     cis_item_id = "2.1.1"
     cis_level   = "2"
     cis_type    = "manual"
+    service     = "s3"
   })
 }
 
@@ -63,6 +64,7 @@ control "cis_v140_2_1_2" {
     cis_item_id = "2.1.2"
     cis_level   = "2"
     cis_type    = "manual"
+    service     = "s3"
   })
 }
 
@@ -76,6 +78,7 @@ control "cis_v140_2_1_3" {
     cis_item_id = "2.1.3"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "s3"
   })
 }
 
@@ -89,6 +92,7 @@ control "cis_v140_2_1_4" {
     cis_item_id = "2.1.4"
     cis_level   = "2"
     cis_type    = "manual"
+    service     = "s3"
   })
 }
 
@@ -102,6 +106,7 @@ control "cis_v140_2_1_5" {
     cis_item_id = "2.1.5"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "s3"
   })
 }
 
@@ -124,6 +129,7 @@ control "cis_v140_2_2_1" {
     cis_item_id = "2.2.1"
     cis_level   = "1"
     cis_type    = "manual"
+    service     = "ebs"
   })
 }
 
@@ -140,11 +146,12 @@ control "cis_v140_2_3_1" {
   title         = "2.3.1 Ensure that encryption is enabled for RDS Instances"
   description   = "Amazon RDS encrypted DB instances use the industry standard AES-256 encryption algorithm to encrypt your data on the server that hosts your Amazon RDS DB instances. After your data is encrypted, Amazon RDS handles authentication of access and decryption of your data transparently with a minimal impact on performance."
   documentation = file("./cis_v140/docs/cis_v140_2_3_1.md")
-  sql           = query.rds_instance_encryption_enabled.sql
+  sql           = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.cis_v140_2_3_common_tags, {
     cis_item_id = "2.3.1"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "rds"
   })
 }

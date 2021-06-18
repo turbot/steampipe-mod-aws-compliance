@@ -1,3 +1,27 @@
+## v0.6 [2021-06-18]
+
+_What's new?_
+
+- Added: RBI Cyber Security Framework benchmark (`steampipe check benchmark.rbi_cyber_security`)
+- New Foundational Security controls added:
+  - CloudTrail.1
+  - EC2.7
+  - EFS.2
+  - SSM.2
+  - SSM.3
+- New HIPAA controls added:
+  - cloudtrail_trail_enabled
+  - guardduty_finding_archived
+  - vpc_vpn_tunnel_up
+- New PCI v3.2.1 controls added:
+  - SSM.1
+  - SSM.2
+
+_Enhancements_
+
+- Updated: CIS v1.3.0 and v1.4.0 benchmarks and controls now include the `service` tag
+- Updated: Replaced `benchmark` tag for all benchmarks and controls with framework specific tags, e.g., `cis = true`, `hipaa = true`
+
 ## v0.5 [2021-06-15]
 
 _What's new?_

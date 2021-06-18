@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_3_ii_b"
-  })
-}
-
 benchmark "hipaa_164_308_a_3_ii_b" {
   title       = "164.308(a)(3)(ii)(B) Workforce clearance procedure"
   description = "Implement procedures to determine that the access of a workforce member to electronic protected health information is appropriate."
@@ -15,5 +9,8 @@ benchmark "hipaa_164_308_a_3_ii_b" {
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_3_ii_b"
+  })
 }
