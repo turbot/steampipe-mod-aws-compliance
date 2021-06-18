@@ -107,16 +107,7 @@ control "s3_public_access_block_bucket_account" {
   sql         = query.s3_public_access_block_bucket_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa = "true"
-  })
-}
-
-control "s3_bucket_public_access_blocked" {
-  title       = "S3 bucket should not be publicly accessible"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed. This rule helps keeping sensitive data safe from unauthorized remote users by preventing public access."
-  sql         = query.s3_bucket_public_access_blocked.sql
-
-  tags = merge(local.conformance_pack_s3_common_tags, {
+    hipaa              = "true"
     rbi_cyber_security = "true"
   })
 }
