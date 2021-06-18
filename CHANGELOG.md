@@ -2,7 +2,7 @@
 
 _What's new?_
 
-- Added: RBI Cyber Security benchmark (`steampipe check benchmark.rbi_cyber_security`)
+- Added: RBI Cyber Security Framework benchmark (`steampipe check benchmark.rbi_cyber_security`)
 - New Foundational Security controls added:
   - CloudTrail.1
   - EC2.7
