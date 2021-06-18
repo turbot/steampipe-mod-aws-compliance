@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_4_ii_b"
-  })
-}
-
 benchmark "hipaa_164_308_a_4_ii_b" {
   title       = "164.308(a)(4)(ii)(B) Access authorization"
   description = "Implement policies and procedures for granting access to electronic protected health information, As one illustrative example, through access to a workstation, transaction, program, process, or other mechanism."
@@ -13,5 +7,8 @@ benchmark "hipaa_164_308_a_4_ii_b" {
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_4_ii_b"
+  })
 }

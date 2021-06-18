@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_4_ii_c"
-  })
-}
-
 benchmark "hipaa_164_308_a_4_ii_c" {
   title       = "164.308(a)(4)(ii)(C) Access establishment and modification"
   description = "Implement policies and procedures that, based upon the covered entity's or the business associate's access authorization policies, establish, document, review, and modify a user's right of access to a workstation, transaction, program, or process."
@@ -18,5 +12,8 @@ benchmark "hipaa_164_308_a_4_ii_c" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_4_ii_c"
+  })
 }

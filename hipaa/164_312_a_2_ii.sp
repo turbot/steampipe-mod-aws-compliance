@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_a_2_ii"
-  })
-}
-
 benchmark "hipaa_164_312_a_2_ii" {
   title       = "164.312(a)(2)(ii) Emergency access procedure"
   description = "Establish (and implement as needed) procedures for obtaining necessary electronic protected health information during an emergency."
@@ -14,5 +8,8 @@ benchmark "hipaa_164_312_a_2_ii" {
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_a_2_ii"
+  })
 }

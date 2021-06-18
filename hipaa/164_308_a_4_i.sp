@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_308_a_4_i"
-  })
-}
-
 benchmark "hipaa_164_308_a_4_i" {
   title       = "164.308(a)(4)(i) Information access management"
   description = "Implement policies and procedures for authorizing access to electronic protected health information that are consistent with the applicable requirements of subpart E of this part."
@@ -13,5 +7,8 @@ benchmark "hipaa_164_308_a_4_i" {
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies
   ]
-  tags = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_308_a_4_i"
+  })
 }
