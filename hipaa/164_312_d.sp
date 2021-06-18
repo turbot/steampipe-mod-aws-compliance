@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_d"
-  })
-}
-
 benchmark "hipaa_164_312_d" {
   title          = "164.312(d) Person or entity authentication"
   description    = "Implement procedures to verify that a person or entity seeking access to electronic protected health information is the one claimed."
@@ -14,5 +8,8 @@ benchmark "hipaa_164_312_d" {
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled,
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_d"
+  })
 }

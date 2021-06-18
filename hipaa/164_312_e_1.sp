@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_e_1"
-  })
-}
-
 benchmark "hipaa_164_312_e_1" {
   title       = "164.312(e)(1) Transmission security"
   description = "Implement technical security measures to guard against unauthorized access to electronic protected health information that is being transmitted over an electronic communications network."
@@ -18,5 +12,8 @@ benchmark "hipaa_164_312_e_1" {
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
-  tags = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_e_1"
+  })
 }

@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_b"
-  })
-}
-
 benchmark "hipaa_164_312_b" {
   title       = "164.312(b) Audit controls"
   description = "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use electronic protected health information."
@@ -20,5 +14,8 @@ benchmark "hipaa_164_312_b" {
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled
   ]
-  tags = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_b"
+  })
 }

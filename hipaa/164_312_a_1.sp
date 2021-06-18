@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_a_1"
-  })
-}
-
 benchmark "hipaa_164_312_a_1" {
   title       = "164.312(a)(1) Access control"
   description = "Implement technical policies and procedures for electronic information systems that maintain electronic protected health information to allow access only to those persons or software programs that have been granted access rights as specified in 164.308(a)(4)."
@@ -29,5 +23,8 @@ benchmark "hipaa_164_312_a_1" {
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
   ]
-  tags = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_a_1"
+  })
 }

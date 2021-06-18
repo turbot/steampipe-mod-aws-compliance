@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_a_2_iv"
-  })
-}
-
 benchmark "hipaa_164_312_a_2_iv" {
   title       = "164.312(a)(2)(iv) Encryption and decryption"
   description = "Implement a mechanism to encrypt and decrypt electronic protected health information."
@@ -26,5 +20,8 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_a_2_iv"
+  })
 }

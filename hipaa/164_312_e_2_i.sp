@@ -1,9 +1,3 @@
-locals {
-  common_tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "164_312_e_2_i"
-  })
-}
-
 benchmark "hipaa_164_312_e_2_i" {
   title       = "164.312(e)(2)(i) Integrity controls"
   description = "Implement security measures to ensure that electronically transmitted electronic protected health information is not improperly modified without detection until disposed of."
@@ -20,5 +14,8 @@ benchmark "hipaa_164_312_e_2_i" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled
   ]
-  tags          = local.common_tags
+
+  tags = merge(local.hipaa_common_tags, {
+    hipaa_item_id = "164_312_e_2_i"
+  })
 }
