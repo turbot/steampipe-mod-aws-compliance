@@ -33,6 +33,7 @@ control "cis_v140_3_1" {
     cis_item_id = "3.1"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -46,6 +47,7 @@ control "cis_v140_3_2" {
     cis_item_id = "3.2"
     cis_level   = "2"
     cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -59,6 +61,7 @@ control "cis_v140_3_3" {
     cis_item_id = "3.3"
     cis_level   = "1"
     cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -69,9 +72,10 @@ control "cis_v140_3_4" {
   documentation = file("./cis_v140/docs/cis_v140_3_4.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.4"
-    "cis_level"   = "1"
-    "cis_type"    = "automated"
+    cis_item_id = "3.4"
+    cis_level   = "1"
+    cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -82,9 +86,10 @@ control "cis_v140_3_5" {
   documentation = file("./cis_v140/docs/cis_v140_3_5.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.5"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.5"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "config"
   })
 }
 
@@ -95,9 +100,10 @@ control "cis_v140_3_6" {
   documentation = file("./cis_v140/docs/cis_v140_3_6.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.6"
-    "cis_level"   = "1"
-    "cis_type"    = "automated"
+    cis_item_id = "3.6"
+    cis_level   = "1"
+    cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -108,9 +114,10 @@ control "cis_v140_3_7" {
   documentation = file("./cis_v140/docs/cis_v140_3_7.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.7"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.7"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "cloudtrail"
   })
 }
 
@@ -121,9 +128,10 @@ control "cis_v140_3_8" {
   documentation = file("./cis_v140/docs/cis_v140_3_8.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.8"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.8"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "kms"
   })
 }
 
@@ -134,9 +142,10 @@ control "cis_v140_3_9" {
   documentation = file("./cis_v140/docs/cis_v140_3_9.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.9"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.9"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "vpc"
   })
 }
 
@@ -147,9 +156,10 @@ control "cis_v140_3_10" {
   documentation = file("./cis_v140/docs/cis_v140_3_10.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.10"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.10"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "s3"
   })
 }
 
@@ -160,8 +170,9 @@ control "cis_v140_3_11" {
   documentation = file("./cis_v140/docs/cis_v140_3_11.md")
 
   tags = merge(local.cis_v140_3_common_tags, {
-    "cis_item_id" = "3.11"
-    "cis_level"   = "2"
-    "cis_type"    = "automated"
+    cis_item_id = "3.11"
+    cis_level   = "2"
+    cis_type    = "automated"
+    service     = "s3"
   })
 }
