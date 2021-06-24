@@ -37,7 +37,7 @@ control "ebs_attached_volume_encryption_enabled" {
 }
 
 control "ebs_volume_in_backup_plan" {
-  title       = "EBS volume should be in backup plan"
+  title       = "EBS volumes should be in a backup plan"
   description = "To help with data back-up processes, ensure your Amazon Elastic Block Store (Amazon EBS) volumes are a part of an AWS Backup plan."
   sql         = query.ebs_volume_in_backup_plan.sql
 
