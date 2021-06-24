@@ -1,6 +1,6 @@
 # AWS Compliance Scanning Tool
 
-300+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, HIPAA, Royal Bank of India **and the latest (v1.4.0) CIS benchmarks**:
+300+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, HIPAA, Reserve Bank of India **and the latest (v1.4.0) CIS benchmarks**:
 
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png)
 
@@ -10,7 +10,7 @@ Includes support for:
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa) 🚀 New!
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security) 
-* [Royal Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security) 🚀 New!
+* [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security) 🚀 New!
 
 ## Quick start
 
