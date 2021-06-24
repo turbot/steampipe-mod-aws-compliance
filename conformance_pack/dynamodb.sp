@@ -36,7 +36,7 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
 }
 
 control "dynamodb_table_in_backup_plan" {
-  title       = "DynamoDB table should be in a backup plan"
+  title       = "DynamoDB tables should be in a backup plan"
   description = "To help with data back-up processes, ensure your Amazon DynamoDB tables are a part of an AWS Backup plan."
   sql         = query.dynamodb_table_in_backup_plan.sql
 
