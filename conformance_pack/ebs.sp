@@ -28,8 +28,18 @@ control "ebs_volume_encryption_at_rest_enabled" {
 
 control "ebs_attached_volume_encryption_enabled" {
   title       = "EBS attached volume encryption should be enabled"
-  description = "Because senstive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
   sql         = query.ebs_attached_volume_encryption_enabled.sql
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
+
+control "ebs_volume_in_backup_plan" {
+  title       = "EBS volume should be in backup plan"
+  description = "To help with data back-up processes, ensure your Amazon Elastic Block Store (Amazon EBS) volumes are a part of an AWS Backup plan."
+  sql         = query.ebs_volume_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     rbi_cyber_security = "true"
