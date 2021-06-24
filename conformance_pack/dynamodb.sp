@@ -34,3 +34,13 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
     rbi_cyber_security = "true"
   })
 }
+
+control "dynamodb_table_in_backup_plan" {
+  title       = "DynamoDB tables should be in a backup plan"
+  description = "To help with data back-up processes, ensure your Amazon DynamoDB tables are a part of an AWS Backup plan."
+  sql         = query.dynamodb_table_in_backup_plan.sql
+
+  tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}

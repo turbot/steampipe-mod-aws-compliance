@@ -1,3 +1,11 @@
+## v0.7 [2021-06-24]
+
+- New RBI Cyber Security Framework controls added:
+  - dynamodb_table_in_backup_plan
+  - ebs_volume_in_backup_plan
+  - efs_file_system_in_backup_plan
+  - rds_db_instance_in_backup_plan
+
 ## v0.6 [2021-06-18]
 
 _What's new?_

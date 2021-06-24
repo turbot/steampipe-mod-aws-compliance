@@ -78,3 +78,13 @@ control "rds_db_instance_logging_enabled" {
     rbi_cyber_security = "true"
   })
 }
+
+control "rds_db_instance_in_backup_plan" {
+  title       = "RDS DB instances should be in a backup plan"
+  description = "To help with data back-up processes, ensure your Amazon Relational Database Service (Amazon RDS) instances are a part of an AWS Backup plan."
+  sql         = query.rds_db_instance_in_backup_plan.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}

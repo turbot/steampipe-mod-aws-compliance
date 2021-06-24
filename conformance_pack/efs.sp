@@ -14,3 +14,13 @@ control "efs_file_system_encrypt_data_at_rest" {
     rbi_cyber_security = "true"
   })
 }
+
+control "efs_file_system_in_backup_plan" {
+  title       = "EFS file systems should be in a backup plan"
+  description = "To help with data back-up processes, ensure your Amazon Elastic File System (Amazon EFS) file systems are a part of an AWS Backup plan."
+  sql         = query.efs_file_system_automatic_backups_enabled.sql
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
