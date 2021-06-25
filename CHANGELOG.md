@@ -1,5 +1,7 @@
 ## v0.7 [2021-06-24]
 
+_What's new?_
+
 - New RBI Cyber Security Framework controls added:
   - dynamodb_table_in_backup_plan
   - ebs_volume_in_backup_plan
