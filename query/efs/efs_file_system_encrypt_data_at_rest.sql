@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  file_system_arn as resource,
+  arn as resource,
   case
     when encrypted then 'ok'
     else 'alarm'
