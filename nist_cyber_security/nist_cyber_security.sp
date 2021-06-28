@@ -1,7 +1,7 @@
 locals {
   nist_cyber_security_common_tags = {
     nist_cyber_security = "true"
-    plugin             = "aws"
+    plugin              = "aws"
   }
 }
 
