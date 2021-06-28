@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  table_arn as resource,
+  arn as resource,
   case
     when sse_description is null then 'alarm'
     else 'ok'

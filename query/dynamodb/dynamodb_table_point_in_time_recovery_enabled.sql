@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  table_arn as resource,
+  arn as resource,
   case
     when lower( point_in_time_recovery_description ->> 'PointInTimeRecoveryStatus' ) = 'disabled' then 'alarm'
     else 'ok'
