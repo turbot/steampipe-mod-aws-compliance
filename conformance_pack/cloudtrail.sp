@@ -43,8 +43,9 @@ control "cloudtrail_multi_region_trail_enabled" {
   sql         = query.cloudtrail_multi_region_trail_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    rbi_cyber_security  = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -66,5 +67,6 @@ control "cloudtrail_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }

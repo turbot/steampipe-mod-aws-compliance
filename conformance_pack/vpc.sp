@@ -12,6 +12,7 @@ control "vpc_flow_logs_enabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     hipaa              = "true"
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -76,5 +77,6 @@ control "vpc_vpn_tunnel_up" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     hipaa = "true"
+    nist_cyber_security = "true"
   })
 }

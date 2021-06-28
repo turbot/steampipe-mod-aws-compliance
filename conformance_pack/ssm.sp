@@ -11,6 +11,7 @@ control "ec2_instance_ssm_managed" {
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -21,6 +22,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 

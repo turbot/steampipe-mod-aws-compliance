@@ -45,6 +45,7 @@ control "s3_bucket_logging_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -88,6 +89,7 @@ control "s3_bucket_versioning_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 

@@ -11,5 +11,6 @@ control "autoscaling_group_with_lb_use_health_check" {
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     hipaa = "true"
+    nist_cyber_security = "true"
   })
 }

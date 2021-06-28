@@ -12,6 +12,7 @@ control "elb_application_classic_lb_logging_enabled" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     hipaa              = "true"
     rbi_cyber_security = "true"
+    nist_cyber_security = "true"
   })
 }
 
