@@ -22,8 +22,9 @@ control "vpc_igw_attached_to_authorized_vpc" {
   sql         = query.vpc_igw_attached_to_authorized_vpc.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

@@ -17,6 +17,7 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_id_ra_2,
     benchmark.nist_cyber_security_id_ra_3,
     benchmark.nist_cyber_security_pr_ac_1,
+    benchmark.nist_cyber_security_pr_ac_3,
     benchmark.nist_cyber_security_pr_ac_4,
     benchmark.nist_cyber_security_pr_ac_5,
     benchmark.nist_cyber_security_pr_ac_6,
