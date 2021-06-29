@@ -19,7 +19,7 @@ backed_up_table as (
     t.name
   from
     aws_dynamodb_table as t
-    join mapped_with_id as m on m.mapped_ids ?| array[t.table_arn]
+    join mapped_with_id as m on m.mapped_ids ?| array[t.arn]
   union
   select
     t.name
@@ -29,7 +29,7 @@ backed_up_table as (
 )
 select
   -- Required Columns
-  t.table_arn as resource,
+  t.arn as resource,
   case
     when b.name is null then 'alarm'
     else 'ok'
