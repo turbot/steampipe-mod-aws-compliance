@@ -14,6 +14,12 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_de_ae_3,
     benchmark.nist_cyber_security_de_ae_4,
     benchmark.nist_cyber_security_de_ae_5,
+    benchmark.nist_cyber_security_de_cm_1,
+    benchmark.nist_cyber_security_de_cm_3,
+    benchmark.nist_cyber_security_de_cm_4,
+    benchmark.nist_cyber_security_de_cm_6,
+    benchmark.nist_cyber_security_de_cm_7,
+    benchmark.nist_cyber_security_de_dp_4,
     benchmark.nist_cyber_security_id_am_2,
     benchmark.nist_cyber_security_id_am_3,
     benchmark.nist_cyber_security_id_am_6,
@@ -38,6 +44,7 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_pr_pt_3,
     benchmark.nist_cyber_security_pr_pt_4,
     benchmark.nist_cyber_security_pr_pt_5,
+    benchmark.nist_cyber_security_rs_an_2,
   ]
   tags = local.nist_cyber_security_common_tags
 }
