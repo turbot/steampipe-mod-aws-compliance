@@ -21,7 +21,7 @@ benchmark "nist_cyber_security_pr_ds_5" {
     control.s3_bucket_restrict_public_write_access.sql,
     control.sagemaker_notebook_instance_direct_internet_access_disabled.sql,
     control.securityhub_enabled.sql,
-    control.vpc_flow_logs_enabled.sql
+    control.vpc_flow_logs_enabled.sql,
   ]
 
   tags = merge(local.nist_cyber_security_common_tags, {
