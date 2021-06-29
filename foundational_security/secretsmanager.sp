@@ -33,7 +33,7 @@ control "foundational_security_secretsmanager_2" {
   title         = "2 Secrets Manager secrets configured with automatic rotation should rotate successfully"
   description   = "This control checks whether an AWS Secrets Manager secret rotated successfully based on the rotation schedule. The control fails if RotationOccurringAsScheduled is false. The control does not evaluate secrets that do not have rotation configured."
   severity      = "medium"
-  sql           = query.secretsmanager_secret_rotated_per_automatic_rotation_schedule.sql
+  sql           = query.secretsmanager_secret_rotated_as_scheduled.sql
   documentation = file("./foundational_security/docs/foundational_security_secretsmanager_2.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
