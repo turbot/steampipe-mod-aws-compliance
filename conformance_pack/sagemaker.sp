@@ -22,8 +22,9 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
   sql         = query.sagemaker_notebook_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -33,7 +34,8 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
   sql         = query.sagemaker_endpoint_configuration_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }

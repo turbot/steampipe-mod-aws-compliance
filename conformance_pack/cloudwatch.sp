@@ -20,8 +20,9 @@ control "log_group_encryption_at_rest_enabled" {
   sql         = query.log_group_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

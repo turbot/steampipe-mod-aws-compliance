@@ -22,8 +22,9 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -90,5 +91,15 @@ control "rds_db_instance_in_backup_plan" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     rbi_cyber_security = "true"
+  })
+}
+
+control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
+  title       = "RDS DB instance and cluster enhanced monitoring should be enabled"
+  description = "Enable Amazon Relational Database Service (Amazon RDS) to help monitor Amazon RDS availability. This provides detailed visibility into the health of your Amazon RDS database instances."
+  sql         = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_cyber_security = "true"
   })
 }

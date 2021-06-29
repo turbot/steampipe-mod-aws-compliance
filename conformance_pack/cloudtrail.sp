@@ -32,8 +32,9 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   sql         = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

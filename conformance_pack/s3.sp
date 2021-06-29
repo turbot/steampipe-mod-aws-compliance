@@ -22,8 +22,9 @@ control "s3_bucket_default_encryption_enabled" {
   sql         = query.s3_bucket_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -33,8 +34,9 @@ control "s3_bucket_enforces_ssl" {
   sql         = query.s3_bucket_enforces_ssl.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -56,7 +58,8 @@ control "s3_bucket_object_lock_enabled" {
   sql         = query.s3_bucket_object_lock_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 

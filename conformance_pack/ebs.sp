@@ -33,7 +33,8 @@ control "ebs_attached_volume_encryption_enabled" {
   sql         = query.ebs_attached_volume_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    rbi_cyber_security = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
