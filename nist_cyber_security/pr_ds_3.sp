@@ -4,8 +4,8 @@ benchmark "nist_cyber_security_pr_ds_3" {
 
   children = [
     control.ec2_instance_ssm_managed,
-    control.ec2_unused_eips,
-    control.ec2_unused_security_groups,
+    control.vpc_eip_unused,
+    control.vpc_security_group_unused,
     control.ssm_managed_instance_compliance_association_compliant,
   ]
 
