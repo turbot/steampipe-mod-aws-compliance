@@ -10,8 +10,9 @@ control "cloudtrail_trail_integrated_with_logs" {
   sql         = query.cloudtrail_trail_integrated_with_logs.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

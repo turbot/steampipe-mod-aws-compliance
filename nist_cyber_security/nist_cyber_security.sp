@@ -28,6 +28,11 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_pr_ds_4,
     benchmark.nist_cyber_security_pr_ds_5,
     benchmark.nist_cyber_security_pr_ds_6,
+    benchmark.nist_cyber_security_pr_ma_2,
+    benchmark.nist_cyber_security_pr_pt_1,
+    benchmark.nist_cyber_security_pr_pt_3,
+    benchmark.nist_cyber_security_pr_pt_4,
+    benchmark.nist_cyber_security_pr_pt_5,
   ]
   tags = local.nist_cyber_security_common_tags
 }
