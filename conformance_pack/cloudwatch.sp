@@ -10,7 +10,8 @@ control "cloudwatch_alarm_action_enabled" {
   sql         = query.cloudwatch_alarm_action_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 

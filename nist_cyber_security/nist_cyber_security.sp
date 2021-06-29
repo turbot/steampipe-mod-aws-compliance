@@ -11,6 +11,9 @@ benchmark "nist_cyber_security" {
   children = [
     benchmark.nist_cyber_security_de_ae_1,
     benchmark.nist_cyber_security_de_ae_2,
+    benchmark.nist_cyber_security_de_ae_3,
+    benchmark.nist_cyber_security_de_ae_4,
+    benchmark.nist_cyber_security_de_ae_5,
     benchmark.nist_cyber_security_id_am_2,
     benchmark.nist_cyber_security_id_am_3,
     benchmark.nist_cyber_security_id_am_6,

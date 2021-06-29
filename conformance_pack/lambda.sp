@@ -10,7 +10,8 @@ control "lambda_function_dead_letter_queue_configured" {
   sql         = query.lambda_function_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 

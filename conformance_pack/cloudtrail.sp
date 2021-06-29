@@ -22,8 +22,9 @@ control "cloudtrail_s3_data_events_enabled" {
   sql         = query.cloudtrail_s3_data_events_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
