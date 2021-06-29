@@ -20,6 +20,7 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_de_cm_6,
     benchmark.nist_cyber_security_de_cm_7,
     benchmark.nist_cyber_security_de_dp_4,
+    benchmark.nist_cyber_security_de_dp_5,
     benchmark.nist_cyber_security_id_am_2,
     benchmark.nist_cyber_security_id_am_3,
     benchmark.nist_cyber_security_id_am_6,

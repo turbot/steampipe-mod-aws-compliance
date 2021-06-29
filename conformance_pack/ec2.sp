@@ -14,6 +14,16 @@ control "ec2_ebs_default_encryption_enabled" {
   })
 }
 
+control "ec2_instance_detailed_monitoring_enabled" {
+  title       = "EC2 instance detailed monitoring should be enabled"
+  description = "Enable this rule to help improve Amazon Elastic Compute Cloud (Amazon EC2) instance monitoring on the Amazon EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
+  sql         = query.ec2_instance_detailed_monitoring_enabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_cyber_security = "true"
+  })
+}
+
 control "ec2_instance_in_vpc" {
   title       = "EC2 instances should be in a VPC"
   description = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
