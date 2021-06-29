@@ -33,8 +33,8 @@ control "iam_policy_no_star_star" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa               = "true"
-    rbi_cyber_security  = "true"
     nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -76,7 +76,8 @@ control "iam_user_access_key_age_90" {
   sql         = query.iam_user_access_key_age_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
