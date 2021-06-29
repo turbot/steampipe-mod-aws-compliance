@@ -9,6 +9,5 @@ benchmark "nist_cyber_security_id_ra_3" {
 
   tags = merge(local.nist_cyber_security_common_tags, {
     nist_cyber_security_item_id = "id_ra_3"
-
   })
 }

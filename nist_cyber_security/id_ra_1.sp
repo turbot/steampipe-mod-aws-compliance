@@ -3,9 +3,9 @@ benchmark "nist_cyber_security_id_ra_1" {
   description = "Asset vulnerabilities are identified and documented."
 
   children = [
-    control.ssm_managed_instance_compliance_patch_compliant,
     control.guardduty_enabled,
     control.securityhub_enabled,
+    control.ssm_managed_instance_compliance_patch_compliant,
   ]
 
   tags = merge(local.nist_cyber_security_common_tags, {

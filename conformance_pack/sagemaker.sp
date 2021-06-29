@@ -10,8 +10,9 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   sql         = query.sagemaker_notebook_instance_direct_internet_access_disabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

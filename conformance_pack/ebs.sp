@@ -10,8 +10,9 @@ control "ebs_snapshot_not_publicly_restorable" {
   sql         = query.ebs_snapshot_not_publicly_restorable.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

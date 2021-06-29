@@ -10,7 +10,8 @@ control "emr_cluster_kerberos_enabled" {
   sql         = query.emr_cluster_kerberos_enabled.sql
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -20,7 +21,8 @@ control "emr_cluster_master_nodes_no_public_ip" {
   sql         = query.emr_cluster_master_nodes_no_public_ip.sql
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }

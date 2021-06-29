@@ -10,7 +10,8 @@ control "guardduty_enabled" {
   sql         = query.guardduty_enabled.sql
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 

@@ -21,7 +21,8 @@ control "iam_group_not_empty" {
   sql         = query.iam_group_not_empty.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -31,8 +32,9 @@ control "iam_policy_no_star_star" {
   sql         = query.iam_policy_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    rbi_cyber_security  = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -42,8 +44,9 @@ control "iam_root_user_no_access_keys" {
   sql         = query.iam_root_user_no_access_keys.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -103,8 +106,9 @@ control "iam_user_no_inline_attached_policies" {
   sql         = query.iam_user_no_inline_attached_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -114,7 +118,8 @@ control "iam_user_unused_credentials_90" {
   sql         = query.iam_user_unused_credentials_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -124,7 +129,8 @@ control "iam_user_in_group" {
   sql         = query.iam_user_in_group.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 

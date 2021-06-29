@@ -21,8 +21,9 @@ control "es_domain_in_vpc" {
   sql         = query.es_domain_in_vpc.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

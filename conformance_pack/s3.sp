@@ -10,8 +10,9 @@ control "s3_bucket_cross_region_replication_enabled" {
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -43,9 +44,9 @@ control "s3_bucket_logging_enabled" {
   sql         = query.s3_bucket_logging_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
     nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -65,8 +66,9 @@ control "s3_bucket_restrict_public_read_access" {
   sql         = query.s3_bucket_restrict_public_read_access.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -76,8 +78,9 @@ control "s3_bucket_restrict_public_write_access" {
   sql         = query.s3_bucket_restrict_public_write_access.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -87,9 +90,9 @@ control "s3_bucket_versioning_enabled" {
   sql         = query.s3_bucket_versioning_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
     nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -99,7 +102,8 @@ control "s3_public_access_block_account" {
   sql         = query.s3_public_access_block_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
