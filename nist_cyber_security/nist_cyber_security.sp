@@ -26,6 +26,7 @@ benchmark "nist_cyber_security" {
     benchmark.nist_cyber_security_pr_ds_2,
     benchmark.nist_cyber_security_pr_ds_3,
     benchmark.nist_cyber_security_pr_ds_4,
+    benchmark.nist_cyber_security_pr_ds_5,
     benchmark.nist_cyber_security_pr_ds_6,
   ]
   tags = local.nist_cyber_security_common_tags
