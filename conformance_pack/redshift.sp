@@ -22,8 +22,9 @@ control "redshift_cluster_encryption_logging_enabled" {
   sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
