@@ -10,7 +10,8 @@ control "dms_replication_instance_not_publicly_accessible" {
   sql         = query.dms_replication_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_dms_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }

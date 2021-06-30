@@ -10,6 +10,7 @@ control "autoscaling_group_with_lb_use_health_check" {
   sql         = query.autoscaling_group_with_lb_use_health_check.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }

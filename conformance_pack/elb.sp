@@ -10,8 +10,9 @@ control "elb_application_classic_lb_logging_enabled" {
   sql         = query.elb_application_classic_lb_logging_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -21,7 +22,8 @@ control "elb_application_lb_deletion_protection_enabled" {
   sql         = query.elb_application_lb_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
   })
 }
 
@@ -31,8 +33,9 @@ control "elb_application_lb_redirect_http_request_to_https" {
   sql         = query.elb_application_lb_redirect_http_request_to_https.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -52,8 +55,9 @@ control "elb_classic_lb_use_ssl_certificate" {
   sql         = query.elb_classic_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

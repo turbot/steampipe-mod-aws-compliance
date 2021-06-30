@@ -10,7 +10,8 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   sql         = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
 
   tags = merge(local.conformance_pack_elasticache_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }

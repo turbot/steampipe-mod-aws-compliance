@@ -14,14 +14,25 @@ control "ec2_ebs_default_encryption_enabled" {
   })
 }
 
+control "ec2_instance_detailed_monitoring_enabled" {
+  title       = "EC2 instance detailed monitoring should be enabled"
+  description = "Enable this rule to help improve Amazon Elastic Compute Cloud (Amazon EC2) instance monitoring on the Amazon EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
+  sql         = query.ec2_instance_detailed_monitoring_enabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_cyber_security = "true"
+  })
+}
+
 control "ec2_instance_in_vpc" {
   title       = "EC2 instances should be in a VPC"
   description = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
   sql         = query.ec2_instance_in_vpc.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -31,8 +42,9 @@ control "ec2_instance_not_publicly_accessible" {
   sql         = query.ec2_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_cyber_security = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -43,5 +55,15 @@ control "ec2_stopped_instance_30_days" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+  })
+}
+
+control "ec2_instance_ebs_optimized" {
+  title       = "EC2 instance should have EBS optimization enabled"
+  description = "An optimized instance in Amazon Elastic Block Store (Amazon EBS) provides additional, dedicated capacity for Amazon EBS I/O operations."
+  sql         = query.ec2_instance_ebs_optimized.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_cyber_security  = "true"
   })
 }
