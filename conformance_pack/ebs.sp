@@ -47,3 +47,13 @@ control "ebs_volume_in_backup_plan" {
     rbi_cyber_security = "true"
   })
 }
+
+control "ebs_volume_inuse" {
+  title       = "EBS volumes should be attached to EC2 instances"
+  description = "To help identifying the un attached volumes and the volumes that are delete on termination set to disabled"
+  sql         = query.ebs_volume_inuse.sql
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_cyber_security = "true"
+  })
+}
