@@ -6,10 +6,10 @@ select
     else 'alarm'
   end as status,
   case
-    when state = 'in-use' and attachment ->> 'DeleteOnTermination' = 'true' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination enabled.'
-    when state = 'in-use' and attachment ->> 'DeleteOnTermination' = 'false' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination disabled.'
-    else title || ' not attached to ec2 instance.'
-end as reason,
+    when state != 'in-use' then title || ' not attached to EC2 instance.'
+    when attachment ->> 'DeleteOnTermination' = 'true' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination enabled.'
+    else title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination disabled.'
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

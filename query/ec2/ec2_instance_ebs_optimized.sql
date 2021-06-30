@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when ebs_optimized then title || ' ebs optimization enabled.'
-    else title || '  ebs optimization disabled.'
+    when ebs_optimized then title || ' EBS optimization enabled.'
+    else title || ' EBS optimization disabled.'
   end as reason,
   -- Additional Dimensions
   region,

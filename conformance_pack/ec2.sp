@@ -58,12 +58,12 @@ control "ec2_stopped_instance_30_days" {
   })
 }
 
-control "ec2_ebs_optimized" {
-  title       = "EC2 stopped instances should be removed in 30 days"
-  description = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
-  sql         = query.ec2_ebs_optimized.sql
+control "ec2_instance_ebs_optimized" {
+  title       = "EC2 instance should have EBS optimization enabled"
+  description = "An optimized instance in Amazon Elastic Block Store (Amazon EBS) provides additional, dedicated capacity for Amazon EBS I/O operations."
+  sql         = query.ec2_instance_ebs_optimized.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
+    nist_cyber_security  = "true"
   })
 }

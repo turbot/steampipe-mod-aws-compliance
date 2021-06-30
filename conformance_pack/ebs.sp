@@ -49,8 +49,8 @@ control "ebs_volume_in_backup_plan" {
 }
 
 control "ebs_volume_inuse" {
-  title       = "EBS volumes should be attached to EC2 instances"
-  description = "To help identifying the un attached volumes and the volumes that are delete on termination set to disabled"
+  title       = "EBS volumes should be attached to EC2 instance"
+  description = "This rule ensures that Amazon Elastic Block Store volumes that are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances are marked for deletion when an instance is terminated."
   sql         = query.ebs_volume_inuse.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
