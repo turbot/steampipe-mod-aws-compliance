@@ -57,3 +57,13 @@ control "ec2_stopped_instance_30_days" {
     hipaa              = "true"
   })
 }
+
+control "ec2_ebs_optimized" {
+  title       = "EC2 stopped instances should be removed in 30 days"
+  description = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
+  sql         = query.ec2_ebs_optimized.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    hipaa              = "true"
+  })
+}
