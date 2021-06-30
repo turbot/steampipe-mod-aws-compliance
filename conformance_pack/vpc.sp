@@ -86,20 +86,20 @@ control "vpc_vpn_tunnel_up" {
   })
 }
 
-control "vpc_eip_unused" {
-  title       = "VPC unsued EIPs should be removed"
+control "vpc_eip_associated" {
+  title       = "VPC EIPs should be associated with an EC2 instance or ENI"
   description = "This rule ensures Elastic IPs allocated to a Amazon Virtual Private Cloud (Amazon VPC) are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or in-use Elastic Network Interfaces."
-  sql         = query.vpc_unused_eip.sql
+  sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_cyber_security = "true"
   })
 }
 
-control "vpc_security_group_unused" {
-  title       = "VPC unused security groups should be removed"
+control "vpc_security_group_associated" {
+  title       = "VPC security groups should be associated with at least one ENI"
   description = "This rule ensures the security groups are attached to an Amazon Elastic Compute Cloud (Amazon EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
-  sql         = query.vpc_unused_security_group.sql
+  sql         = query.vpc_security_group_associated.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_cyber_security = "true"

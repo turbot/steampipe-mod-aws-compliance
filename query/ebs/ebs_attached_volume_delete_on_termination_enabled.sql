@@ -2,7 +2,8 @@ select
   -- Required Columns
   arn as resource,
   case
-    when state = 'in-use' and attachment ->> 'DeleteOnTermination' = 'true' then 'ok'
+    when state != 'in-use' then 'skip'
+    when attachment ->> 'DeleteOnTermination' = 'true' then 'ok'
     else 'alarm'
   end as status,
   case

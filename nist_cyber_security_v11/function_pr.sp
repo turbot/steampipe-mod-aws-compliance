@@ -218,9 +218,9 @@ benchmark "nist_cyber_security_v11_pr_ds_3" {
 
   children = [
     control.ec2_instance_ssm_managed,
-    control.vpc_eip_unused,
-    control.vpc_security_group_unused,
     control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_eip_associated,
+    control.vpc_security_group_associated,
   ]
 
   tags = local.nist_cyber_security_v11_common_tags
@@ -263,9 +263,9 @@ benchmark "nist_cyber_security_v11_pr_ds_5" {
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_logging_enabled,
-    control.s3_public_access_block_account,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
@@ -304,7 +304,7 @@ benchmark "nist_cyber_security_v11_pr_ip_1" {
   description = "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)."
 
   children = [
-    control.ebs_volume_inuse,
+    control.ebs_attached_volume_delete_on_termination_enabled,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.ssm_managed_instance_compliance_association_compliant,

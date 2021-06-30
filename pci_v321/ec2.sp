@@ -48,7 +48,7 @@ control "pci_v321_ec2_3" {
   title         = "3 Unused EC2 security groups should be removed"
   description   = "This control helps you maintain an accurate asset inventory of needed security groups in your cardholder data environment (CDE). It does so by checking that security groups are attached to Amazon EC2 instances or to an ENI. A failed finding indicates you may have unused Amazon EC2 security groups."
   severity      = "low"
-  sql           = query.vpc_unused_security_group.sql
+  sql           = query.vpc_security_group_associated.sql
   documentation = file("./pci_v321/docs/pci_v321_ec2_3.md")
 
   tags = merge(local.pci_v321_ec2_common_tags, {
@@ -61,7 +61,7 @@ control "pci_v321_ec2_4" {
   title         = "4 Unused EC2 EIPs should be removed"
   description   = "This control checks whether Elastic IP addresses that are allocated to a VPC are attached to Amazon EC2 instances or in-use elastic network interfaces (ENIs). A failed finding indicates you may have unused Amazon EC2 EIPs. This will help you maintain an accurate asset inventory of EIPs in your cardholder data environment (CDE)."
   severity      = "low"
-  sql           = query.vpc_unused_eip.sql
+  sql           = query.vpc_eip_associated.sql
   documentation = file("./pci_v321/docs/pci_v321_ec2_4.md")
 
   tags = merge(local.pci_v321_ec2_common_tags, {
