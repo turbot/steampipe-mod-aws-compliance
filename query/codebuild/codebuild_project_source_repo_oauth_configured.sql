@@ -16,5 +16,5 @@ select
   p.region,
   p.account_id
 from
-  test_aab.aws_codebuild_project as p
-  left join test_aab.aws_codebuild_source_credential as c on (p.region = c.region and p.source ->> 'Type' = c.server_type);
+  aws_codebuild_project as p
+  left join aws_codebuild_source_credential as c on (p.region = c.region and p.source ->> 'Type' = c.server_type);
