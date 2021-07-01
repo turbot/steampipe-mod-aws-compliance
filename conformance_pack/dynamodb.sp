@@ -10,8 +10,8 @@ control "dynamodb_table_auto_scaling_enabled" {
   sql         = query.dynamodb_table_auto_scaling_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 

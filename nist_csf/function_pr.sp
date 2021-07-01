@@ -1,35 +1,35 @@
-benchmark "nist_cyber_security_v11_pr" {
-  title       = "PR Protect"
+benchmark "nist_csf_pr" {
+  title       = "Protect (PR)"
   description = "Develop and implement appropriate safeguards to ensure delivery of critical services."
 
   children = [
-    benchmark.nist_cyber_security_v11_pr_ac,
-    benchmark.nist_cyber_security_v11_pr_ds,
-    benchmark.nist_cyber_security_v11_pr_ip,
-    benchmark.nist_cyber_security_v11_pr_ma,
-    benchmark.nist_cyber_security_v11_pr_pt,
+    benchmark.nist_csf_pr_ac,
+    benchmark.nist_csf_pr_ds,
+    benchmark.nist_csf_pr_ip,
+    benchmark.nist_csf_pr_ma,
+    benchmark.nist_csf_pr_pt,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac" {
-  title       = "PR.AC Identity Management and Access Control"
+benchmark "nist_csf_pr_ac" {
+  title       = "Identity Management and Access Control (PR.AC)"
   description = "Access to physical and logical assets and associated facilities is limited to authorized users, processes, and devices, and is managed consistent with the assessed risk of unauthorized access to authorized activities and transactions."
 
   children = [
-    benchmark.nist_cyber_security_v11_pr_ac_1,
-    benchmark.nist_cyber_security_v11_pr_ac_3,
-    benchmark.nist_cyber_security_v11_pr_ac_4,
-    benchmark.nist_cyber_security_v11_pr_ac_5,
-    benchmark.nist_cyber_security_v11_pr_ac_6,
-    benchmark.nist_cyber_security_v11_pr_ac_7,
+    benchmark.nist_csf_pr_ac_1,
+    benchmark.nist_csf_pr_ac_3,
+    benchmark.nist_csf_pr_ac_4,
+    benchmark.nist_csf_pr_ac_5,
+    benchmark.nist_csf_pr_ac_6,
+    benchmark.nist_csf_pr_ac_7,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_1" {
+benchmark "nist_csf_pr_ac_1" {
   title       = "PR.AC-1"
   description = "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes."
 
@@ -46,10 +46,10 @@ benchmark "nist_cyber_security_v11_pr_ac_1" {
     control.secretsmanager_secret_rotated_as_scheduled
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_3" {
+benchmark "nist_csf_pr_ac_3" {
   title       = "PR.AC-3"
   description = "Remote access is managed."
 
@@ -80,10 +80,10 @@ benchmark "nist_cyber_security_v11_pr_ac_3" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_4" {
+benchmark "nist_csf_pr_ac_4" {
   title       = "PR.AC-4"
   description = "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties."
 
@@ -97,10 +97,10 @@ benchmark "nist_cyber_security_v11_pr_ac_4" {
     control.iam_user_unused_credentials_90,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_5" {
+benchmark "nist_csf_pr_ac_5" {
   title       = "PR.AC-5"
   description = "Network integrity is protected (e.g., network segregation, network segmentation)."
 
@@ -127,10 +127,10 @@ benchmark "nist_cyber_security_v11_pr_ac_5" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_6" {
+benchmark "nist_csf_pr_ac_6" {
   title       = "PR.AC-6"
   description = "Identities are proofed and bound to credentials and asserted in interactions."
 
@@ -142,10 +142,10 @@ benchmark "nist_cyber_security_v11_pr_ac_6" {
     control.s3_bucket_logging_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ac_7" {
+benchmark "nist_csf_pr_ac_7" {
   title       = "PR.AC-7"
   description = "Users, devices, and other assets are authenticated (e.g., single-factor, multi-factor) commensurate with the risk of the transaction (e.g., individuals’ security and privacy risks and other organizational risks)."
 
@@ -156,26 +156,26 @@ benchmark "nist_cyber_security_v11_pr_ac_7" {
     control.iam_user_mfa_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds" {
-  title       = "PR.DS Data Security"
+benchmark "nist_csf_pr_ds" {
+  title       = "Data Security (PR.DS)"
   description = "Information and records (data) are managed consistent with the organization’s risk strategy to protect the confidentiality, integrity, and availability of information."
-  
+
   children = [
-    benchmark.nist_cyber_security_v11_pr_ds_1,
-    benchmark.nist_cyber_security_v11_pr_ds_2,
-    benchmark.nist_cyber_security_v11_pr_ds_3,
-    benchmark.nist_cyber_security_v11_pr_ds_4,
-    benchmark.nist_cyber_security_v11_pr_ds_5,
-    benchmark.nist_cyber_security_v11_pr_ds_6,
+    benchmark.nist_csf_pr_ds_1,
+    benchmark.nist_csf_pr_ds_2,
+    benchmark.nist_csf_pr_ds_3,
+    benchmark.nist_csf_pr_ds_4,
+    benchmark.nist_csf_pr_ds_5,
+    benchmark.nist_csf_pr_ds_6,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_1" {
+benchmark "nist_csf_pr_ds_1" {
   title       = "PR.DS-1"
   description = "Data-at-rest is protected."
 
@@ -195,10 +195,10 @@ benchmark "nist_cyber_security_v11_pr_ds_1" {
     control.s3_bucket_object_lock_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_2" {
+benchmark "nist_csf_pr_ds_2" {
   title       = "PR.DS-2"
   description = "Data-in-transit is protected."
 
@@ -209,10 +209,10 @@ benchmark "nist_cyber_security_v11_pr_ds_2" {
     control.s3_bucket_enforces_ssl,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_3" {
+benchmark "nist_csf_pr_ds_3" {
   title       = "PR.DS-3"
   description = "Assets are formally managed throughout removal, transfers, and disposition."
 
@@ -223,10 +223,10 @@ benchmark "nist_cyber_security_v11_pr_ds_3" {
     control.vpc_security_group_associated,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_4" {
+benchmark "nist_csf_pr_ds_4" {
   title       = "PR.DS-4"
   description = "Adequate capacity to ensure availability is maintained."
 
@@ -242,10 +242,10 @@ benchmark "nist_cyber_security_v11_pr_ds_4" {
     control.vpc_vpn_tunnel_up,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_5" {
+benchmark "nist_csf_pr_ds_5" {
   title       = "PR.DS-5"
   description = "Protections against data leaks are implemented."
 
@@ -271,10 +271,10 @@ benchmark "nist_cyber_security_v11_pr_ds_5" {
     control.vpc_flow_logs_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ds_6" {
+benchmark "nist_csf_pr_ds_6" {
   title       = "PR.DS-6"
   description = "Integrity checking mechanisms are used to verify software, firmware, and information integrity."
 
@@ -282,24 +282,24 @@ benchmark "nist_cyber_security_v11_pr_ds_6" {
     control.cloudtrail_trail_validation_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ip" {
-  title       = "PR.IP Information Protection Processes and Procedures"
+benchmark "nist_csf_pr_ip" {
+  title       = "Information Protection Processes and Procedures (PR.IP)"
   description = "Security policies (that address purpose, scope, roles, responsibilities, management commitment, and coordination among organizational entities), processes, and procedures are maintained and used to manage protection of information systems and assets."
 
   children = [
-    benchmark.nist_cyber_security_v11_pr_ip_1,
-    benchmark.nist_cyber_security_v11_pr_ip_3,
-    benchmark.nist_cyber_security_v11_pr_ip_4,
-    benchmark.nist_cyber_security_v11_pr_ip_7,
+    benchmark.nist_csf_pr_ip_1,
+    benchmark.nist_csf_pr_ip_3,
+    benchmark.nist_csf_pr_ip_4,
+    benchmark.nist_csf_pr_ip_7,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ip_1" {
+benchmark "nist_csf_pr_ip_1" {
   title       = "PR.IP-1"
   description = "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)."
 
@@ -310,10 +310,10 @@ benchmark "nist_cyber_security_v11_pr_ip_1" {
     control.ssm_managed_instance_compliance_association_compliant,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ip_3" {
+benchmark "nist_csf_pr_ip_3" {
   title       = "PR.IP-3"
   description = "Configuration change control processes are in place."
 
@@ -321,10 +321,10 @@ benchmark "nist_cyber_security_v11_pr_ip_3" {
     control.elb_application_lb_deletion_protection_enabled
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ip_4" {
+benchmark "nist_csf_pr_ip_4" {
   title       = "PR.IP-4"
   description = "Backups of information are conducted, maintained, and tested periodically."
 
@@ -336,10 +336,10 @@ benchmark "nist_cyber_security_v11_pr_ip_4" {
     control.s3_bucket_versioning_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ip_7" {
+benchmark "nist_csf_pr_ip_7" {
   title       = "PR.IP-7"
   description = "Protection processes are improved."
 
@@ -347,21 +347,21 @@ benchmark "nist_cyber_security_v11_pr_ip_7" {
     control.ec2_instance_ebs_optimized
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ma" {
-  title       = "PR.MA Maintenance"
+benchmark "nist_csf_pr_ma" {
+  title       = "Maintenance (PR.MA)"
   description = "Maintenance and repairs of industrial control and information system components are performed consistent with policies and procedures."
 
   children = [
-    benchmark.nist_cyber_security_v11_pr_ma_2,
+    benchmark.nist_csf_pr_ma_2,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_ma_2" {
+benchmark "nist_csf_pr_ma_2" {
   title       = "PR.MA-2"
   description = "Remote maintenance of organizational assets is approved, logged, and performed in a manner that prevents unauthorized access."
 
@@ -370,24 +370,24 @@ benchmark "nist_cyber_security_v11_pr_ma_2" {
     control.cloudtrail_trail_enabled,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_pt" {
-  title       = "PR.PT Protective Technology"
+benchmark "nist_csf_pr_pt" {
+  title       = "Protective Technology (PR.PT)"
   description = "Maintenance and repairs of industrial control and information system components are performed consistent with policies and procedures."
 
   children = [
-    benchmark.nist_cyber_security_v11_pr_pt_1,
-    benchmark.nist_cyber_security_v11_pr_pt_3,
-    benchmark.nist_cyber_security_v11_pr_pt_4,
-    benchmark.nist_cyber_security_v11_pr_pt_5,
+    benchmark.nist_csf_pr_pt_1,
+    benchmark.nist_csf_pr_pt_3,
+    benchmark.nist_csf_pr_pt_4,
+    benchmark.nist_csf_pr_pt_5,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_pt_1" {
+benchmark "nist_csf_pr_pt_1" {
   title       = "PR.PT-1"
   description = "Audit/log records are determined, documented, implemented, and reviewed in accordance with policy."
 
@@ -401,10 +401,10 @@ benchmark "nist_cyber_security_v11_pr_pt_1" {
     control.vpc_flow_logs_enabled
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_pt_3" {
+benchmark "nist_csf_pr_pt_3" {
   title       = "PR.PT-3"
   description = "Access to systems and assets is controlled, incorporating the principle of least functionality."
 
@@ -422,10 +422,10 @@ benchmark "nist_cyber_security_v11_pr_pt_3" {
     control.s3_public_access_block_account,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_pt_4" {
+benchmark "nist_csf_pr_pt_4" {
   title       = "PR.PT-4"
   description = "Communications and control networks are protected."
 
@@ -440,10 +440,10 @@ benchmark "nist_cyber_security_v11_pr_pt_4" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }
 
-benchmark "nist_cyber_security_v11_pr_pt_5" {
+benchmark "nist_csf_pr_pt_5" {
   title       = "PR.PT-5"
   description = "Mechanisms (e.g., failsafe, load balancing, hot swap) are implemented to achieve resilience requirements in normal and adverse situations."
 
@@ -458,5 +458,5 @@ benchmark "nist_cyber_security_v11_pr_pt_5" {
     control.vpc_vpn_tunnel_up,
   ]
 
-  tags = local.nist_cyber_security_v11_common_tags
+  tags = local.nist_csf_common_tags
 }

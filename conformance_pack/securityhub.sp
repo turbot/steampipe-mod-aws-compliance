@@ -10,7 +10,7 @@ control "securityhub_enabled" {
   sql         = query.securityhub_enabled.sql
 
   tags = merge(local.conformance_pack_securityhub_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }

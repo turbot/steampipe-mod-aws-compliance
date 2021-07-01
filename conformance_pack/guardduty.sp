@@ -10,8 +10,8 @@ control "guardduty_enabled" {
   sql         = query.guardduty_enabled.sql
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -21,8 +21,8 @@ control "guardduty_finding_archived" {
   sql         = query.guardduty_finding_archived.sql
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }

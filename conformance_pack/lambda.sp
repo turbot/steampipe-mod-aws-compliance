@@ -10,8 +10,8 @@ control "lambda_function_dead_letter_queue_configured" {
   sql         = query.lambda_function_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -21,9 +21,9 @@ control "lambda_function_in_vpc" {
   sql         = query.lambda_function_in_vpc.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -33,8 +33,8 @@ control "lambda_function_restrict_public_access" {
   sql         = query.lambda_function_restrict_public_access.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }

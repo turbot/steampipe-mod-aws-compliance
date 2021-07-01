@@ -10,9 +10,9 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -22,9 +22,9 @@ control "vpc_igw_attached_to_authorized_vpc" {
   sql         = query.vpc_igw_attached_to_authorized_vpc.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -34,9 +34,9 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   sql         = query.vpc_security_group_restrict_ingress_tcp_udp_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -46,9 +46,9 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
   sql         = query.vpc_security_group_restrict_ingress_common_ports_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -58,9 +58,9 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   sql         = query.vpc_security_group_restrict_ingress_ssh_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -70,8 +70,8 @@ control "vpc_default_security_group_restricts_all_traffic" {
   sql         = query.vpc_default_security_group_restricts_all_traffic.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -81,8 +81,8 @@ control "vpc_vpn_tunnel_up" {
   sql         = query.vpc_vpn_tunnel_up.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -92,7 +92,7 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_cyber_security = "true"
+    nist_csf = "true"
   })
 }
 
@@ -102,6 +102,6 @@ control "vpc_security_group_associated" {
   sql         = query.vpc_security_group_associated.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_cyber_security = "true"
+    nist_csf = "true"
   })
 }

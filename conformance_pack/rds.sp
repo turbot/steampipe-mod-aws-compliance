@@ -10,9 +10,9 @@ control "rds_db_instance_backup_enabled" {
   sql         = query.rds_db_instance_backup_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -22,9 +22,9 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -34,8 +34,8 @@ control "rds_db_instance_multiple_az_enabled" {
   sql         = query.rds_db_instance_multiple_az_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -45,9 +45,9 @@ control "rds_db_instance_prohibit_public_access" {
   sql         = query.rds_db_instance_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -68,9 +68,9 @@ control "rds_db_snapshot_prohibit_public_access" {
   sql         = query.rds_db_snapshot_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -100,6 +100,6 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   sql         = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_cyber_security = "true"
+    nist_csf = "true"
   })
 }
