@@ -21,7 +21,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   sql         = query.codebuild_project_source_repo_oauth_configured.sql
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    hipaa               = "true"
-    nist_cyber_security = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
