@@ -15,6 +15,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_autoscaling,
     benchmark.foundational_security_cloudfront,
     benchmark.foundational_security_cloudtrail,
+    benchmark.foundational_security_codebuild,
     benchmark.foundational_security_config,
     benchmark.foundational_security_dms,
     benchmark.foundational_security_dynamodb,

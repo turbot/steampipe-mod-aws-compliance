@@ -97,6 +97,7 @@ benchmark "nist_csf_de_ae_5" {
 
   children = [
     control.cloudwatch_alarm_action_enabled,
+    control.codebuild_project_source_repo_oauth_configured,
     control.lambda_function_dead_letter_queue_configured
   ]
 
