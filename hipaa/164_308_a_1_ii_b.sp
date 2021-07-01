@@ -8,6 +8,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.codebuild_project_source_repo_oauth_configured,
     control.dms_replication_instance_not_publicly_accessible,
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_point_in_time_recovery_enabled,
