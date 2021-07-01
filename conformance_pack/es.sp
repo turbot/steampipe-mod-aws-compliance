@@ -11,6 +11,7 @@ control "es_domain_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_es_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -22,6 +23,7 @@ control "es_domain_in_vpc" {
 
   tags = merge(local.conformance_pack_es_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

@@ -11,6 +11,7 @@ control "s3_bucket_cross_region_replication_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -22,6 +23,7 @@ control "s3_bucket_default_encryption_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -33,6 +35,7 @@ control "s3_bucket_enforces_ssl" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -44,6 +47,7 @@ control "s3_bucket_logging_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -54,7 +58,8 @@ control "s3_bucket_object_lock_enabled" {
   sql         = query.s3_bucket_object_lock_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -65,6 +70,7 @@ control "s3_bucket_restrict_public_read_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -76,6 +82,7 @@ control "s3_bucket_restrict_public_write_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -87,6 +94,7 @@ control "s3_bucket_versioning_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -97,7 +105,8 @@ control "s3_public_access_block_account" {
   sql         = query.s3_public_access_block_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 

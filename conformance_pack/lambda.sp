@@ -10,7 +10,8 @@ control "lambda_function_dead_letter_queue_configured" {
   sql         = query.lambda_function_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa = "true"
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }
 
@@ -21,6 +22,7 @@ control "lambda_function_in_vpc" {
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -32,6 +34,7 @@ control "lambda_function_restrict_public_access" {
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

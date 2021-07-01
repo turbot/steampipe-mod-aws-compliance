@@ -10,6 +10,7 @@ control "acm_certificate_expires_30_days" {
   sql         = query.acm_certificate_expires_30_days.sql
 
   tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

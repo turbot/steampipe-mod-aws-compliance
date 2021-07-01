@@ -11,6 +11,7 @@ control "ebs_snapshot_not_publicly_restorable" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -27,11 +28,12 @@ control "ebs_volume_encryption_at_rest_enabled" {
 }
 
 control "ebs_attached_volume_encryption_enabled" {
-  title       = "EBS attached volume encryption should be enabled"
+  title       = "Attached EBS volumes should have encryption enabled"
   description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
   sql         = query.ebs_attached_volume_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -43,5 +45,15 @@ control "ebs_volume_in_backup_plan" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     rbi_cyber_security = "true"
+  })
+}
+
+control "ebs_attached_volume_delete_on_termination_enabled" {
+  title       = "Attached EBS volumes should have delete on termination enabled"
+  description = "This rule ensures that Amazon Elastic Block Store volumes that are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances are marked for deletion when an instance is terminated."
+  sql         = query.ebs_attached_volume_delete_on_termination_enabled.sql
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_csf = "true"
   })
 }

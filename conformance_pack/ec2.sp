@@ -10,7 +10,17 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
+    hipaa = "true"
+  })
+}
+
+control "ec2_instance_detailed_monitoring_enabled" {
+  title       = "EC2 instance detailed monitoring should be enabled"
+  description = "Enable this rule to help improve Amazon Elastic Compute Cloud (Amazon EC2) instance monitoring on the Amazon EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
+  sql         = query.ec2_instance_detailed_monitoring_enabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -21,6 +31,7 @@ control "ec2_instance_in_vpc" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -32,6 +43,7 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -42,6 +54,16 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
+    hipaa = "true"
+  })
+}
+
+control "ec2_instance_ebs_optimized" {
+  title       = "EC2 instance should have EBS optimization enabled"
+  description = "An optimized instance in Amazon Elastic Block Store (Amazon EBS) provides additional, dedicated capacity for Amazon EBS I/O operations."
+  sql         = query.ec2_instance_ebs_optimized.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
   })
 }

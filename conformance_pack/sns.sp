@@ -11,6 +11,7 @@ control "sns_topic_encrypted_at_rest" {
 
   tags = merge(local.conformance_pack_sns_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

@@ -1,3 +1,22 @@
+## v0.8 [2021-07-01]
+
+_What's new?_
+
+- Added: NIST Cybersecurity Framework (CSF) benchmark (`steampipe check benchmark.nist_csf`)
+- New AWS Foundational Security Best Practices controls added:
+  - CodeBuild.1
+  - CodeBuild.2
+- New HIPAA controls added:
+  - codebuild_project_source_repo_oauth_configured
+- New PCI v3.2.1 controls added:
+  - CodeBuild.1
+
+_Enhancements_
+
+- Updated: AWS Foundational Security Best Practices benchmark title now includes `AWS` for better readability
+- Updated: Update column reference `table_arn` to `arn` in `dynamodb_table_auto_scaling_enabled`, `dynamodb_table_encrypted_with_kms_cmk`, `dynamodb_table_in_backup_plan`, `dynamodb_table_point_in_time_recovery_enabled` queries
+- Updated: Update column reference `file_system_arn` to `arn` in `efs_file_system_automatic_backups_enabled`, `efs_file_system_encrypt_data_at_rest` queries
+
 ## v0.7 [2021-06-24]
 
 _What's new?_

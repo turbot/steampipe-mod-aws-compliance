@@ -11,6 +11,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -22,6 +23,7 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -33,6 +35,7 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     hipaa              = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

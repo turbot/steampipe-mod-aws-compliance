@@ -10,6 +10,18 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   sql         = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values.sql
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    hipaa = "true"
+    hipaa    = "true"
+    nist_csf = "true"
+  })
+}
+
+control "codebuild_project_source_repo_oauth_configured" {
+  title       = "CodeBuild GitHub or Bitbucket source repository URLs should use OAuth"
+  description = "Ensure the GitHub or Bitbucket source repository URL does not contain personal access tokens, user name and password within AWS Codebuild project environments."
+  sql         = query.codebuild_project_source_repo_oauth_configured.sql
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    hipaa    = "true"
+    nist_csf = "true"
   })
 }

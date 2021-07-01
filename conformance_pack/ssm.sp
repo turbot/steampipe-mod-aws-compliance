@@ -10,6 +10,7 @@ control "ec2_instance_ssm_managed" {
   sql         = query.ec2_instance_ssm_managed.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -20,6 +21,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
   sql         = query.ssm_managed_instance_compliance_association_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
