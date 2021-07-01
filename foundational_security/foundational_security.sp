@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "foundational_security" {
-  title         = "Foundational Security Best Practices"
+  title         = "AWS Foundational Security Best Practices"
   description   = "The AWS Foundational Security Best Practices standard is a set of controls that detect when your deployed accounts and resources deviate from security best practices."
   documentation = file("./foundational_security/docs/foundational_security_overview.md")
   children = [
