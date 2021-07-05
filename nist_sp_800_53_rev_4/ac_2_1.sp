@@ -1,5 +1,5 @@
 benchmark "nist_sp_800_53_rev4_ac_2_1" {
-  title       = "AC-2 (1) Automated System Account Management"
+  title       = "AC-2(1) Automated System Account Management"
   description = "The organization employs automated mechanisms to support the management of information system accounts."
   children = [
     control.guardduty_enabled,
