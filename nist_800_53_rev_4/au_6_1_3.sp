@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_au_6_1_3" {
+benchmark "nist_800_53_rev_4_au_6_1_3" {
   title       = "AU-6(1)(3) Process Integration And Audit Repositories"
   description = "(1) The organization employs automated mechanisms to integrate audit review, analysis, and reporting processes to support organizational processes for investigation and response to suspicious activities. (3) The organization analyzes and correlates audit records across different repositories to gain organization-wide situational awareness."
   children = [
@@ -8,5 +8,5 @@ benchmark "nist_sp_800_53_rev4_au_6_1_3" {
     control.securityhub_enabled,
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

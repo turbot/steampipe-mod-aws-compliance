@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_au_9" {
+benchmark "nist_800_53_rev_4_au_9" {
   title       = "AU-9 Protection Of Audit Information"
   description = "The information system protects audit information and audit tools from unauthorized access, modification, and deletion."
   children = [
@@ -6,5 +6,5 @@ benchmark "nist_sp_800_53_rev4_au_9" {
     control.log_group_encryption_at_rest_enabled
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

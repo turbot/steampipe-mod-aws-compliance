@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_au_12_a_c" {
+benchmark "nist_800_53_rev_4_au_12_a_c" {
   title       = "AU-12(a)(c) Audit Generation"
   description = "The information system: a. Provides audit record generation capability for the auditable events defined in AU-2 a. at [Assignment: organization-defined information system components]; c. Generates audit records for the events defined in AU-2 d. with the content defined in AU-3."
   children = [
@@ -15,5 +15,5 @@ benchmark "nist_sp_800_53_rev4_au_12_a_c" {
     control.wafv2_web_acl_logging_enabled,
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

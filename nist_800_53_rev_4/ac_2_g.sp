@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_ac_2_g" {
+benchmark "nist_800_53_rev_4_ac_2_g" {
   title       = "AC-2(g) Account Management"
   description = "Monitors the use of information system accounts."
   children = [
@@ -8,5 +8,5 @@ benchmark "nist_sp_800_53_rev4_ac_2_g" {
     control.securityhub_enabled
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

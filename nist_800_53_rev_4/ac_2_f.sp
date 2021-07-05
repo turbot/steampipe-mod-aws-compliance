@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_ac_2_f" {
+benchmark "nist_800_53_rev_4_ac_2_f" {
   title       = "AC-2(f) Account Management"
   description = "Creates, enables, modifies, disables, and removes information system accounts in accordance with organization-defined procedures or conditions."
   children = [
@@ -12,5 +12,5 @@ benchmark "nist_sp_800_53_rev4_ac_2_f" {
     control.securityhub_enabled
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

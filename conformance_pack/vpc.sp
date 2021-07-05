@@ -12,7 +12,7 @@ control "vpc_flow_logs_enabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }

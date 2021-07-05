@@ -12,7 +12,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }
@@ -25,7 +25,7 @@ control "cloudtrail_s3_data_events_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }
@@ -38,7 +38,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }
@@ -51,7 +51,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }
@@ -74,7 +74,7 @@ control "cloudtrail_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }

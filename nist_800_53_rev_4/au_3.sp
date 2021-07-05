@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_au_3" {
+benchmark "nist_800_53_rev_4_au_3" {
   title       = "AU-3 Content Of Audit Records"
   description = "The information system generates audit records containing information that establishes what type of event occurred, when the event occurred, where the event occurred, the source of the event, the outcome of the event, and the identity of any individuals or subjects associated with the event."
   children = [
@@ -15,5 +15,5 @@ benchmark "nist_sp_800_53_rev4_au_3" {
     control.wafv2_web_acl_logging_enabled,
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }

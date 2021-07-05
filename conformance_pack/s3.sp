@@ -12,7 +12,7 @@ control "s3_bucket_cross_region_replication_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }
@@ -49,7 +49,7 @@ control "s3_bucket_logging_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa               = "true"
     nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
     rbi_cyber_security  = "true"
   })
 }

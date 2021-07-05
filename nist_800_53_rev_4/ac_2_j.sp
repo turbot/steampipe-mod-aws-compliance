@@ -1,4 +1,4 @@
-benchmark "nist_sp_800_53_rev4_ac_2_j" {
+benchmark "nist_800_53_rev_4_ac_2_j" {
   title       = "AC-2(j) Account Management"
   description = "Reviews accounts for compliance with account management requirements."
   children = [
@@ -14,5 +14,5 @@ benchmark "nist_sp_800_53_rev4_ac_2_j" {
     control.secretsmanager_secret_rotated_as_scheduled
   ]
 
-  tags = local.nist_sp_800_53_rev4_common_tags
+  tags = local.nist_800_53_rev_4_common_tags
 }
