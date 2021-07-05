@@ -35,6 +35,7 @@ control "cloudwatch_log_group_retention_period_365" {
   sql         = query.cloudwatch_log_group_retention_period_365.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    nist_sp_800_53_rev4 = "true"
     rbi_cyber_security = "true"
   })
 }
