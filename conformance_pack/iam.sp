@@ -10,8 +10,9 @@ control "iam_account_password_policy_strong_min_reuse_24" {
   sql         = query.iam_account_password_policy_strong_min_reuse_24.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -78,8 +79,9 @@ control "iam_user_access_key_age_90" {
   sql         = query.iam_user_access_key_age_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
@@ -123,8 +125,9 @@ control "iam_user_unused_credentials_90" {
   sql         = query.iam_user_unused_credentials_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
@@ -134,8 +137,9 @@ control "iam_user_in_group" {
   sql         = query.iam_user_in_group.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
