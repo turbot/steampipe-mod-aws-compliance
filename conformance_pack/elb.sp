@@ -10,10 +10,10 @@ control "elb_application_classic_lb_logging_enabled" {
   sql         = query.elb_application_classic_lb_logging_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa               = "true"
-    nist_csf            = "true"
-    nist_800_53_rev_4 = "true"
-    rbi_cyber_security  = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    nist_800_53_rev_4  = "true"
+    rbi_cyber_security = "true"
   })
 }
 
