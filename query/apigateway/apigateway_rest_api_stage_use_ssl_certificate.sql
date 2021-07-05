@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  'arn:' || partition || ':apigateway:' || region || '::/apis/' || rest_api_id || '/stages/' as resource,
+  arn as resource,
   case
     when client_certificate_id is null then 'alarm'
     else 'ok'

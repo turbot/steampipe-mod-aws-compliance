@@ -22,8 +22,9 @@ control "iam_group_not_empty" {
   sql         = query.iam_group_not_empty.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
@@ -33,9 +34,10 @@ control "iam_policy_no_star_star" {
   sql         = query.iam_policy_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -45,9 +47,10 @@ control "iam_root_user_no_access_keys" {
   sql         = query.iam_root_user_no_access_keys.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -68,8 +71,9 @@ control "iam_root_user_mfa_enabled" {
   sql         = query.iam_root_user_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
