@@ -10,8 +10,9 @@ control "cloudwatch_alarm_action_enabled" {
   sql         = query.cloudwatch_alarm_action_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
@@ -21,9 +22,10 @@ control "log_group_encryption_at_rest_enabled" {
   sql         = query.log_group_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

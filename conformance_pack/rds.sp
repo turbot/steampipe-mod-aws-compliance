@@ -80,7 +80,8 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    rbi_cyber_security = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 

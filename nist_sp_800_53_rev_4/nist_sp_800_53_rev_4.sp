@@ -13,6 +13,12 @@ benchmark "nist_sp_800_53_rev4" {
     benchmark.nist_sp_800_53_rev4_ac_2_1,
     benchmark.nist_sp_800_53_rev4_ac_2_3,
     benchmark.nist_sp_800_53_rev4_ac_2_4,
+    benchmark.nist_sp_800_53_rev4_au_2_a_d,
+    benchmark.nist_sp_800_53_rev4_au_3,
+    benchmark.nist_sp_800_53_rev4_au_6_1_3,
+    benchmark.nist_sp_800_53_rev4_au_7_1,
+    benchmark.nist_sp_800_53_rev4_au_9,
+    benchmark.nist_sp_800_53_rev4_au_9_2,
   ]
 
   tags = local.nist_sp_800_53_rev4_common_tags

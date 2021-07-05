@@ -10,9 +10,10 @@ control "s3_bucket_cross_region_replication_enabled" {
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
@@ -46,9 +47,10 @@ control "s3_bucket_logging_enabled" {
   sql         = query.s3_bucket_logging_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    hipaa               = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
+    rbi_cyber_security  = "true"
   })
 }
 
