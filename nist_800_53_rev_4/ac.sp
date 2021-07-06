@@ -136,3 +136,28 @@ benchmark "nist_800_53_rev_4_ac_2_j" {
 
   tags = local.nist_800_53_rev_4_common_tags
 }
+
+benchmark "nist_800_53_rev_4_ac_3" {
+  title       = "AC-3 Access Enforcement"
+  description = "Enforce approved authorizations for access to systems in accordance with policy."
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.emr_cluster_kerberos_enabled,
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
