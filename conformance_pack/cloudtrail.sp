@@ -62,7 +62,8 @@ control "cloudtrail_trail_validation_enabled" {
   sql         = query.cloudtrail_trail_validation_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
   })
 }
 
