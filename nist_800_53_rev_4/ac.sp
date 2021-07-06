@@ -7,7 +7,8 @@ benchmark "nist_800_53_rev_4_ac" {
     benchmark.nist_800_53_rev_4_ac_4,
     benchmark.nist_800_53_rev_4_ac_5,
     benchmark.nist_800_53_rev_4_ac_6,
-    benchmark.nist_800_53_rev_4_ac_17
+    benchmark.nist_800_53_rev_4_ac_17,
+    benchmark.nist_800_53_rev_4_ac_21
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -305,6 +306,37 @@ benchmark "nist_800_53_rev_4_ac_17_3" {
   description = "The information system routes all remote accesses through organization-defined managed network access control points."
   children = [
     control.vpc_igw_attached_to_authorized_vpc
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_21" {
+  title       = "AC-21 Information Sharing"
+  description = "Facilitate information sharing. Enable authorized users to grant access to partners."
+  children = [
+    benchmark.nist_800_53_rev_4_ac_21_b
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_21_b" {
+  title       = "AC-21(b) User Collaboration and Information Sharing"
+  description = "Facilitate information sharing. Enable authorized users to grant access to partners."
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
