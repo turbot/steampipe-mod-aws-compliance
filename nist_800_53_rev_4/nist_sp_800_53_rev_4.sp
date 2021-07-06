@@ -12,6 +12,9 @@ benchmark "nist_800_53_rev_4" {
   children = [
     benchmark.nist_800_53_rev_4_ac,
     benchmark.nist_800_53_rev_4_au,
+    benchmark.nist_800_53_rev_4_ca,
+    benchmark.nist_800_53_rev_4_cm,
+    benchmark.nist_800_53_rev_4_cp,
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
