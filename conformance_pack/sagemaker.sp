@@ -11,8 +11,8 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

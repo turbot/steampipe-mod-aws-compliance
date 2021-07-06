@@ -21,8 +21,8 @@ control "ssm_managed_instance_compliance_association_compliant" {
   sql         = query.ssm_managed_instance_compliance_association_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

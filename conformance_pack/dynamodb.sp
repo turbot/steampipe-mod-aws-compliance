@@ -11,8 +11,8 @@ control "dynamodb_table_auto_scaling_enabled" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 

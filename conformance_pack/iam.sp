@@ -23,8 +23,8 @@ control "iam_group_not_empty" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -35,8 +35,8 @@ control "iam_policy_no_star_star" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -48,8 +48,8 @@ control "iam_root_user_no_access_keys" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -72,8 +72,8 @@ control "iam_root_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -84,8 +84,8 @@ control "iam_user_access_key_age_90" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -118,8 +118,8 @@ control "iam_user_no_inline_attached_policies" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -131,8 +131,8 @@ control "iam_user_unused_credentials_90" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -143,8 +143,8 @@ control "iam_user_in_group" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 

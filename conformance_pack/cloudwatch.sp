@@ -11,8 +11,8 @@ control "cloudwatch_alarm_action_enabled" {
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -23,8 +23,8 @@ control "log_group_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

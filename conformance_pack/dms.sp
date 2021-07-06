@@ -11,8 +11,8 @@ control "dms_replication_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_dms_common_tags, {
     hipaa              = "true"
-    nist_csf           = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

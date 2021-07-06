@@ -2,7 +2,9 @@ benchmark "nist_800_53_rev_4_ac" {
   title       = "Access Control (AC)"
   description = "The access control family consists of security requirements detailing system logging. This includes who has access to what assets and reporting capabilities like account management, system privileges, and remote access logging to determine when users have access to the system and their level of access."
   children = [
-    benchmark.nist_800_53_rev_4_ac_2
+    benchmark.nist_800_53_rev_4_ac_2,
+    benchmark.nist_800_53_rev_4_ac_3,
+    benchmark.nist_800_53_rev_4_ac_4
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -157,6 +159,36 @@ benchmark "nist_800_53_rev_4_ac_3" {
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket_account
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_4" {
+  title       = "AC-4 Information Flow Enforcement"
+  description = "Enforce approved authorizations. Control information workflow between interconnected systems."
+  children = [
+    control.acm_certificate_expires_30_days,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_in_vpc,
+    control.ec2_instance_not_publicly_accessible,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
+    control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

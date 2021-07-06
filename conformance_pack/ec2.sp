@@ -20,8 +20,8 @@ control "ec2_instance_detailed_monitoring_enabled" {
   sql         = query.ec2_instance_detailed_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf            = "true"
-    nist_sp_800_53_rev4 = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -32,6 +32,7 @@ control "ec2_instance_in_vpc" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -44,6 +45,7 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4   = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
