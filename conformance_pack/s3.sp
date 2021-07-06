@@ -24,6 +24,7 @@ control "s3_bucket_default_encryption_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -110,8 +111,9 @@ control "s3_public_access_block_account" {
   sql         = query.s3_public_access_block_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 

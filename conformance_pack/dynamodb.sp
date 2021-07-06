@@ -34,6 +34,7 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
   sql         = query.dynamodb_table_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
