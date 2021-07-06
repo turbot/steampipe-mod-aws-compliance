@@ -12,6 +12,7 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   tags = merge(local.conformance_pack_elasticache_common_tags, {
     hipaa              = "true"
     nist_csf           = "true"
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }

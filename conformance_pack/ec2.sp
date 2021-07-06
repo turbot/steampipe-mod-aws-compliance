@@ -20,7 +20,8 @@ control "ec2_instance_detailed_monitoring_enabled" {
   sql         = query.ec2_instance_detailed_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf = "true"
+    nist_csf            = "true"
+    nist_sp_800_53_rev4 = "true"
   })
 }
 
@@ -54,7 +55,8 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
   })
 }
 
