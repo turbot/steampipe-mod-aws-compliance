@@ -47,6 +47,7 @@ control "elb_application_lb_waf_enabled" {
   sql         = query.elb_application_lb_waf_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
