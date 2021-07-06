@@ -4,7 +4,9 @@ benchmark "nist_800_53_rev_4_ac" {
   children = [
     benchmark.nist_800_53_rev_4_ac_2,
     benchmark.nist_800_53_rev_4_ac_3,
-    benchmark.nist_800_53_rev_4_ac_4
+    benchmark.nist_800_53_rev_4_ac_4,
+    benchmark.nist_800_53_rev_4_ac_5,
+    benchmark.nist_800_53_rev_4_ac_6
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -141,7 +143,7 @@ benchmark "nist_800_53_rev_4_ac_2_j" {
 
 benchmark "nist_800_53_rev_4_ac_3" {
   title       = "AC-3 Access Enforcement"
-  description = "Enforce approved authorizations for access to systems in accordance with policy."
+  description = "The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -166,7 +168,7 @@ benchmark "nist_800_53_rev_4_ac_3" {
 
 benchmark "nist_800_53_rev_4_ac_4" {
   title       = "AC-4 Information Flow Enforcement"
-  description = "Enforce approved authorizations. Control information workflow between interconnected systems."
+  description = "The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on organization-defined information flow control policies."
   children = [
     control.acm_certificate_expires_30_days,
     control.dms_replication_instance_not_publicly_accessible,
@@ -189,6 +191,70 @@ benchmark "nist_800_53_rev_4_ac_4" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_5" {
+  title       = "AC-5 Separation Of Duties"
+  description = "Separate duties of individuals to prevent malevolent activity. automate separation of duties and access authorizations."
+  children = [
+    benchmark.nist_800_53_rev_4_ac_5_c
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_5_c" {
+  title       = "AC-5c"
+  description = "Defines information system access authorizations to support separation of duties."
+  children = [
+    control.emr_cluster_kerberos_enabled,
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star,
+    control.iam_user_no_inline_attached_policies
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_6" {
+  title       = "AC-6 Least Privilege"
+  description = "The organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions."
+  children = [
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.ec2_instance_uses_imdsv2,
+    control.emr_cluster_kerberos_enabled,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    benchmark.nist_800_53_rev_4_ac_6_10
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_6_10" {
+  title       = "AC-6(10) Prohibit Non-Privileged Users From Executing Privileged Functions"
+  description = "The information system prevents non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures."
+  children = [
+    control.iam_root_user_no_access_keys
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

@@ -157,6 +157,7 @@ control "iam_group_user_role_no_inline_policies" {
   sql         = query.iam_group_user_role_no_inline_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
