@@ -6,7 +6,8 @@ benchmark "nist_800_53_rev_4_ac" {
     benchmark.nist_800_53_rev_4_ac_3,
     benchmark.nist_800_53_rev_4_ac_4,
     benchmark.nist_800_53_rev_4_ac_5,
-    benchmark.nist_800_53_rev_4_ac_6
+    benchmark.nist_800_53_rev_4_ac_6,
+    benchmark.nist_800_53_rev_4_ac_17
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -255,6 +256,55 @@ benchmark "nist_800_53_rev_4_ac_6_10" {
   description = "The information system prevents non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures."
   children = [
     control.iam_root_user_no_access_keys
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_17" {
+  title       = "AC-17 Remote Access"
+  description = "Authorize remote access systems prior to connection. Enforce remote connection requirements to information systems."
+  children = [
+    benchmark.nist_800_53_rev_4_ac_17_1,
+    benchmark.nist_800_53_rev_4_ac_17_2,
+    benchmark.nist_800_53_rev_4_ac_17_3
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_17_1" {
+  title       = "AC-17(1) Automated Monitoring/Control"
+  description = "The information system monitors and controls remote access methods."
+  children = [
+    control.guardduty_enabled,
+    control.securityhub_enabled
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_17_2" {
+  title       = "AC-17(2) Protection Of Confidentiality/Integrity Using Encryption"
+  description = "The information system implements cryptographic mechanisms to protect the confidentiality and integrity of remote access sessions."
+  children = [
+    control.acm_certificate_expires_30_days,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.s3_bucket_enforces_ssl
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
+benchmark "nist_800_53_rev_4_ac_17_3" {
+  title       = "AC-17(3) Managed Access Control Points"
+  description = "The information system routes all remote accesses through organization-defined managed network access control points."
+  children = [
+    control.vpc_igw_attached_to_authorized_vpc
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

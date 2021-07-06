@@ -35,6 +35,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -57,6 +58,7 @@ control "elb_classic_lb_use_ssl_certificate" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -68,6 +70,7 @@ control "elb_application_lb_drop_http_headers" {
   sql         = query.elb_application_lb_drop_http_headers.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -78,6 +81,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
   sql         = query.elb_classic_lb_use_tls_https_listeners.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
