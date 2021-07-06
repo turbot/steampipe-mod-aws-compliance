@@ -19,6 +19,7 @@ benchmark "nist_800_53_rev_4" {
     benchmark.nist_800_53_rev_4_ir,
     benchmark.nist_800_53_rev_4_ra,
     benchmark.nist_800_53_rev_4_sa,
+    benchmark.nist_800_53_rev_4_sc
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
