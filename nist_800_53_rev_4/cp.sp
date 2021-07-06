@@ -41,6 +41,7 @@ benchmark "nist_800_53_rev_4_cp_10" {
   description = "The organization provides for the recovery and reconstitution of the information system to a known state after a disruption, compromise, or failure."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
+    control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.s3_bucket_versioning_enabled,
     control.rds_db_instance_backup_enabled,
