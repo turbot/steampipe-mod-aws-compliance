@@ -11,6 +11,7 @@ control "kms_key_not_pending_deletion" {
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })

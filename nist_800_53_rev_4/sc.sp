@@ -160,6 +160,7 @@ benchmark "nist_800_53_rev_4_sc_12" {
   children = [
     control.acm_certificate_expires_30_days,
     control.kms_key_not_pending_deletion,
+    control.kms_cmk_rotation_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
