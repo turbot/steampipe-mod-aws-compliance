@@ -79,3 +79,13 @@ control "cloudtrail_trail_enabled" {
     rbi_cyber_security = "true"
   })
 }
+
+control "cloudtrail_security_trail_enabled" {
+  title       = "At least one trail should be enabled with security best practices"
+  description = "This rule helps ensure the use of AWS recommended security best practices for AWS CloudTrail, by checking for the enablement of multiple settings. These include the use of log encryption, log validation, and enabling AWS CloudTrail in multiple regions."
+  sql         = query.cloudtrail_security_trail_enabled.sql
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    nist_800_53_rev_4 = "true"
+  })
+}

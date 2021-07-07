@@ -14,6 +14,7 @@ benchmark "nist_800_53_rev_4_cm_2" {
   title       = "CM-2 Baseline Configuration"
   description = "The organization develops, documents, and maintains under configuration control, a current baseline configuration of the information system."
   children = [
+    control.cloudtrail_security_trail_enabled,
     control.ebs_attached_volume_delete_on_termination_enabled,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
