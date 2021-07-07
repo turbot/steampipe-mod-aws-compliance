@@ -4,7 +4,7 @@ benchmark "nist_800_53_rev_4_cm" {
   children = [
     benchmark.nist_800_53_rev_4_cm_2,
     benchmark.nist_800_53_rev_4_cm_7,
-    benchmark.nist_800_53_rev_4_cm_8,
+    benchmark.nist_800_53_rev_4_cm_8
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -29,7 +29,7 @@ benchmark "nist_800_53_rev_4_cm_7" {
   title       = "CM-7 Least Functionality"
   description = "The organization configures the information system to provide only essential capabilities and prohibits or restricts the use of the functions, ports, protocols, and/or services."
   children = [
-    benchmark.nist_800_53_rev_4_cm_7_a,
+    benchmark.nist_800_53_rev_4_cm_7_a
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -40,7 +40,7 @@ benchmark "nist_800_53_rev_4_cm_7_a" {
   description = "The organization: a. Configures the information system to provide only essential capabilities."
   children = [
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -51,7 +51,7 @@ benchmark "nist_800_53_rev_4_cm_8" {
   description = "The organization develops and documents an inventory of information system components that accurately reflects the current information system, includes all components within the authorization boundary of the information system, is at the level of granularity deemed necessary for tracking and reporting and reviews and updates the information system component inventory."
   children = [
     benchmark.nist_800_53_rev_4_cm_8_1,
-    benchmark.nist_800_53_rev_4_cm_8_3,
+    benchmark.nist_800_53_rev_4_cm_8_3
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -61,7 +61,7 @@ benchmark "nist_800_53_rev_4_cm_8_1" {
   title       = "CM-8(1) Updates During Installation / Removals"
   description = "The organization updates the inventory of information system components as an integral part of component installations, removals, and information system updates."
   children = [
-    control.ec2_instance_ssm_managed,
+    control.ec2_instance_ssm_managed
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -72,7 +72,7 @@ benchmark "nist_800_53_rev_4_cm_8_3" {
   title       = "CM-8(3) Automated Unauthorized Component Detection"
   description = "The organization employs automated mechanisms to detect the presence of unauthorized hardware, software, and firmware components within the information system and takes actions (disables network access by such components, isolates the components etc) when unauthorized components are detected."
   children = [
-    benchmark.nist_800_53_rev_4_cm_8_3_a,
+    benchmark.nist_800_53_rev_4_cm_8_3_a
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -84,9 +84,8 @@ benchmark "nist_800_53_rev_4_cm_8_3_a" {
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
 }
-

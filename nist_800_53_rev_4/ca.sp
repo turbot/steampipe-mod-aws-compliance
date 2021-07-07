@@ -12,7 +12,7 @@ benchmark "nist_800_53_rev_4_ca_7" {
   title       = "CA-7 Continuous Monitoring"
   description = "Continuously monitor configuration management processes. Determine security impact, environment and operational risks."
   children = [
-    benchmark.nist_800_53_rev_4_ca_7_a_b,
+    benchmark.nist_800_53_rev_4_ca_7_a_b
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -25,9 +25,9 @@ benchmark "nist_800_53_rev_4_ca_7_a_b" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

@@ -8,7 +8,7 @@ benchmark "nist_800_53_rev_4_au" {
     benchmark.nist_800_53_rev_4_au_7,
     benchmark.nist_800_53_rev_4_au_9,
     benchmark.nist_800_53_rev_4_au_11,
-    benchmark.nist_800_53_rev_4_au_12,
+    benchmark.nist_800_53_rev_4_au_12
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -38,7 +38,7 @@ benchmark "nist_800_53_rev_4_au_2_a_d" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -58,7 +58,7 @@ benchmark "nist_800_53_rev_4_au_3" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -88,10 +88,10 @@ benchmark "nist_800_53_rev_4_au_6_1_3" {
   title       = "AU-6(1)(3)"
   description = "(1) The organization employs automated mechanisms to integrate audit review, analysis, and reporting processes to support organizational processes for investigation and response to suspicious activities. (3) The organization analyzes and correlates audit records across different repositories to gain organization-wide situational awareness."
   children = [
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -112,7 +112,7 @@ benchmark "nist_800_53_rev_4_au_7_1" {
   description = "The information system provides the capability to process audit records for events of interest based on [Assignment: organization-defined audit fields within audit records]."
   children = [
     control.cloudwatch_alarm_action_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_integrated_with_logs
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -134,7 +134,7 @@ benchmark "nist_800_53_rev_4_au_9_2" {
   title       = "AU-9(2) Audit Backup On Separate Physical Systems / Components"
   description = "The information system backs up audit records [Assignment: organization-defined frequency] onto a physically different system or system component than the system or component being audited."
   children = [
-    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_cross_region_replication_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -144,7 +144,7 @@ benchmark "nist_800_53_rev_4_au_11" {
   title       = "AU-11 Audit Record Retention"
   description = "The organization retains audit records for [Assignment: organization-defined time period consistent with records retention policy] to provide support for after-the-fact investigations of security incidents and to meet regulatory and organizational information retention requirements."
   children = [
-    control.cloudwatch_log_group_retention_period_365,
+    control.cloudwatch_log_group_retention_period_365
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -154,7 +154,7 @@ benchmark "nist_800_53_rev_4_au_12" {
   title       = "AU-12 Audit Generation"
   description = "Audit events defined in AU-2. Allow trusted personnel to select which events to audit. Generate audit records for events."
   children = [
-    benchmark.nist_800_53_rev_4_au_12_a_c,
+    benchmark.nist_800_53_rev_4_au_12_a_c
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -174,7 +174,7 @@ benchmark "nist_800_53_rev_4_au_12_a_c" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

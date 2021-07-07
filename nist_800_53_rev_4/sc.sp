@@ -10,7 +10,7 @@ benchmark "nist_800_53_rev_4_sc" {
     benchmark.nist_800_53_rev_4_sc_12,
     benchmark.nist_800_53_rev_4_sc_13,
     benchmark.nist_800_53_rev_4_sc_23,
-    benchmark.nist_800_53_rev_4_sc_28,
+    benchmark.nist_800_53_rev_4_sc_28
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -21,7 +21,7 @@ benchmark "nist_800_53_rev_4_sc_2" {
   description = "The information system separates user functionality (including user interface services) from information system management functionality."
   children = [
     control.iam_group_not_empty,
-    control.iam_policy_no_star_star,
+    control.iam_policy_no_star_star
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -31,7 +31,7 @@ benchmark "nist_800_53_rev_4_sc_4" {
   title       = "SC-4 Information In Shared Resources"
   description = "The information system prevents unauthorized and unintended information transfer via shared system resources."
   children = [
-    control.ebs_attached_volume_delete_on_termination_enabled,
+    control.ebs_attached_volume_delete_on_termination_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -46,7 +46,7 @@ benchmark "nist_800_53_rev_4_sc_5" {
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
-    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_cross_region_replication_enabled
   ]
 
 
@@ -86,7 +86,7 @@ benchmark "nist_800_53_rev_4_sc_7" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -96,26 +96,26 @@ benchmark "nist_800_53_rev_4_sc_7_3" {
   title       = "SC-7(3) Access Points"
   description = "The organization limits the number of external network connections to the information system."
   children = [
-    control.ec2_instance_in_vpc,
-    control.vpc_igw_attached_to_authorized_vpc,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.es_domain_in_vpc,
     control.emr_cluster_master_nodes_no_public_ip,
-    control.vpc_security_group_restrict_ingress_ssh_all,
-    control.lambda_function_restrict_public_access,
+    control.es_domain_in_vpc,
     control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.s3_public_access_block_account,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -132,7 +132,7 @@ benchmark "nist_800_53_rev_4_sc_8" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -148,7 +148,7 @@ benchmark "nist_800_53_rev_4_sc_8_1" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -159,8 +159,8 @@ benchmark "nist_800_53_rev_4_sc_12" {
   description = "The organization establishes and manages cryptographic keys for required cryptography employed within the information system in accordance with [Assignment: organization-defined requirements for key generation, distribution, storage, access, and destruction]."
   children = [
     control.acm_certificate_expires_30_days,
-    control.kms_key_not_pending_deletion,
-    control.kms_cmk_rotation_enabled
+    control.kms_cmk_rotation_enabled,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -170,7 +170,7 @@ benchmark "nist_800_53_rev_4_sc_13" {
   title       = "SC-13 Cryptographic Protection"
   description = "The information system implements [Assignment: organization-defined cryptographic uses and type of cryptography required for each use] in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
   children = [
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms_cmk
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -182,7 +182,7 @@ benchmark "nist_800_53_rev_4_sc_23" {
   children = [
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
-    control.elb_classic_lb_use_tls_https_listeners,
+    control.elb_classic_lb_use_tls_https_listeners
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -207,7 +207,7 @@ benchmark "nist_800_53_rev_4_sc_28" {
     control.s3_bucket_object_lock_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
