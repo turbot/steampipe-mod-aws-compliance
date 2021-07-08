@@ -11,6 +11,7 @@ control "rds_db_instance_backup_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -23,6 +24,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -34,8 +36,9 @@ control "rds_db_instance_multiple_az_enabled" {
   sql         = query.rds_db_instance_multiple_az_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -46,6 +49,7 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -58,6 +62,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -69,6 +74,7 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -80,6 +86,7 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -90,6 +97,7 @@ control "rds_db_instance_in_backup_plan" {
   sql         = query.rds_db_instance_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -101,5 +109,15 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_csf = "true"
+  })
+}
+
+control "rds_db_instance_deletion_protection_enabled" {
+  title       = "RDS DB instances should have deletion protection enabled"
+  description = "Ensure Amazon Relational Database Service (Amazon RDS) instances have deletion protection enabled."
+  sql         = query.rds_db_instance_deletion_protection_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_53_rev_4 = "true"
   })
 }

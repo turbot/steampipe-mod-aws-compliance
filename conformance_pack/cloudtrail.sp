@@ -11,6 +11,7 @@ control "cloudtrail_trail_integrated_with_logs" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -23,6 +24,7 @@ control "cloudtrail_s3_data_events_enabled" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -35,6 +37,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -47,6 +50,7 @@ control "cloudtrail_multi_region_trail_enabled" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -58,7 +62,8 @@ control "cloudtrail_trail_validation_enabled" {
   sql         = query.cloudtrail_trail_validation_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
   })
 }
 
@@ -69,7 +74,18 @@ control "cloudtrail_trail_enabled" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "cloudtrail_security_trail_enabled" {
+  title       = "At least one trail should be enabled with security best practices"
+  description = "This rule helps ensure the use of AWS recommended security best practices for AWS CloudTrail, by checking for the enablement of multiple settings. These include the use of log encryption, log validation, and enabling AWS CloudTrail in multiple regions."
+  sql         = query.cloudtrail_security_trail_enabled.sql
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    nist_800_53_rev_4 = "true"
   })
 }

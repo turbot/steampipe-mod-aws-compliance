@@ -20,7 +20,8 @@ control "ec2_instance_detailed_monitoring_enabled" {
   sql         = query.ec2_instance_detailed_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -31,6 +32,7 @@ control "ec2_instance_in_vpc" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -43,6 +45,7 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4   = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -54,7 +57,8 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
   })
 }
 
@@ -65,5 +69,15 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf = "true"
+  })
+}
+
+control "ec2_instance_uses_imdsv2" {
+  title       = "EC2 instances should use IMDSv2"
+  description = "Ensure the Instance Metadata Service Version 2 (IMDSv2) method is enabled to help protect access and control of Amazon Elastic Compute Cloud (Amazon EC2) instance metadata."
+  sql         = query.ec2_instance_uses_imdsv2.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_800_53_rev_4 = "true"
   })
 }

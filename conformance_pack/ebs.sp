@@ -11,6 +11,7 @@ control "ebs_snapshot_not_publicly_restorable" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -33,6 +34,7 @@ control "ebs_attached_volume_encryption_enabled" {
   sql         = query.ebs_attached_volume_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -44,6 +46,7 @@ control "ebs_volume_in_backup_plan" {
   sql         = query.ebs_volume_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -54,6 +57,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
   sql         = query.ebs_attached_volume_delete_on_termination_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    nist_csf = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
