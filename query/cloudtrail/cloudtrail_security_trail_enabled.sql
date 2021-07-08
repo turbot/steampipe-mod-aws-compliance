@@ -8,7 +8,7 @@ with trails_enabled as (
       $$[]$$::jsonb
     ) as excludeManagementEventSources
   from
-    osborn_aaa.aws_cloudtrail_trail
+    aws_cloudtrail_trail
     left join jsonb_array_elements(event_selectors) as e on true
     left join jsonb_array_elements_text(e -> 'ExcludeManagementEventSources') as g on true
   where
@@ -35,7 +35,7 @@ all_trails as (
     a.account_id,
     a.title
   from
-    osborn_aaa.aws_cloudtrail_trail as a
+    aws_cloudtrail_trail as a
     left join trails_enabled as b on a.arn = b.arn
 )
 select
