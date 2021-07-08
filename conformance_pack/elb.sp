@@ -88,7 +88,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
 }
 
 control "elb_classic_lb_cross_zone_load_balancing_enabled" {
-  title       = "ELB classic load Balancer cross-zone load balancing should be enabled"
+  title       = "ELB classic load balancers should have cross-zone load balancing enabled"
   description = "Enable cross-zone load balancing for your Elastic Load Balancers (ELBs) to help maintain adequate capacity and availability. The cross-zone load balancing reduces the need to maintain equivalent numbers of instances in each enabled availability zone."
   sql         = query.elb_classic_lb_cross_zone_load_balancing_enabled.sql
 
