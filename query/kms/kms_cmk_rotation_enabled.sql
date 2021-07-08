@@ -7,7 +7,7 @@ select
     else 'ok'
   end as status,
   case
-    when origin = 'EXTERNAL' then title || ' have imported key material.'
+    when origin = 'EXTERNAL' then title || ' has imported key material.'
     when not key_rotation_enabled then title || ' key rotation disabled.'
     else title || ' key rotation enabled.'
   end as reason,
