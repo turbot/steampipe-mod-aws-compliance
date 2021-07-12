@@ -14,4 +14,6 @@ select
   t.account_id
 from
   aws_cloudtrail_trail t
-  inner join aws_s3_bucket b on t.s3_bucket_name = b.name;
+  inner join aws_s3_bucket b on t.s3_bucket_name = b.name
+where 
+  t.region = t.home_region;

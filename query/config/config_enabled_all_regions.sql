@@ -33,4 +33,5 @@ select
   a.account_id
 from
   aws_region as a
-  left join aws_config_configuration_recorder as r on r.region = a.name;
+  left join aws_config_configuration_recorder as r 
+    on r.account_id = a.account_id and r.region = a.name;

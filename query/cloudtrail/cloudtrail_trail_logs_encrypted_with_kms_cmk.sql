@@ -13,4 +13,6 @@ select
   region,
   account_id
 from
-  aws_cloudtrail_trail;
+  aws_cloudtrail_trail
+where 
+  region = home_region;
