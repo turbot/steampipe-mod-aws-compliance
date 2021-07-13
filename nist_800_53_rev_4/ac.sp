@@ -15,7 +15,7 @@ benchmark "nist_800_53_rev_4_ac" {
 }
 
 benchmark "nist_800_53_rev_4_ac_2" {
-  title       = "AC-2 Account Management"
+  title       = "Account Management (AC-2)"
   description = "Manage system accounts, group memberships, privileges, workflow, notifications, deactivations, and authorizations."
   children = [
     benchmark.nist_800_53_rev_4_ac_2_1,
@@ -144,7 +144,7 @@ benchmark "nist_800_53_rev_4_ac_2_j" {
 }
 
 benchmark "nist_800_53_rev_4_ac_3" {
-  title       = "AC-3 Access Enforcement"
+  title       = "Access Enforcement (AC-3)"
   description = "The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
@@ -169,7 +169,7 @@ benchmark "nist_800_53_rev_4_ac_3" {
 }
 
 benchmark "nist_800_53_rev_4_ac_4" {
-  title       = "AC-4 Information Flow Enforcement"
+  title       = "Information Flow Enforcement (AC-4)"
   description = "The information system enforces approved authorizations for controlling the flow of information within the system and between interconnected systems based on organization-defined information flow control policies."
   children = [
     control.acm_certificate_expires_30_days,
@@ -199,7 +199,7 @@ benchmark "nist_800_53_rev_4_ac_4" {
 }
 
 benchmark "nist_800_53_rev_4_ac_5" {
-  title       = "AC-5 Separation Of Duties"
+  title       = "Separation Of Duties (AC-5)"
   description = "Separate duties of individuals to prevent malevolent activity. automate separation of duties and access authorizations."
   children = [
     benchmark.nist_800_53_rev_4_ac_5_c
@@ -222,7 +222,7 @@ benchmark "nist_800_53_rev_4_ac_5_c" {
 }
 
 benchmark "nist_800_53_rev_4_ac_6" {
-  title       = "AC-6 Least Privilege"
+  title       = "Least Privilege (AC-6)"
   description = "The organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions."
   children = [
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
@@ -263,7 +263,7 @@ benchmark "nist_800_53_rev_4_ac_6_10" {
 }
 
 benchmark "nist_800_53_rev_4_ac_17" {
-  title       = "AC-17 Remote Access"
+  title       = "Remote Access (AC-17)"
   description = "Authorize remote access systems prior to connection. Enforce remote connection requirements to information systems."
   children = [
     benchmark.nist_800_53_rev_4_ac_17_1,
@@ -312,7 +312,7 @@ benchmark "nist_800_53_rev_4_ac_17_3" {
 }
 
 benchmark "nist_800_53_rev_4_ac_21" {
-  title       = "AC-21 Information Sharing"
+  title       = "Information Sharing (AC-21)"
   description = "Facilitate information sharing. Enable authorized users to grant access to partners."
   children = [
     benchmark.nist_800_53_rev_4_ac_21_b
