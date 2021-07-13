@@ -10,7 +10,7 @@ benchmark "nist_800_53_rev_4_sa" {
 }
 
 benchmark "nist_800_53_rev_4_sa_3" {
-  title       = "SA-3 System Development Life Cycle"
+  title       = "System Development Life Cycle (SA-3)"
   description = "The organization manages the information system using organization-defined system development life cycle, defines and documents information security roles and responsibilities throughout the system development life cycle, identifies individuals having information security roles and responsibilities and integrates the organizational information security risk management process into system development life cycle activities."
   children = [
     benchmark.nist_800_53_rev_4_sa_3_a
@@ -32,7 +32,7 @@ benchmark "nist_800_53_rev_4_sa_3_a" {
 }
 
 benchmark "nist_800_53_rev_4_sa_10" {
-  title       = "SA-10 Developer Configuration Management"
+  title       = "Developer Configuration Management (SA-10)"
   description = "The organization requires the developer of the information system, system component, or information system service to: a. Perform configuration management during system, component, or service [Selection (one or more): design; development; implementation; operation]; b. Document, manage, and control the integrity of changes to [Assignment: organization-defined configuration items under configuration management]; c. Implement only organization-approved changes to the system, component, or service; d. Document approved changes to the system, component, or service and the potential security impacts of such changes; and e. Track security flaws and flaw resolution within the system, component, or service and report findings to [Assignment: organization-defined personnel]."
   children = [
     control.ec2_instance_ssm_managed,

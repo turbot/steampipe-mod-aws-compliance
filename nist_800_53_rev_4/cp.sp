@@ -10,7 +10,7 @@ benchmark "nist_800_53_rev_4_cp" {
 }
 
 benchmark "nist_800_53_rev_4_cp_9" {
-  title       = "CP-9 Information System Backup"
+  title       = "Information System Backup (CP-9)"
   description = "The organization conducts backups of user-level information, system-level information  and information system documentation including security-related documentation contained in the information system and protects the confidentiality, integrity, and availability of backup information at storage locations."
   children = [
     benchmark.nist_800_53_rev_4_cp_9_b
@@ -37,7 +37,7 @@ benchmark "nist_800_53_rev_4_cp_9_b" {
 }
 
 benchmark "nist_800_53_rev_4_cp_10" {
-  title       = "CP-10 Information System Recovery And Reconstitution"
+  title       = "Information System Recovery And Reconstitution (CP-10)"
   description = "The organization provides for the recovery and reconstitution of the information system to a known state after a disruption, compromise, or failure."
   children = [
     control.dynamodb_table_auto_scaling_enabled,

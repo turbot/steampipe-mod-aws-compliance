@@ -15,7 +15,7 @@ benchmark "nist_800_53_rev_4_au" {
 }
 
 benchmark "nist_800_53_rev_4_au_2" {
-  title       = "AU-2 Event Logging"
+  title       = "Event Logging (AU-2)"
   description = "Automate security audit function with other organizational entities. Enable mutual support of audit of auditable events."
   children = [
     benchmark.nist_800_53_rev_4_au_2_a_d
@@ -45,7 +45,7 @@ benchmark "nist_800_53_rev_4_au_2_a_d" {
 }
 
 benchmark "nist_800_53_rev_4_au_3" {
-  title       = "AU-3 Content of Audit Records"
+  title       = "Content of Audit Records (AU-3)"
   description = "The information system generates audit records containing information that establishes what type of event occurred, when the event occurred, where the event occurred, the source of the event, the outcome of the event, and the identity of any individuals or subjects associated with the event."
   children = [
     control.apigateway_stage_logging_enabled,
@@ -65,7 +65,7 @@ benchmark "nist_800_53_rev_4_au_3" {
 }
 
 benchmark "nist_800_53_rev_4_au_6" {
-  title       = "AU-6 Audit Review, Analysis And Reporting"
+  title       = "Audit Review, Analysis And Reporting (AU-6)"
   description = "Integrate audit review, analysis, and reporting with processes for investigation and response to suspicious activities."
   children = [
     benchmark.nist_800_53_rev_4_au_6_1
@@ -98,7 +98,7 @@ benchmark "nist_800_53_rev_4_au_6_1_3" {
 }
 
 benchmark "nist_800_53_rev_4_au_7" {
-  title       = "AU-7 Audit Reduction And Report Generation"
+  title       = "Audit Reduction And Report Generation (AU-7)"
   description = "Support for real-time audit review, analysis, and reporting requirements without altering original audit records."
   children = [
     benchmark.nist_800_53_rev_4_au_7_1
@@ -119,7 +119,7 @@ benchmark "nist_800_53_rev_4_au_7_1" {
 }
 
 benchmark "nist_800_53_rev_4_au_9" {
-  title       = "AU-9 Protection of Audit Information"
+  title       = "Protection of Audit Information (AU-9)"
   description = "The information system protects audit information and audit tools from unauthorized access, modification, and deletion."
   children = [
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -141,7 +141,7 @@ benchmark "nist_800_53_rev_4_au_9_2" {
 }
 
 benchmark "nist_800_53_rev_4_au_11" {
-  title       = "AU-11 Audit Record Retention"
+  title       = "Audit Record Retention (AU-11)"
   description = "The organization retains audit records for [Assignment: organization-defined time period consistent with records retention policy] to provide support for after-the-fact investigations of security incidents and to meet regulatory and organizational information retention requirements."
   children = [
     control.cloudwatch_log_group_retention_period_365
@@ -151,7 +151,7 @@ benchmark "nist_800_53_rev_4_au_11" {
 }
 
 benchmark "nist_800_53_rev_4_au_12" {
-  title       = "AU-12 Audit Generation"
+  title       = "Audit Generation (AU-12)"
   description = "Audit events defined in AU-2. Allow trusted personnel to select which events to audit. Generate audit records for events."
   children = [
     benchmark.nist_800_53_rev_4_au_12_a_c

@@ -17,7 +17,7 @@ benchmark "nist_800_53_rev_4_sc" {
 }
 
 benchmark "nist_800_53_rev_4_sc_2" {
-  title       = "SC-2 Application Partitioning"
+  title       = "Application Partitioning (SC-2)"
   description = "The information system separates user functionality (including user interface services) from information system management functionality."
   children = [
     control.iam_group_not_empty,
@@ -28,7 +28,7 @@ benchmark "nist_800_53_rev_4_sc_2" {
 }
 
 benchmark "nist_800_53_rev_4_sc_4" {
-  title       = "SC-4 Information In Shared Resources"
+  title       = "Information In Shared Resources (SC-4)"
   description = "The information system prevents unauthorized and unintended information transfer via shared system resources."
   children = [
     control.ebs_attached_volume_delete_on_termination_enabled
@@ -38,7 +38,7 @@ benchmark "nist_800_53_rev_4_sc_4" {
 }
 
 benchmark "nist_800_53_rev_4_sc_5" {
-  title       = "SC-5 Denial Of Service Protection"
+  title       = "Denial Of Service Protection (SC-5)"
   description = "The information system protects against or limits the effects of the following types of denial of service attacks: [Assignment: organization-defined types of denial of service attacks or references to sources for such information] by employing [Assignment: organization-defined security safeguards]."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
@@ -54,7 +54,7 @@ benchmark "nist_800_53_rev_4_sc_5" {
 }
 
 benchmark "nist_800_53_rev_4_sc_7" {
-  title       = "SC-7 Boundary Protection"
+  title       = "Boundary Protection (SC-7)"
   description = "The information system: a. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system; b. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and c. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture."
   children = [
     benchmark.nist_800_53_rev_4_sc_7_3,
@@ -122,7 +122,7 @@ benchmark "nist_800_53_rev_4_sc_7_3" {
 }
 
 benchmark "nist_800_53_rev_4_sc_8" {
-  title       = "SC-8 Transmission Confidentiality And Integrity"
+  title       = "Transmission Confidentiality And Integrity (SC-8)"
   description = "The information system protects the [Selection (one or more): confidentiality; integrity] of transmitted information."
   children = [
     benchmark.nist_800_53_rev_4_sc_8_1,
@@ -155,7 +155,7 @@ benchmark "nist_800_53_rev_4_sc_8_1" {
 }
 
 benchmark "nist_800_53_rev_4_sc_12" {
-  title       = "SC-12 Cryptographic Key Establishment And Management"
+  title       = "Cryptographic Key Establishment And Management (SC-12)"
   description = "The organization establishes and manages cryptographic keys for required cryptography employed within the information system in accordance with [Assignment: organization-defined requirements for key generation, distribution, storage, access, and destruction]."
   children = [
     control.acm_certificate_expires_30_days,
@@ -167,7 +167,7 @@ benchmark "nist_800_53_rev_4_sc_12" {
 }
 
 benchmark "nist_800_53_rev_4_sc_13" {
-  title       = "SC-13 Cryptographic Protection"
+  title       = "Cryptographic Protection (SC-13)"
   description = "The information system implements [Assignment: organization-defined cryptographic uses and type of cryptography required for each use] in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
   children = [
     control.dynamodb_table_encrypted_with_kms_cmk
@@ -177,7 +177,7 @@ benchmark "nist_800_53_rev_4_sc_13" {
 }
 
 benchmark "nist_800_53_rev_4_sc_23" {
-  title       = "SC-23 Session Authenticity"
+  title       = "Session Authenticity (SC-23)"
   description = "TThe information system protects the authenticity of communications sessions."
   children = [
     control.elb_application_lb_drop_http_headers,
@@ -189,7 +189,7 @@ benchmark "nist_800_53_rev_4_sc_23" {
 }
 
 benchmark "nist_800_53_rev_4_sc_28" {
-  title       = "SC-28 Protection Of Information At Rest"
+  title       = "Protection Of Information At Rest (SC-28)"
   description = "The information system protects the [Selection (one or more): confidentiality; integrity] of [Assignment: organization-defined information at rest]."
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,

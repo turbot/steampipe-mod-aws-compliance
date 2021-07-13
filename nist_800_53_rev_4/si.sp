@@ -12,7 +12,7 @@ benchmark "nist_800_53_rev_4_si" {
 }
 
 benchmark "nist_800_53_rev_4_si_2" {
-  title       = "SI-2 Flaw Remediation"
+  title       = "Flaw Remediation (SI-2)"
   description = "The organization: a.Identifies, reports, and corrects information system flaws; b.Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation; c.Installs security-relevant software and firmware updates within [Assignment: organization-defined time period] of the release of the updates; and d.Incorporates flaw remediation into the organizational configuration management process."
   children = [
     benchmark.nist_800_53_rev_4_si_2_2,
@@ -34,7 +34,7 @@ benchmark "nist_800_53_rev_4_si_2_2" {
 }
 
 benchmark "nist_800_53_rev_4_si_4" {
-  title       = "SI-4 Information System Monitoring"
+  title       = "Information System Monitoring (SI-4)"
   description = "The organization: a.Monitors the information system to detect: 1. Attacks and indicators of potential attacks in accordance with [Assignment: organization-defined monitoring objectives]; and 2.Unauthorized local, network, and remote connections; b. Identifies unauthorized use of the information system through [Assignment: organization-defined techniques and methods]; c. Deploys monitoring devices: 1. Strategically within the information system to collect organization-determined essential information; and 2. At ad hoc locations within the system to track specific types of transactions of interest to the organization; d. Protects information obtained from intrusion-monitoring tools from unauthorized access, modification, and deletion; e. Heightens the level of information system monitoring activity whenever there is an indication of increased risk to organizational operations and assets, individuals, other organizations, or the Nation based on law enforcement information, intelligence information, or other credible sources of information; f. Obtains legal opinion with regard to information system monitoring activities in accordance with applicable federal laws, Executive Orders, directives, policies, or regulations; and g. Provides [Assignment: organization-defined information system monitoring information] to [Assignment: organization-defined personnel or roles] [Selection (one or more): as needed; [Assignment: organization-defined frequency]]."
   children = [
     benchmark.nist_800_53_rev_4_si_4_1,
@@ -109,8 +109,25 @@ benchmark "nist_800_53_rev_4_si_4_16" {
   tags = local.nist_800_53_rev_4_common_tags
 }
 
+benchmark "nist_800_53_rev_4_si_4_a_b_c" {
+  title       = "SI-4(a)(b)(c)"
+  description = "The organization: a. Monitors the information system to detect: 1. Attacks and indicators of potential attacks in accordance with [Assignment: organization- defined monitoring objectives]; and 2. Unauthorized local, network, and remote connections; b. Identifies unauthorized use of the information system through [Assignment: organization- defined techniques and methods]; c. Deploys monitoring devices: i. strategically within the information system to collect organization-determined essential information; and (ii) at ad hoc locations within the system to track specific types of transactions of interest to the organization."
+  children = [
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudwatch_alarm_action_enabled,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.elb_application_lb_waf_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.securityhub_enabled,
+    control.wafv2_web_acl_logging_enabled
+  ]
+
+  tags = local.nist_800_53_rev_4_common_tags
+}
+
 benchmark "nist_800_53_rev_4_si_7" {
-  title       = "SI-7 Software, Firmware, and Information Integrity"
+  title       = "Software, Firmware, and Information Integrity (SI-7)"
   description = "The organization employs integrity verification tools to detect unauthorized changes to [Assignment: organization-defined software, firmware, and information]."
   children = [
     control.cloudtrail_trail_validation_enabled,
@@ -145,23 +162,6 @@ benchmark "nist_800_53_rev_4_si_12" {
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.s3_bucket_versioning_enabled
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_si_4_a_b_c" {
-  title       = "SI-4(a)(b)(c)"
-  description = "The organization: a. Monitors the information system to detect: 1. Attacks and indicators of potential attacks in accordance with [Assignment: organization- defined monitoring objectives]; and 2. Unauthorized local, network, and remote connections; b. Identifies unauthorized use of the information system through [Assignment: organization- defined techniques and methods]; c. Deploys monitoring devices: i. strategically within the information system to collect organization-determined essential information; and (ii) at ad hoc locations within the system to track specific types of transactions of interest to the organization."
-  children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudwatch_alarm_action_enabled,
-    control.ec2_instance_detailed_monitoring_enabled,
-    control.elb_application_lb_waf_enabled,
-    control.guardduty_enabled,
-    control.guardduty_finding_archived,
-    control.securityhub_enabled,
-    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags

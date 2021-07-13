@@ -9,7 +9,7 @@ benchmark "nist_800_53_rev_4_ca" {
 }
 
 benchmark "nist_800_53_rev_4_ca_7" {
-  title       = "CA-7 Continuous Monitoring"
+  title       = "Continuous Monitoring (CA-7)"
   description = "Continuously monitor configuration management processes. Determine security impact, environment and operational risks."
   children = [
     benchmark.nist_800_53_rev_4_ca_7_a_b

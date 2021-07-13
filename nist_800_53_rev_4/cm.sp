@@ -11,7 +11,7 @@ benchmark "nist_800_53_rev_4_cm" {
 }
 
 benchmark "nist_800_53_rev_4_cm_2" {
-  title       = "CM-2 Baseline Configuration"
+  title       = "Baseline Configuration (CM-2)"
   description = "The organization develops, documents, and maintains under configuration control, a current baseline configuration of the information system."
   children = [
     control.cloudtrail_security_trail_enabled,
@@ -27,7 +27,7 @@ benchmark "nist_800_53_rev_4_cm_2" {
 }
 
 benchmark "nist_800_53_rev_4_cm_7" {
-  title       = "CM-7 Least Functionality"
+  title       = "Least Functionality (CM-7)"
   description = "The organization configures the information system to provide only essential capabilities and prohibits or restricts the use of the functions, ports, protocols, and/or services."
   children = [
     benchmark.nist_800_53_rev_4_cm_7_a
@@ -48,7 +48,7 @@ benchmark "nist_800_53_rev_4_cm_7_a" {
 }
 
 benchmark "nist_800_53_rev_4_cm_8" {
-  title       = "CM-8 Information System Component Inventory"
+  title       = "Information System Component Inventory (CM-8)"
   description = "The organization develops and documents an inventory of information system components that accurately reflects the current information system, includes all components within the authorization boundary of the information system, is at the level of granularity deemed necessary for tracking and reporting and reviews and updates the information system component inventory."
   children = [
     benchmark.nist_800_53_rev_4_cm_8_1,

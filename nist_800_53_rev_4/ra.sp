@@ -9,7 +9,7 @@ benchmark "nist_800_53_rev_4_ra" {
 }
 
 benchmark "nist_800_53_rev_4_ra_5" {
-  title       = "RA-5 Vulnerability Scanning"
+  title       = "Vulnerability Scanning (RA-5)"
   description = "Scan for system vulnerabilities. Share vulnerability information and security controls that eliminate vulnerabilities."
   children = [
     control.guardduty_enabled,

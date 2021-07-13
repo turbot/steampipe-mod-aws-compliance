@@ -10,7 +10,7 @@ benchmark "nist_800_53_rev_4_ia" {
 }
 
 benchmark "nist_800_53_rev_4_ia_2" {
-  title       = "IA-2 Identification and Authentication (Organizational users)"
+  title       = "Identification and Authentication (Organizational users) (IA-2)"
   description = "The information system uniquely identifies and authenticates organizational users (or processes acting on behalf of organizational users)."
   children = [
     benchmark.nist_800_53_rev_4_ia_2_1,
@@ -54,7 +54,7 @@ benchmark "nist_800_53_rev_4_ia_2_1_2_11" {
 }
 
 benchmark "nist_800_53_rev_4_ia_5" {
-  title       = "IA-5 Authenticator Management"
+  title       = "Authenticator Management (IA-5)"
   description = "Authenticate users and devices. Automate administrative control. Enforce restrictions. Protect against unauthorized use."
   children = [
     benchmark.nist_800_53_rev_4_ia_5_1,
