@@ -18,16 +18,6 @@ benchmark "nist_800_53_rev_4_au_2" {
   title       = "Event Logging (AU-2)"
   description = "Automate security audit function with other organizational entities. Enable mutual support of audit of auditable events."
   children = [
-    benchmark.nist_800_53_rev_4_au_2_a_d
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_au_2_a_d" {
-  title       = "AU-2(a)(d)"
-  description = "The organization: a. Determines that the information system is capable of auditing the following events: [Assignment: organization-defined auditable events]; d. Determines that the following events are to be audited within the information system: [Assignment: organization-defined audited events (the subset of the auditable events defined in AU-2 a.) along with the frequency of (or situation requiring) auditing for each identified event]."
-  children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
@@ -68,7 +58,8 @@ benchmark "nist_800_53_rev_4_au_6" {
   title       = "Audit Review, Analysis And Reporting (AU-6)"
   description = "Integrate audit review, analysis, and reporting with processes for investigation and response to suspicious activities."
   children = [
-    benchmark.nist_800_53_rev_4_au_6_1
+    benchmark.nist_800_53_rev_4_au_6_1,
+    benchmark.nist_800_53_rev_4_au_6_3
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -76,17 +67,20 @@ benchmark "nist_800_53_rev_4_au_6" {
 
 benchmark "nist_800_53_rev_4_au_6_1" {
   title       = "AU-6(1) Process Integration"
-  description = "he organization employs automated mechanisms to integrate audit review, analysis,and reporting processes to support organizational processes for investigation and response to suspicious activities."
+  description = "The organization employs automated mechanisms to integrate audit review, analysis,and reporting processes to support organizational processes for investigation and response to suspicious activities."
   children = [
-    benchmark.nist_800_53_rev_4_au_6_1_3
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
 }
 
-benchmark "nist_800_53_rev_4_au_6_1_3" {
-  title       = "AU-6(1)(3)"
-  description = "(1) The organization employs automated mechanisms to integrate audit review, analysis, and reporting processes to support organizational processes for investigation and response to suspicious activities. (3) The organization analyzes and correlates audit records across different repositories to gain organization-wide situational awareness."
+benchmark "nist_800_53_rev_4_au_6_3" {
+  title       = "AU-6(3) Correlate Audit Repositories"
+  description = "The organization analyzes and correlates audit records across different repositories to gain organization-wide situational awareness."
   children = [
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
@@ -153,16 +147,6 @@ benchmark "nist_800_53_rev_4_au_11" {
 benchmark "nist_800_53_rev_4_au_12" {
   title       = "Audit Generation (AU-12)"
   description = "Audit events defined in AU-2. Allow trusted personnel to select which events to audit. Generate audit records for events."
-  children = [
-    benchmark.nist_800_53_rev_4_au_12_a_c
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_au_12_a_c" {
-  title       = "AU-12(a)(c)"
-  description = "The information system: a. Provides audit record generation capability for the auditable events defined in AU-2 a. at [Assignment: organization-defined information system components]; c. Generates audit records for the events defined in AU-2 d. with the content defined in AU-3."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,

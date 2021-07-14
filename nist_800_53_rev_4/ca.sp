@@ -12,16 +12,6 @@ benchmark "nist_800_53_rev_4_ca_7" {
   title       = "Continuous Monitoring (CA-7)"
   description = "Continuously monitor configuration management processes. Determine security impact, environment and operational risks."
   children = [
-    benchmark.nist_800_53_rev_4_ca_7_a_b
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ca_7_a_b" {
-  title       = "CA-7(a)(b)"
-  description = "The organization develops a continuous monitoring strategy and implements a continuous monitoring program that includes: a. Establishment of [Assignment: organization-defined metrics] to be monitored; b. Establishment of [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessments supporting such monitoring."
-  children = [
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,

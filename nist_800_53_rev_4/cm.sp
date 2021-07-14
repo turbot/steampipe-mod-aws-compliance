@@ -30,16 +30,6 @@ benchmark "nist_800_53_rev_4_cm_7" {
   title       = "Least Functionality (CM-7)"
   description = "The organization configures the information system to provide only essential capabilities and prohibits or restricts the use of the functions, ports, protocols, and/or services."
   children = [
-    benchmark.nist_800_53_rev_4_cm_7_a
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_cm_7_a" {
-  title       = "CM-7(a)"
-  description = "The organization: a. Configures the information system to provide only essential capabilities."
-  children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
   ]
@@ -68,20 +58,9 @@ benchmark "nist_800_53_rev_4_cm_8_1" {
   tags = local.nist_800_53_rev_4_common_tags
 }
 
-
 benchmark "nist_800_53_rev_4_cm_8_3" {
   title       = "CM-8(3) Automated Unauthorized Component Detection"
   description = "The organization employs automated mechanisms to detect the presence of unauthorized hardware, software, and firmware components within the information system and takes actions (disables network access by such components, isolates the components etc) when unauthorized components are detected."
-  children = [
-    benchmark.nist_800_53_rev_4_cm_8_3_a
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_cm_8_3_a" {
-  title       = "CM-8(3)(a)"
-  description = "The organization: a. Employs automated mechanisms [Assignment: organization-defined frequency] to detect the presence of unauthorized hardware, software, and firmware components within the information system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,

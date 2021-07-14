@@ -22,9 +22,25 @@ benchmark "nist_800_53_rev_4_ac_2" {
     benchmark.nist_800_53_rev_4_ac_2_3,
     benchmark.nist_800_53_rev_4_ac_2_4,
     benchmark.nist_800_53_rev_4_ac_2_12,
-    benchmark.nist_800_53_rev_4_ac_2_f,
-    benchmark.nist_800_53_rev_4_ac_2_g,
-    benchmark.nist_800_53_rev_4_ac_2_j
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.emr_cluster_kerberos_enabled,
+    control.guardduty_enabled,
+    control.iam_account_password_policy_strong_min_reuse_24,
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_mfa_enabled,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_access_key_age_90,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.secretsmanager_secret_rotated_as_scheduled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -77,67 +93,8 @@ benchmark "nist_800_53_rev_4_ac_2_12" {
   title       = "AC-2(12) Account Monitoring"
   description = "Monitors and reports atypical usage of information system accounts to organization-defined personnel or roles."
   children = [
-    benchmark.nist_800_53_rev_4_ac_2_12_a
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_2_12_a" {
-  title       = "AC-2(12)(a)"
-  description = "Monitors information system accounts for organization-defined atypical usage."
-  children = [
     control.guardduty_enabled,
     control.securityhub_enabled
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_2_f" {
-  title       = "AC-2(f)"
-  description = "Creates, enables, modifies, disables, and removes information system accounts in accordance with organization-defined procedures or conditions."
-  children = [
-    control.cloudtrail_s3_data_events_enabled,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.guardduty_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
-    control.securityhub_enabled
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_2_g" {
-  title       = "AC-2(g)"
-  description = "Monitors the use of information system accounts."
-  children = [
-    control.iam_account_password_policy_strong_min_reuse_24,
-    control.iam_root_user_no_access_keys,
-    control.iam_user_unused_credentials_90,
-    control.securityhub_enabled
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_2_j" {
-  title       = "AC-2(j)"
-  description = "Reviews accounts for compliance with account management requirements."
-  children = [
-    control.emr_cluster_kerberos_enabled,
-    control.iam_account_password_policy_strong_min_reuse_24,
-    control.iam_group_not_empty,
-    control.iam_policy_no_star_star,
-    control.iam_root_user_mfa_enabled,
-    control.iam_root_user_no_access_keys,
-    control.iam_user_access_key_age_90,
-    control.iam_user_in_group,
-    control.iam_user_no_inline_attached_policies,
-    control.secretsmanager_secret_rotated_as_scheduled
   ]
 
   tags = local.nist_800_53_rev_4_common_tags
@@ -201,16 +158,6 @@ benchmark "nist_800_53_rev_4_ac_4" {
 benchmark "nist_800_53_rev_4_ac_5" {
   title       = "Separation Of Duties (AC-5)"
   description = "Separate duties of individuals to prevent malevolent activity. automate separation of duties and access authorizations."
-  children = [
-    benchmark.nist_800_53_rev_4_ac_5_c
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_5_c" {
-  title       = "AC-5c"
-  description = "Defines information system access authorizations to support separation of duties."
   children = [
     control.emr_cluster_kerberos_enabled,
     control.iam_group_not_empty,
@@ -313,16 +260,6 @@ benchmark "nist_800_53_rev_4_ac_17_3" {
 
 benchmark "nist_800_53_rev_4_ac_21" {
   title       = "Information Sharing (AC-21)"
-  description = "Facilitate information sharing. Enable authorized users to grant access to partners."
-  children = [
-    benchmark.nist_800_53_rev_4_ac_21_b
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_ac_21_b" {
-  title       = "AC-21(b) User Collaboration and Information Sharing"
   description = "Facilitate information sharing. Enable authorized users to grant access to partners."
   children = [
     control.dms_replication_instance_not_publicly_accessible,

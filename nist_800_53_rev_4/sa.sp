@@ -13,16 +13,6 @@ benchmark "nist_800_53_rev_4_sa_3" {
   title       = "System Development Life Cycle (SA-3)"
   description = "The organization manages the information system using organization-defined system development life cycle, defines and documents information security roles and responsibilities throughout the system development life cycle, identifies individuals having information security roles and responsibilities and integrates the organizational information security risk management process into system development life cycle activities."
   children = [
-    benchmark.nist_800_53_rev_4_sa_3_a
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_sa_3_a" {
-  title       = "SA-3(a) System Development Life Cycle"
-  description = "The organization: a. Manages the information system using [Assignment: organization-defined system development life cycle] that incorporates information security considerations."
-  children = [
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_ssm_managed

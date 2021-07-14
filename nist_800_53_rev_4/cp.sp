@@ -13,16 +13,6 @@ benchmark "nist_800_53_rev_4_cp_9" {
   title       = "Information System Backup (CP-9)"
   description = "The organization conducts backups of user-level information, system-level information  and information system documentation including security-related documentation contained in the information system and protects the confidentiality, integrity, and availability of backup information at storage locations."
   children = [
-    benchmark.nist_800_53_rev_4_cp_9_b
-  ]
-
-  tags = local.nist_800_53_rev_4_common_tags
-}
-
-benchmark "nist_800_53_rev_4_cp_9_b" {
-  title       = "CP-9(b)"
-  description = "The organization: b. Conducts backups of system-level information contained in the information system [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
-  children = [
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_volume_in_backup_plan,
