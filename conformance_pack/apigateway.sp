@@ -11,6 +11,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -23,6 +24,7 @@ control "apigateway_stage_logging_enabled" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     hipaa              = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })

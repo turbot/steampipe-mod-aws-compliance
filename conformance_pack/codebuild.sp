@@ -10,8 +10,9 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   sql         = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values.sql
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }
 
@@ -21,7 +22,8 @@ control "codebuild_project_source_repo_oauth_configured" {
   sql         = query.codebuild_project_source_repo_oauth_configured.sql
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }

@@ -6,8 +6,9 @@ locals {
 }
 
 benchmark "nist_csf" {
-  title       = "NIST Cybersecurity Framework (CSF)"
-  description = "NIST Cybersecurity Framework is a set of best practices, standards, and recommendations that help an organization improve its cybersecurity measures."
+  title         = "NIST Cybersecurity Framework (CSF)"
+  description   = "NIST Cybersecurity Framework is a set of best practices, standards, and recommendations that help an organization improve its cybersecurity measures."
+  documentation = file("./nist_csf/docs/nist_csf_overview.md")
 
   children = [
     benchmark.nist_csf_de,
