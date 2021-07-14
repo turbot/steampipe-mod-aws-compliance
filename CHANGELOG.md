@@ -1,3 +1,9 @@
+## v0.9 [2021-07-14]
+
+_What's new?_
+
+- Added: NIST 800-53 Revision 4 benchmark (`steampipe check benchmark.nist_800_53_rev_4`)
+
 ## v0.8 [2021-07-01]
 
 _What's new?_
