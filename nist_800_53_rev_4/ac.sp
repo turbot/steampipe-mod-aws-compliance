@@ -47,7 +47,7 @@ benchmark "nist_800_53_rev_4_ac_2" {
 }
 
 benchmark "nist_800_53_rev_4_ac_2_1" {
-  title       = "AC-2(1) Automated System Account Management"
+  title       = "Automated System Account Management (AC-2(1))"
   description = "The organization employs automated mechanisms to support the management of information system accounts."
   children = [
     control.guardduty_enabled,
@@ -63,7 +63,7 @@ benchmark "nist_800_53_rev_4_ac_2_1" {
 }
 
 benchmark "nist_800_53_rev_4_ac_2_3" {
-  title       = "AC-2(3) Disable Inactive Accounts"
+  title       = "Disable Inactive Accounts (AC-2(3))"
   description = "The information system automatically disables inactive accounts after 90 days for user accounts."
   children = [
     control.iam_user_unused_credentials_90
@@ -73,7 +73,7 @@ benchmark "nist_800_53_rev_4_ac_2_3" {
 }
 
 benchmark "nist_800_53_rev_4_ac_2_4" {
-  title       = "AC-2(4) Automated Audit Actions"
+  title       = "Automated Audit Actions (AC-2(4))"
   description = "The information system automatically audits account creation, modification, enabling, disabling, and removal actions, and notifies [Assignment: organization-defined personnel or roles]."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
@@ -90,7 +90,7 @@ benchmark "nist_800_53_rev_4_ac_2_4" {
 }
 
 benchmark "nist_800_53_rev_4_ac_2_12" {
-  title       = "AC-2(12) Account Monitoring"
+  title       = "Account Monitoring (AC-2(12))"
   description = "Monitors and reports atypical usage of information system accounts to organization-defined personnel or roles."
   children = [
     control.guardduty_enabled,
