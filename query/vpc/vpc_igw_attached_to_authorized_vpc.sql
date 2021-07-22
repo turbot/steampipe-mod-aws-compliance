@@ -9,7 +9,7 @@ select
     when attachments is null then title || ' not attached to VPC.'
     else title || ' attached to ' || split_part(
       substring(attachments :: text, 3, length(attachments :: text) -6),
-      'VpcId: ',
+      '"VpcId": "',
       2
     ) || '.'
   end as reason,
