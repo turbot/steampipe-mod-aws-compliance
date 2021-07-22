@@ -6,7 +6,7 @@ select
     else 'alarm'
   end as status,
   case
-    when b.logging is not null then t.title || '"s logging bucket ' || t.s3_bucket_name || ' has access logging enabled.'
+    when b.logging is not null then t.title || '''s logging bucket ' || t.s3_bucket_name || ' has access logging enabled.'
     else t.title || '''s logging bucket ' || t.s3_bucket_name || ' has access logging disabled.'
   end as reason,
   -- Additional columns

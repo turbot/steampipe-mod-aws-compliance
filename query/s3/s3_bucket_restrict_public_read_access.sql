@@ -5,10 +5,10 @@ with data as (
     aws_s3_bucket,
     jsonb_array_elements(acl -> 'Grants') as grants
   where
-    grants -> 'Grantee' -> 'URI' = '"http://acs.amazonaws.com/groups/global/AllUsers"'
+    grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AllUsers'
     and (
-      grants -> 'Permission' = '"FULL_CONTROL"'
-      or grants -> 'Permission' = '"READ_ACP"'
+      grants ->> 'Permission' = 'FULL_CONTROL'
+      or grants ->> 'Permission' = 'READ_ACP'
     )
   )
 select
