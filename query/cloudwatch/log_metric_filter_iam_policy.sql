@@ -29,7 +29,7 @@ with filter_data as (
 )
 select
   -- Required Columns
-  'arn:' || a.partition || ':::' || a.account_id as resource,
+  distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
   case
     when f.trail_name is null then 'alarm'
     else 'ok'
@@ -43,4 +43,3 @@ select
 from
   aws_account as a
   left join filter_data as f on a.account_id = f.account_id
-limit 1
