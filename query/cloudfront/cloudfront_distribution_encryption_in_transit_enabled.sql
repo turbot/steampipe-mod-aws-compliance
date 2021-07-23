@@ -9,7 +9,7 @@ with data as (
         else null end
     ) as cb
   where
-    cb -> 'ViewerProtocolPolicy' = '"allow-all"'
+    cb ->> 'ViewerProtocolPolicy' = 'allow-all'
 )
 select
   -- Required Columns
@@ -28,4 +28,3 @@ select
 from
   aws_cloudfront_distribution as b
   left join data as d on b.arn = d.arn;
-
