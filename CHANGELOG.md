@@ -1,3 +1,10 @@
+## v0.10 [2021-07-23]
+
+_Bug fixes_
+
+- Fixed: Update multiple CloudTrail, CloudWatch, Config, Lambda, and S3 queries to work properly with multi-account connections ([#247](https://github.com/turbot/steampipe-mod-aws-compliance/pull/247))
+- Fixed: Cleanup unnecessary quotes in various CloudFront, CloudTrail, GuardDuty and S3 queries ([#249](https://github.com/turbot/steampipe-mod-aws-compliance/pull/249))
+
 ## v0.9 [2021-07-14]
 
 _What's new?_

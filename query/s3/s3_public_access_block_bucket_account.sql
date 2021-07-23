@@ -28,4 +28,6 @@ select
   bucket.account_id
 from
   aws_s3_bucket as bucket,
-  aws_s3_account_settings as s3account;
+  aws_s3_account_settings as s3account
+where
+  s3account.account_id = bucket.account_id;

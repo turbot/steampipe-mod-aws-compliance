@@ -5,13 +5,13 @@ select
     when a.region = any (
       ARRAY ['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']
     ) then 'skip'
-    when status = 'ENABLED' and data_sources -> 'S3Logs' -> 'Status' = '"ENABLED"' then 'ok'
+    when status = 'ENABLED' and data_sources -> 'S3Logs' ->> 'Status' = 'ENABLED' then 'ok'
     else 'alarm'
   end as status,
   case
     when a.region = any ( ARRAY ['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1'] ) then 'Region not supported.'
     when status is null then 'No guardduty detector found.'
-    when status = 'ENABLED' and data_sources -> 'S3Logs' -> 'Status' = '"ENABLED"' then r.title || ' enabled.'
+    when status = 'ENABLED' and data_sources -> 'S3Logs' ->> 'Status' = 'ENABLED' then r.title || ' enabled.'
     else r.title || ' disabled.'
   end as reason,
   -- Additional Dimensions
