@@ -1,4 +1,13 @@
 ---
+organization: Turbot
+category: ["aws", "cis", "compliance", "pci dss", "public cloud", "security"]
+icon_url: "/images/mods/turbot/aws-compliance.svg"
+brand_color: "#FF9900"
+display_name: "AWS Compliance"
+short_name: "aws-compliance"
+description: "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS and PCI across all your AWS accounts using Steampipe."
+og_description: "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS and PCI across all your AWS accounts using Steampipe." 
+og_image: "/images/mods/turbot/aws-compliance-social-graphic.png"
 repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 ---
 
