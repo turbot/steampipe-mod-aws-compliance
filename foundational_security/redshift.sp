@@ -11,6 +11,7 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_1,
     control.foundational_security_redshift_2,
     control.foundational_security_redshift_3,
+    control.foundational_security_redshift_4,
     control.foundational_security_redshift_6,
     control.foundational_security_redshift_7
   ]
@@ -53,6 +54,19 @@ control "foundational_security_redshift_3" {
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_3"
     foundational_security_category = "backups_enabled"
+  })
+}
+
+control "foundational_security_redshift_4" {
+  title         = "4 Amazon Redshift clusters should have audit logging enabled"
+  description   = "This control checks whether an Amazon Redshift cluster has audit logging enabled."
+  severity      = "medium"
+  sql           = query.redshift_cluster_automatic_snapshots_min_7_days.sql
+  documentation = file("./foundational_security/docs/foundational_security_redshift_4.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_4"
+    foundational_security_category = "logging"
   })
 }
 

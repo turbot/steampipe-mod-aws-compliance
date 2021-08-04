@@ -11,7 +11,9 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_1,
     control.foundational_security_cloudfront_2,
     control.foundational_security_cloudfront_3,
-    control.foundational_security_cloudfront_4
+    control.foundational_security_cloudfront_4,
+    control.foundational_security_cloudfront_5,
+    control.foundational_security_cloudfront_6
   ]
   tags          = local.foundational_security_cloudfront_common_tags
 }
@@ -65,5 +67,31 @@ control "foundational_security_cloudfront_4" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_4"
     foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_cloudfront_5" {
+  title         = "5 CloudFront distributions should have logging enabled"
+  description   = "This control checks whether server access logging is enabled on CloudFront distributions. The control fails if access logging is not enabled for a distribution."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_logging_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_5.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_5"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_cloudfront_6" {
+  title         = "6 CloudFront distributions should have AWS WAF enabled"
+  description   = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_waf_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_6.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_6"
+    foundational_security_category = "protective_services"
   })
 }
