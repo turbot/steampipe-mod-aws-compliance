@@ -18,7 +18,8 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_9,
     control.foundational_security_ec2_10,
     control.foundational_security_ec2_16,
-    control.foundational_security_ec2_17
+    control.foundational_security_ec2_17,
+    control.foundational_security_ec2_18
   ]
   tags          = local.foundational_security_ec2_common_tags
 }
@@ -163,5 +164,18 @@ control "foundational_security_ec2_17" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_17"
     foundational_security_category = "network_security"
+  })
+}
+
+control "foundational_security_ec2_18" {
+  title         = "18 Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description   = "This control checks whether the security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  severity      = "high"
+  sql           = query.vpc_security_group_allows_ingress_authorized_ports.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_18.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_18"
+    foundational_security_category = "security_group_configuration"
   })
 }
