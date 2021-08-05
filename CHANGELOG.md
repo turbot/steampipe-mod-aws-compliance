@@ -1,3 +1,29 @@
+
+## v0.11 [2021-08-05]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices controls added:
+  - APIGateway.3
+  - APIGateway.4
+  - CloudFront.5
+  - CloudFront.6
+  - EC2.16
+  - EC2.17
+  - EC2.18
+  - ECS.1
+  - ECS.2
+  - ES.4
+  - ES.6
+  - ES.7
+  - ES.8
+  - IAM.21
+  - RDS.15
+  - RDS.16
+  - RDS.17
+  - Redshift.4
+  - S3.8
+
 ## v0.10 [2021-07-23]
 
 _Bug fixes_
