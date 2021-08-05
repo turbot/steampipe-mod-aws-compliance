@@ -16,7 +16,10 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_7,
     control.foundational_security_ec2_8,
     control.foundational_security_ec2_9,
-    control.foundational_security_ec2_10
+    control.foundational_security_ec2_10,
+    control.foundational_security_ec2_16,
+    control.foundational_security_ec2_17,
+    control.foundational_security_ec2_18
   ]
   tags          = local.foundational_security_ec2_common_tags
 }
@@ -135,5 +138,44 @@ control "foundational_security_ec2_10" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_10"
     foundational_security_category = "api_private_access"
+  })
+}
+
+control "foundational_security_ec2_16" {
+  title         = "16 Unused network access control lists should be removed"
+  description   = "This control checks whether there are any unused network access control lists (ACLs). The control checks the item configuration of the resource AWS::EC2::NetworkAcl and determines the relationships of the network ACL."
+  severity      = "low"
+  sql           = query.vpc_network_acl_unused.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_16.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_16"
+    foundational_security_category = "network_security"
+  })
+}
+
+control "foundational_security_ec2_17" {
+  title         = "17 EC2 instances should not use multiple ENIs"
+  description   = "This control checks whether an EC2 instance uses multiple Elastic Network Interfaces (ENIs) or Elastic Fabric Adapters (EFAs). This control passes if a single network adapter is used. The control includes an optional parameter list to identify the allowed ENIs."
+  severity      = "low"
+  sql           = query.ec2_instance_not_use_multiple_enis.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_17.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_17"
+    foundational_security_category = "network_security"
+  })
+}
+
+control "foundational_security_ec2_18" {
+  title         = "18 Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description   = "This control checks whether the security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  severity      = "high"
+  sql           = query.vpc_security_group_allows_ingress_authorized_ports.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_18.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_18"
+    foundational_security_category = "security_group_configuration"
   })
 }

@@ -13,7 +13,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_3,
     control.foundational_security_s3_4,
     control.foundational_security_s3_5,
-    control.foundational_security_s3_6
+    control.foundational_security_s3_6,
+    control.foundational_security_s3_8
   ]
   tags          = local.foundational_security_s3_common_tags
 }
@@ -93,5 +94,18 @@ control "foundational_security_s3_6" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_6"
     foundational_security_category = "sensitive_api_operations_actions_restricted"
+  })
+}
+
+control "foundational_security_s3_8" {
+  title         = "8 S3 Block Public Access setting should be enabled at the bucket level"
+  description   = "This control checks whether S3 buckets have bucket-level public access blocks applied."
+  severity      = "high"
+  sql           = query.s3_bucket_public_access_blocked.sql
+  documentation = file("./foundational_security/docs/foundational_security_s3_8.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_8"
+    foundational_security_category = "access_control"
   })
 }

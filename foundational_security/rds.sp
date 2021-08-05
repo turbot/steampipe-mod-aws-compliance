@@ -20,7 +20,10 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_10,
     control.foundational_security_rds_12,
     control.foundational_security_rds_13,
-    control.foundational_security_rds_14
+    control.foundational_security_rds_14,
+    control.foundational_security_rds_15,
+    control.foundational_security_rds_16,
+    control.foundational_security_rds_17
   ]
   tags          = local.foundational_security_rds_common_tags
 }
@@ -191,5 +194,44 @@ control "foundational_security_rds_14" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_14"
     foundational_security_category = "backups_enabled"
+  })
+}
+
+control "foundational_security_rds_15" {
+  title         = "15 RDS DB clusters should be configured for multiple Availability Zones"
+  description   = "This control checks whether high availability is enabled for your RDS DB clusters. RDS DB clusters should be configured for multiple Availability Zones to ensure availability of the data that is stored."
+  severity      = "medium"
+  sql           = query.rds_db_cluster_multiple_az_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_15.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_15"
+    foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_rds_16" {
+  title         = "16 RDS DB clusters should be configured to copy tags to snapshots"
+  description   = "This control checks whether RDS DB clusters are configured to copy all tags to snapshots when the snapshots are created."
+  severity      = "low"
+  sql           = query.rds_db_cluster_copy_tags_to_snapshot_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_16.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_16"
+    foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_rds_17" {
+  title         = "17 RDS DB instances should be configured to copy tags to snapshots"
+  description   = "This control checks whether RDS DB instances are configured to copy all tags to snapshots when the snapshots are created."
+  severity      = "low"
+  sql           = query.rds_db_instance_copy_tags_to_snapshot_enabled.sql
+  #documentation = file("./foundational_security/docs/foundational_security_rds_17.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_17"
+    foundational_security_category = "inventory"
   })
 }
