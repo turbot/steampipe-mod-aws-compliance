@@ -9,7 +9,9 @@ benchmark "foundational_security_apigateway" {
   documentation = file("./foundational_security/docs/foundational_security_apigateway.md")
   children = [
     control.foundational_security_apigateway_1,
-    control.foundational_security_apigateway_2
+    control.foundational_security_apigateway_2,
+    control.foundational_security_apigateway_3,
+    control.foundational_security_apigateway_4
   ]
   tags          = local.foundational_security_apigateway_common_tags
 }
@@ -37,5 +39,31 @@ control "foundational_security_apigateway_2" {
   tags = merge(local.foundational_security_apigateway_common_tags, {
     foundational_security_item_id  = "apigateway_2"
     foundational_security_category = "data_protection"
+  })
+}
+
+control "foundational_security_apigateway_3" {
+  title         = "3 API Gateway REST API stages should have AWS X-Ray tracing enabled"
+  description   = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  severity      = "low"
+  sql           = query.apigateway_rest_api_stage_xray_tracing_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_apigateway_3.md")
+
+  tags = merge(local.foundational_security_apigateway_common_tags, {
+    foundational_security_item_id  = "apigateway_3"
+    foundational_security_category = "detection_services"
+  })
+}
+
+control "foundational_security_apigateway_4" {
+  title         = "4 API Gateway should be associated with an AWS WAF web ACL"
+  description   = "This control checks whether an API Gateway stage uses an AWS WAF web access control list (ACL). This control fails if an AWS WAF web ACL is not attached to a REST API Gateway stage."
+  severity      = "medium"
+  sql           = query.apigateway_stage_use_waf_web_acl.sql
+  documentation = file("./foundational_security/docs/foundational_security_apigateway_4.md")
+
+  tags = merge(local.foundational_security_apigateway_common_tags, {
+    foundational_security_item_id  = "apigateway_4"
+    foundational_security_category = "protective_services"
   })
 }

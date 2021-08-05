@@ -15,7 +15,8 @@ benchmark "foundational_security_iam" {
     control.foundational_security_iam_5,
     control.foundational_security_iam_6,
     control.foundational_security_iam_7,
-    control.foundational_security_iam_8
+    control.foundational_security_iam_8,
+    control.foundational_security_iam_21
   ]
   tags          = local.foundational_security_iam_common_tags
 }
@@ -120,6 +121,19 @@ control "foundational_security_iam_8" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id  = "iam_8"
+    foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_iam_21" {
+  title         = "21 IAM customer managed policies that you create should not allow wildcard actions for services"
+  description   = "This control checks whether the IAM identity-based policies that you create have Allow statements that use the * wildcard to grant permissions for all actions on any service. The control fails if any policy statement includes 'Effect': 'Allow' with 'Action': 'Service:*'."
+  severity      = "low"
+  sql           = query.iam_custom_policy_no_star_star.sql
+  documentation = file("./foundational_security/docs/foundational_security_iam_21.md")
+
+  tags = merge(local.foundational_security_iam_common_tags, {
+    foundational_security_item_id  = "iam_21"
     foundational_security_category = "secure_access_management"
   })
 }
