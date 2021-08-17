@@ -4,11 +4,13 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 # AWS Compliance Mod
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `CIS`, `HIPAA`, `NIST 800-53`, `NIST CSF` and `PCI DSS` across all your AWS accounts.
+Run individual configuration, compliance and security controls or full compliance benchmarks for `AWS Foundational Security Best Practices`, `CIS`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, and `RBI Cyber Security Framework` across all your AWS accounts.
 
 ## References
 
 [AWS](https://aws.amazon.com/) provides on-demand cloud computing platforms and APIs to authenticated customers on a metered pay-as-you-go basis.
+
+[AWS Foundational Security Best Practices](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html) is a set of controls that detect when your deployed accounts and resources deviate from security best practices.
 
 [CIS AWS Benchmarks](https://www.cisecurity.org/benchmark/amazon_web_services/) provide a predefined set of compliance and security best-practice checks for AWS accounts.
 
@@ -17,6 +19,8 @@ Run individual configuration, compliance and security controls or full complianc
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
 
 [PCI DSS](https://www.pcisecuritystandards.org) provides security standards for the payment card industry.
+
+[RBI Cyber Security Framework](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11397) provides a cyber security framework for Urban Cooperative Banks (UCB) in India.
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
