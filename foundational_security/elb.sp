@@ -71,12 +71,12 @@ control "foundational_security_elb_6" {
 control "foundational_security_elb_7" {
   title         = "7 Classic Load Balancers should have connection draining enabled"
   description   = "This control checks whether Classic Load Balancers have connection draining enabled."
-  severity      = "Medium"
-  sql           = query.ec2_classic_loadbalancer_connection_draining_enabled.sql
+  severity      = "medium"
+  sql           = query.ec2_classic_lb_connection_draining_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_elb_7.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_7"
-    foundational_security_category = "high_availability"
+    foundational_security_category = "resilience"
   })
 }

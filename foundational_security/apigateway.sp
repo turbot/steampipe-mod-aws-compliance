@@ -78,6 +78,6 @@ control "foundational_security_apigateway_5" {
 
   tags = merge(local.foundational_security_apigateway_common_tags, {
     foundational_security_item_id  = "apigateway_5"
-    foundational_security_category = "protective_services"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }

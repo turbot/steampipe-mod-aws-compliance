@@ -46,10 +46,10 @@ control "foundational_security_lambda_4" {
   description   = "This control checks whether a Lambda function is configured with a dead-letter queue. The control fails if the Lambda function is not configured with a dead-letter queue."
   severity      = "medium"
   sql           = query.lambda_function_dead_letter_queue_configured.sql
-  documentation = file("./foundational_security/docs/foundational_security_lambda_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_lambda_4.md")
 
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_4"
-    #foundational_security_category = "secure_development"
+    foundational_security_category = "logging"
   })
 }

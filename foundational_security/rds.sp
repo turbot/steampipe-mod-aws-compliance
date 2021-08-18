@@ -247,7 +247,7 @@ control "foundational_security_rds_18" {
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_18"
-    foundational_security_category = "inventory"
+    foundational_security_category = "resources_within_vpc"
   })
 }
 

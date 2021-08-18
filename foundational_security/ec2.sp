@@ -152,7 +152,7 @@ control "foundational_security_ec2_15" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_15"
-    foundational_security_category = "public_ip_addresses"
+    foundational_security_category = "network_security"
   })
 }
 
@@ -198,7 +198,7 @@ control "foundational_security_ec2_18" {
 control "foundational_security_ec2_19" {
   title         = "19 Security groups should not allow unrestricted access to ports with high risk"
   description   = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
-  severity      = "Medium"
+  severity      = "medium"
   sql           = query.vpc_security_group_allows_ingress_authorized_ports.sql
   documentation = file("./foundational_security/docs/foundational_security_ec2_19.md")
 
