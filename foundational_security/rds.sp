@@ -23,7 +23,10 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_14,
     control.foundational_security_rds_15,
     control.foundational_security_rds_16,
-    control.foundational_security_rds_17
+    control.foundational_security_rds_17,
+    control.foundational_security_rds_18,
+    control.foundational_security_rds_19,
+    control.foundational_security_rds_23,
   ]
   tags          = local.foundational_security_rds_common_tags
 }
@@ -233,5 +236,31 @@ control "foundational_security_rds_17" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_17"
     foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_rds_18" {
+  title         = "18 RDS instances should be deployed in a VPC"
+  description   = "This control checks whether an RDS instance is deployed in a VPC (EC2-VPC)."
+  severity      = "High"
+  sql           = query.rds_db_instance_in_vpc.sql
+  #documentation = file("./foundational_security/docs/foundational_security_rds_17.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_18"
+    foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_rds_23" {
+  title         = "23 RDS databases and clusters should not use a database engine default port"
+  description   = "This control checks whether the RDS cluster or instance uses a port other than the default port of the database engine."
+  severity      = "Low"
+  sql           = query.rds_db_instance_and_cluster_no_default_port.sql
+  #documentation = file("./foundational_security/docs/foundational_security_rds_23.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_23"
+    foundational_security_category = "secure_network_configuration"
   })
 }
