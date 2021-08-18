@@ -25,8 +25,7 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_16,
     control.foundational_security_rds_17,
     control.foundational_security_rds_18,
-    control.foundational_security_rds_19,
-    control.foundational_security_rds_23,
+    control.foundational_security_rds_23
   ]
   tags          = local.foundational_security_rds_common_tags
 }
