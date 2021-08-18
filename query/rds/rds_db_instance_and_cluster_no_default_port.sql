@@ -20,7 +20,7 @@ select
   region,
   account_id
 from
-  osborn.aws_rds_db_cluster
+  aws_rds_db_cluster
 )
 union
 (
@@ -45,5 +45,5 @@ select
   region,
   account_id
 from
-  osborn.aws_rds_db_instance
+  aws_rds_db_instance
 );
