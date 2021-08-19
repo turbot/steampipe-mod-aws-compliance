@@ -15,5 +15,5 @@ select
   region,
   account_id
 from
-  osborn.aws_rds_db_event_subscription
+  aws_rds_db_event_subscription
 
