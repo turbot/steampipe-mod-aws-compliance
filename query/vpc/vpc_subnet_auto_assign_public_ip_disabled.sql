@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-  aws_vpc_subnet
+  aws_vpc_subnet;

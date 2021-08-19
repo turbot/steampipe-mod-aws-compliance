@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-  aws_ec2_classic_load_balancer
+  aws_ec2_classic_load_balancer;

@@ -11,7 +11,8 @@ benchmark "foundational_security_elb" {
     control.foundational_security_elb_3,
     control.foundational_security_elb_4,
     control.foundational_security_elb_5,
-    control.foundational_security_elb_6
+    control.foundational_security_elb_6,
+    control.foundational_security_elb_7
   ]
   tags          = local.foundational_security_elb_common_tags
 }

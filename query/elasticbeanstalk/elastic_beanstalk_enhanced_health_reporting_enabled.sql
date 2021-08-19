@@ -13,6 +13,4 @@ select
   region,
   account_id
 from
-  aws_elastic_beanstalk_environment
-
--- Need to review this afer updating the basic plan
+  aws_elastic_beanstalk_environment;
