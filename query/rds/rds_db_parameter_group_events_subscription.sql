@@ -6,7 +6,7 @@ select
     when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["maintenance", "failure"]' then 'ok'
     else 'alarm'
   end as status,
-  -- case
+  case
     when source_type <> 'db-parameter-group' then cust_subscription_id || ' is skipped for critical database parameter group events.'
     when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["configuration change"]' then cust_subscription_id || ' has event notifications enabled for critical database parameter group events.'
     else cust_subscription_id || ' has event notifications disabled for critical database parameter group events.'
