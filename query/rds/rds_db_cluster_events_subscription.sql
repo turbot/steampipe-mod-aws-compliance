@@ -7,9 +7,9 @@ select
     else 'alarm'
   end as status,
   case
-    when source_type <> 'db-cluster' then cust_subscription_id || ' is skipped for critical database cluster events.'
-    when source_type = 'db-cluster' and enabled and event_categories_list @> '["failure", "maintenance"]' then cust_subscription_id || ' has event notifications enabled for critical cluster events.'
-    else cust_subscription_id || ' has event notifications disabled for critical cluster events.'
+    when source_type <> 'db-cluster' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
+    when source_type = 'db-cluster' and enabled and event_categories_list @> '["failure", "maintenance"]' then cust_subscription_id || ' event subscription enabled for critical db cluster events.'
+    else cust_subscription_id || ' event subscription missing critical db cluster events.'
   end as reason,
   -- Add Dimensions
   region,

@@ -7,9 +7,9 @@ select
     else 'alarm'
   end as status,
   case
-    when source_type <> 'db-parameter-group' then cust_subscription_id || ' is skipped for critical database parameter group events.'
-    when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["configuration change"]' then cust_subscription_id || ' has event notifications enabled for critical database parameter group events.'
-    else cust_subscription_id || ' has event notifications disabled for critical database parameter group events.'
+    when source_type <> 'db-parameter-group' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
+    when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["configuration change"]' then cust_subscription_id || ' event subscription enabled for critical database parameter group events.'
+    else cust_subscription_id || ' event subscription missing critical database parameter group events.'
   end as reason,
   -- Add Dimensions
   region,
