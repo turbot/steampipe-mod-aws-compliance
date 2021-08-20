@@ -1,4 +1,23 @@
 
+## v0.12 [2021-08-20]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices controls added:
+  - APIGateway.5
+  - EC2.15
+  - EC2.19
+  - ElasticBeanstalk.1
+  - ELB.7
+  - Lambda.4
+  - RDS.18
+  - RDS.19
+  - RDS.20
+  - RDS.21
+  - RDS.22
+  - RDS.23
+  - SQS.1
+
 ## v0.11 [2021-08-05]
 
 _What's new?_
