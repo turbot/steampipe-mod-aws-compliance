@@ -11,7 +11,7 @@ select
     when source_type like 'db-instance' and enabled and event_categories_list @> '["failure", "maintenance", "configuration change"]' then cust_subscription_id || ' event subscription enabled for critical instance events.'
     else cust_subscription_id || ' event subscription missing critical instance events.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from

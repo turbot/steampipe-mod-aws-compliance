@@ -11,7 +11,7 @@ select
     when source_type = 'db-cluster' and enabled and event_categories_list @> '["failure", "maintenance"]' then cust_subscription_id || ' event subscription enabled for critical db cluster events.'
     else cust_subscription_id || ' event subscription missing critical db cluster events.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from

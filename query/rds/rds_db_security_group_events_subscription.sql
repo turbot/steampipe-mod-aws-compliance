@@ -11,7 +11,7 @@ select
     when source_type = 'db-security-group' and enabled and event_categories_list @> '["failure", "configuration change"]' then cust_subscription_id || ' event subscription enabled for critical database security group events.'
     else cust_subscription_id || ' event subscription missing critical database security group events.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from

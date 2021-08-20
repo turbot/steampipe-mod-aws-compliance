@@ -11,7 +11,7 @@ select
     when multi_az then title || ' Multi-AZ enabled.'
     else title || ' Multi-AZ disabled.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from

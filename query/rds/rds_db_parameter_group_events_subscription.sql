@@ -11,9 +11,8 @@ select
     when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["configuration change"]' then cust_subscription_id || ' event subscription enabled for critical database parameter group events.'
     else cust_subscription_id || ' event subscription missing critical database parameter group events.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
-  aws_rds_db_event_subscription
-
+  aws_rds_db_event_subscription;

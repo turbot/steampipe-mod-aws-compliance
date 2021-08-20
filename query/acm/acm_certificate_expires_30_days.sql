@@ -7,8 +7,8 @@ select
     else 'alarm'
   end as status,
   case
-  when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
-  else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
+    when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
+    else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
     ' (' || extract(day from not_after - current_timestamp) || ' days).'
   end as reason,
   -- Additional Dimensions

@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when connection_draining_enabled then 'Classic Load balancer ' || name || ' connection draining is enabled.'
-    else 'Classic Load balancer ' || name || ' connection draining is disabled.'
+    when connection_draining_enabled then title || ' connection draining enabled.'
+    else title || ' connection draining disabled.'
   end as reason,
   -- Additional Dimensions
   region,
