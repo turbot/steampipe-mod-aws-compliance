@@ -4,11 +4,11 @@ select
   case
     when connection_draining_enabled then 'ok'
     else 'alarm'
-  end status,
+  end as status,
   case
     when connection_draining_enabled then 'Classic Load balancer ' || name || ' connection draining is enabled.'
     else 'Classic Load balancer ' || name || ' connection draining is disabled.'
-  end reason,
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

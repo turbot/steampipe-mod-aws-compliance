@@ -12,4 +12,10 @@ mod "aws_compliance" {
     description  = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS and PCI across all your AWS accounts using Steampipe."
     image        = "/images/mods/turbot/aws-compliance-social-graphic.png"
   }
+  
+  requires {
+    plugin "aws" {
+      version = "0.30.0"
+    }
+  }
 }

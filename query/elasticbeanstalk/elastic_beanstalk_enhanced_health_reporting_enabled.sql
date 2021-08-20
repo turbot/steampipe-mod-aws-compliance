@@ -4,11 +4,11 @@ select
   case
     when health_status then 'ok'
     else 'alarm'
-  end status,
+  end as status,
   case
     when health_status then application_name || ' enhanced health check enabled.'
     else application_name || ' enhanced health check disabled.'
-  end reason,
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

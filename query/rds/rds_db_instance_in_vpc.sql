@@ -4,11 +4,11 @@ select
   case
     when vpc_id is null then 'alarm'
     else 'ok'
-  end status,
+  end as status,
   case
     when vpc_id is null then title || ' is not in VPC.'
     else title || ' is in VPC ' || vpc_id || '.'
-  end reason,
+  end as reason,
   -- Additional Dimensions
   region,
   account_id
