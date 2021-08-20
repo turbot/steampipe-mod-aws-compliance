@@ -15,4 +15,4 @@ select
   region,
   account_id
 from
-  nagraj.aws_acm_certificate;
+  aws_acm_certificate;
