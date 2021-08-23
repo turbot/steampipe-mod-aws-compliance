@@ -14,6 +14,8 @@ Run individual configuration, compliance and security controls or full complianc
 
 [CIS AWS Benchmarks](https://www.cisecurity.org/benchmark/amazon_web_services/) provide a predefined set of compliance and security best-practice checks for AWS accounts.
 
+[HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
+
 [NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-4/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
 
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
@@ -40,7 +42,7 @@ steampipe plugin install aws
 
 Clone:
 ```sh
-git clone git@github.com:turbot/steampipe-mod-aws-compliance
+git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
 ```
 
