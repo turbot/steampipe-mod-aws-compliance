@@ -9,7 +9,7 @@ select
     when copy_tags_to_snapshot then title || ' copy tags to snapshot enabled.'
     else title || ' copy tags to snapshot disabled.'
   end as reason,
-  -- Add Dimensions
+  -- Additional Dimensions
   region,
   account_id
 from
