@@ -23,7 +23,13 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_14,
     control.foundational_security_rds_15,
     control.foundational_security_rds_16,
-    control.foundational_security_rds_17
+    control.foundational_security_rds_17,
+    control.foundational_security_rds_18,
+    control.foundational_security_rds_19,
+    control.foundational_security_rds_20,
+    control.foundational_security_rds_21,
+    control.foundational_security_rds_22,
+    control.foundational_security_rds_23
   ]
   tags          = local.foundational_security_rds_common_tags
 }
@@ -233,5 +239,83 @@ control "foundational_security_rds_17" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_17"
     foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_rds_18" {
+  title         = "18 RDS instances should be deployed in a VPC"
+  description   = "This control checks whether an RDS instance is deployed in a VPC (EC2-VPC)."
+  severity      = "high"
+  sql           = query.rds_db_instance_in_vpc.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_18.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_18"
+    foundational_security_category = "resources_within_vpc"
+  })
+}
+
+control "foundational_security_rds_19" {
+  title         = "19 An RDS event notifications subscription should be configured for critical cluster events"
+  description   = "This control checks whether an Amazon RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
+  severity      = "low"
+  sql           = query.rds_db_cluster_events_subscription.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_19.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_19"
+    foundational_security_category = "application_monitoring"
+  })
+}
+
+control "foundational_security_rds_20" {
+  title         = "20 An RDS event notifications subscription should be configured for critical database instance events"
+  description   = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  severity      = "low"
+  sql           = query.rds_db_instance_events_subscription.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_20.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_20"
+    foundational_security_category = "application_monitoring"
+  })
+}
+
+control "foundational_security_rds_21" {
+  title         = "21 An RDS event notifications subscription should be configured for critical database parameter group events"
+  description   = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  severity      = "low"
+  sql           = query.rds_db_parameter_group_events_subscription.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_21.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_21"
+    foundational_security_category = "application_monitoring"
+  })
+}
+
+control "foundational_security_rds_22" {
+  title         = "22 An RDS event notifications subscription should be configured for critical database security group events"
+  description   = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  severity      = "low"
+  sql           = query.rds_db_security_group_events_subscription.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_22.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_22"
+    foundational_security_category = "application_monitoring"
+  })
+}
+
+control "foundational_security_rds_23" {
+  title         = "23 RDS databases and clusters should not use a database engine default port"
+  description   = "This control checks whether the RDS cluster or instance uses a port other than the default port of the database engine."
+  severity      = "low"
+  sql           = query.rds_db_instance_and_cluster_no_default_port.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_23.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_23"
+    foundational_security_category = "secure_network_configuration"
   })
 }

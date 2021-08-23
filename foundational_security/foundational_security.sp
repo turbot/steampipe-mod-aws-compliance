@@ -22,6 +22,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_ec2,
     benchmark.foundational_security_ecs,
     benchmark.foundational_security_efs,
+    benchmark.foundational_security_elasticbeanstalk,
     benchmark.foundational_security_elb,
     benchmark.foundational_security_elbv2,
     benchmark.foundational_security_emr,
@@ -36,7 +37,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_sagemaker,
     benchmark.foundational_security_secretsmanager,
     benchmark.foundational_security_sns,
-    benchmark.foundational_security_ssm
+    benchmark.foundational_security_ssm,
+    benchmark.foundational_security_sqs
   ]
   tags = local.foundational_security_common_tags
 }

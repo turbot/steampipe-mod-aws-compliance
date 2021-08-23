@@ -11,7 +11,8 @@ benchmark "foundational_security_apigateway" {
     control.foundational_security_apigateway_1,
     control.foundational_security_apigateway_2,
     control.foundational_security_apigateway_3,
-    control.foundational_security_apigateway_4
+    control.foundational_security_apigateway_4,
+    control.foundational_security_apigateway_5
   ]
   tags          = local.foundational_security_apigateway_common_tags
 }
@@ -65,5 +66,18 @@ control "foundational_security_apigateway_4" {
   tags = merge(local.foundational_security_apigateway_common_tags, {
     foundational_security_item_id  = "apigateway_4"
     foundational_security_category = "protective_services"
+  })
+}
+
+control "foundational_security_apigateway_5" {
+  title         = "5 API Gateway REST API cache data should be encrypted at rest"
+  description   = "This control checks whether all methods in API Gateway REST API stages that have cache enabled are encrypted. The control fails if any method in an API Gateway REST API stage is configured to cache and the cache is not encrypted."
+  severity      = "medium"
+  sql           = query.apigateway_stage_cache_encryption_at_rest_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_apigateway_5.md")
+
+  tags = merge(local.foundational_security_apigateway_common_tags, {
+    foundational_security_item_id  = "apigateway_5"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }

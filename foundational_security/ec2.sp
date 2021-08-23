@@ -17,9 +17,11 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_8,
     control.foundational_security_ec2_9,
     control.foundational_security_ec2_10,
+    control.foundational_security_ec2_15,
     control.foundational_security_ec2_16,
     control.foundational_security_ec2_17,
-    control.foundational_security_ec2_18
+    control.foundational_security_ec2_18,
+    control.foundational_security_ec2_19
   ]
   tags          = local.foundational_security_ec2_common_tags
 }
@@ -141,6 +143,19 @@ control "foundational_security_ec2_10" {
   })
 }
 
+control "foundational_security_ec2_15" {
+  title         = "15 EC2 subnets should not automatically assign public IP addresses"
+  description   = "This control checks whether the assignment of public IPs in Amazon Virtual Private Cloud (Amazon VPC) subnets have MapPublicIpOnLaunch set to FALSE. The control passes if the flag is set to FALSE."
+  severity      = "medium"
+  sql           = query.vpc_subnet_auto_assign_public_ip_disabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_15.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_15"
+    foundational_security_category = "network_security"
+  })
+}
+
 control "foundational_security_ec2_16" {
   title         = "16 Unused network access control lists should be removed"
   description   = "This control checks whether there are any unused network access control lists (ACLs). The control checks the item configuration of the resource AWS::EC2::NetworkAcl and determines the relationships of the network ACL."
@@ -176,6 +191,19 @@ control "foundational_security_ec2_18" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_18"
+    foundational_security_category = "security_group_configuration"
+  })
+}
+
+control "foundational_security_ec2_19" {
+  title         = "19 Security groups should not allow unrestricted access to ports with high risk"
+  description   = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
+  severity      = "medium"
+  sql           = query.vpc_security_group_restricted_common_ports.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_19.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_19"
     foundational_security_category = "security_group_configuration"
   })
 }
