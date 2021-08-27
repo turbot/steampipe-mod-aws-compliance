@@ -20,21 +20,20 @@ with bad_rules as (
       or (
         (att -> 'PortRange' ->> 'From') :: int <= 22
         and (att -> 'PortRange' ->> 'To') :: int >= 22
-        and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
+        and att ->> 'Protocol' = '6' -- TCP
       )
       or (
         (att -> 'PortRange' ->> 'From') :: int <= 3389
         and (att -> 'PortRange' ->> 'To') :: int >= 3389
-        and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
+        and att ->> 'Protocol' = '6' -- TCP
     )
   )
   group by
     network_acl_id
 )
-
 select
   -- Required Columns
-  'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
+  'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id as resource,
   case
     when bad_rules.network_acl_id is null then 'ok'
     else 'alarm'
@@ -46,6 +45,6 @@ select
   -- Additional Dimensions
   acl.region,
   acl.account_id
-from	
+from
   aws_vpc_network_acl as acl
-  left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id
+  left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
