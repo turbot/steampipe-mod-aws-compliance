@@ -161,3 +161,95 @@ control "iam_group_user_role_no_inline_policies" {
     rbi_cyber_security = "true"
   })
 }
+
+control "iam_support_role" {
+  title       = "Ensure a support role has been created to manage incidents with AWS Support"
+  description = "AWS provides a support center that can be used for incident notification and response, as well as technical support and customer services."
+  sql         = query.iam_support_role.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_min_length_14" {
+  title       = "Ensure IAM password policy requires a minimum length of 14 or greater"
+  description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords are at least a given length. Security Hub recommends that the password policy require a minimum password length of 14 characters."
+  sql         = query.iam_account_password_policy_min_length_14.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_reuse_24" {
+  title       = "Ensure IAM password policy prevents password reuse"
+  description = "This control checks whether the number of passwords to remember is set to 24. The control fails if the value is not 24. IAM password policies can prevent the reuse of a given password by the same user."
+  sql         = query.iam_account_password_policy_reuse_24.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_strong" {
+  title       = "Password policies for IAM users should have strong configurations"
+  description = "This control checks whether the account password policy for IAM users have strong configurations."
+  sql         = query.iam_account_password_policy_strong.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_one_lowercase_letter" {
+  title       = "Ensure IAM password policy requires at least one lowercase letter"
+  description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets. Security Hub recommends that the password policy require at least one lowercase letter. Setting a password complexity policy increases account resiliency against brute force login attempts."
+  sql         = query.iam_account_password_policy_one_lowercase_letter.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_one_uppercase_letter" {
+  title       = "Ensure IAM password policy requires at least one uppercase letter"
+  description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets."
+  sql         = query.iam_account_password_policy_one_uppercase_letter.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_one_number" {
+  title       = "Ensure IAM password policy requires at least one number"
+  description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets."
+  sql         = query.iam_account_password_policy_one_number.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_password_policy_expire_90" {
+  title       = "Ensure IAM password policy expires passwords within 90 days or less"
+  description = "IAM password policies can require passwords to be rotated or expired after a given number of days. Security Hub recommends that the password policy expire passwords after 90 days or less. Reducing the password lifetime increases account resiliency against brute force login attempts."
+  sql         = query.iam_password_policy_expire_90.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "iam_account_password_policy_one_symbol" {
+  title       = "Ensure IAM password policy requires at least one symbol"
+  description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets. Security Hub recommends that the password policy require at least one symbol. Setting a password complexity policy increases account resiliency against brute force login attempts."
+  sql         = query.iam_account_password_policy_one_symbol.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    gdpr = "true"
+  })
+}
+
+

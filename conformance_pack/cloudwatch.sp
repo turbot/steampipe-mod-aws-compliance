@@ -39,3 +39,43 @@ control "cloudwatch_log_group_retention_period_365" {
     rbi_cyber_security = "true"
   })
 }
+
+control "log_metric_filter_unauthorized_api" {
+  title       = "Ensure a log metric filter and alarm exist for unauthorized API calls"
+  description = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for unauthorized API calls."
+  sql         = query.log_metric_filter_unauthorized_api.sql
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "log_metric_filter_console_login_mfa" {
+  title       = "Ensure a log metric filter and alarm exist for AWS Management Console sign-in without MFA"
+  description = "You can do real-time monitoring of API calls by directing CloudTrail logs to CloudWatch Logs and establishing corresponding metric filters and alarms. Security Hub recommends that you create a metric filter and alarm console logins that aren't protected by MFA."
+  sql         = query.log_metric_filter_console_login_mfa.sql
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "log_metric_filter_root_login" {
+  title       = "Ensure a log metric filter and alarm exist for usage of 'root' account"
+  description = "You can do real-time monitoring of API calls directing CloudTrail logs to CloudWatch Logs and establishing corresponding metric filters and alarms.Security Hub recommends that you create a metric filter and alarm for root login attempts. Monitoring for root account logins provides visibility into the use of a fully privileged account and an opportunity to reduce the use of it."
+  sql         = query.log_metric_filter_root_login.sql
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "log_metric_filter_iam_policy" {
+  title       = "Ensure a log metric filter and alarm exist for IAM policy changes"
+  description = "You can do real-time monitoring of API calls by directing CloudTrail logs to CloudWatch Logs and establishing corresponding metric filters and alarms. Security Hub recommends that you create a metric filter and alarm for changes made to IAM policies. Monitoring these changes helps ensure that authentication and authorization controls remain intact."
+  sql         = query.log_metric_filter_iam_policy.sql
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    gdpr = "true"
+  })
+}
