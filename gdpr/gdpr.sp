@@ -11,6 +11,7 @@ benchmark "gdpr" {
   documentation = file("./gdpr/docs/gdpr.md")
   children = [
     benchmark.article_25_data_protection_by_design_and_by_default,
+    benchmark.article_30_records_of_processing_activities,
   ]
   tags = local.gdpr_common_tags
 }
