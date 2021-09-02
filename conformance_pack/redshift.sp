@@ -42,3 +42,13 @@ control "redshift_cluster_prohibit_public_access" {
     rbi_cyber_security = "true"
   })
 }
+
+control "redshift_cluster_automatic_snapshots_min_7_days" {
+  title       = "Amazon Redshift clusters should have automatic snapshots enabled"
+  description = "This control checks whether Amazon Redshift clusters have automated snapshots enabled. It also checks whether the snapshot retention period is greater than or equal to seven."
+  sql         = query.redshift_cluster_automatic_snapshots_min_7_days.sql
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    gdpr = "true"
+  })
+}

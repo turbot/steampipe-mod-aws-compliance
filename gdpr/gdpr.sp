@@ -12,6 +12,7 @@ benchmark "gdpr" {
   children = [
     benchmark.article_25_data_protection_by_design_and_by_default,
     benchmark.article_30_records_of_processing_activities,
+    benchmark.article_32_security_of_processing,
   ]
   tags = local.gdpr_common_tags
 }
