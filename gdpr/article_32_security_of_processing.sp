@@ -1,6 +1,6 @@
 benchmark "article_32_security_of_processing" {
   title       = "Article 32 Security of processing"
-  description = "The controller and processor shall take steps to ensure that any natural person acting under the authority of the controller or the processor who has access to personal data does not process them except on instructions from the controller, unless he or she is required to do so by Union or Member State law."
+  documentation = file("./gdpr/docs/article_32_security_of_processing.md")
   children = [
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
@@ -32,7 +32,7 @@ benchmark "article_32_security_of_processing" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.gdpr_common_tags

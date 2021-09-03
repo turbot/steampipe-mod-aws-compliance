@@ -1,6 +1,6 @@
 benchmark "article_25_data_protection_by_design_and_by_default" {
   title       = "Article 25 Data protection by design and by default"
-  description = "The controller shall implement appropriate technical and organizational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed."
+  documentation = file("./gdpr/docs/article_25_data_protection_by_design_and_by_default.md")
   children = [
     control.cloudtrail_bucket_not_public,
     control.cloudtrail_enabled_all_regions,
@@ -30,7 +30,7 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
     control.log_metric_filter_iam_policy,
     control.log_metric_filter_root_login,
     control.log_metric_filter_unauthorized_api,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.gdpr_common_tags

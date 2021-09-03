@@ -1,6 +1,6 @@
 benchmark "article_30_records_of_processing_activities" {
   title       = "Article 30 Records of processing activities"
-  description = "The controller and, where applicable, the controller's representative, shall maintain a record of processing activities under its responsibility."
+  documentation = file("./gdpr/docs/article_30_records_of_processing_activities.md")
   children = [
     control.cloudtrail_enabled_all_regions,
     control.cloudtrail_s3_data_events_enabled,
@@ -11,7 +11,7 @@ benchmark "article_30_records_of_processing_activities" {
     control.elb_application_classic_lb_logging_enabled,
     control.kms_cmk_rotation_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.gdpr_common_tags
