@@ -2,16 +2,6 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
   title       = "Article 25 Data protection by design and by default"
   description = "The controller shall implement appropriate technical and organizational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed."
   children = [
-    benchmark.article_25_data_protection_by_design_and_by_default_1,
-  ]
-
-  tags = local.gdpr_common_tags
-}
-
-benchmark "article_25_data_protection_by_design_and_by_default_1" {
-  title       = "Article 25 Data protection by design and by default 1"
-  description = "Taking into account the state of the art, the cost of implementation and the nature, scope, context and purposes of processing as well as the risks of varying likelihood and severity for rights and freedoms of natural persons posed by the processing, the controller shall, both at the time of the determination of the means for processing and at the time of the processing itself, implement appropriate technical and organisational measures, such as pseudonymisation, which are designed to implement data-protection principles, such as data minimisation, in an effective manner and to integrate the necessary safeguards into the processing in order to meet the requirements of this Regulation and protect the rights of data subjects."
-  children = [
     control.cloudtrail_bucket_not_public,
     control.cloudtrail_enabled_all_regions,
     control.cloudtrail_s3_logging_enabled,
