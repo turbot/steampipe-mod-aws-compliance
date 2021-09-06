@@ -34,6 +34,7 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
   sql         = query.dynamodb_table_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
@@ -47,5 +48,15 @@ control "dynamodb_table_in_backup_plan" {
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "dynamodb_table_encryption_enabled" {
+  title       = "DynamoDB table should have encryption enabled"
+  description = "Ensure that encryption is enabled for your Amazon DynamoDB tables. Because sensitive data can exist at rest in these tables, enable encryption at rest to help protect that data."
+  sql         = query.dynamodb_table_encryption_enabled.sql
+
+  tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    gdpr = "true"
   })
 }

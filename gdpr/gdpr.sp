@@ -7,7 +7,7 @@ locals {
 
 benchmark "gdpr" {
   title         = "AWS General Data Protection Regulation"
-  description   = "The General Data Protection Regulation (GDPR) is a new European privacy law that became enforceable on May 25, 2018. The GDPR replaces the EU Data Protection Directive, also known as Directive 95/46/EC. It's intended to harmonize data protection laws throughout the European Union (EU) by applying a single data protection law that is binding throughout each member state."
+  description   = "The European Union’s General Data Protection Regulation (GDPR) protects European Union (EU) individuals’ fundamental right to privacy and the protection of personal data. The GDPR includes robust requirements that raise and harmonize standards for data protection, security, and compliance."
   documentation = file("./gdpr/docs/gdpr_overview.md")
   children = [
     benchmark.article_25_data_protection_by_design_and_by_default,

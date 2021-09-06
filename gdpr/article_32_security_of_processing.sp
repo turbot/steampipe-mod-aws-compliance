@@ -9,6 +9,7 @@ benchmark "article_32_security_of_processing" {
     control.cloudtrail_trail_validation_enabled,
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_volume_encryption_at_rest_enabled,
     control.efs_file_system_encrypt_data_at_rest,

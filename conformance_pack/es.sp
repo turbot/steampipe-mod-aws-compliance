@@ -10,6 +10,7 @@ control "es_domain_encryption_at_rest_enabled" {
   sql         = query.es_domain_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -36,6 +37,7 @@ control "es_domain_node_to_node_encryption_enabled" {
   sql         = query.es_domain_node_to_node_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })

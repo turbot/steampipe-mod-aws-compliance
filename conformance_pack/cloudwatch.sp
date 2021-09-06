@@ -22,6 +22,7 @@ control "log_group_encryption_at_rest_enabled" {
   sql         = query.log_group_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

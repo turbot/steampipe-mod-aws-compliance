@@ -23,6 +23,7 @@ control "s3_bucket_default_encryption_enabled" {
   sql         = query.s3_bucket_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -36,6 +37,7 @@ control "s3_bucket_enforces_ssl" {
   sql         = query.s3_bucket_enforces_ssl.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

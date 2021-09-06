@@ -10,6 +10,7 @@ control "wafv2_web_acl_logging_enabled" {
   sql         = query.wafv2_web_acl_logging_enabled.sql
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
