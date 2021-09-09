@@ -1,3 +1,8 @@
+## v0.13 [2021-09-09]
+
+_Bug fixes_
+
+- `foundational_security_elasticbeanstalk_1` control will now correctly reference the `elastic_beanstalk_enhanced_health_reporting_enabled` query instead of the `apigateway_stage_logging_enabled` query
 
 ## v0.12 [2021-08-23]
 
