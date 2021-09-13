@@ -1,5 +1,6 @@
 benchmark "article_25_data_protection_by_design_and_by_default" {
   title       = "Article 25 Data protection by design and by default"
+  description = "Article 25 of the GDPR states that the controller '…shall implement appropriate technical and organizational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed.' The following AWS access control mechanisms can help customers comply with this requirement by allowing only authorized administrators, users, and applications to get access to AWS resources and customer data."
   documentation = file("./gdpr/docs/article_25_data_protection_by_design_and_by_default.md")
   children = [
     control.cloudtrail_bucket_not_public,
@@ -12,6 +13,7 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
     control.iam_account_password_policy_min_length_14,
     control.iam_account_password_policy_one_lowercase_letter,
     control.iam_account_password_policy_one_number,
+    control.iam_account_password_policy_one_symbol,
     control.iam_account_password_policy_one_uppercase_letter,
     control.iam_account_password_policy_reuse_24,
     control.iam_account_password_policy_strong,
