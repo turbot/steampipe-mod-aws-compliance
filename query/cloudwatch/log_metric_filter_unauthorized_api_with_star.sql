@@ -22,10 +22,11 @@ with filter_data as (
     and se ->> 'ReadWriteType' = 'All'
     and trail.log_group_arn is not null
     and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-    -- CIS 1.3.0 > 4.1 Ensure a log metric filter and alarm exist for unauthorized API calls
-    -- "Filter = {(($.errorCode="UnauthorizedOperation") || ($.errorCode="AccessDenied")) || (($.sourceIPAddress!="delivery.logs.amazonaws.com") ||($.eventName!="HeadBucket"))}"
-    and filter.filter_pattern ~ 'errorCode\s*=\s*"UnauthorizedOperation"'
-    and filter.filter_pattern ~ 'errorCode\s*=\s*"AccessDenied"'
+    -- CIS 1.4.0 > 4.1 Ensure a log metric filter and alarm exist for unauthorized API calls
+    -- filter-pattern '{($.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*")|| ($.sourceIPAddress!="delivery.logs.amazonaws.com") || ($.eventName!="HeadBucket") }'
+    -- The pattern is restrictive to match the exact patterns exists in filter_pattern
+    and filter.filter_pattern ~ 'errorCode\s*=\s*"\*UnauthorizedOperation"'
+    and filter.filter_pattern ~ 'errorCode\s*=\s*"AccessDenied\*"'
     and filter.filter_pattern ~ 'sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com"'
     and filter.filter_pattern ~ 'eventName\s*!=\s*"HeadBucket"'
     and alarm.metric_name = filter.metric_transformation_name
