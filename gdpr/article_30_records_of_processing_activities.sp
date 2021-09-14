@@ -1,6 +1,5 @@
 benchmark "article_30_records_of_processing_activities" {
   title       = "Article 30 Records of processing activities"
-  description = "Article 30 of the GDPR states that '…each controller and, where applicable, the controller’s representative, shall maintain a record of processing activities under its responsibility.' This article also includes details about which information must be recorded when you monitor the processing of all personal data. Controllers and processors are also required to send breach notifications in a timely manner, so detecting incidents quickly is important. To help enable customers to comply with these obligations, AWS offers the following monitoring and logging services."
   documentation = file("./gdpr/docs/article_30_records_of_processing_activities.md")
   children = [
     control.cloudtrail_enabled_all_regions,

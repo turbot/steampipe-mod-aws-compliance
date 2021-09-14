@@ -1,6 +1,5 @@
 benchmark "article_32_security_of_processing" {
   title       = "Article 32 Security of processing"
-  description = "Article 32 of the GDPR requires that organizations must '…implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk, including …the pseudonymisation and encryption of personal data[...]' In addition, organizations must safeguard against the unauthorized disclosure of or access to personal data."
   documentation = file("./gdpr/docs/article_32_security_of_processing.md")
   children = [
     control.acm_certificate_expires_30_days,

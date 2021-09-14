@@ -14,7 +14,7 @@ Run individual configuration, compliance and security controls or full complianc
 
 [CIS AWS Benchmarks](https://www.cisecurity.org/benchmark/amazon_web_services/) provide a predefined set of compliance and security best-practice checks for AWS accounts.
 
-[GDPR](https://aws.amazon.com/compliance/gdpr-center/) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
+[GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
 
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 
