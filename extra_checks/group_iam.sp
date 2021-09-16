@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_iam" {
-  title       = "IAM Extra Checks"
+  title       = "IAM Checks"
   description = "This group of SNS extra checks shows results of controls related to SNS service."
   children = [
     control.iam_user_with_administrator_group_mfa_enabled

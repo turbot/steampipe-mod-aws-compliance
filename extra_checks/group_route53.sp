@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_route53" {
-  title       = "Route53 Extra Checks"
+  title       = "Route53 Checks"
   description = "This group of route53 extra checks shows results of controls related to route53 service."
   children = [
     control.route53_hosted_zone_query_logging_enabled

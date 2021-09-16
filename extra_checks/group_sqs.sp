@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_sqs" {
-  title       = "SQS Extra Checks"
+  title       = "SQS Checks"
   description = "This group of SQS extra checks shows results of controls related to SQS service."
   children = [
     control.sqs_queue_policy_no_public_access

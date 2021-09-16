@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_es" {
-  title       = "ES Extra Checks"
+  title       = "ES Checks"
   description = "This group of es extra checks shows results of controls related to es service."
   children = [
     control.es_domain_logging_enabled

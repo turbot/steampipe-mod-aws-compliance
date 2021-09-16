@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_sns" {
-  title       = "SNS Extra Checks"
+  title       = "SNS Checks"
   description = "This group of SNS extra checks shows results of controls related to SNS service."
   children = [
     control.sns_topic_policy_no_public_access

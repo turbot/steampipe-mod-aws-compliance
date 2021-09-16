@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_cloudtrail" {
-  title       = "CloudTrail Extra Checks"
+  title       = "CloudTrail Checks"
   description = "This group of cloudtrail extra checks shows results of controls related to cloudtrail service."
   children = [
     control.cloudtrail_lambda_function_data_events_enabled

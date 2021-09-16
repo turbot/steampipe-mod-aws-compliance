@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_cloudfront" {
-  title       = "CloudFront Extra Checks"
+  title       = "CloudFront Checks"
   description = "This group of cloudfront extra checks shows results of controls related to cloudfront service."
   children = [
     control.cloudfront_distribution_geo_restriction_enabled

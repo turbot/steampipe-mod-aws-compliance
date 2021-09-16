@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_ec2" {
-  title       = "EC2 Extra Checks"
+  title       = "EC2 Checks"
   description = "This group of EC2 extra checks shows results of controls related to EC2 service."
   children = [
     control.vpc_security_group_restrict_ingress_rdp_all,

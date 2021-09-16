@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "group_kms" {
-  title       = "KMS Extra Checks"
+  title       = "KMS Checks"
   description = "This group of KMS extra checks shows results of controls related to KMS service."
   children = [
     control.kms_cmk_not_public
