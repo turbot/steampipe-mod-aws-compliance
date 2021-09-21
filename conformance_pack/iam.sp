@@ -34,11 +34,12 @@ control "iam_policy_no_star_star" {
   sql         = query.iam_policy_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cis_foundational_item_id = "1.22"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 
@@ -48,11 +49,12 @@ control "iam_root_user_no_access_keys" {
   sql         = query.iam_root_user_no_access_keys.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cis_foundational_item_id = "1.12"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 
@@ -62,10 +64,11 @@ control "iam_root_user_hardware_mfa_enabled" {
   sql         = query.iam_root_user_hardware_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cis_foundational_item_id = "1.14"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -75,10 +78,11 @@ control "iam_root_user_mfa_enabled" {
   sql         = query.iam_root_user_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cis_foundational_item_id = "1.13"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -88,10 +92,11 @@ control "iam_user_access_key_age_90" {
   sql         = query.iam_user_access_key_age_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cis_foundational_item_id = "1.4"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -101,10 +106,11 @@ control "iam_user_console_access_mfa_enabled" {
   sql         = query.iam_user_console_access_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cis_foundational_item_id = "1.2"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -126,11 +132,12 @@ control "iam_user_no_inline_attached_policies" {
   sql         = query.iam_user_no_inline_attached_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cis_foundational_item_id = "1.16"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 
@@ -140,10 +147,11 @@ control "iam_user_unused_credentials_90" {
   sql         = query.iam_user_unused_credentials_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cis_foundational_item_id = "1.3"
+    gdpr                     = "true"
+    hipaa                    = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -176,7 +184,8 @@ control "iam_support_role" {
   sql         = query.iam_support_role.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.20"
+    gdpr                     = "true"
   })
 }
 
@@ -186,7 +195,8 @@ control "iam_account_password_policy_min_length_14" {
   sql         = query.iam_account_password_policy_min_length_14.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.9"
+    gdpr                     = "true"
   })
 }
 
@@ -196,7 +206,8 @@ control "iam_account_password_policy_reuse_24" {
   sql         = query.iam_account_password_policy_reuse_24.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.10"
+    gdpr                     = "true"
   })
 }
 
@@ -216,7 +227,8 @@ control "iam_account_password_policy_one_lowercase_letter" {
   sql         = query.iam_account_password_policy_one_lowercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.6"
+    gdpr                     = "true"
   })
 }
 
@@ -226,7 +238,8 @@ control "iam_account_password_policy_one_uppercase_letter" {
   sql         = query.iam_account_password_policy_one_uppercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.5"
+    gdpr                     = "true"
   })
 }
 
@@ -236,6 +249,7 @@ control "iam_account_password_policy_one_number" {
   sql         = query.iam_account_password_policy_one_number.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_foundational_item_id = "1.8"
     gdpr = "true"
   })
 }
@@ -246,7 +260,8 @@ control "iam_password_policy_expire_90" {
   sql         = query.iam_password_policy_expire_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.11"
+    gdpr                     = "true"
   })
 }
 
@@ -256,7 +271,8 @@ control "iam_account_password_policy_one_symbol" {
   sql         = query.iam_account_password_policy_one_symbol.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    cis_foundational_item_id = "1.7"
+    gdpr                     = "true"
   })
 }
 
