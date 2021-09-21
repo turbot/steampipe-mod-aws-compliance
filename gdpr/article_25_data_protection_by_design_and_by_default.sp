@@ -27,12 +27,22 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
     control.kms_cmk_rotation_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
     control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
     control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
     control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
     control.log_metric_filter_unauthorized_api,
-    control.vpc_flow_logs_enabled
+    control.log_metric_filter_vpc,
+    control.vpc_flow_logs_enabled,
   ]
-
+,
   tags = local.gdpr_common_tags
 }
