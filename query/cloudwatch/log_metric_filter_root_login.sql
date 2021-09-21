@@ -22,7 +22,6 @@ with filter_data as (
     and se ->> 'ReadWriteType' = 'All'
     and trail.log_group_arn is not null
     and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-    -- "filterPattern": "{ $.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != "AwsServiceEvent" }"
     and filter.filter_pattern ~ '\s*\$\.userIdentity\.type\s*=\s*"Root".+\$\.userIdentity\.invokedBy NOT EXISTS.+\$\.eventType\s*!=\s*"AwsServiceEvent"'
     and alarm.metric_name = filter.metric_transformation_name
     and subscription.topic_arn = action_arn
