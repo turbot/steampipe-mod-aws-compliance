@@ -117,7 +117,7 @@ control "cloudtrail_s3_logging_enabled" {
 
 control "cloudtrail_bucket_not_public" {
   title       = "Ensure the S3 bucket CloudTrail logs to is not publicly accessible"
-  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs.."
+  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs."
   sql         = query.cloudtrail_bucket_not_public.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
