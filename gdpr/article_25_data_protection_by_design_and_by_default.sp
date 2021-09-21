@@ -43,6 +43,6 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
     control.log_metric_filter_vpc,
     control.vpc_flow_logs_enabled,
   ]
-,
+  
   tags = local.gdpr_common_tags
 }
