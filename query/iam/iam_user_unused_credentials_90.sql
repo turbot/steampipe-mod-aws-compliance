@@ -2,6 +2,8 @@ select
   -- Required Columns
   user_arn as resource,
   case
+    when user_name = '<root_account>'
+      then 'info'
     when password_enabled and password_last_used is null and password_last_changed < (current_date - interval '90' day)
       then 'alarm'
     when password_enabled and password_last_used  < (current_date - interval '90' day)
