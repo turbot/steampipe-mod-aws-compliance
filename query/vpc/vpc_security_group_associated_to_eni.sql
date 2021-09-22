@@ -22,5 +22,5 @@ select
   s.region,
   s.account_id
 from
-  aws_vpc_security_group s
-  left join associated_sg a on s.group_id = a.secgrp_id;
+  aws_vpc_security_group as s
+  left join associated_sg as a on s.group_id = a.secgrp_id;
