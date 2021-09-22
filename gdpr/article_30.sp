@@ -1,6 +1,12 @@
-benchmark "article_30_records_of_processing_activities" {
+locals {
+  gdpr_article_30_common_tags = merge(local.gdpr_common_tags, {
+    gdpr_article = "30"
+  })
+}
+
+benchmark "article_30" {
   title       = "Article 30 Records of processing activities"
-  documentation = file("./gdpr/docs/article_30_records_of_processing_activities.md")
+  documentation = file("./gdpr/docs/article_30.md")
   children = [
     control.cloudtrail_enabled_all_regions,
     control.cloudtrail_s3_data_events_enabled,
@@ -14,5 +20,5 @@ benchmark "article_30_records_of_processing_activities" {
     control.vpc_flow_logs_enabled
   ]
 
-  tags = local.gdpr_common_tags
+  tags = local.gdpr_article_30_common_tags
 }

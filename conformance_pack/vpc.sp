@@ -10,12 +10,11 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cis_foundational_item_id = "2.9"
-    gdpr                     = "true"
-    hipaa                    = "true"
-    nist_800_53_rev_4        = "true"
-    nist_csf                 = "true"
-    rbi_cyber_security       = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
   })
 }
 

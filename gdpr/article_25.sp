@@ -1,6 +1,12 @@
-benchmark "article_25_data_protection_by_design_and_by_default" {
+locals {
+  gdpr_article_25_common_tags = merge(local.gdpr_common_tags, {
+    gdpr_article = "25"
+  })
+}
+
+benchmark "article_25" {
   title       = "Article 25 Data protection by design and by default"
-  documentation = file("./gdpr/docs/article_25_data_protection_by_design_and_by_default.md")
+  documentation = file("./gdpr/docs/article_25.md")
   children = [
     control.cloudtrail_bucket_not_public,
     control.cloudtrail_enabled_all_regions,
@@ -43,6 +49,6 @@ benchmark "article_25_data_protection_by_design_and_by_default" {
     control.log_metric_filter_vpc,
     control.vpc_flow_logs_enabled,
   ]
-  
-  tags = local.gdpr_common_tags
+
+  tags = local.gdpr_article_25_common_tags
 }

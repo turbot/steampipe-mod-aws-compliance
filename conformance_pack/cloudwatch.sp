@@ -47,8 +47,7 @@ control "log_metric_filter_unauthorized_api" {
   sql         = query.log_metric_filter_unauthorized_api.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.1"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -58,8 +57,7 @@ control "log_metric_filter_console_login_mfa" {
   sql         = query.log_metric_filter_console_login_mfa.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.2"
-    gdpr                     = "true"
+     gdpr = "true"
   })
 }
 
@@ -69,8 +67,7 @@ control "log_metric_filter_root_login" {
   sql         = query.log_metric_filter_root_login.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.3,1.1"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -80,8 +77,7 @@ control "log_metric_filter_iam_policy" {
   sql         = query.log_metric_filter_iam_policy.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.4"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -91,8 +87,7 @@ control "log_metric_filter_vpc" {
   sql         = query.log_metric_filter_vpc.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.14"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -102,8 +97,7 @@ control "log_metric_filter_route_table" {
   sql         = query.log_metric_filter_route_table.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.13"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -113,8 +107,7 @@ control "log_metric_filter_network_gateway" {
   sql         = query.log_metric_filter_network_gateway.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.12"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -124,8 +117,7 @@ control "log_metric_filter_network_acl" {
   sql         = query.log_metric_filter_network_acl.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.11"
-    gdpr                     = "true"
+     gdpr = "true"
   })
 }
 
@@ -135,8 +127,7 @@ control "log_metric_filter_security_group" {
   sql         = query.log_metric_filter_security_group.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.10"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -146,8 +137,7 @@ control "log_metric_filter_config_configuration" {
   sql         = query.log_metric_filter_config_configuration.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.9"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -157,8 +147,7 @@ control "log_metric_filter_bucket_policy" {
   sql         = query.log_metric_filter_bucket_policy.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.8"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -168,8 +157,7 @@ control "log_metric_filter_disable_or_delete_cmk" {
   sql         = query.log_metric_filter_disable_or_delete_cmk.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.7"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -179,8 +167,7 @@ control "log_metric_filter_console_authentication_failure" {
   sql         = query.log_metric_filter_console_authentication_failure.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.6"
-    gdpr                     = "true"
+    gdpr = "true"
   })
 }
 
@@ -190,8 +177,7 @@ control "log_metric_filter_cloudtrail_configuration" {
   sql         = query.log_metric_filter_cloudtrail_configuration.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_foundational_item_id = "3.5"
-    gdpr                     = "true"
+     gdpr = "true"
   })
 }
 

@@ -4,7 +4,7 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 # AWS Compliance Mod
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `AWS Foundational Security Best Practices`, `CIS`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `GDPR` across all your AWS accounts.
+Run individual configuration, compliance and security controls or full compliance benchmarks for `AWS Foundational Security Best Practices`, `CIS`, `GDPR`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` across all your AWS accounts.
 
 ## References
 

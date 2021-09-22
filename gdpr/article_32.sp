@@ -1,6 +1,12 @@
-benchmark "article_32_security_of_processing" {
+locals {
+  gdpr_article_32_common_tags = merge(local.gdpr_common_tags, {
+    gdpr_article = "32"
+  })
+}
+
+benchmark "article_32" {
   title       = "Article 32 Security of processing"
-  documentation = file("./gdpr/docs/article_32_security_of_processing.md")
+  documentation = file("./gdpr/docs/article_32.md")
   children = [
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
@@ -36,5 +42,5 @@ benchmark "article_32_security_of_processing" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = local.gdpr_common_tags
+  tags = local.gdpr_article_32_common_tags
 }
