@@ -23,6 +23,7 @@ control "kms_cmk_rotation_enabled" {
   sql         = query.kms_cmk_rotation_enabled.sql
 
   tags = merge(local.conformance_pack_kms_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })

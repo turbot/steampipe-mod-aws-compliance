@@ -10,6 +10,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql         = query.apigateway_stage_cache_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

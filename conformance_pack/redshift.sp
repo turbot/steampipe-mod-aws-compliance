@@ -10,6 +10,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
   sql         = query.redshift_cluster_encryption_in_transit_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -23,6 +24,7 @@ control "redshift_cluster_encryption_logging_enabled" {
   sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -40,5 +42,15 @@ control "redshift_cluster_prohibit_public_access" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "redshift_cluster_automatic_snapshots_min_7_days" {
+  title       = "Amazon Redshift clusters should have automatic snapshots enabled"
+  description = "This control checks whether Amazon Redshift clusters have automated snapshots enabled. It also checks whether the snapshot retention period is greater than or equal to seven."
+  sql         = query.redshift_cluster_automatic_snapshots_min_7_days.sql
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    gdpr = "true"
   })
 }

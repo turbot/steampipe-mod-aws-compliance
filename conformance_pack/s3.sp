@@ -23,6 +23,7 @@ control "s3_bucket_default_encryption_enabled" {
   sql         = query.s3_bucket_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -36,6 +37,7 @@ control "s3_bucket_enforces_ssl" {
   sql         = query.s3_bucket_enforces_ssl.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -126,5 +128,15 @@ control "s3_public_access_block_bucket_account" {
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "s3_bucket_default_encryption_enabled_kms" {
+  title       = "S3 bucket default encryption should be enabled with KMS"
+  description = "To help protect data at rest, ensure encryption is enabled for your Amazon Simple Storage Service (Amazon S3) buckets."
+  sql         = query.s3_bucket_default_encryption_enabled_kms.sql
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    gdpr = "true"
   })
 }
