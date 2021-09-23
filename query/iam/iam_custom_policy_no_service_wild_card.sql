@@ -30,4 +30,4 @@ from
   aws_iam_policy as a
   left join wildcard_action_policies as b on a.arn = b.arn
 where
-  a.arn not like 'arn:aws:iam::aws:policy%'
+  a.arn not like 'arn:aws:iam::aws:policy%';
