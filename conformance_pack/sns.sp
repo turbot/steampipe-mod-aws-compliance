@@ -10,6 +10,7 @@ control "sns_topic_encrypted_at_rest" {
   sql         = query.sns_topic_encrypted_at_rest.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

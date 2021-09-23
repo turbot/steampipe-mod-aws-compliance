@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -102,10 +103,10 @@ control "vpc_eip_associated" {
   })
 }
 
-control "vpc_security_group_associated" {
+control "vpc_security_group_associated_to_eni" {
   title       = "VPC security groups should be associated with at least one ENI"
   description = "This rule ensures the security groups are attached to an Amazon Elastic Compute Cloud (Amazon EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
-  sql         = query.vpc_security_group_associated.sql
+  sql         = query.vpc_security_group_associated_to_eni.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf = "true"

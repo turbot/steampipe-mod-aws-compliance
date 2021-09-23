@@ -23,6 +23,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -61,6 +62,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
   sql         = query.rds_db_snapshot_encrypted_at_rest.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
@@ -86,6 +88,7 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
@@ -97,6 +100,7 @@ control "rds_db_instance_in_backup_plan" {
   sql         = query.rds_db_instance_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })

@@ -10,6 +10,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   sql         = query.cloudtrail_trail_integrated_with_logs.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -23,6 +24,7 @@ control "cloudtrail_s3_data_events_enabled" {
   sql         = query.cloudtrail_s3_data_events_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -36,6 +38,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   sql         = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -62,8 +65,9 @@ control "cloudtrail_trail_validation_enabled" {
   sql         = query.cloudtrail_trail_validation_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
+    gdpr              = "true"
+    hipaa             = "true"
+    nist_800_53_rev_4 = "true"
   })
 }
 
@@ -86,6 +90,37 @@ control "cloudtrail_security_trail_enabled" {
   sql         = query.cloudtrail_security_trail_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr              = "true"
     nist_800_53_rev_4 = "true"
+  })
+}
+
+control "cloudtrail_enabled_all_regions" {
+  title       = "Ensure CloudTrail is enabled in all Regions"
+  description = "CloudTrail is a service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service."
+  sql         = query.cloudtrail_enabled_all_regions.sql
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "cloudtrail_s3_logging_enabled" {
+  title       = "Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket"
+  description = "S3 Bucket Access Logging generates a log that contains access records for each request made to your S3 bucket. An access log record contains details about the request, such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket."
+  sql         = query.cloudtrail_s3_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr = "true"
+  })
+}
+
+control "cloudtrail_bucket_not_public" {
+  title       = "Ensure the S3 bucket CloudTrail logs to is not publicly accessible"
+  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs.."
+  sql         = query.cloudtrail_bucket_not_public.sql
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    gdpr = "true"
   })
 }

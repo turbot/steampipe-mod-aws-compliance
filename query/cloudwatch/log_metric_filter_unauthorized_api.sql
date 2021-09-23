@@ -22,10 +22,9 @@ with filter_data as (
     and se ->> 'ReadWriteType' = 'All'
     and trail.log_group_arn is not null
     and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-    and filter.filter_pattern ~ 'errorCode\s*=\s*"\*{0,1}UnauthorizedOperation\*{0,1}"'
-    and filter.filter_pattern ~ 'errorCode\s*=\s*"\*{0,1}AccessDenied\*{0,1}"'
-    --and filter.filter_pattern ~ 'sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com"'
-    --and filter.filter_pattern ~ 'eventName\s*!=\s*"HeadBucket"'
+    -- As per cis recommended exact pattern order
+    -- {($.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*") || ($.sourceIPAddress!="delivery.logs.amazonaws.com") || ($.eventName!="HeadBucket") }
+    and filter.filter_pattern ~ '\$\.errorCode\s*=\s*"*UnauthorizedOperation".+\$\.errorCode\s*=\s*"AccessDenied*".+\$\.sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com".+\$\.eventName\s*!=\s*"HeadBucket"'
     and alarm.metric_name = filter.metric_transformation_name
     and subscription.topic_arn = action_arn
 )
@@ -44,4 +43,4 @@ select
   a.account_id
 from
   aws_account as a
-  left join filter_data as f on a.account_id = f.account_id
+  left join filter_data as f on a.account_id = f.account_id;

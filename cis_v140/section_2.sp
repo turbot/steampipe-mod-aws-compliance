@@ -69,8 +69,8 @@ control "cis_v140_2_1_2" {
 }
 
 control "cis_v140_2_1_3" {
-  title         = "2.1.3 Ensure MFA Delete is enable on S3 buckets"
-  description   = "Once MFA Delete is enable on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
+  title         = "2.1.3 Ensure MFA Delete is enabled on S3 buckets"
+  description   = "Once MFA Delete is enabled on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
   documentation = file("./cis_v140/docs/cis_v140_2_1_3.md")
   sql           = query.s3_bucket_mfa_delete_enabled.sql
 

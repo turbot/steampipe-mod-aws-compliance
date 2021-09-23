@@ -10,6 +10,7 @@ control "efs_file_system_encrypt_data_at_rest" {
   sql         = query.efs_file_system_encrypt_data_at_rest.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
