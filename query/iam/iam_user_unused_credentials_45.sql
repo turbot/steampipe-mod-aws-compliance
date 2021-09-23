@@ -2,6 +2,9 @@ select
   -- Required Columns
   user_arn as resource,
   case
+    --root_account will have always password associated even though AWS credential report returns 'not_supported' for password_enabled
+    when user_name = '<root_account>'
+      then 'info'
     when password_enabled and password_last_used is null and password_last_changed < (current_date - interval '45' day)
       then 'alarm'
     when password_enabled and password_last_used  < (current_date - interval '45' day)
