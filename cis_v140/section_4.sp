@@ -30,7 +30,7 @@ benchmark "cis_v140_4" {
 control "cis_v140_4_1" {
   title         = "4.1 Ensure a log metric filter and alarm exist for unauthorized API calls"
   description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for unauthorized API calls."
-  sql           = query.log_metric_filter_unauthorized_api_with_star.sql
+  sql           = query.log_metric_filter_unauthorized_api.sql
   documentation = file("./cis_v140/docs/cis_v140_4_1.md")
 
   tags = merge(local.cis_v140_4_common_tags, {
