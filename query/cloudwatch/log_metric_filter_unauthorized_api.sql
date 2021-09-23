@@ -37,7 +37,7 @@ select
   end as status,
   case
     when f.trail_name is null then 'No log metric filter and alarm exist for unauthorized API calls.'
-    else filter_name || ' metric filter forwards events for unauthorized API calls.'
+    else filter_name || ' forwards events for unauthorized API calls.'
   end as reason,
   -- Additional Dimensions
   a.account_id
