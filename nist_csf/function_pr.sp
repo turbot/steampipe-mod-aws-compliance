@@ -220,7 +220,7 @@ benchmark "nist_csf_pr_ds_3" {
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_eip_associated,
-    control.vpc_security_group_associated,
+    control.vpc_security_group_associated_to_eni,
   ]
 
   tags = local.nist_csf_common_tags

@@ -1,3 +1,5 @@
+-- This also addresses, Lambda in VPC.
+-- As Lambda creates an elastic network interface for each subnet in your function's VPC configuration.
 with associated_sg as (
   select
     sg ->> 'GroupId' as secgrp_id,
@@ -8,7 +10,7 @@ with associated_sg as (
 )
 select
   -- Required Columns
-  s.arn as resource,
+  distinct s.arn as resource,
   case
     when a.secgrp_id = s.group_id then 'ok'
     else 'alarm'
