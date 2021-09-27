@@ -1,3 +1,12 @@
+## v0.15 [2021-09-27]
+
+_Bug fixes_
+
+- Fixed the metric filter pattern in the `log_metric_filter_organization` query per the CIS documentation ([#271](https://github.com/turbot/steampipe-mod-aws-compliance/pull/289))
+- `cis_v140_1_16` control now refers to `iam_all_policy_no_star_star` query which evaluates all the attached IAM policies(both AWS and customer managed) instead of only IAM customer managed policies ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
+- `foundational_security_iam_1` control now refers to `iam_custom_policy_no_star_star` query which only evaluates IAM customer managed policies instead of evaluating both Customer and AWS managed IAM policies ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
+- `foundational_security_iam_21` control now refers to `iam_custom_policy_no_service_wild_card` query which correctly checks if there are any IAM customer managed policies that allow wildcard access for services ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
+
 ## v0.14 [2021-09-23]
 
 _What's new?_
