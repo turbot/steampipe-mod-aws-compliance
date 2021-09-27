@@ -1,4 +1,3 @@
--- This query checks the customer managed policies having * access and attached to IAM resource(s)
 with star_access_policies as (
   select
     arn,
@@ -16,7 +15,6 @@ with star_access_policies as (
       or action = '*:*'
       )
   )
-  -- Checking attachment
   and attachment_count !=0
   group by arn
  )
@@ -33,7 +31,4 @@ select
   p.account_id
 from
   aws_iam_policy as p
-  left join star_access_policies as s on p.arn = s.arn
-where
-  -- Filter only customer managed policies
-  p.arn not like 'arn:aws:iam::aws:policy%';
+  left join star_access_policies as s on p.arn = s.arn;
