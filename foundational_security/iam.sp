@@ -25,7 +25,7 @@ control "foundational_security_iam_1" {
   title         = "1 IAM policies should not allow full '*' administrative privileges"
   description   = "This control checks whether the default version of IAM policies (also known as customer managed policies) has administrator access that includes a statement with 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'. The control only checks the customer managed policies that you create. It does not check inline and AWS managed policies."
   severity      = "high"
-  sql           = query.iam_policy_no_star_star.sql
+  sql           = query.iam_custom_policy_no_star_star.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_1.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
@@ -129,7 +129,7 @@ control "foundational_security_iam_21" {
   title         = "21 IAM customer managed policies that you create should not allow wildcard actions for services"
   description   = "This control checks whether the IAM identity-based policies that you create have Allow statements that use the * wildcard to grant permissions for all actions on any service. The control fails if any policy statement includes 'Effect': 'Allow' with 'Action': 'Service:*'."
   severity      = "low"
-  sql           = query.iam_custom_policy_no_star_star.sql
+  sql           = query.iam_custom_policy_no_service_wild_card.sql
   documentation = file("./foundational_security/docs/foundational_security_iam_21.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
