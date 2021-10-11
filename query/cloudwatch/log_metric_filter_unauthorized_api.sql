@@ -24,7 +24,7 @@ with filter_data as (
     and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
     -- As per cis recommended exact pattern order
     -- {($.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*") || ($.sourceIPAddress!="delivery.logs.amazonaws.com") || ($.eventName!="HeadBucket") }
-    and filter.filter_pattern ~ '\$\.errorCode\s*=\s*"*UnauthorizedOperation".+\$\.errorCode\s*=\s*"AccessDenied*".+\$\.sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com".+\$\.eventName\s*!=\s*"HeadBucket"'
+    and filter.filter_pattern ~ '\$\.errorCode\s*=\s*"\*UnauthorizedOperation".+\$\.errorCode\s*=\s*"AccessDenied\*".+\$\.sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com".+\$\.eventName\s*!=\s*"HeadBucket"'
     and alarm.metric_name = filter.metric_transformation_name
     and subscription.topic_arn = action_arn
 )
