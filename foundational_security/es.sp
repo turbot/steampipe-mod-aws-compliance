@@ -11,6 +11,8 @@ benchmark "foundational_security_es" {
     control.foundational_security_es_1,
     control.foundational_security_es_2,
     control.foundational_security_es_3,
+    control.foundational_security_es_4,
+    control.foundational_security_es_5,
     control.foundational_security_es_6,
     control.foundational_security_es_7,
     control.foundational_security_es_8
@@ -54,6 +56,32 @@ control "foundational_security_es_3" {
   tags = merge(local.foundational_security_es_common_tags, {
     foundational_security_item_id  = "es_3"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_es_4" {
+  title         = "4 Elasticsearch domain error logging to CloudWatch Logs should be enabled"
+  description   = "This control checks whether Elasticsearch domains are configured to send error logs to CloudWatch Logs."
+  severity      = "medium"
+  sql           = query.es_domain_error_logging_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_es_4.md")
+
+  tags = merge(local.foundational_security_es_common_tags, {
+    foundational_security_item_id  = "es_4"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_es_5" {
+  title         = "5 Elasticsearch domains should have audit logging enabled"
+  description   = "This control checks whether Elasticsearch domains have audit logging enabled. This control fails if an Elasticsearch domain does not have audit logging enabled."
+  severity      = "medium"
+  sql           = query.es_domain_audit_logging_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_es_4.md")
+
+  tags = merge(local.foundational_security_es_common_tags, {
+    foundational_security_item_id  = "es_5"
+    foundational_security_category = "logging"
   })
 }
 
