@@ -17,4 +17,4 @@ select
   region,
   account_id
 from
-  aws_new.aws_elasticsearch_domain;
+  aws_elasticsearch_domain;
