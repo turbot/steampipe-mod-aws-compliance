@@ -27,4 +27,4 @@ select
   region,
   account_id
 from
-  aws_new.aws_rds_db_instance;
+  aws_rds_db_instance;
