@@ -47,7 +47,6 @@ benchmark "cc_a_1_3" {
   documentation = file("./soc2/docs/cc_a_1_3.md")
 
   children = [
-
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {

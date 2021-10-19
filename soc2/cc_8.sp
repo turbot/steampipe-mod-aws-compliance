@@ -23,7 +23,6 @@ benchmark "cc_8_1" {
     control.config_enabled_all_regions,
     control.codebuild_project_source_repo_oauth_configured,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
-
   ]
 
   tags = merge(local.soc_2_cc_8_common_tags, {

@@ -16,7 +16,6 @@ benchmark "p_6" {
     control.p_6_5,
     control.p_6_6,
     control.p_6_7
-
   ]
 
   tags = local.soc_2_p_6_common_tags
@@ -99,5 +98,3 @@ control "p_6_7" {
     soc_2_type    = "manual"
   })
 }
-
-

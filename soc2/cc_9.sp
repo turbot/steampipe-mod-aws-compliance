@@ -12,10 +12,9 @@ benchmark "cc_9" {
     control.cc_9_1,
     control.cc_9_2,
   ]
-
+  
   tags = local.soc_2_cc_9_common_tags
 }
-
 
 control "cc_9_1" {
   title         = "CC9.1 The entity identifies, selects, and develops risk mitigation activities for risks arising from potential business disruptions"
@@ -27,7 +26,6 @@ control "cc_9_1" {
     soc_2_type    = "manual"
   })
 }
-
 
 control "cc_9_2" {
   title         = "CC9.2 The entity assesses and manages risks associated with vendors and business partners"

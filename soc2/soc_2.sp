@@ -25,6 +25,7 @@ benchmark "soc_2" {
     benchmark.p_3,
     benchmark.p_4,
     benchmark.p_5,
+    benchmark.p_6,
     benchmark.p_7,
     benchmark.p_8
   ]
