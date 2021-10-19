@@ -9,17 +9,20 @@ benchmark "cc_4" {
   description = "The criteria relevant to how the entity (i) conducts ongoing and/or separate evaluations, and (ii) evaluates and communicates deficiencies."
 
   children = [
-    control.cc_4_1,
+    benchmark.cc_4_1,
     benchmark.cc_4_2
   ]
 
   tags = local.soc_2_cc_4_common_tags
 }
 
-control "cc_4_1" {
+benchmark "cc_4_1" {
   title         = "CC4.1 COSO Principle 16: The entity selects, develops, and performs ongoing and/or separate evaluations to ascertain whether the components of internal control are present and functioning"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_4_1.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_4_common_tags, {
     soc_2_item_id = "4.1"

@@ -11,7 +11,7 @@ benchmark "cc_3" {
   children = [
     benchmark.cc_3_1,
     benchmark.cc_3_2,
-    control.cc_3_3,
+    benchmark.cc_3_3,
     benchmark.cc_3_4
   ]
 
@@ -52,10 +52,13 @@ benchmark "cc_3_2" {
   })
 }
 
-control "cc_3_3" {
+benchmark "cc_3_3" {
   title         = "CC3.3 COSO Principle 8: The entity considers the potential for fraud in assessing risks to the achievement of objectives"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_3_3.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_4_common_tags, {
     soc_2_item_id = "3.3"

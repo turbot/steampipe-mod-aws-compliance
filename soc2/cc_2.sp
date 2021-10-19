@@ -10,8 +10,8 @@ benchmark "cc_2" {
 
   children = [
     benchmark.cc_2_1,
-    control.cc_2_2,
-    control.cc_2_3,
+    benchmark.cc_2_2,
+    benchmark.cc_2_3,
   ]
 
   tags = local.soc_2_cc_2_common_tags
@@ -33,10 +33,13 @@ benchmark "cc_2_1" {
   })
 }
 
-control "cc_2_2" {
+benchmark "cc_2_2" {
   title         = "CC2.2 COSO Principle 14: The entity internally communicates information, including objectives and responsibilities for internal control, necessary to support the functioning of internal control"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_2_2.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_2_common_tags, {
     soc_2_item_id = "2.2"
@@ -44,10 +47,13 @@ control "cc_2_2" {
   })
 }
 
-control "cc_2_3" {
+benchmark "cc_2_3" {
   title         = "CC2.3 COSO Principle 15: The entity communicates with external parties regarding matters affecting the functioning of internal control"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_2_3.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_2_common_tags, {
     soc_2_item_id = "2.3"

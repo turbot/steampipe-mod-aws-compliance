@@ -12,7 +12,7 @@ benchmark "cc_6" {
     benchmark.cc_6_1,
     benchmark.cc_6_2,
     benchmark.cc_6_3,
-    control.cc_6_4,
+    benchmark.cc_6_4,
     benchmark.cc_6_5,
     benchmark.cc_6_6,
     benchmark.cc_6_7,
@@ -64,10 +64,13 @@ benchmark "cc_6_3" {
   })
 }
 
-control "cc_6_4" {
+benchmark "cc_6_4" {
   title         = "CC6.4 The entity restricts physical access to facilities and protected information assets (for example, data center facilities, back-up media storage, and other sensitive locations) to authorized personnel to meet the entity’s objectives"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_6_4.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
     soc_2_item_id = "6.4"

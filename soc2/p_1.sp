@@ -9,16 +9,19 @@ benchmark "p_1" {
   description = "This category refers to privacy criteria related to notice and communication of objectives related to privacy."
 
   children = [
-    control.p_1_1
+    benchmark.p_1_1
   ]
 
   tags = local.soc_2_p_1_common_tags
 }
 
-control "p_1_1" {
+benchmark "p_1_1" {
   title         = "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity’s objectives related to privacy. The notice is updated and communicated to data subjects in a timely manner for changes to the entity’s privacy practices, including changes in the use of personal information, to meet the entity’s objectives related to privacy"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/p_1_1.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_p_1_common_tags, {
     soc_2_item_id = "1.1"

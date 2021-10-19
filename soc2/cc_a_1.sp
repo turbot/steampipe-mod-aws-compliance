@@ -9,7 +9,7 @@ benchmark "cc_a_1" {
   description = "The availability category refers to the accessibility of information used by the entity’s systems, as well as the products or services provided to its customers."
 
   children = [
-    control.cc_a_1_1,
+    benchmark.cc_a_1_1,
     benchmark.cc_a_1_2,
     benchmark.cc_a_1_3
   ]
@@ -17,10 +17,13 @@ benchmark "cc_a_1" {
   tags = local.soc_2_cc_a_1_common_tags
 }
 
-control "cc_a_1_1" {
+benchmark "cc_a_1_1" {
   title         = "A1.1 The entity maintains, monitors, and evaluates current processing capacity and use of system components (infrastructure, data, and software) to manage capacity demand and to enable the implementation of additional capacity to help meet its objectives"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_a_1_1.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {
     soc_2_item_id = "a1.1"

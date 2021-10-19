@@ -13,7 +13,7 @@ benchmark "cc_7" {
     benchmark.cc_7_2,
     benchmark.cc_7_3,
     benchmark.cc_7_4,
-    control.cc_7_5
+    benchmark.cc_7_5
   ]
 
   tags = local.soc_2_cc_7_common_tags
@@ -125,10 +125,13 @@ benchmark "cc_7_4" {
   })
 }
 
-control "cc_7_5" {
+benchmark "cc_7_5" {
   title         = "CC7.5 The entity identifies, develops, and implements activities to recover from identified security incidents"
-  sql           = query.manual_control.sql
   documentation = file("./soc2/docs/cc_7_5.md")
+
+  children = [
+    control.manual_control
+  ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
     soc_2_item_id = "7.5"
