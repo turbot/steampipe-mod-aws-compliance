@@ -45,9 +45,10 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
-    nist_800_53_rev_4   = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

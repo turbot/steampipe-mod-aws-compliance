@@ -12,6 +12,7 @@ control "lambda_function_dead_letter_queue_configured" {
   tags = merge(local.conformance_pack_lambda_common_tags, {
     hipaa    = "true"
     nist_csf = "true"
+    soc_2    = "true"
   })
 }
 

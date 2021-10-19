@@ -14,6 +14,7 @@ Includes support for:
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security)
+* [SOC2 ](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.soc_2)
 
 ## Quick start
 

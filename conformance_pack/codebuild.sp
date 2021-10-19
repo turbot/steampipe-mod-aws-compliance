@@ -13,6 +13,7 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -25,5 +26,6 @@ control "codebuild_project_source_repo_oauth_configured" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }

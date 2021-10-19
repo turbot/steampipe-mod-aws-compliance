@@ -13,6 +13,7 @@ control "cloudwatch_alarm_action_enabled" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -27,6 +28,7 @@ control "log_group_encryption_at_rest_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

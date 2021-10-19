@@ -25,6 +25,7 @@ control "iam_group_not_empty" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -39,6 +40,7 @@ control "iam_policy_no_star_star" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -131,6 +133,7 @@ control "iam_user_no_inline_attached_policies" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -144,6 +147,7 @@ control "iam_user_unused_credentials_90" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 

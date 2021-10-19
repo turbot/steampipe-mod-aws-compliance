@@ -53,6 +53,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -123,5 +124,6 @@ control "rds_db_instance_deletion_protection_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_53_rev_4 = "true"
+    soc_2             = "true"
   })
 }

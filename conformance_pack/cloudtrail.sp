@@ -15,6 +15,7 @@ control "cloudtrail_trail_integrated_with_logs" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -29,6 +30,7 @@ control "cloudtrail_s3_data_events_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -68,6 +70,7 @@ control "cloudtrail_trail_validation_enabled" {
     gdpr              = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    soc_2             = "true"
   })
 }
 
@@ -92,6 +95,7 @@ control "cloudtrail_security_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     gdpr              = "true"
     nist_800_53_rev_4 = "true"
+    soc_2             = "true"
   })
 }
 
