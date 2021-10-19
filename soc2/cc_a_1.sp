@@ -33,7 +33,23 @@ benchmark "cc_a_1_2" {
   documentation = file("./soc2/docs/cc_a_1_2.md")
 
   children = [
-    control.s3_bucket_versioning_enabled
+    control.s3_bucket_versioning_enabled,
+    control.efs_file_system_in_backup_plan,
+    control.rds_db_instance_in_backup_plan,
+    control.apigateway_stage_logging_enabled,
+    control.dynamodb_table_in_backup_plan,
+    control.cloudtrail_multi_region_trail_enabled,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.ebs_volume_in_backup_plan,
+    control.rds_db_instance_logging_enabled,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.ec2_instance_ebs_optimized,
+    control.wafv2_web_acl_logging_enabled,
+    control.elb_application_classic_lb_logging_enabled,
+    control.cloudtrail_trail_enabled,
+    control.rds_db_instance_backup_enabled,
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {

@@ -14,6 +14,7 @@ control "rds_db_instance_backup_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -92,6 +93,7 @@ control "rds_db_instance_logging_enabled" {
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -104,6 +106,7 @@ control "rds_db_instance_in_backup_plan" {
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

@@ -29,6 +29,7 @@ control "redshift_cluster_encryption_logging_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

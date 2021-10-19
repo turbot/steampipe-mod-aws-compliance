@@ -26,5 +26,6 @@ control "efs_file_system_in_backup_plan" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }

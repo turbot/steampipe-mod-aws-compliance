@@ -22,9 +22,9 @@ benchmark "cc_2_1" {
   documentation = file("./soc2/docs/cc_2_1.md")
 
   children = [
-    control.config_enabled_all_regions,
     control.cloudtrail_s3_data_events_enabled,
-    control.cloudtrail_security_trail_enabled
+    control.cloudtrail_security_trail_enabled,
+    control.config_enabled_all_regions,
   ]
 
   tags = merge(local.soc_2_cc_2_common_tags, {

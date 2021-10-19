@@ -22,6 +22,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -70,6 +71,7 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf = "true"
+    soc_2    = "true"
   })
 }
 

@@ -40,6 +40,7 @@ control "cloudwatch_log_group_retention_period_365" {
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

@@ -44,7 +44,22 @@ benchmark "cc_7_2" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.cloudtrail_s3_data_events_enabled,
-    control.lambda_function_dead_letter_queue_configured
+    control.lambda_function_dead_letter_queue_configured,
+    control.elb_application_classic_lb_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.rds_db_instance_logging_enabled,
+    control.wafv2_web_acl_logging_enabled,
+    control.cloudtrail_trail_enabled,
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.securityhub_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.cloudtrail_multi_region_trail_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.vpc_flow_logs_enabled,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.guardduty_enabled,
+    control.apigateway_stage_logging_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -59,7 +74,20 @@ benchmark "cc_7_3" {
 
   children = [
     control.log_group_encryption_at_rest_enabled,
-    control.cloudtrail_trail_validation_enabled
+    control.cloudtrail_trail_validation_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.guardduty_enabled,
+    control.apigateway_stage_logging_enabled,
+    control.lambda_function_dead_letter_queue_configured,
+    control.rds_db_instance_logging_enabled,
+    control.securityhub_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.elb_application_classic_lb_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.vpc_flow_logs_enabled,
+    control.guardduty_finding_archived,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -75,6 +103,20 @@ benchmark "cc_7_4" {
   children = [
     control.guardduty_enabled,
     control.securityhub_enabled,
+    control.dynamodb_table_in_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.lambda_function_dead_letter_queue_configured,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_finding_archived,
+    control.ebs_volume_in_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.ec2_instance_ebs_optimized,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_cross_region_replication_enabled
+
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
