@@ -18,7 +18,7 @@ benchmark "cc_a_1" {
 }
 
 benchmark "cc_a_1_1" {
-  title         = "A1.1 The entity maintains, monitors, and evaluates current processing capacity and use of system components (infrastructure, data, and software) to manage capacity demand and to enable the implementation of additional capacity to help meet its objectives"
+  title         = "A1.1 The entity manages current processing capacity and use of system components to manage capacity demand and to enable the implementation of additional capacity to help meet its objectives"
   documentation = file("./soc2/docs/cc_a_1_1.md")
 
   children = [
@@ -32,7 +32,7 @@ benchmark "cc_a_1_1" {
 }
 
 benchmark "cc_a_1_2" {
-  title       = "A1.2 The entity authorizes, designs, develops or acquires, implements, operates, approves, maintains, and monitors environmental protections, software, data back-up processes, and recovery infrastructure to meet its objectives"
+  title       = "A1.2 The entity manages and monitors environmental protections, software, data back-up processes, and recovery infrastructure to meet its objectives"
   documentation = file("./soc2/docs/cc_a_1_2.md")
 
   children = [

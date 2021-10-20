@@ -17,8 +17,9 @@ benchmark "cc_4" {
 }
 
 benchmark "cc_4_1" {
-  title         = "CC4.1 COSO Principle 16: The entity selects, develops, and performs ongoing and/or separate evaluations to ascertain whether the components of internal control are present and functioning"
-  documentation = file("./soc2/docs/cc_4_1.md")
+  title         = "CC4.1 COSO Principle 16"
+  description   = "The entity selects, develops, and performs ongoing and/or separate evaluations to ascertain whether the components of internal control are present and functioning."
+  # documentation = file("./soc2/docs/cc_4_1.md")
 
   children = [
     control.manual_control
@@ -31,8 +32,9 @@ benchmark "cc_4_1" {
 }
 
 benchmark "cc_4_2" {
-  title         = "CC4.2 COSO Principle 17: The entity evaluates and communicates internal control deficiencies in a timely manner to those parties responsible for taking corrective action, including senior management and the board of directors, as appropriate"
-  documentation = file("./soc2/docs/cc_4_2.md")
+  title         = "CC4.2 COSO Principle 17"
+  description   = "The entity evaluates and communicates internal control deficiencies in a timely manner to those parties responsible for taking corrective action, including senior management and the board of directors, as appropriate."
+  # documentation = file("./soc2/docs/cc_4_2.md")
 
   children = [
     control.guardduty_enabled,

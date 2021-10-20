@@ -16,7 +16,7 @@ benchmark "cc_8" {
 }
 
 benchmark "cc_8_1" {
-  title         = "CC8.1 The entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures to meet its objectives"
+  title         = "CC8.1 The entity manages and implements changes to infrastructure, data, software, and procedures to meet its objectives"
   documentation = file("./soc2/docs/cc_8_1.md")
 
   children = [

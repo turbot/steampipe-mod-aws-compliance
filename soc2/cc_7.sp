@@ -20,7 +20,7 @@ benchmark "cc_7" {
 }
 
 benchmark "cc_7_1" {
-  title         = "CC7.1 To meet its objectives, the entity uses detection and monitoring procedures to identify (1) changes to configurations that result in the introduction of new vulnerabilities, and (2) susceptibilities to newly discovered vulnerabilities"
+  title         = "CC7.1 To meet its objectives, the entity uses detection and monitoring procedures to identify changes to configurations and susceptibilities that result in vulnerabilities"
   documentation = file("./soc2/docs/cc_7_1.md")
 
   children = [
@@ -37,7 +37,7 @@ benchmark "cc_7_1" {
 }
 
 benchmark "cc_7_2" {
-  title         = "CC7.2 The entity monitors system components and the operation of those components for anomalies that are indicative of malicious acts, natural disasters, and errors affecting the entity's ability to meet its objectives; anomalies are analyzed to determine whether they represent security events"
+  title         = "CC7.2 The entity monitors system components and the operation of those components for anomalies that are indicative of malicious acts, natural disasters, and errors affecting the entity's ability to meet its objectives"
   documentation = file("./soc2/docs/cc_7_2.md")
 
   children = [
@@ -69,7 +69,7 @@ benchmark "cc_7_2" {
 }
 
 benchmark "cc_7_3" {
-  title         = "CC7.3 The entity evaluates security events to determine whether they could or have resulted in a failure of the entity to meet its objectives (security incidents) and, if so, takes actions to prevent or address such failures"
+  title         = "CC7.3 The entity evaluates security events to determine whether they could or have resulted in a failure of the entity to meet its objectives"
   documentation = file("./soc2/docs/cc_7_3.md")
 
   children = [
