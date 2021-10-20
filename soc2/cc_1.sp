@@ -58,6 +58,7 @@ benchmark "cc_1_3" {
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
+    control.rds_db_instance_iam_authentication_enabled
   ]
 
   tags = merge(local.soc_2_cc_1_common_tags, {
