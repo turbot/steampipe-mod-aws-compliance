@@ -130,3 +130,13 @@ control "rds_db_instance_deletion_protection_enabled" {
     soc_2             = "true"
   })
 }
+
+control "rds_db_instance_iam_authentication_enabled" {
+  title       = "RDS DB instances should have iam authentication enabled"
+  description = "Checks if an Amazon Relational Database Service (Amazon RDS) instance has AWS Identity and Access Management (IAM) authentication enabled."
+  sql         = query.rds_db_instance_iam_authentication_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    soc_2  = "true"
+  })
+}
