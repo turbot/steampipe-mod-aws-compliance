@@ -53,6 +53,8 @@ benchmark "soc_2_cc_a_1_2" {
     control.elb_application_classic_lb_logging_enabled,
     control.cloudtrail_trail_enabled,
     control.rds_db_instance_backup_enabled,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.fsx_file_system_in_backup_plan
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {
