@@ -60,7 +60,8 @@ benchmark "soc_2_cc_7_2" {
     control.codebuild_project_source_repo_oauth_configured,
     control.guardduty_enabled,
     control.apigateway_stage_logging_enabled,
-    control.lambda_function_concurrent_execution_limit_configured
+    control.lambda_function_concurrent_execution_limit_configured,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -117,8 +118,9 @@ benchmark "soc_2_cc_7_4" {
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.s3_bucket_versioning_enabled,
     control.s3_bucket_cross_region_replication_enabled,
-    control.fsx_file_system_in_backup_plan,
-    control.redshift_cluster_automatic_snapshots_min_7_days
+    control.fsx_file_system_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.rds_db_cluster_aurora_protected_by_backup_plan
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {

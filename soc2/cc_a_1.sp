@@ -54,7 +54,8 @@ benchmark "soc_2_cc_a_1_2" {
     control.cloudtrail_trail_enabled,
     control.rds_db_instance_backup_enabled,
     control.redshift_cluster_automatic_snapshots_min_7_days,
-    control.fsx_file_system_in_backup_plan
+    control.fsx_file_system_protected_by_backup_plan,
+    control.rds_db_cluster_aurora_protected_by_backup_plan
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {
