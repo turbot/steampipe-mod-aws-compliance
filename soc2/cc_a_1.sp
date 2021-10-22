@@ -36,26 +36,27 @@ benchmark "soc_2_cc_a_1_2" {
   documentation = file("./soc2/docs/cc_a_1_2.md")
 
   children = [
-    control.s3_bucket_versioning_enabled,
-    control.efs_file_system_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
     control.apigateway_stage_logging_enabled,
-    control.dynamodb_table_in_backup_plan,
+    control.backup_recovery_point_manual_deletion_disabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.dynamodb_table_point_in_time_recovery_enabled,
-    control.s3_bucket_cross_region_replication_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.ebs_volume_in_backup_plan,
-    control.rds_db_instance_logging_enabled,
-    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
-    control.ec2_instance_ebs_optimized,
-    control.wafv2_web_acl_logging_enabled,
-    control.elb_application_classic_lb_logging_enabled,
     control.cloudtrail_trail_enabled,
-    control.rds_db_instance_backup_enabled,
-    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.ebs_volume_in_backup_plan,
+    control.ec2_instance_ebs_optimized,
+    control.efs_file_system_in_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.elb_application_classic_lb_logging_enabled,
     control.fsx_file_system_protected_by_backup_plan,
-    control.rds_db_cluster_aurora_protected_by_backup_plan
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled,
+    control.wafv2_web_acl_logging_enabled,
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {
