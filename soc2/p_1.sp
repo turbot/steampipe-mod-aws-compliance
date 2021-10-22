@@ -4,19 +4,19 @@ locals {
   })
 }
 
-benchmark "p_1" {
+benchmark "soc_2_p_1" {
   title       = "P1.0 - Privacy Criteria Related to Notice and Communication of Objectives Related to Privacy"
   description = "This category refers to privacy criteria related to notice and communication of objectives related to privacy."
 
   children = [
-    benchmark.p_1_1
+    benchmark.soc_2_p_1_1
   ]
 
   tags = local.soc_2_p_1_common_tags
 }
 
-benchmark "p_1_1" {
-  title         = "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity’s objectives related to privacy"
+benchmark "soc_2_p_1_1" {
+  title         = "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity’s objectives related to privacy. The notice is updated and communicated to data subjects in a timely manner for changes to the entity’s privacy practices, including changes in the use of personal information, to meet the entity’s objectives related to privacy"
   documentation = file("./soc2/docs/p_1_1.md")
 
   children = [
