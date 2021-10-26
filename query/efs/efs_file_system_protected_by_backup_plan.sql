@@ -1,10 +1,10 @@
-with backup_protected_fsx_file_system as (
+with backup_protected_file_system as (
   select
     resource_arn as arn
   from
     aws_backup_protected_resource as b
   where
-    resource_type = 'FSx'
+    resource_type = 'EFS'
 )
 select
   -- Required Columns
@@ -21,5 +21,5 @@ select
   f.region,
   f.account_id
 from
-  aws_fsx_file_system as f
-  left join backup_protected_fsx_file_system as b on f.arn = b.arn;
+  aws_efs_file_system as f
+  left join backup_protected_file_system as b on f.arn = b.arn;

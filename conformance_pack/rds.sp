@@ -150,3 +150,13 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     soc_2  = "true"
   })
 }
+
+control "rds_db_instance_protected_by_backup_plan" {
+  title       = "RDS DB instance should be protected by backup plan"
+  description = "Ensure if Amazon Relational Database Service (Amazon RDS) instances are protected by a backup plan. The rule is non complaint if the Amazon RDS Database instance is not covered by a backup plan."
+  sql         = query.rds_db_instance_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    soc_2  = "true"
+  })
+}
