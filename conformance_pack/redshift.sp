@@ -29,6 +29,7 @@ control "redshift_cluster_encryption_logging_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -51,6 +52,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   sql         = query.redshift_cluster_automatic_snapshots_min_7_days.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    sco_2 = "true"
   })
 }

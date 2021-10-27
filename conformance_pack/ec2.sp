@@ -22,6 +22,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -45,9 +46,10 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     hipaa              = "true"
-    nist_800_53_rev_4   = "true"
+    nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -69,6 +71,7 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf = "true"
+    soc_2    = "true"
   })
 }
 
@@ -79,5 +82,15 @@ control "ec2_instance_uses_imdsv2" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_800_53_rev_4 = "true"
+  })
+}
+
+control "ec2_instance_protected_by_backup_plan" {
+  title       = "EC2 instances should be protected by backup plan"
+  description = "Ensure if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is non complaint if the Amazon EC2 instance is not covered by a backup plan."
+  sql         = query.ec2_instance_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    soc_2 = "true"
   })
 }

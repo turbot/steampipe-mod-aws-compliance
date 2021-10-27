@@ -26,5 +26,16 @@ control "efs_file_system_in_backup_plan" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
+  })
+}
+
+control "efs_file_system_protected_by_backup_plan" {
+  title       = "EFS file systems should be protected by backup plan"
+  description = "Ensure if Amazon Elastic File System (Amazon EFS) File Systems are protected by a backup plan. The rule is non complaint if the EFS File System is not covered by a backup plan."
+  sql         = query.efs_file_system_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    soc_2 = "true"
   })
 }

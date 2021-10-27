@@ -15,6 +15,7 @@ control "vpc_flow_logs_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -67,6 +68,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

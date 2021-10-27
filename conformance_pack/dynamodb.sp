@@ -25,6 +25,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -48,6 +49,7 @@ control "dynamodb_table_in_backup_plan" {
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -58,5 +60,15 @@ control "dynamodb_table_encryption_enabled" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     gdpr = "true"
+  })
+}
+
+control "dynamodb_table_protected_by_backup_plan" {
+  title       = "DynamoDB table should be protected by backup plan"
+  description = "Ensure if Amazon DynamoDB tables are protected by a backup plan. The rule is non complaint if the DynamoDB Table is not covered by a backup plan."
+  sql         = query.dynamodb_table_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    soc_2 = "true"
   })
 }
