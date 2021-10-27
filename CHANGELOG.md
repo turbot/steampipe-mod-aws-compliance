@@ -1,3 +1,9 @@
+## v0.17 [2021-10-27]
+
+_What's new?_
+
+- Added: System and Organization Controls (SOC 2) benchmark (`steampipe check aws_compliance.benchmark.soc_2`) 
+
 ## v0.16 [2021-10-12]
 
 _What's new?_
