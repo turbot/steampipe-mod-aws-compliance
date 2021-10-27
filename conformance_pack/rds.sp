@@ -142,7 +142,7 @@ control "rds_db_instance_iam_authentication_enabled" {
 }
 
 control "rds_db_cluster_aurora_protected_by_backup_plan" {
-  title       = "RDS aurora clusters should be protected by backup plan"
+  title       = "RDS Aurora clusters should be protected by backup plan"
   description = "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is non complaint if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan."
   sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
 
