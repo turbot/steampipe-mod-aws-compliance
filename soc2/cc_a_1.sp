@@ -63,7 +63,7 @@ benchmark "soc_2_cc_a_1_2" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {
