@@ -26,7 +26,7 @@ Run individual configuration, compliance and security controls or full complianc
 
 [RBI Cyber Security Framework](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11397) provides a cyber security framework for Urban Cooperative Banks (UCB) in India.
 
-[SOC2 ](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html) provides an auditing procedure that ensures a company's data is securely managed.
+[SOC 2](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html) provides an auditing procedure that ensures a company's data is securely managed.
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
