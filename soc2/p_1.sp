@@ -16,7 +16,7 @@ benchmark "soc_2_p_1" {
 }
 
 benchmark "soc_2_p_1_1" {
-  title         = "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity’s objectives related to privacy. The notice is updated and communicated to data subjects in a timely manner for changes to the entity’s privacy practices, including changes in the use of personal information, to meet the entity’s objectives related to privacy"
+  title         = "P1.1 The entity provides notice to data subjects about its privacy practices to meet the entity’s objectives related to privacy"
   documentation = file("./soc2/docs/p_1_1.md")
 
   children = [

@@ -37,7 +37,7 @@ benchmark "soc_2_cc_6_1" {
 }
 
 benchmark "soc_2_cc_6_2" {
-  title         = "CC6.2 Prior to issuing system credentials and granting system access, the entity registers and authorizes new internal and external users whose access is administered by the entity. For those users whose access is administered by the entity, user system credentials are removed when user access is no longer authorized"
+  title         = "CC6.2 Prior to issuing system credentials and granting system access, the entity registers and authorizes new internal and external users whose access is administered by the entity"
   documentation = file("./soc2/docs/cc_6_2.md")
 
   children = [
@@ -65,7 +65,7 @@ benchmark "soc_2_cc_6_3" {
 }
 
 benchmark "soc_2_cc_6_4" {
-  title         = "CC6.4 The entity restricts physical access to facilities and protected information assets (for example, data center facilities, back-up media storage, and other sensitive locations) to authorized personnel to meet the entity’s objectives"
+  title         = "CC6.4 The entity restricts physical access to facilities and protected information assets to authorized personnel to meet the entity’s objectives"
   documentation = file("./soc2/docs/cc_6_4.md")
 
   children = [
@@ -83,7 +83,7 @@ benchmark "soc_2_cc_6_5" {
   documentation = file("./soc2/docs/cc_6_5.md")
 
   children = [
-   // control.
+    control.manual_control
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
