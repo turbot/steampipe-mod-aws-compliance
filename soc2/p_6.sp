@@ -65,7 +65,7 @@ benchmark "soc_2_p_6_3" {
 }
 
 benchmark "soc_2_p_6_4" {
-  title         = "P6.4 The entity obtains privacy commitments from vendors and other third parties who have access to personal information to meet the entity’s objectives related to privacy. The entity assesses those parties’ compliance on a periodic and as-needed basis and takes corrective action, if necessary"
+  title         = "P6.4 The entity obtains privacy commitments from vendors and other third parties who have access to personal information to meet the entity’s objectives related to privacy"
   documentation = file("./soc2/docs/p_6_4.md")
 
   children = [
@@ -79,7 +79,7 @@ benchmark "soc_2_p_6_4" {
 }
 
 benchmark "soc_2_p_6_5" {
-  title         = "P6.5 The entity obtains commitments from vendors and other third parties with access to personal information to notify the entity in the event of actual or suspected unauthorized disclosures of personal information. Such notifications are reported to appropriate personnel and acted on in accordance with established incident response procedures to meet the entity’s objectives related to privacy"
+  title         = "P6.5 The entity obtains commitments from vendors and other third parties with access to personal information to notify the entity in the event of actual or suspected unauthorized disclosures of personal information"
   documentation = file("./soc2/docs/p_6_5.md")
 
   children = [

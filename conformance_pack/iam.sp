@@ -160,6 +160,7 @@ control "iam_user_in_group" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
 
@@ -171,6 +172,7 @@ control "iam_group_user_role_no_inline_policies" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

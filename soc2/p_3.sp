@@ -6,7 +6,7 @@ locals {
 
 benchmark "soc_2_p_3" {
   title       = "P3.0 - Privacy Criteria Related to Collection"
-  description = "This category refers to privacy criteria related to collection. All confidential information and personally identifiable material should be entirely secure, from the point of collection to when it is used, disclosed, and eventually disposed of"
+  description = "This category refers to privacy criteria related to collection. All confidential information and personally identifiable material should be entirely secure, from the point of collection to when it is used, disclosed, and eventually disposed of."
 
   children = [
     benchmark.soc_2_p_3_1,

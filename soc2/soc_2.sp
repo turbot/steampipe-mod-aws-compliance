@@ -1,7 +1,7 @@
 locals {
   soc_2_common_tags = {
-    soc_2 = "true"
-    plugin             = "aws"
+    soc_2  = "true"
+    plugin = "aws"
   }
 }
 
