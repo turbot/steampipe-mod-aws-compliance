@@ -10,6 +10,7 @@ control "config_enabled_all_regions" {
   sql         = query.config_enabled_all_regions.sql
 
   tags = merge(local.conformance_pack_config_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    soc_2 = "true"
   })
 }

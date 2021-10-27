@@ -14,6 +14,7 @@ control "rds_db_instance_backup_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -53,6 +54,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -91,6 +93,7 @@ control "rds_db_instance_logging_enabled" {
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -103,6 +106,7 @@ control "rds_db_instance_in_backup_plan" {
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -123,5 +127,36 @@ control "rds_db_instance_deletion_protection_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_53_rev_4 = "true"
+    soc_2             = "true"
+  })
+}
+
+control "rds_db_instance_iam_authentication_enabled" {
+  title       = "RDS DB instances should have iam authentication enabled"
+  description = "Checks if an Amazon Relational Database Service (Amazon RDS) instance has AWS Identity and Access Management (IAM) authentication enabled."
+  sql         = query.rds_db_instance_iam_authentication_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    soc_2  = "true"
+  })
+}
+
+control "rds_db_cluster_aurora_protected_by_backup_plan" {
+  title       = "RDS Aurora clusters should be protected by backup plan"
+  description = "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is non complaint if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan."
+  sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    soc_2  = "true"
+  })
+}
+
+control "rds_db_instance_protected_by_backup_plan" {
+  title       = "RDS DB instance should be protected by backup plan"
+  description = "Ensure if Amazon Relational Database Service (Amazon RDS) instances are protected by a backup plan. The rule is non complaint if the Amazon RDS Database instance is not covered by a backup plan."
+  sql         = query.rds_db_instance_protected_by_backup_plan.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    soc_2  = "true"
   })
 }

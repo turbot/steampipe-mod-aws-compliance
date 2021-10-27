@@ -14,6 +14,7 @@ control "s3_bucket_cross_region_replication_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -55,6 +56,7 @@ control "s3_bucket_logging_enabled" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -66,6 +68,7 @@ control "s3_bucket_object_lock_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa    = "true"
     nist_csf = "true"
+    soc_2    = "true"
   })
 }
 
@@ -79,6 +82,7 @@ control "s3_bucket_restrict_public_read_access" {
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -104,6 +108,7 @@ control "s3_bucket_versioning_enabled" {
     hipaa              = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 

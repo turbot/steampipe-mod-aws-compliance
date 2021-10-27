@@ -13,5 +13,6 @@ control "securityhub_enabled" {
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
+    soc_2             = "true"
   })
 }
