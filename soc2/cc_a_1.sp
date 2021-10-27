@@ -38,6 +38,7 @@ benchmark "soc_2_cc_a_1_2" {
   children = [
     control.apigateway_stage_logging_enabled,
     control.backup_plan_min_retention_35_days,
+    control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_trail_enabled,
@@ -62,7 +63,7 @@ benchmark "soc_2_cc_a_1_2" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.wafv2_web_acl_logging_enabled
+    control.wafv2_web_acl_logging_enabled,
   ]
 
   tags = merge(local.soc_2_cc_a_1_common_tags, {

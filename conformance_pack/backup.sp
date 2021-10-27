@@ -23,3 +23,13 @@ control "backup_plan_min_retention_35_days" {
     soc_2 = "true"
   })
 }
+
+control "backup_recovery_point_encryption_enabled" {
+  title       = "Backup recovery point should be encrypted"
+  description = "Ensure if a recovery point is encrypted. The rule is non complaint if the recovery point is not encrypted."
+  sql         = query.backup_recovery_point_encryption_enabled.sql
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    soc_2 = "true"
+  })
+}

@@ -104,6 +104,7 @@ benchmark "soc_2_cc_7_4" {
 
   children = [
     control.backup_plan_min_retention_35_days,
+    control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
     control.cloudwatch_alarm_action_enabled,
     control.dynamodb_table_in_backup_plan,
@@ -127,7 +128,7 @@ benchmark "soc_2_cc_7_4" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.securityhub_enabled
+    control.securityhub_enabled,
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
