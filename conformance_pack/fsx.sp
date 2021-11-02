@@ -9,6 +9,7 @@ control "fsx_file_system_protected_by_backup_plan" {
   sql         = query.fsx_file_system_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_fsx_common_tags, {
+    hipaa = "true"
     soc_2 = "true"
   })
 }

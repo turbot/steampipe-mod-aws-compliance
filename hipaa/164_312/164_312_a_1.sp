@@ -22,6 +22,16 @@ benchmark "hipaa_164_312_a_1" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ec2_instance_uses_imdsv2,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_unused_credentials_90,
+    control.iam_custom_policy_no_service_wild_card,
+    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = merge(local.hipaa_common_tags, {

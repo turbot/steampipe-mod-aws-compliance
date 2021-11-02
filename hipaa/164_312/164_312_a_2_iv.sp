@@ -15,10 +15,16 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
-    control.s3_bucket_enforces_ssl,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
+    control.s3_bucket_default_encryption_enabled_kms,
+    control.dax_cluster_encryption_at_rest_enabled,
+    control.dynamodb_table_encryption_enabled,
+    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.kms_cmk_rotation_enabled,
+    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
+    control.kms_key_decryption_restricted_in_iam_inline_policy
   ]
 
   tags = merge(local.hipaa_common_tags, {

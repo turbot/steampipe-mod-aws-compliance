@@ -114,3 +114,13 @@ control "vpc_security_group_associated_to_eni" {
     nist_csf = "true"
   })
 }
+
+control "vpc_subnet_auto_assign_public_ip_disabled" {
+  title       = "VPC subnet auto assign public ip should be disabled"
+  description = "Ensures if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The rule is COMPLIANT if Amazon VPC does not have subnets that are assigned a public IP address. The rule is NON_COMPLIANT if Amazon VPC has subnets that are assigned a public IP address."
+  sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    hipaa = "true"
+  })
+}
