@@ -1,6 +1,6 @@
 benchmark "hipaa_164_308_a_3_ii_a" {
   title       = "164.308(a)(3)(ii)(A) Authorization and/or supervision"
-  description = "IImplement procedures for the authorization and/or supervision of workforce members who work with electronic protected health information or in locations where it might be accessed."
+  description = "Implement procedures for the authorization and/or supervision of workforce members who work with electronic protected health information or in locations where it might be accessed."
   children = [
     control.elb_application_classic_lb_logging_enabled,
     control.apigateway_stage_logging_enabled,
