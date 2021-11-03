@@ -5,7 +5,7 @@ benchmark "hipaa_164_312_a_2_i" {
     control.iam_root_user_no_access_keys
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_a_2_i"
   })
 }

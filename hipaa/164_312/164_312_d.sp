@@ -9,7 +9,7 @@ benchmark "hipaa_164_312_d" {
     control.iam_user_mfa_enabled,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_d"
   })
 }

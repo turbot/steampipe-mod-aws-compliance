@@ -12,10 +12,10 @@ benchmark "hipaa_164_312_e_2_i" {
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
     control.s3_bucket_logging_enabled,
-    control.securityhub_enabled
+    control.securityhub_enabled,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_e_2_i"
   })
 }

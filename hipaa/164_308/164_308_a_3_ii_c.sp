@@ -5,7 +5,7 @@ benchmark "hipaa_164_308_a_3_ii_c" {
     control.iam_user_access_key_age_90
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_3_ii_c"
   })
 }

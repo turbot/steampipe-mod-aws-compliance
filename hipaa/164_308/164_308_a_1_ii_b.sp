@@ -59,7 +59,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.vpc_vpn_tunnel_up
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_1_ii_b"
   })
 }

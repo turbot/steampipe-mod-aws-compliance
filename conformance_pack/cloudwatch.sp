@@ -38,6 +38,7 @@ control "cloudwatch_log_group_retention_period_365" {
   sql         = query.cloudwatch_log_group_retention_period_365.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -70,7 +71,8 @@ control "log_metric_filter_root_login" {
   sql         = query.log_metric_filter_root_login.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr = "true"
+    gdpr =  "true"
+    hipaa = "true"
   })
 }
 
@@ -170,7 +172,8 @@ control "log_metric_filter_console_authentication_failure" {
   sql         = query.log_metric_filter_console_authentication_failure.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 

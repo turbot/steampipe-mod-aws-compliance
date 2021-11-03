@@ -12,10 +12,12 @@ benchmark "hipaa_164_308_a_6_ii" {
     control.guardduty_finding_archived,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
-    control.vpc_flow_logs_enabled
+    control.vpc_flow_logs_enabled,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_root_login,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_6_ii"
   })
 }

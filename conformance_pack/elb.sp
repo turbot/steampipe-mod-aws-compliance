@@ -75,6 +75,7 @@ control "elb_application_lb_drop_http_headers" {
   sql         = query.elb_application_lb_drop_http_headers.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    hipaa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
@@ -87,6 +88,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
   sql         = query.elb_classic_lb_use_tls_https_listeners.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    hipaa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"

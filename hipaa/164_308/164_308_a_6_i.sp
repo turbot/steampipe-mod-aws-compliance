@@ -5,10 +5,12 @@ benchmark "hipaa_164_308_a_6_i" {
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
     control.lambda_function_dead_letter_queue_configured,
-    control.securityhub_enabled
+    control.securityhub_enabled,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_root_login
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_6_i"
   })
 }

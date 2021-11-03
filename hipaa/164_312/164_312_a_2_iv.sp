@@ -24,10 +24,11 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.dynamodb_table_encrypted_with_kms_cmk,
     control.kms_cmk_rotation_enabled,
     control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
-    control.kms_key_decryption_restricted_in_iam_inline_policy
+    control.kms_key_decryption_restricted_in_iam_inline_policy,
+    control.s3_bucket_enforces_ssl,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_a_2_iv"
   })
 }

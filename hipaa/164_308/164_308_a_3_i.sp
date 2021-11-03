@@ -20,11 +20,12 @@ benchmark "hipaa_164_308_a_3_i" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
-    control.sagemaker_notebook_instance_direct_internet_access_disabled
+    control.s3_public_access_block_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_3_i"
   })
 }

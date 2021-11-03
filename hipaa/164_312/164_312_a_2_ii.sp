@@ -25,7 +25,7 @@ benchmark "hipaa_164_312_a_2_ii" {
     control.efs_file_system_protected_by_backup_plan,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_a_2_ii"
   })
 }

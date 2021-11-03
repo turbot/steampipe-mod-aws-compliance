@@ -35,6 +35,7 @@ control "ebs_attached_volume_encryption_enabled" {
   sql         = query.ebs_attached_volume_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    hipaa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

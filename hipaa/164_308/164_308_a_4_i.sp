@@ -8,7 +8,7 @@ benchmark "hipaa_164_308_a_4_i" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_4_i"
   })
 }

@@ -1,3 +1,9 @@
+locals {
+  hipaa_164_312_common_tags = merge(local.hipaa_common_tags, {
+    hipaa_section = "164_312"
+  })
+}
+
 benchmark "hipaa_164_312" {
   title       = "164.312 Technical Safeguards"
   description = "The Security Rule defines technical safeguards in § 164.304 as `the technology and the policy and procedures for its use that protect electronic protected health information and control access to it.`"
@@ -16,7 +22,5 @@ benchmark "hipaa_164_312" {
     benchmark.hipaa_164_312_e_2_ii
   ]
 
-  tags = merge(local.hipaa_common_tags, {
-    hipaa_item_id = "hipaa_164_312"
-  })
+  tags = local.hipaa_164_312_common_tags
 }

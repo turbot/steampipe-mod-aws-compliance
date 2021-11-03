@@ -10,7 +10,7 @@ benchmark "hipaa_164_308_a_3_ii_b" {
     control.iam_user_unused_credentials_90,
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_3_ii_b"
   })
 }

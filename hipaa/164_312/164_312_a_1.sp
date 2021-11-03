@@ -34,7 +34,7 @@ benchmark "hipaa_164_312_a_1" {
     control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_a_1"
   })
 }
