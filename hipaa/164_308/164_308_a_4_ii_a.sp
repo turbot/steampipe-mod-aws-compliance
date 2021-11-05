@@ -13,6 +13,7 @@ benchmark "hipaa_164_308_a_4_ii_a" {
     control.ebs_volume_encryption_at_rest_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,
+    control.eks_cluster_secrets_encrypted,
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
@@ -20,6 +21,7 @@ benchmark "hipaa_164_308_a_4_ii_a" {
     control.es_domain_encryption_at_rest_enabled,
     control.es_domain_node_to_node_encryption_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_logging_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
@@ -31,7 +33,7 @@ benchmark "hipaa_164_308_a_4_ii_a" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.hipaa_164_308_common_tags, {

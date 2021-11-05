@@ -7,8 +7,8 @@ benchmark "hipaa_164_312_c_1" {
     control.ebs_attached_volume_encryption_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
-    control.s3_bucket_versioning_enabled,
     control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = merge(local.hipaa_164_312_common_tags, {

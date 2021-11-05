@@ -10,11 +10,11 @@ benchmark "hipaa_164_308_a_6_ii" {
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.s3_bucket_logging_enabled,
-    control.securityhub_enabled,
-    control.vpc_flow_logs_enabled,
     control.log_metric_filter_console_authentication_failure,
     control.log_metric_filter_root_login,
+    control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.hipaa_164_308_common_tags, {

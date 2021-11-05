@@ -16,7 +16,6 @@ benchmark "hipaa_164_308_a_1_ii_d" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-
   ]
 
   tags = merge(local.hipaa_164_308_common_tags, {

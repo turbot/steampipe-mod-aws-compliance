@@ -28,7 +28,7 @@ benchmark "hipaa_164_308" {
     benchmark.hipaa_164_308_a_7_ii_a,
     benchmark.hipaa_164_308_a_7_ii_b,
     benchmark.hipaa_164_308_a_7_ii_c,
-    benchmark.hipaa_164_308_a_8,
+    benchmark.hipaa_164_308_a_8
   ]
 
   tags = local.hipaa_164_308_common_tags
