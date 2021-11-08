@@ -6,7 +6,7 @@ benchmark "hipaa_164_312_d" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.hipaa_164_312_common_tags, {

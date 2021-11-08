@@ -31,13 +31,12 @@ control "kms_cmk_rotation_enabled" {
 }
 
 control "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
-  title       = "Checks whether the default version of IAM customer managed policies allow principals to use the AWS KMS decryption actions on all resources. This control uses Zelkova, an automated reasoning engine, to validate and warn you about policies that may grant broad access to your secrets across AWS accounts. This control fails if the kms:Decrypt or kms:ReEncryptFrom actions are allowed on all KMS keys. The control evaluates both attached and unattached customer managed policies. It does not check inline policies or AWS managed policies.y"
-  description = "Enable key rotation to ensure that keys are rotated once they have reached the end of their crypto period."
+  title      = "KMS key decryption should be restricted in IAM customer managed policy"
+  description = "Checks whether the default version of IAM customer managed policies allow principals to use the AWS KMS decryption actions on all resources. This control uses Zelkova, an automated reasoning engine, to validate and warn you about policies that may grant broad access to your secrets across AWS accounts. This control fails if the kms:Decrypt or kms:ReEncryptFrom actions are allowed on all KMS keys. The control evaluates both attached and unattached customer managed policies. It does not check inline policies or AWS managed policies."
   sql         = query.kms_key_decryption_restricted_in_iam_customer_managed_policy.sql
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     hipaa = "true"
-
   })
 }
 
@@ -48,7 +47,6 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     hipaa = "true"
-
   })
 }
 
