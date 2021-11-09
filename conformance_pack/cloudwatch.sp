@@ -61,8 +61,8 @@ control "log_metric_filter_console_login_mfa" {
   sql         = query.log_metric_filter_console_login_mfa.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-     gdpr  = "true"
-     hiapp = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -72,7 +72,7 @@ control "log_metric_filter_root_login" {
   sql         = query.log_metric_filter_root_login.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr =  "true"
+    gdpr  =  "true"
     hipaa = "true"
   })
 }

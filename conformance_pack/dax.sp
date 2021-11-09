@@ -10,7 +10,7 @@ control "dax_cluster_encryption_at_rest_enabled" {
   sql         = query.dax_cluster_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_dax_common_tags, {
-    hipaa = "true"
     gdpr  = "true"
+    hipaa = "true"
   })
 }

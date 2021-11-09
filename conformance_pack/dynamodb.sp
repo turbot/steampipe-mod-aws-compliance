@@ -35,8 +35,8 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
   sql         = query.dynamodb_table_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa              = "true"
     gdpr               = "true"
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
@@ -61,8 +61,8 @@ control "dynamodb_table_encryption_enabled" {
   sql         = query.dynamodb_table_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa = "true"
     gdpr  = "true"
+    hipaa = "true"
   })
 }
 

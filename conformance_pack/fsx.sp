@@ -5,7 +5,7 @@ locals {
 }
 
 control "fsx_file_system_protected_by_backup_plan" {
-  title       = "FSX file system should be protected by backup plan"
+  title       = "FSx file system should be protected by backup plan"
   description = "Checks if Amazon FSx File Systems are protected by a backup plan. The rule is non complaint if the Amazon FSx File System is not covered by a backup plan."
   sql         = query.fsx_file_system_protected_by_backup_plan.sql
 
