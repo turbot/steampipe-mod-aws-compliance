@@ -1,3 +1,18 @@
+## v0.18 [2021-11-10]
+
+_What's new?_
+
+- The HIPAA benchmark is now cleaner and more structured. The benchmarks are now grouped under two major sections(benchmarks) namely `164.308` and `164.312`.
+    - New benchmarks added 
+        - 164.308(a)(1)(ii)(A) : Risk analysis 
+        - 164.308(a)(4)(ii)(A) : Isolating health care clearinghouse functions
+        - 164.308(a)(5)(ii)(B) : Protection from malicious software
+        - 164.308(a)(5)(ii)(C) : Log-in monitoring
+        - 164.308(a)(5)(ii)(D) : Password management 
+        - 164.308(a)(7)(ii)(B) : Disaster recovery plan 
+        - 164.308(a)(7)(ii)(C) : Emergency mode operation plan
+        - 164.308(a)(8)        :  Evaluation
+
 ## v0.17 [2021-10-27]
 
 _What's new?_
