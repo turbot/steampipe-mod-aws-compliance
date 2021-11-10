@@ -36,6 +36,7 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     gdpr               = "true"
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
   })
@@ -47,6 +48,7 @@ control "dynamodb_table_in_backup_plan" {
   sql         = query.dynamodb_table_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -59,7 +61,8 @@ control "dynamodb_table_encryption_enabled" {
   sql         = query.dynamodb_table_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -69,6 +72,7 @@ control "dynamodb_table_protected_by_backup_plan" {
   sql         = query.dynamodb_table_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    hipaa = "true"
     soc_2 = "true"
   })
 }

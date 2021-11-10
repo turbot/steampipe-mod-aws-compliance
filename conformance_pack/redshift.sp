@@ -53,6 +53,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
     gdpr  = "true"
+    hipaa = "true"
     sco_2 = "true"
   })
 }
