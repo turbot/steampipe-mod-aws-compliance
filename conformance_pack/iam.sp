@@ -170,6 +170,7 @@ control "iam_group_user_role_no_inline_policies" {
   sql         = query.iam_group_user_role_no_inline_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -192,7 +193,8 @@ control "iam_account_password_policy_min_length_14" {
   sql         = query.iam_account_password_policy_min_length_14.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -202,7 +204,8 @@ control "iam_account_password_policy_reuse_24" {
   sql         = query.iam_account_password_policy_reuse_24.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -222,7 +225,8 @@ control "iam_account_password_policy_one_lowercase_letter" {
   sql         = query.iam_account_password_policy_one_lowercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -232,7 +236,8 @@ control "iam_account_password_policy_one_uppercase_letter" {
   sql         = query.iam_account_password_policy_one_uppercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -242,7 +247,8 @@ control "iam_account_password_policy_one_number" {
   sql         = query.iam_account_password_policy_one_number.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -252,7 +258,8 @@ control "iam_password_policy_expire_90" {
   sql         = query.iam_password_policy_expire_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }
 
@@ -262,6 +269,7 @@ control "iam_account_password_policy_one_symbol" {
   sql         = query.iam_account_password_policy_one_symbol.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
+    hipaa = "true"
   })
 }

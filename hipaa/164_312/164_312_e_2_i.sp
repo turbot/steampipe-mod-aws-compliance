@@ -15,7 +15,7 @@ benchmark "hipaa_164_312_e_2_i" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_312_common_tags, {
     hipaa_item_id = "164_312_e_2_i"
   })
 }

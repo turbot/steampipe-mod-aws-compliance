@@ -70,6 +70,7 @@ control "ec2_instance_ebs_optimized" {
   sql         = query.ec2_instance_ebs_optimized.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"
   })
@@ -81,6 +82,7 @@ control "ec2_instance_uses_imdsv2" {
   sql         = query.ec2_instance_uses_imdsv2.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    hipaa             = "true"
     nist_800_53_rev_4 = "true"
   })
 }
@@ -91,6 +93,7 @@ control "ec2_instance_protected_by_backup_plan" {
   sql         = query.ec2_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    hipaa = "true"
     soc_2 = "true"
   })
 }

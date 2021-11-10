@@ -13,7 +13,7 @@ benchmark "hipaa_164_308_a_4_ii_c" {
     control.secretsmanager_secret_automatic_rotation_enabled
   ]
 
-  tags = merge(local.hipaa_common_tags, {
+  tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_4_ii_c"
   })
 }

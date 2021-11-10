@@ -104,6 +104,7 @@ control "rds_db_instance_in_backup_plan" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     gdpr               = "true"
+    hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -147,6 +148,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    hipaa  = "true"
     soc_2  = "true"
   })
 }
@@ -157,6 +159,7 @@ control "rds_db_instance_protected_by_backup_plan" {
   sql         = query.rds_db_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    hipaa  = "true"
     soc_2  = "true"
   })
 }
