@@ -170,6 +170,8 @@ benchmark "nist_csf_pr_ds" {
     benchmark.nist_csf_pr_ds_4,
     benchmark.nist_csf_pr_ds_5,
     benchmark.nist_csf_pr_ds_6,
+    benchmark.nist_csf_pr_ds_7,
+    benchmark.nist_csf_pr_ds_8
   ]
 
   tags = local.nist_csf_common_tags
@@ -207,6 +209,10 @@ benchmark "nist_csf_pr_ds_2" {
     control.elb_classic_lb_use_ssl_certificate,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.acm_certificate_expires_30_days,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.elb_application_lb_drop_http_headers
   ]
 
   tags = local.nist_csf_common_tags
@@ -285,15 +291,48 @@ benchmark "nist_csf_pr_ds_6" {
   tags = local.nist_csf_common_tags
 }
 
+benchmark "nist_csf_pr_ds_7" {
+  title       = "PR.DS-7"
+  description = "The development and testing environment(s) are separate from the production environment."
+
+  children = [
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ec2_stopped_instance_30_days,
+    control.elb_application_lb_deletion_protection_enabled,
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.cloudtrail_trail_validation_enabled,
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ds_8" {
+  title       = "PR.DS-8"
+  description = "Integrity checking mechanisms are used to verify hardware integrity."
+
+  children = [
+    control.ec2_instance_ssm_managed,
+    control.securityhub_enabled
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+
 benchmark "nist_csf_pr_ip" {
   title       = "Information Protection Processes and Procedures (PR.IP)"
   description = "Security policies (that address purpose, scope, roles, responsibilities, management commitment, and coordination among organizational entities), processes, and procedures are maintained and used to manage protection of information systems and assets."
 
   children = [
     benchmark.nist_csf_pr_ip_1,
+    benchmark.nist_csf_pr_ip_2,
     benchmark.nist_csf_pr_ip_3,
     benchmark.nist_csf_pr_ip_4,
     benchmark.nist_csf_pr_ip_7,
+    benchmark.nist_csf_pr_ip_8,
+    benchmark.nist_csf_pr_ip_9,
+    benchmark.nist_csf_pr_ip_12
   ]
 
   tags = local.nist_csf_common_tags
@@ -308,6 +347,19 @@ benchmark "nist_csf_pr_ip_1" {
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.ssm_managed_instance_compliance_association_compliant,
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_2" {
+  title       = "PR.IP-2"
+  description = "A System Development Life Cycle to manage systems is implemented."
+
+  children = [
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.ec2_instance_ssm_managed,
+    control.codebuild_project_source_repo_oauth_configured
   ]
 
   tags = local.nist_csf_common_tags
@@ -345,6 +397,78 @@ benchmark "nist_csf_pr_ip_7" {
 
   children = [
     control.ec2_instance_ebs_optimized
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_8" {
+  title       = "PR.IP-8"
+  description = "Effectiveness of protection technologies is shared."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_public_access_block_account,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.s3_public_access_block_bucket_account,
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_9" {
+  title       = "PR.IP-9"
+  description = "Response plans (Incident Response and Business Continuity) and recovery plans (Incident Recovery and Disaster Recovery) are in place and managed."
+
+  children = [
+    control.elb_classic_lb_cross_zone_load_balancing_enabled,
+    control.rds_db_instance_multiple_az_enabled,
+    control.efs_file_system_in_backup_plan,
+    control.s3_bucket_versioning_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.vpc_vpn_tunnel_up,
+    control.efs_file_system_protected_by_backup_plan,
+    control.dynamodb_table_auto_scaling_enabled,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.ec2_instance_protected_by_backup_plan,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.backup_recovery_point_encryption_enabled,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_plan_min_retention_35_days,
+    control.dynamodb_table_in_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.elb_application_lb_deletion_protection_enabled,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.ebs_volume_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.fsx_file_system_protected_by_backup_plan
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_12" {
+  title       = "PR.IP-12"
+  description = "A vulnerability management plan is developed and implemented."
+
+  children = [
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_patch_compliant,
+    control.config_enabled_all_regions
   ]
 
   tags = local.nist_csf_common_tags

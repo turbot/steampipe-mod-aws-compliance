@@ -5,6 +5,7 @@ benchmark "nist_csf_id" {
     benchmark.nist_csf_id_am,
     benchmark.nist_csf_id_be,
     benchmark.nist_csf_id_ra,
+    benchmark.nist_csf_id_sc,
   ]
 
   tags = local.nist_csf_common_tags
@@ -14,9 +15,23 @@ benchmark "nist_csf_id_am" {
   title       = "Asset Management (ID.AM)"
   description = "The data, personnel, devices, systems, and facilities that enable the organization to achieve business purposes are identified and managed consistent with their relative importance to organizational objectives and the organization’s risk strategy."
   children = [
+    benchmark.nist_csf_id_am_1,
     benchmark.nist_csf_id_am_2,
     benchmark.nist_csf_id_am_3,
+    benchmark.nist_csf_id_am_5,
     benchmark.nist_csf_id_am_6
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_id_am_1" {
+  title       = "ID.AM-1"
+  description = "Physical devices and systems within the organization are inventoried."
+
+  children = [
+    control.ec2_instance_ssm_managed,
+    control.config_enabled_all_regions
   ]
 
   tags = local.nist_csf_common_tags
@@ -46,6 +61,18 @@ benchmark "nist_csf_id_am_3" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_id_am_5" {
+  title       = "ID.AM-5"
+  description = "Resources (e.g., hardware, devices, data, time, personnel, and software) are prioritized based on their classification, criticality, and business value."
+
+  children = [
+    control.dynamodb_table_auto_scaling_enabled,
+    control.autoscaling_group_with_lb_use_health_check
   ]
 
   tags = local.nist_csf_common_tags
@@ -136,6 +163,47 @@ benchmark "nist_csf_id_ra_3" {
   children = [
     control.guardduty_enabled,
     control.securityhub_enabled
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_id_sc" {
+  title       = "Supply Chain Risk Management (ID.SC)"
+  description = "The organization’s priorities, constraints, risk tolerances, and assumptions are established and used to support risk decisions associated with managing supply chain risk. The organization has established and implemented the processes to identify, assess and manage supply chain risks."
+
+  children = [
+    benchmark.nist_csf_id_sc_4
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_id_sc_4" {
+  title       = "ID.SC-4"
+  description = "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations."
+
+  children = [
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_bucket_policy,
+    control.config_enabled_all_regions,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.log_metric_filter_vpc,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_root_login,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_iam_policy,
+    control.securityhub_enabled,
+    control.log_metric_filter_config_configuration,
+    control.guardduty_enabled,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_unauthorized_api
   ]
 
   tags = local.nist_csf_common_tags

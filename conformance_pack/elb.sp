@@ -51,6 +51,7 @@ control "elb_application_lb_waf_enabled" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -102,5 +103,6 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     nist_800_53_rev_4 = "true"
+    nist_csf          = "true"
   })
 }

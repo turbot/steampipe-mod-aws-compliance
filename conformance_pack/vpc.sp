@@ -100,7 +100,7 @@ control "vpc_eip_associated" {
   description = "This rule ensures Elastic IPs allocated to a Amazon Virtual Private Cloud (Amazon VPC) are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or in-use Elastic Network Interfaces."
   sql         = query.vpc_eip_associated.sql
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
+  tags = merge(local.conformance_pack_vpc_common_tags, {
     nist_csf = "true"
   })
 }
@@ -110,7 +110,17 @@ control "vpc_security_group_associated_to_eni" {
   description = "This rule ensures the security groups are attached to an Amazon Elastic Compute Cloud (Amazon EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
   sql         = query.vpc_security_group_associated_to_eni.sql
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "vpc_subnet_auto_assign_public_ip_disabled" {
+  title       = "VPC subnet auto assign public ip should be disabled"
+  description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is complaint if Amazon VPC does not have subnets that are assigned a public IP address. The control. is non complaint if Amazon VPC has subnets that are assigned a public IP address."
+  sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
     nist_csf = "true"
   })
 }

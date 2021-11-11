@@ -51,6 +51,7 @@ control "ebs_volume_in_backup_plan" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
   })
@@ -73,7 +74,8 @@ control "ebs_volume_protected_by_backup_plan" {
   sql         = query.ebs_volume_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    hipaa = "true"
-    soc_2 = "true"
+    hipaa    = "true"
+    nist_csf = "true"
+    soc_2    = "true"
   })
 }
