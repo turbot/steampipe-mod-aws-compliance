@@ -119,13 +119,14 @@ benchmark "nist_csf_id_be_5" {
 }
 
 benchmark "nist_csf_id_ra" {
-  title       = "Business Environment (ID.RA)"
+  title       = "Risk Assessment (ID.RA)"
   description = "The organization understands the cybersecurity risk to organizational operations (including mission, functions, image, or reputation), organizational assets, and individuals."
 
   children = [
     benchmark.nist_csf_id_ra_1,
     benchmark.nist_csf_id_ra_2,
     benchmark.nist_csf_id_ra_3,
+    benchmark.nist_csf_id_ra_5
   ]
 
   tags = local.nist_csf_common_tags
@@ -163,6 +164,37 @@ benchmark "nist_csf_id_ra_3" {
   children = [
     control.guardduty_enabled,
     control.securityhub_enabled
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_id_ra_5" {
+  title       = "ID.RA-5"
+  description = "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk."
+
+  children = [
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_vpc,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_network_acl,
+    control.guardduty_enabled,
+    control.log_metric_filter_unauthorized_api,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_console_login_mfa,
+    control.config_enabled_all_regions,
+    control.securityhub_enabled,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_iam_policy,
+    control.cloudwatch_alarm_action_enabled
   ]
 
   tags = local.nist_csf_common_tags

@@ -302,6 +302,7 @@ benchmark "nist_csf_pr_ds_7" {
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.cloudtrail_trail_validation_enabled,
+    control.ebs_attached_volume_delete_on_termination_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -421,6 +422,7 @@ benchmark "nist_csf_pr_ip_8" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.s3_public_access_block_bucket_account,
+    control.eks_cluster_endpoint_restrict_public_access
   ]
 
   tags = local.nist_csf_common_tags
