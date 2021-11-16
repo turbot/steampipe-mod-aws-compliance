@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "control_tower" {
-  title         = "AWS Control Tower Guardrails"
+  title         = "AWS Audit Manager Control Tower Guardrails"
   description   = "AWS Control Tower is a service that enables you to enforce and manage governance rules for security, operations, and compliance at scale across all your organizations and accounts in the AWS Cloud."
   documentation = file("./control_tower/docs/control_tower_overview.md")
   children = [
