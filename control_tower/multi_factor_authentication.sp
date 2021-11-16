@@ -19,7 +19,7 @@ benchmark "control_tower_multi_factor_authentication_3_0_1" {
   title         = "3.0.1 - Disallow access to IAM users without MFA"
   description   = "Disallow access to IAM users without MFA - Checks whether the AWS Identity and Access Management users have multi-factor authentication (MFA) enabled."
   children = [
-    control.ec2_instance_ebs_optimized
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.control_tower_multi_factor_authentication_common_tags, {
@@ -30,7 +30,7 @@ benchmark "control_tower_multi_factor_authentication_3_0_2" {
   title         = "3.0.2 - Disallow console access to IAM users without MFA"
   description   = "Disallow console access to IAM users without MFA - Checks whether AWS Multi-Factor Authentication (MFA) is enabled for all AWS Identity and Access Management (IAM) users that use a console password."
   children = [
-    control.ec2_instance_ebs_optimized
+    control.iam_user_console_access_mfa_enabled
   ]
 
   tags = merge(local.control_tower_multi_factor_authentication_common_tags, {
@@ -42,7 +42,7 @@ benchmark "control_tower_multi_factor_authentication_3_0_3" {
   title         = "3.0.3 - Enable MFA for the root user"
   description   = "Enable MFA for the root user - Checks whether the root user of your AWS account requires multi-factor authentication for console sign-in."
   children = [
-    control.ec2_instance_ebs_optimized
+    control.iam_root_user_mfa_enabled
   ]
 
   tags = merge(local.control_tower_multi_factor_authentication_common_tags, {

@@ -51,6 +51,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
   sql         = query.vpc_security_group_restrict_ingress_common_ports_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    control_tower      = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -64,6 +65,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   sql         = query.vpc_security_group_restrict_ingress_ssh_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    control_tower      = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
