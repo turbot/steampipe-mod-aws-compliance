@@ -14,8 +14,8 @@ benchmark "audit_manager_control_tower" {
     benchmark.audit_manager_control_tower_disallow_internet_connection,
     benchmark.audit_manager_control_tower_multi_factor_authentication,
     benchmark.audit_manager_control_tower_disallow_public_access,
-    benchmark.audit_manager_control_tower_disallow_instances,
+    benchmark.audit_manager_control_tower_disallow_instances
   ]
-  
+
   tags = local.audit_manager_control_tower_common_tags
 }

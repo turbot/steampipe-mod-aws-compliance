@@ -26,7 +26,7 @@ brew tap turbot/tap
 brew install steampipe
 
 steampipe -v
-steampipe version 0.5.1
+steampipe version 0.9.1
 ```
 
 2) Install the AWS plugin
