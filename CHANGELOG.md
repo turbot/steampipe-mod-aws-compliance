@@ -1,3 +1,13 @@
+## v0.19 [2021-11-17]
+
+_What's new?_
+
+- Added: AWS Audit Manager Control Tower Guardrails benchmark (`steampipe check aws_compliance.benchmark.audit_manager_control_tower`)
+
+_Bug fixes_
+
+- Fixed the `backup_plan_min_retention_35_days` query to correctly evaluate backup plan rules which do not have any retention period
+
 ## v0.18 [2021-11-10]
 
 _What's new?_
