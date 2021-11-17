@@ -6,7 +6,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `backup_plan_min_retention_35_days` query to correctly evaluate backup plan rules which do not have any retention period
+- Fixed the `backup_plan_min_retention_35_days` query to correctly evaluate backup plan rules which do not have any lifecycle defined ([314](https://github.com/turbot/steampipe-mod-aws-compliance/pull/314))
 
 ## v0.18 [2021-11-10]
 
