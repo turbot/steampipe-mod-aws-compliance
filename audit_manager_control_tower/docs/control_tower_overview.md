@@ -8,4 +8,4 @@ to build a landing zone in less than an hour. Resources are set up and managed o
 AWS Control Tower orchestration extends the capabilities of AWS Organizations. To help keep your
 organizations and accounts from drift, which is divergence from best practices, AWS Control Tower
 applies preventive and detective controls (guardrails). For example, you can use guardrails to ensure that
-security logs and necessary cross-account access permissions are created, and not altered
+security logs and necessary cross-account access permissions are created, and not altered.

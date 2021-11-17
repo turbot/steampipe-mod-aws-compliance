@@ -78,12 +78,12 @@ control "s3_bucket_restrict_public_read_access" {
   sql         = query.s3_bucket_restrict_public_read_access.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    control_tower      = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -93,11 +93,11 @@ control "s3_bucket_restrict_public_write_access" {
   sql         = query.s3_bucket_restrict_public_write_access.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    control_tower      = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
   })
 }
 
@@ -107,11 +107,11 @@ control "s3_bucket_versioning_enabled" {
   sql         = query.s3_bucket_versioning_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    control_tower      = "true"
-    hipaa              = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 

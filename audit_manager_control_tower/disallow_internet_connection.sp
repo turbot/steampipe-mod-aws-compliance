@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_control_tower_disallow_internet_connection" {
   title         = "Disallow Internet Connection"
-  description   = "This benchmark checks if VPC security group restrict ingress from RDP and SSH."
+  description   = "This benchmark checks if the VPC security group restricts ingress from RDP and SSH."
   children = [
     benchmark.audit_manager_control_tower_disallow_internet_connection_2_0_1,
     benchmark.audit_manager_control_tower_disallow_internet_connection_2_0_2
@@ -22,7 +22,7 @@ benchmark "audit_manager_control_tower_disallow_internet_connection_2_0_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_internet_connection_common_tags, {
-    audit_manager_control_tower_item_id  = "2.0.1"
+    audit_manager_control_tower_item_id = "2.0.1"
   })
 }
 
@@ -34,6 +34,6 @@ benchmark "audit_manager_control_tower_disallow_internet_connection_2_0_2" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_internet_connection_common_tags, {
-    audit_manager_control_tower_item_id  = "2.0.2"
+    audit_manager_control_tower_item_id = "2.0.2"
   })
 }

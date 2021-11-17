@@ -6,10 +6,10 @@ locals {
 
 benchmark "audit_manager_control_tower_disallow_instances" {
   title        = "Disallow Instances"
-  description  = "This benchmark checks if RDS storage are encrypted and S3 buckets versioning is enabled."
+  description  = "This benchmark checks if RDS storage is encrypted and S3 bucket's versioning is enabled."
   children = [
     benchmark.audit_manager_control_tower_disallow_instances_5_0_1,
-    benchmark.audit_manager_control_tower_disallow_instances_5_1_1,
+    benchmark.audit_manager_control_tower_disallow_instances_5_1_1
   ]
   tags          = local.audit_manager_control_tower_disallow_instances_common_tags
 }

@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_control_tower_disallow_public_access" {
   title         = "Disallow Public Access"
-  description   = "This benchmark checks if RDS instances, storage and S3 buckets are not publicly accessible."
+  description   = "This benchmark checks if RDS instances, snapshots and S3 buckets are not publicly accessible."
   children = [
     benchmark.audit_manager_control_tower_disallow_public_access_4_0_1,
     benchmark.audit_manager_control_tower_disallow_public_access_4_0_2,
@@ -24,7 +24,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_0_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
-    audit_manager_control_tower_item_id  = "4.0.1"
+    audit_manager_control_tower_item_id = "4.0.1"
   })
 }
 
@@ -36,7 +36,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_0_2" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
-    audit_manager_control_tower_item_id  = "4.0.2"
+    audit_manager_control_tower_item_id = "4.0.2"
   })
 }
 
@@ -48,7 +48,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_1_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
-    audit_manager_control_tower_item_id  = "4.1.1"
+    audit_manager_control_tower_item_id = "4.1.1"
   })
 }
 
@@ -60,6 +60,6 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_1_2" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
-    audit_manager_control_tower_item_id  = "4.1.2"
+    audit_manager_control_tower_item_id = "4.1.2"
   })
 }

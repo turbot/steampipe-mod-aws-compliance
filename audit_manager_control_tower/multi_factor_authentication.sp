@@ -10,7 +10,7 @@ benchmark "audit_manager_control_tower_multi_factor_authentication" {
   children = [
     benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_1,
     benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_2,
-    benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_3,
+    benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_3
   ]
   tags          = local.audit_manager_control_tower_multi_factor_authentication_common_tags
 }
@@ -23,7 +23,7 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
-    audit_manager_control_tower_item_id  = "3.0.1"
+    audit_manager_control_tower_item_id = "3.0.1"
   })
 }
 benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_2" {
@@ -34,7 +34,7 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_2" {
   ]
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
-    audit_manager_control_tower_item_id  = "3.0.2"
+    audit_manager_control_tower_item_id = "3.0.2"
   })
 }
 
@@ -46,6 +46,6 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_3" {
   ]
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
-    audit_manager_control_tower_item_id  = "3.0.3"
+    audit_manager_control_tower_item_id = "3.0.3"
   })
 }
