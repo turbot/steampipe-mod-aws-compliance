@@ -1,4 +1,4 @@
-with target_count as (
+with table_with_autocaling as (
   select
     t.resource_id as resource_id,
     count(t.resource_id) as count
@@ -24,4 +24,4 @@ select
   d.account_id
 from
   aws_dynamodb_table as d
-  left join target_count as t on concat('table/', d.name) = t.resource_id;
+  left join table_with_autocaling as t on concat('table/', d.name) = t.resource_id;
