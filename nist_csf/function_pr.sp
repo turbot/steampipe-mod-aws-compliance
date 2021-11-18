@@ -532,7 +532,7 @@ benchmark "nist_csf_pr_pt_1" {
 
 benchmark "nist_csf_pr_pt_3" {
   title       = "PR.PT-3"
-  description = "Access to systems and assets is controlled, incorporating the principle of least functionality."
+  description = "The principle of least functionality is incorporated by configuring systems to provide only essential capabilities."
 
   children = [
     control.dms_replication_instance_not_publicly_accessible,

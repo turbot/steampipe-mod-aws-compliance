@@ -39,7 +39,8 @@ benchmark "nist_csf_de_ae_1" {
     control.vpc_flow_logs_enabled,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.lambda_function_concurrent_execution_limit_configured
   ]
 
   tags = local.nist_csf_common_tags

@@ -147,7 +147,7 @@ benchmark "nist_csf_id_ra_1" {
 
 benchmark "nist_csf_id_ra_2" {
   title       = "ID.RA-2"
-  description = "Asset vulnerabilities are identified and documented."
+  description = "Cyber threat intelligence is received from information sharing forums and sources."
 
   children = [
     control.guardduty_enabled,
@@ -159,7 +159,7 @@ benchmark "nist_csf_id_ra_2" {
 
 benchmark "nist_csf_id_ra_3" {
   title       = "ID.RA-3"
-  description = "Asset vulnerabilities are identified and documented."
+  description = "Threats, both internal and external, are identified and documented."
 
   children = [
     control.guardduty_enabled,
