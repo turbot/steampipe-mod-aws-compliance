@@ -1,3 +1,9 @@
+## v0.20 [2021-11-18]
+
+_Bug fixes_
+
+- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly evaluate if auto scaling is enabled for a DynamoDB table instead of throwing a validation error
+
 ## v0.19 [2021-11-17]
 
 _What's new?_
