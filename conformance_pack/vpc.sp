@@ -51,10 +51,11 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
   sql         = query.vpc_security_group_restrict_ingress_common_ports_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
   })
 }
 
@@ -64,11 +65,12 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   sql         = query.vpc_security_group_restrict_ingress_ssh_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 

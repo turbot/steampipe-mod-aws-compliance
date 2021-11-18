@@ -50,11 +50,12 @@ control "rds_db_instance_prohibit_public_access" {
   sql         = query.rds_db_instance_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -64,10 +65,11 @@ control "rds_db_snapshot_encrypted_at_rest" {
   sql         = query.rds_db_snapshot_encrypted_at_rest.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
+    audit_manager_control_tower = "true"
+    gdpr                        = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    rbi_cyber_security          = "true"
   })
 }
 
@@ -77,10 +79,11 @@ control "rds_db_snapshot_prohibit_public_access" {
   sql         = query.rds_db_snapshot_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_800_53_rev_4           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
   })
 }
 

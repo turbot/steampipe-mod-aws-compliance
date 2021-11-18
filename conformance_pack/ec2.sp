@@ -70,9 +70,10 @@ control "ec2_instance_ebs_optimized" {
   sql         = query.ec2_instance_ebs_optimized.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    audit_manager_control_tower = "true"
+    hipaa                       = "true"
+    nist_csf                    = "true"
+    soc_2                       = "true"
   })
 }
 
