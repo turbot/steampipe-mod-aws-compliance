@@ -1,11 +1,18 @@
 -- pgFormatter-ignore
-
+with global_recorders as (
+  select
+    count(*) as global_config_recorders
+  from
+    aws_config_configuration_recorder
+  where
+    recording_group -> 'IncludeGlobalResourceTypes' = 'true'
+ )
 select
   -- Required columns
   'arn:aws::' || a.region || ':' || a.account_id as resource,
   case
     when
-      recording_group -> 'IncludeGlobalResourceTypes' = 'true'
+      g.global_config_recorders >= 1
       and recording_group -> 'AllSupported' = 'true'
       and status ->> 'Recording' = 'true'
       and status ->> 'LastStatus' = 'SUCCESS'
@@ -32,6 +39,7 @@ select
   a.region,
   a.account_id
 from
+  global_recorders as g,
   aws_region as a
-  left join aws_config_configuration_recorder as r 
+  left join aws_config_configuration_recorder as r
     on r.account_id = a.account_id and r.region = a.name;
