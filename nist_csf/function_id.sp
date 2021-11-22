@@ -5,7 +5,7 @@ benchmark "nist_csf_id" {
     benchmark.nist_csf_id_am,
     benchmark.nist_csf_id_be,
     benchmark.nist_csf_id_ra,
-    benchmark.nist_csf_id_sc,
+    benchmark.nist_csf_id_sc
   ]
 
   tags = local.nist_csf_common_tags
@@ -30,8 +30,8 @@ benchmark "nist_csf_id_am_1" {
   description = "Physical devices and systems within the organization are inventoried."
 
   children = [
-    control.ec2_instance_ssm_managed,
-    control.config_enabled_all_regions
+    control.config_enabled_all_regions,
+    control.ec2_instance_ssm_managed
   ]
 
   tags = local.nist_csf_common_tags
@@ -60,7 +60,7 @@ benchmark "nist_csf_id_am_3" {
     control.elb_application_classic_lb_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -71,8 +71,8 @@ benchmark "nist_csf_id_am_5" {
   description = "Resources (e.g., hardware, devices, data, time, personnel, and software) are prioritized based on their classification, criticality, and business value."
 
   children = [
-    control.dynamodb_table_auto_scaling_enabled,
-    control.autoscaling_group_with_lb_use_health_check
+    control.autoscaling_group_with_lb_use_health_check,
+    control.dynamodb_table_auto_scaling_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -83,7 +83,7 @@ benchmark "nist_csf_id_am_6" {
   description = "Cybersecurity roles and responsibilities for the entire workforce and third-party stakeholders (e.g., suppliers, customers, partners) are established."
 
   children = [
-    control.iam_user_in_group,
+    control.iam_user_in_group
   ]
 
   tags = local.nist_csf_common_tags
@@ -93,7 +93,7 @@ benchmark "nist_csf_id_be" {
   title       = "Business Environment (ID.BE)"
   description = "The organization’s mission, objectives, stakeholders, and activities are understood and prioritized; this information is used to inform cybersecurity roles, responsibilities, and risk management decisions."
   children = [
-    benchmark.nist_csf_id_be_5,
+    benchmark.nist_csf_id_be_5
   ]
 
   tags = local.nist_csf_common_tags
@@ -112,7 +112,7 @@ benchmark "nist_csf_id_be_5" {
     control.rds_db_instance_multiple_az_enabled,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_csf_common_tags
@@ -139,7 +139,7 @@ benchmark "nist_csf_id_ra_1" {
   children = [
     control.guardduty_enabled,
     control.securityhub_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.nist_csf_common_tags
@@ -174,27 +174,27 @@ benchmark "nist_csf_id_ra_5" {
   description = "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk."
 
   children = [
-    control.log_metric_filter_route_table,
-    control.log_metric_filter_vpc,
-    control.log_metric_filter_disable_or_delete_cmk,
-    control.log_metric_filter_config_configuration,
-    control.log_metric_filter_bucket_policy,
-    control.log_metric_filter_network_acl,
-    control.guardduty_enabled,
-    control.log_metric_filter_unauthorized_api,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.cloudwatch_alarm_action_enabled,
+    control.config_enabled_all_regions,
     control.ec2_instance_detailed_monitoring_enabled,
-    control.log_metric_filter_security_group,
+    control.guardduty_enabled,
+    control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
     control.log_metric_filter_network_gateway,
     control.log_metric_filter_root_login,
-    control.log_metric_filter_console_login_mfa,
-    control.config_enabled_all_regions,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.securityhub_enabled,
-    control.log_metric_filter_console_authentication_failure,
-    control.log_metric_filter_iam_policy,
-    control.cloudwatch_alarm_action_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -216,26 +216,26 @@ benchmark "nist_csf_id_sc_4" {
   description = "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations."
 
   children = [
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.log_metric_filter_network_gateway,
-    control.log_metric_filter_bucket_policy,
+    control.cloudtrail_trail_integrated_with_logs,
     control.config_enabled_all_regions,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.guardduty_enabled,
+    control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
     control.log_metric_filter_route_table,
     control.log_metric_filter_security_group,
-    control.cloudtrail_trail_integrated_with_logs,
+    control.log_metric_filter_unauthorized_api,
     control.log_metric_filter_vpc,
-    control.log_metric_filter_console_login_mfa,
-    control.log_metric_filter_network_acl,
-    control.log_metric_filter_disable_or_delete_cmk,
-    control.log_metric_filter_root_login,
-    control.ec2_instance_detailed_monitoring_enabled,
-    control.log_metric_filter_iam_policy,
-    control.securityhub_enabled,
-    control.log_metric_filter_config_configuration,
-    control.guardduty_enabled,
-    control.log_metric_filter_console_authentication_failure,
-    control.log_metric_filter_unauthorized_api
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_csf_common_tags

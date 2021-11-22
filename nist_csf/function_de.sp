@@ -4,7 +4,7 @@ benchmark "nist_csf_de" {
   children = [
     benchmark.nist_csf_de_ae,
     benchmark.nist_csf_de_cm,
-    benchmark.nist_csf_de_dp,
+    benchmark.nist_csf_de_dp
   ]
 
   tags = local.nist_csf_common_tags
@@ -18,7 +18,7 @@ benchmark "nist_csf_de_ae" {
     benchmark.nist_csf_de_ae_2,
     benchmark.nist_csf_de_ae_3,
     benchmark.nist_csf_de_ae_4,
-    benchmark.nist_csf_de_ae_5,
+    benchmark.nist_csf_de_ae_5
   ]
 
   tags = local.nist_csf_common_tags
@@ -33,14 +33,14 @@ benchmark "nist_csf_de_ae_1" {
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.elb_application_classic_lb_logging_enabled,
+    control.lambda_function_concurrent_execution_limit_configured,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_flow_logs_enabled,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.lambda_function_concurrent_execution_limit_configured
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_csf_common_tags
@@ -115,7 +115,7 @@ benchmark "nist_csf_de_cm" {
     benchmark.nist_csf_de_cm_4,
     benchmark.nist_csf_de_cm_5,
     benchmark.nist_csf_de_cm_6,
-    benchmark.nist_csf_de_cm_7,
+    benchmark.nist_csf_de_cm_7
   ]
 
   tags = local.nist_csf_common_tags
@@ -132,9 +132,9 @@ benchmark "nist_csf_de_cm_1" {
     control.cloudtrail_trail_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -145,27 +145,27 @@ benchmark "nist_csf_de_cm_2" {
   description = "The physical environment is monitored to detect potential cybersecurity events"
 
   children = [
-    control.log_metric_filter_route_table,
-    control.log_metric_filter_disable_or_delete_cmk,
-    control.log_metric_filter_unauthorized_api,
-    control.log_metric_filter_iam_policy,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.log_metric_filter_console_authentication_failure,
-    control.log_metric_filter_security_group,
-    control.securityhub_enabled,
-    control.config_enabled_all_regions,
-    control.log_metric_filter_vpc,
     control.cloudtrail_trail_integrated_with_logs,
-    control.log_metric_filter_network_acl,
     control.cloudwatch_alarm_action_enabled,
-    control.guardduty_enabled,
+    control.config_enabled_all_regions,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.guardduty_enabled,
     control.log_metric_filter_bucket_policy,
-    control.log_metric_filter_console_login_mfa,
-    control.log_metric_filter_config_configuration,
-    control.log_metric_filter_network_gateway,
     control.log_metric_filter_cloudtrail_configuration,
-    control.log_metric_filter_root_login
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -180,8 +180,8 @@ benchmark "nist_csf_de_cm_3" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
     control.s3_bucket_logging_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -193,7 +193,7 @@ benchmark "nist_csf_de_cm_4" {
 
   children = [
     control.guardduty_enabled,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -204,14 +204,14 @@ benchmark "nist_csf_de_cm_5" {
   description = "Unauthorized mobile code is detected."
 
   children = [
-    control.elb_application_lb_waf_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
-    control.guardduty_enabled,
-    control.securityhub_enabled,
-    control.wafv2_web_acl_logging_enabled,
-    control.guardduty_finding_archived,
     control.ec2_instance_detailed_monitoring_enabled,
-    control.cloudtrail_trail_integrated_with_logs
+    control.elb_application_lb_waf_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.securityhub_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -226,8 +226,8 @@ benchmark "nist_csf_de_cm_6" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
     control.s3_bucket_logging_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -244,9 +244,9 @@ benchmark "nist_csf_de_cm_7" {
     control.cloudtrail_trail_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -257,7 +257,7 @@ benchmark "nist_csf_de_dp" {
   description = "Detection processes and procedures are maintained and tested to ensure awareness of anomalous events."
   children = [
     benchmark.nist_csf_de_dp_4,
-    benchmark.nist_csf_de_dp_5,
+    benchmark.nist_csf_de_dp_5
   ]
 
   tags = local.nist_csf_common_tags
@@ -268,14 +268,14 @@ benchmark "nist_csf_de_dp_4" {
   description = "Event detection information is communicated."
 
   children = [
-    control.guardduty_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.elb_application_lb_waf_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.elb_application_lb_waf_enabled,
+    control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.securityhub_enabled
+    control.securityhub_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -286,7 +286,7 @@ benchmark "nist_csf_de_dp_5" {
   description = "Detection processes are continuously improved."
 
   children = [
-    control.ec2_instance_detailed_monitoring_enabled,
+    control.ec2_instance_detailed_monitoring_enabled
   ]
 
   tags = local.nist_csf_common_tags
