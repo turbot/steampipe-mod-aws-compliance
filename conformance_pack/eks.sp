@@ -15,7 +15,7 @@ control "eks_cluster_secrets_encrypted" {
 }
 
 control "eks_cluster_endpoint_restrict_public_access" {
-  title       = "EKS clusters endpoint should restrict public access "
+  title       = "EKS clusters endpoint should restrict public access"
   description = "Ensure whether Amazon Elastic Kubernetes Service (Amazon EKS) endpoint is not publicly accessible. The rule is complaint if the endpoint is publicly accessible."
   sql         = query.eks_cluster_endpoint_restrict_public_access.sql
 

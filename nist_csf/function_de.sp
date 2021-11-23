@@ -142,7 +142,7 @@ benchmark "nist_csf_de_cm_1" {
 
 benchmark "nist_csf_de_cm_2" {
   title       = "DE.CM-2"
-  description = "The physical environment is monitored to detect potential cybersecurity events"
+  description = "The physical environment is monitored to detect potential cybersecurity events."
 
   children = [
     control.cloudtrail_trail_integrated_with_logs,

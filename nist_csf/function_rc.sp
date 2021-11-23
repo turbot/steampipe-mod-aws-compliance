@@ -22,7 +22,7 @@ benchmark "nist_csf_rc_rp" {
 
 benchmark "nist_csf_rc_rp_1" {
   title       = "RC.RP-1"
-  description = "Recovery plan is executed during or after a cybersecurity incident"
+  description = "Recovery plan is executed during or after a cybersecurity incident."
 
   children = [
     control.backup_plan_min_retention_35_days,
