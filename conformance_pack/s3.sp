@@ -135,6 +135,7 @@ control "s3_public_access_block_bucket_account" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     rbi_cyber_security = "true"
   })
 }

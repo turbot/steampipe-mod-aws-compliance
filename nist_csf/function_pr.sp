@@ -7,7 +7,7 @@ benchmark "nist_csf_pr" {
     benchmark.nist_csf_pr_ds,
     benchmark.nist_csf_pr_ip,
     benchmark.nist_csf_pr_ma,
-    benchmark.nist_csf_pr_pt,
+    benchmark.nist_csf_pr_pt
   ]
 
   tags = local.nist_csf_common_tags
@@ -23,7 +23,7 @@ benchmark "nist_csf_pr_ac" {
     benchmark.nist_csf_pr_ac_4,
     benchmark.nist_csf_pr_ac_5,
     benchmark.nist_csf_pr_ac_6,
-    benchmark.nist_csf_pr_ac_7,
+    benchmark.nist_csf_pr_ac_7
   ]
 
   tags = local.nist_csf_common_tags
@@ -94,7 +94,7 @@ benchmark "nist_csf_pr_ac_4" {
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
-    control.iam_user_unused_credentials_90,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = local.nist_csf_common_tags
@@ -117,10 +117,10 @@ benchmark "nist_csf_pr_ac_5" {
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
@@ -139,7 +139,7 @@ benchmark "nist_csf_pr_ac_6" {
     control.cloudtrail_trail_enabled,
     control.emr_cluster_kerberos_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -153,7 +153,7 @@ benchmark "nist_csf_pr_ac_7" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -170,6 +170,8 @@ benchmark "nist_csf_pr_ds" {
     benchmark.nist_csf_pr_ds_4,
     benchmark.nist_csf_pr_ds_5,
     benchmark.nist_csf_pr_ds_6,
+    benchmark.nist_csf_pr_ds_7,
+    benchmark.nist_csf_pr_ds_8
   ]
 
   tags = local.nist_csf_common_tags
@@ -188,11 +190,11 @@ benchmark "nist_csf_pr_ds_1" {
     control.kms_key_not_pending_deletion,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
-    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
-    control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_object_lock_enabled,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
+    control.sagemaker_notebook_instance_encryption_at_rest_enabled,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_csf_common_tags
@@ -203,10 +205,14 @@ benchmark "nist_csf_pr_ds_2" {
   description = "Data-in-transit is protected."
 
   children = [
+    control.acm_certificate_expires_30_days,
+    control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = local.nist_csf_common_tags
@@ -220,7 +226,7 @@ benchmark "nist_csf_pr_ds_3" {
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_eip_associated,
-    control.vpc_security_group_associated_to_eni,
+    control.vpc_security_group_associated_to_eni
   ]
 
   tags = local.nist_csf_common_tags
@@ -239,7 +245,7 @@ benchmark "nist_csf_pr_ds_4" {
     control.rds_db_instance_multiple_az_enabled,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_csf_common_tags
@@ -268,7 +274,7 @@ benchmark "nist_csf_pr_ds_5" {
     control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.securityhub_enabled,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -279,11 +285,41 @@ benchmark "nist_csf_pr_ds_6" {
   description = "Integrity checking mechanisms are used to verify software, firmware, and information integrity."
 
   children = [
-    control.cloudtrail_trail_validation_enabled,
+    control.cloudtrail_trail_validation_enabled
   ]
 
   tags = local.nist_csf_common_tags
 }
+
+benchmark "nist_csf_pr_ds_7" {
+  title       = "PR.DS-7"
+  description = "The development and testing environment(s) are separate from the production environment."
+
+  children = [
+    control.cloudtrail_trail_validation_enabled,
+    control.ebs_attached_volume_delete_on_termination_enabled,
+    control.ec2_instance_ssm_managed,
+    control.ec2_stopped_instance_30_days,
+    control.elb_application_lb_deletion_protection_enabled,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ds_8" {
+  title       = "PR.DS-8"
+  description = "Integrity checking mechanisms are used to verify hardware integrity."
+
+  children = [
+    control.ec2_instance_ssm_managed,
+    control.securityhub_enabled
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
 
 benchmark "nist_csf_pr_ip" {
   title       = "Information Protection Processes and Procedures (PR.IP)"
@@ -291,9 +327,13 @@ benchmark "nist_csf_pr_ip" {
 
   children = [
     benchmark.nist_csf_pr_ip_1,
+    benchmark.nist_csf_pr_ip_2,
     benchmark.nist_csf_pr_ip_3,
     benchmark.nist_csf_pr_ip_4,
     benchmark.nist_csf_pr_ip_7,
+    benchmark.nist_csf_pr_ip_8,
+    benchmark.nist_csf_pr_ip_9,
+    benchmark.nist_csf_pr_ip_12
   ]
 
   tags = local.nist_csf_common_tags
@@ -307,7 +347,20 @@ benchmark "nist_csf_pr_ip_1" {
     control.ebs_attached_volume_delete_on_termination_enabled,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_2" {
+  title       = "PR.IP-2"
+  description = "A System Development Life Cycle to manage systems is implemented."
+
+  children = [
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_ssm_managed
   ]
 
   tags = local.nist_csf_common_tags
@@ -333,7 +386,7 @@ benchmark "nist_csf_pr_ip_4" {
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.rds_db_instance_backup_enabled,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -350,12 +403,85 @@ benchmark "nist_csf_pr_ip_7" {
   tags = local.nist_csf_common_tags
 }
 
+benchmark "nist_csf_pr_ip_8" {
+  title       = "PR.IP-8"
+  description = "Effectiveness of protection technologies is shared."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.eks_cluster_endpoint_restrict_public_access,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_9" {
+  title       = "PR.IP-9"
+  description = "Response plans (Incident Response and Business Continuity) and recovery plans (Incident Recovery and Disaster Recovery) are in place and managed."
+
+  children = [
+    control.backup_plan_min_retention_35_days,
+    control.backup_recovery_point_encryption_enabled,
+    control.backup_recovery_point_manual_deletion_disabled,
+    control.dynamodb_table_auto_scaling_enabled,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.efs_file_system_protected_by_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.elb_application_lb_deletion_protection_enabled,
+    control.elb_classic_lb_cross_zone_load_balancing_enabled,
+    control.fsx_file_system_protected_by_backup_plan,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_multiple_az_enabled,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled,
+    control.vpc_vpn_tunnel_up
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
+benchmark "nist_csf_pr_ip_12" {
+  title       = "PR.IP-12"
+  description = "A vulnerability management plan is developed and implemented."
+
+  children = [
+    control.config_enabled_all_regions,
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
+  ]
+
+  tags = local.nist_csf_common_tags
+}
+
 benchmark "nist_csf_pr_ma" {
   title       = "Maintenance (PR.MA)"
   description = "Maintenance and repairs of industrial control and information system components are performed consistent with policies and procedures."
 
   children = [
-    benchmark.nist_csf_pr_ma_2,
+    benchmark.nist_csf_pr_ma_2
   ]
 
   tags = local.nist_csf_common_tags
@@ -367,7 +493,7 @@ benchmark "nist_csf_pr_ma_2" {
 
   children = [
     control.cloudtrail_multi_region_trail_enabled,
-    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -381,7 +507,7 @@ benchmark "nist_csf_pr_pt" {
     benchmark.nist_csf_pr_pt_1,
     benchmark.nist_csf_pr_pt_3,
     benchmark.nist_csf_pr_pt_4,
-    benchmark.nist_csf_pr_pt_5,
+    benchmark.nist_csf_pr_pt_5
   ]
 
   tags = local.nist_csf_common_tags
@@ -406,7 +532,7 @@ benchmark "nist_csf_pr_pt_1" {
 
 benchmark "nist_csf_pr_pt_3" {
   title       = "PR.PT-3"
-  description = "Access to systems and assets is controlled, incorporating the principle of least functionality."
+  description = "The principle of least functionality is incorporated by configuring systems to provide only essential capabilities."
 
   children = [
     control.dms_replication_instance_not_publicly_accessible,
@@ -419,7 +545,7 @@ benchmark "nist_csf_pr_pt_3" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_account,
+    control.s3_public_access_block_account
   ]
 
   tags = local.nist_csf_common_tags
@@ -437,7 +563,7 @@ benchmark "nist_csf_pr_pt_4" {
     control.redshift_cluster_prohibit_public_access,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_csf_common_tags
@@ -455,7 +581,7 @@ benchmark "nist_csf_pr_pt_5" {
     control.rds_db_instance_multiple_az_enabled,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_csf_common_tags
