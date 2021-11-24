@@ -1,3 +1,24 @@
+## v0.21 [2021-11-24]
+
+_What's new?_
+
+- New NIST CSF benchmarks added:
+  - DE.CM-2
+  - DE.CM-5
+  - ID.AM-1
+  - ID.AM-5
+  - ID.RA-5
+  - ID.SC-4
+  - PR.DS-7
+  - PR.DS-8
+  - PR.IP-2
+  - PR.IP-8
+  - PR.IP-9
+  - PR.IP-12
+  - RC.RP-1
+  - RS.MI-3
+  - RS.RP-1
+  
 ## v0.20 [2021-11-18]
 
 _Bug fixes_
