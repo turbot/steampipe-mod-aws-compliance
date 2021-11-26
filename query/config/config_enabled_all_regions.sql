@@ -1,4 +1,5 @@
 -- pgFormatter-ignore
+-- Get count for any region with all matching criteria
 with global_recorders as (
   select
     count(*) as global_config_recorders
@@ -6,19 +7,25 @@ with global_recorders as (
     aws_config_configuration_recorder
   where
     recording_group -> 'IncludeGlobalResourceTypes' = 'true'
+    and recording_group -> 'AllSupported' = 'true'
+    and status ->> 'Recording' = 'true'
+    and status ->> 'LastStatus' = 'SUCCESS'
  )
 select
   -- Required columns
   'arn:aws::' || a.region || ':' || a.account_id as resource,
   case
+  -- When any of the region satisfies with above CTE
+  -- In left join of <aws_config_configuration_recorder> table, regions now having
+  -- 'Recording' and 'LastStatus' matching criteria can be considered as OK
     when
       g.global_config_recorders >= 1
-      and recording_group -> 'AllSupported' = 'true'
       and status ->> 'Recording' = 'true'
       and status ->> 'LastStatus' = 'SUCCESS'
     then 'ok'
     else 'alarm'
   end as status,
+  -- Below cases are for citing respective reasons for control state
   case
     when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then a.region || ' IncludeGlobalResourceTypes enabled,'
     else a.region || ' IncludeGlobalResourceTypes disabled,'
