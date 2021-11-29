@@ -44,13 +44,3 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     soc_2              = "true"
   })
 }
-
-control "ssm_document_restrict_public_access" {
-  title       = "SSM document should restrict public access"
-  description = "Ensure if AWS Systems Manager documents owned by the account are public. This rule is non compliant if SSM documents with owner 'Self' are public."
-  sql         = query.ssm_document_restrict_public_access.sql
-
-  tags = merge(local.conformance_pack_ssm_common_tags, {
-    rbi_cyber_security = "true"
-  })
-}

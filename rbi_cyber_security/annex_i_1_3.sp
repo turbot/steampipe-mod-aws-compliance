@@ -48,7 +48,6 @@ benchmark "rbi_cyber_security_annex_i_1_3" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
-    control.ssm_document_restrict_public_access,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all,
