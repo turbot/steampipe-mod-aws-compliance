@@ -61,7 +61,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
 }
 
 control "redshift_cluster_kms_enabled" {
-  title       = "Amazon Redshift clusters encrypted with KMS"
+  title       = "Amazon Redshift clusters should be encrypted with KMS"
   description = "Ensure if Amazon Redshift clusters are using a specified AWS Key Management Service (AWS KMS) key for encryption. The rule is complaint if encryption is enabled and the cluster is encrypted with the key provided in the kmsKeyArn parameter. The rule is non complaint if the cluster is not encrypted or encrypted with another key."
   sql         = query.redshift_cluster_kms_enabled.sql
 
