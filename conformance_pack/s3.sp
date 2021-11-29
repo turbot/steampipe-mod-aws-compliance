@@ -146,7 +146,8 @@ control "s3_bucket_default_encryption_enabled_kms" {
   sql         = query.s3_bucket_default_encryption_enabled_kms.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    rbi_cyber_security = "true"
   })
 }

@@ -31,3 +31,23 @@ control "apigateway_stage_logging_enabled" {
     soc_2              = "true"
   })
 }
+
+control "apigateway_rest_api_stage_use_ssl_certificate" {
+  title       = "API Gateway stage should uses SSL certificate"
+  description = "Ensure if a REST API stage uses an Secure Sockets Layer (SSL) certificate. This rule is complaint if the REST API stage does not have an associated SSL certificate."
+  sql         = query.apigateway_rest_api_stage_use_ssl_certificate.sql
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
+
+control "apigateway_stage_use_waf_web_acl" {
+  title       = "API Gateway stage should be associated with waf"
+  description = "Ensure if an Amazon API Gateway API stage is using an AWS WAF Web ACL. This rule is non complaint if an AWS WAF Web ACL is not used."
+  sql         = query.apigateway_stage_use_waf_web_acl.sql
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
