@@ -10,12 +10,13 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -38,10 +39,11 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   sql         = query.vpc_security_group_restrict_ingress_tcp_udp_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -52,6 +54,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -66,6 +69,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -80,9 +84,10 @@ control "vpc_default_security_group_restricts_all_traffic" {
   sql         = query.vpc_default_security_group_restricts_all_traffic.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -103,7 +108,8 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_csf = "true"
+    cisa_cyber_essentials = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -123,6 +129,17 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_csf = "true"
+    cisa_cyber_essentials = "true"
+    nist_csf              = "true"
+  })
+}
+
+control "vpc_network_acl_unused" {
+  title       = "VPC network ACL should not be unused"
+  description = "This rule ensures that Amazon Virtual Private Cloud (VPC) network access control lists are in use. Monitoring for unused network access control lists can assist in accurate inventory and management of your environment."
+  sql         = query.vpc_network_acl_unused.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials = "true"
   })
 }

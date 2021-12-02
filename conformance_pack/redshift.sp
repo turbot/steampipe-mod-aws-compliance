@@ -10,11 +10,12 @@ control "redshift_cluster_encryption_in_transit_enabled" {
   sql         = query.redshift_cluster_encryption_in_transit_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -24,12 +25,13 @@ control "redshift_cluster_encryption_logging_enabled" {
   sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -39,10 +41,11 @@ control "redshift_cluster_prohibit_public_access" {
   sql         = query.redshift_cluster_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -52,9 +55,10 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   sql         = query.redshift_cluster_automatic_snapshots_min_7_days.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gdpr     = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    sco_2    = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
+    sco_2                 = "true"
   })
 }

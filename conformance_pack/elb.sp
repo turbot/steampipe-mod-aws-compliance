@@ -10,12 +10,13 @@ control "elb_application_classic_lb_logging_enabled" {
   sql         = query.elb_application_classic_lb_logging_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -25,8 +26,9 @@ control "elb_application_lb_deletion_protection_enabled" {
   sql         = query.elb_application_lb_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -36,11 +38,12 @@ control "elb_application_lb_redirect_http_request_to_https" {
   sql         = query.elb_application_lb_redirect_http_request_to_https.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -50,9 +53,10 @@ control "elb_application_lb_waf_enabled" {
   sql         = query.elb_application_lb_waf_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -62,11 +66,12 @@ control "elb_classic_lb_use_ssl_certificate" {
   sql         = query.elb_classic_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -89,10 +94,11 @@ control "elb_classic_lb_use_tls_https_listeners" {
   sql         = query.elb_classic_lb_use_tls_https_listeners.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    hipaa              = "true"
-    gdpr               = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    gdpr                  = "true"
+    nist_800_53_rev_4     = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -102,7 +108,8 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
   sql         = query.elb_classic_lb_cross_zone_load_balancing_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cisa_cyber_essentials = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
   })
 }

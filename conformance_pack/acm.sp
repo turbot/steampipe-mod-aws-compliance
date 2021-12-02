@@ -10,11 +10,12 @@ control "acm_certificate_expires_30_days" {
   sql         = query.acm_certificate_expires_30_days.sql
 
   tags = merge(local.conformance_pack_acm_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }

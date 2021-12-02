@@ -10,7 +10,8 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
   })
 }
 
@@ -32,10 +33,11 @@ control "ec2_instance_in_vpc" {
   sql         = query.ec2_instance_in_vpc.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -45,11 +47,12 @@ control "ec2_instance_not_publicly_accessible" {
   sql         = query.ec2_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -59,8 +62,9 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
   })
 }
 
@@ -71,6 +75,7 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_csf                    = "true"
     soc_2                       = "true"
@@ -94,8 +99,9 @@ control "ec2_instance_protected_by_backup_plan" {
   sql         = query.ec2_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }

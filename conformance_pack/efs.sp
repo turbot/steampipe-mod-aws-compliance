@@ -10,11 +10,12 @@ control "efs_file_system_encrypt_data_at_rest" {
   sql         = query.efs_file_system_encrypt_data_at_rest.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -24,11 +25,12 @@ control "efs_file_system_in_backup_plan" {
   sql         = query.efs_file_system_automatic_backups_enabled.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 

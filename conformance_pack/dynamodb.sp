@@ -10,9 +10,10 @@ control "dynamodb_table_auto_scaling_enabled" {
   sql         = query.dynamodb_table_auto_scaling_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -22,11 +23,12 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   sql         = query.dynamodb_table_point_in_time_recovery_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -36,10 +38,11 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
   sql         = query.dynamodb_table_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -49,11 +52,12 @@ control "dynamodb_table_in_backup_plan" {
   sql         = query.dynamodb_table_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -74,8 +78,9 @@ control "dynamodb_table_protected_by_backup_plan" {
   sql         = query.dynamodb_table_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }

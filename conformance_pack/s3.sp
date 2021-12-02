@@ -10,11 +10,12 @@ control "s3_bucket_cross_region_replication_enabled" {
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -24,11 +25,12 @@ control "s3_bucket_default_encryption_enabled" {
   sql         = query.s3_bucket_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -38,11 +40,12 @@ control "s3_bucket_enforces_ssl" {
   sql         = query.s3_bucket_enforces_ssl.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -52,11 +55,12 @@ control "s3_bucket_logging_enabled" {
   sql         = query.s3_bucket_logging_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -79,6 +83,7 @@ control "s3_bucket_restrict_public_read_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -94,6 +99,7 @@ control "s3_bucket_restrict_public_write_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -108,6 +114,7 @@ control "s3_bucket_versioning_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     hipaa                       = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
@@ -121,9 +128,10 @@ control "s3_public_access_block_account" {
   sql         = query.s3_public_access_block_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -133,10 +141,11 @@ control "s3_public_access_block_bucket_account" {
   sql         = query.s3_public_access_block_bucket_account.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -146,7 +155,8 @@ control "s3_bucket_default_encryption_enabled_kms" {
   sql         = query.s3_bucket_default_encryption_enabled_kms.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    cisa_cyber_essentials = "true"
+    gdpr                  = "true"
+    hipaa                  = "true"
   })
 }
