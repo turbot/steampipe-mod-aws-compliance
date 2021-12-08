@@ -19,7 +19,7 @@ select
   end as status,
   case
     when
-        ( log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
+      ( log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
         and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
       )
       and
