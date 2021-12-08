@@ -58,19 +58,19 @@ steampipe mod get aws_compliance
 Run all benchmarks:
 
 ```shell
-steampipe check all
+steampipe check aws_compliance
 ```
 
 Run a single benchmark:
 
 ```shell
-steampipe check benchmark.cis_v140
+steampipe check aws_compliance.benchmark.cis_v140
 ```
 
 Run a specific control:
 
 ```shell
-steampipe check control.cis_v140_2_1_1
+steampipe check aws_compliance.control.cis_v140_2_1_1
 ```
 
 ### Credentials

@@ -50,7 +50,7 @@ aws iam generate-credential-report
 5) Run all benchmarks:
 
 ```shell
-steampipe check all
+steampipe check aws_compliance
 ```
 
 ### Other things to checkout
@@ -58,7 +58,7 @@ steampipe check all
 Run an individual benchmark:
 
 ```shell
-steampipe check benchmark.cis_v140
+steampipe check aws_compliance.benchmark.cis_v140
 ```
 
 Use Steampipe introspection to view all current controls:
@@ -70,7 +70,7 @@ steampipe query "select resource_name from steampipe_control;"
 Run a specific control:
 
 ```shell
-steampipe check control.cis_v130_2_1_1
+steampipe check aws_compliance.control.cis_v130_2_1_1
 ```
 
 ## Developing
@@ -80,14 +80,22 @@ Prerequisites (see installation instructions above in [Quick start](#quick-start
 - [Steampipe](https://steampipe.io/downloads)
 - [AWS plugin](https://golang.org/doc/install)
 
-You can locally develop benchmarks and controls for this mod by cloning this repo:
+To get started with locally developing benchmarks and controls for this mod, clone this repo:
 
 ```sh
 git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
 ```
 
-And then use the `steampipe check` command to run the new or updated benchmarks and controls.
+After making changes to benchmarks and controls, you can run them with `steampipe check`.
+
+For instance, after adding a new benchmark named `new_aws_checks`, run it with:
+
+```sh
+steampipe check benchmark.new_aws_checks
+```
+
+For more information on writing your own benchmarks and controls, please see [Custom Controls](https://steampipe.io/docs/using-steampipe/writing-controls) and for more information on mod structure, block types, and usage, please see [Mod Resources](https://steampipe.io/docs/reference/mod-resources).
 
 ## Contributing
 
