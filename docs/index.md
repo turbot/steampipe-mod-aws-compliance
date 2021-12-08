@@ -44,27 +44,31 @@ Run individual configuration, compliance and security controls or full complianc
 ## Get started
 
 Install the AWS plugin with [Steampipe](https://steampipe.io):
+
 ```shell
 steampipe plugin install aws
 ```
 
-Clone:
+Install this mod
+
 ```sh
-git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
-cd steampipe-mod-aws-compliance
+steampipe mod get aws_compliance
 ```
 
 Run all benchmarks:
+
 ```shell
 steampipe check all
 ```
 
 Run a single benchmark:
+
 ```shell
 steampipe check benchmark.cis_v140
 ```
 
 Run a specific control:
+
 ```shell
 steampipe check control.cis_v140_2_1_1
 ```
@@ -80,4 +84,4 @@ No extra configuration is required.
 ## Get involved
 
 * Contribute: [GitHub Repo](https://github.com/turbot/steampipe-mod-aws-compliance)
-* Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
+* Community: [Slack Channel](https://steampipe.io/community/join)

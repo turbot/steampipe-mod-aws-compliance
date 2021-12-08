@@ -26,26 +26,29 @@ brew tap turbot/tap
 brew install steampipe
 
 steampipe -v
-steampipe version 0.9.1
+steampipe version 0.10.0
 ```
 
 2) Install the AWS plugin
+
 ```shell
 steampipe plugin install aws
 ```
 
-3) Clone this repo
+3) Install this mod
+
 ```sh
-git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
-cd steampipe-mod-aws-compliance
+steampipe mod get aws_compliance
 ```
 
 4) Generate your AWS credential report
+
 ```sh
 aws iam generate-credential-report
 ```
 
 5) Run all benchmarks:
+
 ```shell
 steampipe check all
 ```
@@ -53,25 +56,44 @@ steampipe check all
 ### Other things to checkout
 
 Run an individual benchmark:
+
 ```shell
 steampipe check benchmark.cis_v140
 ```
 
 Use Steampipe introspection to view all current controls:
+
 ```
 steampipe query "select resource_name from steampipe_control;"
 ```
 
 Run a specific control:
+
 ```shell
 steampipe check control.cis_v130_2_1_1
 ```
+
+## Developing
+
+Prerequisites (see installation instructions above in [Quick start](#quick-start)):
+
+- [Steampipe](https://steampipe.io/downloads)
+- [AWS plugin](https://golang.org/doc/install)
+
+You can locally develop benchmarks and controls for this mod by cloning this repo:
+
+```sh
+git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
+cd steampipe-mod-aws-compliance
+```
+
+And then use the `steampipe check` command to run the new or updated benchmarks and controls.
 
 ## Contributing
 
 If you have an idea for additional compliance controls, or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing. (Even if you just want to help with the docs.)
 
-- **[Join our Slack community →](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)** and hang out with other Mod developers.
+- **[Join our Slack community →](https://steampipe.io/community/join)** and hang out with other Mod developers.
 - **[Mod developer guide →](https://steampipe.io/docs/using-steampipe/writing-controls)**
 
 Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-aws-compliance/blob/main/LICENSE).
