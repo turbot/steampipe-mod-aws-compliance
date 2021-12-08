@@ -15,3 +15,13 @@ control "autoscaling_group_with_lb_use_health_check" {
     nist_csf          = "true"
   })
 }
+
+control "autoscaling_launch_config_public_ip_disabled" {
+  title       = "Auto Scaling launch config public IP should be disabled"
+  description = "Ensure if Amazon EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is non complaint if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'."
+  sql         = query.autoscaling_launch_config_public_ip_disabled.sql
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}

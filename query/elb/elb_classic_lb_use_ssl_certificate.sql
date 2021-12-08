@@ -18,7 +18,7 @@ select
   end as status,
   case
     when a.listener_descriptions is null then a.title || ' has no listener.'
-    when b.name is not null then a.title || ' not uses certificates provided by ACM.'
+    when b.name is not null then a.title || ' does not use certificates provided by ACM.'
     else a.title || ' uses certificates provided by ACM.'
   end as reason,
   -- Additional Dimensions

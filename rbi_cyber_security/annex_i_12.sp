@@ -10,6 +10,7 @@ benchmark "rbi_cyber_security_annex_i_12" {
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled
   ]

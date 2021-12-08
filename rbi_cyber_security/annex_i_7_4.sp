@@ -10,9 +10,11 @@ benchmark "rbi_cyber_security_annex_i_7_4" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_log_group_retention_period_365,
     control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
     control.wafv2_web_acl_logging_enabled
   ]

@@ -169,3 +169,13 @@ control "rds_db_instance_protected_by_backup_plan" {
     soc_2    = "true"
   })
 }
+
+control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
+  title       = "RDS DB instance automatic minor version upgrade should be enabled"
+  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of 'autoMinorVersionUpgrade' is false."
+  sql         = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
