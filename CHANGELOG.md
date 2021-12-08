@@ -6,7 +6,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `config_enabled_all_regions` query to correctly evaluate if AWS Config is enabled in the account for the local Region and is recording all resources
+- Fixed the `config_enabled_all_regions` query to correctly evaluate if AWS Config is enabled in the account for the local Region and is recording all resources ([325](https://github.com/turbot/steampipe-mod-aws-compliance/pull/325))
 
 ## v0.21 [2021-11-24]
 
