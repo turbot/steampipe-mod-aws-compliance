@@ -22,7 +22,7 @@ select
   end as status,
   case
     when b.route_table_id is null then a.title || ' does not have public routes to an Internet Gateway (IGW)'
-    else a.title || ' contains ' || b.num || ' rule(s) have public routes to an Internet Gateway (IGW)'
+    else a.title || ' contains ' || b.num || ' rule(s) which have public routes to an Internet Gateway (IGW)'
   end as reason,
   -- Additional Dimensions
   a.region,

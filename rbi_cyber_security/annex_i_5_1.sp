@@ -8,7 +8,7 @@ benchmark "rbi_cyber_security_annex_i_5_1" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.rbi_cyber_security_common_tags, {

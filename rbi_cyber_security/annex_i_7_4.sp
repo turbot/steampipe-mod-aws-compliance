@@ -16,7 +16,7 @@ benchmark "rbi_cyber_security_annex_i_7_4" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.rbi_cyber_security_common_tags, {

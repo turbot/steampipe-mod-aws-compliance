@@ -35,7 +35,7 @@ select
   end as status,
   case
     when b.load_balancer_arn is null then a.title || ' uses certificates provided by ACM.'
-    else a.title || ' ' || b.count || ' listners does not use certificates provided by ACM.'
+    else a.title || ' has ' || b.count || ' listeners which do not use certificates provided by ACM.'
   end as reason,
   -- Additional Dimensions
   a.region,

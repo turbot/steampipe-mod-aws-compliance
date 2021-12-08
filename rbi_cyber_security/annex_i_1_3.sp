@@ -51,7 +51,7 @@ benchmark "rbi_cyber_security_annex_i_1_3" {
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = merge(local.rbi_cyber_security_common_tags, {

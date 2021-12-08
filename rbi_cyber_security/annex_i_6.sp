@@ -7,7 +7,7 @@ benchmark "rbi_cyber_security_annex_i_6" {
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = merge(local.rbi_cyber_security_common_tags, {
