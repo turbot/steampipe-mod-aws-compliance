@@ -52,9 +52,30 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   sql         = query.redshift_cluster_automatic_snapshots_min_7_days.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gdpr     = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    sco_2    = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_csf           = "true"
+    rbi_cyber_security = "true"
+    sco_2              = "true"
+  })
+}
+
+control "redshift_cluster_kms_enabled" {
+  title       = "Amazon Redshift clusters should be encrypted with KMS"
+  description = "Ensure if Amazon Redshift clusters are using a specified AWS Key Management Service (AWS KMS) key for encryption. The rule is complaint if encryption is enabled and the cluster is encrypted with the key provided in the kmsKeyArn parameter. The rule is non complaint if the cluster is not encrypted or encrypted with another key."
+  sql         = query.redshift_cluster_kms_enabled.sql
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
+
+control "redshift_cluster_maintenance_settings_check" {
+  title       = "Amazon Redshift should have required maintenance settings"
+  description = "Ensure whether Amazon Redshift clusters have the specified maintenance settings. Redshift clusters `allowVersionUpgrade` should be set to `true` and `automatedSnapshotRetentionPeriod` should be greater than 7."
+  sql         = query.redshift_cluster_maintenance_settings_check.sql
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    rbi_cyber_security = "true"
   })
 }

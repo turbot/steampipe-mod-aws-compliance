@@ -1,3 +1,13 @@
+## v0.22 [2021-12-08]
+
+_What's new?_
+
+- RBI Cyber Security Framework benchmark (`steampipe check benchmark.rbi_cyber_security`) now includes 17 new controls and 7 new queries ([331](https://github.com/turbot/steampipe-mod-aws-compliance/pull/331))
+
+_Bug fixes_
+
+- Fixed the `config_enabled_all_regions` query to correctly evaluate if AWS Config is enabled in the account for the local Region and is recording all resources ([325](https://github.com/turbot/steampipe-mod-aws-compliance/pull/325))
+
 ## v0.21 [2021-11-24]
 
 _What's new?_

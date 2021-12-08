@@ -106,3 +106,13 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
     nist_csf          = "true"
   })
 }
+
+control "elb_application_network_lb_use_ssl_certificate" {
+  title       = "ELB application and network load balancers should only use SSL or HTTPS listeners"
+  description = "Ensure if Application Load Balancers and Network Load Balancers are configured to use certificates from AWS Certificate Manager (ACM). This rule is complaint if at least 1 load balancer is configured without a certificate from ACM."
+  sql         = query.elb_application_network_lb_use_ssl_certificate.sql
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    rbi_cyber_security = "true"
+  })
+}
