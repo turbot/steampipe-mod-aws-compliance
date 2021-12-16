@@ -9,8 +9,7 @@ benchmark "soc_2_cc_4" {
   description = "The criteria relevant to how the entity (i) conducts ongoing and/or separate evaluations, and (ii) evaluates and communicates deficiencies."
 
   children = [
-    benchmark.soc_2_cc_4_1,
-    benchmark.soc_2_cc_4_2
+    benchmark.soc_2_cc_4_1
   ]
 
   tags = local.soc_2_cc_4_common_tags

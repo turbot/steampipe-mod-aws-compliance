@@ -11,12 +11,10 @@ benchmark "soc_2_cc_6" {
   children = [
     benchmark.soc_2_cc_6_1,
     benchmark.soc_2_cc_6_2,
-    benchmark.soc_2_cc_6_3,
     benchmark.soc_2_cc_6_4,
     benchmark.soc_2_cc_6_5,
     benchmark.soc_2_cc_6_6,
-    benchmark.soc_2_cc_6_7,
-    benchmark.soc_2_cc_6_8
+    benchmark.soc_2_cc_6_7
   ]
 
   tags = local.soc_2_cc_6_common_tags

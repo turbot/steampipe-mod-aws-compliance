@@ -11,8 +11,7 @@ benchmark "soc_2_cc_3" {
   children = [
     benchmark.soc_2_cc_3_1,
     benchmark.soc_2_cc_3_2,
-    benchmark.soc_2_cc_3_3,
-    benchmark.soc_2_cc_3_4
+    benchmark.soc_2_cc_3_3
   ]
 
   tags = local.soc_2_cc_3_common_tags
@@ -24,8 +23,7 @@ benchmark "soc_2_cc_3_1" {
 
   children = [
     control.guardduty_enabled,
-    control.securityhub_enabled,
-    control.config_enabled_all_regions
+    control.securityhub_enabled
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {
@@ -42,7 +40,6 @@ benchmark "soc_2_cc_3_2" {
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.guardduty_finding_archived,
-    control.guardduty_enabled,
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
