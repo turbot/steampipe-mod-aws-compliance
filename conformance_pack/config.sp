@@ -11,6 +11,7 @@ control "config_enabled_all_regions" {
 
   tags = merge(local.conformance_pack_config_common_tags, {
     gdpr     = "true"
+    hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"
   })
