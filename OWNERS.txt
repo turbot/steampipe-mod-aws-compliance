@@ -1,0 +1,3 @@
+# List of source code paths and code owners
+# common services & repos
+* @anowar-cloudknox @naveen-cloudknox @pratima-cloudknox @ravi-cloudknox @sravani-cloudknox
