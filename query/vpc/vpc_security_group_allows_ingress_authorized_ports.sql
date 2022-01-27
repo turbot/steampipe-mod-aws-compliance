@@ -6,7 +6,7 @@ with ingress_unauthorized_ports as (
     aws_vpc_security_group_rule
   where
     type = 'ingress'
-    and cidr_ip = '0.0.0.0/0'
+    and cidr_ipv4 = '0.0.0.0/0'
     and (from_port is null or from_port not in (80,443))
   group by group_id
 )
