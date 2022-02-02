@@ -7,7 +7,7 @@ with bad_rules as (
   where
     type = 'ingress'
     and (
-      cidr_ip = '0.0.0.0/0'
+      cidr_ipv4 = '0.0.0.0/0'
       or cidr_ipv6 = '::/0'
     )
     and (
