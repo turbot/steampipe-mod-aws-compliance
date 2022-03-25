@@ -10,11 +10,13 @@ select
   -- Required Columns
   d.arn as resource,
   case
+    when d.billing_mode = 'PAY_PER_REQUEST' then 'ok'
     when t.resource_id is null then 'alarm'
     when t.count < 2 then 'alarm'
     else 'ok'
   end as status,
   case
+    when d.billing_mode = 'PAY_PER_REQUEST' then d.title || ' On-demand mode enabled.'
     when t.resource_id is null then d.title || ' autoscaling not enabled.'
     when t.count < 2 then d.title || ' auto scaling not enabled for both read and write capacity.'
     else d.title || ' autoscaling enabled for both read and write capacity.'
