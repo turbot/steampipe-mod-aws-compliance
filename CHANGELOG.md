@@ -1,3 +1,9 @@
+## v0.24 [2022-03-30]
+
+_Bug fixes_
+
+- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly check if the tables have on-demand capacity mode enabled or not ([#350](https://github.com/turbot/steampipe-mod-aws-compliance/pull/350))
+
 ## v0.23 [2022-02-02]
 
 _Enhancements_
