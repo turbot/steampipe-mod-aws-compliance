@@ -14,7 +14,9 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_4,
     control.foundational_security_s3_5,
     control.foundational_security_s3_6,
-    control.foundational_security_s3_8
+    control.foundational_security_s3_8,
+    control.foundational_security_s3_9,
+    control.foundational_security_s3_10
   ]
   tags          = local.foundational_security_s3_common_tags
 }
@@ -107,5 +109,31 @@ control "foundational_security_s3_8" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_8"
     foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_s3_9" {
+  title         = "9 S3 bucket server access logging should be enabled"
+  description   = "When logging is enabled, Amazon S3 delivers access logs for a source bucket to a chosen target bucket. The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration."
+  severity      = "medium"
+  sql           = query.s3_bucket_public_access_blocked.sql
+  documentation = file("./foundational_security/docs/foundational_security_s3_9.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_9"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_s3_10" {
+  title         = "10 S3 buckets with versioning enabled should have lifecycle policies configured"
+  description   = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  severity      = "medium"
+  sql           = query.s3_bucket_versioning_and_lifecycle_policy_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_s3_10.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_10"
+    foundational_security_category = "logging"
   })
 }

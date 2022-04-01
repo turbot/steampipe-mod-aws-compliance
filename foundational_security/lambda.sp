@@ -10,7 +10,8 @@ benchmark "foundational_security_lambda" {
   children = [
     control.foundational_security_lambda_1,
     control.foundational_security_lambda_2,
-    control.foundational_security_lambda_4
+    control.foundational_security_lambda_4,
+    control.foundational_security_lambda_5
   ]
   tags          = local.foundational_security_lambda_common_tags
 }
@@ -24,7 +25,7 @@ control "foundational_security_lambda_1" {
 
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_1"
-    #foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
@@ -37,7 +38,7 @@ control "foundational_security_lambda_2" {
 
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_2"
-    #foundational_security_category = "secure_development"
+    foundational_security_category = "secure_development"
   })
 }
 
@@ -51,5 +52,18 @@ control "foundational_security_lambda_4" {
   tags = merge(local.foundational_security_lambda_common_tags, {
     foundational_security_item_id  = "lambda_4"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_lambda_5" {
+  title         = "5 VPC Lambda functions should operate in more than one Availability Zone"
+  description   = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
+  severity      = "medium"
+  sql           = query.lambda_function_multiple_az_configured.sql
+  documentation = file("./foundational_security/docs/foundational_security_lambda_5.md")
+
+  tags = merge(local.foundational_security_lambda_common_tags, {
+    foundational_security_item_id  = "lambda_5"
+    foundational_security_category = "high_availability"
   })
 }

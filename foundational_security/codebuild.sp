@@ -9,7 +9,9 @@ benchmark "foundational_security_codebuild" {
   documentation = file("./foundational_security/docs/foundational_security_codebuild.md")
   children = [
     control.foundational_security_codebuild_1,
-    control.foundational_security_codebuild_2
+    control.foundational_security_codebuild_2,
+    control.foundational_security_codebuild_4,
+    control.foundational_security_codebuild_5
   ]
   tags          = local.foundational_security_codebuild_common_tags
 }
@@ -37,5 +39,31 @@ control "foundational_security_codebuild_2" {
   tags = merge(local.foundational_security_codebuild_common_tags, {
     foundational_security_item_id  = "codebuild_2"
     foundational_security_category = "secure_development"
+  })
+}
+
+control "foundational_security_codebuild_4" {
+  title         = "4 CodeBuild project environments should have a logging configuration"
+  description   = "This control checks whether a CodeBuild project environment has at least one log option, either to S3 or CloudWatch logs enabled. This control fails if a CodeBuild project environment does not have at least one log option enabled."
+  severity      = "medium"
+  sql           = query.codebuild_project_logging_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_codebuild_4.md")
+
+  tags = merge(local.foundational_security_codebuild_common_tags, {
+    foundational_security_item_id  = "codebuild_4"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_codebuild_5" {
+  title         = "5 CodeBuild project environments should not have privileged mode enabled"
+  description   = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
+  severity      = "high"
+  sql           = query.codebuild_project_environment_privileged_mode_disabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_codebuild_5.md")
+
+  tags = merge(local.foundational_security_codebuild_common_tags, {
+    foundational_security_item_id  = "codebuild_5"
+    foundational_security_category = "secure_access_management"
   })
 }
