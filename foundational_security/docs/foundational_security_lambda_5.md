@@ -12,5 +12,5 @@ Deploying resources across multiple Availability Zones is an AWS best practice t
 2. From the `Functions` page on the Lambda console choose a function.
 3. Choose `Configuration` and then choose VPC.
 4. Choose `Edit`.
-5. If the function was not originally connected to a VPC, select a VPC from the dropdown menu. If the function was not originally connected to a VPC, choose at least one security group to attach to the function
+5. If the function was not originally connected to a VPC, select a VPC from the dropdown menu. If the function was not originally connected to a VPC, choose at least one security group to attach to the function.
 6. Choose `Save`.
