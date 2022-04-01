@@ -12,10 +12,10 @@ mod "aws_compliance" {
     description  = "Run individual configuration, compliance and security controls or full compliance benchmarks for CIS, PCI, NIST, HIPAA, RBI CSF, GDPR, SOC 2, Audit Manager Control Tower and AWS Foundational Security Best Practices controls across all your AWS accounts using Steampipe."
     image        = "/images/mods/turbot/aws-compliance-social-graphic.png"
   }
-  
+
   requires {
     plugin "aws" {
-      version = "0.45.0"
+      version = "0.54.0"
     }
   }
 }
