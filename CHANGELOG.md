@@ -1,3 +1,24 @@
+## v0.25 [2021-04-01]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices controls added:
+  - AutoScaling.2
+  - AutoScaling.5
+  - CloudFront.7
+  - CloudFront.8
+  - CodeBuild.4
+  - CodeBuild.5
+  - EC2.21
+  - EC2.22
+  - Lambda.5
+  - NetworkFirewall.5
+  - RDS.24
+  - RDS.25
+  - Redshift.8
+  - S3.10
+  - S3.9
+
 ## v0.24 [2022-03-30]
 
 _Bug fixes_
@@ -46,7 +67,7 @@ _What's new?_
   - RC.RP-1
   - RS.MI-3
   - RS.RP-1
-  
+
 ## v0.20 [2021-11-18]
 
 _Bug fixes_
@@ -82,7 +103,7 @@ _What's new?_
 
 _What's new?_
 
-- Added: System and Organization Controls (SOC 2) benchmark (`steampipe check aws_compliance.benchmark.soc_2`) 
+- Added: System and Organization Controls (SOC 2) benchmark (`steampipe check aws_compliance.benchmark.soc_2`)
 
 ## v0.16 [2021-10-12]
 
