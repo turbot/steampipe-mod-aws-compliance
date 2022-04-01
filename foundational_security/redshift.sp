@@ -13,7 +13,8 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_3,
     control.foundational_security_redshift_4,
     control.foundational_security_redshift_6,
-    control.foundational_security_redshift_7
+    control.foundational_security_redshift_7,
+    control.foundational_security_redshift_8
   ]
   tags          = local.foundational_security_redshift_common_tags
 }
@@ -93,5 +94,18 @@ control "foundational_security_redshift_7" {
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_7"
     foundational_security_category = "api_private_access"
+  })
+}
+
+control "foundational_security_redshift_8" {
+  title         = "8 Amazon Redshift clusters should not use the default Admin username"
+  description   = "This control checks whether a Amazon Redshift cluster has changed the admin username from its default value. This control will fail if the admin username for a Redshift cluster is set to awsuser."
+  severity      = "high"
+  sql           = query.redshift_cluster_no_default_admin_name.sql
+  documentation = file("./foundational_security/docs/foundational_security_redshift_8.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_8"
+    foundational_security_category = "resource_configuration"
   })
 }

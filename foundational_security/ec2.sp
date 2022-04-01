@@ -21,7 +21,9 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_16,
     control.foundational_security_ec2_17,
     control.foundational_security_ec2_18,
-    control.foundational_security_ec2_19
+    control.foundational_security_ec2_19,
+    control.foundational_security_ec2_21,
+    control.foundational_security_ec2_22
   ]
   tags          = local.foundational_security_ec2_common_tags
 }
@@ -205,5 +207,31 @@ control "foundational_security_ec2_19" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_19"
     foundational_security_category = "security_group_configuration"
+  })
+}
+
+control "foundational_security_ec2_21" {
+  title         = "21 Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
+  description   = "This control checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule fails if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
+  severity      = "medium"
+  sql           = query.vpc_network_acl_remote_administration.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_21.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_21"
+    foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_ec2_22" {
+  title         = "22 Unused EC2 security groups should be removed"
+  description   = "This AWS control checks that security groups are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or to an elastic network interface. The control will fail if the security group is not associated with an Amazon EC2 instance or an elastic network interface."
+  severity      = "medium"
+  sql           = query.vpc_security_group_unsued.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_22.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_22"
+    foundational_security_category = "inventory"
   })
 }

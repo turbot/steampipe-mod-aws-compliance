@@ -13,7 +13,9 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_3,
     control.foundational_security_cloudfront_4,
     control.foundational_security_cloudfront_5,
-    control.foundational_security_cloudfront_6
+    control.foundational_security_cloudfront_6,
+    control.foundational_security_cloudfront_7,
+    control.foundational_security_cloudfront_8
   ]
   tags          = local.foundational_security_cloudfront_common_tags
 }
@@ -93,5 +95,31 @@ control "foundational_security_cloudfront_6" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_6"
     foundational_security_category = "protective_services"
+  })
+}
+
+control "foundational_security_cloudfront_7" {
+  title         = "7 CloudFront distributions should use custom SSL/TLS certificates"
+  description   = "This control checks whether CloudFront distributions are using the default SSL/TLS certificate CloudFront provides. This control passes if the CloudFront distribution uses a custom SSL/TLS certificate. This control fails if the CloudFront distribution uses the default SSL/TLS certificate."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_use_custom_ssl_certificate.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_7.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_7"
+    foundational_security_category = "encryption_of_data_in_transi"
+  })
+}
+
+control "foundational_security_cloudfront_8" {
+  title         = "8 CloudFront distributions should use SNI to serve HTTPS requests"
+  description   = "This control checks if Amazon CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
+  severity      = "low"
+  sql           = query.cloudfront_distribution_sni_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_8.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_8"
+    foundational_security_category = "secure_network_configuration"
   })
 }

@@ -29,7 +29,9 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_20,
     control.foundational_security_rds_21,
     control.foundational_security_rds_22,
-    control.foundational_security_rds_23
+    control.foundational_security_rds_23,
+    control.foundational_security_rds_24,
+    control.foundational_security_rds_25
   ]
   tags          = local.foundational_security_rds_common_tags
 }
@@ -317,5 +319,31 @@ control "foundational_security_rds_23" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_23"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_rds_24" {
+  title         = "24 RDS database clusters should use a custom administrator username"
+  description   = "This control checks whether an Amazon RDS database cluster has changed the admin username from its default value. This rule will fail if the admin username is set to the default value."
+  severity      = "medium"
+  sql           = query.rds_db_cluster_no_default_admin_name.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_24.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_24"
+    foundational_security_category = "resource_configuration"
+  })
+}
+
+control "foundational_security_rds_25" {
+  title         = "25 RDS database instances should use a custom administrator username"
+  description   = "This control checks whether you've changed the administrative username for Amazon Relational Database Service (Amazon RDS) database instances from the default value. The control fails if the administrative username is set to the default value."
+  severity      = "medium"
+  sql           = query.rds_db_instance_no_default_admin_name.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_25.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_25"
+    foundational_security_category = "resource_configuration"
   })
 }
