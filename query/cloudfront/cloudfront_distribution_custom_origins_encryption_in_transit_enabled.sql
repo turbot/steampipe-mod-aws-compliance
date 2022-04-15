@@ -1,4 +1,3 @@
-
 with viewer_protocol_policy_value as (
   select
     distinct arn
@@ -43,4 +42,3 @@ from
   aws_cloudfront_distribution as b
   left join origin_protocol_policy_value as o on b.arn = o.arn
   left join viewer_protocol_policy_value as v on b.arn = v.arn;
- 

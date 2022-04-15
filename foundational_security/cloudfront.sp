@@ -15,7 +15,8 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_5,
     control.foundational_security_cloudfront_6,
     control.foundational_security_cloudfront_7,
-    control.foundational_security_cloudfront_8
+    control.foundational_security_cloudfront_8,
+    control.foundational_security_cloudfront_9
   ]
   tags          = local.foundational_security_cloudfront_common_tags
 }
