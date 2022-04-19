@@ -20,6 +20,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_dms,
     benchmark.foundational_security_dynamodb,
     benchmark.foundational_security_ec2,
+    benchmark.foundational_security_ecr,
     benchmark.foundational_security_ecs,
     benchmark.foundational_security_efs,
     benchmark.foundational_security_elasticbeanstalk,
