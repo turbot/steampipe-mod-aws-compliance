@@ -8,7 +8,7 @@ with wildcard_action_policies as (
     jsonb_array_elements_text(s -> 'Resource') as resource,
     jsonb_array_elements_text(s -> 'Action') as action
   where
-    is_aws_managed = 'false'
+    not is_aws_managed
     and s ->> 'Effect' = 'Allow'
     and resource = '*'
     and action like '%:*'
@@ -17,17 +17,17 @@ with wildcard_action_policies as (
 )
 select
   -- Required Columns
-  a.arn as resource,
+  p.arn as resource,
   case
-    when b.arn is null then 'ok'
+    when w.arn is null then 'ok'
     else 'alarm'
   end status,
-  a.name || ' contains ' || coalesce(b.statements_num,0)  ||
+  p.name || ' contains ' || coalesce(w.statements_num,0)  ||
      ' statements that allow action "Service:*" on resource "*".' as reason,
   -- Additional Dimensions
-  a.account_id
+  p.account_id
 from
-  aws_iam_policy as a
-  left join wildcard_action_policies as b on a.arn = b.arn
+  aws_iam_policy as p
+  left join wildcard_action_policies as w on p.arn = w.arn
 where
-  a.arn not like 'arn:aws:iam::aws:policy%';
+  not p.is_aws_managed;

@@ -247,7 +247,7 @@ control "cis_v130_1_15" {
 control "cis_v130_1_16" {
   title         = "1.16 Ensure IAM policies that allow full \"*:*\" administrative privileges are not attached"
   description   = "IAM policies are the means by which privileges are granted to users, groups, or roles. It is recommended and considered a standard security advice to grant least privilege -that is, granting only the permissions required to perform a task. Determine what users need to do and then craft policies for them that let the users perform only those tasks, instead of allowing full administrative privileges."
-  sql           = query.iam_all_policy_no_star_star.sql
+  sql           = query.iam_policy_all_attached_no_star_star.sql
   documentation = file("./cis_v130/docs/cis_v130_1_16.md")
 
   tags = merge(local.cis_v130_1_common_tags, {

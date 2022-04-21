@@ -32,7 +32,7 @@ control "iam_group_not_empty" {
 control "iam_policy_no_star_star" {
   title       = "IAM policy should not have statements with admin access"
   description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, restricting policies from containing 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
-  sql         = query.iam_policy_no_star_star.sql
+  sql         = query.iam_policy_custom_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     gdpr               = "true"
@@ -258,7 +258,7 @@ control "iam_account_password_policy_one_number" {
 control "iam_password_policy_expire_90" {
   title       = "Ensure IAM password policy expires passwords within 90 days or less"
   description = "IAM password policies can require passwords to be rotated or expired after a given number of days. Security Hub recommends that the password policy expire passwords after 90 days or less. Reducing the password lifetime increases account resiliency against brute force login attempts."
-  sql         = query.iam_password_policy_expire_90.sql
+  sql         = query.iam_account_password_policy_expire_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     gdpr  = "true"
@@ -280,7 +280,7 @@ control "iam_account_password_policy_one_symbol" {
 control "iam_all_policy_no_service_wild_card" {
   title       = "Ensure IAM policy should not grant full access to service"
   description = "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is non complaint if the managed IAM policy allows full access to at least 1 AWS service."
-  sql         = query.iam_all_policy_no_service_wild_card.sql
+  sql         = query.iam_policy_custom_no_service_wildcard.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     rbi_cyber_security = "true"

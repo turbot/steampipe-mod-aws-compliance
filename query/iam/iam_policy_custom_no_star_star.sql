@@ -8,13 +8,14 @@ with bad_policies as (
     jsonb_array_elements_text(s -> 'Resource') as resource,
     jsonb_array_elements_text(s -> 'Action') as action
   where
-    s ->> 'Effect' = 'Allow'
+    not is_aws_managed
+    and s ->> 'Effect' = 'Allow'
     and resource = '*'
     and (
       (action = '*'
       or action = '*:*'
       )
-  )
+    )
   group by
     arn
 )
@@ -33,4 +34,4 @@ from
   aws_iam_policy as p
   left join bad_policies as bad on p.arn = bad.arn
 where
-  p.arn not like 'arn:aws:iam::aws:policy%'
+  not p.is_aws_managed;
