@@ -10,7 +10,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `guardduty_enabled` query to only check if GuardDuty is enabled and no longer check if S3 logging is enabled or not. ([#360](https://github.com/turbot/steampipe-mod-aws-compliance/pull/360))
+- Fixed the `guardduty_enabled` query to only check if GuardDuty is enabled and no longer check if S3 logging is enabled. ([#360](https://github.com/turbot/steampipe-mod-aws-compliance/pull/360))
 
 ## v0.26 [2022-04-18]
 
