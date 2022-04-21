@@ -12,7 +12,8 @@ benchmark "foundational_security_elb" {
     control.foundational_security_elb_4,
     control.foundational_security_elb_5,
     control.foundational_security_elb_6,
-    control.foundational_security_elb_7
+    control.foundational_security_elb_7,
+    control.foundational_security_elb_10
   ]
   tags          = local.foundational_security_elb_common_tags
 }
@@ -79,5 +80,18 @@ control "foundational_security_elb_7" {
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_7"
     foundational_security_category = "resilience"
+  })
+}
+
+control "foundational_security_elb_10" {
+  title         = "10 Classic Load Balancers should span multiple Availability Zones"
+  description   = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
+  severity      = "medium"
+  sql           = query.elb_classic_lb_multiple_az_configured.sql
+  documentation = file("./foundational_security/docs/foundational_security_elb_10.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_10"
+    foundational_security_category = "high_availability"
   })
 }

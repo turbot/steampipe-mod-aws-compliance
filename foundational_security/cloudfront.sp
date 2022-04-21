@@ -15,7 +15,8 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_5,
     control.foundational_security_cloudfront_6,
     control.foundational_security_cloudfront_7,
-    control.foundational_security_cloudfront_8
+    control.foundational_security_cloudfront_8,
+    control.foundational_security_cloudfront_9
   ]
   tags          = local.foundational_security_cloudfront_common_tags
 }
@@ -121,5 +122,18 @@ control "foundational_security_cloudfront_8" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_8"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_cloudfront_9" {
+  title         = "9 CloudFront distributions should encrypt traffic to custom origins"
+  description   = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_9.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_9"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }

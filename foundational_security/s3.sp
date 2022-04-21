@@ -16,7 +16,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_6,
     control.foundational_security_s3_8,
     control.foundational_security_s3_9,
-    control.foundational_security_s3_10
+    control.foundational_security_s3_10,
+    control.foundational_security_s3_11
   ]
   tags          = local.foundational_security_s3_common_tags
 }
@@ -134,6 +135,19 @@ control "foundational_security_s3_10" {
 
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_10"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_s3_11" {
+  title         = "11 S3 buckets should have event notifications enabled"
+  description   = "This control checks whether S3 Event Notifications are enabled on an Amazon S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
+  severity      = "medium"
+  sql           = query.s3_bucket_event_notifications_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_s3_11.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_11"
     foundational_security_category = "logging"
   })
 }
