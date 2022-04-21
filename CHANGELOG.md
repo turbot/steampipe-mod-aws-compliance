@@ -8,6 +8,10 @@ _What's new?_
   - ELB.10
   - S3.11
 
+_Bug fixes_
+
+- Fixed the `guardduty_enabled` query to only check if GuardDuty is enabled and no longer check if S3 logging is enabled or not. ([#360](https://github.com/turbot/steampipe-mod-aws-compliance/pull/360))
+
 ## v0.26 [2022-04-18]
 
 _Bug fixes_
