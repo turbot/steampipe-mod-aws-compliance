@@ -32,6 +32,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_iam,
     benchmark.foundational_security_kms,
     benchmark.foundational_security_lambda,
+    benchmark.foundational_security_networkfirewall,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
     benchmark.foundational_security_s3,

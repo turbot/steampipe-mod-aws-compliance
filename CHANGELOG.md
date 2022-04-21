@@ -1,3 +1,9 @@
+## v0.26 [2022-04-18]
+
+_Bug fixes_
+
+- The `foundational_security_networkfirewall` benchmark is now a child of the `foundational_security` benchmark.
+
 ## v0.25 [2021-04-01]
 
 _What's new?_
