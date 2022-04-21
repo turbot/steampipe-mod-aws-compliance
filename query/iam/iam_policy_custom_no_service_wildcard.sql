@@ -11,7 +11,10 @@ with wildcard_action_policies as (
     not is_aws_managed
     and s ->> 'Effect' = 'Allow'
     and resource = '*'
-    and action like '%:*'
+    and (
+      action like '%:*'
+      or action = '*'
+    )
   group by
     arn
 )
@@ -23,7 +26,7 @@ select
     else 'alarm'
   end status,
   p.name || ' contains ' || coalesce(w.statements_num,0)  ||
-     ' statements that allow action "Service:*" on resource "*".' as reason,
+     ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason,
   -- Additional Dimensions
   p.account_id
 from
