@@ -1,3 +1,13 @@
+## v0.27 [2022-04-21]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices controls added:
+  - CloudFront.9
+  - ECR.3
+  - ELB.10
+  - S3.11
+
 ## v0.26 [2022-04-18]
 
 _Bug fixes_
