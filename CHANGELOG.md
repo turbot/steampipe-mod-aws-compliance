@@ -1,3 +1,16 @@
+## v0.28 [2022-04-22]
+
+_Enhancements_
+
+- Renamed several IAM policy and account password policy query names to be more consistent with other query names. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+
+_Bug fixes_
+
+- The `cis_v130_1_16` and `cis_v140_1_16` controls now only show results for attached IAM policies. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+- The `iam_all_policy_no_service_wild_card` control now only checks customer managed IAM policies for full service access statements. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+- Fixed `iam_all_policy_no_service_wild_card` and `foundational_security_iam_21` controls not alarming if any policy statements grant `*:*`, as these statements also grant full access to at least 1 AWS service. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+- Removed `iam_all_policy_no_service_wild_card.sql` and `iam_policy_in_use.sql` queries as these were unused by any controls. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+
 ## v0.27 [2022-04-21]
 
 _What's new?_
