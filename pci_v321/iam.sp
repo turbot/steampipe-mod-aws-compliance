@@ -50,7 +50,7 @@ control "pci_v321_iam_3" {
   title         = "3 IAM policies should not allow full '*' administrative privileges"
   description   = "This control checks whether the default version of AWS Identity and Access Management policies (also known as customer managed policies) do not have administrator access with a statement that has 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
   severity      = "high"
-  sql           = query.iam_policy_no_star_star.sql
+  sql           = query.iam_policy_custom_no_star_star.sql
   documentation = file("./pci_v321/docs/pci_v321_iam_3.md")
 
   tags = merge(local.pci_v321_iam_common_tags, {

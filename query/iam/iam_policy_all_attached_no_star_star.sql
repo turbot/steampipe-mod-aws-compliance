@@ -14,8 +14,8 @@ with star_access_policies as (
       (action = '*'
       or action = '*:*'
       )
-  )
-  and attachment_count !=0
+    )
+    and is_attached
   group by arn
  )
 select
@@ -31,4 +31,6 @@ select
   p.account_id
 from
   aws_iam_policy as p
-  left join star_access_policies as s on p.arn = s.arn;
+  left join star_access_policies as s on p.arn = s.arn
+where
+  p.is_attached;
