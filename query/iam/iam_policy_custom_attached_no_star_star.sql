@@ -9,15 +9,15 @@ with star_access_policies as (
     jsonb_array_elements_text(s -> 'Resource') as resource,
     jsonb_array_elements_text(s -> 'Action') as action
   where
-    s ->> 'Effect' = 'Allow'
+    not is_aws_managed
+    and s ->> 'Effect' = 'Allow'
     and resource = '*'
     and (
       (action = '*'
       or action = '*:*'
       )
-  )
-  -- Checking attachment
-  and attachment_count !=0
+    )
+    and is_attached
   group by arn
  )
 select
@@ -35,5 +35,4 @@ from
   aws_iam_policy as p
   left join star_access_policies as s on p.arn = s.arn
 where
-  -- Filter only customer managed policies
-  p.arn not like 'arn:aws:iam::aws:policy%';
+  not p.is_aws_managed;
