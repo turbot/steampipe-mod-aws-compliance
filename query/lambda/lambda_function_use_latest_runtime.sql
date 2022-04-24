@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-  aws_lambda_function;
+  "aws_lambda_function";
