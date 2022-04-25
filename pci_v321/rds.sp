@@ -1,6 +1,6 @@
 locals {
   pci_v321_rds_common_tags = merge(local.pci_v321_common_tags, {
-    service = "rds"
+    service = "AWS/RDS"
   })
 }
 

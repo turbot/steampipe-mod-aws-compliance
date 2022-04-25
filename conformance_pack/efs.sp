@@ -1,6 +1,6 @@
 locals {
   conformance_pack_efs_common_tags = {
-    service = "efs"
+    service = "AWS/EFS"
   }
 }
 

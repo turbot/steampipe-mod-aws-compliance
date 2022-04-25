@@ -1,6 +1,6 @@
 locals {
   pci_v321_autoscaling_common_tags = merge(local.pci_v321_common_tags, {
-    service = "autoscaling"
+    service = "AWS/AutoScaling"
   })
 }
 

@@ -1,6 +1,6 @@
 locals {
   conformance_pack_redshift_common_tags = {
-    service = "redshift"
+    service = "AWS/Redshift"
   }
 }
 

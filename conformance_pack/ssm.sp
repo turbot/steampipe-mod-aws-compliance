@@ -1,6 +1,6 @@
 locals {
   conformance_pack_ssm_common_tags = {
-    service = "ssm"
+    service = "AWS/SSM"
   }
 }
 

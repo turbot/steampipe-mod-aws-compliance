@@ -1,6 +1,6 @@
 locals {
   foundational_security_ec2_common_tags = merge(local.foundational_security_common_tags, {
-    service = "ec2"
+    service = "AWS/EC2"
   })
 }
 

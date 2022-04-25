@@ -1,6 +1,6 @@
 locals {
   conformance_pack_dax_common_tags = {
-    service = "dax"
+    service = "AWS/DAX"
   }
 }
 

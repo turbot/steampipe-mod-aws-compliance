@@ -1,6 +1,6 @@
 locals {
   foundational_security_elb_common_tags = merge(local.foundational_security_common_tags, {
-    service = "elb"
+    service = "AWS/ELB"
   })
 }
 

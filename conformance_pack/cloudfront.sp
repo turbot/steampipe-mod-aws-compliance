@@ -1,6 +1,6 @@
 locals {
   conformance_pack_cloudfront_common_tags = {
-    service = "cloudfront"
+    service = "AWS/CloudFront"
   }
 }
 

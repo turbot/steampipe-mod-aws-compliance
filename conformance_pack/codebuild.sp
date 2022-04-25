@@ -1,6 +1,6 @@
 locals {
   conformance_pack_codebuild_common_tags = {
-    service = "codebuild"
+    service = "AWS/CodeBuild"
   }
 }
 

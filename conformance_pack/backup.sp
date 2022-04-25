@@ -1,6 +1,6 @@
 locals {
   conformance_pack_backup_common_tags = {
-    service = "backup"
+    service = "AWS/Backup"
   }
 }
 

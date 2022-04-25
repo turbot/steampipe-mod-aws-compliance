@@ -1,6 +1,6 @@
 locals {
   conformance_pack_dms_common_tags = {
-    service = "dms"
+    service = "AWS/DMS"
   }
 }
 

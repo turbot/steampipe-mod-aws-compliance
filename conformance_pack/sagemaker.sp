@@ -1,6 +1,6 @@
 locals {
   conformance_pack_sagemaker_common_tags = {
-    service = "sagemaker"
+    service = "AWS/SageMaker"
   }
 }
 

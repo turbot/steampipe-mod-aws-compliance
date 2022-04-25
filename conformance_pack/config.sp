@@ -1,6 +1,6 @@
 locals {
   conformance_pack_config_common_tags = {
-    service = "config"
+    service = "AWS/Config"
   }
 }
 

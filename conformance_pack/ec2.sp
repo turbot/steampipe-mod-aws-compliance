@@ -1,6 +1,6 @@
 locals {
   conformance_pack_ec2_common_tags = {
-    service = "ec2"
+    service = "AWS/EC2"
   }
 }
 

@@ -50,7 +50,7 @@ control "cis_v140_2_1_1" {
     cis_item_id = "2.1.1"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -64,7 +64,7 @@ control "cis_v140_2_1_2" {
     cis_item_id = "2.1.2"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -78,7 +78,7 @@ control "cis_v140_2_1_3" {
     cis_item_id = "2.1.3"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -92,7 +92,7 @@ control "cis_v140_2_1_4" {
     cis_item_id = "2.1.4"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -106,7 +106,7 @@ control "cis_v140_2_1_5" {
     cis_item_id = "2.1.5"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -129,7 +129,7 @@ control "cis_v140_2_2_1" {
     cis_item_id = "2.2.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "ebs"
+    service     = "AWS/EBS"
   })
 }
 
@@ -152,6 +152,6 @@ control "cis_v140_2_3_1" {
     cis_item_id = "2.3.1"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "rds"
+    service     = "AWS/RDS"
   })
 }

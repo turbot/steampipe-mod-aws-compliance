@@ -1,6 +1,6 @@
 locals {
   conformance_pack_cloudtrail_common_tags = {
-    service = "cloudtrail"
+    service = "AWS/CloudTrail"
   }
 }
 

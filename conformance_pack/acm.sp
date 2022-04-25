@@ -1,6 +1,6 @@
 locals {
   conformance_pack_acm_common_tags = {
-    service = "acm"
+    service = "AWS/ACM"
   }
 }
 

@@ -1,6 +1,6 @@
 locals {
   conformance_pack_dynamodb_common_tags = {
-    service = "dynamodb"
+    service = "AWS/DynamoDB"
   }
 }
 

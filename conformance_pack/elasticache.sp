@@ -1,6 +1,6 @@
 locals {
   conformance_pack_elasticache_common_tags = {
-    service = "elasticache"
+    service = "AWS/ElastiCache"
   }
 }
 

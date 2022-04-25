@@ -1,6 +1,6 @@
 locals {
   conformance_pack_emr_common_tags = {
-    service = "emr"
+    service = "AWS/EMR"
   }
 }
 

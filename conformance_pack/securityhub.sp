@@ -1,6 +1,6 @@
 locals {
   conformance_pack_securityhub_common_tags = {
-    service = "securityhub"
+    service = "AWS/SecurityHub"
   }
 }
 

@@ -1,6 +1,6 @@
 locals {
   conformance_pack_cloudwatch_common_tags = {
-    service = "cloudwatch"
+    service = "AWS/CloudWatch"
   }
 }
 

@@ -1,6 +1,6 @@
 locals {
   conformance_pack_autoscaling_common_tags = {
-    service = "autoscaling"
+    service = "AWS/AutoScaling"
   }
 }
 

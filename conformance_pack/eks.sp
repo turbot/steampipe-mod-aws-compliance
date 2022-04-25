@@ -1,6 +1,6 @@
 locals {
   conformance_pack_eks_common_tags = {
-    service = "eks"
+    service = "AWS/EKS"
   }
 }
 

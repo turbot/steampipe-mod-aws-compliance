@@ -1,6 +1,6 @@
 locals {
   conformance_pack_elb_common_tags = {
-    service = "elb"
+    service = "AWS/ELB"
   }
 }
 

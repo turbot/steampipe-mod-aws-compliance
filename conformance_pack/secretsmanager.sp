@@ -1,6 +1,6 @@
 locals {
   conformance_pack_secretsmanager_common_tags = {
-    service = "secretsmanager"
+    service = "AWS/SecretsManager"
   }
 }
 

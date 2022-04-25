@@ -1,6 +1,6 @@
 locals {
   conformance_pack_lambda_common_tags = {
-    service = "lambda"
+    service = "AWS/Lambda"
   }
 }
 

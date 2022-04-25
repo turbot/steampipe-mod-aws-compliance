@@ -43,7 +43,7 @@ control "cis_v140_1_1" {
     cis_item_id = "1.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -57,7 +57,7 @@ control "cis_v140_1_2" {
     cis_item_id = "1.2"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -71,7 +71,7 @@ control "cis_v140_1_3" {
     cis_item_id = "1.3"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -85,7 +85,7 @@ control "cis_v140_1_4" {
     cis_item_id = "1.4"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -99,7 +99,7 @@ control "cis_v140_1_5" {
     cis_item_id = "1.5"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -113,7 +113,7 @@ control "cis_v140_1_6" {
     cis_item_id = "1.6"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -127,7 +127,7 @@ control "cis_v140_1_7" {
     cis_item_id = "1.7"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -141,7 +141,7 @@ control "cis_v140_1_8" {
     cis_item_id = "1.8"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -155,7 +155,7 @@ control "cis_v140_1_9" {
     cis_item_id = "1.9"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -169,7 +169,7 @@ control "cis_v140_1_10" {
     cis_item_id = "1.10"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -183,7 +183,7 @@ control "cis_v140_1_11" {
     cis_item_id = "1.11"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -197,7 +197,7 @@ control "cis_v140_1_12" {
     cis_item_id = "1.12"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -211,7 +211,7 @@ control "cis_v140_1_13" {
     cis_item_id = "1.13"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -225,7 +225,7 @@ control "cis_v140_1_14" {
     cis_item_id = "1.14"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -239,7 +239,7 @@ control "cis_v140_1_15" {
     cis_item_id = "1.15"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -253,7 +253,7 @@ control "cis_v140_1_16" {
     cis_item_id = "1.16"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -267,7 +267,7 @@ control "cis_v140_1_17" {
     cis_item_id = "1.17"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -281,7 +281,7 @@ control "cis_v140_1_18" {
     cis_item_id = "1.18"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -295,7 +295,7 @@ control "cis_v140_1_19" {
     cis_item_id = "1.19"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -309,7 +309,7 @@ control "cis_v140_1_20" {
     cis_item_id = "1.20"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }
 
@@ -323,6 +323,6 @@ control "cis_v140_1_21" {
     cis_item_id = "1.21"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "iam"
+    service     = "AWS/IAM"
   })
 }

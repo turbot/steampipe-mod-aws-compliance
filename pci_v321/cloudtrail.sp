@@ -1,6 +1,6 @@
 locals {
   pci_v321_cloudtrail_common_tags = merge(local.pci_v321_common_tags, {
-    service = "cloudtrail"
+    service = "AWS/CloudTrail"
   })
 }
 

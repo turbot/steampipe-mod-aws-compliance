@@ -1,6 +1,6 @@
 locals {
   conformance_pack_apigateway_common_tags = {
-    service = "apigateway"
+    service = "AWS/APIGateway"
   }
 }
 

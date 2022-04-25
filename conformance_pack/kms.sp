@@ -1,6 +1,6 @@
 locals {
   conformance_pack_kms_common_tags = {
-    service = "kms"
+    service = "AWS/KMS"
   }
 }
 

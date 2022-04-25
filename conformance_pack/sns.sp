@@ -1,6 +1,6 @@
 locals {
   conformance_pack_sns_common_tags = {
-    service = "sns"
+    service = "AWS/SNS"
   }
 }
 

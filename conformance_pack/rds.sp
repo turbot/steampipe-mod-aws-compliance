@@ -1,6 +1,6 @@
 locals {
   conformance_pack_rds_common_tags = {
-    service = "rds"
+    service = "AWS/RDS"
   }
 }
 

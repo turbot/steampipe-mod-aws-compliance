@@ -1,6 +1,6 @@
 locals {
   conformance_pack_ebs_common_tags = {
-    service = "ebs"
+    service = "AWS/EBS"
   }
 }
 

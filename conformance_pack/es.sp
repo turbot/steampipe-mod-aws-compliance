@@ -1,6 +1,6 @@
 locals {
   conformance_pack_es_common_tags = {
-    service = "es"
+    service = "AWS/ES"
   }
 }
 

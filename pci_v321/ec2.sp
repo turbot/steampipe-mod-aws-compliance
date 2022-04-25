@@ -1,6 +1,6 @@
 locals {
   pci_v321_ec2_common_tags = merge(local.pci_v321_common_tags, {
-    service = "ec2"
+    service = "AWS/EC2"
   })
 }
 

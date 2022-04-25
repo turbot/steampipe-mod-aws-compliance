@@ -1,6 +1,6 @@
 locals {
   conformance_pack_wafv2_common_tags = {
-    service = "wafv2"
+    service = "AWS/WAFv2"
   }
 }
 

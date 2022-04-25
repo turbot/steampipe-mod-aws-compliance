@@ -1,6 +1,6 @@
 locals {
   conformance_pack_s3_common_tags = {
-    service = "s3"
+    service = "AWS/S3"
   }
 }
 

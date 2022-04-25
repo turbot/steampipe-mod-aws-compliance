@@ -1,6 +1,6 @@
 locals {
   conformance_pack_vpc_common_tags = {
-    service = "vpc"
+    service = "AWS/VPC"
   }
 }
 

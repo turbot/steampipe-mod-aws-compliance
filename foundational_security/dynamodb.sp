@@ -1,6 +1,6 @@
 locals {
   foundational_security_dynamodb_common_tags = merge(local.foundational_security_common_tags, {
-    service = "dynamodb"
+    service = "AWS/DynamoDB"
   })
 }
 

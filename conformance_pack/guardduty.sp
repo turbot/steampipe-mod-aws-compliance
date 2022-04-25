@@ -1,6 +1,6 @@
 locals {
   conformance_pack_guardduty_common_tags = {
-    service = "guardduty"
+    service = "AWS/GuardDuty"
   }
 }
 
