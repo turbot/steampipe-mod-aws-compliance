@@ -1,7 +1,10 @@
 locals {
   nist_csf_common_tags = {
+    category = "Compliance"
     nist_csf = "true"
     plugin   = "aws"
+    service  = "AWS"
+    type     = "Benchmark"
   }
 }
 

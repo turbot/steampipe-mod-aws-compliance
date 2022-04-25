@@ -1,8 +1,11 @@
 locals {
   cis_v140_common_tags = {
+    category    = "Compliance"
     cis         = "true"
     cis_version = "v1.4.0"
     plugin      = "aws"
+    service     = "AWS"
+    type        = "Benchmark"
   }
 }
 

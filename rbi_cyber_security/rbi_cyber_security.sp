@@ -1,7 +1,10 @@
 locals {
   rbi_cyber_security_common_tags = {
-    rbi_cyber_security = "true"
+    category           = "Compliance"
     plugin             = "aws"
+    rbi_cyber_security = "true"
+    service            = "AWS"
+    type               = "Benchmark"
   }
 }
 

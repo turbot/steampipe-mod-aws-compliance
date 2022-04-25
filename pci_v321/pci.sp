@@ -1,8 +1,11 @@
 locals {
   pci_v321_common_tags = {
+    category    = "Compliance"
     pci         = "true"
     pci_version = "v3.2.1"
     plugin      = "aws"
+    service     = "AWS"
+    type        = "Benchmark"
   }
 }
 

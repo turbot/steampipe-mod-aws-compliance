@@ -1,7 +1,10 @@
 locals {
   foundational_security_common_tags = {
     aws_foundational_security = "true"
+    category                  = "Compliance"
     plugin                    = "aws"
+    service                   = "AWS"
+    type                      = "Benchmark"
   }
 }
 

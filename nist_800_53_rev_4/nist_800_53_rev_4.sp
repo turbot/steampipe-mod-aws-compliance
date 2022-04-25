@@ -1,7 +1,10 @@
 locals {
   nist_800_53_rev_4_common_tags = {
+    category          = "Compliance"
     nist_800_53_rev_4 = "true"
     plugin            = "aws"
+    service           = "AWS"
+    type              = "Benchmark"
   }
 }
 

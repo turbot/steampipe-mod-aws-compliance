@@ -1,7 +1,10 @@
 locals {
   audit_manager_control_tower_common_tags = {
     audit_manager_control_tower = "true"
+    category                    = "Compliance"
     plugin                      = "aws"
+    service                     = "AWS"
+    type                        = "Benchmark"
   }
 }
 

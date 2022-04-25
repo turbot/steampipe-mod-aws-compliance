@@ -1,7 +1,10 @@
 locals {
   gdpr_common_tags = {
-    gdpr   = "true"
-    plugin = "aws"
+    category = "Compliance"
+    gdpr     = "true"
+    plugin   = "aws"
+    service  = "AWS"
+    type     = "Benchmark"
   }
 }
 

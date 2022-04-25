@@ -1,7 +1,10 @@
 locals {
   soc_2_common_tags = {
-    soc_2  = "true"
-    plugin = "aws"
+    category = "Compliance"
+    plugin   = "aws"
+    service  = "AWS"
+    soc_2    = "true"
+    type     = "Benchmark"
   }
 }
 
