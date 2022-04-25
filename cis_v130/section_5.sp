@@ -1,13 +1,19 @@
 locals {
-  cis_v130_5_common_tags = merge(local.cis_v130_common_tags, {
+  cis_v130_5_common_benchmark_tags = merge(local.cis_v130_common_tags, {
     cis_section_id = "5"
+  })
+}
+
+locals {
+  cis_v130_5_common_control_tags = merge(local.cis_v130_5_common_benchmark_tags, {
+    type = "Control"
   })
 }
 
 benchmark "cis_v130_5" {
   title         = "5 Networking"
   documentation = file("./cis_v130/docs/cis_v130_5.md")
-  tags = local.cis_v130_5_common_tags
+  tags = local.cis_v130_5_common_benchmark_tags
   children = [
     control.cis_v130_5_1,
     control.cis_v130_5_2,
@@ -22,7 +28,7 @@ control "cis_v130_5_1" {
   sql           = query.vpc_network_acl_remote_administration.sql
   documentation = file("./cis_v130/docs/cis_v130_5_1.md")
 
-  tags = merge(local.cis_v130_5_common_tags, {
+  tags = merge(local.cis_v130_5_common_control_tags, {
     cis_item_id = "5.1"
     cis_level   = "1"
     cis_type    = "automated"
@@ -36,7 +42,7 @@ control "cis_v130_5_2" {
   sql           = query.vpc_security_group_remote_administration.sql
   documentation = file("./cis_v130/docs/cis_v130_5_2.md")
 
-  tags = merge(local.cis_v130_5_common_tags, {
+  tags = merge(local.cis_v130_5_common_control_tags, {
     cis_item_id = "5.2"
     cis_level   = "1"
     cis_type    = "automated"
@@ -50,7 +56,7 @@ control "cis_v130_5_3" {
   sql           = query.vpc_default_security_group_restricts_all_traffic.sql
   documentation = file("./cis_v130/docs/cis_v130_5_3.md")
 
-  tags = merge(local.cis_v130_5_common_tags, {
+  tags = merge(local.cis_v130_5_common_control_tags, {
     cis_item_id = "5.3"
     cis_level   = "1"
     cis_type    = "automated"
@@ -64,7 +70,7 @@ control "cis_v130_5_4" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_5_4.md")
 
-  tags = merge(local.cis_v130_5_common_tags, {
+  tags = merge(local.cis_v130_5_common_control_tags, {
     cis_item_id = "5.4"
     cis_level   = "1"
     cis_type    = "manual"

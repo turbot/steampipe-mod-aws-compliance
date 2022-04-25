@@ -1,15 +1,24 @@
 locals {
-  cis_v130_2_common_tags = merge(local.cis_v130_common_tags, {
+  cis_v130_2_common_benchmark_tags = merge(local.cis_v130_common_tags, {
     cis_section_id = "2"
   })
 }
 
 locals {
-  cis_v130_2_1_common_tags = merge(local.cis_v130_2_common_tags, {
+  cis_v130_2_1_common_benchmark_tags = merge(local.cis_v130_2_common_benchmark_tags, {
     cis_section_id = "2.1"
   })
-  cis_v130_2_2_common_tags = merge(local.cis_v130_2_common_tags, {
+  cis_v130_2_2_common_benchmark_tags = merge(local.cis_v130_2_common_benchmark_tags, {
     cis_section_id = "2.2"
+  })
+}
+
+locals {
+  cis_v130_2_1_common_control_tags = merge(local.cis_v130_2_1_common_benchmark_tags, {
+    type = "Control"
+  })
+  cis_v130_2_2_common_control_tags = merge(local.cis_v130_2_2_common_benchmark_tags, {
+    type = "Control"
   })
 }
 
@@ -20,7 +29,7 @@ benchmark "cis_v130_2" {
     benchmark.cis_v130_2_1,
     benchmark.cis_v130_2_2
   ]
-  tags          = local.cis_v130_2_common_tags
+  tags          = local.cis_v130_2_common_benchmark_tags
 }
 
 benchmark "cis_v130_2_1" {
@@ -30,7 +39,7 @@ benchmark "cis_v130_2_1" {
     control.cis_v130_2_1_1,
     control.cis_v130_2_1_2
   ]
-  tags          = local.cis_v130_2_1_common_tags
+  tags          = local.cis_v130_2_1_common_benchmark_tags
 }
 
 benchmark "cis_v130_2_2" {
@@ -39,7 +48,7 @@ benchmark "cis_v130_2_2" {
   children = [
     control.cis_v130_2_2_1
   ]
-  tags          = local.cis_v130_2_2_common_tags
+  tags          = local.cis_v130_2_2_common_benchmark_tags
 }
 
 control "cis_v130_2_1_1" {
@@ -48,7 +57,7 @@ control "cis_v130_2_1_1" {
   documentation = file("./cis_v130/docs/cis_v130_2_1_1.md")
   sql           = query.s3_bucket_default_encryption_enabled.sql
 
-  tags = merge(local.cis_v130_2_1_common_tags, {
+  tags = merge(local.cis_v130_2_1_common_control_tags, {
     cis_item_id = "2.1.1"
     cis_level   = "1,2"
     cis_type    = "manual"
@@ -62,7 +71,7 @@ control "cis_v130_2_1_2" {
   documentation = file("./cis_v130/docs/cis_v130_2_1_2.md")
   sql           = query.s3_bucket_enforces_ssl.sql
 
-  tags = merge(local.cis_v130_2_1_common_tags, {
+  tags = merge(local.cis_v130_2_1_common_control_tags, {
     cis_item_id = "2.1.2"
     cis_level   = "1,2"
     cis_type    = "manual"
@@ -76,7 +85,7 @@ control "cis_v130_2_2_1" {
   documentation = file("./cis_v130/docs/cis_v130_2_2_1.md")
   sql           = query.ebs_volume_encryption_at_rest_enabled.sql
 
-  tags = merge(local.cis_v130_2_2_common_tags, {
+  tags = merge(local.cis_v130_2_2_common_control_tags, {
     cis_item_id = "2.2.1"
     cis_level   = "1,2"
     cis_type    = "manual"
