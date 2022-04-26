@@ -1,12 +1,6 @@
 locals {
-  cis_v130_3_common_benchmark_tags = merge(local.cis_v130_common_tags, {
+  cis_v130_3_common_tags = merge(local.cis_v130_common_tags, {
     cis_section_id = "3"
-  })
-}
-
-locals {
-  cis_v130_3_common_control_tags = merge(local.cis_v130_3_common_benchmark_tags, {
-    type = "Control"
   })
 }
 
@@ -26,7 +20,10 @@ benchmark "cis_v130_3" {
     control.cis_v130_3_10,
     control.cis_v130_3_11
   ]
-  tags = local.cis_v130_3_common_benchmark_tags
+
+  tags = merge(local.cis_v130_1_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "cis_v130_3_1" {
@@ -35,7 +32,7 @@ control "cis_v130_3_1" {
   sql           = query.cloudtrail_enabled_all_regions.sql
   documentation = file("./cis_v130/docs/cis_v130_3_1.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.1"
     cis_level   = "1"
     cis_type    = "automated"
@@ -49,7 +46,7 @@ control "cis_v130_3_2" {
   sql           = query.cloudtrail_trail_validation_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_2.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.2"
     cis_level   = "2"
     cis_type    = "automated"
@@ -63,7 +60,7 @@ control "cis_v130_3_3" {
   sql           = query.cloudtrail_bucket_not_public.sql
   documentation = file("./cis_v130/docs/cis_v130_3_3.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.3"
     cis_level   = "1"
     cis_type    = "automated"
@@ -77,7 +74,7 @@ control "cis_v130_3_4" {
   sql           = query.cloudtrail_trail_integrated_with_logs.sql
   documentation = file("./cis_v130/docs/cis_v130_3_4.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.4"
     cis_level   = "1"
     cis_type    = "automated"
@@ -91,7 +88,7 @@ control "cis_v130_3_5" {
   sql           = query.config_enabled_all_regions.sql
   documentation = file("./cis_v130/docs/cis_v130_3_5.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.5"
     cis_level   = "1"
     cis_type    = "automated"
@@ -105,7 +102,7 @@ control "cis_v130_3_6" {
   sql           = query.cloudtrail_s3_logging_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_6.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.6"
     cis_level   = "1"
     cis_type    = "automated"
@@ -119,7 +116,7 @@ control "cis_v130_3_7" {
   sql           = query.cloudtrail_trail_logs_encrypted_with_kms_cmk.sql
   documentation = file("./cis_v130/docs/cis_v130_3_7.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.7"
     cis_level   = "2"
     cis_type    = "automated"
@@ -133,7 +130,7 @@ control "cis_v130_3_8" {
   sql           = query.kms_cmk_rotation_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_8.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.8"
     cis_level   = "2"
     cis_type    = "automated"
@@ -147,7 +144,7 @@ control "cis_v130_3_9" {
   sql           = query.vpc_flow_logs_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_9.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.9"
     cis_level   = "2"
     cis_type    = "automated"
@@ -161,7 +158,7 @@ control "cis_v130_3_10" {
   sql           = query.cloudtrail_s3_object_write_events_audit_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_10.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.10"
     cis_level   = "2"
     cis_type    = "automated"
@@ -175,7 +172,7 @@ control "cis_v130_3_11" {
   sql           = query.cloudtrail_s3_object_read_events_audit_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_11.md")
 
-  tags = merge(local.cis_v130_3_common_control_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     cis_item_id = "3.11"
     cis_level   = "2"
     cis_type    = "automated"

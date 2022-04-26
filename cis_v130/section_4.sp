@@ -1,19 +1,12 @@
 locals {
-  cis_v130_4_common_benchmark_tags = merge(local.cis_v130_common_tags, {
+  cis_v130_4_common_tags = merge(local.cis_v130_common_tags, {
     cis_section_id = "4"
-  })
-}
-
-locals {
-  cis_v130_4_common_control_tags = merge(local.cis_v130_4_common_benchmark_tags, {
-    type = "Control"
   })
 }
 
 benchmark "cis_v130_4" {
   title         = "4 Monitoring"
   documentation = file("./cis_v130/docs/cis_v130_4.md")
-  tags          = local.cis_v130_4_common_benchmark_tags
   children = [
     control.cis_v130_4_1,
     control.cis_v130_4_2,
@@ -31,6 +24,11 @@ benchmark "cis_v130_4" {
     control.cis_v130_4_14,
     control.cis_v130_4_15
   ]
+
+  tags = merge(local.cis_v130_4_common_tags, {
+    type    = "Benchmark"
+    service = "AWS/CloudWatch"
+  })
 }
 
 control "cis_v130_4_1" {
@@ -39,7 +37,7 @@ control "cis_v130_4_1" {
   sql           = query.log_metric_filter_unauthorized_api.sql
   documentation = file("./cis_v130/docs/cis_v130_4_1.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.1"
     cis_level   = "1"
     cis_type    = "automated"
@@ -53,7 +51,7 @@ control "cis_v130_4_2" {
   sql           = query.log_metric_filter_console_login_mfa.sql
   documentation = file("./cis_v130/docs/cis_v130_4_2.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.2"
     cis_level   = "1"
     cis_type    = "automated"
@@ -67,7 +65,7 @@ control "cis_v130_4_3" {
   sql           = query.log_metric_filter_root_login.sql
   documentation = file("./cis_v130/docs/cis_v130_4_3.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.3"
     cis_level   = "1"
     cis_type    = "automated"
@@ -81,7 +79,7 @@ control "cis_v130_4_4" {
   sql           = query.log_metric_filter_iam_policy.sql
   documentation = file("./cis_v130/docs/cis_v130_4_4.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.4"
     cis_level   = "1"
     cis_type    = "automated"
@@ -95,7 +93,7 @@ control "cis_v130_4_5" {
   sql           = query.log_metric_filter_cloudtrail_configuration.sql
   documentation = file("./cis_v130/docs/cis_v130_4_5.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.5"
     cis_level   = "1"
     cis_type    = "automated"
@@ -109,7 +107,7 @@ control "cis_v130_4_6" {
   sql           = query.log_metric_filter_console_authentication_failure.sql
   documentation = file("./cis_v130/docs/cis_v130_4_6.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.6"
     cis_level   = "2"
     cis_type    = "automated"
@@ -123,7 +121,7 @@ control "cis_v130_4_7" {
   sql           = query.log_metric_filter_disable_or_delete_cmk.sql
   documentation = file("./cis_v130/docs/cis_v130_4_7.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.7"
     cis_level   = "2"
     cis_type    = "automated"
@@ -137,7 +135,7 @@ control "cis_v130_4_8" {
   sql           = query.log_metric_filter_bucket_policy.sql
   documentation = file("./cis_v130/docs/cis_v130_4_8.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.8"
     cis_level   = "1"
     cis_type    = "automated"
@@ -151,7 +149,7 @@ control "cis_v130_4_9" {
   sql           = query.log_metric_filter_config_configuration.sql
   documentation = file("./cis_v130/docs/cis_v130_4_9.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.9"
     cis_level   = "2"
     cis_type    = "automated"
@@ -165,7 +163,7 @@ control "cis_v130_4_10" {
   sql           = query.log_metric_filter_security_group.sql
   documentation = file("./cis_v130/docs/cis_v130_4_10.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.10"
     cis_level   = "2"
     cis_type    = "automated"
@@ -179,7 +177,7 @@ control "cis_v130_4_11" {
   sql           = query.log_metric_filter_network_acl.sql
   documentation = file("./cis_v130/docs/cis_v130_4_11.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.11"
     cis_level   = "2"
     cis_type    = "automated"
@@ -193,7 +191,7 @@ control "cis_v130_4_12" {
   sql           = query.log_metric_filter_network_gateway.sql
   documentation = file("./cis_v130/docs/cis_v130_4_12.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.12"
     cis_level   = "1"
     cis_type    = "automated"
@@ -207,7 +205,7 @@ control "cis_v130_4_13" {
   sql           = query.log_metric_filter_route_table.sql
   documentation = file("./cis_v130/docs/cis_v130_4_13.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.13"
     cis_level   = "1"
     cis_type    = "automated"
@@ -221,7 +219,7 @@ control "cis_v130_4_14" {
   sql           = query.log_metric_filter_vpc.sql
   documentation = file("./cis_v130/docs/cis_v130_4_14.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.14"
     cis_level   = "1"
     cis_type    = "automated"
@@ -235,7 +233,7 @@ control "cis_v130_4_15" {
   sql           = query.log_metric_filter_organization.sql
   documentation = file("./cis_v130/docs/cis_v130_4_15.md")
 
-  tags = merge(local.cis_v130_4_common_control_tags, {
+  tags = merge(local.cis_v130_4_common_tags, {
     cis_item_id = "4.15"
     cis_level   = "1"
     cis_type    = "automated"

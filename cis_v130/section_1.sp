@@ -1,12 +1,6 @@
 locals {
-  cis_v130_1_common_benchmark_tags = merge(local.cis_v130_common_tags, {
+  cis_v130_1_common_tags = merge(local.cis_v130_common_tags, {
     cis_section_id = "1"
-  })
-}
-
-locals {
-  cis_v130_1_common_control_tags = merge(local.cis_v130_1_common_benchmark_tags, {
-    type = "Control"
   })
 }
 
@@ -37,7 +31,10 @@ benchmark "cis_v130_1" {
     control.cis_v130_1_21,
     control.cis_v130_1_22
   ]
-  tags          = local.cis_v130_1_common_benchmark_tags
+
+  tags = merge(local.cis_v130_1_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "cis_v130_1_1" {
@@ -46,7 +43,7 @@ control "cis_v130_1_1" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_1_1.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.1"
     cis_level   = "1"
     cis_type    = "manual"
@@ -60,7 +57,7 @@ control "cis_v130_1_2" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_1_2.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.2"
     cis_level   = "1"
     cis_type    = "manual"
@@ -74,7 +71,7 @@ control "cis_v130_1_3" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_1_3.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.3"
     cis_level   = "1"
     cis_type    = "manual"
@@ -88,7 +85,7 @@ control "cis_v130_1_4" {
   sql           = query.iam_root_user_no_access_keys.sql
   documentation = file("./cis_v130/docs/cis_v130_1_4.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.4"
     cis_level   = "1"
     cis_type    = "automated"
@@ -102,7 +99,7 @@ control "cis_v130_1_5" {
   sql           = query.iam_root_user_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_5.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.5"
     cis_level   = "1"
     cis_type    = "automated"
@@ -116,7 +113,7 @@ control "cis_v130_1_6" {
   sql           = query.iam_root_user_hardware_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_6.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.6"
     cis_level   = "2"
     cis_type    = "automated"
@@ -130,7 +127,7 @@ control "cis_v130_1_7" {
   sql           = query.iam_root_last_used.sql
   documentation = file("./cis_v130/docs/cis_v130_1_7.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.7"
     cis_level   = "1"
     cis_type    = "automated"
@@ -144,7 +141,7 @@ control "cis_v130_1_8" {
   sql           = query.iam_account_password_policy_min_length_14.sql
   documentation = file("./cis_v130/docs/cis_v130_1_8.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.8"
     cis_level   = "1"
     cis_type    = "automated"
@@ -158,7 +155,7 @@ control "cis_v130_1_9" {
   sql           = query.iam_account_password_policy_reuse_24.sql
   documentation = file("./cis_v130/docs/cis_v130_1_9.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.9"
     cis_level   = "1"
     cis_type    = "automated"
@@ -172,7 +169,7 @@ control "cis_v130_1_10" {
   sql           = query.iam_user_console_access_mfa_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_10.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.10"
     cis_level   = "1"
     cis_type    = "automated"
@@ -186,7 +183,7 @@ control "cis_v130_1_11" {
   sql           = query.iam_user_access_keys_and_password_at_setup.sql
   documentation = file("./cis_v130/docs/cis_v130_1_11.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.11"
     cis_level   = "1"
     cis_type    = "manual"
@@ -200,7 +197,7 @@ control "cis_v130_1_12" {
   sql           = query.iam_user_unused_credentials_90.sql
   documentation = file("./cis_v130/docs/cis_v130_1_12.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.12"
     cis_level   = "1"
     cis_type    = "automated"
@@ -214,7 +211,7 @@ control "cis_v130_1_13" {
   sql           = query.iam_user_one_active_key.sql
   documentation = file("./cis_v130/docs/cis_v130_1_13.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.13"
     cis_level   = "1"
     cis_type    = "automated"
@@ -228,7 +225,7 @@ control "cis_v130_1_14" {
   sql           = query.iam_user_access_key_age_90.sql
   documentation = file("./cis_v130/docs/cis_v130_1_14.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.14"
     cis_level   = "1"
     cis_type    = "automated"
@@ -242,7 +239,7 @@ control "cis_v130_1_15" {
   sql           = query.iam_user_no_inline_attached_policies.sql
   documentation = file("./cis_v130/docs/cis_v130_1_15.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.15"
     cis_level   = "1"
     cis_type    = "automated"
@@ -256,7 +253,7 @@ control "cis_v130_1_16" {
   sql           = query.iam_policy_all_attached_no_star_star.sql
   documentation = file("./cis_v130/docs/cis_v130_1_16.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.16"
     cis_level   = "1"
     cis_type    = "automated"
@@ -270,7 +267,7 @@ control "cis_v130_1_17" {
   sql           = query.iam_support_role.sql
   documentation = file("./cis_v130/docs/cis_v130_1_17.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.17"
     cis_level   = "1"
     cis_type    = "automated"
@@ -284,7 +281,7 @@ control "cis_v130_1_18" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_1_18.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.18"
     cis_level   = "2"
     cis_type    = "manual"
@@ -298,7 +295,7 @@ control "cis_v130_1_19" {
   sql           = query.iam_server_certificate_not_expired.sql
   documentation = file("./cis_v130/docs/cis_v130_1_19.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.19"
     cis_level   = "1"
     cis_type    = "automated"
@@ -312,7 +309,7 @@ control "cis_v130_1_20" {
   sql           = query.s3_public_access_block_bucket_account.sql
   documentation = file("./cis_v130/docs/cis_v130_1_20.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.20"
     cis_level   = "1"
     cis_type    = "automated"
@@ -326,7 +323,7 @@ control "cis_v130_1_21" {
   sql           = query.iam_access_analyzer_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_1_21.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.21"
     cis_level   = "1"
     cis_type    = "automated"
@@ -340,7 +337,7 @@ control "cis_v130_1_22" {
   sql           = query.manual_control.sql
   documentation = file("./cis_v130/docs/cis_v130_1_22.md")
 
-  tags = merge(local.cis_v130_1_common_control_tags, {
+  tags = merge(local.cis_v130_1_common_tags, {
     cis_item_id = "1.22"
     cis_level   = "2"
     cis_type    = "manual"
