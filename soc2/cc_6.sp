@@ -31,6 +31,7 @@ benchmark "soc_2_cc_6_1" {
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
+    service       = "AWS/S3"
     soc_2_item_id = "6.1"
     soc_2_type    = "automated"
   })
@@ -45,6 +46,7 @@ benchmark "soc_2_cc_6_2" {
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
+    service       = "AWS/RDS"
     soc_2_item_id = "6.2"
     soc_2_type    = "automated"
   })
@@ -59,6 +61,7 @@ benchmark "soc_2_cc_6_3" {
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
+    service       = "AWS/IAM"
     soc_2_item_id = "6.3"
     soc_2_type    = "automated"
   })
@@ -101,6 +104,7 @@ benchmark "soc_2_cc_6_6" {
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
+    service       = "AWS/EC2"
     soc_2_item_id = "6.6"
     soc_2_type    = "automated"
   })
@@ -115,6 +119,7 @@ benchmark "soc_2_cc_6_7" {
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
+    service       = "AWS/ACM"
     soc_2_item_id = "6.7"
     soc_2_type    = "automated"
   })

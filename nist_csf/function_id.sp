@@ -86,7 +86,9 @@ benchmark "nist_csf_id_am_6" {
     control.iam_user_in_group
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_csf_id_be" {

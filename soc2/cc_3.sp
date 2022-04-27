@@ -75,6 +75,7 @@ benchmark "soc_2_cc_3_4" {
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {
+    service       = "AWS/Config"
     soc_2_item_id = "3.4"
     soc_2_type    = "automated"
   })

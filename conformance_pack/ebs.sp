@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_ebs_common_tags = {
-    service = "ebs"
-  }
+  conformance_pack_ebs_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/EBS"
+  })
 }
 
 control "ebs_snapshot_not_publicly_restorable" {

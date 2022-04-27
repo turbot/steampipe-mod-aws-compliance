@@ -289,5 +289,7 @@ benchmark "nist_csf_de_dp_5" {
     control.ec2_instance_detailed_monitoring_enabled
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/EC2"
+  })
 }

@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_sns_common_tags = {
-    service = "sns"
-  }
+  conformance_pack_sns_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/SNS"
+  })
 }
 
 control "sns_topic_encrypted_at_rest" {

@@ -11,7 +11,10 @@ benchmark "audit_manager_control_tower_disallow_internet_connection" {
     benchmark.audit_manager_control_tower_disallow_internet_connection_2_0_1,
     benchmark.audit_manager_control_tower_disallow_internet_connection_2_0_2
   ]
-  tags          = local.audit_manager_control_tower_disallow_internet_connection_common_tags
+
+  tags = merge(local.audit_manager_control_tower_disallow_internet_connection_common_tags, {
+    service = "AWS/VPC"
+  })
 }
 
 benchmark "audit_manager_control_tower_disallow_internet_connection_2_0_1" {
@@ -23,6 +26,7 @@ benchmark "audit_manager_control_tower_disallow_internet_connection_2_0_1" {
 
   tags = merge(local.audit_manager_control_tower_disallow_internet_connection_common_tags, {
     audit_manager_control_tower_item_id = "2.0.1"
+    service                             = "AWS/VPC"
   })
 }
 
@@ -35,5 +39,6 @@ benchmark "audit_manager_control_tower_disallow_internet_connection_2_0_2" {
 
   tags = merge(local.audit_manager_control_tower_disallow_internet_connection_common_tags, {
     audit_manager_control_tower_item_id = "2.0.2"
+    service                             = "AWS/VPC"
   })
 }

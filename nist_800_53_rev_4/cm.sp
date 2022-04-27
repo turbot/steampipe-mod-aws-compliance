@@ -55,7 +55,9 @@ benchmark "nist_800_53_rev_4_cm_8_1" {
     control.ec2_instance_ssm_managed
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/EC2"
+  })
 }
 
 benchmark "nist_800_53_rev_4_cm_8_3" {

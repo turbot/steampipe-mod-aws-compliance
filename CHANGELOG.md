@@ -1,3 +1,14 @@
+## v0.29 [2022-04-27]
+
+_Enhancements_
+
+- Added `category`, `service`, and `type` tags to benchmarks and controls. ([#375](https://github.com/turbot/steampipe-mod-aws-compliance/pull/375))
+- Improved reason in `iam_root_user_hardware_mfa_enabled` query when a virtual MFA device is enabled.
+
+_Bug fixes_
+
+- Fixed `resource` in `iam_access_analyzer_enabled` query to be the region ARN.
+
 ## v0.28 [2022-04-22]
 
 _Enhancements_

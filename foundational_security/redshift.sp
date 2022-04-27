@@ -1,6 +1,6 @@
 locals {
   foundational_security_redshift_common_tags = merge(local.foundational_security_common_tags, {
-    service = "redshift"
+    service = "AWS/Redshift"
   })
 }
 
@@ -16,7 +16,10 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_7,
     control.foundational_security_redshift_8
   ]
-  tags          = local.foundational_security_redshift_common_tags
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_redshift_1" {

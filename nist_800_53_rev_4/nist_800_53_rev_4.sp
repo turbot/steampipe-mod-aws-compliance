@@ -1,8 +1,8 @@
 locals {
-  nist_800_53_rev_4_common_tags = {
+  nist_800_53_rev_4_common_tags = merge(local.aws_compliance_common_tags, {
     nist_800_53_rev_4 = "true"
-    plugin            = "aws"
-  }
+    type              = "Benchmark"
+  })
 }
 
 benchmark "nist_800_53_rev_4" {

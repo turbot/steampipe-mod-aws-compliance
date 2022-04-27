@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_es_common_tags = {
-    service = "es"
-  }
+  conformance_pack_es_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/ES"
+  })
 }
 
 control "es_domain_encryption_at_rest_enabled" {

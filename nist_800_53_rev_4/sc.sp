@@ -24,7 +24,9 @@ benchmark "nist_800_53_rev_4_sc_2" {
     control.iam_policy_no_star_star
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_sc_4" {
@@ -34,7 +36,9 @@ benchmark "nist_800_53_rev_4_sc_4" {
     control.ebs_attached_volume_delete_on_termination_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/EBS"
+  })
 }
 
 benchmark "nist_800_53_rev_4_sc_5" {
@@ -173,7 +177,9 @@ benchmark "nist_800_53_rev_4_sc_13" {
     control.dynamodb_table_encrypted_with_kms_cmk
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/DynamoDB"
+  })
 }
 
 benchmark "nist_800_53_rev_4_sc_23" {
@@ -185,7 +191,9 @@ benchmark "nist_800_53_rev_4_sc_23" {
     control.elb_classic_lb_use_tls_https_listeners
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/ELB"
+  })
 }
 
 benchmark "nist_800_53_rev_4_sc_28" {

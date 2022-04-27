@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_codebuild_common_tags = {
-    service = "codebuild"
-  }
+  conformance_pack_codebuild_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/CodeBuild"
+  })
 }
 
 control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {

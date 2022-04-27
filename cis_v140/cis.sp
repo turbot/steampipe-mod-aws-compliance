@@ -1,10 +1,10 @@
 locals {
-  cis_v140_common_tags = {
+  cis_v140_common_tags = merge(local.aws_compliance_common_tags, {
     cis         = "true"
     cis_version = "v1.4.0"
-    plugin      = "aws"
-  }
+  })
 }
+
 
 benchmark "cis_v140" {
   title         = "CIS v1.4.0"
@@ -17,5 +17,8 @@ benchmark "cis_v140" {
     benchmark.cis_v140_4,
     benchmark.cis_v140_5
   ]
-  tags = local.cis_v140_common_tags
+
+  tags = merge(local.cis_v140_common_tags, {
+    type = "Benchmark"
+  })
 }

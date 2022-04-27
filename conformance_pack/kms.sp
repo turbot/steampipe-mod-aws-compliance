@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_kms_common_tags = {
-    service = "kms"
-  }
+  conformance_pack_kms_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/KMS"
+  })
 }
 
 control "kms_key_not_pending_deletion" {

@@ -7,7 +7,6 @@ locals {
 benchmark "cis_v130_4" {
   title         = "4 Monitoring"
   documentation = file("./cis_v130/docs/cis_v130_4.md")
-  tags          = local.cis_v130_4_common_tags
   children = [
     control.cis_v130_4_1,
     control.cis_v130_4_2,
@@ -25,6 +24,11 @@ benchmark "cis_v130_4" {
     control.cis_v130_4_14,
     control.cis_v130_4_15
   ]
+
+  tags = merge(local.cis_v130_4_common_tags, {
+    type    = "Benchmark"
+    service = "AWS/CloudWatch"
+  })
 }
 
 control "cis_v130_4_1" {
@@ -37,7 +41,7 @@ control "cis_v130_4_1" {
     cis_item_id = "4.1"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -51,7 +55,7 @@ control "cis_v130_4_2" {
     cis_item_id = "4.2"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -65,7 +69,7 @@ control "cis_v130_4_3" {
     cis_item_id = "4.3"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -79,7 +83,7 @@ control "cis_v130_4_4" {
     cis_item_id = "4.4"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -93,7 +97,7 @@ control "cis_v130_4_5" {
     cis_item_id = "4.5"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -107,7 +111,7 @@ control "cis_v130_4_6" {
     cis_item_id = "4.6"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -121,7 +125,7 @@ control "cis_v130_4_7" {
     cis_item_id = "4.7"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -135,7 +139,7 @@ control "cis_v130_4_8" {
     cis_item_id = "4.8"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -149,7 +153,7 @@ control "cis_v130_4_9" {
     cis_item_id = "4.9"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -163,7 +167,7 @@ control "cis_v130_4_10" {
     cis_item_id = "4.10"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -177,7 +181,7 @@ control "cis_v130_4_11" {
     cis_item_id = "4.11"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -191,7 +195,7 @@ control "cis_v130_4_12" {
     cis_item_id = "4.12"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -205,7 +209,7 @@ control "cis_v130_4_13" {
     cis_item_id = "4.13"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -219,7 +223,7 @@ control "cis_v130_4_14" {
     cis_item_id = "4.14"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }
 
@@ -233,6 +237,6 @@ control "cis_v130_4_15" {
     cis_item_id = "4.15"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudwatch"
+    service     = "AWS/CloudWatch"
   })
 }

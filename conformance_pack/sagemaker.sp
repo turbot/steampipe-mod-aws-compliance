@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_sagemaker_common_tags = {
-    service = "sagemaker"
-  }
+  conformance_pack_sagemaker_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/SageMaker"
+  })
 }
 
 control "sagemaker_notebook_instance_direct_internet_access_disabled" {

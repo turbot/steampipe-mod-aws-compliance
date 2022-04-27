@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_rds_common_tags = {
-    service = "rds"
-  }
+  conformance_pack_rds_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/RDS"
+  })
 }
 
 control "rds_db_instance_backup_enabled" {
