@@ -20,7 +20,10 @@ benchmark "cis_v130_2" {
     benchmark.cis_v130_2_1,
     benchmark.cis_v130_2_2
   ]
-  tags          = local.cis_v130_2_common_tags
+
+  tags = merge(local.cis_v130_2_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 benchmark "cis_v130_2_1" {
@@ -30,7 +33,11 @@ benchmark "cis_v130_2_1" {
     control.cis_v130_2_1_1,
     control.cis_v130_2_1_2
   ]
-  tags          = local.cis_v130_2_1_common_tags
+
+  tags = merge(local.cis_v130_2_1_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
+  })
 }
 
 benchmark "cis_v130_2_2" {
@@ -39,7 +46,11 @@ benchmark "cis_v130_2_2" {
   children = [
     control.cis_v130_2_2_1
   ]
-  tags          = local.cis_v130_2_2_common_tags
+
+  tags = merge(local.cis_v130_2_2_common_tags, {
+    service = "AWS/EBS"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v130_2_1_1" {
@@ -52,7 +63,7 @@ control "cis_v130_2_1_1" {
     cis_item_id = "2.1.1"
     cis_level   = "1,2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -66,7 +77,7 @@ control "cis_v130_2_1_2" {
     cis_item_id = "2.1.2"
     cis_level   = "1,2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -80,6 +91,6 @@ control "cis_v130_2_2_1" {
     cis_item_id = "2.2.1"
     cis_level   = "1,2"
     cis_type    = "manual"
-    service     = "ebs"
+    service     = "AWS/EBS"
   })
 }

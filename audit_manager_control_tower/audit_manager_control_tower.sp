@@ -1,8 +1,8 @@
 locals {
-  audit_manager_control_tower_common_tags = {
+  audit_manager_control_tower_common_tags = merge(local.aws_compliance_common_tags, {
     audit_manager_control_tower = "true"
-    plugin                      = "aws"
-  }
+    type                        = "Benchmark"
+  })
 }
 
 benchmark "audit_manager_control_tower" {

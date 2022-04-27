@@ -12,7 +12,10 @@ benchmark "audit_manager_control_tower_multi_factor_authentication" {
     benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_2,
     benchmark.audit_manager_control_tower_multi_factor_authentication_3_0_3
   ]
-  tags          = local.audit_manager_control_tower_multi_factor_authentication_common_tags
+
+  tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_1" {
@@ -24,8 +27,10 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_1" {
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
     audit_manager_control_tower_item_id = "3.0.1"
+    service                             = "AWS/IAM"
   })
 }
+
 benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_2" {
   title         = "3.0.2 - Disallow console access to IAM users without MFA"
   description   = "Disallow console access to IAM users without MFA - Checks whether AWS Multi-Factor Authentication (MFA) is enabled for all AWS Identity and Access Management (IAM) users that use a console password."
@@ -35,6 +40,7 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_2" {
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
     audit_manager_control_tower_item_id = "3.0.2"
+    service                             = "AWS/IAM"
   })
 }
 
@@ -47,5 +53,6 @@ benchmark "audit_manager_control_tower_multi_factor_authentication_3_0_3" {
 
   tags = merge(local.audit_manager_control_tower_multi_factor_authentication_common_tags, {
     audit_manager_control_tower_item_id = "3.0.3"
+    service                             = "AWS/IAM"
   })
 }

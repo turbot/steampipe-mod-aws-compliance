@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_acm_common_tags = {
-    service = "acm"
-  }
+  conformance_pack_acm_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/ACM"
+  })
 }
 
 control "acm_certificate_expires_30_days" {

@@ -1,6 +1,6 @@
 locals {
   foundational_security_dynamodb_common_tags = merge(local.foundational_security_common_tags, {
-    service = "dynamodb"
+    service = "AWS/DynamoDB"
   })
 }
 
@@ -12,7 +12,10 @@ benchmark "foundational_security_dynamodb" {
     control.foundational_security_dynamodb_2,
     control.foundational_security_dynamodb_3
   ]
-  tags          = local.foundational_security_dynamodb_common_tags
+
+  tags = merge(local.foundational_security_dynamodb_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_dynamodb_1" {

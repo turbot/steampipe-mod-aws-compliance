@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_lambda_common_tags = {
-    service = "lambda"
-  }
+  conformance_pack_lambda_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/Lambda"
+  })
 }
 
 control "lambda_function_dead_letter_queue_configured" {

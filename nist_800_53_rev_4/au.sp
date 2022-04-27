@@ -131,7 +131,9 @@ benchmark "nist_800_53_rev_4_au_9_2" {
     control.s3_bucket_cross_region_replication_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/S3"
+  })
 }
 
 benchmark "nist_800_53_rev_4_au_11" {
@@ -141,7 +143,9 @@ benchmark "nist_800_53_rev_4_au_11" {
     control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_4_au_12" {

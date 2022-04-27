@@ -1,6 +1,6 @@
 locals {
   pci_v321_dms_common_tags = merge(local.pci_v321_common_tags, {
-    service = "dms"
+    service = "AWS/DMS"
   })
 }
 
@@ -10,7 +10,10 @@ benchmark "pci_v321_dms" {
   children = [
     control.pci_v321_dms_1
   ]
-  tags = local.pci_v321_dms_common_tags
+
+  tags = merge(local.pci_v321_dms_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_dms_1" {

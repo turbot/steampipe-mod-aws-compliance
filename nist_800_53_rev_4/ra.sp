@@ -16,5 +16,7 @@ benchmark "nist_800_53_rev_4_ra_5" {
     control.guardduty_finding_archived
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }

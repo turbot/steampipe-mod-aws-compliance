@@ -20,7 +20,10 @@ benchmark "cis_v130_3" {
     control.cis_v130_3_10,
     control.cis_v130_3_11
   ]
-  tags = local.cis_v130_3_common_tags
+
+  tags = merge(local.cis_v130_3_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "cis_v130_3_1" {
@@ -33,7 +36,7 @@ control "cis_v130_3_1" {
     cis_item_id = "3.1"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -47,7 +50,7 @@ control "cis_v130_3_2" {
     cis_item_id = "3.2"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -61,7 +64,7 @@ control "cis_v130_3_3" {
     cis_item_id = "3.3"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -75,7 +78,7 @@ control "cis_v130_3_4" {
     cis_item_id = "3.4"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -89,7 +92,7 @@ control "cis_v130_3_5" {
     cis_item_id = "3.5"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "config"
+    service     = "AWS/Config"
   })
 }
 
@@ -103,7 +106,7 @@ control "cis_v130_3_6" {
     cis_item_id = "3.6"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -117,7 +120,7 @@ control "cis_v130_3_7" {
     cis_item_id = "3.7"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "cloudtrail"
+    service     = "AWS/CloudTrail"
   })
 }
 
@@ -131,7 +134,7 @@ control "cis_v130_3_8" {
     cis_item_id = "3.8"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "kms"
+    service     = "AWS/KMS"
   })
 }
 
@@ -145,7 +148,7 @@ control "cis_v130_3_9" {
     cis_item_id = "3.9"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "vpc"
+    service     = "AWS/VPC"
   })
 }
 
@@ -159,7 +162,7 @@ control "cis_v130_3_10" {
     cis_item_id = "3.10"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -173,6 +176,6 @@ control "cis_v130_3_11" {
     cis_item_id = "3.11"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }

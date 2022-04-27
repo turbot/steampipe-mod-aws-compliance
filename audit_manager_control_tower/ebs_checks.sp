@@ -12,7 +12,10 @@ benchmark "audit_manager_control_tower_ebs_checks" {
     benchmark.audit_manager_control_tower_ebs_checks_1_0_2,
     benchmark.audit_manager_control_tower_ebs_checks_1_0_3
   ]
-  tags          = local.audit_manager_control_tower_ebs_checks_common_tags
+
+  tags = merge(local.audit_manager_control_tower_ebs_checks_common_tags, {
+    service = "AWS/EBS"
+  })
 }
 
 benchmark "audit_manager_control_tower_ebs_checks_1_0_1" {
@@ -24,6 +27,7 @@ benchmark "audit_manager_control_tower_ebs_checks_1_0_1" {
 
   tags = merge(local.audit_manager_control_tower_ebs_checks_common_tags, {
     audit_manager_control_tower_item_id = "1.0.1"
+    service                             = "AWS/EBS"
   })
 }
 
@@ -36,6 +40,7 @@ benchmark "audit_manager_control_tower_ebs_checks_1_0_2" {
 
   tags = merge(local.audit_manager_control_tower_ebs_checks_common_tags, {
     audit_manager_control_tower_item_id = "1.0.2"
+    service                             = "AWS/EBS"
   })
 }
 
@@ -48,5 +53,6 @@ benchmark "audit_manager_control_tower_ebs_checks_1_0_3" {
 
   tags = merge(local.audit_manager_control_tower_ebs_checks_common_tags, {
     audit_manager_control_tower_item_id = "1.0.3"
+    service                             = "AWS/EBS"
   })
 }

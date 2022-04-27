@@ -1,6 +1,6 @@
 locals {
   foundational_security_sns_common_tags = merge(local.foundational_security_common_tags, {
-    service = "sns"
+    service = "AWS/SNS"
   })
 }
 
@@ -10,7 +10,10 @@ benchmark "foundational_security_sns" {
   children = [
     control.foundational_security_sns_1
   ]
-  tags          = local.foundational_security_sns_common_tags
+
+  tags = merge(local.foundational_security_sns_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_sns_1" {

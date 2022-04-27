@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_secretsmanager_common_tags = {
-    service = "secretsmanager"
-  }
+  conformance_pack_secretsmanager_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/SecretsManager"
+  })
 }
 
 control "secretsmanager_secret_automatic_rotation_enabled" {

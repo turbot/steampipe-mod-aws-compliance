@@ -32,7 +32,9 @@ benchmark "nist_800_53_rev_4_ia_2_1" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ia_2_2" {
@@ -43,7 +45,9 @@ benchmark "nist_800_53_rev_4_ia_2_2" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ia_2_11" {
@@ -56,7 +60,9 @@ benchmark "nist_800_53_rev_4_ia_2_11" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ia_5" {
@@ -78,7 +84,9 @@ benchmark "nist_800_53_rev_4_ia_5_1" {
     control.iam_account_password_policy_strong_min_reuse_24
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ia_5_4" {
@@ -88,7 +96,9 @@ benchmark "nist_800_53_rev_4_ia_5_4" {
     control.iam_account_password_policy_strong_min_reuse_24
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ia_5_7" {
@@ -98,5 +108,7 @@ benchmark "nist_800_53_rev_4_ia_5_7" {
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/CodeBuild"
+  })
 }

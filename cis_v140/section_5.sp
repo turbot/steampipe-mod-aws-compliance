@@ -7,13 +7,17 @@ locals {
 benchmark "cis_v140_5" {
   title         = "5 Networking"
   documentation = file("./cis_v140/docs/cis_v140_5.md")
-  tags = local.cis_v140_5_common_tags
   children = [
     control.cis_v140_5_1,
     control.cis_v140_5_2,
     control.cis_v140_5_3,
     control.cis_v140_5_4
   ]
+
+  tags = merge(local.cis_v140_5_common_tags, {
+    service = "AWS/VPC"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_5_1" {
@@ -26,7 +30,7 @@ control "cis_v140_5_1" {
     cis_item_id = "5.1"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "vpc"
+    service     = "AWS/VPC"
   })
 }
 
@@ -40,7 +44,7 @@ control "cis_v140_5_2" {
     cis_item_id = "5.2"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "vpc"
+    service     = "AWS/VPC"
   })
 }
 
@@ -54,7 +58,7 @@ control "cis_v140_5_3" {
     cis_item_id = "5.3"
     cis_level   = "2"
     cis_type    = "automated"
-    service     = "vpc"
+    service     = "AWS/VPC"
   })
 }
 
@@ -68,6 +72,6 @@ control "cis_v140_5_4" {
     cis_item_id = "5.4"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "vpc"
+    service     = "AWS/VPC"
   })
 }

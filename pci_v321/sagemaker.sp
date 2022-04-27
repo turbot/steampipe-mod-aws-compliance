@@ -1,6 +1,6 @@
 locals {
   pci_v321_sagemaker_common_tags = merge(local.pci_v321_common_tags, {
-    service = "sagemaker"
+    service = "AWS/SageMaker"
   })
 }
 
@@ -10,7 +10,10 @@ benchmark "pci_v321_sagemaker" {
   children = [
     control.pci_v321_sagemaker_1,
   ]
-  tags = local.pci_v321_sagemaker_common_tags
+
+  tags = merge(local.pci_v321_sagemaker_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_sagemaker_1" {

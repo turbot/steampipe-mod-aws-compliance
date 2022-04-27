@@ -62,7 +62,9 @@ benchmark "nist_800_53_rev_4_si_4_1" {
     control.guardduty_enabled
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_4_si_4_2" {

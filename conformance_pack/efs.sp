@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_efs_common_tags = {
-    service = "efs"
-  }
+  conformance_pack_efs_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/EFS"
+  })
 }
 
 control "efs_file_system_encrypt_data_at_rest" {
