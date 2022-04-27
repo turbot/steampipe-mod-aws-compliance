@@ -15,7 +15,10 @@ benchmark "pci_v321_ec2" {
     control.pci_v321_ec2_5,
     control.pci_v321_ec2_6,
   ]
-  tags = local.pci_v321_ec2_common_tags
+
+  tags = merge(local.pci_v321_ec2_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_ec2_1" {

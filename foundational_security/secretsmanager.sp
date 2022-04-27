@@ -13,7 +13,10 @@ benchmark "foundational_security_secretsmanager" {
     control.foundational_security_secretsmanager_3,
     control.foundational_security_secretsmanager_4
   ]
-  tags          = local.foundational_security_secretsmanager_common_tags
+
+  tags = merge(local.foundational_security_secretsmanager_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_secretsmanager_1" {

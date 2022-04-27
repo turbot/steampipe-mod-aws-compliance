@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_dms_common_tags = {
+  conformance_pack_dms_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/DMS"
-  }
+  })
 }
 
 control "dms_replication_instance_not_publicly_accessible" {

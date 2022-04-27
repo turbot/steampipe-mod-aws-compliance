@@ -7,7 +7,6 @@ locals {
 benchmark "cis_v140_4" {
   title         = "4 Monitoring"
   documentation = file("./cis_v140/docs/cis_v140_4.md")
-  tags          = local.cis_v140_4_common_tags
   children = [
     control.cis_v140_4_1,
     control.cis_v140_4_2,
@@ -25,6 +24,11 @@ benchmark "cis_v140_4" {
     control.cis_v140_4_14,
     control.cis_v140_4_15
   ]
+
+  tags = merge(local.cis_v140_4_common_tags, {
+    type    = "Benchmark"
+    service = "AWS/CloudWatch"
+  })
 }
 
 control "cis_v140_4_1" {

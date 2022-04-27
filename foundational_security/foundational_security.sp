@@ -1,11 +1,7 @@
 locals {
-  foundational_security_common_tags = {
+  foundational_security_common_tags = merge(local.aws_compliance_common_tags, {
     aws_foundational_security = "true"
-    category                  = "Compliance"
-    plugin                    = "aws"
-    service                   = "AWS"
-    type                      = "Benchmark"
-  }
+  })
 }
 
 benchmark "foundational_security" {

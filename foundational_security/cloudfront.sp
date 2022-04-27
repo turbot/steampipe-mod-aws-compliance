@@ -18,7 +18,10 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_8,
     control.foundational_security_cloudfront_9
   ]
-  tags          = local.foundational_security_cloudfront_common_tags
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_cloudfront_1" {

@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_iam_common_tags = {
+  conformance_pack_iam_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/IAM"
-  }
+  })
 }
 
 control "iam_account_password_policy_strong_min_reuse_24" {

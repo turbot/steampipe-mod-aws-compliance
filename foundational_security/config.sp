@@ -10,7 +10,10 @@ benchmark "foundational_security_config" {
   children = [
     control.foundational_security_config_1
   ]
-  tags          = local.foundational_security_config_common_tags
+
+  tags = merge(local.foundational_security_config_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_config_1" {

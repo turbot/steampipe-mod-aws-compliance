@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_backup_common_tags = {
+  conformance_pack_backup_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/Backup"
-  }
+  })
 }
 
 control "backup_recovery_point_manual_deletion_disabled" {

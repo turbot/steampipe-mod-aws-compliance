@@ -10,7 +10,10 @@ benchmark "foundational_security_acm" {
   children = [
     control.foundational_security_acm_1
   ]
-  tags          = local.foundational_security_acm_common_tags
+
+  tags = merge(local.foundational_security_acm_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_acm_1" {

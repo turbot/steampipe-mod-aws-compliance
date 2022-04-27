@@ -24,7 +24,10 @@ benchmark "cis_v140_2" {
     benchmark.cis_v140_2_2,
     benchmark.cis_v140_2_3
   ]
-  tags = local.cis_v140_2_common_tags
+
+  tags = merge(local.cis_v140_2_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 benchmark "cis_v140_2_1" {
@@ -37,7 +40,11 @@ benchmark "cis_v140_2_1" {
     control.cis_v140_2_1_4,
     control.cis_v140_2_1_5
   ]
-  tags = local.cis_v140_2_1_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_1_1" {
@@ -116,7 +123,11 @@ benchmark "cis_v140_2_2" {
   children = [
     control.cis_v140_2_2_1
   ]
-  tags = local.cis_v140_2_2_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/EBS"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_2_1" {
@@ -139,7 +150,11 @@ benchmark "cis_v140_2_3" {
   children = [
     control.cis_v140_2_3_1
   ]
-  tags = local.cis_v140_2_3_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/RDS"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_3_1" {

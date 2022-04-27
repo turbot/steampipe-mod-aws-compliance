@@ -12,5 +12,6 @@ benchmark "rbi_cyber_security_annex_i_7_1" {
 
   tags = merge(local.rbi_cyber_security_common_tags, {
     rbi_cyber_security_item_id = "annex_i_7_1"
+    service                    = "AWS/IAM"
   })
 }

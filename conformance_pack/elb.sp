@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_elb_common_tags = {
+  conformance_pack_elb_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/ELB"
-  }
+  })
 }
 
 control "elb_application_classic_lb_logging_enabled" {

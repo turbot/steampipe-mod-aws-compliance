@@ -17,7 +17,10 @@ benchmark "foundational_security_es" {
     control.foundational_security_es_7,
     control.foundational_security_es_8
   ]
-  tags          = local.foundational_security_es_common_tags
+
+  tags = merge(local.foundational_security_es_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_es_1" {

@@ -10,7 +10,10 @@ benchmark "pci_v321_redshift" {
   children = [
     control.pci_v321_redshift_1
   ]
-  tags          = local.pci_v321_redshift_common_tags
+
+  tags = merge(local.pci_v321_redshift_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_redshift_1" {

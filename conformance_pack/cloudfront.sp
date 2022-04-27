@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_cloudfront_common_tags = {
+  conformance_pack_cloudfront_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/CloudFront"
-  }
+  })
 }
 
 control "cloudfront_distribution_encryption_in_transit_enabled" {

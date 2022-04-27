@@ -13,7 +13,10 @@ benchmark "foundational_security_cloudtrail" {
     control.foundational_security_cloudtrail_4,
     control.foundational_security_cloudtrail_5
   ]
-  tags          = local.foundational_security_cloudtrail_common_tags
+
+  tags = merge(local.foundational_security_cloudtrail_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_cloudtrail_1" {

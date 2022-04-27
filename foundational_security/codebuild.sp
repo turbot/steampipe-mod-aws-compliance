@@ -13,7 +13,10 @@ benchmark "foundational_security_codebuild" {
     control.foundational_security_codebuild_4,
     control.foundational_security_codebuild_5
   ]
-  tags          = local.foundational_security_codebuild_common_tags
+
+  tags = merge(local.foundational_security_codebuild_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_codebuild_1" {

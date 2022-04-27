@@ -33,7 +33,10 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_24,
     control.foundational_security_rds_25
   ]
-  tags          = local.foundational_security_rds_common_tags
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_rds_1" {

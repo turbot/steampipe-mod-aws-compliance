@@ -15,7 +15,10 @@ benchmark "foundational_security_elb" {
     control.foundational_security_elb_7,
     control.foundational_security_elb_10
   ]
-  tags          = local.foundational_security_elb_common_tags
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_elb_3" {

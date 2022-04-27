@@ -156,7 +156,9 @@ benchmark "nist_csf_pr_ac_7" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_csf_pr_ds" {
@@ -288,7 +290,9 @@ benchmark "nist_csf_pr_ds_6" {
     control.cloudtrail_trail_validation_enabled
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_csf_pr_ds_7" {
@@ -374,7 +378,9 @@ benchmark "nist_csf_pr_ip_3" {
     control.elb_application_lb_deletion_protection_enabled
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/ELB"
+  })
 }
 
 benchmark "nist_csf_pr_ip_4" {
@@ -400,7 +406,9 @@ benchmark "nist_csf_pr_ip_7" {
     control.ec2_instance_ebs_optimized
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/EC2"
+  })
 }
 
 benchmark "nist_csf_pr_ip_8" {
@@ -496,7 +504,9 @@ benchmark "nist_csf_pr_ma_2" {
     control.cloudtrail_trail_enabled
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_csf_pr_pt" {

@@ -20,7 +20,10 @@ benchmark "cis_v140_3" {
     control.cis_v140_3_10,
     control.cis_v140_3_11
   ]
-  tags = local.cis_v140_3_common_tags
+
+  tags = merge(local.cis_v140_3_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "cis_v140_3_1" {

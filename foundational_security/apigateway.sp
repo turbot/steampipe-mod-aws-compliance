@@ -14,7 +14,10 @@ benchmark "foundational_security_apigateway" {
     control.foundational_security_apigateway_4,
     control.foundational_security_apigateway_5
   ]
-  tags          = local.foundational_security_apigateway_common_tags
+
+  tags = merge(local.foundational_security_apigateway_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_apigateway_1" {

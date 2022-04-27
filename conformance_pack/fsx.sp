@@ -1,6 +1,6 @@
 locals {
   conformance_pack_fsx_common_tags = {
-    service = "AWS/FSX"
+    service = "AWS/FSx"
   }
 }
 

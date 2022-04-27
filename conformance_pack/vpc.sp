@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_vpc_common_tags = {
+  conformance_pack_vpc_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/VPC"
-  }
+  })
 }
 
 control "vpc_flow_logs_enabled" {

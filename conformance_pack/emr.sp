@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_emr_common_tags = {
+  conformance_pack_emr_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/EMR"
-  }
+  })
 }
 
 control "emr_cluster_kerberos_enabled" {

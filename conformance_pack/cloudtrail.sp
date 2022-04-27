@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_cloudtrail_common_tags = {
+  conformance_pack_cloudtrail_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/CloudTrail"
-  }
+  })
 }
 
 control "cloudtrail_trail_integrated_with_logs" {

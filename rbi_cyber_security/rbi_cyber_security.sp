@@ -1,11 +1,8 @@
 locals {
-  rbi_cyber_security_common_tags = {
-    category           = "Compliance"
-    plugin             = "aws"
+  rbi_cyber_security_common_tags = merge(local.aws_compliance_common_tags, {
     rbi_cyber_security = "true"
-    service            = "AWS"
     type               = "Benchmark"
-  }
+  })
 }
 
 benchmark "rbi_cyber_security" {

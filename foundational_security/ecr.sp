@@ -10,7 +10,10 @@ benchmark "foundational_security_ecr" {
   children = [
     control.foundational_security_ecr_3
   ]
-  tags          = local.foundational_security_ecr_common_tags
+
+  tags = merge(local.foundational_security_ecr_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_ecr_3" {

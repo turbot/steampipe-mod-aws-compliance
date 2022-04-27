@@ -1,12 +1,8 @@
 locals {
-  pci_v321_common_tags = {
-    category    = "Compliance"
+  pci_v321_common_tags = merge(local.aws_compliance_common_tags, {
     pci         = "true"
     pci_version = "v3.2.1"
-    plugin      = "aws"
-    service     = "AWS"
-    type        = "Benchmark"
-  }
+  })
 }
 
 benchmark "pci_v321" {

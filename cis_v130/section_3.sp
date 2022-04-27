@@ -21,7 +21,7 @@ benchmark "cis_v130_3" {
     control.cis_v130_3_11
   ]
 
-  tags = merge(local.cis_v130_1_common_tags, {
+  tags = merge(local.cis_v130_3_common_tags, {
     type = "Benchmark"
   })
 }

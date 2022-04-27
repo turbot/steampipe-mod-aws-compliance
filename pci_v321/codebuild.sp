@@ -11,7 +11,10 @@ benchmark "pci_v321_codebuild" {
     control.pci_v321_codebuild_1,
     control.pci_v321_codebuild_2
   ]
-  tags          = local.pci_v321_codebuild_common_tags
+
+  tags = merge(local.pci_v321_codebuild_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_codebuild_1" {

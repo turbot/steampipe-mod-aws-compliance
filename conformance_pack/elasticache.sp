@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_elasticache_common_tags = {
+  conformance_pack_elasticache_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/ElastiCache"
-  }
+  })
 }
 
 control "elasticache_redis_cluster_automatic_backup_retention_15_days" {

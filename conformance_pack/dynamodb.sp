@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_dynamodb_common_tags = {
+  conformance_pack_dynamodb_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/DynamoDB"
-  }
+  })
 }
 
 control "dynamodb_table_auto_scaling_enabled" {

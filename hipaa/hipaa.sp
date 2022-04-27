@@ -1,11 +1,8 @@
 locals {
-  hipaa_common_tags = {
-    category = "Compliance"
-    hipaa    = "true"
-    plugin   = "aws"
-    service  = "AWS"
-    type     = "Benchmark"
-  }
+  hipaa_common_tags = merge(local.aws_compliance_common_tags, {
+    hipaa = "true"
+    type  = "Benchmark"
+  })
 }
 
 benchmark "hipaa" {

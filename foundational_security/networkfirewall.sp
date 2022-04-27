@@ -10,7 +10,10 @@ benchmark "foundational_security_networkfirewall" {
   children = [
     control.foundational_security_networkfirewall_6
   ]
-  tags          = local.foundational_security_networkfirewall_common_tags
+
+  tags = merge(local.foundational_security_networkfirewall_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_networkfirewall_6" {

@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_redshift_common_tags = {
+  conformance_pack_redshift_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/Redshift"
-  }
+  })
 }
 
 control "redshift_cluster_encryption_in_transit_enabled" {

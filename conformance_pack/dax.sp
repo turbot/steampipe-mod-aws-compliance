@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_dax_common_tags = {
+  conformance_pack_dax_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/DAX"
-  }
+  })
 }
 
 control "dax_cluster_encryption_at_rest_enabled" {

@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_autoscaling_common_tags = {
+  conformance_pack_autoscaling_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/AutoScaling"
-  }
+  })
 }
 
 control "autoscaling_group_with_lb_use_health_check" {

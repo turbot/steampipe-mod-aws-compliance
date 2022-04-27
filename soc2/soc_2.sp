@@ -1,11 +1,8 @@
 locals {
-  soc_2_common_tags = {
-    category = "Compliance"
-    plugin   = "aws"
-    service  = "AWS"
-    soc_2    = "true"
-    type     = "Benchmark"
-  }
+  soc_2_common_tags = merge(local.aws_compliance_common_tags, {
+    soc_2 = "true"
+    type  = "Benchmark"
+  })
 }
 
 benchmark "soc_2" {

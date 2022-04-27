@@ -10,5 +10,6 @@ benchmark "hipaa_164_308_a_4_i" {
 
   tags = merge(local.hipaa_164_308_common_tags, {
     hipaa_item_id = "164_308_a_4_i"
+    service       = "AWS/IAM"
   })
 }

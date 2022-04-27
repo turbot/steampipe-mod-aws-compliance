@@ -10,7 +10,10 @@ benchmark "pci_v321_guardduty" {
   children = [
     control.pci_v321_guardduty_1
   ]
-  tags          = local.pci_v321_guardduty_common_tags
+
+  tags = merge(local.pci_v321_guardduty_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_guardduty_1" {

@@ -25,6 +25,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_0_1" {
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
     audit_manager_control_tower_item_id = "4.0.1"
+    service                             = "AWS/RDS"
   })
 }
 
@@ -37,6 +38,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_0_2" {
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
     audit_manager_control_tower_item_id = "4.0.2"
+    service                             = "AWS/RDS"
   })
 }
 
@@ -49,6 +51,7 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_1_1" {
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
     audit_manager_control_tower_item_id = "4.1.1"
+    service                             = "AWS/S3"
   })
 }
 
@@ -61,5 +64,6 @@ benchmark "audit_manager_control_tower_disallow_public_access_4_1_2" {
 
   tags = merge(local.audit_manager_control_tower_disallow_public_access_common_tags, {
     audit_manager_control_tower_item_id = "4.1.2"
+    service                             = "AWS/S3"
   })
 }

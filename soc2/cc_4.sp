@@ -40,6 +40,7 @@ benchmark "soc_2_cc_4_2" {
   ]
 
   tags = merge(local.soc_2_cc_4_common_tags, {
+    service       = "AWS/GuardDuty"
     soc_2_item_id = "4.2"
     soc_2_type    = "automated"
   })

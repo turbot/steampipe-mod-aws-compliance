@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_apigateway_common_tags = {
+  conformance_pack_apigateway_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/APIGateway"
-  }
+  })
 }
 
 control "apigateway_stage_cache_encryption_at_rest_enabled" {
