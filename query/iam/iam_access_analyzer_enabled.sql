@@ -1,6 +1,6 @@
 select
   -- Required Columns
-  r.region as resource,
+  'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
   case
     when aa.arn is not null then 'ok'
     else 'alarm'
