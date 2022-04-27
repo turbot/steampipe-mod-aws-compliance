@@ -7,7 +7,7 @@ select
   end status,
   case
     when account_mfa_enabled = false then  'MFA not enabled for root account.'
-    when serial_number is not null then 'Virtual MFA device enabled the root account.'
+    when serial_number is not null then 'Virtual MFA device enabled for root account.'
     else 'Hardware MFA device enabled for root account.'
   end reason,
   -- Additional Dimensions
