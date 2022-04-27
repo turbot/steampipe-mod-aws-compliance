@@ -12,7 +12,7 @@ select
   -- Additional Dimensions
   region,
   account_id,
-  packagetype
+  package_type
 from
   "aws_lambda_function"
-where packagetype = 'Zip';
+where package_type = 'Zip';
