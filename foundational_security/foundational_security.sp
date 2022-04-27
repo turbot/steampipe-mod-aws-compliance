@@ -41,5 +41,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_ssm,
     benchmark.foundational_security_sqs
   ]
-  tags = local.foundational_security_common_tags
+
+  tags = merge(local.foundational_security_common_tags, {
+    type = "Benchmark"
+  })
 }
