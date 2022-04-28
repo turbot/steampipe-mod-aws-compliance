@@ -3,7 +3,7 @@ select
   -- Required Columns
   arn as resource,
   case
-    when vpc_id is null then 'ok'
+    when vpc_id is null then 'skip'
     else case    
       when 
       (select count(distinct availability_zone_id) from aws_vpc_subnet 
