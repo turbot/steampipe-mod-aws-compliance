@@ -22,7 +22,8 @@ benchmark "audit_manager_control_tower_disallow_instances_5_0_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_instances_common_tags, {
-    audit_manager_control_tower_item_id  = "5.0.1"
+    audit_manager_control_tower_item_id = "5.0.1"
+    service                             = "AWS/RDS"
   })
 }
 
@@ -34,6 +35,7 @@ benchmark "audit_manager_control_tower_disallow_instances_5_1_1" {
   ]
 
   tags = merge(local.audit_manager_control_tower_disallow_instances_common_tags, {
-    audit_manager_control_tower_item_id  = "5.1.1"
+    audit_manager_control_tower_item_id = "5.1.1"
+    service                             = "AWS/S3"
   })
 }

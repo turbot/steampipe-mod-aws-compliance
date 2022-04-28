@@ -1,6 +1,6 @@
 locals {
   foundational_security_s3_common_tags = merge(local.foundational_security_common_tags, {
-    service = "s3"
+    service = "AWS/S3"
   })
 }
 
@@ -19,7 +19,10 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_10,
     control.foundational_security_s3_11
   ]
-  tags          = local.foundational_security_s3_common_tags
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_s3_1" {

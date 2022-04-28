@@ -1,6 +1,6 @@
 locals {
   pci_v321_cloudtrail_common_tags = merge(local.pci_v321_common_tags, {
-    service = "cloudtrail"
+    service = "AWS/CloudTrail"
   })
 }
 
@@ -13,7 +13,10 @@ benchmark "pci_v321_cloudtrail" {
     control.pci_v321_cloudtrail_3,
     control.pci_v321_cloudtrail_4
   ]
-  tags          = local.pci_v321_cloudtrail_common_tags
+
+  tags = merge(local.pci_v321_cloudtrail_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_cloudtrail_1" {

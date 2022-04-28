@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_wafv2_common_tags = {
-    service = "wafv2"
-  }
+  conformance_pack_wafv2_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/WAFv2"
+  })
 }
 
 control "wafv2_web_acl_logging_enabled" {

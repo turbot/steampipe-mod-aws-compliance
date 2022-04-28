@@ -1,6 +1,6 @@
 locals {
   pci_v321_rds_common_tags = merge(local.pci_v321_common_tags, {
-    service = "rds"
+    service = "AWS/RDS"
   })
 }
 
@@ -11,7 +11,10 @@ benchmark "pci_v321_rds" {
     control.pci_v321_rds_1,
     control.pci_v321_rds_2,
   ]
-  tags          = local.pci_v321_rds_common_tags
+
+  tags = merge(local.pci_v321_rds_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_rds_1" {

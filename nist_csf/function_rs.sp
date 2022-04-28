@@ -30,7 +30,9 @@ benchmark "nist_csf_rs_an_2" {
     control.guardduty_finding_archived
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_csf_rs_mi" {
@@ -52,7 +54,9 @@ benchmark "nist_csf_rs_mi_3" {
     control.guardduty_finding_archived
   ]
 
-  tags = local.nist_csf_common_tags
+  tags = merge(local.nist_csf_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_csf_rs_rp" {

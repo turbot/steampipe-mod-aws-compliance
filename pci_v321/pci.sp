@@ -1,9 +1,8 @@
 locals {
-  pci_v321_common_tags = {
+  pci_v321_common_tags = merge(local.aws_compliance_common_tags, {
     pci         = "true"
     pci_version = "v3.2.1"
-    plugin      = "aws"
-  }
+  })
 }
 
 benchmark "pci_v321" {
@@ -30,5 +29,8 @@ benchmark "pci_v321" {
     benchmark.pci_v321_sagemaker,
     benchmark.pci_v321_ssm
   ]
-  tags = local.pci_v321_common_tags
+
+  tags = merge(local.pci_v321_common_tags, {
+    type = "Benchmark"
+  })
 }

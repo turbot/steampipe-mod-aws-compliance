@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_guardduty_common_tags = {
-    service = "guardduty"
-  }
+  conformance_pack_guardduty_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 control "guardduty_enabled" {

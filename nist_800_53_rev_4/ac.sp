@@ -69,7 +69,9 @@ benchmark "nist_800_53_rev_4_ac_2_3" {
     control.iam_user_unused_credentials_90
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ac_2_4" {
@@ -206,7 +208,9 @@ benchmark "nist_800_53_rev_4_ac_6_10" {
     control.iam_root_user_no_access_keys
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ac_17" {
@@ -255,7 +259,9 @@ benchmark "nist_800_53_rev_4_ac_17_3" {
     control.vpc_igw_attached_to_authorized_vpc
   ]
 
-  tags = local.nist_800_53_rev_4_common_tags
+  tags = merge(local.nist_800_53_rev_4_common_tags, {
+    service = "AWS/VPC"
+  })
 }
 
 benchmark "nist_800_53_rev_4_ac_21" {

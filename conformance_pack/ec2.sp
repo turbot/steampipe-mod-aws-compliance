@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_ec2_common_tags = {
-    service = "ec2"
-  }
+  conformance_pack_ec2_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/EC2"
+  })
 }
 
 control "ec2_ebs_default_encryption_enabled" {

@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_s3_common_tags = {
-    service = "s3"
-  }
+  conformance_pack_s3_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/S3"
+  })
 }
 
 control "s3_bucket_cross_region_replication_enabled" {

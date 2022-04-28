@@ -24,7 +24,10 @@ benchmark "cis_v140_2" {
     benchmark.cis_v140_2_2,
     benchmark.cis_v140_2_3
   ]
-  tags = local.cis_v140_2_common_tags
+
+  tags = merge(local.cis_v140_2_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 benchmark "cis_v140_2_1" {
@@ -37,7 +40,11 @@ benchmark "cis_v140_2_1" {
     control.cis_v140_2_1_4,
     control.cis_v140_2_1_5
   ]
-  tags = local.cis_v140_2_1_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_1_1" {
@@ -50,7 +57,7 @@ control "cis_v140_2_1_1" {
     cis_item_id = "2.1.1"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -64,7 +71,7 @@ control "cis_v140_2_1_2" {
     cis_item_id = "2.1.2"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -78,7 +85,7 @@ control "cis_v140_2_1_3" {
     cis_item_id = "2.1.3"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -92,7 +99,7 @@ control "cis_v140_2_1_4" {
     cis_item_id = "2.1.4"
     cis_level   = "2"
     cis_type    = "manual"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -106,7 +113,7 @@ control "cis_v140_2_1_5" {
     cis_item_id = "2.1.5"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "s3"
+    service     = "AWS/S3"
   })
 }
 
@@ -116,7 +123,11 @@ benchmark "cis_v140_2_2" {
   children = [
     control.cis_v140_2_2_1
   ]
-  tags = local.cis_v140_2_2_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/EBS"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_2_1" {
@@ -129,7 +140,7 @@ control "cis_v140_2_2_1" {
     cis_item_id = "2.2.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "ebs"
+    service     = "AWS/EBS"
   })
 }
 
@@ -139,7 +150,11 @@ benchmark "cis_v140_2_3" {
   children = [
     control.cis_v140_2_3_1
   ]
-  tags = local.cis_v140_2_3_common_tags
+
+  tags = merge(local.cis_v140_2_1_common_tags, {
+    service = "AWS/RDS"
+    type    = "Benchmark"
+  })
 }
 
 control "cis_v140_2_3_1" {
@@ -152,6 +167,6 @@ control "cis_v140_2_3_1" {
     cis_item_id = "2.3.1"
     cis_level   = "1"
     cis_type    = "automated"
-    service     = "rds"
+    service     = "AWS/RDS"
   })
 }

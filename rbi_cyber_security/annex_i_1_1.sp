@@ -8,5 +8,6 @@ benchmark "rbi_cyber_security_annex_i_1_1" {
 
   tags = merge(local.rbi_cyber_security_common_tags, {
     rbi_cyber_security_item_id = "annex_i_1_1"
+    service                    = "AWS/EC2"
   })
 }

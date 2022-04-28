@@ -1,6 +1,6 @@
 locals {
   foundational_security_kms_common_tags = merge(local.foundational_security_common_tags, {
-    service = "kms"
+    service = "AWS/KMS"
   })
 }
 
@@ -12,7 +12,10 @@ benchmark "foundational_security_kms" {
     control.foundational_security_kms_2,
     control.foundational_security_kms_3
   ]
-  tags          = local.foundational_security_kms_common_tags
+
+  tags = merge(local.foundational_security_kms_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "foundational_security_kms_1" {

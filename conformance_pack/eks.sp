@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_eks_common_tags = {
-    service = "eks"
-  }
+  conformance_pack_eks_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/EKS"
+  })
 }
 
 control "eks_cluster_secrets_encrypted" {

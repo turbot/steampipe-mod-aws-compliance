@@ -1,8 +1,7 @@
 locals {
-  foundational_security_common_tags = {
+  foundational_security_common_tags = merge(local.aws_compliance_common_tags, {
     aws_foundational_security = "true"
-    plugin                    = "aws"
-  }
+  })
 }
 
 benchmark "foundational_security" {
@@ -42,5 +41,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_ssm,
     benchmark.foundational_security_sqs
   ]
-  tags = local.foundational_security_common_tags
+
+  tags = merge(local.foundational_security_common_tags, {
+    type = "Benchmark"
+  })
 }

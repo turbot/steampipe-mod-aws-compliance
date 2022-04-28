@@ -1,6 +1,6 @@
 locals {
   pci_v321_cw_common_tags = merge(local.pci_v321_common_tags, {
-    service = "cloudwatch"
+    service = "AWS/CloudWatch"
   })
 }
 
@@ -10,7 +10,10 @@ benchmark "pci_v321_cw" {
   children = [
     control.pci_v321_cw_1
   ]
-  tags          = local.pci_v321_cw_common_tags
+
+  tags = merge(local.pci_v321_cw_common_tags, {
+    type = "Benchmark"
+  })
 }
 
 control "pci_v321_cw_1" {

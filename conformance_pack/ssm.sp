@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_ssm_common_tags = {
-    service = "ssm"
-  }
+  conformance_pack_ssm_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/SSM"
+  })
 }
 
 control "ec2_instance_ssm_managed" {

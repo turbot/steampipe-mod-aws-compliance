@@ -1,7 +1,7 @@
 locals {
-  conformance_pack_config_common_tags = {
-    service = "config"
-  }
+  conformance_pack_config_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/Config"
+  })
 }
 
 control "config_enabled_all_regions" {

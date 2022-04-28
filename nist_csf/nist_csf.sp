@@ -1,8 +1,8 @@
 locals {
-  nist_csf_common_tags = {
+  nist_csf_common_tags = merge(local.aws_compliance_common_tags, {
     nist_csf = "true"
-    plugin   = "aws"
-  }
+    type     = "Benchmark"
+  })
 }
 
 benchmark "nist_csf" {
