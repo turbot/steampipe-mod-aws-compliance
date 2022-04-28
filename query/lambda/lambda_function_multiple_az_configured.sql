@@ -14,7 +14,7 @@ select
     end
   end as status,
   case
-    when vpc_subnet_ids is null then title || ' is not in VPC.'
+    when vpc_id is null then title || ' is not in VPC.'
     else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
   end as reason,
   -- Additional Dimensions
