@@ -1,4 +1,3 @@
-
 select
   -- Required Columns
   arn as resource,
@@ -11,7 +10,7 @@ select
           subnet_id in (select jsonb_array_elements_text(vpc_subnet_ids) )  
       ) >= 2
       then 'ok'
-    else 'alarm'
+      else 'alarm'
     end
   end as status,
   case
@@ -23,4 +22,3 @@ select
   account_id
 from
   "aws_lambda_function";
-  
