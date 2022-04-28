@@ -19,7 +19,7 @@ benchmark "soc_2_p_4" {
 
 benchmark "soc_2_p_4_1" {
   title         = "P4.1 The entity limits the use of personal information to the purposes identified in the entity’s objectives related to privacy"
-  documentation = file("./soc2/docs/p_4_1.md")
+  documentation = file("./soc_2/docs/p_4_1.md")
 
   children = [
     control.manual_control
@@ -33,7 +33,7 @@ benchmark "soc_2_p_4_1" {
 
 benchmark "soc_2_p_4_2" {
   title         = "P4.2 The entity retains personal information consistent with the entity’s objectives related to privacy"
-  documentation = file("./soc2/docs/p_4_2.md")
+  documentation = file("./soc_2/docs/p_4_2.md")
 
   children = [
     control.manual_control
@@ -47,7 +47,7 @@ benchmark "soc_2_p_4_2" {
 
 benchmark "soc_2_p_4_3" {
   title         = "P4.3 The entity securely disposes of personal information to meet the entity’s objectives related to privacy"
-  documentation = file("./soc2/docs/p_4_3.md")
+  documentation = file("./soc_2/docs/p_4_3.md")
 
   children = [
     control.manual_control

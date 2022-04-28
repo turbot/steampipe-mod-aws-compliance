@@ -17,7 +17,7 @@ benchmark "soc_2_p_2" {
 
 benchmark "soc_2_p_2_1" {
   title         = "P2.1 The entity communicates choices available regarding the collection, use, retention, disclosure, and disposal of personal information to the data subjects and the consequences, if any, of each choice"
-  documentation = file("./soc2/docs/p_2_1.md")
+  documentation = file("./soc_2/docs/p_2_1.md")
 
   children = [
     control.manual_control

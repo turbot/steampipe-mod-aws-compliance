@@ -21,7 +21,7 @@ benchmark "soc_2_cc_7" {
 
 benchmark "soc_2_cc_7_1" {
   title         = "CC7.1 To meet its objectives, the entity uses detection and monitoring procedures to identify (1) changes to configurations that result in the introduction of new vulnerabilities, and (2) susceptibilities to newly discovered vulnerabilities"
-  documentation = file("./soc2/docs/cc_7_1.md")
+  documentation = file("./soc_2/docs/cc_7_1.md")
 
   children = [
     control.guardduty_enabled,
@@ -38,7 +38,7 @@ benchmark "soc_2_cc_7_1" {
 
 benchmark "soc_2_cc_7_2" {
   title         = "CC7.2 The entity monitors system components and the operation of those components for anomalies that are indicative of malicious acts, natural disasters, and errors affecting the entity's ability to meet its objectives; anomalies are analyzed to determine whether they represent security events"
-  documentation = file("./soc2/docs/cc_7_2.md")
+  documentation = file("./soc_2/docs/cc_7_2.md")
 
   children = [
     control.cloudtrail_trail_integrated_with_logs,
@@ -72,7 +72,7 @@ benchmark "soc_2_cc_7_2" {
 
 benchmark "soc_2_cc_7_3" {
   title         = "CC7.3 The entity evaluates security events to determine whether they could or have resulted in a failure of the entity to meet its objectives (security incidents) and, if so, takes actions to prevent or address such failures"
-  documentation = file("./soc2/docs/cc_7_3.md")
+  documentation = file("./soc_2/docs/cc_7_3.md")
 
   children = [
     control.log_group_encryption_at_rest_enabled,
@@ -100,7 +100,7 @@ benchmark "soc_2_cc_7_3" {
 
 benchmark "soc_2_cc_7_4" {
   title         = "CC7.4 The entity responds to identified security incidents by executing a defined incident response program to understand, contain, remediate, and communicate security incidents, as appropriate"
-  documentation = file("./soc2/docs/cc_7_4.md")
+  documentation = file("./soc_2/docs/cc_7_4.md")
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -139,7 +139,7 @@ benchmark "soc_2_cc_7_4" {
 
 benchmark "soc_2_cc_7_5" {
   title         = "CC7.5 The entity identifies, develops, and implements activities to recover from identified security incidents"
-  documentation = file("./soc2/docs/cc_7_5.md")
+  documentation = file("./soc_2/docs/cc_7_5.md")
 
   children = [
     control.manual_control

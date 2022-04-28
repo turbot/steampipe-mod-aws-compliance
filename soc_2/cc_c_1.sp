@@ -18,7 +18,7 @@ benchmark "soc_2_cc_c_1" {
 
 benchmark "soc_2_cc_c_1_1" {
   title       = "C1.1 The entity identifies and maintains confidential information to meet the entity’s objectives related to confidentiality"
-  documentation = file("./soc2/docs/cc_c_1_1.md")
+  documentation = file("./soc_2/docs/cc_c_1_1.md")
 
   children = [
     control.s3_bucket_object_lock_enabled,
@@ -33,7 +33,7 @@ benchmark "soc_2_cc_c_1_1" {
 
 benchmark "soc_2_cc_c_1_2" {
   title       = "C1.2 The entity disposes of confidential information to meet the entity’s objectives related to confidentiality"
-  documentation = file("./soc2/docs/cc_c_1_2.md")
+  documentation = file("./soc_2/docs/cc_c_1_2.md")
 
   children = [
     control.s3_bucket_versioning_enabled

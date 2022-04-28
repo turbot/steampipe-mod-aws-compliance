@@ -18,7 +18,7 @@ benchmark "soc_2_p_3" {
 
 benchmark "soc_2_p_3_1" {
   title         = "P3.1 Personal information is collected consistent with the entity’s objectives related to privacy"
-  documentation = file("./soc2/docs/p_3_1.md")
+  documentation = file("./soc_2/docs/p_3_1.md")
 
   children = [
     control.manual_control
@@ -32,7 +32,7 @@ benchmark "soc_2_p_3_1" {
 
 benchmark "soc_2_p_3_2" {
   title         = "P3.2 For information requiring explicit consent, the entity communicates the need for such consent, as well as the consequences of a failure to provide consent for the request for personal information, and obtains the consent prior to the collection of the information to meet the entity’s objectives related to privacy"
-  documentation = file("./soc2/docs/p_3_2.md")
+  documentation = file("./soc_2/docs/p_3_2.md")
 
   children = [
     control.manual_control

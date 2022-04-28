@@ -19,7 +19,7 @@ benchmark "soc_2_cc_a_1" {
 
 benchmark "soc_2_cc_a_1_1" {
   title         = "A1.1 The entity maintains, monitors, and evaluates current processing capacity and use of system components (infrastructure, data, and software) to manage capacity demand and to enable the implementation of additional capacity to help meet its objectives"
-  documentation = file("./soc2/docs/cc_a_1_1.md")
+  documentation = file("./soc_2/docs/cc_a_1_1.md")
 
   children = [
     control.manual_control
@@ -33,7 +33,7 @@ benchmark "soc_2_cc_a_1_1" {
 
 benchmark "soc_2_cc_a_1_2" {
   title       = "A1.2 The entity authorizes, designs, develops or acquires, implements, operates, approves, maintains, and monitors environmental protections, software, data back-up processes, and recovery infrastructure to meet its objectives"
-  documentation = file("./soc2/docs/cc_a_1_2.md")
+  documentation = file("./soc_2/docs/cc_a_1_2.md")
 
   children = [
     control.apigateway_stage_logging_enabled,
@@ -74,7 +74,7 @@ benchmark "soc_2_cc_a_1_2" {
 
 benchmark "soc_2_cc_a_1_3" {
   title       = "A1.3 The entity tests recovery plan procedures supporting system recovery to meet its objectives"
-  documentation = file("./soc2/docs/cc_a_1_3.md")
+  documentation = file("./soc_2/docs/cc_a_1_3.md")
 
   children = [
     control.manual_control
