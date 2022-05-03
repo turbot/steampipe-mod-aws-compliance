@@ -1,3 +1,11 @@
+## v0.30 [2022-05-03]
+
+_Bug fixes_
+
+- Fixed `resource` column in `guardduty_enabled` query to be the AWS region ARN instead of the GuardDuty detector ARN.
+- Fixed `resource` column in `securityhub_enabled` query to be the AWS region ARN instead of the Security Hub hub ARN.
+- Renamed `soc2` directory and filenames to use `soc_2` (no impact on benchmarks or controls).
+
 ## v0.29 [2022-04-27]
 
 _Enhancements_
