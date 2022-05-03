@@ -1,4 +1,3 @@
-
 ## Overview
 
 System and Organization Controls ([SOC](https://us.aicpa.org/content/dam/aicpa/interestareas/frc/assuranceadvisoryservices/downloadabledocuments/trust-services-criteria.pdf)) 2 is an auditing procedure that ensures a company's data is securely managed.

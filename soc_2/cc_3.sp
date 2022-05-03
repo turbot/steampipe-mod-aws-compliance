@@ -20,7 +20,7 @@ benchmark "soc_2_cc_3" {
 
 benchmark "soc_2_cc_3_1" {
   title         = "CC3.1 COSO Principle 6: The entity specifies objectives with sufficient clarity to enable the identification and assessment of risks relating to objectives"
-  documentation = file("./soc2/docs/cc_3_1.md")
+  documentation = file("./soc_2/docs/cc_3_1.md")
 
   children = [
     control.guardduty_enabled,
@@ -36,7 +36,7 @@ benchmark "soc_2_cc_3_1" {
 
 benchmark "soc_2_cc_3_2" {
   title         = "CC3.2 COSO Principle 7: The entity identifies risks to the achievement of its objectives across the entity and analyzes risks as a basis for determining how the risks should be managed"
-  documentation = file("./soc2/docs/cc_3_2.md")
+  documentation = file("./soc_2/docs/cc_3_2.md")
 
   children = [
     control.ec2_instance_ssm_managed,
@@ -54,7 +54,7 @@ benchmark "soc_2_cc_3_2" {
 
 benchmark "soc_2_cc_3_3" {
   title         = "CC3.3 COSO Principle 8: The entity considers the potential for fraud in assessing risks to the achievement of objectives"
-  documentation = file("./soc2/docs/cc_3_3.md")
+  documentation = file("./soc_2/docs/cc_3_3.md")
 
   children = [
     control.manual_control
@@ -68,7 +68,7 @@ benchmark "soc_2_cc_3_3" {
 
 benchmark "soc_2_cc_3_4" {
   title         = "CC3.4 COSO Principle 9: The entity identifies and assesses changes that could significantly impact the system of internal control"
-  documentation = file("./soc2/docs/cc_3_4.md")
+  documentation = file("./soc_2/docs/cc_3_4.md")
 
   children = [
     control.config_enabled_all_regions

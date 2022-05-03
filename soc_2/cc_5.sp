@@ -19,7 +19,7 @@ benchmark "soc_2_cc_5" {
 
 benchmark "soc_2_cc_5_1" {
   title         = "CC5.1 COSO Principle 10: The entity selects and develops control activities that contribute to the mitigation of risks to the achievement of objectives to acceptable levels"
-  documentation = file("./soc2/docs/cc_5_1.md")
+  documentation = file("./soc_2/docs/cc_5_1.md")
 
   children = [
     control.manual_control
@@ -33,7 +33,7 @@ benchmark "soc_2_cc_5_1" {
 
 benchmark "soc_2_cc_5_2" {
   title         = "CC5.2 COSO Principle 11: The entity also selects and develops general control activities over technology to support the achievement of objectives"
-  documentation = file("./soc2/docs/cc_5_2.md")
+  documentation = file("./soc_2/docs/cc_5_2.md")
 
   children = [
     control.manual_control
@@ -47,7 +47,7 @@ benchmark "soc_2_cc_5_2" {
 
 benchmark "soc_2_cc_5_3" {
   title         = "CCC5.3 COSO Principle 12: The entity deploys control activities through policies that establish what is expected and in procedures that put policies into action"
-  documentation = file("./soc2/docs/cc_5_3.md")
+  documentation = file("./soc_2/docs/cc_5_3.md")
 
   children = [
     control.manual_control

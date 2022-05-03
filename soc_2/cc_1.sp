@@ -21,7 +21,7 @@ benchmark "soc_2_cc_1" {
 
 benchmark "soc_2_cc_1_1" {
   title       = "CC1.1 COSO Principle 1: The entity demonstrates a commitment to integrity and ethical values"
-  documentation = file("./soc2/docs/cc_1_1.md")
+  documentation = file("./soc_2/docs/cc_1_1.md")
 
   children = [
     control.manual_control
@@ -35,7 +35,7 @@ benchmark "soc_2_cc_1_1" {
 
 benchmark "soc_2_cc_1_2" {
   title         = "CC1.2 COSO Principle 2: The board of directors demonstrates independence from management and exercises oversight of the development and performance of internal control"
-  documentation = file("./soc2/docs/cc_1_2.md")
+  documentation = file("./soc_2/docs/cc_1_2.md")
 
   children = [
     control.manual_control
@@ -49,7 +49,7 @@ benchmark "soc_2_cc_1_2" {
 
 benchmark "soc_2_cc_1_3" {
   title       = "CC1.3 COSO Principle 3: Management establishes, with board oversight, structures, reporting lines, and appropriate authorities and responsibilities in the pursuit of objectives"
-  documentation = file("./soc2/docs/cc_1_3.md")
+  documentation = file("./soc_2/docs/cc_1_3.md")
 
   children = [
     control.iam_group_not_empty,
@@ -69,7 +69,7 @@ benchmark "soc_2_cc_1_3" {
 
 benchmark "soc_2_cc_1_4" {
   title         = "CC1.4 COSO Principle 4: The entity demonstrates a commitment to attract, develop, and retain competent individuals in alignment with objectives"
-  documentation = file("./soc2/docs/cc_1_4.md")
+  documentation = file("./soc_2/docs/cc_1_4.md")
 
   children = [
     control.manual_control
@@ -83,7 +83,7 @@ benchmark "soc_2_cc_1_4" {
 
 benchmark "soc_2_cc_1_5" {
   title         = "CC1.5 COSO Principle 5: The entity holds individuals accountable for their internal control responsibilities in the pursuit of objectives"
-  documentation = file("./soc2/docs/cc_1_5.md")
+  documentation = file("./soc_2/docs/cc_1_5.md")
 
   children = [
     control.manual_control

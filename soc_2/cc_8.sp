@@ -17,7 +17,7 @@ benchmark "soc_2_cc_8" {
 
 benchmark "soc_2_cc_8_1" {
   title         = "CC8.1 The entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures to meet its objectives"
-  documentation = file("./soc2/docs/cc_8_1.md")
+  documentation = file("./soc_2/docs/cc_8_1.md")
 
   children = [
     control.config_enabled_all_regions,
