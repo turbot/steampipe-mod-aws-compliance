@@ -50,6 +50,7 @@ control "es_domain_logs_to_cloudwatch" {
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    fedramp            = "true"
     rbi_cyber_security = "true"
   })
 }

@@ -93,6 +93,7 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    fedramp            = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"

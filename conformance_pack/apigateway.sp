@@ -24,6 +24,7 @@ control "apigateway_stage_logging_enabled" {
   sql         = query.apigateway_stage_logging_enabled.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

@@ -24,6 +24,7 @@ control "redshift_cluster_encryption_logging_enabled" {
   sql         = query.redshift_cluster_encryption_logging_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    fedramp            = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"

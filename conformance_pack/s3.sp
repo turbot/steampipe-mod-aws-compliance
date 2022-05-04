@@ -52,6 +52,7 @@ control "s3_bucket_logging_enabled" {
   sql         = query.s3_bucket_logging_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

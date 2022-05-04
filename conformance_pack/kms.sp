@@ -10,6 +10,7 @@ control "kms_key_not_pending_deletion" {
   sql         = query.kms_key_not_pending_deletion.sql
 
   tags = merge(local.conformance_pack_kms_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -23,6 +24,7 @@ control "kms_cmk_rotation_enabled" {
   sql         = query.kms_cmk_rotation_enabled.sql
 
   tags = merge(local.conformance_pack_kms_common_tags, {
+    fedramp            = "true"
     hippa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
