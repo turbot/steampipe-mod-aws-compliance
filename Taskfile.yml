@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  check:
+    desc: Check AWS foundational security
+    cmds:
+      - steampipe check benchmark.foundational_security --export=check.html
+    silent: false

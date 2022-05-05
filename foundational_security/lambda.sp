@@ -10,7 +10,6 @@ benchmark "foundational_security_lambda" {
   children = [
     control.foundational_security_lambda_1,
     control.foundational_security_lambda_2,
-    control.foundational_security_lambda_4,
     control.foundational_security_lambda_5
   ]
 
