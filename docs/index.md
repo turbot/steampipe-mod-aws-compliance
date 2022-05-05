@@ -6,7 +6,9 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `GDPR`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
 
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png)
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/add-benchmark-screenshots/docs/aws_compliance_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/add-benchmark-screenshots/docs/aws_cis_v140_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/add-benchmark-screenshots/docs/aws_cis_v140_console.png" width="50%" type="thumbnail"/>
 
 ## References
 
@@ -41,10 +43,12 @@ Run individual configuration, compliance and security controls or full complianc
 - **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/aws_compliance/controls)**
 - **[Named queries →](https://hub.steampipe.io/mods/turbot/aws_compliance/queries)**
 
-## Get started
+## Getting started
+
+### Installation
 
 Install the AWS plugin with [Steampipe](https://steampipe.io):
-```shell
+```sh
 steampipe plugin install aws
 ```
 
@@ -54,20 +58,43 @@ git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
 ```
 
+### Usage
+
+Before running any benchmarks, it's recommended to generate your AWS credential report:
+```sh
+aws iam generate-credential-report
+```
+
+Start your dashboard server to get started:
+
+```sh
+steampipe dashboard
+```
+
+By default, the dashboard interface will then be launched in a new browser
+window at https://localhost:9194. From here, you can run benchmarks by
+selecting one or searching for a specific one.
+
+Instead of running benchmarks in a dashboard, you can also run checks within
+your terminal with the `steampipe check` command:
+
 Run all benchmarks:
-```shell
+```sh
 steampipe check all
 ```
 
 Run a single benchmark:
-```shell
+```sh
 steampipe check benchmark.cis_v140
 ```
 
 Run a specific control:
-```shell
+```sh
 steampipe check control.cis_v140_2_1_1
 ```
+
+Different output formats are also available, for more information please see
+[Output Formats](https://steampipe.io/docs/reference/cli/check#output-formats).
 
 ### Credentials
 
