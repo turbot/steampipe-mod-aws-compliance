@@ -63,8 +63,8 @@ By default, the dashboard interface will then be launched in a new browser
 window at https://localhost:9194. From here, you can run benchmarks by
 selecting one or searching for a specific one.
 
-Instead of running benchmarks in a dashboard, you can also run checks within
-your terminal with the `steampipe check` command:
+Instead of running benchmarks in a dashboard, you can also run them within your
+terminal with the `steampipe check` command:
 
 Run all benchmarks:
 ```sh
