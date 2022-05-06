@@ -25,22 +25,21 @@ Includes support for:
 
 ### Installation
 
-1) Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
+Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
 
 ```sh
 brew tap turbot/tap
 brew install steampipe
-
-steampipe -v
-steampipe version 0.14.0
 ```
 
-2) Install the AWS plugin
+Install the AWS plugin with [Steampipe](https://steampipe.io):
+
 ```sh
 steampipe plugin install aws
 ```
 
-3) Clone this repo
+Clone:
+
 ```sh
 git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
@@ -49,6 +48,7 @@ cd steampipe-mod-aws-compliance
 ### Usage
 
 Before running any benchmarks, it's recommended to generate your AWS credential report:
+
 ```sh
 aws iam generate-credential-report
 ```
@@ -67,22 +67,33 @@ Instead of running benchmarks in a dashboard, you can also run them within your
 terminal with the `steampipe check` command:
 
 Run all benchmarks:
+
 ```sh
 steampipe check all
 ```
 
 Run a single benchmark:
+
 ```sh
 steampipe check benchmark.cis_v140
 ```
 
 Run a specific control:
+
 ```sh
 steampipe check control.cis_v140_2_1_1
 ```
 
 Different output formats are also available, for more information please see
 [Output Formats](https://steampipe.io/docs/reference/cli/check#output-formats).
+
+### Credentials
+
+This mod uses the credentials configured in the [Steampipe AWS plugin](https://hub.steampipe.io/plugins/turbot/aws).
+
+### Configuration
+
+No extra configuration is required.
 
 ## Contributing
 

@@ -47,12 +47,21 @@ Run individual configuration, compliance and security controls or full complianc
 
 ### Installation
 
+Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
+
+```sh
+brew tap turbot/tap
+brew install steampipe
+```
+
 Install the AWS plugin with [Steampipe](https://steampipe.io):
+
 ```sh
 steampipe plugin install aws
 ```
 
 Clone:
+
 ```sh
 git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
@@ -61,6 +70,7 @@ cd steampipe-mod-aws-compliance
 ### Usage
 
 Before running any benchmarks, it's recommended to generate your AWS credential report:
+
 ```sh
 aws iam generate-credential-report
 ```
@@ -79,16 +89,19 @@ Instead of running benchmarks in a dashboard, you can also run them within your
 terminal with the `steampipe check` command:
 
 Run all benchmarks:
+
 ```sh
 steampipe check all
 ```
 
 Run a single benchmark:
+
 ```sh
 steampipe check benchmark.cis_v140
 ```
 
 Run a specific control:
+
 ```sh
 steampipe check control.cis_v140_2_1_1
 ```
@@ -104,7 +117,15 @@ This mod uses the credentials configured in the [Steampipe AWS plugin](https://h
 
 No extra configuration is required.
 
-## Get involved
+## Contributing
 
-* Contribute: [GitHub Repo](https://github.com/turbot/steampipe-mod-aws-compliance)
-* Community: [Slack Channel](https://join.slack.com/t/steampipe/shared_invite/zt-oij778tv-lYyRTWOTMQYBVAbtPSWs3g)
+If you have an idea for additional compliance controls, or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing.
+
+- **[Join our Slack community →](https://steampipe.io/community/join)** and hang out with other Mod developers.
+
+Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-aws-compliance/blob/main/LICENSE).
+
+Want to help but not sure where to start? Pick up one of the `help wanted` issues:
+
+- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
+- [AWS Compliance Mod](https://github.com/turbot/steampipe-mod-aws-compliance/labels/help%20wanted)
