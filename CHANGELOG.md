@@ -1,3 +1,7 @@
+## v0.31 [2022-05-10]
+
+- Updated docs/index.md and README with new dashboard screenshots and latest format ([#379](https://github.com/turbot/steampipe-mod-aws-compliance/pull/379))
+
 ## v0.30 [2022-05-03]
 
 _Bug fixes_
