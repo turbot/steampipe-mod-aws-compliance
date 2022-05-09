@@ -10,6 +10,7 @@ control "ebs_snapshot_not_publicly_restorable" {
   sql         = query.ebs_snapshot_not_publicly_restorable.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -65,6 +66,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp                     = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
   })

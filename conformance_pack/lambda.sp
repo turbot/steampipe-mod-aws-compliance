@@ -10,6 +10,7 @@ control "lambda_function_dead_letter_queue_configured" {
   sql         = query.lambda_function_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"
@@ -23,6 +24,7 @@ control "lambda_function_in_vpc" {
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     hipaa              = "true"
+    fedramp            = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
@@ -36,6 +38,7 @@ control "lambda_function_restrict_public_access" {
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     hipaa              = "true"
+    fedramp            = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
@@ -48,6 +51,7 @@ control "lambda_function_concurrent_execution_limit_configured" {
   sql         = query.lambda_function_concurrent_execution_limit_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    fedramp  = "true"
     nist_csf = "true"
     soc_2    = "true"
   })

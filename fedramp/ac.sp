@@ -1,17 +1,22 @@
 benchmark "fedramp_ac" {
-  title       = "Access Control (AC)"
-  description = "to do"
+  title       = benchmark.nist_800_53_rev_4_ac.title
+  description = benchmark.nist_800_53_rev_4_ac.description
   children = [
     benchmark.fedramp_ac_2,
-    benchmark.fedramp_ac_3
+    benchmark.fedramp_ac_3,
+    benchmark.fedramp_ac_4,
+    benchmark.fedramp_ac_5,
+    benchmark.fedramp_ac_6,
+    benchmark.fedramp_ac_17,
+    benchmark.fedramp_ac_21
   ]
 
   tags = local.fedramp_common_tags
 }
 
 benchmark "fedramp_ac_2" {
-  title       = "Account Management (AC-2)"
-  description = ""
+  title       = benchmark.nist_800_53_rev_4_ac_2.title
+  description = benchmark.nist_800_53_rev_4_ac_2.description
   children = [
     control.apigateway_stage_logging_enabled,
     control.ecs_task_definition_user_for_host_mode_check,
@@ -127,8 +132,8 @@ benchmark "fedramp_ac_2_j" {
 }
 
 benchmark "fedramp_ac_2_1" {
-  title       = "Automated System Account Management AC-2(1)"
-  description = "The organization employs automated mechanisms to support the management of information system accounts."
+  title       = benchmark.nist_800_53_rev_4_ac_2_1.title
+  description = benchmark.nist_800_53_rev_4_ac_2_1.description
   children = [
     control.iam_group_user_role_no_inline_policies,
     control.securityhub_enabled,
@@ -152,8 +157,8 @@ benchmark "fedramp_ac_2_1" {
 }
 
 benchmark "fedramp_ac_2_3" {
-  title       = "Disable Inactive Accounts AC-2(3)"
-  description = "The information system automatically disables inactive accounts after 90 days for user accounts."
+  title       = benchmark.nist_800_53_rev_4_ac_2_3.title
+  description = benchmark.nist_800_53_rev_4_ac_2_3.description
   children = [
     control.iam_account_password_policy_min_length_14,
     control.iam_user_unused_credentials_90,
@@ -165,8 +170,8 @@ benchmark "fedramp_ac_2_3" {
 }
 
 benchmark "fedramp_ac_2_4" {
-  title       = "Automated Audit Actions AC-2(4)"
-  description = "The information system automatically audits account creation, modification, enabling, disabling, and removal actions, and notifies [Assignment: organization-defined personnel or roles]."
+  title       = benchmark.nist_800_53_rev_4_ac_2_4.title
+  description = benchmark.nist_800_53_rev_4_ac_2_4.description
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.rds_db_instance_logging_enabled,
@@ -186,8 +191,8 @@ benchmark "fedramp_ac_2_4" {
 }
 
 benchmark "fedramp_ac_2_12" {
-  title       = "Account Monitoring/Atypical Usage AC-2(12)"
-  description = ""
+  title       = benchmark.nist_800_53_rev_4_ac_2_12.title
+  description = benchmark.nist_800_53_rev_4_ac_2_12.description
   children = [
     benchmark.fedramp_ac_2_12_a
   ]
@@ -210,7 +215,6 @@ benchmark "fedramp_ac_2_12_a" {
   })
 }
 
-
 benchmark "fedramp_ac_3" {
   title       = "Access Enforcement AC-3"
   description = "The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies."
@@ -228,6 +232,221 @@ benchmark "fedramp_ac_3" {
     control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_mfa_enabled
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_4" {
+  title       = benchmark.nist_800_53_rev_4_ac_4.title
+  description = benchmark.nist_800_53_rev_4_ac_4.description
+  children = [
+    control.ec2_instance_in_vpc,
+    control.acm_certificate_expires_30_days,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.lambda_function_restrict_public_access,
+    control.lambda_function_in_vpc,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_5" {
+  title       = benchmark.nist_800_53_rev_4_ac_5.title
+  description = benchmark.nist_800_53_rev_4_ac_5.description
+  children = [
+    benchmark.fedramp_ac_5_c
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_5_c" {
+  title       = "AC-5c"
+  description = "The organization: c. Defines information system access authorizations to support separation of duties."
+  children = [
+    control.ecs_task_definition_user_for_host_mode_check,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_account_password_policy_min_length_14,
+    control.iam_all_policy_no_service_wild_card,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_in_group,
+    control.iam_user_unused_credentials_90,
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star,
+    control.iam_user_no_inline_attached_policies,
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_6" {
+  title       = benchmark.nist_800_53_rev_4_ac_6.title
+  description = benchmark.nist_800_53_rev_4_ac_6.description
+  children = [
+    control.ec2_instance_uses_imdsv2,
+    control.iam_group_user_role_no_inline_policies,
+    control.ec2_instance_in_vpc,
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.lambda_function_restrict_public_access,
+    control.lambda_function_in_vpc,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled,
+    benchmark.fedramp_ac_6_10
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_6_10" {
+  title       = benchmark.nist_800_53_rev_4_ac_6_10.title
+  description = benchmark.nist_800_53_rev_4_ac_6_10.description
+  children = [
+    control.iam_root_user_no_access_keys,
+    control.iam_policy_no_star_star,
+    control.iam_all_policy_no_service_wild_card
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_17" {
+  title       = benchmark.nist_800_53_rev_4_ac_17.title
+  description = benchmark.nist_800_53_rev_4_ac_17.description
+  children = [
+    benchmark.fedramp_ac_17_1,
+    benchmark.fedramp_ac_17_2
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_17_1" {
+  title       = benchmark.nist_800_53_rev_4_ac_17_1.title
+  description = benchmark.nist_800_53_rev_4_ac_17_1.description
+  children = [
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ec2_instance_in_vpc,
+    control.securityhub_enabled,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.guardduty_enabled,
+    control.lambda_function_restrict_public_access,
+    control.lambda_function_in_vpc,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_17_2" {
+  title       = benchmark.nist_800_53_rev_4_ac_17_2.title
+  description = benchmark.nist_800_53_rev_4_ac_17_2.description
+  children = [
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.acm_certificate_expires_30_days,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.s3_bucket_enforces_ssl
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_21" {
+  title       = benchmark.nist_800_53_rev_4_ac_21.title
+  description = benchmark.nist_800_53_rev_4_ac_21.description
+  children = [
+    benchmark.fedramp_ac_21_b
+  ]
+
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
+}
+
+benchmark "fedramp_ac_21_b" {
+  title       = "AC-21(b)"
+  description = "The organization: b. Employs [Assignment: organization-defined automated mechanisms or manual processes] to assist users in making information sharing/collaboration decisions."
+  children = [
+    control.autoscaling_launch_config_public_ip_disabled,
+    control.vpc_route_table_restrict_public_access_to_igw,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_not_publicly_accessible,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled,
   ]
 
   tags = merge(local.fedramp_common_tags, {
