@@ -78,7 +78,7 @@ control "pci_v321_s3_5" {
   description   = "This control checks whether Amazon S3 buckets have policies that require requests to use Secure Socket Layer (SSL). S3 buckets should have policies that require all requests (Action: S3:*)to only accept transmission of data over HTTPS in the S3 resource policy, indicated by the condition key aws:SecureTransport."
   severity      = "medium"
   sql           = query.s3_bucket_enforces_ssl.sql
-  documentation = file("./pci_v321/docs/pci_v321_s3_4.md")
+  documentation = file("./pci_v321/docs/pci_v321_s3_5.md")
 
   tags = merge(local.pci_v321_s3_common_tags, {
     pci_item_id      = "s3_5"

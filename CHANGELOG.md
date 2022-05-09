@@ -1,3 +1,13 @@
+## v0.31 [2022-05-09]
+
+_Enhancements_
+
+- Updated docs/index.md and README with new dashboard screenshots and latest format. ([#379](https://github.com/turbot/steampipe-mod-aws-compliance/pull/379))
+
+_Bug fixes_
+
+- Fixed incorrect doc link for `pci_v321_s3_5` control. ([#381](https://github.com/turbot/steampipe-mod-aws-compliance/pull/381))
+
 ## v0.30 [2022-05-03]
 
 _Bug fixes_
