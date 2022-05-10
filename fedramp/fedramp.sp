@@ -12,7 +12,12 @@ benchmark "fedramp" {
     benchmark.fedramp_au,
     benchmark.fedramp_ca,
     benchmark.fedramp_cm,
-    benchmark.fedramp_sc
+    benchmark.fedramp_ia,
+    benchmark.fedramp_ir,
+    benchmark.fedramp_ra,
+    benchmark.fedramp_sa,
+    benchmark.fedramp_sc,
+    benchmark.fedramp_si,
   ]
 
   tags = merge(local.fedramp_common_tags, {

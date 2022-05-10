@@ -76,6 +76,7 @@ control "dynamodb_table_protected_by_backup_plan" {
   sql         = query.dynamodb_table_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

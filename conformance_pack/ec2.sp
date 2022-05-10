@@ -100,6 +100,7 @@ control "ec2_instance_protected_by_backup_plan" {
   sql         = query.ec2_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"
