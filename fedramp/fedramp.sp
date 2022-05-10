@@ -12,6 +12,7 @@ benchmark "fedramp" {
     benchmark.fedramp_au,
     benchmark.fedramp_ca,
     benchmark.fedramp_cm,
+    benchmark.fedramp_cp,
     benchmark.fedramp_ia,
     benchmark.fedramp_ir,
     benchmark.fedramp_ra,

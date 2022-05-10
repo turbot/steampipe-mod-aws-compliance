@@ -22,7 +22,7 @@ benchmark "fedramp_si_2" {
 }
 
 benchmark "fedramp_si_2_2" {
-  title       = "SI-2(2) Automated Flaw Remediation Status"
+  title       = "Automated Flaw Remediation Status (SI-2(2))"
   description = "The organization employs automated mechanisms at least monthly to determine the state of information system components with regard to flaw remediation."
   children = [
     control.ec2_instance_ssm_managed,

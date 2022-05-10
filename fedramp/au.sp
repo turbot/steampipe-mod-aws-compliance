@@ -15,8 +15,8 @@ benchmark "fedramp_au" {
 }
 
 benchmark "fedramp_au_2" {
-  title       = "Auditable Events (AU-2)"
-  description = ""
+  title       = "Audit Events (AU-2)"
+  description = "The organization: a. Determines that the information system is capable of auditing the following events: [Assignment: organization-defined auditable events]; b. Coordinates the security audit function with other organizational entities requiring audit- related information to enhance mutual support and to help guide the selection of auditable events; c. Provides a rationale for why the auditable events are deemed to be adequate support after- the-fact investigations of security incidents."
   children = [
     benchmark.fedramp_au_2_a_d
   ]
@@ -28,7 +28,7 @@ benchmark "fedramp_au_2" {
 
 benchmark "fedramp_au_2_a_d" {
   title       = "AU-2(a)(d)"
-  description = ""
+  description = "The organization: a. Determines that the information system is capable of auditing the following events: Successful and unsuccessful account logon events, account management events, object access, policy change, privilege functions, process tracking, and system events. For Web applications: all administrator activity, authentication checks, authorization checks, data deletions, data access, data changes, and permission changes. d. Determines that the following events are to be audited within the information system: [organization-defined subset of the auditable events defined in AU-2 a to be audited continually for each identified event]."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
@@ -119,8 +119,8 @@ benchmark "fedramp_au_7" {
 }
 
 benchmark "fedramp_au_7_1" {
-  title       = benchmark.nist_800_53_rev_4_au_7.title
-  description = benchmark.nist_800_53_rev_4_au_7.description
+  title       = benchmark.nist_800_53_rev_4_au_7_1.title
+  description = benchmark.nist_800_53_rev_4_au_7_1.description
   children = [
     control.cloudwatch_alarm_action_enabled,
     control.cloudtrail_trail_integrated_with_logs

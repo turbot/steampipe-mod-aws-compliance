@@ -216,7 +216,7 @@ benchmark "fedramp_ac_2_12_a" {
 }
 
 benchmark "fedramp_ac_3" {
-  title       = "Access Enforcement AC-3"
+  title       = "Access Enforcement (AC-3)"
   description = "The information system enforces approved authorizations for logical access to information and system resources in accordance with applicable access control policies."
   children = [
     control.iam_group_user_role_no_inline_policies,
@@ -282,7 +282,7 @@ benchmark "fedramp_ac_5" {
 }
 
 benchmark "fedramp_ac_5_c" {
-  title       = "AC-5c"
+  title       = "AC-5(c)"
   description = "The organization: c. Defines information system access authorizations to support separation of duties."
   children = [
     control.ecs_task_definition_user_for_host_mode_check,
