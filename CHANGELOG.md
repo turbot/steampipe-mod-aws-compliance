@@ -9,8 +9,8 @@ _What's new?_
 - New PCI v3.2.1 benchmark added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
   - OpenSearch (`steampipe check benchmark.pci_v321_opensearch`)
 - New PCI v3.2.1 controls added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
-  - OpenSearch.1
-  - OpenSearch.2
+  - OpenSearch.1 (`steampipe check control.pci_v321_opensearch_1`)
+  - OpenSearch.2 (`steampipe check control.pci_v321_opensearch_2`)
 
 ## v0.31 [2022-05-09]
 
