@@ -42,7 +42,8 @@ benchmark "fedramp_cm_2" {
     control.ebs_attached_volume_delete_on_termination_enabled,
     control.s3_public_access_block_bucket_account,
     control.vpc_subnet_auto_assign_public_ip_disabled,
-    control.vpc_security_group_restrict_ingress_common_ports_all
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.ebs_volume_unsued
   ]
 
   tags = local.fedramp_common_tags

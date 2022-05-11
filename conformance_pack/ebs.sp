@@ -84,3 +84,13 @@ control "ebs_volume_protected_by_backup_plan" {
     soc_2    = "true"
   })
 }
+
+control "ebs_volume_unsued" {
+  title       = "EBS volumes should be attached to EC2 instance"
+  description = "Checks if EBS volumes are attached to EC2 instance."
+  sql         = query.ebs_volume_unsued.sql
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    fedramp  = "true"
+  })
+}

@@ -2,7 +2,9 @@ benchmark "fedramp_ir" {
   title       = benchmark.nist_800_53_rev_4_ir.title
   description = benchmark.nist_800_53_rev_4_ir.description
   children = [
-    benchmark.fedramp_ir_4
+    benchmark.fedramp_ir_4,
+    benchmark.fedramp_ir_6,
+    benchmark.fedramp_ir_7
   ]
 
   tags = local.fedramp_common_tags
