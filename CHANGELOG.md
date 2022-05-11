@@ -1,3 +1,17 @@
+## v0.32 [2022-05-11]
+
+_Dependencies_
+
+- AWS plugin `v0.59.0` or higher is now required. ([#390](https://github.com/turbot/steampipe-mod-aws-compliance/pull/390))
+
+_What's new?_
+
+- New PCI v3.2.1 benchmark added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
+  - OpenSearch (`steampipe check benchmark.pci_v321_opensearch`)
+- New PCI v3.2.1 controls added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
+  - OpenSearch.1 (`steampipe check control.pci_v321_opensearch_1`)
+  - OpenSearch.2 (`steampipe check control.pci_v321_opensearch_2`)
+
 ## v0.31 [2022-05-09]
 
 _Enhancements_
