@@ -18,7 +18,9 @@ benchmark "fedramp_ia_2" {
     benchmark.fedramp_ia_2_1
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_2_1" {
@@ -32,7 +34,9 @@ benchmark "fedramp_ia_2_1" {
     benchmark.fedramp_ia_2_1_2
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_2_1_2" {
@@ -45,7 +49,9 @@ benchmark "fedramp_ia_2_1_2" {
     control.iam_root_user_hardware_mfa_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_5" {
@@ -57,7 +63,9 @@ benchmark "fedramp_ia_5" {
     benchmark.fedramp_ia_5_7,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_5_1" {
@@ -67,7 +75,9 @@ benchmark "fedramp_ia_5_1" {
     benchmark.fedramp_ia_5_1_a_d_e
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_5_1_a_d_e" {
@@ -77,7 +87,9 @@ benchmark "fedramp_ia_5_1_a_d_e" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 
@@ -88,7 +100,9 @@ benchmark "fedramp_ia_5_4" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ia_5_7" {
@@ -98,5 +112,7 @@ benchmark "fedramp_ia_5_7" {
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }

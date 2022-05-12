@@ -1,6 +1,7 @@
 locals {
   fedramp_common_tags = merge(local.aws_compliance_common_tags, {
     fedramp = "true"
+    type    = "Benchmark"
   })
 }
 
@@ -21,7 +22,5 @@ benchmark "fedramp" {
     benchmark.fedramp_si,
   ]
 
-  tags = merge(local.fedramp_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.fedramp_common_tags
 }

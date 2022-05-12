@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "iam_policy_custom_no_blocked_kms_actions" {
+  type        = list(string)
+  description = "A list of allowed instance types. PostgreSQL wildcards are supported."
+  default     = ["kms:*", "kms:Decrypt", "kms:ReEncrypt*"]
+}
+
 control "iam_account_password_policy_strong_min_reuse_24" {
   title       = "IAM password policies for users should have strong configurations"
   description = "The identities and the credentials are issued, managed, and verified based on an organizational IAM password policy."
@@ -298,5 +304,20 @@ control "iam_all_policy_no_service_wild_card" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp            = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "iam_policy_custom_no_blocked_kms_actions" {
+  title       = "Ensure managed IAM policies should not block KMS actions"
+  description = "Checks if the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on AWS KMS keys. The rule is non - compliant if any blocked action is allowed on AWS KMS keys by the managed IAM policy."
+  sql         = query.iam_policy_custom_no_blocked_kms_actions.sql
+
+  param "iam_policy_custom_not_blocked_kms_actions" {
+    description = "A list of allowed instance types. PostgreSQL wildcards are supported."
+    default     = var.iam_policy_custom_no_blocked_kms_actions
+  }
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    fedramp            = "true"
   })
 }

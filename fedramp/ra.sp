@@ -16,5 +16,7 @@ benchmark "fedramp_ra_5" {
     control.guardduty_finding_archived
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }

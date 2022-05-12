@@ -52,7 +52,8 @@ benchmark "fedramp_sc_4" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.ebs_volume_unsued
+    control.ebs_volume_unsued,
+    control.s3_public_access_block_account,
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -115,6 +116,7 @@ benchmark "fedramp_sc_7" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.s3_public_access_block_bucket,
+    control.s3_public_access_block_account,
     benchmark.fedramp_sc_7_3
   ]
 
@@ -147,8 +149,8 @@ benchmark "fedramp_sc_7_3" {
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.s3_public_access_block_bucket
-
+    control.s3_public_access_block_bucket,
+    control.s3_public_access_block_account,
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -164,7 +166,7 @@ benchmark "fedramp_sc_8" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.elb_application_lb_redirect_http_request_to_https,
     control.apigateway_rest_api_stage_use_ssl_certificate,
-    control.elb_application_network_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_ssl_certificate,
     control.s3_bucket_enforces_ssl,
     control.redshift_cluster_encryption_in_transit_enabled,
     benchmark.fedramp_sc_8_1
@@ -186,6 +188,7 @@ benchmark "fedramp_sc_8_1" {
     control.elb_classic_lb_use_ssl_certificate,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
+    control.elb_application_network_lb_use_ssl_certificate
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -234,6 +237,7 @@ benchmark "fedramp_sc_23" {
     control.elb_classic_lb_use_ssl_certificate,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
+    control.apigateway_rest_api_stage_use_ssl_certificate
   ]
 
   tags = merge(local.fedramp_common_tags, {

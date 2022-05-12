@@ -13,10 +13,15 @@ benchmark "fedramp_sa_3" {
   title       = benchmark.nist_800_53_rev_4_sa_3.title
   description = benchmark.nist_800_53_rev_4_sa_3.description
   children = [
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_ssm_managed,
     benchmark.fedramp_sa_3_a,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "low"
+  })
 }
 
 benchmark "fedramp_sa_3_a" {
@@ -28,7 +33,9 @@ benchmark "fedramp_sa_3_a" {
     control.ec2_instance_ssm_managed
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_sa_10" {
@@ -41,6 +48,8 @@ benchmark "fedramp_sa_10" {
     control.guardduty_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 

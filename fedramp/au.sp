@@ -1,6 +1,6 @@
 benchmark "fedramp_au" {
-  title       = benchmark.nist_800_53_rev_4_ac.title
-  description = benchmark.nist_800_53_rev_4_ac.description
+  title       = benchmark.nist_800_53_rev_4_au.title
+  description = benchmark.nist_800_53_rev_4_au.description
   children = [
     benchmark.fedramp_au_2,
     benchmark.fedramp_au_3,
@@ -18,11 +18,22 @@ benchmark "fedramp_au_2" {
   title       = "Audit Events (AU-2)"
   description = "The organization: a. Determines that the information system is capable of auditing the following events: [Assignment: organization-defined auditable events]; b. Coordinates the security audit function with other organizational entities requiring audit- related information to enhance mutual support and to help guide the selection of auditable events; c. Provides a rationale for why the auditable events are deemed to be adequate support after- the-fact investigations of security incidents."
   children = [
+    control.cloudtrail_multi_region_trail_enabled,
+    control.rds_db_instance_logging_enabled,
+    control.wafv2_web_acl_logging_enabled,
+    control.apigateway_stage_logging_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.elb_application_classic_lb_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.vpc_flow_logs_enabled,
     benchmark.fedramp_au_2_a_d
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -43,7 +54,9 @@ benchmark "fedramp_au_2_a_d" {
     control.vpc_flow_logs_enabled,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_au_3" {
@@ -138,8 +151,9 @@ benchmark "fedramp_au_9" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled,
     benchmark.fedramp_au_9_2
-
   ]
 
   tags = merge(local.fedramp_common_tags, {

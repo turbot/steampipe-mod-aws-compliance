@@ -43,10 +43,12 @@ benchmark "fedramp_cm_2" {
     control.s3_public_access_block_bucket_account,
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.ebs_volume_unsued
+    control.ebs_volume_unsued,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cm_7" {
@@ -57,7 +59,9 @@ benchmark "fedramp_cm_7" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cm_7_a" {
@@ -68,19 +72,27 @@ benchmark "fedramp_cm_7_a" {
     control.ssm_managed_instance_compliance_association_compliant
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cm_8" {
   title       = benchmark.nist_800_53_rev_4_cm_8.title
   description = benchmark.nist_800_53_rev_4_cm_8.description
   children = [
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant,
+    control.guardduty_enabled,
     benchmark.fedramp_cm_8_1,
     benchmark.fedramp_cm_8_3
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "low"
+  })
 }
 
 benchmark "fedramp_cm_8_1" {
@@ -92,7 +104,9 @@ benchmark "fedramp_cm_8_1" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cm_8_3" {
@@ -103,7 +117,9 @@ benchmark "fedramp_cm_8_3" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cm_8_3_a" {
@@ -117,5 +133,7 @@ benchmark "fedramp_cm_8_3_a" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }

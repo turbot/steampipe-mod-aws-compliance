@@ -13,10 +13,26 @@ benchmark "fedramp_cp_9" {
   title       = benchmark.nist_800_53_rev_4_cp_9.title
   description = benchmark.nist_800_53_rev_4_cp_9.description
   children = [
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.backup_plan_min_retention_35_days,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_protected_by_backup_plan,
+    control.fsx_file_system_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.rds_db_instance_backup_enabled,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled,
     benchmark.fedramp_cp_9_b
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "low"
+  })
 }
 
 benchmark "fedramp_cp_9_b" {
@@ -39,7 +55,9 @@ benchmark "fedramp_cp_9_b" {
     control.s3_bucket_versioning_enabled,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_cp_10" {
@@ -68,5 +86,7 @@ benchmark "fedramp_cp_10" {
     control.vpc_vpn_tunnel_up
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }

@@ -18,7 +18,9 @@ benchmark "fedramp_si_2" {
     benchmark.fedramp_si_2_2,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_2_2" {
@@ -30,7 +32,9 @@ benchmark "fedramp_si_2_2" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4" {
@@ -46,7 +50,9 @@ benchmark "fedramp_si_4" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_a_b_c" {
@@ -64,7 +70,9 @@ benchmark "fedramp_si_4_a_b_c" {
     control.guardduty_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_1" {
@@ -74,7 +82,9 @@ benchmark "fedramp_si_4_1" {
     control.guardduty_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_2" {
@@ -91,7 +101,9 @@ benchmark "fedramp_si_4_2" {
     control.redshift_cluster_encryption_logging_enabled,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_4" {
@@ -104,7 +116,9 @@ benchmark "fedramp_si_4_4" {
     control.guardduty_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_5" {
@@ -117,7 +131,9 @@ benchmark "fedramp_si_4_5" {
     control.guardduty_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_4_16" {
@@ -132,7 +148,9 @@ benchmark "fedramp_si_4_16" {
     control.redshift_cluster_encryption_logging_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_7" {
@@ -144,7 +162,9 @@ benchmark "fedramp_si_7" {
 
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_7_1" {
@@ -156,7 +176,9 @@ benchmark "fedramp_si_7_1" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_si_12" {
@@ -179,5 +201,7 @@ benchmark "fedramp_si_12" {
     control.s3_bucket_versioning_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }

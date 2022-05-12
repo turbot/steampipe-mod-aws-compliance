@@ -14,10 +14,17 @@ benchmark "fedramp_ir_4" {
   title       = benchmark.nist_800_53_rev_4_ir_4.title
   description = benchmark.nist_800_53_rev_4_ir_4.description
   children = [
+    control.autoscaling_group_with_lb_use_health_check,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.securityhub_enabled,
+    control.cloudwatch_alarm_action_enabled,
     benchmark.fedramp_ir_4_1
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "low"
+  })
 }
 
 benchmark "fedramp_ir_4_1" {
@@ -31,7 +38,9 @@ benchmark "fedramp_ir_4_1" {
     control.cloudwatch_alarm_action_enabled,
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ir_6" {
@@ -41,7 +50,9 @@ benchmark "fedramp_ir_6" {
     benchmark.fedramp_ir_6_1
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ir_6_1" {
@@ -53,7 +64,9 @@ benchmark "fedramp_ir_6_1" {
     control.securityhub_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ir_7" {
@@ -63,7 +76,9 @@ benchmark "fedramp_ir_7" {
     benchmark.fedramp_ir_7_1
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
 
 benchmark "fedramp_ir_7_1" {
@@ -75,5 +90,7 @@ benchmark "fedramp_ir_7_1" {
     control.securityhub_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
