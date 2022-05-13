@@ -157,7 +157,7 @@ benchmark "fedramp_au_9" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -171,6 +171,7 @@ benchmark "fedramp_au_9_2" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service  = "AWS/S3"
   })
 }
 
@@ -182,7 +183,8 @@ benchmark "fedramp_au_11" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
+    service  = "AWS/CloudWatch"
   })
 }
 

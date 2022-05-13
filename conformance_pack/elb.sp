@@ -79,6 +79,7 @@ control "elb_application_lb_drop_http_headers" {
   sql         = query.elb_application_lb_drop_http_headers.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"

@@ -30,6 +30,7 @@ benchmark "fedramp_sc_2" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service = "AWS/IAM"
   })
 }
 
@@ -67,6 +68,8 @@ benchmark "fedramp_sc_5" {
   children = [
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_deletion_protection_enabled,
+    control.rds_db_instance_backup_enabled,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
     control.autoscaling_group_with_lb_use_health_check,
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -81,7 +84,7 @@ benchmark "fedramp_sc_5" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -121,7 +124,7 @@ benchmark "fedramp_sc_7" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -267,7 +270,6 @@ benchmark "fedramp_sc_28" {
     control.redshift_cluster_kms_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled
-
   ]
 
   tags = merge(local.fedramp_common_tags, {

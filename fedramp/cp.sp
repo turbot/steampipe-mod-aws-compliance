@@ -87,6 +87,6 @@ benchmark "fedramp_cp_10" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }

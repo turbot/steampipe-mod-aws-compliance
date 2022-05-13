@@ -47,7 +47,6 @@ benchmark "fedramp_si_4" {
     benchmark.fedramp_si_4_4,
     benchmark.fedramp_si_4_5,
     benchmark.fedramp_si_4_16
-
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -84,6 +83,7 @@ benchmark "fedramp_si_4_1" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service = "AWS/GuardDuty"
   })
 }
 
@@ -159,7 +159,6 @@ benchmark "fedramp_si_7" {
   children = [
     benchmark.fedramp_si_7_1,
     control.cloudtrail_trail_validation_enabled
-
   ]
 
   tags = merge(local.fedramp_common_tags, {

@@ -15,11 +15,15 @@ benchmark "fedramp_ia_2" {
   children = [
     control.iam_account_password_policy_min_length_14,
     control.iam_root_user_no_access_keys,
+    control.iam_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_root_user_hardware_mfa_enabled,
+    control.iam_root_user_mfa_enabled,
     benchmark.fedramp_ia_2_1
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -102,6 +106,7 @@ benchmark "fedramp_ia_5_4" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service  = "AWS/IAM"
   })
 }
 
@@ -114,5 +119,6 @@ benchmark "fedramp_ia_5_7" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service  = "AWS/CodeBuild"
   })
 }

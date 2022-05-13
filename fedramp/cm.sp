@@ -47,7 +47,7 @@ benchmark "fedramp_cm_2" {
   ]
 
   tags = merge(local.fedramp_common_tags, {
-    severity = "medium"
+    severity = "low"
   })
 }
 
@@ -87,7 +87,6 @@ benchmark "fedramp_cm_8" {
     control.guardduty_enabled,
     benchmark.fedramp_cm_8_1,
     benchmark.fedramp_cm_8_3
-
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -101,7 +100,6 @@ benchmark "fedramp_cm_8_1" {
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
-
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -114,7 +112,6 @@ benchmark "fedramp_cm_8_3" {
   description = benchmark.nist_800_53_rev_4_cm_8_3.description
   children = [
     benchmark.fedramp_cm_8_3_a,
-
   ]
 
   tags = merge(local.fedramp_common_tags, {
@@ -130,7 +127,6 @@ benchmark "fedramp_cm_8_3_a" {
     control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant,
     control.guardduty_enabled
-
   ]
 
   tags = merge(local.fedramp_common_tags, {

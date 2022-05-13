@@ -18,5 +18,6 @@ benchmark "fedramp_ra_5" {
 
   tags = merge(local.fedramp_common_tags, {
     severity = "medium"
+    service  = "AWS/GuardDuty"
   })
 }

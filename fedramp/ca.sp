@@ -52,5 +52,7 @@ benchmark "fedramp_ca_7_a_b" {
     control.redshift_cluster_encryption_logging_enabled
   ]
 
-  tags = local.fedramp_common_tags
+  tags = merge(local.fedramp_common_tags, {
+    severity = "medium"
+  })
 }
