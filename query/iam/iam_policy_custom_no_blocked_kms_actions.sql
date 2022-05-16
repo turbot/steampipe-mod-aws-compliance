@@ -30,3 +30,4 @@ from
   left join kms_action_blocked as w on p.arn = w.arn
 where
   not p.is_aws_managed;
+

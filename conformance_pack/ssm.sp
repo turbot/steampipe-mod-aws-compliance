@@ -12,6 +12,7 @@ control "ec2_instance_ssm_managed" {
   tags = merge(local.conformance_pack_ssm_common_tags, {
     fedramp            = "true"
     hipaa              = "true"
+    fedramp            = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"

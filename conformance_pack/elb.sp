@@ -121,6 +121,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
   sql         = query.elb_application_network_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    fedramp            = "true"
     rbi_cyber_security = "true"
   })
 }

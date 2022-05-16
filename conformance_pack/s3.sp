@@ -70,6 +70,7 @@ control "s3_bucket_object_lock_enabled" {
   sql         = query.s3_bucket_object_lock_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

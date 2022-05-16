@@ -62,6 +62,7 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
   })

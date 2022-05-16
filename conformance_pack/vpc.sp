@@ -97,7 +97,7 @@ control "vpc_vpn_tunnel_up" {
   sql         = query.vpc_vpn_tunnel_up.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp   = "true"
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
   })
