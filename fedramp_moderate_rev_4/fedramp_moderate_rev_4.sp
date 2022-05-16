@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "fedramp_moderate_rev_4" {
-  title         = "Federal Risk and Authorization Management Program (FedRAMP Moderate)"
+  title         = "Federal Risk and Authorization Management Program (FedRAMP - Moderate)"
   description   = "The Federal Risk and Authorization Management Program (FedRAMP) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services."
   children = [
     benchmark.fedramp_moderate_rev_4_ac,
