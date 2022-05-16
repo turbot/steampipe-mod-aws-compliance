@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "fedramp_low_rev_4" {
-  title         = "Federal Risk and Authorization Management Program (FedRAMP Low)"
+  title         = "Federal Risk and Authorization Management Program (FedRAMP - Low)"
   description   = "The Federal Risk and Authorization Management Program (FedRAMP) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services."
   children = [
     benchmark.fedramp_low_rev_4_ac,
@@ -17,8 +17,7 @@ benchmark "fedramp_low_rev_4" {
     benchmark.fedramp_low_rev_4_ia,
     benchmark.fedramp_low_rev_4_ir,
     benchmark.fedramp_low_rev_4_sa,
-    benchmark.fedramp_low_rev_4_sc,
-    benchmark.fedramp_low_rev_4_si
+    benchmark.fedramp_low_rev_4_sc
   ]
 
   tags = local.fedramp_low_rev_4_common_tags

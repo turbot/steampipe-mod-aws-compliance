@@ -37,6 +37,7 @@ benchmark "fedramp_low_rev_4_ac_2" {
     control.iam_user_mfa_enabled,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
+    control.iam_policy_custom_no_blocked_kms_actions,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
