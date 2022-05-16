@@ -20,6 +20,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
   sql         = query.ec2_instance_detailed_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp           = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
     soc_2             = "true"
@@ -32,6 +33,7 @@ control "ec2_instance_in_vpc" {
   sql         = query.ec2_instance_in_vpc.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -45,6 +47,7 @@ control "ec2_instance_not_publicly_accessible" {
   sql         = query.ec2_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -59,6 +62,7 @@ control "ec2_stopped_instance_30_days" {
   sql         = query.ec2_stopped_instance_30_days.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
   })
@@ -71,6 +75,7 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp                     = "true"
     hipaa                       = "true"
     nist_csf                    = "true"
     soc_2                       = "true"
@@ -83,6 +88,7 @@ control "ec2_instance_uses_imdsv2" {
   sql         = query.ec2_instance_uses_imdsv2.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
   })
@@ -94,6 +100,7 @@ control "ec2_instance_protected_by_backup_plan" {
   sql         = query.ec2_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

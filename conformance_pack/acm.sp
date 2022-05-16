@@ -10,6 +10,7 @@ control "acm_certificate_expires_30_days" {
   sql         = query.acm_certificate_expires_30_days.sql
 
   tags = merge(local.conformance_pack_acm_common_tags, {
+    fedramp            = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"

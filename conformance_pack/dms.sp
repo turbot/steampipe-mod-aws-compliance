@@ -10,6 +10,7 @@ control "dms_replication_instance_not_publicly_accessible" {
   sql         = query.dms_replication_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_dms_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"

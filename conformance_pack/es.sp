@@ -24,6 +24,7 @@ control "es_domain_in_vpc" {
   sql         = query.es_domain_in_vpc.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -37,6 +38,7 @@ control "es_domain_node_to_node_encryption_enabled" {
   sql         = query.es_domain_node_to_node_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    fedramp            = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
@@ -50,6 +52,7 @@ control "es_domain_logs_to_cloudwatch" {
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    fedramp            = "true"
     rbi_cyber_security = "true"
   })
 }
