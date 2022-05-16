@@ -1,7 +1,7 @@
 locals {
   fedramp_low_rev_4_common_tags = merge(local.aws_compliance_common_tags, {
-    fedramp_low_rev_4_low_rev_4 = "true"
-    type                        = "Benchmark"
+    fedramp_low_rev_4 = "true"
+    type              = "Benchmark"
   })
 }
 
