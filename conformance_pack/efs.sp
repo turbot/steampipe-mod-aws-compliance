@@ -38,6 +38,7 @@ control "efs_file_system_protected_by_backup_plan" {
   sql         = query.efs_file_system_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

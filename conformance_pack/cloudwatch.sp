@@ -10,6 +10,7 @@ control "cloudwatch_alarm_action_enabled" {
   sql         = query.cloudwatch_alarm_action_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
@@ -23,6 +24,7 @@ control "log_group_encryption_at_rest_enabled" {
   sql         = query.log_group_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    fedramp            = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
@@ -38,6 +40,7 @@ control "cloudwatch_log_group_retention_period_365" {
   sql         = query.cloudwatch_log_group_retention_period_365.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"

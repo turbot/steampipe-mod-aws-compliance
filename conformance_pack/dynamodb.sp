@@ -10,6 +10,7 @@ control "dynamodb_table_auto_scaling_enabled" {
   sql         = query.dynamodb_table_auto_scaling_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
@@ -22,6 +23,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   sql         = query.dynamodb_table_point_in_time_recovery_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
@@ -74,6 +76,7 @@ control "dynamodb_table_protected_by_backup_plan" {
   sql         = query.dynamodb_table_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
+    fedramp  = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

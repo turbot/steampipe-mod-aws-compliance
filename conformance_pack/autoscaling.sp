@@ -10,6 +10,7 @@ control "autoscaling_group_with_lb_use_health_check" {
   sql         = query.autoscaling_group_with_lb_use_health_check.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
     nist_csf          = "true"
@@ -22,6 +23,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
   sql         = query.autoscaling_launch_config_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    fedramp            = "true"
     rbi_cyber_security = "true"
   })
 }
