@@ -5,7 +5,9 @@ benchmark "fedramp_low_rev_4_ia" {
     benchmark.fedramp_low_rev_4_ia_2
   ]
 
-  tags = local.fedramp_low_rev_4_common_tags
+  tags = merge(local.fedramp_low_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 benchmark "fedramp_low_rev_4_ia_2" {
@@ -20,5 +22,7 @@ benchmark "fedramp_low_rev_4_ia_2" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = local.fedramp_low_rev_4_common_tags
+  tags = merge(local.fedramp_low_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
