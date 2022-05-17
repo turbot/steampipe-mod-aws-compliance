@@ -31,7 +31,7 @@ benchmark "fedramp_moderate_rev_4_ac_2" {
 }
 
 benchmark "fedramp_moderate_rev_4_ac_2_f" {
-  title       = "AC-2(f)"
+  title       = "AC-2(f) Creates, enables, modifies, disables, and removes information system accounts"
   description = "The organization: f. Creates, enables, modifies, disables, and removes information system accounts in accordance with [Assignment: organization-defined procedures or conditions]."
   children = [
     control.iam_account_password_policy_min_length_14,
@@ -53,7 +53,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_f" {
 }
 
 benchmark "fedramp_moderate_rev_4_ac_2_g" {
-  title       = "AC-2(g)"
+  title       = "AC-2(g) Monitors the use of information system accounts"
   description = "The organization: g. Monitors the use of information system accounts."
   children = [
     control.apigateway_stage_logging_enabled,
@@ -74,7 +74,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_g" {
 }
 
 benchmark "fedramp_moderate_rev_4_ac_2_j" {
-  title       = "AC-2(j)"
+  title       = "AC-2(j) Reviews accounts for compliance"
   description = "The organization: j. Reviews accounts for compliance with account management requirements [Assignment: organization-defined frequency]."
   children = [
     control.ecs_task_definition_user_for_host_mode_check,
@@ -386,7 +386,7 @@ benchmark "fedramp_moderate_rev_4_ac_21" {
 }
 
 benchmark "fedramp_moderate_rev_4_ac_21_b" {
-  title       = "AC-21(b)"
+  title       = "AC-21(b) Assist users in making information sharing/collaboration decisions"
   description = "The organization: b. Employs [Assignment: organization-defined automated mechanisms or manual processes] to assist users in making information sharing/collaboration decisions."
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
