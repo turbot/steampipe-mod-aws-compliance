@@ -20,9 +20,9 @@ Run individual configuration, compliance and security controls or full complianc
 
 [Audit Manager Control Tower](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html) provide the easiest way to set up and govern a secure, multi-account AWS environment.
 
-[FedRAMP Low Revision 4](https://www.fedramp.gov/assets/resources/documents/FedRAMP_Low_Security_Controls.xlsx) provide a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services."
+[FedRAMP Low Revision 4](https://www.fedramp.gov/assets/resources/documents/FedRAMP_Low_Security_Controls.xlsx) is a set of controls that provide the standard for cloud computing security for cloud service offerings (CSOs)."
 
-[FedRAMP Moderate Revision 4](https://www.fedramp.gov/assets/resources/documents/FedRAMP_Moderate_Security_Controls.xlsx) provide a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services."
+[FedRAMP Moderate Revision 4](https://www.fedramp.gov/assets/resources/documents/FedRAMP_Moderate_Security_Controls.xlsx) is a set of controls that provide the standard for cloud computing security for controlled unclassified information across federal government agencies."
 
 [GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
 
