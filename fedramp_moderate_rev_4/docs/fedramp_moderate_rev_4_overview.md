@@ -5,7 +5,7 @@ To obtain the latest version of the official guide, please download https://www.
 The Federal Risk and Authorization Management Program (FedRAMP) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services.
 
 It is important that Cloud Service Providers (CSPs) understand the impact level of their offering(s) and correlated security categorization when developing their authorization strategy.
-Cloud Service Offerings (CSOs) are categorized into one of three impact levels: Low, Moderate, and High; and across three security objectives: Confidentiality, Integrity, and Availability.
+Cloud Service Offerings (CSOs) are categorized into one of three impact levels: Low, Moderate, and High; and across three security objectives: Confidentiality, Integrity, and Availability:
 
 - Confidentiality: Information access and disclosure includes means for protecting personal privacy and proprietary information.
 
