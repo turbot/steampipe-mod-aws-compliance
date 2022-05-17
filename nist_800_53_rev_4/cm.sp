@@ -1,6 +1,6 @@
 benchmark "nist_800_53_rev_4_cm" {
   title       = "Configuration Management (CM)"
-  description = "CM controls are specific to an organization’s configuration management policies. This includes a baseline configuration to operate as the basis for future builds or changes to information systems. Additionally, this includes information system component inventories and a security impact analysis control"
+  description = "CM controls are specific to an organization’s configuration management policies. This includes a baseline configuration to operate as the basis for future builds or changes to information systems. Additionally, this includes information system component inventories and a security impact analysis control."
   children = [
     benchmark.nist_800_53_rev_4_cm_2,
     benchmark.nist_800_53_rev_4_cm_7,

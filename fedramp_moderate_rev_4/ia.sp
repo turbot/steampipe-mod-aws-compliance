@@ -1,6 +1,6 @@
 benchmark "fedramp_moderate_rev_4_ia" {
-  title       = benchmark.nist_800_53_rev_4_cm.title
-  description = benchmark.nist_800_53_rev_4_cm.description
+  title       = benchmark.nist_800_53_rev_4_ia.title
+  description = benchmark.nist_800_53_rev_4_ia.description
   children = [
     benchmark.fedramp_moderate_rev_4_ia_2,
     benchmark.fedramp_moderate_rev_4_ia_5

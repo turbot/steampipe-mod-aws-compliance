@@ -1,5 +1,5 @@
 benchmark "nist_800_53_rev_4_si" {
-  title       = "System and Information integrity (SI)"
+  title       = "System and Information Integrity (SI)"
   description = "The SI control family correlates to controls that protect system and information integrity. These include flaw remediation, malicious code protection, information system monitoring, security alerts, software and firmware integrity, and spam protection."
   children = [
     benchmark.nist_800_53_rev_4_si_2,

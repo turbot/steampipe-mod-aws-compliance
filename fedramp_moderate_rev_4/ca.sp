@@ -20,7 +20,7 @@ benchmark "fedramp_moderate_rev_4_ca_7" {
 
 benchmark "fedramp_moderate_rev_4_ca_7_a_b" {
   title       =  "CA-7(a)(b)"
-  description = "The organization develops a continuous monitoring strategy and implements a continuous monitoring program that includes: a. Establishment of [Assignment: organization-defined metrics] to be monitored; b. Establishment of [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessments supporting such monitoring"
+  description = "The organization develops a continuous monitoring strategy and implements a continuous monitoring program that includes: a. Establishment of [Assignment: organization-defined metrics] to be monitored; b. Establishment of [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessments supporting such monitoring."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudtrail_multi_region_trail_enabled,
