@@ -49,7 +49,9 @@ benchmark "fedramp_moderate_rev_4_ac_2_f" {
     control.iam_user_unused_credentials_90
   ]
 
-  tags = local.fedramp_moderate_rev_4_common_tags
+  tags = merge(local.fedramp_moderate_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 benchmark "fedramp_moderate_rev_4_ac_2_g" {

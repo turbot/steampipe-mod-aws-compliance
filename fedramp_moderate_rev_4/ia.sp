@@ -33,8 +33,10 @@ benchmark "fedramp_moderate_rev_4_ia_2_1" {
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled
   ]
-
-  tags = local.fedramp_moderate_rev_4_common_tags
+  
+  tags = merge(local.fedramp_moderate_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 benchmark "fedramp_moderate_rev_4_ia_2_1_2" {
@@ -47,7 +49,9 @@ benchmark "fedramp_moderate_rev_4_ia_2_1_2" {
     control.iam_root_user_hardware_mfa_enabled
   ]
 
-  tags = local.fedramp_moderate_rev_4_common_tags
+  tags = merge(local.fedramp_moderate_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 benchmark "fedramp_moderate_rev_4_ia_5" {
@@ -69,7 +73,9 @@ benchmark "fedramp_moderate_rev_4_ia_5_1" {
     benchmark.fedramp_moderate_rev_4_ia_5_1_a_d_e
   ]
 
-  tags = local.fedramp_moderate_rev_4_common_tags
+  tags = merge(local.fedramp_moderate_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 benchmark "fedramp_moderate_rev_4_ia_5_1_a_d_e" {
@@ -79,7 +85,9 @@ benchmark "fedramp_moderate_rev_4_ia_5_1_a_d_e" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.fedramp_moderate_rev_4_common_tags
+  tags = merge(local.fedramp_moderate_rev_4_common_tags, {
+    service  = "AWS/IAM"
+  })
 }
 
 
