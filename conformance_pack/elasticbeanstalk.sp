@@ -9,6 +9,7 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
   sql         = query.elastic_beanstalk_enhanced_health_reporting_enabled.sql
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
-    fedramp = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
   })
 }

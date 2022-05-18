@@ -10,12 +10,12 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql         = query.apigateway_stage_cache_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -25,12 +25,13 @@ control "apigateway_stage_logging_enabled" {
   sql         = query.apigateway_stage_logging_enabled.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -40,8 +41,8 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
   sql         = query.apigateway_rest_api_stage_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    fedramp            = "true"
-    rbi_cyber_security = "true"
+    fedramp_moderate_rev_4 = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -51,7 +52,8 @@ control "apigateway_stage_use_waf_web_acl" {
   sql         = query.apigateway_stage_use_waf_web_acl.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    fedramp            = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    rbi_cyber_security     = "true"
   })
 }
