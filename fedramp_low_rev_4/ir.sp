@@ -16,7 +16,7 @@ benchmark "fedramp_low_rev_4_ir_4" {
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.fedramp_low_rev_4_common_tags

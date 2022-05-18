@@ -14,7 +14,7 @@ benchmark "fedramp_low_rev_4_sa_3" {
   children = [
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
-    control.ec2_instance_ssm_managed,
+    control.ec2_instance_ssm_managed
   ]
 
   tags = local.fedramp_low_rev_4_common_tags

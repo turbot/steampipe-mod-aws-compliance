@@ -56,7 +56,7 @@ benchmark "fedramp_low_rev_4_cp_10" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.fedramp_low_rev_4_common_tags

@@ -93,7 +93,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_j" {
     control.iam_user_in_group,
     control.iam_user_mfa_enabled,
     control.iam_user_no_inline_attached_policies,
-    control.iam_user_unused_credentials_90,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -116,7 +116,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_1" {
     control.iam_user_mfa_enabled,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -127,7 +127,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_3" {
   description = benchmark.nist_800_53_rev_4_ac_2_3.description
   children = [
     control.iam_account_password_policy_min_length_14,
-    control.iam_user_unused_credentials_90,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = merge(local.fedramp_moderate_rev_4_common_tags, {
@@ -148,7 +148,7 @@ benchmark "fedramp_moderate_rev_4_ac_2_4" {
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -205,7 +205,7 @@ benchmark "fedramp_moderate_rev_4_ac_3" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -233,7 +233,7 @@ benchmark "fedramp_moderate_rev_4_ac_4" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -283,7 +283,6 @@ benchmark "fedramp_moderate_rev_4_ac_6" {
     control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
     control.iam_group_not_empty,
-    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
@@ -299,7 +298,7 @@ benchmark "fedramp_moderate_rev_4_ac_6" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -409,7 +408,7 @@ benchmark "fedramp_moderate_rev_4_ac_21_b" {
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags

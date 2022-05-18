@@ -29,7 +29,7 @@ benchmark "fedramp_low_rev_4_sc_5" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.fedramp_low_rev_4_common_tags
@@ -45,6 +45,7 @@ benchmark "fedramp_low_rev_4_sc_7" {
     control.ec2_instance_not_publicly_accessible,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_lb_waf_enabled,
+    control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
     control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
@@ -66,7 +67,7 @@ benchmark "fedramp_low_rev_4_sc_7" {
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.vpc_subnet_auto_assign_public_ip_disabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.fedramp_low_rev_4_common_tags
@@ -93,7 +94,7 @@ benchmark "fedramp_low_rev_4_sc_13" {
     control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.fedramp_low_rev_4_common_tags
