@@ -314,3 +314,14 @@ control "iam_all_policy_no_service_wild_card" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "iam_policy_custom_no_blocked_kms_actions" {
+  title       = "Ensure managed IAM policies should not allow blocked actions on KMS keys"
+  description = "Checks if the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on AWS KMS keys. The rule is non - compliant if any blocked action is allowed on AWS KMS keys by the managed IAM policy."
+  sql         = query.iam_policy_custom_no_blocked_kms_actions.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+  })
+}
