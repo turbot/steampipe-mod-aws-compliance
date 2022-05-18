@@ -1,3 +1,10 @@
+## v0.33 [2021-05-18]
+
+_What's new?_
+
+- Added: FedRAMP Low Revision 4 benchmark (`steampipe check benchmark.fedramp_low_rev_4`)
+- Added: FedRAMP Moderate Revision 4 benchmark (`steampipe check benchmark.fedramp_moderate_rev_4`)
+
 ## v0.32 [2022-05-11]
 
 _Dependencies_
