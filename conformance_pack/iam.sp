@@ -22,10 +22,12 @@ control "iam_group_not_empty" {
   sql         = query.iam_group_not_empty.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
-    soc_2             = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -35,12 +37,14 @@ control "iam_policy_no_star_star" {
   sql         = query.iam_policy_custom_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -50,11 +54,13 @@ control "iam_root_user_no_access_keys" {
   sql         = query.iam_root_user_no_access_keys.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -64,10 +70,12 @@ control "iam_root_user_hardware_mfa_enabled" {
   sql         = query.iam_root_user_hardware_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -78,6 +86,8 @@ control "iam_root_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
@@ -91,10 +101,12 @@ control "iam_user_access_key_age_90" {
   sql         = query.iam_user_access_key_age_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -105,6 +117,8 @@ control "iam_user_console_access_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
@@ -119,6 +133,8 @@ control "iam_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -131,12 +147,14 @@ control "iam_user_no_inline_attached_policies" {
   sql         = query.iam_user_no_inline_attached_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -146,11 +164,13 @@ control "iam_user_unused_credentials_90" {
   sql         = query.iam_user_unused_credentials_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr              = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
-    soc_2             = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -160,10 +180,12 @@ control "iam_user_in_group" {
   sql         = query.iam_user_in_group.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
-    soc_2             = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -173,10 +195,12 @@ control "iam_group_user_role_no_inline_policies" {
   sql         = query.iam_group_user_role_no_inline_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -196,8 +220,10 @@ control "iam_account_password_policy_min_length_14" {
   sql         = query.iam_account_password_policy_min_length_14.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
   })
 }
 
@@ -283,6 +309,19 @@ control "iam_all_policy_no_service_wild_card" {
   sql         = query.iam_policy_custom_no_service_wildcard.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    rbi_cyber_security     = "true"
+  })
+}
+
+control "iam_policy_custom_no_blocked_kms_actions" {
+  title       = "Ensure managed IAM policies should not allow blocked actions on KMS keys"
+  description = "Checks if the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on AWS KMS keys. The rule is non - compliant if any blocked action is allowed on AWS KMS keys by the managed IAM policy."
+  sql         = query.iam_policy_custom_no_blocked_kms_actions.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
   })
 }

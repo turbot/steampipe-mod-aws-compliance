@@ -10,10 +10,12 @@ control "ebs_snapshot_not_publicly_restorable" {
   sql         = query.ebs_snapshot_not_publicly_restorable.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -23,9 +25,9 @@ control "ebs_volume_encryption_at_rest_enabled" {
   sql         = query.ebs_volume_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    rbi_cyber_security = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -36,6 +38,7 @@ control "ebs_attached_volume_encryption_enabled" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     gdpr                        = "true"
     nist_800_53_rev_4           = "true"
@@ -65,6 +68,8 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
   })
@@ -76,8 +81,21 @@ control "ebs_volume_protected_by_backup_plan" {
   sql         = query.ebs_volume_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
+  })
+}
+
+control "ebs_volume_unsued" {
+  title       = "EBS volumes should be attached to EC2 instance"
+  description = "Checks if EBS volumes are attached to EC2 instance."
+  sql         = query.ebs_volume_unsued.sql
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
   })
 }

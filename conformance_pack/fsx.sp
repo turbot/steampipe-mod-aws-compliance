@@ -10,8 +10,10 @@ control "fsx_file_system_protected_by_backup_plan" {
   sql         = query.fsx_file_system_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_fsx_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }

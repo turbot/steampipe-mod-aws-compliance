@@ -10,11 +10,13 @@ control "ec2_instance_ssm_managed" {
   sql         = query.ec2_instance_ssm_managed.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -24,11 +26,13 @@ control "ssm_managed_instance_compliance_association_compliant" {
   sql         = query.ssm_managed_instance_compliance_association_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -38,9 +42,11 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   sql         = query.ssm_managed_instance_compliance_patch_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }

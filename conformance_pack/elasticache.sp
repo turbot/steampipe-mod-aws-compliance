@@ -10,10 +10,12 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   sql         = query.elasticache_redis_cluster_automatic_backup_retention_15_days.sql
 
   tags = merge(local.conformance_pack_elasticache_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }

@@ -10,9 +10,11 @@ control "lambda_function_dead_letter_queue_configured" {
   sql         = query.lambda_function_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -22,10 +24,12 @@ control "lambda_function_in_vpc" {
   sql         = query.lambda_function_in_vpc.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -35,10 +39,12 @@ control "lambda_function_restrict_public_access" {
   sql         = query.lambda_function_restrict_public_access.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -48,7 +54,9 @@ control "lambda_function_concurrent_execution_limit_configured" {
   sql         = query.lambda_function_concurrent_execution_limit_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }

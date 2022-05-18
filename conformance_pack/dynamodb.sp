@@ -10,9 +10,11 @@ control "dynamodb_table_auto_scaling_enabled" {
   sql         = query.dynamodb_table_auto_scaling_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -22,11 +24,13 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   sql         = query.dynamodb_table_point_in_time_recovery_enabled.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -74,8 +78,10 @@ control "dynamodb_table_protected_by_backup_plan" {
   sql         = query.dynamodb_table_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
