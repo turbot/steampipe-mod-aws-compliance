@@ -38,7 +38,7 @@ benchmark "fedramp_moderate_rev_4_au_2_a_d" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -58,7 +58,7 @@ benchmark "fedramp_moderate_rev_4_au_3" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -92,7 +92,7 @@ benchmark "fedramp_moderate_rev_4_au_6_1_3" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -126,7 +126,7 @@ benchmark "fedramp_moderate_rev_4_au_9" {
     benchmark.fedramp_moderate_rev_4_au_9_2,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
-    control.log_group_encryption_at_rest_enabled,
+    control.log_group_encryption_at_rest_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags
@@ -181,7 +181,7 @@ benchmark "fedramp_moderate_rev_4_au_12_a_c" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.fedramp_moderate_rev_4_common_tags

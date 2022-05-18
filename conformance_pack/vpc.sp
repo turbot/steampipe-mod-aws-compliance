@@ -10,13 +10,14 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -39,11 +40,12 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   sql         = query.vpc_security_group_restrict_ingress_tcp_udp_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -54,7 +56,8 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
-    fedramp                     = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -69,7 +72,8 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
-    fedramp                     = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -84,10 +88,11 @@ control "vpc_default_security_group_restricts_all_traffic" {
   sql         = query.vpc_default_security_group_restricts_all_traffic.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp            = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -97,9 +102,10 @@ control "vpc_vpn_tunnel_up" {
   sql         = query.vpc_vpn_tunnel_up.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp  = "true"
-    hipaa    = "true"
-    nist_csf = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -129,9 +135,10 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp            = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -141,7 +148,8 @@ control "vpc_route_table_restrict_public_access_to_igw" {
   sql         = query.vpc_route_table_restrict_public_access_to_igw.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp            = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    rbi_cyber_security     = "true"
   })
 }

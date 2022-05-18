@@ -10,11 +10,12 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   sql         = query.sagemaker_notebook_instance_direct_internet_access_disabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -24,12 +25,13 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
   sql         = query.sagemaker_notebook_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -39,11 +41,12 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
   sql         = query.sagemaker_endpoint_configuration_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }

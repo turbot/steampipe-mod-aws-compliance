@@ -10,12 +10,13 @@ control "rds_db_instance_backup_enabled" {
   sql         = query.rds_db_instance_backup_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -25,11 +26,12 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -39,10 +41,11 @@ control "rds_db_instance_multiple_az_enabled" {
   sql         = query.rds_db_instance_multiple_az_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp           = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -53,7 +56,8 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
-    fedramp                     = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -69,6 +73,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
@@ -83,7 +88,8 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
-    fedramp                     = "true"
+    fedramp_low_rev_4           = "true"
+    fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
@@ -97,11 +103,12 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    nist_800_53_rev_4      = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -126,8 +133,9 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   sql         = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp  = "true"
-    nist_csf = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -137,9 +145,10 @@ control "rds_db_instance_deletion_protection_enabled" {
   sql         = query.rds_db_instance_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp           = "true"
-    nist_800_53_rev_4 = "true"
-    soc_2             = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_4      = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -159,10 +168,11 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp  = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -172,10 +182,11 @@ control "rds_db_instance_protected_by_backup_plan" {
   sql         = query.rds_db_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp  = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 

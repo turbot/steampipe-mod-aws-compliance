@@ -10,11 +10,12 @@ control "sns_topic_encrypted_at_rest" {
   sql         = query.sns_topic_encrypted_at_rest.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }

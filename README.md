@@ -1,6 +1,6 @@
 # AWS Compliance Scanning Tool
 
-300+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, HIPAA, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.4.0) CIS benchmarks**.
+300+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, FedRAMP, HIPAA, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.4.0) CIS benchmarks**.
 
 Run checks in a dashboard:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png)
@@ -12,6 +12,8 @@ Includes support for:
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
 * [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
+* [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
+* [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
 * [General Data Protection Regulation (GDPR)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gdpr) 🚀 New!
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
