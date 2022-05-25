@@ -46,6 +46,7 @@ control "iam_policy_no_star_star" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -62,6 +63,7 @@ control "iam_root_user_no_access_keys" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -77,6 +79,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     gdpr              = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf          = "true"
   })
 }
@@ -92,6 +95,7 @@ control "iam_root_user_mfa_enabled" {
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -106,6 +110,7 @@ control "iam_user_access_key_age_90" {
     gdpr              = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5 = "true"
     nist_csf          = "true"
   })
 }
@@ -121,6 +126,7 @@ control "iam_user_console_access_mfa_enabled" {
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -135,6 +141,7 @@ control "iam_user_mfa_enabled" {
     fedramp                     = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -149,6 +156,7 @@ control "iam_user_no_inline_attached_policies" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -165,6 +173,7 @@ control "iam_user_unused_credentials_90" {
     gdpr              = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5 = "true"
     nist_csf          = "true"
     soc_2             = "true"
   })
@@ -179,6 +188,7 @@ control "iam_user_in_group" {
     fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5 = "true"
     nist_csf          = "true"
     soc_2             = "true"
   })
@@ -193,6 +203,7 @@ control "iam_group_user_role_no_inline_policies" {
     fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
   })
@@ -214,9 +225,10 @@ control "iam_account_password_policy_min_length_14" {
   sql         = query.iam_account_password_policy_min_length_14.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    fedramp = "true"
-    gdpr    = "true"
-    hipaa   = "true"
+    fedramp           = "true"
+    gdpr              = "true"
+    hipaa             = "true"
+    nist_800_53_rev_5 = "true"
   })
 }
 
@@ -303,6 +315,7 @@ control "iam_all_policy_no_service_wild_card" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }

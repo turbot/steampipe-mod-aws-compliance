@@ -13,6 +13,7 @@ control "es_domain_encryption_at_rest_enabled" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -27,6 +28,7 @@ control "es_domain_in_vpc" {
     fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -42,6 +44,7 @@ control "es_domain_node_to_node_encryption_enabled" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -53,6 +56,7 @@ control "es_domain_logs_to_cloudwatch" {
 
   tags = merge(local.conformance_pack_es_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }

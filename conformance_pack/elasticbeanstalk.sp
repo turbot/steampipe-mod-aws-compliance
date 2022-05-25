@@ -10,5 +10,6 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
   })
 }

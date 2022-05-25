@@ -14,6 +14,7 @@ control "vpc_flow_logs_enabled" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -42,6 +43,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -57,6 +59,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     fedramp                     = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
   })
@@ -72,6 +75,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     fedramp                     = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
@@ -86,6 +90,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp            = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -97,9 +102,10 @@ control "vpc_vpn_tunnel_up" {
   sql         = query.vpc_vpn_tunnel_up.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp  = "true"
-    hipaa    = "true"
-    nist_csf = "true"
+    fedramp           = "true"
+    hipaa             = "true"
+    nist_csf          = "true"
+    nist_800_53_rev_5 = "true"
   })
 }
 
@@ -131,6 +137,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp            = "true"
     nist_csf           = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -142,6 +149,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }

@@ -97,4 +97,6 @@ control "ebs_volume_unsued" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp           = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5  = "true"
+  })
 }

@@ -10,7 +10,8 @@ control "ecs_task_definition_user_for_host_mode_check" {
   sql         = query.ecs_task_definition_user_for_host_mode_check.sql
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    fedramp = "true"
+    fedramp           = "true"
+    nist_800_53_rev_5 = "true"
   })
 }
 

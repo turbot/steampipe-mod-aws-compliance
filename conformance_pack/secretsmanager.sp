@@ -10,8 +10,9 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
   sql         = query.secretsmanager_secret_automatic_rotation_enabled.sql
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    hipaa    = "true"
-    nist_csf = "true"
+    hipaa             = "true"
+    nist_csf          = "true"
+    nist_800_53_rev_5 = "true"
   })
 }
 
@@ -22,6 +23,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5 = "true"
     nist_csf          = "true"
   })
 }
