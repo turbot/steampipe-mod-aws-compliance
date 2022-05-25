@@ -14,6 +14,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -28,6 +29,7 @@ control "apigateway_stage_logging_enabled" {
     fedramp            = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
@@ -41,6 +43,7 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -52,6 +55,8 @@ control "apigateway_stage_use_waf_web_acl" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }

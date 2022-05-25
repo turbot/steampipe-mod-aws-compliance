@@ -13,6 +13,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     fedramp           = "true"
     hipaa             = "true"
     nist_800_53_rev_4 = "true"
+    nist_800_53_rev_5 = "true"
     nist_csf          = "true"
   })
 }
@@ -24,6 +25,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     fedramp            = "true"
+    nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
 }
