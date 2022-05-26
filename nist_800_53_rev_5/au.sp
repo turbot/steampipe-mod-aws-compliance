@@ -436,6 +436,7 @@ benchmark "nist_800_53_rev_5_au_9_3" {
     control.ec2_ebs_default_encryption_enabled,
     control.es_domain_node_to_node_encryption_enabled,
     control.elb_classic_lb_use_tls_https_listeners,
+    control.secretsmanager_secret_encrypted_with_kms_cmk,
     control.rds_db_snapshot_encrypted_at_rest,
     control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,

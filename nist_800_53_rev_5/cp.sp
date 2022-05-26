@@ -378,6 +378,7 @@ benchmark "nist_800_53_rev_5_cp_9_d" {
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.secretsmanager_secret_encrypted_with_kms_cmk,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.log_group_encryption_at_rest_enabled,
     control.efs_file_system_encrypt_data_at_rest,

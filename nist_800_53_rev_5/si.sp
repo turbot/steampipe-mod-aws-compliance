@@ -700,6 +700,7 @@ benchmark "nist_800_53_rev_5_si_19_4" {
     control.dynamodb_table_encrypted_with_kms_cmk,
     control.ec2_ebs_default_encryption_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
+    control.secretsmanager_secret_encrypted_with_kms_cmk,
     control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.apigateway_stage_cache_encryption_at_rest_enabled,

@@ -37,3 +37,13 @@ control "secretsmanager_secret_unused_90_day" {
     nist_800_53_rev_5 = "true"
   })
 }
+
+control "secretsmanager_secret_encrypted_with_kms_cmk" {
+  title       = "Secrets Manager secrets should be encrypted using CMK"
+  description = "Ensure if all secrets in AWS Secrets Manager are encrypted using the AWS managed key (aws/secretsmanager) or a customer managed key that was created in AWS Key Management Service (AWS KMS). The rule is compliant if a secret is encrypted using a customer managed key. This rule is NON_COMPLIANT if a secret is encrypted using aws/secretsmanager."
+  sql         = query.secretsmanager_secret_encrypted_with_kms_cmk.sql
+
+  tags = merge(local.conformance_pack_secretsmanager_common_tags, {
+    nist_800_53_rev_5 = "true"
+  })
+}
