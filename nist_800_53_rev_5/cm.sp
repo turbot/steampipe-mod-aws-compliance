@@ -51,6 +51,7 @@ benchmark "nist_800_53_rev_5_cm_2_b" {
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
     control.ebs_volume_unsued,
+    control.account_part_of_organizations,
     control.redshift_cluster_maintenance_settings_check,
     benchmark.nist_800_53_rev_5_cm_2_b_1,
     benchmark.nist_800_53_rev_5_cm_2_b_2,
@@ -66,6 +67,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_1" {
   description = "b. Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency];"
   children = [
     control.ec2_instance_ssm_managed,
+    control.account_part_of_organizations,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
     control.ebs_volume_unsued,
@@ -80,6 +82,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_2" {
   description = "b. Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances];"
   children = [
     control.ec2_instance_ssm_managed,
+    control.account_part_of_organizations,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
     control.ebs_volume_unsued,
@@ -94,6 +97,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_3" {
   description = "b. Review and update the baseline configuration of the system: 3 When system components are installed or upgraded."
   children = [
     control.ec2_instance_ssm_managed,
+    control.account_part_of_organizations,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
     control.ebs_volume_unsued,
@@ -147,6 +151,7 @@ benchmark "nist_800_53_rev_5_cm_3_3" {
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
+    control.account_part_of_organizations,
     control.ebs_volume_unsued,
     control.redshift_cluster_maintenance_settings_check,
   ]
@@ -180,6 +185,7 @@ benchmark "nist_800_53_rev_5_cm_5_1_a" {
   description = "(a) Enforce access restrictions using [Assignment: organization-defined automated mechanisms];"
   children = [
     control.ec2_instance_uses_imdsv2,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_user_for_host_mode_check,
     control.iam_group_user_role_no_inline_policies,
     control.secretsmanager_secret_unused_90_day,
@@ -241,10 +247,12 @@ benchmark "nist_800_53_rev_5_cm_6_a" {
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
     control.kms_cmk_rotation_enabled,
+    control.ec2_instance_iam_profile_attached,
     control.ec2_ebs_default_encryption_enabled,
     control.iam_group_user_role_no_inline_policies,
     control.cloudtrail_multi_region_trail_enabled,
     control.iam_user_access_key_age_90,
+    control.account_part_of_organizations,
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -467,6 +475,7 @@ benchmark "nist_800_53_rev_5_cm_9_b" {
   description = "Develop, document, and implement a configuration management plan for the system that: b. Establishes a process for identifying configuration items throughout the system development life cycle and for managing the configuration of the configuration items;"
   children = [
     control.kms_cmk_rotation_enabled,
+    control.account_part_of_organizations,
     control.ec2_ebs_default_encryption_enabled,
     control.iam_group_user_role_no_inline_policies,
     control.vpc_security_group_restrict_ingress_ssh_all,

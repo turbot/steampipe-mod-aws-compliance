@@ -235,6 +235,7 @@ benchmark "nist_800_53_rev_5_ac_3" {
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
     control.ec2_instance_uses_imdsv2,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_user_for_host_mode_check,
     control.iam_group_user_role_no_inline_policies,
     control.iam_all_policy_no_service_wild_card,
