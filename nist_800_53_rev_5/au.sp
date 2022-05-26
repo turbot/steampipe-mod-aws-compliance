@@ -12,7 +12,8 @@ benchmark "nist_800_53_rev_5_au" {
     benchmark.nist_800_53_rev_5_au_10,
     benchmark.nist_800_53_rev_5_au_11,
     benchmark.nist_800_53_rev_5_au_12,
-    benchmark.nist_800_53_rev_5_au_14
+    benchmark.nist_800_53_rev_5_au_14,
+    benchmark.nist_800_53_rev_5_au_16
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -57,6 +58,7 @@ benchmark "nist_800_53_rev_5_au_3" {
     benchmark.nist_800_53_rev_5_au_3_a,
     benchmark.nist_800_53_rev_5_au_3_b,
     benchmark.nist_800_53_rev_5_au_3_c,
+    benchmark.nist_800_53_rev_5_au_3_d,
     benchmark.nist_800_53_rev_5_au_3_e,
     benchmark.nist_800_53_rev_5_au_3_f
   ]
@@ -522,8 +524,9 @@ benchmark "nist_800_53_rev_5_au_12" {
     benchmark.nist_800_53_rev_5_au_12_a,
     benchmark.nist_800_53_rev_5_au_12_c,
     benchmark.nist_800_53_rev_5_au_12_1,
-    benchmark.nist_800_53_rev_5_au_12_2
-
+    benchmark.nist_800_53_rev_5_au_12_2,
+    benchmark.nist_800_53_rev_5_au_12_3,
+    benchmark.nist_800_53_rev_5_au_12_4
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

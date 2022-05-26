@@ -3,6 +3,7 @@ benchmark "nist_800_53_rev_5_sc" {
   description = "The SC control family is responsible for systems and communications protection procedures. This includes boundary protection, protection of information at rest, collaborative computing devices, cryptographic protection, denial of service protection, and many others."
   children = [
     benchmark.nist_800_53_rev_5_sc_5,
+    benchmark.nist_800_53_rev_5_sc_6,
     benchmark.nist_800_53_rev_5_sc_7,
     benchmark.nist_800_53_rev_5_sc_8,
     benchmark.nist_800_53_rev_5_sc_12,
@@ -146,6 +147,7 @@ benchmark "nist_800_53_rev_5_sc_7" {
     benchmark.nist_800_53_rev_5_sc_7_c,
     benchmark.nist_800_53_rev_5_sc_7_2,
     benchmark.nist_800_53_rev_5_sc_7_3,
+    benchmark.nist_800_53_rev_5_sc_7_4,
     benchmark.nist_800_53_rev_5_sc_7_5,
     benchmark.nist_800_53_rev_5_sc_7_7,
     benchmark.nist_800_53_rev_5_sc_7_9,
@@ -202,6 +204,7 @@ benchmark "nist_800_53_rev_5_sc_7_b" {
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_not_publicly_accessible,
+    control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.es_domain_in_vpc,
     control.emr_cluster_master_nodes_no_public_ip,
     control.lambda_function_restrict_public_access,
@@ -1015,6 +1018,7 @@ benchmark "nist_800_53_rev_5_sc_23_3" {
     control.iam_group_user_role_no_inline_policies,
     control.iam_user_access_key_age_90,
     control.iam_account_password_policy_min_length_14,
+    control.secretsmanager_secret_unused_90_day,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,

@@ -4,6 +4,7 @@ benchmark "nist_800_53_rev_5_ia" {
   children = [
     benchmark.nist_800_53_rev_5_ia_2,
     benchmark.nist_800_53_rev_5_ia_3,
+    benchmark.nist_800_53_rev_5_ia_4,
     benchmark.nist_800_53_rev_5_ia_5,
     benchmark.nist_800_53_rev_5_ia_8
   ]

@@ -27,3 +27,13 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nist_csf          = "true"
   })
 }
+
+control "secretsmanager_secret_unused_90_day" {
+  title       = "Secrets Manager secrets should be rotated as per the rotation schedule"
+  description = "Ensure if AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is non compiant if a secret has not been accessed in ‘unusedForDays’ number of days. The default value is 90 days."
+  sql         = query.secretsmanager_secret_unused_90_day.sql
+
+  tags = merge(local.conformance_pack_secretsmanager_common_tags, {
+    nist_800_53_rev_5 = "true"
+  })
+}

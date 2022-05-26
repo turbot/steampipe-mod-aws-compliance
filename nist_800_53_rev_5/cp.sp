@@ -223,7 +223,8 @@ benchmark "nist_800_53_rev_5_cp_6" {
   description = "a. Establish an alternate storage site, including necessary agreements to permit the storage and retrieval of system backup information; and b. Ensure that the alternate storage site provides controls equivalent to that of the primary site."
   children = [
     benchmark.nist_800_53_rev_5_cp_6_a,
-    benchmark.nist_800_53_rev_5_cp_6_1
+    benchmark.nist_800_53_rev_5_cp_6_1,
+    benchmark.nist_800_53_rev_5_cp_6_2
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

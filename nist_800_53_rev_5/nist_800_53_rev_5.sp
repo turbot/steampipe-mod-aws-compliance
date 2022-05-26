@@ -23,7 +23,7 @@ benchmark "nist_800_53_rev_5" {
     benchmark.nist_800_53_rev_5_pe,
     benchmark.nist_800_53_rev_5_pm,
     benchmark.nist_800_53_rev_5_ra,
-    # benchmark.nist_800_53_rev_5_sa,
+    benchmark.nist_800_53_rev_5_sa,
     benchmark.nist_800_53_rev_5_sc,
     benchmark.nist_800_53_rev_5_si
   ]

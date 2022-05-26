@@ -7,7 +7,9 @@ benchmark "nist_800_53_rev_5_cm" {
     benchmark.nist_800_53_rev_5_cm_5,
     benchmark.nist_800_53_rev_5_cm_6,
     benchmark.nist_800_53_rev_5_cm_7,
-    benchmark.nist_800_53_rev_5_cm_8
+    benchmark.nist_800_53_rev_5_cm_8,
+    benchmark.nist_800_53_rev_5_cm_9,
+    benchmark.nist_800_53_rev_5_cm_12
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -180,6 +182,7 @@ benchmark "nist_800_53_rev_5_cm_5_1_a" {
     control.ec2_instance_uses_imdsv2,
     control.ecs_task_definition_user_for_host_mode_check,
     control.iam_group_user_role_no_inline_policies,
+    control.secretsmanager_secret_unused_90_day,
     control.iam_all_policy_no_service_wild_card,
     control.iam_user_access_key_age_90,
     control.iam_account_password_policy_min_length_14,
@@ -225,7 +228,8 @@ benchmark "nist_800_53_rev_5_cm_6" {
   description = "The organization: (i) establishes mandatory configuration settings for information technology products employed within the information system; (ii) configures the security settings of information technology products to the most restrictive mode consistent with operational requirements; (iii) documents the configuration settings; and (iv) enforces the configuration settings in all components of the information system"
   children = [
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_association_compliant
+    control.ssm_managed_instance_compliance_association_compliant,
+    benchmark.nist_800_53_rev_5_cm_6_a
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

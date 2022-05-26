@@ -6,6 +6,7 @@ benchmark "nist_800_53_rev_5_si" {
     benchmark.nist_800_53_rev_5_si_2,
     benchmark.nist_800_53_rev_5_si_3,
     benchmark.nist_800_53_rev_5_si_4,
+    benchmark.nist_800_53_rev_5_si_5,
     benchmark.nist_800_53_rev_5_si_7,
     benchmark.nist_800_53_rev_5_si_10,
     benchmark.nist_800_53_rev_5_si_12,
@@ -86,6 +87,7 @@ benchmark "nist_800_53_rev_5_si_2" {
   children = [
     benchmark.nist_800_53_rev_5_si_2_a,
     benchmark.nist_800_53_rev_5_si_2_c,
+    benchmark.nist_800_53_rev_5_si_2_d,
     benchmark.nist_800_53_rev_5_si_2_2,
     benchmark.nist_800_53_rev_5_si_2_5
   ]
@@ -492,7 +494,6 @@ benchmark "nist_800_53_rev_5_si_4_25" {
 
   tags = local.nist_800_53_rev_5_common_tags
 }
-
 
 benchmark "nist_800_53_rev_5_si_5" {
   title       = "Secuity Alerts, Advisories, And Directives (SI-5)"
