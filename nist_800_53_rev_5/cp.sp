@@ -155,8 +155,6 @@ benchmark "nist_800_53_rev_5_cp_2_d" {
     control.elb_application_lb_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.vpc_vpn_tunnel_up,
-    benchmark.nist_800_53_rev_5_cp_2_a_6,
-    benchmark.nist_800_53_rev_5_cp_2_a_7
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -172,8 +170,6 @@ benchmark "nist_800_53_rev_5_cp_2_e" {
     control.elb_application_lb_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.vpc_vpn_tunnel_up,
-    benchmark.nist_800_53_rev_5_cp_2_a_6,
-    benchmark.nist_800_53_rev_5_cp_2_a_7
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -433,7 +429,7 @@ benchmark "nist_800_53_rev_5_cp_10" {
 }
 
 benchmark "nist_800_53_rev_5_cp_10_2" {
-  title       = "CP-10(2) Transaction Recovery (CP-10)"
+  title       = "CP-10(2) Transaction Recovery"
   description = "Implement transaction recovery for systems that are transaction-based."
   children = [
     control.dynamodb_table_in_backup_plan,

@@ -612,7 +612,6 @@ benchmark "nist_800_53_rev_5_ac_3_4_b" {
     control.iam_root_user_mfa_enabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    benchmark.nist_800_53_rev_5_ac_3_4_a
 
   ]
 
@@ -639,8 +638,6 @@ benchmark "nist_800_53_rev_5_ac_3_4_c" {
     control.iam_root_user_mfa_enabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    benchmark.nist_800_53_rev_5_ac_3_4_a
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -666,8 +663,6 @@ benchmark "nist_800_53_rev_5_ac_3_4_d" {
     control.iam_root_user_mfa_enabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    benchmark.nist_800_53_rev_5_ac_3_4_a
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1225,7 +1220,7 @@ benchmark "nist_800_53_rev_5_ac_17" {
 }
 
 benchmark "nist_800_53_rev_5_ac_17_b" {
-  title       = "AC-17b"
+  title       = "AC-17(b)"
   description = "b. Authorize each type of remote access to the system prior to allowing such connections."
   children = [
     control.vpc_security_group_restrict_ingress_ssh_all,
