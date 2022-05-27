@@ -21,10 +21,10 @@ benchmark "nist_800_53_rev_5_ac_2" {
   description = benchmark.nist_800_53_rev_4_ac_2.description
   children = [
     benchmark.nist_800_53_rev_5_ac_2_1,
-    benchmark.nist_800_53_rev_5_ac_2_12,
     benchmark.nist_800_53_rev_5_ac_2_3,
     benchmark.nist_800_53_rev_5_ac_2_4,
     benchmark.nist_800_53_rev_5_ac_2_6,
+    benchmark.nist_800_53_rev_5_ac_2_12,
     benchmark.nist_800_53_rev_5_ac_2_d_1,
     benchmark.nist_800_53_rev_5_ac_2_i_2,
     benchmark.nist_800_53_rev_5_ac_2_g,
@@ -35,7 +35,7 @@ benchmark "nist_800_53_rev_5_ac_2" {
 }
 
 benchmark "nist_800_53_rev_5_ac_2_d_1" {
-  title       = "AC-2d.1"
+  title       = "AC-2(d)(1)"
   description = "d. Specify: 1. Authorized users of the system;personnel termination and transfer processes."
   children = [
     control.iam_account_password_policy_min_length_14
@@ -55,7 +55,7 @@ benchmark "nist_800_53_rev_5_ac_2_g" {
 }
 
 benchmark "nist_800_53_rev_5_ac_2_i_2" {
-  title       = "AC-2i.2"
+  title       = "AC-2(i)(2)"
   description = "i. Authorize access to the system based on: 2. Intended system usage;"
   children = [
     control.iam_group_user_role_no_inline_policies,
@@ -741,7 +741,7 @@ benchmark "nist_800_53_rev_5_ac_3_8" {
 }
 
 benchmark "nist_800_53_rev_5_ac_3_10" {
-  title       = "AC-3(8) Revocation Of Access Authorizations"
+  title       = "AC-3(10) Audited Override Of Access Control Mechanisms"
   description = "Employ an audited override of automated access mechanisms under [Assignment: organization-defined conditions] by [Assignment: organization-defined roles]."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
@@ -1168,7 +1168,7 @@ benchmark "nist_800_53_rev_5_ac_16" {
 }
 
 benchmark "nist_800_53_rev_5_ac_16_b" {
-  title       = "AC-16b"
+  title       = "AC-16(b)"
   description = "b. Ensure that the attribute associations are made and retained with the information;"
   children = [
     control.cloudwatch_log_group_retention_period_365
@@ -1253,7 +1253,7 @@ benchmark "nist_800_53_rev_5_ac_17_1" {
 }
 
 benchmark "nist_800_53_rev_5_ac_17_2" {
-  title       = "AC-17(2)"
+  title       = "AC-17(2) Protection Of Confidentiality And Integrity Using Encryption"
   description = "Implement cryptographic mechanisms to protect the confidentiality and integrity of remote access sessions."
   children = [
     control.elb_classic_lb_use_tls_https_listeners,

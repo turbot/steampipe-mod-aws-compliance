@@ -31,7 +31,7 @@ benchmark "nist_800_53_rev_5_au_2" {
 }
 
 benchmark "nist_800_53_rev_5_au_2_b" {
-  title       = "AU-2b"
+  title       = "AU-2(b)"
   description = "b. Coordinate the event logging function with other organizational entities requiring audit-related information to guide and inform the selection criteria for events to be logged;"
   children = [
     control.cloudtrail_multi_region_trail_enabled,
