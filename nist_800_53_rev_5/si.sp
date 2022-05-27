@@ -237,8 +237,6 @@ benchmark "nist_800_53_rev_5_si_4" {
     benchmark.nist_800_53_rev_5_si_4_20,
     benchmark.nist_800_53_rev_5_si_4_23,
     benchmark.nist_800_53_rev_5_si_4_25
-
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -314,7 +312,7 @@ benchmark "nist_800_53_rev_5_si_4_d" {
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
-    service = "AWS/GuardDuty"
+    service = "AWS/CloudTrail"
   })
 }
 
@@ -354,7 +352,9 @@ benchmark "nist_800_53_rev_5_si_4_3" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_4" {
@@ -375,7 +375,9 @@ benchmark "nist_800_53_rev_5_si_4_4_a" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_4_b" {
@@ -385,7 +387,9 @@ benchmark "nist_800_53_rev_5_si_4_4_b" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_10" {
@@ -395,7 +399,9 @@ benchmark "nist_800_53_rev_5_si_4_10" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_12" {
@@ -405,7 +411,9 @@ benchmark "nist_800_53_rev_5_si_4_12" {
     control.cloudwatch_alarm_action_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_13" {
@@ -435,7 +443,9 @@ benchmark "nist_800_53_rev_5_si_4_14" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_17" {
@@ -482,7 +492,9 @@ benchmark "nist_800_53_rev_5_si_4_23" {
     control.guardduty_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_4_25" {
@@ -521,7 +533,7 @@ benchmark "nist_800_53_rev_5_si_5_b" {
   title       = "SI-5(b)"
   description = "b. Generate internal security alerts, advisories, and directives as deemed necessary;"
   children = [
-      control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled
   ]
 
@@ -548,8 +560,9 @@ benchmark "nist_800_53_rev_5_si_7_a" {
   children = [
     control.cloudtrail_trail_validation_enabled,
   ]
-
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_7_1" {
@@ -559,7 +572,9 @@ benchmark "nist_800_53_rev_5_si_7_1" {
     control.cloudtrail_trail_validation_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_7_3" {
@@ -569,7 +584,9 @@ benchmark "nist_800_53_rev_5_si_7_3" {
     control.cloudtrail_trail_validation_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_7_7" {
@@ -579,7 +596,9 @@ benchmark "nist_800_53_rev_5_si_7_7" {
     control.cloudtrail_trail_validation_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_7_8" {
@@ -645,7 +664,9 @@ benchmark "nist_800_53_rev_5_si_12" {
     control.cloudwatch_log_group_retention_period_365,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_5_si_13" {

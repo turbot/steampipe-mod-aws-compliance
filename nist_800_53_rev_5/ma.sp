@@ -26,7 +26,9 @@ benchmark "nist_800_53_rev_5_ma_4_c" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ma_4_1" {

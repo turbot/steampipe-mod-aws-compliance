@@ -112,7 +112,9 @@ benchmark "nist_800_53_rev_5_pm_16" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_pm_17" {
@@ -150,7 +152,9 @@ benchmark "nist_800_53_rev_5_pm_21" {
     benchmark.nist_800_53_rev_5_pm_21_b
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_5_pm_21_b" {
@@ -160,7 +164,9 @@ benchmark "nist_800_53_rev_5_pm_21_b" {
     control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_5_pm_31" {

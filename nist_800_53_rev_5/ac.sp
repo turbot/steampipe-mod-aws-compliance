@@ -41,7 +41,9 @@ benchmark "nist_800_53_rev_5_ac_2_d_1" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_g" {
@@ -51,7 +53,9 @@ benchmark "nist_800_53_rev_5_ac_2_g" {
     control.iam_user_unused_credentials_90
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_i_2" {
@@ -64,7 +68,9 @@ benchmark "nist_800_53_rev_5_ac_2_i_2" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_j" {
@@ -74,7 +80,9 @@ benchmark "nist_800_53_rev_5_ac_2_j" {
     control.iam_user_unused_credentials_90,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_1" {
@@ -124,7 +132,9 @@ benchmark "nist_800_53_rev_5_ac_2_3_a" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_3_b" {
@@ -135,7 +145,9 @@ benchmark "nist_800_53_rev_5_ac_2_3_b" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_3_c" {
@@ -157,7 +169,9 @@ benchmark "nist_800_53_rev_5_ac_2_3_d" {
     control.iam_account_password_policy_min_length_14
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_2_4" {
@@ -226,7 +240,9 @@ benchmark "nist_800_53_rev_5_ac_2_12_a" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_3" {
@@ -300,7 +316,9 @@ benchmark "nist_800_53_rev_5_ac_3_2" {
     control.iam_root_user_mfa_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_3_3" {
@@ -799,7 +817,9 @@ benchmark "nist_800_53_rev_5_ac_3_12_b" {
     control.guardduty_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_3_13" {
@@ -1087,7 +1107,9 @@ benchmark "nist_800_53_rev_5_ac_6_3" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_6_9" {
@@ -1115,7 +1137,9 @@ benchmark "nist_800_53_rev_5_ac_6_10" {
     control.iam_root_user_no_access_keys
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_7" {
@@ -1125,7 +1149,9 @@ benchmark "nist_800_53_rev_5_ac_7" {
     benchmark.nist_800_53_rev_5_ac_7_4
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_7_4" {
@@ -1140,7 +1166,9 @@ benchmark "nist_800_53_rev_5_ac_7_4" {
     benchmark.nist_800_53_rev_5_ac_7_4_a
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_7_4_a" {
@@ -1154,7 +1182,9 @@ benchmark "nist_800_53_rev_5_ac_7_4_a" {
     control.iam_root_user_mfa_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/IAM"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_16" {
@@ -1174,7 +1204,9 @@ benchmark "nist_800_53_rev_5_ac_16_b" {
     control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudWatch"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ac_17" {

@@ -16,10 +16,11 @@ benchmark "nist_800_53_rev_5_sa_1" {
   description = "The organization develops, disseminates, and periodically reviews/updates: (i) a formal, documented, system and services acquisition policy that includes information security considerations and that addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and (ii) formal, documented procedures to facilitate the implementation of the system and services acquisition policy and associated system and services acquisition controls."
   children = [
     benchmark.nist_800_53_rev_5_sa_1_1
-
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_sa_1_1" {
@@ -29,7 +30,9 @@ benchmark "nist_800_53_rev_5_sa_1_1" {
     control.cloudtrail_trail_validation_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_sa_9" {
@@ -39,7 +42,9 @@ benchmark "nist_800_53_rev_5_sa_9" {
     benchmark.nist_800_53_rev_5_sa_9_6
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/KMS"
+  })
 }
 
 benchmark "nist_800_53_rev_5_sa_9_6" {
@@ -50,7 +55,9 @@ benchmark "nist_800_53_rev_5_sa_9_6" {
     control.kms_cmk_rotation_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/KMS"
+  })
 }
 
 
@@ -61,7 +68,9 @@ benchmark "nist_800_53_rev_5_sa_10" {
     benchmark.nist_800_53_rev_5_sa_10_1
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_sa_10_1" {
@@ -71,7 +80,9 @@ benchmark "nist_800_53_rev_5_sa_10_1" {
     control.cloudtrail_trail_validation_enabled
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/CloudTrail"
+  })
 }
 
 benchmark "nist_800_53_rev_5_sa_15" {

@@ -18,7 +18,9 @@ benchmark "nist_800_53_rev_5_ra_1" {
     benchmark.nist_800_53_rev_5_ra_1_a,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_1_a" {
@@ -30,7 +32,9 @@ benchmark "nist_800_53_rev_5_ra_1_a" {
     benchmark.nist_800_53_rev_5_ra_1_a_2
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_1_a_1" {
@@ -40,7 +44,9 @@ benchmark "nist_800_53_rev_5_ra_1_a_1" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_1_a_2" {
@@ -50,7 +56,9 @@ benchmark "nist_800_53_rev_5_ra_1_a_2" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_3" {
@@ -82,7 +90,9 @@ benchmark "nist_800_53_rev_5_ra_3_4" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_5" {
@@ -94,7 +104,9 @@ benchmark "nist_800_53_rev_5_ra_5" {
 
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_5_a" {
@@ -103,8 +115,9 @@ benchmark "nist_800_53_rev_5_ra_5_a" {
   children = [
     control.guardduty_enabled,
   ]
-
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_5_4" {
@@ -114,7 +127,9 @@ benchmark "nist_800_53_rev_5_ra_5_4" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_10" {
@@ -124,7 +139,9 @@ benchmark "nist_800_53_rev_5_ra_10" {
     benchmark.nist_800_53_rev_5_ra_10_a,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_10_a" {
@@ -136,7 +153,9 @@ benchmark "nist_800_53_rev_5_ra_10_a" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_10_a_1" {
@@ -146,7 +165,9 @@ benchmark "nist_800_53_rev_5_ra_10_a_1" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }
 
 benchmark "nist_800_53_rev_5_ra_10_a_2" {
@@ -156,5 +177,7 @@ benchmark "nist_800_53_rev_5_ra_10_a_2" {
     control.guardduty_enabled,
   ]
 
-  tags = local.nist_800_53_rev_5_common_tags
+  tags = merge(local.nist_800_53_rev_5_common_tags, {
+    service = "AWS/GuardDuty"
+  })
 }

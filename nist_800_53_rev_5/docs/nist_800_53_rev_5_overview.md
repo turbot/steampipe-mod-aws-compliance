@@ -1,4 +1,4 @@
-To obtain the latest version of the official guide, please visit https://csrc.nist.gov/publications/detail/sp/800-53/rev-4/final.
+To obtain the latest version of the official guide, please visit https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final.
 
 ## Overview
 
