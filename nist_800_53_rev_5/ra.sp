@@ -27,9 +27,9 @@ benchmark "nist_800_53_rev_5_ra_1_a" {
   title       = "RA-1(a)"
   description = "a. Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existing controls;"
   children = [
-    control.guardduty_enabled,
     benchmark.nist_800_53_rev_5_ra_1_a_1,
-    benchmark.nist_800_53_rev_5_ra_1_a_2
+    benchmark.nist_800_53_rev_5_ra_1_a_2,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -65,19 +65,8 @@ benchmark "nist_800_53_rev_5_ra_3" {
   title       = "Risk Assessment (RA-3)"
   description = "Assess risks and magnitude of unauthorized system access, use, disclosure, disruption, modifications, or destruction."
   children = [
-    benchmark.nist_800_53_rev_5_ra_3_a_1,
-    benchmark.nist_800_53_rev_5_ra_3_4
-  ]
-
-  tags = local.nist_800_53_rev_5_common_tags
-}
-
-benchmark "nist_800_53_rev_5_ra_3_a_1" {
-  title       = "RA-3(a)(1)"
-  description = "a. Conduct a risk assessment, including: 1. Identifying threats to and vulnerabilities in the system;"
-  children = [
-    control.guardduty_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant
+    benchmark.nist_800_53_rev_5_ra_3_4,
+    benchmark.nist_800_53_rev_5_ra_3_a_1
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -95,13 +84,23 @@ benchmark "nist_800_53_rev_5_ra_3_4" {
   })
 }
 
+benchmark "nist_800_53_rev_5_ra_3_a_1" {
+  title       = "RA-3(a)(1)"
+  description = "a. Conduct a risk assessment, including: 1. Identifying threats to and vulnerabilities in the system;"
+  children = [
+    control.guardduty_enabled,
+    control.ssm_managed_instance_compliance_patch_compliant
+  ]
+
+  tags = local.nist_800_53_rev_5_common_tags
+}
+
 benchmark "nist_800_53_rev_5_ra_5" {
   title       = "Vulnerability Monitoring And Scanning (RA-5)"
   description = "Employ the following advanced automation and analytics capabilities to predict and identify risks to [Assignment: organization-defined systems or system components]: [Assignment: organization-defined advanced automation and analytics capabilities]."
   children = [
+    benchmark.nist_800_53_rev_5_ra_5_4,
     benchmark.nist_800_53_rev_5_ra_5_a,
-    benchmark.nist_800_53_rev_5_ra_5_4
-
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {

@@ -16,11 +16,11 @@ benchmark "nist_800_53_rev_5_ia_2" {
   title       = "Identification and Authentication (Organizational users) (IA-2)"
   description = "The information system uniquely identifies and authenticates organizational users (or processes acting on behalf of organizational users)."
   children = [
-    control.iam_root_user_no_access_keys,
     benchmark.nist_800_53_rev_5_ia_2_1,
     benchmark.nist_800_53_rev_5_ia_2_2,
     benchmark.nist_800_53_rev_5_ia_2_6,
-    benchmark.nist_800_53_rev_5_ia_2_8
+    benchmark.nist_800_53_rev_5_ia_2_8,
+    control.iam_root_user_no_access_keys
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -32,10 +32,10 @@ benchmark "nist_800_53_rev_5_ia_2_1" {
   title       = "IA-2(1) Multi-Factor Authentication To Privileged Accounts"
   description = "Implement multi-factor authentication for access to privileged accounts."
   children = [
-    control.iam_user_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_root_user_mfa_enabled
+    control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -47,10 +47,10 @@ benchmark "nist_800_53_rev_5_ia_2_2" {
   title       = "IA-2(2) Multi-Factor Authentication To Non-Privileged Accounts"
   description = "Implement multi-factor authentication for access to non-privileged accounts."
   children = [
-    control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_root_user_mfa_enabled
+    control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -62,11 +62,11 @@ benchmark "nist_800_53_rev_5_ia_2_6" {
   title       = "IA-2(6) Acces To Accounts — Separate Device"
   description = "Implement multi-factor authentication for [Selection (one or more): local; network; remote] access to [Selection (one or more): privileged accounts; non-privileged accounts] such that: (a) One of the factors is provided by a device separate from the system gaining access; and (b) The device meets [Assignment: organization-defined strength of mechanism requirements]."
   children = [
-    control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    benchmark.nist_800_53_rev_5_ia_2_6_a,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
-    benchmark.nist_800_53_rev_5_ia_2_6_a
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -78,10 +78,10 @@ benchmark "nist_800_53_rev_5_ia_2_6_a" {
   title       = "IA-2(6)(a)"
   description = "Implement multi-factor authentication for [Selection (one or more): local; network; remote] access to [Selection (one or more): privileged accounts; non-privileged accounts] such that: (a) One of the factors is provided by a device separate from the system gaining access;"
   children = [
-    control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled,
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -93,10 +93,10 @@ benchmark "nist_800_53_rev_5_ia_2_8" {
   title       = "IA-2(8) Access To Accounts — Replay Resistant"
   description = "Implement replay-resistant authentication mechanisms for access to [Selection (one or more): privileged accounts; non-privileged accounts]."
   children = [
-    control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled,
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -149,10 +149,10 @@ benchmark "nist_800_53_rev_5_ia_4" {
   title       = "Identifier Management (IA-4)"
   description = "Manage information system identifiers for users and devices. Automate authorizing and disabling users to prevent misuse."
   children = [
+    benchmark.nist_800_53_rev_5_ia_4_8,
     benchmark.nist_800_53_rev_5_ia_4_b,
     benchmark.nist_800_53_rev_5_ia_4_d,
-    benchmark.nist_800_53_rev_5_ia_4_4,
-    benchmark.nist_800_53_rev_5_ia_4_8
+    benchmark.nist_800_53_rev_5_ia_4_4
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -212,15 +212,15 @@ benchmark "nist_800_53_rev_5_ia_5" {
   title       = "Authenticator Management (IA-5)"
   description = "Authenticate users and devices. Automate administrative control. Enforce restrictions. Protect against unauthorized use."
   children = [
-    control.iam_account_password_policy_min_length_14,
+    benchmark.nist_800_53_rev_5_ia_5_1,
+    benchmark.nist_800_53_rev_5_ia_5_8,
+    benchmark.nist_800_53_rev_5_ia_5_18,
     benchmark.nist_800_53_rev_5_ia_5_b,
     benchmark.nist_800_53_rev_5_ia_5_c,
     benchmark.nist_800_53_rev_5_ia_5_d,
     benchmark.nist_800_53_rev_5_ia_5_f,
     benchmark.nist_800_53_rev_5_ia_5_h,
-    benchmark.nist_800_53_rev_5_ia_5_1,
-    benchmark.nist_800_53_rev_5_ia_5_8,
-    benchmark.nist_800_53_rev_5_ia_5_18
+    control.iam_account_password_policy_min_length_14
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -303,10 +303,10 @@ benchmark "nist_800_53_rev_5_ia_5_1_c" {
   title       = "IA-5(1)(c)"
   description = "For password-based authentication: (c) Transmit passwords only over cryptographically-protected channels;"
   children = [
-    control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_lb_redirect_http_request_to_https,
     control.apigateway_rest_api_stage_use_ssl_certificate,
+    control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
     control.s3_bucket_enforces_ssl
   ]
 

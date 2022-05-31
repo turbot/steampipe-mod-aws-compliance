@@ -60,7 +60,6 @@ benchmark "nist_800_53_rev_5_sa_9_6" {
   })
 }
 
-
 benchmark "nist_800_53_rev_5_sa_10" {
   title       = "Developer Configuration Management (SA-10)"
   description = "The organization requires the developer of the information system, system component, or information system service to: a. Perform configuration management during system, component, or service [Selection (one or more): design; development; implementation; operation]; b. Document, manage, and control the integrity of changes to [Assignment: organization-defined configuration items under configuration management]; c. Implement only organization-approved changes to the system, component, or service; d. Document approved changes to the system, component, or service and the potential security impacts of such changes; and e. Track security flaws and flaw resolution within the system, component, or service and report findings to [Assignment: organization-defined personnel]."

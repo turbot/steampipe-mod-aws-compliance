@@ -30,7 +30,7 @@ benchmark "nist_800_53_rev_5_pm_11_b" {
     control.cloudtrail_trail_validation_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -51,26 +51,26 @@ benchmark "nist_800_53_rev_5_pm_14_a_1" {
   title       = "PM-14(a)(1)"
   description = "a. Implement a process for ensuring that organizational plans for conducting security and privacy testing, training, and monitoring activities associated with organizational systems: 1. Are developed and maintained;"
   children = [
-    control.cloudwatch_log_group_retention_period_365,
-    control.lambda_function_concurrent_execution_limit_configured,
-    control.lambda_function_dead_letter_queue_configured,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.securityhub_enabled,
-    control.wafv2_web_acl_logging_enabled,
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
-    control.elastic_beanstalk_enhanced_health_reporting_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.elastic_beanstalk_enhanced_health_reporting_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
+    control.lambda_function_concurrent_execution_limit_configured,
+    control.lambda_function_dead_letter_queue_configured,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -80,26 +80,26 @@ benchmark "nist_800_53_rev_5_pm_14_b" {
   title       = "PM-14(b)"
   description = "b. Review testing, training, and monitoring plans for consistency with the organizational risk management strategy and organization-wide priorities for risk response actions."
   children = [
-    control.cloudwatch_log_group_retention_period_365,
-    control.lambda_function_concurrent_execution_limit_configured,
-    control.lambda_function_dead_letter_queue_configured,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.securityhub_enabled,
-    control.wafv2_web_acl_logging_enabled,
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
-    control.elastic_beanstalk_enhanced_health_reporting_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.elastic_beanstalk_enhanced_health_reporting_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
+    control.lambda_function_concurrent_execution_limit_configured,
+    control.lambda_function_dead_letter_queue_configured,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -109,7 +109,7 @@ benchmark "nist_800_53_rev_5_pm_16" {
   title       = "Threat Awareness Program (PM-16)"
   description = "Implement a threat awareness program that includes a cross-organization information-sharing capability for threat intelligence."
   children = [
-    control.guardduty_enabled,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -121,7 +121,7 @@ benchmark "nist_800_53_rev_5_pm_17" {
   title       = "Protecting Controlled Unclassified Information On External Systems (PM-17)"
   description = "a. Establish policy and procedures to ensure that requirements for the protection of controlled unclassified information that is processed, stored or transmitted on external systems, are implemented in accordance with applicable laws, executive orders, directives, policies, regulations, and standards; and b. Review and update the policy and procedures [Assignment: organization-defined frequency]."
   children = [
-    benchmark.nist_800_53_rev_5_pm_17_b,
+    benchmark.nist_800_53_rev_5_pm_17_b
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -131,12 +131,12 @@ benchmark "nist_800_53_rev_5_pm_17_b" {
   title       = "PM-17(b)"
   description = "b. Review and update the policy and procedures [Assignment: organization-defined frequency]."
   children = [
-    control.es_domain_node_to_node_encryption_enabled,
-    control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_lb_redirect_http_request_to_https,
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.cloudtrail_trail_validation_enabled,
+    control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
     control.s3_bucket_versioning_enabled
@@ -173,26 +173,26 @@ benchmark "nist_800_53_rev_5_pm_31" {
   title       = "Continuous Monitoring Strategy (PM-31)"
   description = "Develop an organization-wide continuous monitoring strategy and implement continuous monitoring programs that include: a. Establishing the following organization-wide metrics to be monitored: [Assignment: organization-defined metrics]; b. Establishing [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessment of control effectiveness; c. Ongoing monitoring of organizationally-defined metrics in accordance with the continuous monitoring strategy; d. Correlation and analysis of information generated by control assessments and monitoring; e. Response actions to address results of the analysis of control assessment and monitoring information; and f. Reporting the security and privacy status of organizational systems to [Assignment: organization-defined personnel or roles] [Assignment: organization-defined frequency]."
   children = [
-    control.cloudwatch_log_group_retention_period_365,
-    control.lambda_function_concurrent_execution_limit_configured,
-    control.lambda_function_dead_letter_queue_configured,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.securityhub_enabled,
-    control.wafv2_web_acl_logging_enabled,
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
-    control.elastic_beanstalk_enhanced_health_reporting_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.elastic_beanstalk_enhanced_health_reporting_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
+    control.lambda_function_concurrent_execution_limit_configured,
+    control.lambda_function_dead_letter_queue_configured,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
+    control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

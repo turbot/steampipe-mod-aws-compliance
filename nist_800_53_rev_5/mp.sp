@@ -12,14 +12,14 @@ benchmark "nist_800_53_rev_5_mp_2" {
   title       = "Media Access (MP-2)"
   description = "Restrict access to [Assignment: organization-defined types of digital and/or non-digital media] to [Assignment: organization-defined personnel or roles]."
   children = [
-    control.ec2_instance_uses_imdsv2,
-    control.iam_group_user_role_no_inline_policies,
-    control.ec2_instance_in_vpc,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.es_domain_in_vpc,
+    control.ec2_instance_uses_imdsv2,
     control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
@@ -35,7 +35,7 @@ benchmark "nist_800_53_rev_5_mp_2" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
