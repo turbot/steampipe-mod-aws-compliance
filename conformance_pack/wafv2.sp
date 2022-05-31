@@ -10,13 +10,14 @@ control "wafv2_web_acl_logging_enabled" {
   sql         = query.wafv2_web_acl_logging_enabled.sql
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    gdpr               = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    gdpr                   = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }

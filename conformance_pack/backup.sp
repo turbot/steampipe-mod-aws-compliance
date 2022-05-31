@@ -22,10 +22,11 @@ control "backup_plan_min_retention_35_days" {
   sql         = query.backup_plan_min_retention_35_days.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    fedramp  = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 

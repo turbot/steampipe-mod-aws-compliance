@@ -1,3 +1,0 @@
-# IAM
-
-iam_policy_custom_no_blocked_kms_actions = ["kms:*","kms:Decrypt", "kms:ReEncrypt*"]

@@ -1,6 +1,6 @@
 benchmark "nist_800_53_rev_4_sc" {
   title       = "System and Communications Protection (SC)"
-  description = "The SC control family is responsible for systems and communications protection procedures. This includes boundary protection, protection of information at rest, collaborative computing devices, cryptographic protection, denial of service protection, and many others"
+  description = "The SC control family is responsible for systems and communications protection procedures. This includes boundary protection, protection of information at rest, collaborative computing devices, cryptographic protection, denial of service protection, and many others."
   children = [
     benchmark.nist_800_53_rev_4_sc_2,
     benchmark.nist_800_53_rev_4_sc_4,

@@ -10,13 +10,15 @@ control "elb_application_classic_lb_logging_enabled" {
   sql         = query.elb_application_classic_lb_logging_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -26,10 +28,11 @@ control "elb_application_lb_deletion_protection_enabled" {
   sql         = query.elb_application_lb_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_csf           = "true"
-    nist_800_53_rev_5  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_csf               = "true"
+    nist_800_53_rev_5      = "true"
   })
 }
 
@@ -39,13 +42,14 @@ control "elb_application_lb_redirect_http_request_to_https" {
   sql         = query.elb_application_lb_redirect_http_request_to_https.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -55,11 +59,12 @@ control "elb_application_lb_waf_enabled" {
   sql         = query.elb_application_lb_waf_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -69,12 +74,14 @@ control "elb_classic_lb_use_ssl_certificate" {
   sql         = query.elb_classic_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -84,7 +91,7 @@ control "elb_application_lb_drop_http_headers" {
   sql         = query.elb_application_lb_drop_http_headers.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
+    fedramp_low_rev_4  = "true"
     hipaa              = "true"
     gdpr               = "true"
     nist_800_53_rev_4  = "true"
@@ -98,12 +105,13 @@ control "elb_classic_lb_use_tls_https_listeners" {
   sql         = query.elb_classic_lb_use_tls_https_listeners.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    gdpr               = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
+    hipaa                  = "true"
+    gdpr                   = "true"
+    nist_800_53_rev_4      = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -113,10 +121,11 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
   sql         = query.elb_classic_lb_cross_zone_load_balancing_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp           = "true"
-    nist_800_53_rev_4 = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -126,8 +135,8 @@ control "elb_application_network_lb_use_ssl_certificate" {
   sql         = query.elb_application_network_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp            = "true"
-    nist_800_53_rev_5  = "true"
-    rbi_cyber_security = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
+    rbi_cyber_security     = "true"
   })
 }

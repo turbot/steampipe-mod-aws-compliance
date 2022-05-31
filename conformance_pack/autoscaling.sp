@@ -10,11 +10,12 @@ control "autoscaling_group_with_lb_use_health_check" {
   sql         = query.autoscaling_group_with_lb_use_health_check.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    fedramp           = "true"
-    hipaa             = "true"
-    nist_800_53_rev_4 = "true"
-    nist_800_53_rev_5 = "true"
-    nist_csf          = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -24,8 +25,9 @@ control "autoscaling_launch_config_public_ip_disabled" {
   sql         = query.autoscaling_launch_config_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    fedramp            = "true"
-    nist_800_53_rev_5  = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
+    rbi_cyber_security     = "true"
   })
 }

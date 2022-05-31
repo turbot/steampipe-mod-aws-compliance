@@ -10,11 +10,12 @@ control "dms_replication_instance_not_publicly_accessible" {
   sql         = query.dms_replication_instance_not_publicly_accessible.sql
 
   tags = merge(local.conformance_pack_dms_common_tags, {
-    fedramp            = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
