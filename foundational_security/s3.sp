@@ -120,7 +120,7 @@ control "foundational_security_s3_9" {
   title         = "9 S3 bucket server access logging should be enabled"
   description   = "When logging is enabled, Amazon S3 delivers access logs for a source bucket to a chosen target bucket. The target bucket must be in the same AWS Region as the source bucket and must not have a default retention period configuration."
   severity      = "medium"
-  sql           = query.s3_bucket_public_access_blocked.sql
+  sql           = query.s3_bucket_logging_enabled.sql
   documentation = file("./foundational_security/docs/foundational_security_s3_9.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
