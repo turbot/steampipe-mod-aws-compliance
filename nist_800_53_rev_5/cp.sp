@@ -300,7 +300,7 @@ benchmark "nist_800_53_rev_5_cp_9" {
 
 benchmark "nist_800_53_rev_5_cp_9_a" {
   title       = "CP-9(a)"
-  description = "a. Conduct backups of user-level information contained in [Assignment: organization-defined system components] [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
+  description = "Conduct backups of user-level information contained in [Assignment: organization-defined system components] [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -321,7 +321,7 @@ benchmark "nist_800_53_rev_5_cp_9_a" {
 
 benchmark "nist_800_53_rev_5_cp_9_b" {
   title       = "CP-9(b)"
-  description = "b. Conduct backups of system-level information contained in the system [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
+  description = "Conduct backups of system-level information contained in the system [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -342,7 +342,7 @@ benchmark "nist_800_53_rev_5_cp_9_b" {
 
 benchmark "nist_800_53_rev_5_cp_9_c" {
   title       = "CP-9(c)"
-  description = "c. Conduct backups of system documentation, including security- and privacy-related documentation [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
+  description = "Conduct backups of system documentation, including security- and privacy-related documentation [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.ebs_volume_in_backup_plan,
@@ -363,7 +363,7 @@ benchmark "nist_800_53_rev_5_cp_9_c" {
 
 benchmark "nist_800_53_rev_5_cp_9_d" {
   title       = "CP-9(d)"
-  description = "d. Protect the confidentiality, integrity, and availability of backup information."
+  description = "Protect the confidentiality, integrity, and availability of backup information."
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,

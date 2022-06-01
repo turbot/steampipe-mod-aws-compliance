@@ -29,7 +29,7 @@ benchmark "nist_800_53_rev_5_cm_2" {
 
 benchmark "nist_800_53_rev_5_cm_2_a" {
   title       = "CM-2(a)"
-  description = "a. Develop, document, and maintain under configuration control, a current baseline configuration of the system."
+  description = "Develop, document, and maintain under configuration control, a current baseline configuration of the system."
   children = [
     control.ebs_volume_unsued,
     control.ec2_instance_ssm_managed,
@@ -44,7 +44,7 @@ benchmark "nist_800_53_rev_5_cm_2_a" {
 
 benchmark "nist_800_53_rev_5_cm_2_b" {
   title       = "CM-2(b)"
-  description = "b. Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]; 2. When required due to [Assignment: organization-defined circumstances]; and 3. When system components are installed or upgraded."
+  description = "Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]; 2. When required due to [Assignment: organization-defined circumstances]; and 3. When system components are installed or upgraded."
   children = [
     benchmark.nist_800_53_rev_5_cm_2_b_1,
     benchmark.nist_800_53_rev_5_cm_2_b_2,
@@ -62,7 +62,7 @@ benchmark "nist_800_53_rev_5_cm_2_b" {
 
 benchmark "nist_800_53_rev_5_cm_2_b_1" {
   title       = "CM-2(b)(1)"
-  description = "b. Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]."
+  description = "Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]."
   children = [
     control.account_part_of_organizations,
     control.ebs_volume_unsued,
@@ -77,7 +77,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_1" {
 
 benchmark "nist_800_53_rev_5_cm_2_b_2" {
   title       = "CM-2(b)(2)"
-  description = "b. Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances]."
+  description = "Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances]."
   children = [
     control.account_part_of_organizations,
     control.ebs_volume_unsued,
@@ -92,7 +92,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_2" {
 
 benchmark "nist_800_53_rev_5_cm_2_b_3" {
   title       = "CM-2(b)(3)"
-  description = "b. Review and update the baseline configuration of the system: 3 When system components are installed or upgraded."
+  description = "Review and update the baseline configuration of the system: 3 When system components are installed or upgraded."
   children = [
     control.account_part_of_organizations,
     control.ebs_volume_unsued,
@@ -133,7 +133,7 @@ benchmark "nist_800_53_rev_5_cm_3" {
 
 benchmark "nist_800_53_rev_5_cm_3_a" {
   title       = "CM-3(a)"
-  description = "a. Determine and document the types of changes to the system that are configuration-controlled."
+  description = "Determine and document the types of changes to the system that are configuration-controlled."
   children = [
     control.elb_application_lb_deletion_protection_enabled,
     control.rds_db_instance_deletion_protection_enabled
@@ -180,7 +180,7 @@ benchmark "nist_800_53_rev_5_cm_5_1" {
 
 benchmark "nist_800_53_rev_5_cm_5_1_a" {
   title       = "CM-5(1)(a)"
-  description = "(a) Enforce access restrictions using [Assignment: organization-defined automated mechanisms]."
+  description = "Enforce access restrictions using [Assignment: organization-defined automated mechanisms]."
   children = [
     control.ec2_instance_iam_profile_attached,
     control.ec2_instance_uses_imdsv2,
@@ -207,7 +207,7 @@ benchmark "nist_800_53_rev_5_cm_5_1_a" {
 
 benchmark "nist_800_53_rev_5_cm_5_1_b" {
   title       = "CM-5(1)(b)"
-  description = "(b) Automatically generate audit records of the enforcement actions."
+  description = "Automatically generate audit records of the enforcement actions."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -239,7 +239,7 @@ benchmark "nist_800_53_rev_5_cm_6" {
 
 benchmark "nist_800_53_rev_5_cm_6_a" {
   title       = "CM-6(a)"
-  description = "a. Establish and document configuration settings for components employed within the system that reflect the most restrictive mode consistent with operational requirements using [Assignment: organization-defined common secure configurations]."
+  description = "Establish and document configuration settings for components employed within the system that reflect the most restrictive mode consistent with operational requirements using [Assignment: organization-defined common secure configurations]."
   children = [
     control.account_part_of_organizations,
     control.autoscaling_group_with_lb_use_health_check,
@@ -291,7 +291,7 @@ benchmark "nist_800_53_rev_5_cm_7" {
 
 benchmark "nist_800_53_rev_5_cm_7_b" {
   title       = "CM-7(b)"
-  description = "b. Prohibit or restrict the use of the following functions, ports, protocols, software, and/or services: [Assignment: organization-defined prohibited or restricted functions, system ports, protocols, software, and/or services]."
+  description = "Prohibit or restrict the use of the following functions, ports, protocols, software, and/or services: [Assignment: organization-defined prohibited or restricted functions, system ports, protocols, software, and/or services]."
   children = [
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all
@@ -317,7 +317,7 @@ benchmark "nist_800_53_rev_5_cm_8" {
 
 benchmark "nist_800_53_rev_5_cm_8_a" {
   title       = "CM-8(a)"
-  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system; 2. Includes all components within the system; 3. Does not include duplicate accounting of components or components assigned to any other system; 4. Is at the level of granularity deemed necessary for tracking and reporting; and 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
+  description = "Develop and document an inventory of system components that: 1. Accurately reflects the system; 2. Includes all components within the system; 3. Does not include duplicate accounting of components or components assigned to any other system; 4. Is at the level of granularity deemed necessary for tracking and reporting; and 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
   children = [
     benchmark.nist_800_53_rev_5_cm_8_a_1,
     benchmark.nist_800_53_rev_5_cm_8_a_2,
@@ -333,7 +333,7 @@ benchmark "nist_800_53_rev_5_cm_8_a" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_1" {
   title       = "CM-8(a)(1)"
-  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system."
+  description = "Develop and document an inventory of system components that: 1. Accurately reflects the system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -344,7 +344,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_1" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_2" {
   title       = "CM-8(a)(2)"
-  description = "a. Develop and document an inventory of system components that: 2. Includes all components within the system."
+  description = "Develop and document an inventory of system components that: 2. Includes all components within the system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -355,7 +355,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_2" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_3" {
   title       = "CM-8(a)(3)"
-  description = "a. Develop and document an inventory of system components that: 3. Does not include duplicate accounting of components or components assigned to any other system."
+  description = "Develop and document an inventory of system components that: 3. Does not include duplicate accounting of components or components assigned to any other system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -366,7 +366,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_3" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_4" {
   title       = "CM-8(a)(4)"
-  description = "a. Develop and document an inventory of system components that: 4. Is at the level of granularity deemed necessary for tracking and reporting."
+  description = "Develop and document an inventory of system components that: 4. Is at the level of granularity deemed necessary for tracking and reporting."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -377,7 +377,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_4" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_5" {
   title       = "CM-8(a)(5)"
-  description = "a. Develop and document an inventory of system components that: 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
+  description = "Develop and document an inventory of system components that: 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
@@ -388,7 +388,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_5" {
 
 benchmark "nist_800_53_rev_5_cm_8_b" {
   title       = "CM-8(b)"
-  description = "b. Review and update the system component inventory [Assignment: organization-defined frequency]."
+  description = "Review and update the system component inventory [Assignment: organization-defined frequency]."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -430,7 +430,7 @@ benchmark "nist_800_53_rev_5_cm_8_3" {
 
 benchmark "nist_800_53_rev_5_cm_8_3_a" {
   title       = "CM-8(3)(a)"
-  description = "(a) Detect the presence of unauthorized hardware, software, and firmware components within the system using [Assignment: organization-defined automated mechanisms] [Assignment: organization-defined frequency]."
+  description = "Detect the presence of unauthorized hardware, software, and firmware components within the system using [Assignment: organization-defined automated mechanisms] [Assignment: organization-defined frequency]."
   children = [
     control.ec2_instance_ssm_managed,
     control.guardduty_enabled,
@@ -519,7 +519,7 @@ benchmark "nist_800_53_rev_5_cm_12" {
 
 benchmark "nist_800_53_rev_5_cm_12_b" {
   title       = "CM-12(b)"
-  description = "b. Identify and document the users who have access to the system and system components where the information is processed and stored."
+  description = "Identify and document the users who have access to the system and system components where the information is processed and stored."
   children = [
     control.iam_account_password_policy_min_length_14
   ]
