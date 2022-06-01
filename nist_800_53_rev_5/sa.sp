@@ -96,7 +96,7 @@ benchmark "nist_800_53_rev_5_sa_15" {
 
 benchmark "nist_800_53_rev_5_sa_15_a_4" {
   title       = "SA-15(a)(4)"
-  description = "a. Require the developer of the system, system component, or system service to follow a documented development process that: 4. Documents, manages, and ensures the integrity of changes to the process and/or tools used in development;"
+  description = "a. Require the developer of the system, system component, or system service to follow a documented development process that: 4. Documents, manages, and ensures the integrity of changes to the process and/or tools used in development."
   children = [
     control.elb_application_lb_deletion_protection_enabled,
     control.rds_db_instance_deletion_protection_enabled

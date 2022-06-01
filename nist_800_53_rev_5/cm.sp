@@ -29,14 +29,14 @@ benchmark "nist_800_53_rev_5_cm_2" {
 
 benchmark "nist_800_53_rev_5_cm_2_a" {
   title       = "CM-2(a)"
-  description = "a. Develop, document, and maintain under configuration control, a current baseline configuration of the system;"
+  description = "a. Develop, document, and maintain under configuration control, a current baseline configuration of the system."
   children = [
     control.ebs_volume_unsued,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.elb_application_lb_deletion_protection_enabled,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_common_ports_all
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -54,7 +54,7 @@ benchmark "nist_800_53_rev_5_cm_2_b" {
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -62,14 +62,14 @@ benchmark "nist_800_53_rev_5_cm_2_b" {
 
 benchmark "nist_800_53_rev_5_cm_2_b_1" {
   title       = "CM-2(b)(1)"
-  description = "b. Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency];"
+  description = "b. Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]."
   children = [
     control.account_part_of_organizations,
     control.ebs_volume_unsued,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -77,14 +77,14 @@ benchmark "nist_800_53_rev_5_cm_2_b_1" {
 
 benchmark "nist_800_53_rev_5_cm_2_b_2" {
   title       = "CM-2(b)(2)"
-  description = "b. Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances];"
+  description = "b. Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances]."
   children = [
     control.account_part_of_organizations,
     control.ebs_volume_unsued,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -94,12 +94,12 @@ benchmark "nist_800_53_rev_5_cm_2_b_3" {
   title       = "CM-2(b)(3)"
   description = "b. Review and update the baseline configuration of the system: 3 When system components are installed or upgraded."
   children = [
-    control.ec2_instance_ssm_managed,
     control.account_part_of_organizations,
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_stopped_instance_30_days,
     control.ebs_volume_unsued,
+    control.ec2_instance_ssm_managed,
+    control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -133,7 +133,7 @@ benchmark "nist_800_53_rev_5_cm_3" {
 
 benchmark "nist_800_53_rev_5_cm_3_a" {
   title       = "CM-3(a)"
-  description = "a. Determine and document the types of changes to the system that are configuration-controlled;"
+  description = "a. Determine and document the types of changes to the system that are configuration-controlled."
   children = [
     control.elb_application_lb_deletion_protection_enabled,
     control.rds_db_instance_deletion_protection_enabled
@@ -151,7 +151,7 @@ benchmark "nist_800_53_rev_5_cm_3_3" {
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -180,7 +180,7 @@ benchmark "nist_800_53_rev_5_cm_5_1" {
 
 benchmark "nist_800_53_rev_5_cm_5_1_a" {
   title       = "CM-5(1)(a)"
-  description = "(a) Enforce access restrictions using [Assignment: organization-defined automated mechanisms];"
+  description = "(a) Enforce access restrictions using [Assignment: organization-defined automated mechanisms]."
   children = [
     control.ec2_instance_iam_profile_attached,
     control.ec2_instance_uses_imdsv2,
@@ -199,8 +199,7 @@ benchmark "nist_800_53_rev_5_cm_5_1_a" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
-
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -228,7 +227,7 @@ benchmark "nist_800_53_rev_5_cm_5_1_b" {
 
 benchmark "nist_800_53_rev_5_cm_6" {
   title       = "Configuration Settings (CM-6)"
-  description = "The organization: (i) establishes mandatory configuration settings for information technology products employed within the information system; (ii) configures the security settings of information technology products to the most restrictive mode consistent with operational requirements; (iii) documents the configuration settings; and (iv) enforces the configuration settings in all components of the information system"
+  description = "The organization: (i) establishes mandatory configuration settings for information technology products employed within the information system; (ii) configures the security settings of information technology products to the most restrictive mode consistent with operational requirements; (iii) documents the configuration settings; and (iv) enforces the configuration settings in all components of the information system."
   children = [
     benchmark.nist_800_53_rev_5_cm_6_a,
     control.ec2_instance_ssm_managed,
@@ -240,7 +239,7 @@ benchmark "nist_800_53_rev_5_cm_6" {
 
 benchmark "nist_800_53_rev_5_cm_6_a" {
   title       = "CM-6(a)"
-  description = "a. Establish and document configuration settings for components employed within the system that reflect the most restrictive mode consistent with operational requirements using [Assignment: organization-defined common secure configurations];"
+  description = "a. Establish and document configuration settings for components employed within the system that reflect the most restrictive mode consistent with operational requirements using [Assignment: organization-defined common secure configurations]."
   children = [
     control.account_part_of_organizations,
     control.autoscaling_group_with_lb_use_health_check,
@@ -274,7 +273,7 @@ benchmark "nist_800_53_rev_5_cm_6_a" {
     control.s3_public_access_block_account,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_flow_logs_enabled,
-    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_common_ports_all
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -318,7 +317,7 @@ benchmark "nist_800_53_rev_5_cm_8" {
 
 benchmark "nist_800_53_rev_5_cm_8_a" {
   title       = "CM-8(a)"
-  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system; 2. Includes all components within the system; 3. Does not include duplicate accounting of components or components assigned to any other system; 4. Is at the level of granularity deemed necessary for tracking and reporting; and 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability];"
+  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system; 2. Includes all components within the system; 3. Does not include duplicate accounting of components or components assigned to any other system; 4. Is at the level of granularity deemed necessary for tracking and reporting; and 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
   children = [
     benchmark.nist_800_53_rev_5_cm_8_a_1,
     benchmark.nist_800_53_rev_5_cm_8_a_2,
@@ -334,7 +333,7 @@ benchmark "nist_800_53_rev_5_cm_8_a" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_1" {
   title       = "CM-8(a)(1)"
-  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system;"
+  description = "a. Develop and document an inventory of system components that: 1. Accurately reflects the system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -345,7 +344,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_1" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_2" {
   title       = "CM-8(a)(2)"
-  description = "a. Develop and document an inventory of system components that: 2. Includes all components within the system;"
+  description = "a. Develop and document an inventory of system components that: 2. Includes all components within the system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -356,7 +355,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_2" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_3" {
   title       = "CM-8(a)(3)"
-  description = "a. Develop and document an inventory of system components that: 3. Does not include duplicate accounting of components or components assigned to any other system;"
+  description = "a. Develop and document an inventory of system components that: 3. Does not include duplicate accounting of components or components assigned to any other system."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -367,7 +366,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_3" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_4" {
   title       = "CM-8(a)(4)"
-  description = "a. Develop and document an inventory of system components that: 4. Is at the level of granularity deemed necessary for tracking and reporting;"
+  description = "a. Develop and document an inventory of system components that: 4. Is at the level of granularity deemed necessary for tracking and reporting."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
@@ -378,7 +377,7 @@ benchmark "nist_800_53_rev_5_cm_8_a_4" {
 
 benchmark "nist_800_53_rev_5_cm_8_a_5" {
   title       = "CM-8(a)(5)"
-  description = "a. Develop and document an inventory of system components that: 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability];"
+  description = "a. Develop and document an inventory of system components that: 5. Includes the following information to achieve system component accountability: [Assignment: organization-defined information deemed necessary to achieve effective system component accountability]."
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
@@ -431,7 +430,7 @@ benchmark "nist_800_53_rev_5_cm_8_3" {
 
 benchmark "nist_800_53_rev_5_cm_8_3_a" {
   title       = "CM-8(3)(a)"
-  description = "(a) Detect the presence of unauthorized hardware, software, and firmware components within the system using [Assignment: organization-defined automated mechanisms] [Assignment: organization-defined frequency];"
+  description = "(a) Detect the presence of unauthorized hardware, software, and firmware components within the system using [Assignment: organization-defined automated mechanisms] [Assignment: organization-defined frequency]."
   children = [
     control.ec2_instance_ssm_managed,
     control.guardduty_enabled,
@@ -469,7 +468,7 @@ benchmark "nist_800_53_rev_5_cm_9" {
 
 benchmark "nist_800_53_rev_5_cm_9_b" {
   title       = "CM-9(b)"
-  description = "Develop, document, and implement a configuration management plan for the system that: b. Establishes a process for identifying configuration items throughout the system development life cycle and for managing the configuration of the configuration items;"
+  description = "Develop, document, and implement a configuration management plan for the system that: b. Establishes a process for identifying configuration items throughout the system development life cycle and for managing the configuration of the configuration items."
   children = [
     control.account_part_of_organizations,
     control.autoscaling_group_with_lb_use_health_check,
@@ -502,7 +501,7 @@ benchmark "nist_800_53_rev_5_cm_9_b" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_flow_logs_enabled,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -520,7 +519,7 @@ benchmark "nist_800_53_rev_5_cm_12" {
 
 benchmark "nist_800_53_rev_5_cm_12_b" {
   title       = "CM-12(b)"
-  description = "b. Identify and document the users who have access to the system and system components where the information is processed and stored;"
+  description = "b. Identify and document the users who have access to the system and system components where the information is processed and stored."
   children = [
     control.iam_account_password_policy_min_length_14
   ]

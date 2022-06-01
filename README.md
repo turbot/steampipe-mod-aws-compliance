@@ -15,9 +15,9 @@ Includes support for:
 * [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
 * [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
-* [General Data Protection Regulation (GDPR)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gdpr) 🚀 New!
+* [General Data Protection Regulation (GDPR)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gdpr)
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
-* [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
+* [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5) 🚀 New!
 * [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)

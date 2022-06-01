@@ -32,7 +32,7 @@ benchmark "nist_800_53_rev_5_au_2" {
 
 benchmark "nist_800_53_rev_5_au_2_b" {
   title       = "AU-2(b)"
-  description = "b. Coordinate the event logging function with other organizational entities requiring audit-related information to guide and inform the selection criteria for events to be logged;"
+  description = "b. Coordinate the event logging function with other organizational entities requiring audit-related information to guide and inform the selection criteria for events to be logged."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -44,7 +44,7 @@ benchmark "nist_800_53_rev_5_au_2_b" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -68,7 +68,7 @@ benchmark "nist_800_53_rev_5_au_3" {
 
 benchmark "nist_800_53_rev_5_au_3_a" {
   title       = "AU-3(a)"
-  description = "Ensure that audit records contain information that establishes the following: a. What type of event occurred;"
+  description = "Ensure that audit records contain information that establishes the following: a. What type of event occurred."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -80,7 +80,7 @@ benchmark "nist_800_53_rev_5_au_3_a" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -88,7 +88,7 @@ benchmark "nist_800_53_rev_5_au_3_a" {
 
 benchmark "nist_800_53_rev_5_au_3_b" {
   title       = "AU-3(b)"
-  description = "Ensure that audit records contain information that establishes the following: b. When the event occurred;"
+  description = "Ensure that audit records contain information that establishes the following: b. When the event occurred."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -100,7 +100,7 @@ benchmark "nist_800_53_rev_5_au_3_b" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -108,7 +108,7 @@ benchmark "nist_800_53_rev_5_au_3_b" {
 
 benchmark "nist_800_53_rev_5_au_3_c" {
   title       = "AU-3(c)"
-  description = "Ensure that audit records contain information that establishes the following: c. Where the event occurred;"
+  description = "Ensure that audit records contain information that establishes the following: c. Where the event occurred."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -120,7 +120,7 @@ benchmark "nist_800_53_rev_5_au_3_c" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -128,7 +128,7 @@ benchmark "nist_800_53_rev_5_au_3_c" {
 
 benchmark "nist_800_53_rev_5_au_3_d" {
   title       = "AU-3(d)"
-  description = "Ensure that audit records contain information that establishes the following: d. Source of the event;"
+  description = "Ensure that audit records contain information that establishes the following: d. Source of the event."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -140,7 +140,7 @@ benchmark "nist_800_53_rev_5_au_3_d" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -148,7 +148,7 @@ benchmark "nist_800_53_rev_5_au_3_d" {
 
 benchmark "nist_800_53_rev_5_au_3_e" {
   title       = "AU-3(e)"
-  description = "Ensure that audit records contain information that establishes the following: e. Outcome of the event;"
+  description = "Ensure that audit records contain information that establishes the following: e. Outcome of the event."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -160,7 +160,7 @@ benchmark "nist_800_53_rev_5_au_3_e" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -168,7 +168,7 @@ benchmark "nist_800_53_rev_5_au_3_e" {
 
 benchmark "nist_800_53_rev_5_au_3_f" {
   title       = "AU-3(f)"
-  description = "Ensure that audit records contain information that establishes the following: e. Outcome of the event;"
+  description = "Ensure that audit records contain information that establishes the following: e. Outcome of the event."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -179,7 +179,7 @@ benchmark "nist_800_53_rev_5_au_3_f" {
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -238,7 +238,7 @@ benchmark "nist_800_53_rev_5_au_6_1" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -259,7 +259,7 @@ benchmark "nist_800_53_rev_5_au_6_3" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -293,7 +293,7 @@ benchmark "nist_800_53_rev_5_au_6_5" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -314,7 +314,7 @@ benchmark "nist_800_53_rev_5_au_6_6" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -335,7 +335,7 @@ benchmark "nist_800_53_rev_5_au_6_9" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -385,7 +385,7 @@ benchmark "nist_800_53_rev_5_au_8_b" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -406,7 +406,7 @@ benchmark "nist_800_53_rev_5_au_9" {
 
 benchmark "nist_800_53_rev_5_au_9_a" {
   title       = "AU-9(a)"
-  description = "a. Protect audit information and audit logging tools from unauthorized access, modification, and deletion;"
+  description = "a. Protect audit information and audit logging tools from unauthorized access, modification, and deletion."
   children = [
     control.cloudtrail_trail_validation_enabled
   ]
@@ -454,7 +454,7 @@ benchmark "nist_800_53_rev_5_au_9_3" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -485,7 +485,7 @@ benchmark "nist_800_53_rev_5_au_10" {
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -496,7 +496,7 @@ benchmark "nist_800_53_rev_5_au_11" {
   description = "Retain audit records for [Assignment: organization-defined time period consistent with records retention policy] to provide support for after-the-fact investigations of incidents and to meet regulatory and organizational information retention requirements."
   children = [
     benchmark.nist_800_53_rev_5_au_11_1,
-    control.cloudwatch_log_group_retention_period_365,
+    control.cloudwatch_log_group_retention_period_365
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -526,7 +526,7 @@ benchmark "nist_800_53_rev_5_au_12" {
     benchmark.nist_800_53_rev_5_au_12_3,
     benchmark.nist_800_53_rev_5_au_12_4,
     benchmark.nist_800_53_rev_5_au_12_a,
-    benchmark.nist_800_53_rev_5_au_12_c,
+    benchmark.nist_800_53_rev_5_au_12_c
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -534,7 +534,7 @@ benchmark "nist_800_53_rev_5_au_12" {
 
 benchmark "nist_800_53_rev_5_au_12_a" {
   title       = "AU-12(a)"
-  description = "a. Provide audit record generation capability for the event types the system is capable of auditing as defined in AU-2a on [Assignment: organization-defined system components];"
+  description = "a. Provide audit record generation capability for the event types the system is capable of auditing as defined in AU-2a on [Assignment: organization-defined system components]."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -546,7 +546,7 @@ benchmark "nist_800_53_rev_5_au_12_a" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -566,7 +566,7 @@ benchmark "nist_800_53_rev_5_au_12_c" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -587,7 +587,7 @@ benchmark "nist_800_53_rev_5_au_12_1" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -608,7 +608,7 @@ benchmark "nist_800_53_rev_5_au_12_2" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -637,7 +637,7 @@ benchmark "nist_800_53_rev_5_au_12_3" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -657,7 +657,7 @@ benchmark "nist_800_53_rev_5_au_12_4" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -677,7 +677,7 @@ benchmark "nist_800_53_rev_5_au_14" {
 
 benchmark "nist_800_53_rev_5_au_14_a" {
   title       = "AU-14(a)"
-  description = "a. Provide and implement the capability for [Assignment: organization-defined users or roles] to [Selection (one or more): record; view; hear; log] the content of a user session under [Assignment: organization-defined circumstances];"
+  description = "a. Provide and implement the capability for [Assignment: organization-defined users or roles] to [Selection (one or more): record; view; hear; log] the content of a user session under [Assignment: organization-defined circumstances]."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -698,7 +698,7 @@ benchmark "nist_800_53_rev_5_au_14_a" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -727,7 +727,7 @@ benchmark "nist_800_53_rev_5_au_14_b" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -747,7 +747,7 @@ benchmark "nist_800_53_rev_5_au_14_3" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

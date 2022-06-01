@@ -24,7 +24,7 @@ benchmark "nist_800_53_rev_5_ir_4" {
 
 benchmark "nist_800_53_rev_5_ir_4_a" {
   title       = "IR-4(a)"
-  description = "a. Implement an incident handling capability for incidents that is consistent with the incident response plan and includes preparation, detection and analysis, containment, eradication, and recovery;"
+  description = "a. Implement an incident handling capability for incidents that is consistent with the incident response plan and includes preparation, detection and analysis, containment, eradication, and recovery."
   children = [
     control.guardduty_finding_archived
   ]

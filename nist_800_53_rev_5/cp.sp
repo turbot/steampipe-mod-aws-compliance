@@ -25,7 +25,7 @@ benchmark "nist_800_53_rev_5_cp_1" {
 
 benchmark "nist_800_53_rev_5_cp_1_a" {
   title       = "CP-1(a)"
-  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 1. [Selection (one or more): Organization-level; Mission/business process-level; System-level] contingency planning policy that: a). Addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and b). Is consistent with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines; and 2. Procedures to facilitate the implementation of the contingency planning policy and the associated contingency planning controls;"
+  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 1. [Selection (one or more): Organization-level; Mission/business process-level; System-level] contingency planning policy that: a). Addresses purpose, scope, roles, responsibilities, management commitment, coordination among organizational entities, and compliance; and b). Is consistent with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines; and 2. Procedures to facilitate the implementation of the contingency planning policy and the associated contingency planning controls."
   children = [
     benchmark.nist_800_53_rev_5_cp_1_a_2,
     benchmark.nist_800_53_rev_5_cp_1_a_1_b
@@ -36,14 +36,14 @@ benchmark "nist_800_53_rev_5_cp_1_a" {
 
 benchmark "nist_800_53_rev_5_cp_1_a_1_b" {
   title       = "CP-1(a)(1)(b)"
-  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 1. [Selection (one or more): Organization-level; Mission/business process-level; System-level] contingency planning policy that: (b) Is consistent with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines;"
+  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 1. [Selection (one or more): Organization-level; Mission/business process-level; System-level] contingency planning policy that: (b) Is consistent with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -51,14 +51,14 @@ benchmark "nist_800_53_rev_5_cp_1_a_1_b" {
 
 benchmark "nist_800_53_rev_5_cp_1_a_2" {
   title       = "CP-1(a)(2)"
-  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 2. Procedures to facilitate the implementation of the contingency planning policy and the associated contingency planning controls;"
+  description = "a. Develop, document, and disseminate to [Assignment: organization-defined personnel or roles]: 2. Procedures to facilitate the implementation of the contingency planning policy and the associated contingency planning controls."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -92,7 +92,6 @@ benchmark "nist_800_53_rev_5_cp_2" {
     benchmark.nist_800_53_rev_5_cp_2_e,
     benchmark.nist_800_53_rev_5_cp_2_5,
     benchmark.nist_800_53_rev_5_cp_2_6
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -100,7 +99,7 @@ benchmark "nist_800_53_rev_5_cp_2" {
 
 benchmark "nist_800_53_rev_5_cp_2_a" {
   title       = "CP-2(a)"
-  description = "a. Develop a contingency plan for the system that: 1. Identifies essential mission and business functions and associated contingency requirements; 2. Provides recovery objectives, restoration priorities, and metrics; 3. Addresses contingency roles, responsibilities, assigned individuals with contact information; 4. Addresses maintaining essential mission and business functions despite a system disruption, compromise, or failure; 5. Addresses eventual, full system restoration without deterioration of the controls originally planned and implemented; 6. Addresses the sharing of contingency information; and 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles];"
+  description = "a. Develop a contingency plan for the system that: 1. Identifies essential mission and business functions and associated contingency requirements; 2. Provides recovery objectives, restoration priorities, and metrics; 3. Addresses contingency roles, responsibilities, assigned individuals with contact information; 4. Addresses maintaining essential mission and business functions despite a system disruption, compromise, or failure; 5. Addresses eventual, full system restoration without deterioration of the controls originally planned and implemented; 6. Addresses the sharing of contingency information; and 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles]."
   children = [
     benchmark.nist_800_53_rev_5_cp_2_a_6,
     benchmark.nist_800_53_rev_5_cp_2_a_7,
@@ -117,7 +116,7 @@ benchmark "nist_800_53_rev_5_cp_2_a" {
 
 benchmark "nist_800_53_rev_5_cp_2_a_6" {
   title       = "CP-2(a)(6)"
-  description = "a. Develop a contingency plan for the system that: 6. Addresses the sharing of contingency information;"
+  description = "a. Develop a contingency plan for the system that: 6. Addresses the sharing of contingency information."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -132,7 +131,7 @@ benchmark "nist_800_53_rev_5_cp_2_a_6" {
 
 benchmark "nist_800_53_rev_5_cp_2_a_7" {
   title       = "CP-2(a)(7)"
-  description = "a. Develop a contingency plan for the system that: 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles];"
+  description = "a. Develop a contingency plan for the system that: 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles]."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -147,7 +146,7 @@ benchmark "nist_800_53_rev_5_cp_2_a_7" {
 
 benchmark "nist_800_53_rev_5_cp_2_d" {
   title       = "CP-2(d)"
-  description = "d. Review the contingency plan for the system [Assignment: organization-defined frequency];"
+  description = "d. Review the contingency plan for the system [Assignment: organization-defined frequency]"
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -162,14 +161,14 @@ benchmark "nist_800_53_rev_5_cp_2_d" {
 
 benchmark "nist_800_53_rev_5_cp_2_e" {
   title       = "CP-2(e)"
-  description = "e. Update the contingency plan to address changes to the organization, system, or environment of operation and problems encountered during contingency plan implementation, execution, or testing;"
+  description = "e. Update the contingency plan to address changes to the organization, system, or environment of operation and problems encountered during contingency plan implementation, execution, or testing."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_deletion_protection_enabled,
     control.rds_db_instance_multiple_az_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -208,7 +207,7 @@ benchmark "nist_800_53_rev_5_cp_2_6" {
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_multiple_az_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -228,7 +227,7 @@ benchmark "nist_800_53_rev_5_cp_6" {
 
 benchmark "nist_800_53_rev_5_cp_6_a" {
   title       = "CP-6(a)"
-  description = "a. Establish an alternate storage site, including necessary agreements to permit the storage and retrieval of system backup information;"
+  description = "a. Establish an alternate storage site, including necessary agreements to permit the storage and retrieval of system backup information."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.ebs_volume_in_backup_plan,
@@ -293,7 +292,7 @@ benchmark "nist_800_53_rev_5_cp_9" {
     benchmark.nist_800_53_rev_5_cp_9_a,
     benchmark.nist_800_53_rev_5_cp_9_b,
     benchmark.nist_800_53_rev_5_cp_9_c,
-    benchmark.nist_800_53_rev_5_cp_9_d,
+    benchmark.nist_800_53_rev_5_cp_9_d
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -301,7 +300,7 @@ benchmark "nist_800_53_rev_5_cp_9" {
 
 benchmark "nist_800_53_rev_5_cp_9_a" {
   title       = "CP-9(a)"
-  description = "a. Conduct backups of user-level information contained in [Assignment: organization-defined system components] [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives];"
+  description = "a. Conduct backups of user-level information contained in [Assignment: organization-defined system components] [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -322,7 +321,7 @@ benchmark "nist_800_53_rev_5_cp_9_a" {
 
 benchmark "nist_800_53_rev_5_cp_9_b" {
   title       = "CP-9(b)"
-  description = "b. Conduct backups of system-level information contained in the system [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives];"
+  description = "b. Conduct backups of system-level information contained in the system [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -335,7 +334,7 @@ benchmark "nist_800_53_rev_5_cp_9_b" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.redshift_cluster_maintenance_settings_check,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -343,7 +342,7 @@ benchmark "nist_800_53_rev_5_cp_9_b" {
 
 benchmark "nist_800_53_rev_5_cp_9_c" {
   title       = "CP-9(c)"
-  description = "c. Conduct backups of system documentation, including security- and privacy-related documentation [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives];"
+  description = "c. Conduct backups of system documentation, including security- and privacy-related documentation [Assignment: organization-defined frequency consistent with recovery time and recovery point objectives]."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.ebs_volume_in_backup_plan,
@@ -356,7 +355,7 @@ benchmark "nist_800_53_rev_5_cp_9_c" {
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.redshift_cluster_maintenance_settings_check,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -383,7 +382,7 @@ benchmark "nist_800_53_rev_5_cp_9_d" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -420,7 +419,7 @@ benchmark "nist_800_53_rev_5_cp_10" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -439,7 +438,7 @@ benchmark "nist_800_53_rev_5_cp_10_2" {
     control.rds_db_instance_in_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

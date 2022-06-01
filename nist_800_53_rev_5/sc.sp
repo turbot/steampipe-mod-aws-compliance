@@ -28,7 +28,7 @@ benchmark "nist_800_53_rev_5_sc_5" {
     benchmark.nist_800_53_rev_5_sc_5_2,
     benchmark.nist_800_53_rev_5_sc_5_3,
     benchmark.nist_800_53_rev_5_sc_5_a,
-    benchmark.nist_800_53_rev_5_sc_5_b,
+    benchmark.nist_800_53_rev_5_sc_5_b
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -67,7 +67,7 @@ benchmark "nist_800_53_rev_5_sc_5_2" {
     control.redshift_cluster_maintenance_settings_check,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -88,7 +88,7 @@ benchmark "nist_800_53_rev_5_sc_5_3" {
 
 benchmark "nist_800_53_rev_5_sc_5_a" {
   title       = "SC-5(a)"
-  description = "a. [Selection: Protect against; Limit] the effects of the following types of denial-of-service events: [Assignment: organization-defined types of denial-of-service events];"
+  description = "a. [Selection: Protect against; Limit] the effects of the following types of denial-of-service events: [Assignment: organization-defined types of denial-of-service events]."
   children = [
     control.guardduty_enabled
   ]
@@ -112,7 +112,7 @@ benchmark "nist_800_53_rev_5_sc_5_b" {
 
 benchmark "nist_800_53_rev_5_sc_5_3_a" {
   title       = "SC-5(3)(a)"
-  description = "(a) Employ the following monitoring tools to detect indicators of denial-of-service attacks against, or launched from, the system: [Assignment: organization-defined monitoring tools];"
+  description = "(a) Employ the following monitoring tools to detect indicators of denial-of-service attacks against, or launched from, the system: [Assignment: organization-defined monitoring tools]."
   children = [
     control.guardduty_enabled
   ]
@@ -244,7 +244,7 @@ benchmark "nist_800_53_rev_5_sc_7_4" {
 
 benchmark "nist_800_53_rev_5_sc_7_4_b" {
   title       = "SC-7(4)(b)"
-  description = "(b) Establish a traffic flow policy for each managed interface;"
+  description = "(b) Establish a traffic flow policy for each managed interface."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -260,7 +260,7 @@ benchmark "nist_800_53_rev_5_sc_7_4_b" {
 
 benchmark "nist_800_53_rev_5_sc_7_4_g" {
   title       = "SC-7(4)(g)"
-  description = "(g) Publish information to enable remote networks to detect unauthorized control plane traffic from internal networks;"
+  description = "(g) Publish information to enable remote networks to detect unauthorized control plane traffic from internal networks."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -311,7 +311,7 @@ benchmark "nist_800_53_rev_5_sc_7_7" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -330,7 +330,7 @@ benchmark "nist_800_53_rev_5_sc_7_9" {
 
 benchmark "nist_800_53_rev_5_sc_7_9_a" {
   title       = "SC-7(9)(a)"
-  description = "(a) Detect and deny outgoing communications traffic posing a threat to external systems;"
+  description = "(a) Detect and deny outgoing communications traffic posing a threat to external systems."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -348,7 +348,7 @@ benchmark "nist_800_53_rev_5_sc_7_9_a" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -531,7 +531,7 @@ benchmark "nist_800_53_rev_5_sc_7_24" {
 
 benchmark "nist_800_53_rev_5_sc_7_24_b" {
   title       = "SC-7(24)(b)"
-  description = "For systems that process personally identifiable information: (b) Monitor for permitted processing at the external interfaces to the system and at key internal boundaries within the system;"
+  description = "For systems that process personally identifiable information: (b) Monitor for permitted processing at the external interfaces to the system and at key internal boundaries within the system."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -631,7 +631,7 @@ benchmark "nist_800_53_rev_5_sc_7_27" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -665,7 +665,7 @@ benchmark "nist_800_53_rev_5_sc_7_28" {
 
 benchmark "nist_800_53_rev_5_sc_7_a" {
   title       = "SC-7(a)"
-  description = "a. Monitor and control communications at the external managed interfaces to the system and at key internal managed interfaces within the system;"
+  description = "a. Monitor and control communications at the external managed interfaces to the system and at key internal managed interfaces within the system."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -695,7 +695,7 @@ benchmark "nist_800_53_rev_5_sc_7_a" {
 
 benchmark "nist_800_53_rev_5_sc_7_b" {
   title       = "SC-7(b)"
-  description = "b. Implement subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks;"
+  description = "b. Implement subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -941,7 +941,7 @@ benchmark "nist_800_53_rev_5_sc_13" {
 
 benchmark "nist_800_53_rev_5_sc_13_a" {
   title       = "SC-13(a)"
-  description = "a. Determine the [Assignment: organization-defined cryptographic uses];"
+  description = "a. Determine the [Assignment: organization-defined cryptographic uses]."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
@@ -967,7 +967,7 @@ benchmark "nist_800_53_rev_5_sc_13_a" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1090,7 +1090,7 @@ benchmark "nist_800_53_rev_5_sc_25" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1128,7 +1128,7 @@ benchmark "nist_800_53_rev_5_sc_28_1" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1162,7 +1162,7 @@ benchmark "nist_800_53_rev_5_sc_36" {
 
 benchmark "nist_800_53_rev_5_sc_36_1_a" {
   title       = "SC-36(1)(a)"
-  description = "(a) Employ polling techniques to identify potential faults, errors, or compromises to the following processing and storage components: [Assignment: organization-defined distributed processing and storage components];"
+  description = "(a) Employ polling techniques to identify potential faults, errors, or compromises to the following processing and storage components: [Assignment: organization-defined distributed processing and storage components]."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudwatch_alarm_action_enabled,

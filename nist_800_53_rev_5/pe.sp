@@ -27,7 +27,7 @@ benchmark "nist_800_53_rev_5_pe_6_2" {
   title       = "PE-6(2) Monitoring Physical Access"
   description = "Recognize [Assignment: organization-defined classes or types of intrusions] and initiate [Assignment: organization-defined response actions] using [Assignment: organization-defined automated mechanisms]."
   children = [
-    control.guardduty_enabled,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -39,7 +39,7 @@ benchmark "nist_800_53_rev_5_pe_6_4" {
   title       = "PE-6(4) Monitoring Physical Access"
   description = "Monitor physical access to the system in addition to the physical access monitoring of the facility at [Assignment: organization-defined physical spaces containing one or more components of the system]."
   children = [
-    control.guardduty_enabled,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {

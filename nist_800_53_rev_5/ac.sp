@@ -28,7 +28,7 @@ benchmark "nist_800_53_rev_5_ac_2" {
     benchmark.nist_800_53_rev_5_ac_2_d_1,
     benchmark.nist_800_53_rev_5_ac_2_g,
     benchmark.nist_800_53_rev_5_ac_2_i_2,
-    benchmark.nist_800_53_rev_5_ac_2_j,
+    benchmark.nist_800_53_rev_5_ac_2_j
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -52,7 +52,7 @@ benchmark "nist_800_53_rev_5_ac_2_1" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -67,7 +67,7 @@ benchmark "nist_800_53_rev_5_ac_2_3" {
     benchmark.nist_800_53_rev_5_ac_2_3_a,
     benchmark.nist_800_53_rev_5_ac_2_3_b,
     benchmark.nist_800_53_rev_5_ac_2_3_c,
-    benchmark.nist_800_53_rev_5_ac_2_3_d,
+    benchmark.nist_800_53_rev_5_ac_2_3_d
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -75,10 +75,10 @@ benchmark "nist_800_53_rev_5_ac_2_3" {
 
 benchmark "nist_800_53_rev_5_ac_2_3_a" {
   title       = "AC-2(3)(a)"
-  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (a) Have expired;"
+  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (a) Have expired."
   children = [
-    control.iam_user_unused_credentials_90,
-    control.iam_account_password_policy_min_length_14
+    control.iam_account_password_policy_min_length_14,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -88,10 +88,10 @@ benchmark "nist_800_53_rev_5_ac_2_3_a" {
 
 benchmark "nist_800_53_rev_5_ac_2_3_b" {
   title       = "AC-2(3)(b)"
-  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (b) Are no longer associated with a user or individual;"
+  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (b) Are no longer associated with a user or individual."
   children = [
-    control.iam_user_unused_credentials_90,
-    control.iam_account_password_policy_min_length_14
+    control.iam_account_password_policy_min_length_14,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -101,10 +101,10 @@ benchmark "nist_800_53_rev_5_ac_2_3_b" {
 
 benchmark "nist_800_53_rev_5_ac_2_3_c" {
   title       = "AC-2(3)(c)"
-  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (c) Are in violation of organizational policy;"
+  description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (c) Are in violation of organizational policy."
   children = [
-    control.iam_user_unused_credentials_90,
-    control.iam_account_password_policy_min_length_14
+    control.iam_account_password_policy_min_length_14,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -114,8 +114,8 @@ benchmark "nist_800_53_rev_5_ac_2_3_d" {
   title       = "AC-2(3)(d)"
   description = "Disable accounts within [Assignment: organization-defined time period] when the accounts: (d) Have been inactive for [Assignment: organization-defined time period]."
   children = [
-    control.iam_user_unused_credentials_90,
-    control.iam_account_password_policy_min_length_14
+    control.iam_account_password_policy_min_length_14,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -166,7 +166,7 @@ benchmark "nist_800_53_rev_5_ac_2_6" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -186,7 +186,7 @@ benchmark "nist_800_53_rev_5_ac_2_12_a" {
   title       = "AC-2(12)(a)"
   description = "(a) Monitor system accounts for [Assignment: organization-defined atypical usage]."
   children = [
-    control.guardduty_enabled,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -237,7 +237,7 @@ benchmark "nist_800_53_rev_5_ac_2_j" {
   title       = "AC-2(j)"
   description = "The organization: j. Reviews accounts for compliance with account management requirements [Assignment: organization-defined frequency]."
   children = [
-    control.iam_user_unused_credentials_90,
+    control.iam_user_unused_credentials_90
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -284,7 +284,7 @@ benchmark "nist_800_53_rev_5_ac_3" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -348,7 +348,6 @@ benchmark "nist_800_53_rev_5_ac_3_3" {
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
     control.secretsmanager_secret_unused_90_day
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -356,7 +355,7 @@ benchmark "nist_800_53_rev_5_ac_3_3" {
 
 benchmark "nist_800_53_rev_5_ac_3_3_a" {
   title       = "AC-3(3)(a)"
-  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (a) Is uniformly enforced across the covered subjects and objects within the system;"
+  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (a) Is uniformly enforced across the covered subjects and objects within the system."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -374,7 +373,6 @@ benchmark "nist_800_53_rev_5_ac_3_3_a" {
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
     control.secretsmanager_secret_unused_90_day
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -400,7 +398,6 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_1" {
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
     control.secretsmanager_secret_unused_90_day
-
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -408,7 +405,7 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_1" {
 
 benchmark "nist_800_53_rev_5_ac_3_3_b_2" {
   title       = "AC-3(3)(b)(2)"
-  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (2) Granting its privileges to other subjects;"
+  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (2) Granting its privileges to other subjects."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -458,7 +455,7 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_3" {
 
 benchmark "nist_800_53_rev_5_ac_3_3_b_4" {
   title       = "AC-3(3)(b)(4)"
-  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (4) Choosing the security attributes and attribute values (specified by the policy) to be associated with newly created or modified objects;"
+  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (4) Choosing the security attributes and attribute values (specified by the policy) to be associated with newly created or modified objects."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -475,7 +472,7 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_4" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -483,7 +480,7 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_4" {
 
 benchmark "nist_800_53_rev_5_ac_3_3_b_5" {
   title       = "AC-3(3)(b)(5)"
-  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (5) Changing the rules governing access;"
+  description = "Enforce [Assignment: organization-defined mandatory access policy] over the set of covered subjects and objects specified in the policy, and where the policy: (b) Specifies that a subject that has been granted access to information is constrained from doing any of the following; (5) Changing the rules governing access."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -500,7 +497,7 @@ benchmark "nist_800_53_rev_5_ac_3_3_b_5" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -588,7 +585,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_a" {
 
 benchmark "nist_800_53_rev_5_ac_3_4_b" {
   title       = "AC-3(4)(b)"
-  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (b) Grant its privileges to other subjects;"
+  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (b) Grant its privileges to other subjects."
   children = [
     control.secretsmanager_secret_unused_90_day,
     control.secretsmanager_secret_rotated_as_scheduled,
@@ -613,7 +610,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_b" {
 
 benchmark "nist_800_53_rev_5_ac_3_4_c" {
   title       = "AC-3(4)(c)"
-  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (c) Change security attributes on subjects, objects, the system, or the system’s components;"
+  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (c) Change security attributes on subjects, objects, the system, or the system’s components."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -630,7 +627,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_c" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -638,7 +635,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_c" {
 
 benchmark "nist_800_53_rev_5_ac_3_4_d" {
   title       = "AC-3(4)(d)"
-  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (d) Choose the security attributes to be associated with newly created or revised objects;"
+  description = "Enforce [Assignment: organization-defined discretionary access policy] over the set of covered subjects and objects specified in the policy, and where the policy specifies that a subject that has been granted access to information can do one or more of the following: (d) Choose the security attributes to be associated with newly created or revised objects."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -655,7 +652,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_d" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -680,7 +677,7 @@ benchmark "nist_800_53_rev_5_ac_3_4_e" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -713,7 +710,7 @@ benchmark "nist_800_53_rev_5_ac_3_7" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -738,7 +735,7 @@ benchmark "nist_800_53_rev_5_ac_3_8" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -773,7 +770,7 @@ benchmark "nist_800_53_rev_5_ac_3_12" {
 
 benchmark "nist_800_53_rev_5_ac_3_12_a" {
   title       = "AC-3(12)(a)"
-  description = "(a) Require applications to assert, as part of the installation process, the access needed to the following system applications and functions: [Assignment: organization-defined system applications and functions];"
+  description = "(a) Require applications to assert, as part of the installation process, the access needed to the following system applications and functions: [Assignment: organization-defined system applications and functions]."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -790,7 +787,7 @@ benchmark "nist_800_53_rev_5_ac_3_12_a" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -827,7 +824,7 @@ benchmark "nist_800_53_rev_5_ac_3_13" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -835,7 +832,7 @@ benchmark "nist_800_53_rev_5_ac_3_13" {
 
 benchmark "nist_800_53_rev_5_ac_3_15" {
   title       = "AC-3(15) Discretionary And Mandatory Access Control"
-  description = "a. Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy; and b. Enforce [Assignment: organization-defined discretionary access control policy] over the set of covered subjects and objects specified in the policy"
+  description = "a. Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy; and b. Enforce [Assignment: organization-defined discretionary access control policy] over the set of covered subjects and objects specified in the policy."
   children = [
     benchmark.nist_800_53_rev_5_ac_3_15_a,
     benchmark.nist_800_53_rev_5_ac_3_15_b
@@ -846,7 +843,7 @@ benchmark "nist_800_53_rev_5_ac_3_15" {
 
 benchmark "nist_800_53_rev_5_ac_3_15_a" {
   title       = "AC-3(15)(a)"
-  description = "(a) Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy;"
+  description = "(a) Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -863,7 +860,7 @@ benchmark "nist_800_53_rev_5_ac_3_15_a" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -888,7 +885,7 @@ benchmark "nist_800_53_rev_5_ac_3_15_b" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -989,21 +986,21 @@ benchmark "nist_800_53_rev_5_ac_4_28" {
   description = "When transferring information between different security domains, implement a linear content filter pipeline that is enforced with discretionary and mandatory access controls."
   children = [
     control.ec2_instance_uses_imdsv2,
-    control.iam_group_user_role_no_inline_policies,
-    control.iam_user_access_key_age_90,
     control.iam_account_password_policy_min_length_14,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
-    control.iam_root_user_no_access_keys,
-    control.iam_user_in_group,
-    control.iam_user_mfa_enabled,
-    control.secretsmanager_secret_unused_90_day,
-    control.iam_user_no_inline_attached_policies,
-    control.iam_user_unused_credentials_90,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_access_key_age_90,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_in_group,
+    control.iam_user_mfa_enabled,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1021,11 +1018,11 @@ benchmark "nist_800_53_rev_5_ac_5" {
 
 benchmark "nist_800_53_rev_5_ac_5_b" {
   title       = "AC-5(b)"
-  description = "b. Define system access authorizations to support separation of duties."
+  description = "Define system access authorizations to support separation of duties."
   children = [
     control.ecs_task_definition_user_for_host_mode_check,
     control.iam_all_policy_no_service_wild_card,
-    control.iam_policy_no_star_star,
+    control.iam_policy_no_star_star
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1035,10 +1032,10 @@ benchmark "nist_800_53_rev_5_ac_6" {
   title       = "Least Privilege (AC-6)"
   description = "Employ the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) that are necessary to accomplish assigned organizational tasks."
   children = [
-    benchmark.nist_800_53_rev_5_ac_6_10,
     benchmark.nist_800_53_rev_5_ac_6_2,
     benchmark.nist_800_53_rev_5_ac_6_3,
     benchmark.nist_800_53_rev_5_ac_6_9,
+    benchmark.nist_800_53_rev_5_ac_6_10,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_in_vpc,
@@ -1062,7 +1059,7 @@ benchmark "nist_800_53_rev_5_ac_6" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1074,7 +1071,7 @@ benchmark "nist_800_53_rev_5_ac_6_2" {
   children = [
     control.iam_all_policy_no_service_wild_card,
     control.iam_policy_no_star_star,
-    control.iam_root_user_no_access_keys,
+    control.iam_root_user_no_access_keys
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -1158,13 +1155,13 @@ benchmark "nist_800_53_rev_5_ac_7_4" {
 
 benchmark "nist_800_53_rev_5_ac_7_4_a" {
   title       = "AC-7(4)(a)"
-  description = "(a) Allow the use of [Assignment: organization-defined authentication factors] that are different from the primary authentication factors after the number of organization-defined consecutive invalid logon attempts have been exceeded;"
+  description = "(a) Allow the use of [Assignment: organization-defined authentication factors] that are different from the primary authentication factors after the number of organization-defined consecutive invalid logon attempts have been exceeded."
   children = [
     control.iam_account_password_policy_min_length_14,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = merge(local.nist_800_53_rev_5_common_tags, {
@@ -1174,7 +1171,7 @@ benchmark "nist_800_53_rev_5_ac_7_4_a" {
 
 benchmark "nist_800_53_rev_5_ac_16" {
   title       = "Security And Privacy Attributes (AC-16)"
-  description = "a. Provide the means to associate [Assignment: organization-defined types of security and privacy attributes] with [Assignment: organization-defined security and privacy attribute values] for information in storage, in process, and/or in transmission; b. Ensure that the attribute associations are made and retained with the information; c. Establish the following permitted security and privacy attributes from the attributes defined in AC-16a for [Assignment: organization-defined systems]: [Assignment: organization-defined security and privacy attributes];"
+  description = "a. Provide the means to associate [Assignment: organization-defined types of security and privacy attributes] with [Assignment: organization-defined security and privacy attribute values] for information in storage, in process, and/or in transmission; b. Ensure that the attribute associations are made and retained with the information; c. Establish the following permitted security and privacy attributes from the attributes defined in AC-16a for [Assignment: organization-defined systems]: [Assignment: organization-defined security and privacy attributes]."
   children = [
     benchmark.nist_800_53_rev_5_ac_16_b
   ]
@@ -1203,7 +1200,7 @@ benchmark "nist_800_53_rev_5_ac_17" {
     benchmark.nist_800_53_rev_5_ac_17_4,
     benchmark.nist_800_53_rev_5_ac_17_9,
     benchmark.nist_800_53_rev_5_ac_17_10,
-    benchmark.nist_800_53_rev_5_ac_17_b,
+    benchmark.nist_800_53_rev_5_ac_17_b
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1263,7 +1260,7 @@ benchmark "nist_800_53_rev_5_ac_17_1" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1277,7 +1274,7 @@ benchmark "nist_800_53_rev_5_ac_17_2" {
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1317,7 +1314,7 @@ benchmark "nist_800_53_rev_5_ac_17_4_a" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.vpc_subnet_auto_assign_public_ip_disabled,
-   control.vpc_security_group_restrict_ingress_ssh_all,
+   control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1345,9 +1342,9 @@ benchmark "nist_800_53_rev_5_ac_17_9" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
-   control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1375,9 +1372,9 @@ benchmark "nist_800_53_rev_5_ac_17_10" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
-    control.vpc_security_group_restrict_ingress_ssh_all
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -1403,7 +1400,7 @@ benchmark "nist_800_53_rev_5_ac_24" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
-    control.secretsmanager_secret_unused_90_day,
+    control.secretsmanager_secret_unused_90_day
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

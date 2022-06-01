@@ -25,7 +25,7 @@ benchmark "nist_800_53_rev_5_pm_11" {
 
 benchmark "nist_800_53_rev_5_pm_11_b" {
   title       = "PM-11(b)"
-  description = "b. Determine information protection and personally identifiable information processing needs arising from the defined mission and business processes;"
+  description = "b. Determine information protection and personally identifiable information processing needs arising from the defined mission and business processes."
   children = [
     control.cloudtrail_trail_validation_enabled,
     control.s3_bucket_default_encryption_enabled,
@@ -49,7 +49,7 @@ benchmark "nist_800_53_rev_5_pm_14" {
 
 benchmark "nist_800_53_rev_5_pm_14_a_1" {
   title       = "PM-14(a)(1)"
-  description = "a. Implement a process for ensuring that organizational plans for conducting security and privacy testing, training, and monitoring activities associated with organizational systems: 1. Are developed and maintained;"
+  description = "a. Implement a process for ensuring that organizational plans for conducting security and privacy testing, training, and monitoring activities associated with organizational systems: 1. Are developed and maintained."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -159,7 +159,7 @@ benchmark "nist_800_53_rev_5_pm_21" {
 
 benchmark "nist_800_53_rev_5_pm_21_b" {
   title       = "PM-21(b)"
-  description = "b. Retain the accounting of disclosures for the length of the time the personally identifiable information is maintained or five years after the disclosure is made, whichever is longer;"
+  description = "b. Retain the accounting of disclosures for the length of the time the personally identifiable information is maintained or five years after the disclosure is made, whichever is longer."
   children = [
     control.cloudwatch_log_group_retention_period_365
   ]

@@ -11,8 +11,8 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
     hipaa             = "true"
-    nist_csf          = "true"
     nist_800_53_rev_5 = "true"
+    nist_csf          = "true"
   })
 }
 

@@ -37,7 +37,7 @@ benchmark "nist_800_53_rev_5_ca_2_2" {
 
 benchmark "nist_800_53_rev_5_ca_2_d" {
   title       = "CA-2(d)"
-  description = "d. Assess the controls in the system and its environment of operation [Assignment: organization-defined frequency] to determine the extent to which the controls are implemented correctly, operating as intended, and producing the desired outcome with respect to meeting established security and privacy requirements;"
+  description = "d. Assess the controls in the system and its environment of operation [Assignment: organization-defined frequency] to determine the extent to which the controls are implemented correctly, operating as intended, and producing the desired outcome with respect to meeting established security and privacy requirements."
   children = [
     control.guardduty_enabled,
     control.securityhub_enabled
@@ -67,7 +67,7 @@ benchmark "nist_800_53_rev_5_ca_7" {
 
 benchmark "nist_800_53_rev_5_ca_7_b" {
   title       = "CA-7(b)"
-  description = "Develop a system-level continuous monitoring strategy and implement continuous monitoring in accordance with the organization-level continuous monitoring strategy that includes: b. Establishing [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessment of control effectiveness;"
+  description = "Develop a system-level continuous monitoring strategy and implement continuous monitoring in accordance with the organization-level continuous monitoring strategy that includes: b. Establishing [Assignment: organization-defined frequencies] for monitoring and [Assignment: organization-defined frequencies] for assessment of control effectiveness."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -127,7 +127,7 @@ benchmark "nist_800_53_rev_5_ca_9" {
 
 benchmark "nist_800_53_rev_5_ca_9_b" {
   title       = "CA-9(b)"
-  description = "b. Document, for each internal connection, the interface characteristics, security and privacy requirements, and the nature of the information communicated;"
+  description = "b. Document, for each internal connection, the interface characteristics, security and privacy requirements, and the nature of the information communicated."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -135,7 +135,7 @@ benchmark "nist_800_53_rev_5_ca_9_b" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = local.nist_800_53_rev_5_common_tags

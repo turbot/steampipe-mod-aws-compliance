@@ -2,7 +2,7 @@ benchmark "nist_800_53_rev_5_ma" {
   title       = "Maintenance (MA)"
   description = "The MA controls in NIST 800-53 revision five detail requirements for maintaining organizational systems and the tools used."
   children = [
-    benchmark.nist_800_53_rev_5_ma_4,
+    benchmark.nist_800_53_rev_5_ma_4
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -21,7 +21,7 @@ benchmark "nist_800_53_rev_5_ma_4" {
 
 benchmark "nist_800_53_rev_5_ma_4_c" {
   title       = "MA-4(c)"
-  description = "c. Employ strong authentication in the establishment of nonlocal maintenance and diagnostic sessions;"
+  description = "c. Employ strong authentication in the establishment of nonlocal maintenance and diagnostic sessions."
   children = [
     control.iam_account_password_policy_min_length_14
   ]
@@ -35,7 +35,7 @@ benchmark "nist_800_53_rev_5_ma_4_1" {
   title       = "MA-4(1) Logging And Review"
   description = "a. Log [Assignment: organization-defined audit events] for nonlocal maintenance and diagnostic sessions; and b. Review the audit records of the maintenance and diagnostic sessions to detect anomalous behavior."
   children = [
-    benchmark.nist_800_53_rev_5_ma_4_1_a,
+    benchmark.nist_800_53_rev_5_ma_4_1_a
   ]
 
   tags = local.nist_800_53_rev_5_common_tags
@@ -43,7 +43,7 @@ benchmark "nist_800_53_rev_5_ma_4_1" {
 
 benchmark "nist_800_53_rev_5_ma_4_1_a" {
   title       = "MA-4(1)(a)"
-  description = "(a) Log [Assignment: organization-defined audit events] for nonlocal maintenance and diagnostic sessions;"
+  description = "(a) Log [Assignment: organization-defined audit events] for nonlocal maintenance and diagnostic sessions."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
