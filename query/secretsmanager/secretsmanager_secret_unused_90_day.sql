@@ -9,7 +9,7 @@ select
   case
     when last_accessed_date is null then title || ' never accessed.'
     else
-      title ||  ' last used ' || extract(day from current_timestamp - last_accessed_date) ||  ' day(s) ago.'
+      title || ' last used ' || extract(day from current_timestamp - last_accessed_date) || ' day(s) ago.'
   end as reason,
   -- Additional Dimensions
   region,

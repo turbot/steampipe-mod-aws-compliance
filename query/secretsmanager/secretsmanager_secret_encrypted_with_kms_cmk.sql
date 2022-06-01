@@ -14,7 +14,7 @@ select
   case
     when kms_key_id is null
       or kms_key_id = 'alias/aws/secretsmanager'
-      or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]'then  'ok'
+      or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]'then 'ok'
     else 'alarm'
   end as status,
   case
