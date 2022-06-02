@@ -136,7 +136,7 @@ control "vpc_security_group_associated_to_eni" {
 }
 
 control "vpc_subnet_auto_assign_public_ip_disabled" {
-  title       = "VPC subnet auto assign public ip should be disabled"
+  title       = "VPC subnet auto assign public IP should be disabled"
   description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is complaint if Amazon VPC does not have subnets that are assigned a public IP address. The control. is non complaint if Amazon VPC has subnets that are assigned a public IP address."
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
