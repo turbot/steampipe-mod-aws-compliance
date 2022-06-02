@@ -15,6 +15,7 @@ control "vpc_flow_logs_enabled" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -44,6 +45,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -60,6 +62,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
   })
@@ -76,6 +79,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
@@ -91,6 +95,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -105,6 +110,7 @@ control "vpc_vpn_tunnel_up" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
 }
@@ -130,13 +136,14 @@ control "vpc_security_group_associated_to_eni" {
 }
 
 control "vpc_subnet_auto_assign_public_ip_disabled" {
-  title       = "VPC subnet auto assign public ip should be disabled"
+  title       = "VPC subnet auto assign public IP should be disabled"
   description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is complaint if Amazon VPC does not have subnets that are assigned a public IP address. The control. is non complaint if Amazon VPC has subnets that are assigned a public IP address."
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -144,12 +151,13 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
 
 control "vpc_route_table_restrict_public_access_to_igw" {
   title       = "VPC route table should restrict public access to IGW"
-  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0' or if a destination CIDR block does not match the rule parameter."
+  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
   sql         = query.vpc_route_table_restrict_public_access_to_igw.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
 }

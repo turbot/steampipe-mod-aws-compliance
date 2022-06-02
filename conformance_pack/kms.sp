@@ -14,6 +14,7 @@ control "kms_key_not_pending_deletion" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -30,6 +31,7 @@ control "kms_cmk_rotation_enabled" {
     hippa                  = "true"
     gdpr                   = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
 }

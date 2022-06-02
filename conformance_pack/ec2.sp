@@ -10,7 +10,8 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    hipaa = "true"
+    hipaa             = "true"
+    nist_800_53_rev_5 = "true"
   })
 }
 
@@ -38,6 +39,7 @@ control "ec2_instance_in_vpc" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -53,6 +55,7 @@ control "ec2_instance_not_publicly_accessible" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -69,6 +72,7 @@ control "ec2_stopped_instance_30_days" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
   })
 }
 
@@ -83,6 +87,7 @@ control "ec2_instance_ebs_optimized" {
     fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_csf                    = "true"
+    nist_800_53_rev_5           = "true"
     soc_2                       = "true"
   })
 }
@@ -96,6 +101,7 @@ control "ec2_instance_uses_imdsv2" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
   })
 }
 
@@ -110,5 +116,15 @@ control "ec2_instance_protected_by_backup_plan" {
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "ec2_instance_iam_profile_attached" {
+  title       = "EC2 instances should have IAM profile attached"
+  description = "Ensure if an Amazon Elastic Compute Cloud (Amazon EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to the Amazon EC2 instance."
+  sql         = query.ec2_instance_iam_profile_attached.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_800_53_rev_5 = "true"
   })
 }

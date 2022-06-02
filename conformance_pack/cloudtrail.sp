@@ -15,6 +15,7 @@ control "cloudtrail_trail_integrated_with_logs" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -32,6 +33,7 @@ control "cloudtrail_s3_data_events_enabled" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -49,6 +51,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -64,6 +67,7 @@ control "cloudtrail_multi_region_trail_enabled" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -81,6 +85,7 @@ control "cloudtrail_trail_validation_enabled" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     soc_2                  = "true"
   })
 }
@@ -95,6 +100,7 @@ control "cloudtrail_trail_enabled" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"

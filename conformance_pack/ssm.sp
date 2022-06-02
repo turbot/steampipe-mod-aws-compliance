@@ -14,6 +14,7 @@ control "ec2_instance_ssm_managed" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -30,6 +31,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -46,6 +48,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

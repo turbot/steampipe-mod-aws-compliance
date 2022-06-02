@@ -13,6 +13,7 @@ control "lambda_function_dead_letter_queue_configured" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -28,6 +29,7 @@ control "lambda_function_in_vpc" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -43,6 +45,7 @@ control "lambda_function_restrict_public_access" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -56,6 +59,7 @@ control "lambda_function_concurrent_execution_limit_configured" {
   tags = merge(local.conformance_pack_lambda_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })

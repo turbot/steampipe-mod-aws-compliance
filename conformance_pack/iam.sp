@@ -42,6 +42,7 @@ control "iam_policy_no_star_star" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -59,6 +60,7 @@ control "iam_root_user_no_access_keys" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -75,6 +77,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
 }
@@ -91,6 +94,7 @@ control "iam_root_user_mfa_enabled" {
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -106,6 +110,7 @@ control "iam_user_access_key_age_90" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
 }
@@ -122,6 +127,7 @@ control "iam_user_console_access_mfa_enabled" {
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -137,6 +143,7 @@ control "iam_user_mfa_enabled" {
     fedramp_moderate_rev_4      = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
   })
 }
@@ -152,6 +159,7 @@ control "iam_user_no_inline_attached_policies" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -169,6 +177,7 @@ control "iam_user_unused_credentials_90" {
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -184,6 +193,7 @@ control "iam_user_in_group" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -199,6 +209,7 @@ control "iam_group_user_role_no_inline_policies" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -224,6 +235,7 @@ control "iam_account_password_policy_min_length_14" {
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
     hipaa                  = "true"
+    nist_800_53_rev_5      = "true"
   })
 }
 
@@ -311,6 +323,7 @@ control "iam_all_policy_no_service_wild_card" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -323,5 +336,15 @@ control "iam_policy_custom_no_blocked_kms_actions" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+  })
+}
+
+control "account_part_of_organizations" {
+  title       = "AWS account should be part of AWS Organizations"
+  description = "Ensure if an AWS account is part of AWS Organizations. The rule is non compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
+  sql         = query.account_part_of_organizations.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_800_53_rev_5 = "true"
   })
 }

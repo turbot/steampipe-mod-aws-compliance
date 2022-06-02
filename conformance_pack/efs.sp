@@ -13,6 +13,7 @@ control "efs_file_system_encrypt_data_at_rest" {
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
   })
@@ -26,6 +27,7 @@ control "efs_file_system_in_backup_plan" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
     soc_2              = "true"
