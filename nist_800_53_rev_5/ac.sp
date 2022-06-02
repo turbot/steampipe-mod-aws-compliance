@@ -184,7 +184,7 @@ benchmark "nist_800_53_rev_5_ac_2_12" {
 
 benchmark "nist_800_53_rev_5_ac_2_12_a" {
   title       = "AC-2(12)(a)"
-  description = "(a) Monitor system accounts for [Assignment: organization-defined atypical usage]."
+  description = "Monitor system accounts for [Assignment: organization-defined atypical usage]."
   children = [
     control.guardduty_enabled
   ]
@@ -770,7 +770,7 @@ benchmark "nist_800_53_rev_5_ac_3_12" {
 
 benchmark "nist_800_53_rev_5_ac_3_12_a" {
   title       = "AC-3(12)(a)"
-  description = "(a) Require applications to assert, as part of the installation process, the access needed to the following system applications and functions: [Assignment: organization-defined system applications and functions]."
+  description = "Require applications to assert, as part of the installation process, the access needed to the following system applications and functions: [Assignment: organization-defined system applications and functions]."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -795,7 +795,7 @@ benchmark "nist_800_53_rev_5_ac_3_12_a" {
 
 benchmark "nist_800_53_rev_5_ac_3_12_b" {
   title       = "AC-3(12)(b)"
-  description = "(b) Provide an enforcement mechanism to prevent unauthorized access;"
+  description = "Provide an enforcement mechanism to prevent unauthorized access;"
   children = [
     control.guardduty_enabled
   ]
@@ -843,7 +843,7 @@ benchmark "nist_800_53_rev_5_ac_3_15" {
 
 benchmark "nist_800_53_rev_5_ac_3_15_a" {
   title       = "AC-3(15)(a)"
-  description = "(a) Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy."
+  description = "Enforce [Assignment: organization-defined mandatory access control policy] over the set of covered subjects and objects specified in the policy."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -868,7 +868,7 @@ benchmark "nist_800_53_rev_5_ac_3_15_a" {
 
 benchmark "nist_800_53_rev_5_ac_3_15_b" {
   title       = "AC-3(15)(b)"
-  description = "(b) Enforce [Assignment: organization-defined discretionary access control policy] over the set of covered subjects and objects specified in the policy."
+  description = "Enforce [Assignment: organization-defined discretionary access control policy] over the set of covered subjects and objects specified in the policy."
   children = [
     control.ec2_instance_uses_imdsv2,
     control.iam_account_password_policy_min_length_14,
@@ -1155,7 +1155,7 @@ benchmark "nist_800_53_rev_5_ac_7_4" {
 
 benchmark "nist_800_53_rev_5_ac_7_4_a" {
   title       = "AC-7(4)(a)"
-  description = "(a) Allow the use of [Assignment: organization-defined authentication factors] that are different from the primary authentication factors after the number of organization-defined consecutive invalid logon attempts have been exceeded."
+  description = "Allow the use of [Assignment: organization-defined authentication factors] that are different from the primary authentication factors after the number of organization-defined consecutive invalid logon attempts have been exceeded."
   children = [
     control.iam_account_password_policy_min_length_14,
     control.iam_root_user_hardware_mfa_enabled,
@@ -1181,7 +1181,7 @@ benchmark "nist_800_53_rev_5_ac_16" {
 
 benchmark "nist_800_53_rev_5_ac_16_b" {
   title       = "AC-16(b)"
-  description = "b. Ensure that the attribute associations are made and retained with the information."
+  description = "Ensure that the attribute associations are made and retained with the information."
   children = [
     control.cloudwatch_log_group_retention_period_365
   ]
@@ -1208,7 +1208,7 @@ benchmark "nist_800_53_rev_5_ac_17" {
 
 benchmark "nist_800_53_rev_5_ac_17_b" {
   title       = "AC-17(b)"
-  description = "b. Authorize each type of remote access to the system prior to allowing such connections."
+  description = "Authorize each type of remote access to the system prior to allowing such connections."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -1292,7 +1292,7 @@ benchmark "nist_800_53_rev_5_ac_17_4" {
 
 benchmark "nist_800_53_rev_5_ac_17_4_a" {
   title       = "AC-17(4)(a)"
-  description = "(a) Authorize the execution of privileged commands and access to security-relevant information via remote access only in a format that provides assessable evidence and for the following needs: [Assignment: organization-defined needs];"
+  description = "Authorize the execution of privileged commands and access to security-relevant information via remote access only in a format that provides assessable evidence and for the following needs: [Assignment: organization-defined needs];"
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,

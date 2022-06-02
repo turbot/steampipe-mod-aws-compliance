@@ -25,7 +25,7 @@ benchmark "nist_800_53_rev_5_ra_1" {
 
 benchmark "nist_800_53_rev_5_ra_1_a" {
   title       = "RA-1(a)"
-  description = "a. Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existing controls."
+  description = "Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existing controls."
   children = [
     benchmark.nist_800_53_rev_5_ra_1_a_1,
     benchmark.nist_800_53_rev_5_ra_1_a_2,
@@ -39,7 +39,7 @@ benchmark "nist_800_53_rev_5_ra_1_a" {
 
 benchmark "nist_800_53_rev_5_ra_1_a_1" {
   title       = "RA-1(a)(1)"
-  description = "a. Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems."
+  description = "Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems."
   children = [
     control.guardduty_enabled
   ]
@@ -110,7 +110,7 @@ benchmark "nist_800_53_rev_5_ra_5" {
 
 benchmark "nist_800_53_rev_5_ra_5_a" {
   title       = "RA-5(a)"
-  description = "a. Monitor and scan for vulnerabilities in the system and hosted applications [Assignment: organization-defined frequency and/or randomly in accordance with organization-defined process] and when new vulnerabilities potentially affecting the system are identified and reported."
+  description = "Monitor and scan for vulnerabilities in the system and hosted applications [Assignment: organization-defined frequency and/or randomly in accordance with organization-defined process] and when new vulnerabilities potentially affecting the system are identified and reported."
   children = [
     control.guardduty_enabled
   ]
@@ -145,7 +145,7 @@ benchmark "nist_800_53_rev_5_ra_10" {
 
 benchmark "nist_800_53_rev_5_ra_10_a" {
   title       =  "RA-10(a)"
-  description = "a. Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existings."
+  description = "Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existings."
   children = [
     benchmark.nist_800_53_rev_5_ra_10_a_1,
     benchmark.nist_800_53_rev_5_ra_10_a_2,
@@ -159,7 +159,7 @@ benchmark "nist_800_53_rev_5_ra_10_a" {
 
 benchmark "nist_800_53_rev_5_ra_10_a_1" {
   title       =  "RA-10(a)(1)"
-  description = "a. Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existings."
+  description = "Establish and maintain a cyber threat hunting capability to: 1. Search for indicators of compromise in organizational systems; and 2. Detect, track, and disrupt threats that evade existings."
   children = [
     control.guardduty_enabled
   ]

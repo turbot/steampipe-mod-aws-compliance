@@ -88,7 +88,7 @@ benchmark "nist_800_53_rev_5_sc_5_3" {
 
 benchmark "nist_800_53_rev_5_sc_5_a" {
   title       = "SC-5(a)"
-  description = "a. [Selection: Protect against; Limit] the effects of the following types of denial-of-service events: [Assignment: organization-defined types of denial-of-service events]."
+  description = "[Selection: Protect against; Limit] the effects of the following types of denial-of-service events: [Assignment: organization-defined types of denial-of-service events]."
   children = [
     control.guardduty_enabled
   ]
@@ -100,7 +100,7 @@ benchmark "nist_800_53_rev_5_sc_5_a" {
 
 benchmark "nist_800_53_rev_5_sc_5_b" {
   title       = "SC-5(b)"
-  description = "b. Employ the following controls to achieve the denial-of-service objective: [Assignment: organization-defined controls by type of denial-of-service event]."
+  description = "Employ the following controls to achieve the denial-of-service objective: [Assignment: organization-defined controls by type of denial-of-service event]."
   children = [
     control.guardduty_enabled
   ]
@@ -112,7 +112,7 @@ benchmark "nist_800_53_rev_5_sc_5_b" {
 
 benchmark "nist_800_53_rev_5_sc_5_3_a" {
   title       = "SC-5(3)(a)"
-  description = "(a) Employ the following monitoring tools to detect indicators of denial-of-service attacks against, or launched from, the system: [Assignment: organization-defined monitoring tools]."
+  description = "Employ the following monitoring tools to detect indicators of denial-of-service attacks against, or launched from, the system: [Assignment: organization-defined monitoring tools]."
   children = [
     control.guardduty_enabled
   ]
@@ -124,7 +124,7 @@ benchmark "nist_800_53_rev_5_sc_5_3_a" {
 
 benchmark "nist_800_53_rev_5_sc_5_3_b" {
   title       = "SC-5(3)(b)"
-  description = "(b) Monitor the following system resources to determine if sufficient resources exist to prevent effective denial-of-service attacks: [Assignment: organization-defined system resources]."
+  description = "Monitor the following system resources to determine if sufficient resources exist to prevent effective denial-of-service attacks: [Assignment: organization-defined system resources]."
   children = [
     control.guardduty_enabled
   ]
@@ -244,7 +244,7 @@ benchmark "nist_800_53_rev_5_sc_7_4" {
 
 benchmark "nist_800_53_rev_5_sc_7_4_b" {
   title       = "SC-7(4)(b)"
-  description = "(b) Establish a traffic flow policy for each managed interface."
+  description = "Establish a traffic flow policy for each managed interface."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -260,7 +260,7 @@ benchmark "nist_800_53_rev_5_sc_7_4_b" {
 
 benchmark "nist_800_53_rev_5_sc_7_4_g" {
   title       = "SC-7(4)(g)"
-  description = "(g) Publish information to enable remote networks to detect unauthorized control plane traffic from internal networks."
+  description = "Publish information to enable remote networks to detect unauthorized control plane traffic from internal networks."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -330,7 +330,7 @@ benchmark "nist_800_53_rev_5_sc_7_9" {
 
 benchmark "nist_800_53_rev_5_sc_7_9_a" {
   title       = "SC-7(9)(a)"
-  description = "(a) Detect and deny outgoing communications traffic posing a threat to external systems."
+  description = "Detect and deny outgoing communications traffic posing a threat to external systems."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -356,7 +356,7 @@ benchmark "nist_800_53_rev_5_sc_7_9_a" {
 
 benchmark "nist_800_53_rev_5_sc_7_9_b" {
   title       = "SC-7(9)(b)"
-  description = "(b) Audit the identity of internal users associated with denied communications."
+  description = "Audit the identity of internal users associated with denied communications."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -665,7 +665,7 @@ benchmark "nist_800_53_rev_5_sc_7_28" {
 
 benchmark "nist_800_53_rev_5_sc_7_a" {
   title       = "SC-7(a)"
-  description = "a. Monitor and control communications at the external managed interfaces to the system and at key internal managed interfaces within the system."
+  description = "Monitor and control communications at the external managed interfaces to the system and at key internal managed interfaces within the system."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -695,7 +695,7 @@ benchmark "nist_800_53_rev_5_sc_7_a" {
 
 benchmark "nist_800_53_rev_5_sc_7_b" {
   title       = "SC-7(b)"
-  description = "b. Implement subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks."
+  description = "Implement subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -722,7 +722,7 @@ benchmark "nist_800_53_rev_5_sc_7_b" {
 
 benchmark "nist_800_53_rev_5_sc_7_c" {
   title       = "SC-7(c)"
-  description = "c. Connect to external networks or systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security and privacy architecture."
+  description = "Connect to external networks or systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security and privacy architecture."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
@@ -941,7 +941,7 @@ benchmark "nist_800_53_rev_5_sc_13" {
 
 benchmark "nist_800_53_rev_5_sc_13_a" {
   title       = "SC-13(a)"
-  description = "a. Determine the [Assignment: organization-defined cryptographic uses]."
+  description = "Determine the [Assignment: organization-defined cryptographic uses]."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
@@ -1162,7 +1162,7 @@ benchmark "nist_800_53_rev_5_sc_36" {
 
 benchmark "nist_800_53_rev_5_sc_36_1_a" {
   title       = "SC-36(1)(a)"
-  description = "(a) Employ polling techniques to identify potential faults, errors, or compromises to the following processing and storage components: [Assignment: organization-defined distributed processing and storage components]."
+  description = "Employ polling techniques to identify potential faults, errors, or compromises to the following processing and storage components: [Assignment: organization-defined distributed processing and storage components]."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudwatch_alarm_action_enabled,
@@ -1188,7 +1188,7 @@ benchmark "nist_800_53_rev_5_sc_43" {
 
 benchmark "nist_800_53_rev_5_sc_43_b" {
   title       = "SC-43(b)"
-  description = "b. Authorize, monitor, and control the use of such components within the system."
+  description = "Authorize, monitor, and control the use of such components within the system."
   children = [
     control.guardduty_enabled
   ]

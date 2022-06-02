@@ -32,7 +32,7 @@ benchmark "nist_800_53_rev_5_au_2" {
 
 benchmark "nist_800_53_rev_5_au_2_b" {
   title       = "AU-2(b)"
-  description = "b. Coordinate the event logging function with other organizational entities requiring audit-related information to guide and inform the selection criteria for events to be logged."
+  description = "Coordinate the event logging function with other organizational entities requiring audit-related information to guide and inform the selection criteria for events to be logged."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -373,7 +373,7 @@ benchmark "nist_800_53_rev_5_au_8" {
 
 benchmark "nist_800_53_rev_5_au_8_b" {
   title       = "AU-8(b)"
-  description = "b. Record time stamps for audit records that meet [Assignment: organization-defined granularity of time measurement] and that use Coordinated Universal Time, have a fixed local time offset from Coordinated Universal Time, or that include the local time offset as part of the time stamp."
+  description = "Record time stamps for audit records that meet [Assignment: organization-defined granularity of time measurement] and that use Coordinated Universal Time, have a fixed local time offset from Coordinated Universal Time, or that include the local time offset as part of the time stamp."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -406,7 +406,7 @@ benchmark "nist_800_53_rev_5_au_9" {
 
 benchmark "nist_800_53_rev_5_au_9_a" {
   title       = "AU-9(a)"
-  description = "a. Protect audit information and audit logging tools from unauthorized access, modification, and deletion."
+  description = "Protect audit information and audit logging tools from unauthorized access, modification, and deletion."
   children = [
     control.cloudtrail_trail_validation_enabled
   ]
@@ -534,7 +534,7 @@ benchmark "nist_800_53_rev_5_au_12" {
 
 benchmark "nist_800_53_rev_5_au_12_a" {
   title       = "AU-12(a)"
-  description = "a. Provide audit record generation capability for the event types the system is capable of auditing as defined in AU-2a on [Assignment: organization-defined system components]."
+  description = "Provide audit record generation capability for the event types the system is capable of auditing as defined in AU-2a on [Assignment: organization-defined system components]."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -554,7 +554,7 @@ benchmark "nist_800_53_rev_5_au_12_a" {
 
 benchmark "nist_800_53_rev_5_au_12_c" {
   title       = "AU-12(c)"
-  description = "c. Generate audit records for the event types defined in AU-2c that include the audit record content defined in AU-3."
+  description = "Generate audit records for the event types defined in AU-2c that include the audit record content defined in AU-3."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -677,7 +677,7 @@ benchmark "nist_800_53_rev_5_au_14" {
 
 benchmark "nist_800_53_rev_5_au_14_a" {
   title       = "AU-14(a)"
-  description = "a. Provide and implement the capability for [Assignment: organization-defined users or roles] to [Selection (one or more): record; view; hear; log] the content of a user session under [Assignment: organization-defined circumstances]."
+  description = "Provide and implement the capability for [Assignment: organization-defined users or roles] to [Selection (one or more): record; view; hear; log] the content of a user session under [Assignment: organization-defined circumstances]."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -706,7 +706,7 @@ benchmark "nist_800_53_rev_5_au_14_a" {
 
 benchmark "nist_800_53_rev_5_au_14_b" {
   title       = "AU-14(b)"
-  description = "b. Develop, integrate, and use session auditing activities in consultation with legal counsel and in accordance with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines."
+  description = "Develop, integrate, and use session auditing activities in consultation with legal counsel and in accordance with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,

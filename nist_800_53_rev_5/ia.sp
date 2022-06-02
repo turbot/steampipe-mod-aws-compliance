@@ -127,7 +127,7 @@ benchmark "nist_800_53_rev_5_ia_3_3" {
 
 benchmark "nist_800_53_rev_5_ia_3_3_b" {
   title       = "IA-3(3)(b)"
-  description = "(b) Audit lease information when assigned to a device."
+  description = "Audit lease information when assigned to a device."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.wafv2_web_acl_logging_enabled,
@@ -376,7 +376,7 @@ benchmark "nist_800_53_rev_5_ia_5_18" {
 
 benchmark "nist_800_53_rev_5_ia_5_18_a" {
   title       = "IA-5(18)(a)"
-  description = "(a) Employ [Assignment: organization-defined password managers] to generate and manage passwords."
+  description = "Employ [Assignment: organization-defined password managers] to generate and manage passwords."
   children = [
     control.iam_account_password_policy_min_length_14
   ]
@@ -388,7 +388,7 @@ benchmark "nist_800_53_rev_5_ia_5_18_a" {
 
 benchmark "nist_800_53_rev_5_ia_5_18_b" {
   title       = "IA-5(18)(b)"
-  description = "(b) Protect the passwords using [Assignment: organization-defined controls]."
+  description = "Protect the passwords using [Assignment: organization-defined controls]."
   children = [
     control.iam_account_password_policy_min_length_14
   ]
@@ -424,7 +424,7 @@ benchmark "nist_800_53_rev_5_ia_8_2" {
 
 benchmark "nist_800_53_rev_5_ia_8_2_b" {
   title       = "IA-8(2)(b)"
-  description = "(b) Document and maintain a list of accepted external authenticators."
+  description = "Document and maintain a list of accepted external authenticators."
   children = [
    control.iam_account_password_policy_min_length_14
   ]

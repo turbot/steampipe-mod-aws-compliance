@@ -67,7 +67,7 @@ benchmark "nist_800_53_rev_5_si_1_c_2" {
 
 benchmark "nist_800_53_rev_5_si_1_1_c" {
   title       = "SI-1(1)(c)"
-  description = "c(c) Audit the use of the manual override capability."
+  description = "Audit the use of the manual override capability."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
@@ -193,7 +193,7 @@ benchmark "nist_800_53_rev_5_si_3_8" {
 
 benchmark "nist_800_53_rev_5_si_3_8_a" {
   title       = "SI-3(8)(a)"
-  description = "(a) Detect the following unauthorized operating system commands through the kernel application programming interface on [Assignment: organization-defined system hardware components]: [Assignment: organization-defined unauthorized operating system commands]."
+  description = "Detect the following unauthorized operating system commands through the kernel application programming interface on [Assignment: organization-defined system hardware components]: [Assignment: organization-defined unauthorized operating system commands]."
   children = [
     control.guardduty_enabled
   ]
@@ -203,7 +203,7 @@ benchmark "nist_800_53_rev_5_si_3_8_a" {
 
 benchmark "nist_800_53_rev_5_si_3_8_b" {
   title       = "SI-3(8)(b)"
-  description = "(b) [Selection (one or more): issue a warning; audit the command execution; prevent the execution of the command]."
+  description = "[Selection (one or more): issue a warning; audit the command execution; prevent the execution of the command]."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
@@ -244,7 +244,7 @@ benchmark "nist_800_53_rev_5_si_4" {
 
 benchmark "nist_800_53_rev_5_si_4_a" {
   title       = "SI-4(a)"
-  description = "a. Monitor the system to detect: 1. Attacks and indicators of potential attacks in accordance with the following monitoring objectives: [Assignment: organization-defined monitoring objectives]; and 2. Unauthorized local, network, and remote connections."
+  description = "Monitor the system to detect: 1. Attacks and indicators of potential attacks in accordance with the following monitoring objectives: [Assignment: organization-defined monitoring objectives]; and 2. Unauthorized local, network, and remote connections."
   children = [
     benchmark.nist_800_53_rev_5_si_4_a_1,
     benchmark.nist_800_53_rev_5_si_4_a_2,
@@ -282,7 +282,7 @@ benchmark "nist_800_53_rev_5_si_4_a_2" {
 
 benchmark "nist_800_53_rev_5_si_4_b" {
   title       = "SI-4(b)"
-  description = "b. Identify unauthorized use of the system through the following techniques and methods: [Assignment: organization-defined techniques and methods]."
+  description = "Identify unauthorized use of the system through the following techniques and methods: [Assignment: organization-defined techniques and methods]."
   children = [
     control.guardduty_enabled
   ]
@@ -306,7 +306,7 @@ benchmark "nist_800_53_rev_5_si_4_c" {
 
 benchmark "nist_800_53_rev_5_si_4_d" {
   title       = "SI-4(d)"
-  description = "d. Analyze detected events and anomalies."
+  description = "Analyze detected events and anomalies."
   children = [
     control.cloudtrail_trail_validation_enabled
   ]
@@ -370,7 +370,7 @@ benchmark "nist_800_53_rev_5_si_4_4" {
 
 benchmark "nist_800_53_rev_5_si_4_4_a" {
   title       = "SI-4(4)(a)"
-  description = "(a) Determine criteria for unusual or unauthorized activities or conditions for inbound and outbound communications traffic."
+  description = "Determine criteria for unusual or unauthorized activities or conditions for inbound and outbound communications traffic."
   children = [
     control.guardduty_enabled
   ]
@@ -382,7 +382,7 @@ benchmark "nist_800_53_rev_5_si_4_4_a" {
 
 benchmark "nist_800_53_rev_5_si_4_4_b" {
   title       = "SI-4(4)(b)"
-  description = "(b) Monitor inbound and outbound communications traffic [Assignment: organization-defined frequency] for [Assignment: organization-defined unusual or unauthorized activities or conditions]."
+  description = "Monitor inbound and outbound communications traffic [Assignment: organization-defined frequency] for [Assignment: organization-defined unusual or unauthorized activities or conditions]."
   children = [
     control.guardduty_enabled
   ]
@@ -428,7 +428,7 @@ benchmark "nist_800_53_rev_5_si_4_13" {
 
 benchmark "nist_800_53_rev_5_si_4_13_a" {
   title       = "SI-4(13)(a)"
-  description = "(a) Analyze communications traffic and event patterns for the system."
+  description = "Analyze communications traffic and event patterns for the system."
   children = [
     control.guardduty_enabled
   ]
@@ -531,7 +531,7 @@ benchmark "nist_800_53_rev_5_si_5_1" {
 
 benchmark "nist_800_53_rev_5_si_5_b" {
   title       = "SI-5(b)"
-  description = "b. Generate internal security alerts, advisories, and directives as deemed necessary."
+  description = "Generate internal security alerts, advisories, and directives as deemed necessary."
   children = [
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled
@@ -612,7 +612,7 @@ benchmark "nist_800_53_rev_5_si_7_8" {
 
 benchmark "nist_800_53_rev_5_si_7_a" {
   title       = "SI-7(a)"
-  description = "a. Employ integrity verification tools to detect unauthorized changes to the following software, firmware, and information: [Assignment: organization-defined software, firmware, and information]."
+  description = "Employ integrity verification tools to detect unauthorized changes to the following software, firmware, and information: [Assignment: organization-defined software, firmware, and information]."
   children = [
     control.cloudtrail_trail_validation_enabled
   ]
@@ -643,7 +643,7 @@ benchmark "nist_800_53_rev_5_si_10_1" {
 
 benchmark "nist_800_53_rev_5_si_10_1_c" {
   title       = "SI-10(1)(c)"
-  description = "(c) Audit the use of the manual override capability."
+  description = "Audit the use of the manual override capability."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,

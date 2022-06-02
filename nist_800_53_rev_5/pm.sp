@@ -25,7 +25,7 @@ benchmark "nist_800_53_rev_5_pm_11" {
 
 benchmark "nist_800_53_rev_5_pm_11_b" {
   title       = "PM-11(b)"
-  description = "b. Determine information protection and personally identifiable information processing needs arising from the defined mission and business processes."
+  description = "Determine information protection and personally identifiable information processing needs arising from the defined mission and business processes."
   children = [
     control.cloudtrail_trail_validation_enabled,
     control.s3_bucket_default_encryption_enabled,
@@ -78,7 +78,7 @@ benchmark "nist_800_53_rev_5_pm_14_a_1" {
 
 benchmark "nist_800_53_rev_5_pm_14_b" {
   title       = "PM-14(b)"
-  description = "b. Review testing, training, and monitoring plans for consistency with the organizational risk management strategy and organization-wide priorities for risk response actions."
+  description = "Review testing, training, and monitoring plans for consistency with the organizational risk management strategy and organization-wide priorities for risk response actions."
   children = [
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
@@ -129,7 +129,7 @@ benchmark "nist_800_53_rev_5_pm_17" {
 
 benchmark "nist_800_53_rev_5_pm_17_b" {
   title       = "PM-17(b)"
-  description = "b. Review and update the policy and procedures [Assignment: organization-defined frequency]."
+  description = "Review and update the policy and procedures [Assignment: organization-defined frequency]."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.cloudtrail_trail_validation_enabled,
@@ -159,7 +159,7 @@ benchmark "nist_800_53_rev_5_pm_21" {
 
 benchmark "nist_800_53_rev_5_pm_21_b" {
   title       = "PM-21(b)"
-  description = "b. Retain the accounting of disclosures for the length of the time the personally identifiable information is maintained or five years after the disclosure is made, whichever is longer."
+  description = "Retain the accounting of disclosures for the length of the time the personally identifiable information is maintained or five years after the disclosure is made, whichever is longer."
   children = [
     control.cloudwatch_log_group_retention_period_365
   ]

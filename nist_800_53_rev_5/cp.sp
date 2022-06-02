@@ -85,7 +85,7 @@ benchmark "nist_800_53_rev_5_cp_1_2" {
 
 benchmark "nist_800_53_rev_5_cp_2" {
   title       = "Contingency Plan (CP-2)"
-  description = "to do"
+  description = "a. Develop a contingency plan for the system that: 1. Identifies essential mission and business functions and associated contingency requirements; 2. Provides recovery objectives, restoration priorities, and metrics; b. Distribute copies of the contingency plan to [Assignment: organization-defined key contingency personnel (identified by name and/or by role) and organizational elements]; c. Coordinate contingency planning activities with incident handling activities; d. Review the contingency plan for the system [Assignment: organization-defined frequency]; e. Update the contingency plan to address changes to the organization, system, or environment of operation and problems encountered during contingency plan implementation, execution, or testing; f. Communicate contingency plan changes to [Assignment: organization-defined key contingency personnel (identified by name and/or by role) and organizational elements]; g. Incorporate lessons learned from contingency plan testing, training, or actual contingency activities into contingency testing and training; and h. Protect the contingency plan from unauthorized disclosure and modification."
   children = [
     benchmark.nist_800_53_rev_5_cp_2_a,
     benchmark.nist_800_53_rev_5_cp_2_d,
@@ -116,7 +116,7 @@ benchmark "nist_800_53_rev_5_cp_2_a" {
 
 benchmark "nist_800_53_rev_5_cp_2_a_6" {
   title       = "CP-2(a)(6)"
-  description = "a. Develop a contingency plan for the system that: 6. Addresses the sharing of contingency information."
+  description = "Develop a contingency plan for the system that: 6. Addresses the sharing of contingency information."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -131,7 +131,7 @@ benchmark "nist_800_53_rev_5_cp_2_a_6" {
 
 benchmark "nist_800_53_rev_5_cp_2_a_7" {
   title       = "CP-2(a)(7)"
-  description = "a. Develop a contingency plan for the system that: 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles]."
+  description = "Develop a contingency plan for the system that: 7. Is reviewed and approved by [Assignment: organization-defined personnel or roles]."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -146,7 +146,7 @@ benchmark "nist_800_53_rev_5_cp_2_a_7" {
 
 benchmark "nist_800_53_rev_5_cp_2_d" {
   title       = "CP-2(d)"
-  description = "d. Review the contingency plan for the system [Assignment: organization-defined frequency]"
+  description = "Review the contingency plan for the system [Assignment: organization-defined frequency]"
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -161,7 +161,7 @@ benchmark "nist_800_53_rev_5_cp_2_d" {
 
 benchmark "nist_800_53_rev_5_cp_2_e" {
   title       = "CP-2(e)"
-  description = "e. Update the contingency plan to address changes to the organization, system, or environment of operation and problems encountered during contingency plan implementation, execution, or testing."
+  description = "Update the contingency plan to address changes to the organization, system, or environment of operation and problems encountered during contingency plan implementation, execution, or testing."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.elb_application_lb_deletion_protection_enabled,
@@ -227,7 +227,7 @@ benchmark "nist_800_53_rev_5_cp_6" {
 
 benchmark "nist_800_53_rev_5_cp_6_a" {
   title       = "CP-6(a)"
-  description = "a. Establish an alternate storage site, including necessary agreements to permit the storage and retrieval of system backup information."
+  description = "Establish an alternate storage site, including necessary agreements to permit the storage and retrieval of system backup information."
   children = [
     control.dynamodb_table_in_backup_plan,
     control.ebs_volume_in_backup_plan,
