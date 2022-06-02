@@ -151,7 +151,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
 
 control "vpc_route_table_restrict_public_access_to_igw" {
   title       = "VPC route table should restrict public access to IGW"
-  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0' or if a destination CIDR block does not match the rule parameter."
+  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
   sql         = query.vpc_route_table_restrict_public_access_to_igw.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
