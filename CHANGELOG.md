@@ -1,4 +1,15 @@
-## v0.33 [2021-05-18]
+## v0.34 [2022-06-02]
+
+_What's new?_
+
+- Added NIST 800-53 Revision 5 benchmark (`steampipe check benchmark.nist_800_53_rev_5`). ([#399](https://github.com/turbot/steampipe-mod-aws-compliance/pull/399))
+
+_Bug fixes_
+
+- Fixed the `rds_db_instance_deletion_protection_enabled` query to skip Amazon RDS Aurora, DocumentDB and Neptune DB instances, since deletion protection can only be enabled at the cluster level for such instances. ([#401](https://github.com/turbot/steampipe-mod-aws-compliance/pull/401))
+- Fixed the `foundational_security_s3_9` control to correctly reference `s3_bucket_logging_enabled` query instead of `s3_bucket_public_access_blocked` query. ([#403](https://github.com/turbot/steampipe-mod-aws-compliance/pull/403))
+
+## v0.33 [2022-05-18]
 
 _What's new?_
 
