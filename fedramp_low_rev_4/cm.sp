@@ -17,7 +17,7 @@ benchmark "fedramp_low_rev_4_cm_2" {
     control.autoscaling_launch_config_public_ip_disabled,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_ssm_managed,
