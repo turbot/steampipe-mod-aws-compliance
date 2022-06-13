@@ -13,7 +13,7 @@ select
     when policy_std is null then title || ' has no policy.'
     when policy_std -> 'Statement' ->> 'Effect' = 'Allow'
     and (
-      policy_std -> 'Statement' ->> 'Principal  ' = '*'
+      policy_std -> 'Statement' ->> 'Principal' = '*'
       or ( policy_std -> 'Principal' -> 'AWS' ) :: text = '*'
     ) then title || ' allows public access.'
     else title || ' does not allow public access.'
