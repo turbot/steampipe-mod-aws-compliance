@@ -39,7 +39,7 @@ benchmark "fedramp_moderate_rev_4_sc_4" {
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.lambda_function_restrict_public_access,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
