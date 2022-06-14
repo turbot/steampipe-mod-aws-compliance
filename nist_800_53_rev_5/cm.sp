@@ -31,7 +31,7 @@ benchmark "nist_800_53_rev_5_cm_2_a" {
   title       = "CM-2(a)"
   description = "Develop, document, and maintain under configuration control, a current baseline configuration of the system."
   children = [
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.elb_application_lb_deletion_protection_enabled,
@@ -50,7 +50,7 @@ benchmark "nist_800_53_rev_5_cm_2_b" {
     benchmark.nist_800_53_rev_5_cm_2_b_2,
     benchmark.nist_800_53_rev_5_cm_2_b_3,
     control.account_part_of_organizations,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
@@ -65,7 +65,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_1" {
   description = "Review and update the baseline configuration of the system: 1. [Assignment: organization-defined frequency]."
   children = [
     control.account_part_of_organizations,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
@@ -80,7 +80,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_2" {
   description = "Review and update the baseline configuration of the system: 2. When required due to [Assignment: organization-defined circumstances]."
   children = [
     control.account_part_of_organizations,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
@@ -95,7 +95,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_3" {
   description = "Review and update the baseline configuration of the system: 3 When system components are installed or upgraded."
   children = [
     control.account_part_of_organizations,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
@@ -109,7 +109,7 @@ benchmark "nist_800_53_rev_5_cm_2_2" {
   title       = "CM-2(2) Automation Support For AccuracyY And Currency"
   description = "Maintain the currency, completeness, accuracy, and availability of the baseline configuration of the system using [Assignment: organization-defined automated mechanisms]."
   children = [
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.elb_application_lb_deletion_protection_enabled,
@@ -147,7 +147,7 @@ benchmark "nist_800_53_rev_5_cm_3_3" {
   description = "Implement changes to the current system baseline and deploy the updated baseline across the installed base using [Assignment: organization-defined automated mechanisms]."
   children = [
     control.account_part_of_organizations,
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.redshift_cluster_maintenance_settings_check,
@@ -445,7 +445,7 @@ benchmark "nist_800_53_rev_5_cm_8_6" {
   title       = "CM-8(6) Assessed Configurations And Approved Deviations"
   description = "Include assessed component configurations and any approved deviations to current deployed configurations in the system component inventory."
   children = [
-    control.ebs_volume_unsued,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.elb_application_lb_deletion_protection_enabled,

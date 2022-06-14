@@ -26,7 +26,7 @@ Run individual configuration, compliance and security controls or full complianc
 
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 
-[NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-4/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
+[NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
 
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
 
