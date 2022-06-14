@@ -1,3 +1,14 @@
+## v0.35 [2022-06-14]
+
+_Enhancements_
+
+- Updated the `NIST 800-53` link in the docs/index.md file to reference the latest `NIST 800-53 Revision 5` document. ([#407](https://github.com/turbot/steampipe-mod-aws-compliance/pull/407))
+
+_Bug fixes_
+
+- Fixed the typo in the query name to use `ebs_volume_unused` instead of `ebs_volume_unsued`. ([#412](https://github.com/turbot/steampipe-mod-aws-compliance/pull/412))
+- Fixed the typo `Prinipal` in `lambda_function_restrict_public_access` query. ([#413](https://github.com/turbot/steampipe-mod-aws-compliance/pull/413))
+
 ## v0.34 [2022-06-02]
 
 _What's new?_
