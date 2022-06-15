@@ -1,15 +1,13 @@
 select
   -- Required Columns
-  title as resource,
+  arn as resource,
 	case
-    when enabled_cloudwatch_logs_exports is not null 
-      then 'ok'
+    when enabled_cloudwatch_logs_exports is not null then 'ok'
     else 'alarm'
-  end status,
-  case 
-    when enabled_cloudwatch_logs_exports is not null 
-      then title || ' enabled cloudwatch logs'
-    else title || ' disabled cloudwatch logs'
+  end as status,
+  case
+    when enabled_cloudwatch_logs_exports is not null then title || ' integrated with CloudWatch logs.'
+    else title || ' not integrated with CloudWatch logs.'
   end reason,
   -- Additional Dimensions
   region,

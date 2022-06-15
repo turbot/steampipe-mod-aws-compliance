@@ -1,22 +1,19 @@
 select
   -- Required Columns
-  u.name as resource,
+  u.arn as resource,
 	case
-    when serial_number is null
-      then 'info'
-    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%'])
-      then 'ok'
-    else 'alarm'
-  end status,
+    when serial_number is null then 'alarm'
+    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%']) then 'info'
+    else 'ok'
+  end as tatus,
   case
-    when serial_number is null
-      then u.name || ' having no MFA enabled'
-    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%'])
-      then u.name || ' having virtual MFA enabled'
-    else u.name || ' having hardware MFA enabled'
-  end reason,
+    when serial_number is null then u.name || ' MFA device not configured.'
+    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
+    else u.name || ' hardware MFA device enabled.'
+  end as reason,
   -- Additional Dimensions
   u.region,
   u.account_id
 from
-	aws_iam_virtual_mfa_device m right join aws_iam_user u on m.user_id = u.user_id;
+	aws_iam_virtual_mfa_device as m
+  right join aws_iam_user as u on m.user_id = u.user_id;

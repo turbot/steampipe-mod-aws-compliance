@@ -1,16 +1,14 @@
 select
   -- Required Columns
-	title as resource,
+	arn as resource,
 	case
-    when enable_inter_container_traffic_encryption
-      then 'ok'
+    when enable_inter_container_traffic_encryption then 'ok'
     else 'alarm'
-  end status,
+  end as status,
   case
-    when enable_inter_container_traffic_encryption
-      then title || ' enabled encryption of inter-container traffic'
-    else title || ' disabled encryption of inter-container traffic'
-  end reason,
+    when enable_inter_container_traffic_encryption then title || ' inter-container traffic encryption enabled.'
+    else title || ' inter-container traffic encryption disabled.'
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

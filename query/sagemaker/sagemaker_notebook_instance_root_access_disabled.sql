@@ -1,15 +1,13 @@
 select
   -- Required Columns
-	title as resource,
+	arn as resource,
 	case
-    when root_access = 'disabled'
-      then 'ok'
+    when root_access = 'Disabled' then 'ok'
     else 'alarm'
   end status,
   case
-    when root_access = 'disabled'
-      then 'Root access disabled for notebook instance ' || title
-    else 'Root access enabled for notebook instance ' || title
+    when root_access = 'Disabled' then title || ' root access disabled.'
+    else title || ' root access enabled.'
   end reason,
   -- Additional Dimensions
   region,

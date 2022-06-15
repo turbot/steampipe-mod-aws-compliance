@@ -1,16 +1,14 @@
 select
   -- Required Columns
-	title as resource,
+	arn as resource,
 	case
-    when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = ''
-      then 'alarm'
+    when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = '' then 'alarm'
     else 'ok'
-  end status,
+  end as status,
   case
-    when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = ''
-      then title || ' disabled encryption of volume and output data'
-    else title || ' enabled encryption of volume and output data'
-  end reason,
+    when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = '' then title || ' volume and output data encryption disabled.'
+    else title || ' volume and output data encryption enabled.'
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

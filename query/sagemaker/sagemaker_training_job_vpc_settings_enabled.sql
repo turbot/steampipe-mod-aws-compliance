@@ -2,15 +2,15 @@ select
   -- Required Columns
 	arn as resource,
 	case
-    when subnet_id is not null then 'ok'
+    when vpc_config is not null then 'ok'
     else 'alarm'
-  end as status,
+  end status,
   case
-    when subnet_id is not null then title || ' VPC settings configured.'
+    when vpc_config is not null then title || ' VPC settings configured.'
     else title || ' VPC settings not configured.'
-  end as reason,
+  end reason,
   -- Additional Dimensions
   region,
   account_id
 from
-	aws_sagemaker_notebook_instance;
+	aws_sagemaker_training_job;

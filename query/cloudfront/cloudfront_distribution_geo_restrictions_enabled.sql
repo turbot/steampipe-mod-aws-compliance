@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when restrictions -> 'GeoRestriction' ->> 'RestrictionType' = 'none' then title || ' Geo Restrictions disabled.'
-    else title || ' Geo Restrictions disabled.'
+    when restrictions -> 'GeoRestriction' ->> 'RestrictionType' = 'none' then title || ' Geo Restriction disabled.'
+    else title || ' Geo Restriction enabled.'
   end as reason,
   -- Additional Dimensions
   region,

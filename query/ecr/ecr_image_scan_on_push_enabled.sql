@@ -1,16 +1,14 @@
 select
   -- Required Columns
-  title as resource,
+  arn as resource,
 	case
-    when image_scanning_configuration ->> 'ScanOnPush' = 'true'
-      then 'ok'
+    when image_scanning_configuration ->> 'ScanOnPush' = 'true' then 'ok'
     else 'alarm'
-  end status,
-  case 
-    when image_scanning_configuration ->> 'ScanOnPush' = 'true' 
-      then title || ' enabled image scan on push'
-    else title || ' disabled image scan on push'
-  end reason,
+  end as status,
+  case
+    when image_scanning_configuration ->> 'ScanOnPush' = 'true' then title || ' scan on push enabled.'
+    else title || ' scan on push disabled.'
+  end as reason,
   -- Additional Dimensions
   region,
   account_id
