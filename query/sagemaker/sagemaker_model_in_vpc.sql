@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when vpc_config is not null then title || ' VPC settings configured.'
-    else title || ' VPC settings not configured.'
+    when vpc_config is not null then title || ' in VPC.'
+    else title || ' not in VPC.'
   end as reason,
   -- Additional Dimensions
   region,
