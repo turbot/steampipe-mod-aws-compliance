@@ -61,3 +61,13 @@ control "apigateway_stage_use_waf_web_acl" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "apigateway_rest_api_authorizers_configured" {
+  title       = "API Gateway stage should have authorizers configured"
+  description = "Ensure if API Gateway stage have authorizers configured/"
+  sql         = query.apigateway_rest_api_authorizers_configured.sql
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    extra_checks = "true"
+  })
+}

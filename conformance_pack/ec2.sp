@@ -128,3 +128,13 @@ control "ec2_instance_iam_profile_attached" {
     nist_800_53_rev_5 = "true"
   })
 }
+
+control "ec2_instance_publicly_accessible_iam_profile_attached" {
+  title       = "EC2 public instances should have IAM profile attached"
+  description = "Ensure if an Amazon Elastic Compute Cloud (Amazon EC2) public instances has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to the Amazon EC2 instance."
+  sql         = query.ec2_instance_publicly_accessible_iam_profile_attached.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    extra_checks = "true"
+  })
+}

@@ -53,3 +53,83 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "sagemaker_model_in_vpc" {
+  title       = "SageMaker model should be in a VPC"
+  description = "Manage access to the AWS Cloud by ensuring SageMaker models are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  sql         = query.sagemaker_model_in_vpc.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_model_network_isolation_enabled" {
+  title       = "SageMaker models network isolation should be enabled"
+  description = ""
+  sql         = query.sagemaker_model_network_isolation_enabled.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_notebook_instance_in_vpc" {
+  title       = "SageMaker notebook instances should be in a VPC"
+  description = "Manage access to the AWS Cloud by ensuring SageMaker notebook instances are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  sql         = query.sagemaker_notebook_instance_in_vpc.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_notebook_instance_root_access_disabled" {
+  title       = "SageMaker Notebook instances root access should be disabled"
+  description = ""
+  sql         = query.sagemaker_notebook_instance_root_access_disabled.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_training_job_in_vpc" {
+  title       = "SageMaker training jobs should be in VPC"
+  description = "Manage access to the AWS Cloud by ensuring SageMaker training jobs are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  sql         = query.sagemaker_training_job_in_vpc.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
+  title       = "SageMaker training jobs should be enabled with inter-container traffic encryption"
+  description = ""
+  sql         = query.sagemaker_training_job_inter_container_traffic_encryption_enabled.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_training_job_network_isolation_enabled" {
+  title       = "SageMaker training jobs should have network isolation enabled"
+  description = ""
+  sql         = query.sagemaker_training_job_network_isolation_enabled.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}
+
+control "sagemaker_training_job_volume_and_data_encryption_enabled" {
+  title       = "SageMaker training job volumes and output should have KMS encryption enabled"
+  description = ""
+  sql         = query.sagemaker_training_job_volume_and_data_encryption_enabled.sql
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    extra_check = "true"
+  })
+}

@@ -348,3 +348,33 @@ control "account_part_of_organizations" {
     nist_800_53_rev_5 = "true"
   })
 }
+
+control "iam_policy_custom_no_assume_role" {
+  title       = "IAM roles should not have any assume role policies attached"
+  description = "TO DO"
+  sql         = query.iam_policy_custom_no_assume_role.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    extra_checks = "true"
+  })
+}
+
+control "iam_user_hardware_mfa_enabled" {
+  title       = "IAM users hardware MFA should be enabled"
+  description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
+  sql         = query.iam_user_hardware_mfa_enabled.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    extra_checks = "true"
+  })
+}
+
+control "iam_user_with_administrator_access_mfa_enabled" {
+  title       = "IAM administrator users MFA should be enabled"
+  description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
+  sql         = query.iam_user_with_administrator_access_mfa_enabled.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    extra_checks = "true"
+  })
+}

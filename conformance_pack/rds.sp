@@ -210,3 +210,13 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     rbi_cyber_security = "true"
   })
 }
+
+control "rds_db_instance_cloudwatch_logs_enabled" {
+  title       = "RDS DB instances should be integrated with CloudWatch logs"
+  description = "Use Amazon CloudWatch to centrally collect and manage RDS DB instance activity."
+  sql         = query.rds_db_instance_cloudwatch_logs_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    extra_checks = "true"
+  })
+}

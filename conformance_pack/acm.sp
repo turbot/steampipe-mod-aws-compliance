@@ -21,3 +21,13 @@ control "acm_certificate_expires_30_days" {
     soc_2                  = "true"
   })
 }
+
+control "acm_certificate_transparency_logging_enabled" {
+  title       = "ACM certificates transparency logging should be enabled"
+  description = "Ensure ACM certificates transparency logging is enabled as certificate transparency logging guards against SSL/TLS certificates issued by mistake or by a compromised certificate authority."
+  sql         = query.acm_certificate_transparency_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    extra_checks = "true"
+  })
+}

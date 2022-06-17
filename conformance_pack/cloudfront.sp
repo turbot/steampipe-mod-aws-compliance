@@ -14,3 +14,13 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
     hipaa = "true"
   })
 }
+
+control "cloudfront_distribution_geo_restrictions_enabled" {
+  title       = "CloudFront distributions geo restrictions should be enabled"
+  description = "TO DO"
+  sql         = query.cloudfront_distribution_geo_restrictions_enabled.sql
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    extra_checks = "true"
+  })
+}

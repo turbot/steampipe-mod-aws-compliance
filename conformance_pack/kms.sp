@@ -56,3 +56,12 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
   })
 }
 
+control "kms_cmk_policy_prohibit_public_access" {
+  title       = "KMS CMK policies should prohibit public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring AWS KMS CMK cannot be publicly accessed."
+  sql         = query.kms_cmk_policy_prohibit_public_access.sql
+
+  tags = merge(local.conformance_pack_kms_common_tags, {
+    extra_checks = "true"
+  })
+}
