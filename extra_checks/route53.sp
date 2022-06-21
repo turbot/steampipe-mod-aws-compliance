@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "extra_checks_route53" {
-  title       = "Route53 Extra Checks"
-  description = "TODO"
+  title       = "Route53"
+  description = "This benchmark contains additional checks for AWS Route53 servcice, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.route53_zone_query_logging_enabled
   ]

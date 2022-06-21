@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "extra_checks_ecr" {
-  title       = "ECR Extra Checks"
-  description = "TODO"
+  title       = "ECR"
+  description = "This benchmark contains additional checks for AWS ECR servcice, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.ecr_image_scan_on_push_enabled,
     control.ecr_repository_prohibit_public_access

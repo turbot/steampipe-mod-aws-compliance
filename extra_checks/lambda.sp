@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "extra_checks_lambda" {
-  title       = "Lambda Extra Checks"
-  description = "TODO"
+  title       = "Lambda"
+  description = "This benchmark contains additional checks for AWS Lambda servcice, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.lambda_function_logging_enabled
   ]

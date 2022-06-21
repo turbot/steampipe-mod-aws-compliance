@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "extra_checks_acm" {
-  title       = "ACM Extra Checks"
-  description = "TODO"
+  title       = "ACM"
+  description = "This benchmark contains additional checks for AWS ACM servcice, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.acm_certificate_transparency_logging_enabled
   ]

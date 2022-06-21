@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "extra_checks_s3" {
-  title       = "S3 Extra Checks"
-  description = "TODO"
+  title       = "S3"
+  description = "This benchmark contains additional checks for AWS s3 servcice, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.s3_bucket_object_logging_enabled
   ]

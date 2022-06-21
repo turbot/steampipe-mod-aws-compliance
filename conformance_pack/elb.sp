@@ -140,3 +140,13 @@ control "elb_application_network_lb_use_ssl_certificate" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "elb_listener_use_secure_ssl_cipher" {
+  title       = "ELB listeners should use secure SSL cipher"
+  description = "Ensure that ELB listeners does not have any insecure SSL ciphers. Using insecure and deprecated ciphers for your ELB Predefined Security Policy or Custom Security Policy could make the SSL connection between the client and the load balancer vulnerable to exploits."
+  sql         = query.elb_listener_use_secure_ssl_cipher.sql
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    extra_checks = "true"
+  })
+}

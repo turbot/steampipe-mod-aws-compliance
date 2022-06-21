@@ -1,0 +1,1 @@
+We are adding additional checks to improve the information gathering around other AWS compliance best practices, these checks are out of the scope of any predefined benchmarks for AWS but we consider them very helpful.

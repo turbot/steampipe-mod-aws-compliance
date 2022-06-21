@@ -20,3 +20,13 @@ control "securityhub_enabled" {
     soc_2                  = "true"
   })
 }
+
+control "securityhub_standards_subscription_enabled" {
+  title       = "AWS Security Hub should be enabled for an AWS Account"
+  description = ""
+  sql         = query.securityhub_standards_subscription_enabled.sql
+
+  tags = merge(local.conformance_pack_securityhub_common_tags, {
+    extra_checks = "true"
+  })
+}
