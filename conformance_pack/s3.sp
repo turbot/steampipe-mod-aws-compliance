@@ -194,3 +194,14 @@ control "s3_public_access_block_bucket" {
     nist_800_53_rev_5      = "true"
   })
 }
+
+control "s3_bucket_object_logging_enabled" {
+  title       = "S3 bucket object logging should be enabled"
+  description = "Object-Level logging saves events in json format in CloudTrail. This is recommended from a security best practices perspective for buckets that contain sensitive data."
+  sql         = query.s3_bucket_object_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    extra_checks = "true"
+  })
+}
+

@@ -64,3 +64,13 @@ control "lambda_function_concurrent_execution_limit_configured" {
     soc_2                  = "true"
   })
 }
+
+control "lambda_function_logging_enabled" {
+  title       = "Lambda functions logging should be enabled"
+  description = "TODO"
+  sql         = query.lambda_function_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+     extra_checks = "true"
+  })
+}

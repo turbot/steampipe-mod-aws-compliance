@@ -8,6 +8,8 @@ benchmark "extra_checks" {
   title         = "Extra Checks"
   documentation = file("./extra_checks/docs/extra_checks_overview.md")
   children = [
+    benchmark.extra_checks_lambda,
+    benchmark.extra_checks_s3,
     benchmark.extra_checks_acm,
     benchmark.extra_checks_apigateway,
     benchmark.extra_checks_cloudfront,
@@ -19,7 +21,7 @@ benchmark "extra_checks" {
     benchmark.extra_checks_rds,
     benchmark.extra_checks_route53,
     benchmark.extra_checks_sagemaker,
-    benchmark.extra_checks_vpc
+    benchmark.extra_checks_vpc,
   ]
 
   tags = merge(local.extra_checks_common_tags, {
