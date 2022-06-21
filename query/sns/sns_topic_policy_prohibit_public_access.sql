@@ -15,6 +15,7 @@ with wildcard_action_policies as (
     topic_arn
 )
 select
+  -- Required Columns
   t.topic_arn as resource,
   case
     when p.topic_arn is null then 'ok'
@@ -25,6 +26,7 @@ select
     else title || ' contains ' || coalesce(p.statements_num,0) ||
     ' statements that allows public access.'
   end as reason,
+  -- Additional Dimensions
   t.region,
   t.account_id
 from

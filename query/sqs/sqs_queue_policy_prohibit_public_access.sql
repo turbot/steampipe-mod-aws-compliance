@@ -15,6 +15,7 @@ with wildcard_action_policies as (
     queue_arn
 )
 select
+  -- Required Columns
   q.queue_arn as resource,
   case
     when p.queue_arn is null then 'ok'
@@ -25,6 +26,7 @@ select
     else title || ' contains ' || coalesce(p.statements_num,0) ||
     ' statements that allows public access.'
   end as reason,
+  -- Additional Dimensions
   q.region,
   q.account_id
 from
