@@ -12,6 +12,8 @@ benchmark "ffiec" {
     benchmark.d_1,
     benchmark.d_2,
     # benchmark.d_3,
+    benchmark.d_4,
+    
   ]
   tags = local.ffiec_common_tags
 }
