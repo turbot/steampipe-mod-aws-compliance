@@ -81,6 +81,7 @@ control "s3_bucket_object_lock_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"

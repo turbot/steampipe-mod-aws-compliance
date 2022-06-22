@@ -1,5 +1,5 @@
 benchmark "d_1_g" {
-  title       = "Governance"
+  title       = "Governance (G)"
   description = "Governance includes oversight, strategies, policies, and IT asset management to implement an effective governance of the cybersecurity program."
   children = [
     benchmark.d_1_g_it_b_1
