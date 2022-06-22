@@ -12,6 +12,7 @@ control "vpc_flow_logs_enabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -121,6 +122,7 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    ffiec    = "true"
     nist_csf = "true"
   })
 }

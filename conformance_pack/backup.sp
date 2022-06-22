@@ -10,6 +10,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
   sql         = query.backup_recovery_point_manual_deletion_disabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    ffiec    = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"
@@ -24,6 +25,7 @@ control "backup_plan_min_retention_35_days" {
   tags = merge(local.conformance_pack_backup_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"

@@ -75,6 +75,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
   })
@@ -88,6 +89,7 @@ control "ebs_volume_protected_by_backup_plan" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -102,6 +104,7 @@ control "ebs_volume_unused" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
   })
 }

@@ -12,6 +12,7 @@ control "s3_bucket_cross_region_replication_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -63,6 +64,7 @@ control "s3_bucket_logging_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
