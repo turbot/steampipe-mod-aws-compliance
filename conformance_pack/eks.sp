@@ -23,3 +23,13 @@ control "eks_cluster_endpoint_restrict_public_access" {
     nist_csf = "true"
   })
 }
+
+control "eks_cluster_control_plane_audit_logging_enabled" {
+  title       = "EKS clusters control panel audit logging should be enabled"
+  description = "TODO"
+  sql         = query.eks_cluster_control_plane_audit_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_eks_common_tags, {
+    extra_checks = "true"
+  })
+}

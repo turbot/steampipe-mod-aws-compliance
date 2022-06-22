@@ -10,9 +10,11 @@ benchmark "extra_checks" {
   children = [
     benchmark.extra_checks_acm,
     benchmark.extra_checks_apigateway,
+    benchmark.extra_checks_cloudformation,
     benchmark.extra_checks_cloudfront,
     benchmark.extra_checks_ec2,
     benchmark.extra_checks_ecr,
+    benchmark.extra_checks_eks,
     benchmark.extra_checks_elb,
     benchmark.extra_checks_es,
     benchmark.extra_checks_iam,

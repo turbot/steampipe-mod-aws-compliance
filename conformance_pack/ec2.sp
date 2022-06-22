@@ -138,3 +138,14 @@ control "ec2_instance_publicly_accessible_iam_profile_attached" {
     extra_checks = "true"
   })
 }
+
+control "ec2_user_data_no_secrets" {
+  title       = "EC2 instances user data should not have secrets"
+  description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code exposed to any entity which has the most basic access to EC2, even read-only configurations. This is recommended to not use secrets in user data."
+  sql         = query.ec2_user_data_no_secrets.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    extra_checks = "true"
+  })
+}
+
