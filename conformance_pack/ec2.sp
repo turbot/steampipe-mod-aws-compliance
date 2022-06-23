@@ -131,7 +131,7 @@ control "ec2_instance_iam_profile_attached" {
 
 control "ec2_instance_publicly_accessible_iam_profile_attached" {
   title       = "EC2 public instances should have IAM profile attached"
-  description = "Ensure if an Amazon Elastic Compute Cloud (Amazon EC2) public instances has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to the Amazon EC2 instance."
+  description = "Ensure if an Amazon Elastic Compute Cloud (Amazon EC2) public instances has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to public Amazon EC2 instance."
   sql         = query.ec2_instance_publicly_accessible_iam_profile_attached.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -139,10 +139,10 @@ control "ec2_instance_publicly_accessible_iam_profile_attached" {
   })
 }
 
-control "ec2_user_data_no_secrets" {
+control "ec2_instance_user_data_no_secrets" {
   title       = "EC2 instances user data should not have secrets"
   description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code exposed to any entity which has the most basic access to EC2, even read-only configurations. This is recommended to not use secrets in user data."
-  sql         = query.ec2_user_data_no_secrets.sql
+  sql         = query.ec2_instance_user_data_no_secrets.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     extra_checks = "true"

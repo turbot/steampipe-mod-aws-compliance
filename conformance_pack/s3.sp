@@ -196,7 +196,7 @@ control "s3_public_access_block_bucket" {
 }
 
 control "s3_bucket_object_logging_enabled" {
-  title       = "S3 bucket object logging should be enabled"
+  title       = "S3 buckets object logging should be enabled"
   description = "Object-Level logging saves events in json format in CloudTrail. This is recommended from a security best practices perspective for buckets that contain sensitive data."
   sql         = query.s3_bucket_object_logging_enabled.sql
 

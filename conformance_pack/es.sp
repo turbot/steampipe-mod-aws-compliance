@@ -66,7 +66,7 @@ control "es_domain_logs_to_cloudwatch" {
 }
 
 control "es_domain_cognito_authentication_enabled" {
-  title       = "Elasticsearch domain cognito authentication should be enabled"
+  title       = "Elasticsearch domains cognito authentication should be enabled"
   description = "Amazon Elasticsearch service uses Amazon Cognito to offer user name and password protection for Kibana. This control is non compliant if Amazon Cognito authentication is not enabled."
   sql         = query.es_domain_cognito_authentication_enabled.sql
 
@@ -76,8 +76,8 @@ control "es_domain_cognito_authentication_enabled" {
 }
 
 control "es_domain_internal_user_database_enabled" {
-  title       = "Elasticsearch domain internal user database should be enabled"
-  description = "Ensure if Elasticsearch domain internal user database should be enabled. This control is non compliant if domain internal user database is not enabled."
+  title       = "Elasticsearch domains internal user database should be enabled"
+  description = "Ensure if Elasticsearch domains internal user database should be enabled. This control is non compliant if domains internal user database is not enabled."
   sql         = query.es_domain_internal_user_database_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {

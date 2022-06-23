@@ -5,8 +5,8 @@ locals {
 }
 
 control "route53_zone_query_logging_enabled" {
-  title       = "Route53 zone query logging should be enabled"
-  description = "Ensure that your Route53 zone query logging is enabled."
+  title       = "Route53 zones query logging should be enabled"
+  description = "Ensure that your Route53 zones query logging is enabled."
   sql         = query.route53_zone_query_logging_enabled.sql
 
   tags = merge(local.conformance_pack_route53_common_tags, {

@@ -17,7 +17,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
 
 control "cloudfront_distribution_geo_restrictions_enabled" {
   title       = "CloudFront distributions geo restrictions should be enabled"
-  description = "TO DO"
+  description = "Geographic restrictions is used to restrict access to all of the files that are associated with a distribution and to restrict access at the country level."
   sql         = query.cloudfront_distribution_geo_restrictions_enabled.sql
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {

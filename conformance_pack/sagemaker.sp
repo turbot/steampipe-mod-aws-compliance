@@ -55,7 +55,7 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
 }
 
 control "sagemaker_model_in_vpc" {
-  title       = "SageMaker model should be in a VPC"
+  title       = "SageMaker models should be in a VPC"
   description = "Manage access to the AWS Cloud by ensuring SageMaker models are within an Amazon Virtual Private Cloud (Amazon VPC)."
   sql         = query.sagemaker_model_in_vpc.sql
 
@@ -66,7 +66,7 @@ control "sagemaker_model_in_vpc" {
 
 control "sagemaker_model_network_isolation_enabled" {
   title       = "SageMaker models network isolation should be enabled"
-  description = ""
+  description = "SageMaker models are internet-enabled by default. Network isolation should be enabled to avoid external network access to your inference containers."
   sql         = query.sagemaker_model_network_isolation_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -86,7 +86,7 @@ control "sagemaker_notebook_instance_in_vpc" {
 
 control "sagemaker_notebook_instance_root_access_disabled" {
   title       = "SageMaker Notebook instances root access should be disabled"
-  description = ""
+  description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. This is recommeneded to disable root access to restrict users from accessing and editing all the files."
   sql         = query.sagemaker_notebook_instance_root_access_disabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -106,7 +106,7 @@ control "sagemaker_training_job_in_vpc" {
 
 control "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
   title       = "SageMaker training jobs should be enabled with inter-container traffic encryption"
-  description = ""
+  description = "Inter-container traffic encryption shoule be used to protect data that is transmitted between instances while performing distributed training. This control in compliant when inter-container traffic encryption is enabled."
   sql         = query.sagemaker_training_job_inter_container_traffic_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -116,7 +116,7 @@ control "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
 
 control "sagemaker_training_job_network_isolation_enabled" {
   title       = "SageMaker training jobs should have network isolation enabled"
-  description = ""
+  description = "SageMaker training jobs are internet-enabled by default. Network isolation should be enabled to avoid external network access to your training."
   sql         = query.sagemaker_training_job_network_isolation_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -125,8 +125,8 @@ control "sagemaker_training_job_network_isolation_enabled" {
 }
 
 control "sagemaker_training_job_volume_and_data_encryption_enabled" {
-  title       = "SageMaker training job volumes and output should have KMS encryption enabled"
-  description = ""
+  title       = "SageMaker training jobs volumes and output should have KMS encryption enabled"
+  description = "Ensure that SageMaker training jobs have volume and output with KMS encryption enabled in order to have a more granular control over the data-at-rest encryption/decryption process and meet compliance requirements."
   sql         = query.sagemaker_training_job_volume_and_data_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {

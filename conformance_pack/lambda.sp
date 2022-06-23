@@ -65,12 +65,12 @@ control "lambda_function_concurrent_execution_limit_configured" {
   })
 }
 
-control "lambda_function_logging_enabled" {
-  title       = "Lambda functions logging should be enabled"
-  description = "TODO"
-  sql         = query.lambda_function_logging_enabled.sql
+control "lambda_function_cloudtrail_logging_enabled" {
+  title       = "Lambda functions CloudTrail logging should be enabled"
+  description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
+  sql         = query.lambda_function_cloudtrail_logging_enabled.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-     extra_checks = "true"
+    extra_checks = "true"
   })
 }

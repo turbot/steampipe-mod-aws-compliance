@@ -351,7 +351,7 @@ control "account_part_of_organizations" {
 
 control "iam_policy_custom_no_assume_role" {
   title       = "IAM roles should not have any assume role policies attached"
-  description = "TO DO"
+  description = "Role assume policies can provide access to roles in external AWS accounts."
   sql         = query.iam_policy_custom_no_assume_role.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
@@ -371,7 +371,7 @@ control "iam_user_hardware_mfa_enabled" {
 
 control "iam_user_with_administrator_access_mfa_enabled" {
   title       = "IAM administrator users MFA should be enabled"
-  description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
+  description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for the user."
   sql         = query.iam_user_with_administrator_access_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
