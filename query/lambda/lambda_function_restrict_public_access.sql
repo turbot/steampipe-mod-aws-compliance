@@ -15,7 +15,7 @@ with wildcard_action_policies as (
     arn
 )
 select
-  -- Required columns
+  -- Required Columns
   f.arn as resource,
   case
     when p.arn is null then 'ok'
@@ -26,7 +26,7 @@ select
     else title || ' contains ' || coalesce(p.statements_num,0) ||
     ' statements that allows public access.'
   end as reason,
-  -- Additional columns
+  -- Additional Columns
   f.region,
   f.account_id
 from
