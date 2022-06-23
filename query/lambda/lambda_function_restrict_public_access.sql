@@ -1,25 +1,34 @@
-select
-  -- Required Columns
-  arn as resource,
-  case
-    when policy_std -> 'Statement' ->> 'Effect' = 'Allow'
+with wildcard_action_policies as (
+  select
+    arn,
+    count(*) as statements_num
+  from
+    aws_lambda_function,
+    jsonb_array_elements(policy_std -> 'Statement') as s
+  where
+    s ->> 'Effect' = 'Allow'
     and (
-      policy_std -> 'Statement' ->> 'Principal' = '*'
-      or ( policy_std -> 'Principal' -> 'AWS' ) :: text = '*'
-    ) then 'alarm'
-    else 'ok'
+      ( s -> 'Principal' -> 'AWS') = '["*"]'
+      or s ->> 'Principal' = '*'
+    )
+  group by
+    arn
+)
+select
+  -- Required columns
+  f.arn as resource,
+  case
+    when p.arn is null then 'ok'
+    else 'alarm'
   end status,
   case
-    when policy_std is null then title || ' has no policy.'
-    when policy_std -> 'Statement' ->> 'Effect' = 'Allow'
-    and (
-      policy_std -> 'Statement' ->> 'Principal' = '*'
-      or ( policy_std -> 'Principal' -> 'AWS' ) :: text = '*'
-    ) then title || ' allows public access.'
-    else title || ' does not allow public access.'
-  end reason,
-  -- Additional Dimensions
-  region,
-  account_id
+    when p.arn is null then title || ' does not allow public access.'
+    else title || ' contains ' || coalesce(p.statements_num,0) ||
+    ' statements that allows public access.'
+  end as reason,
+  -- Additional columns
+  f.region,
+  f.account_id
 from
-  aws_lambda_function;
+  aws_lambda_function as f
+  left join wildcard_action_policies as p on p.arn = f.arn;
