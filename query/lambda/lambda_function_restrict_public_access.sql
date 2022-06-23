@@ -26,7 +26,7 @@ select
     else title || ' contains ' || coalesce(p.statements_num,0) ||
     ' statements that allows public access.'
   end as reason,
-  -- Additional Columns
+  -- Additional Dimensions
   f.region,
   f.account_id
 from
