@@ -20,7 +20,7 @@ select
   case
     when p.arn is null then 'ok'
     else 'alarm'
-  end status,
+  end as status,
   case
     when p.arn is null then title || ' does not allow public access.'
     else title || ' contains ' || coalesce(p.statements_num,0) ||
