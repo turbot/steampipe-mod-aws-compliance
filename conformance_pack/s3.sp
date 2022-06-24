@@ -132,10 +132,11 @@ control "s3_bucket_versioning_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
-    nist_csf                    = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
+    nist_csf                    = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
   })

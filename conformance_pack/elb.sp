@@ -31,9 +31,10 @@ control "elb_application_lb_deletion_protection_enabled" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
-    nist_csf               = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -124,8 +125,9 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
-    nist_800_53_rev_5      = "true"
+    ffiec                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
 }

@@ -57,6 +57,7 @@ control "ebs_volume_in_backup_plan" {
   sql         = query.ebs_volume_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    ffiec              = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"

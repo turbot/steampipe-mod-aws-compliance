@@ -12,6 +12,7 @@ control "cloudwatch_alarm_action_enabled" {
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"

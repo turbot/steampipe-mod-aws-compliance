@@ -147,6 +147,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
@@ -160,6 +161,7 @@ control "rds_db_instance_deletion_protection_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     soc_2                  = "true"
@@ -199,6 +201,7 @@ control "rds_db_instance_protected_by_backup_plan" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
