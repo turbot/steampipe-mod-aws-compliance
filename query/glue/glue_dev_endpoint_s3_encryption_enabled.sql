@@ -1,4 +1,5 @@
 select
+  -- Required Columns
 	d.arn as resource,
 	case
 		when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
