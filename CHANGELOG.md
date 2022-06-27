@@ -1,3 +1,10 @@
+## v0.36 [2022-06-27]
+
+_Bug fixes_
+
+- Fixed the `backup_plan_min_retention_35_days` query to check if the backup plan retention period is more than `35` days instead of `37` days. ([#424](https://github.com/turbot/steampipe-mod-aws-compliance/pull/424))
+- Fixed the `lambda_function_restrict_public_access` query to correctly evaluate if a lambda function is restricting public access or not. ([#422](https://github.com/turbot/steampipe-mod-aws-compliance/pull/422))
+
 ## v0.35 [2022-06-14]
 
 _Enhancements_
