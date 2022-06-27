@@ -17,6 +17,7 @@ benchmark "extra_checks" {
     benchmark.extra_checks_eks,
     benchmark.extra_checks_elb,
     benchmark.extra_checks_es,
+    benchmark.extra_checks_glue,
     benchmark.extra_checks_iam,
     benchmark.extra_checks_kms,
     benchmark.extra_checks_lambda,
