@@ -4,14 +4,14 @@ select
   case
     when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then 'ok'
     else 'alarm'
-  end as "status",
+  end as status,
   case
-    when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then j.title || ' enabled job bookmarks encryption'
-    else j.title || ' disabled job bookmarks encryption'
+    when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then j.title || ' job bookmarks encryption enabled.'
+    else j.title || ' job bookmarks encryption disabled.'
   end as reason,
   -- Additional Dimensions
   j.region,
   j.account_id
 from
-  aws_glue_job j
-  left join aws_glue_security_configuration s on j.security_configuration = s.name;
+  aws_glue_job as j
+  left join aws_glue_security_configuration as c on j.security_configuration = c.name;
