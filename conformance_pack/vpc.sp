@@ -171,3 +171,15 @@ control "vpc_security_group_restrict_ingress_redis_port" {
     extra_checks = "true"
   })
 }
+
+control "vpc_security_group_restrict_kibana_port" {
+  title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
+  description = "Amazon Elastic Compute Cloud (Amazon EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_security_group_restrict_kibana_port.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    extra_checks = "true"
+  })
+}
+
+
