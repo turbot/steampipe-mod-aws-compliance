@@ -11,7 +11,7 @@ benchmark "ffiec" {
   children = [
     benchmark.d_1,
     benchmark.d_2,
-    # benchmark.d_3,
+    benchmark.d_3,
     benchmark.d_4,
     benchmark.d_5
   ]

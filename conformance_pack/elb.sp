@@ -46,6 +46,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -63,6 +64,7 @@ control "elb_application_lb_waf_enabled" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -78,6 +80,7 @@ control "elb_classic_lb_use_ssl_certificate" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -109,10 +112,11 @@ control "elb_classic_lb_use_tls_https_listeners" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
-    nist_800_53_rev_5      = "true"
-    hipaa                  = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
+    hipaa                  = "true"
     nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -139,6 +143,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })

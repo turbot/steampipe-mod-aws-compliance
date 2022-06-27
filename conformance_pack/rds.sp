@@ -29,6 +29,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -63,6 +64,7 @@ control "rds_db_instance_prohibit_public_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -97,6 +99,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"

@@ -38,6 +38,7 @@ control "backup_recovery_point_encryption_enabled" {
   sql         = query.backup_recovery_point_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    ffiec    = "true"
     hipaa    = "true"
     nist_csf = "true"
     soc_2    = "true"

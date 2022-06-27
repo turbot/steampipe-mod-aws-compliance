@@ -10,6 +10,7 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    ffiec             = "true"
     hipaa             = "true"
     nist_800_53_rev_5 = "true"
   })
@@ -37,6 +38,7 @@ control "ec2_instance_in_vpc" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -53,6 +55,7 @@ control "ec2_instance_not_publicly_accessible" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -127,6 +130,7 @@ control "ec2_instance_iam_profile_attached" {
   sql         = query.ec2_instance_iam_profile_attached.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    ffiec             = "true"
     nist_800_53_rev_5 = "true"
   })
 }

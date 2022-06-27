@@ -150,6 +150,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
@@ -164,6 +165,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })

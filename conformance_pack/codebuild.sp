@@ -12,6 +12,7 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
@@ -27,6 +28,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
