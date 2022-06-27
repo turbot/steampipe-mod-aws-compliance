@@ -18,7 +18,7 @@ select
   case
     when r.Rules is null then 'alarm'
     when r.Rules ->> 'Lifecycle' is null then 'ok'
-    when (r.Rules -> 'Lifecycle' ->> 'DeleteAfterDays')::int >= 37 then 'ok'
+    when (r.Rules -> 'Lifecycle' ->> 'DeleteAfterDays')::int >= 35 then 'ok'
     else 'alarm'
   end as status,
   case
