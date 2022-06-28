@@ -1,30 +1,30 @@
-benchmark "d_5_dr" {
+benchmark "ffiec_d_5_dr" {
   title       = "Detection, Response, & Mitigation (DR)"
   description = "Detection, Response, & Mitigation refers to the steps management takes to identify, prioritize, respond to, and mitigate the effects of internal and external threats and vulnerabilities."
   children = [
-    benchmark.d_5_dr_de_b_1,
-    benchmark.d_5_dr_de_b_2,
-    benchmark.d_5_dr_de_b_3
+    benchmark.ffiec_d_5_dr_de_b_1,
+    benchmark.ffiec_d_5_dr_de_b_2,
+    benchmark.ffiec_d_5_dr_de_b_3
   ]
 
-  tags = local.d_5_common_tags
+  tags = local.ffiec_d_5_common_tags
 }
 
-benchmark "d_5_dr_de_b_1" {
+benchmark "ffiec_d_5_dr_de_b_1" {
   title       = "D5.DR.De.B.1"
   description = "Alert parameters are set for detecting information security incidents that prompt mitigating actions."
   children = [
-    control.cloudwatch_alarm_action_enabled,  
+    control.cloudwatch_alarm_action_enabled,
     control.securityhub_enabled,
     control.guardduty_enabled
   ]
 
-  tags = merge(local.d_5_common_tags, {
-    ffiec_item_id = "d_5_dr_de_b_1"
+  tags = merge(local.ffiec_d_5_common_tags, {
+    ffiec_item_id = "ffiec_d_5_dr_de_b_1"
   })
 }
 
-benchmark "d_5_dr_de_b_2" {
+benchmark "ffiec_d_5_dr_de_b_2" {
   title       = "D5.DR.De.B.2"
   description = "System performance reports contain information that can be used as a risk indicator to detect information security incidents."
   children = [
@@ -32,12 +32,12 @@ benchmark "d_5_dr_de_b_2" {
 
   ]
 
-  tags = merge(local.d_5_common_tags, {
-    ffiec_item_id = "d_5_dr_de_b_2"
+  tags = merge(local.ffiec_d_5_common_tags, {
+    ffiec_item_id = "ffiec_d_5_dr_de_b_2"
   })
 }
 
-benchmark "d_5_dr_de_b_3" {
+benchmark "ffiec_d_5_dr_de_b_3" {
   title       = "D5.DR.De.B.3"
   description = "Tools and processes are in place to detect, alert, and trigger the incident response program."
   children = [
@@ -56,8 +56,8 @@ benchmark "d_5_dr_de_b_3" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.d_5_common_tags, {
-    ffiec_item_id = "d_5_dr_de_b_3"
+  tags = merge(local.ffiec_d_5_common_tags, {
+    ffiec_item_id = "ffiec_d_5_dr_de_b_3"
   })
 }
 

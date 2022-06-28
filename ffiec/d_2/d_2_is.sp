@@ -1,14 +1,14 @@
-benchmark "d_2_is" {
+benchmark "ffiec_d_2_is" {
   title       = "Information Sharing (IS)"
   description = "Information Sharing encompasses establishing relationships with peers and information-sharing forums and how threat information is communicated to those groups as well as internal stakeholders. "
   children = [
-    benchmark.d_2_is_is_b_1
+    benchmark.ffiec_d_2_is_is_b_1
   ]
 
-  tags = local.d_2_common_tags
+  tags = local.ffiec_d_2_common_tags
 }
 
-benchmark "d_2_is_is_b_1" {
+benchmark "ffiec_d_2_is_is_b_1" {
   title       = "D2.IS.Is.B.1"
   description = "Information security threats are gathered and shared with applicable internal employees."
   children = [
@@ -17,7 +17,7 @@ benchmark "d_2_is_is_b_1" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.d_2_common_tags, {
-    ffiec_item_id = "d_2_is_is_b_1"
+  tags = merge(local.ffiec_d_2_common_tags, {
+    ffiec_item_id = "ffiec_d_2_is_is_b_1"
   })
 }

@@ -1,15 +1,15 @@
-benchmark "d_2_ma" {
+benchmark "ffiec_d_2_ma" {
   title       = "Monitoring and Analyzing (MA)"
   description = "Monitoring and Analyzing refers to how an institution monitors threat sources and what analysis may be performed to identify threats that are specific to the institution or to resolve conflicts in the different threat intelligence streams."
   children = [
-    benchmark.d_2_ma_ma_b_1,
-    benchmark.d_2_ma_ma_b_2
+    benchmark.ffiec_d_2_ma_ma_b_1,
+    benchmark.ffiec_d_2_ma_ma_b_2
   ]
 
-  tags = local.d_2_common_tags
+  tags = local.ffiec_d_2_common_tags
 }
 
-benchmark "d_2_ma_ma_b_1" {
+benchmark "ffiec_d_2_ma_ma_b_1" {
   title       = "D2.MA.Ma.B.1"
   description = "Audit log records and other security event logs are reviewed and retained in a secure manner."
   children = [
@@ -30,12 +30,12 @@ benchmark "d_2_ma_ma_b_1" {
     control.es_domain_logs_to_cloudwatch
   ]
 
-  tags = merge(local.d_2_common_tags, {
-    ffiec_item_id = "d_2_ma_ma_b_1"
+  tags = merge(local.ffiec_d_2_common_tags, {
+    ffiec_item_id = "ffiec_d_2_ma_ma_b_1"
   })
 }
 
-benchmark "d_2_ma_ma_b_2" {
+benchmark "ffiec_d_2_ma_ma_b_2" {
   title       = "D2.MA.Ma.B.2"
   description = "Computer event logs are used for investigations once an event has occurred."
   children = [
@@ -46,13 +46,13 @@ benchmark "d_2_ma_ma_b_2" {
     control.cloudtrail_multi_region_trail_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.cloudtrail_s3_data_events_enabled, 
+    control.cloudtrail_s3_data_events_enabled,
     control.redshift_cluster_kms_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.es_domain_logs_to_cloudwatch
   ]
 
-  tags = merge(local.d_2_common_tags, {
-    ffiec_item_id = "d_2_ma_ma_b_2"
+  tags = merge(local.ffiec_d_2_common_tags, {
+    ffiec_item_id = "ffiec_d_2_ma_ma_b_2"
   })
 }

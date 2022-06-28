@@ -1,15 +1,15 @@
-benchmark "d_1_rm" {
+benchmark "ffiec_d_1_rm" {
   title       = "Risk Management (RM)"
   description = "Risk Management includes a risk management program, risk assessment process, and audit function to effectively manage risk and assess the effectiveness of key controls."
   children = [
-    benchmark.d_1_rm_rm_b_1,
-    benchmark.d_1_rm_ra_b_2
+    benchmark.ffiec_d_1_rm_rm_b_1,
+    benchmark.ffiec_d_1_rm_ra_b_2
   ]
 
-  tags = local.d_1_common_tags
+  tags = local.ffiec_d_1_common_tags
 }
 
-benchmark "d_1_rm_rm_b_1" {
+benchmark "ffiec_d_1_rm_rm_b_1" {
   title       = "D1.RM.Rm.B.1"
   description = "An information security and business continuity risk management function(s) exists within the institution."
   children = [
@@ -25,24 +25,24 @@ benchmark "d_1_rm_rm_b_1" {
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_manual_deletion_disabled,
-    # control.backup-recovery-point-minimum-retention-check ?? # https://docs.aws.amazon.com/config/latest/developerguide/backup-recovery-point-minimum-retention-check.html
+    control.backup_recovery_point_min_retention_35_days,
     control.ec2_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
-  tags = merge(local.d_1_common_tags, {
-    ffiec_item_id = "d_1_rm_rm_b_1"
+  tags = merge(local.ffiec_d_1_common_tags, {
+    ffiec_item_id = "ffiec_d_1_rm_rm_b_1"
   })
 }
 
-benchmark "d_1_rm_ra_b_2" {
+benchmark "ffiec_d_1_rm_ra_b_2" {
   title       = "D1.RM.RA.B.2"
   description = "The risk assessment identifies Internet- based systems and high-risk transactions that warrant additional authentication controls."
   children = [
     control.guardduty_enabled
   ]
 
-  tags = merge(local.d_1_common_tags, {
-    ffiec_item_id = "d_1_rm_ra_b_2"
+  tags = merge(local.ffiec_d_1_common_tags, {
+    ffiec_item_id = "ffiec_d_1_rm_ra_b_2"
   })
 }

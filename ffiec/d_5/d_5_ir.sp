@@ -1,14 +1,14 @@
-benchmark "d_5_ir" {
+benchmark "ffiec_d_5_ir" {
   title       = "Incident Resilience Planning & Strategy (IR)"
   description = "Incident Resilience Planning & Strategy incorporates resilience planning and testing into existing business continuity and disaster recovery plans to minimize service disruptions and the destruction or corruption of data."
   children = [
-    benchmark.d_5_ir_pi_b_6
+    benchmark.ffiec_d_5_ir_pi_b_6
   ]
 
-  tags = local.d_5_common_tags
+  tags = local.ffiec_d_5_common_tags
 }
 
-benchmark "d_5_ir_pi_b_6" {
+benchmark "ffiec_d_5_ir_pi_b_6" {
   title       = "D5.IR.Pl.B.6"
   description = "The institution plans to use business continuity, disaster recovery, and data backup programs to recover operations following an incident."
   children = [
@@ -32,10 +32,11 @@ benchmark "d_5_ir_pi_b_6" {
     control.lambda_function_concurrent_execution_limit_configured,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.backup_plan_min_retention_35_days,
+    control.backup_recovery_point_min_retention_35_days,
     control.ec2_instance_protected_by_backup_plan
   ]
 
-  tags = merge(local.d_5_common_tags, {
-    ffiec_item_id = "d_5_ir_pi_b_6"
+  tags = merge(local.ffiec_d_5_common_tags, {
+    ffiec_item_id = "ffiec_d_5_ir_pi_b_6"
   })
 }

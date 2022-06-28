@@ -1,15 +1,15 @@
-benchmark "d_3_cc" {
+benchmark "ffiec_d_3_cc" {
   title       = "Corrective Controls (CC)"
   description = "Corrective Controls are utilized to resolve system and software vulnerabilities through patch management and remediation of issues identified during vulnerability scans and penetration testing."
   children = [
-    benchmark.d_3_cc_pm_b_1,
-    benchmark.d_3_cc_pm_b_3
+    benchmark.ffiec_d_3_cc_pm_b_1,
+    benchmark.ffiec_d_3_cc_pm_b_3
   ]
 
-  tags = local.d_3_common_tags
+  tags = local.ffiec_d_3_common_tags
 }
 
-benchmark "d_3_cc_pm_b_1" {
+benchmark "ffiec_d_3_cc_pm_b_1" {
   title       = "D3.CC.PM.B.1"
   description = "A patch management program is implemented and ensures that software and firmware patches are applied in a timely manner."
   children = [
@@ -18,12 +18,12 @@ benchmark "d_3_cc_pm_b_1" {
     control.redshift_cluster_maintenance_settings_check
   ]
 
-  tags = merge(local.d_3_common_tags, {
-    ffiec_item_id = "d_3_cc_pm_b_1"
+  tags = merge(local.ffiec_d_3_common_tags, {
+    ffiec_item_id = "ffiec_d_3_cc_pm_b_1"
   })
 }
 
-benchmark "d_3_cc_pm_b_3" {
+benchmark "ffiec_d_3_cc_pm_b_3" {
   title       = "D3.CC.PM.B.3"
   description = "Patch management reports are reviewed and reflect missing security patches."
   children = [
@@ -32,7 +32,7 @@ benchmark "d_3_cc_pm_b_3" {
     control.redshift_cluster_maintenance_settings_check
   ]
 
-  tags = merge(local.d_3_common_tags, {
-    ffiec_item_id = "d_3_cc_pm_b_3"
+  tags = merge(local.ffiec_d_3_common_tags, {
+    ffiec_item_id = "ffiec_d_3_cc_pm_b_3"
   })
 }

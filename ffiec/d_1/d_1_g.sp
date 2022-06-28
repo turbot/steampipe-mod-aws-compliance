@@ -1,14 +1,14 @@
-benchmark "d_1_g" {
+benchmark "ffiec_d_1_g" {
   title       = "Governance (G)"
   description = "Governance includes oversight, strategies, policies, and IT asset management to implement an effective governance of the cybersecurity program."
   children = [
-    benchmark.d_1_g_it_b_1
+    benchmark.ffiec_d_1_g_it_b_1
   ]
 
-  tags = local.d_1_common_tags
+  tags = local.ffiec_d_1_common_tags
 }
 
-benchmark "d_1_g_it_b_1" {
+benchmark "ffiec_d_1_g_it_b_1" {
   title       = "D1.G.IT.B.1"
   description = "An inventory of organizational assets (e.g., hardware, software, data, and systems hosted externally) is maintained."
   children = [
@@ -19,7 +19,7 @@ benchmark "d_1_g_it_b_1" {
     control.vpc_eip_associated
   ]
 
-  tags = merge(local.d_1_common_tags, {
-    ffiec_item_id = "d_1_g_it_b_1"
+  tags = merge(local.ffiec_d_1_common_tags, {
+    ffiec_item_id = "ffiec_d_1_g_it_b_1"
   })
 }

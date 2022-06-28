@@ -336,6 +336,7 @@ control "iam_all_policy_no_service_wild_card" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
