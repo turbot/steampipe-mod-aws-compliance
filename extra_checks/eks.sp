@@ -6,9 +6,9 @@ locals {
 
 benchmark "extra_checks_eks" {
   title       = "EKS"
-  description = "This benchmark contains additional checks for AWS EKS servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS EKS service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
-    control.eks_cluster_control_plane_audit_logging_enabled,
+    control.eks_cluster_control_plane_audit_logging_enabled
   ]
 
   tags = local.extra_checks_eks_common_tags

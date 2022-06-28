@@ -6,7 +6,7 @@ locals {
 
 benchmark "extra_checks_sns" {
   title       = "SNS"
-  description = "This benchmark contains additional checks for AWS SNS servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS SNS service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.sns_topic_policy_prohibit_public_access
   ]

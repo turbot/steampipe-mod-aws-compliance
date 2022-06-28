@@ -6,7 +6,7 @@ locals {
 
 benchmark "extra_checks_rds" {
   title       = "RDS"
-  description = "This benchmark contains additional checks for AWS RDS servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS RDS service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.rds_db_instance_cloudwatch_logs_enabled
   ]

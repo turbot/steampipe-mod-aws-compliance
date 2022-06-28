@@ -6,7 +6,7 @@ locals {
 
 benchmark "extra_checks_lambda" {
   title       = "Lambda"
-  description = "This benchmark contains additional checks for AWS Lambda servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS Lambda service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.lambda_function_cloudtrail_logging_enabled
   ]

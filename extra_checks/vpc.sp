@@ -6,7 +6,7 @@ locals {
 
 benchmark "extra_checks_vpc" {
   title       = "VPC"
-  description = "This benchmark contains additional checks for AWS VPC servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS VPC service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.vpc_security_group_restrict_ingress_redis_port,
     control.vpc_security_group_restrict_kibana_port

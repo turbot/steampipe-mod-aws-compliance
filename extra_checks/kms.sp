@@ -6,7 +6,7 @@ locals {
 
 benchmark "extra_checks_kms" {
   title       = "KMS"
-  description = "This benchmark contains additional checks for AWS KMS servcice, these checks are out of the scope of any predefined benchmarks for AWS."
+  description = "This benchmark contains additional checks for AWS KMS service, these checks are out of the scope of any predefined benchmarks for AWS."
   children = [
     control.kms_cmk_policy_prohibit_public_access
   ]

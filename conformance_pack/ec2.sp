@@ -149,3 +149,12 @@ control "ec2_instance_user_data_no_secrets" {
   })
 }
 
+control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
+  title       = "EC2 Transit Gateways auto accept shared attachments should be disabled"
+  description = "Ensure if Transit Gateways auto accept shared attachments is disabled. If this setting is disabled, then any VPC that attempts to attach to the transit gateway will need to request authorization, and the account that owns the Transit Gateway will need to accept the authorization."
+  sql         = query.ec2_transit_gateway_auto_cross_account_attachment_disabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    extra_checks = "true"
+  })
+}
