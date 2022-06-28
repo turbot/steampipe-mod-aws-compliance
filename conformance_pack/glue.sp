@@ -35,7 +35,7 @@ control "glue_dev_endpoint_s3_encryption_enabled" {
 }
 
 control "glue_job_cloudwatch_logs_encryption_enabled" {
-  title       = "Glue jobs cloudWatch logs encryption should be enable"
+  title       = "Glue jobs CloudWatch logs encryption should be enabled"
   description = "Ensure if glue job cloudWatch logs encryption is enabled to protect sensitive information at rest."
   sql         = query.glue_job_cloudwatch_logs_encryption_enabled.sql
 
@@ -45,7 +45,7 @@ control "glue_job_cloudwatch_logs_encryption_enabled" {
 }
 
 control "glue_job_bookmarks_encryption_enabled" {
-  title       = "Glue jobs bookmarks encryption should be enable"
+  title       = "Glue jobs bookmarks encryption should be enabled"
   description = "Ensure if glue job bookmarks encryption is enabled to protect sensitive information at rest."
   sql         = query.glue_job_bookmarks_encryption_enabled.sql
 
@@ -55,7 +55,7 @@ control "glue_job_bookmarks_encryption_enabled" {
 }
 
 control "glue_job_s3_encryption_enabled" {
-  title       = "Glue jobs S3 encryption should be enable"
+  title       = "Glue jobs S3 encryption should be enabled"
   description = "Ensure if glue job S3 encryption is enabled to protect sensitive information at rest."
   sql         = query.glue_job_s3_encryption_enabled.sql
 

@@ -14,6 +14,7 @@ benchmark "extra_checks" {
     benchmark.extra_checks_cloudfront,
     benchmark.extra_checks_ec2,
     benchmark.extra_checks_ecr,
+    benchmark.extra_checks_ecs,
     benchmark.extra_checks_efs,
     benchmark.extra_checks_eks,
     benchmark.extra_checks_elb,

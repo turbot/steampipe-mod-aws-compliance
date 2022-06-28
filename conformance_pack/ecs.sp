@@ -15,3 +15,13 @@ control "ecs_task_definition_user_for_host_mode_check" {
     nist_800_53_rev_5      = "true"
   })
 }
+
+control "ecs_task_definition_logging_enabled" {
+  title       = "ECS task definitions logging should be enabled"
+  description = "Ensure if task definitions logging is enabled to access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation"
+  sql         = query.ecs_task_definition_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    extra_checks = "true"
+  })
+}
