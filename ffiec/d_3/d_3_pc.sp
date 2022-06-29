@@ -22,7 +22,6 @@ benchmark "ffiec_d_3_pc" {
     benchmark.ffiec_d_3_pc_se_b_1
   ]
 
-  # tags = local.ffiec_d_3_common_tags
   tags = local.ffiec_common_tags
 }
 
@@ -42,9 +41,6 @@ benchmark "ffiec_d_3_pc_am_b_1" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_1"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -58,9 +54,6 @@ benchmark "ffiec_d_3_pc_am_b_10" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_10"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -86,9 +79,6 @@ benchmark "ffiec_d_3_pc_am_b_12" {
     control.s3_bucket_enforces_ssl
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_12"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -105,9 +95,6 @@ benchmark "ffiec_d_3_pc_am_b_13" {
     control.s3_bucket_enforces_ssl
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_13"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -124,9 +111,6 @@ benchmark "ffiec_d_3_pc_am_b_15" {
     control.s3_bucket_enforces_ssl
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_15"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -140,9 +124,6 @@ benchmark "ffiec_d_3_pc_am_b_16" {
     control.iam_user_in_group
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_16"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -155,9 +136,6 @@ benchmark "ffiec_d_3_pc_am_b_2" {
     control.iam_user_in_group
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_2"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -173,9 +151,6 @@ benchmark "ffiec_d_3_pc_am_b_3" {
     control.iam_root_user_no_access_keys
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_3"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -197,9 +172,6 @@ benchmark "ffiec_d_3_pc_am_b_6" {
     control.iam_user_unused_credentials_90
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_6"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -210,9 +182,6 @@ benchmark "ffiec_d_3_pc_am_b_7" {
     control.iam_account_password_policy_strong
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_7"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -223,9 +192,6 @@ benchmark "ffiec_d_3_pc_am_b_8" {
     control.iam_root_user_no_access_keys
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_am_b_8"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -262,9 +228,6 @@ benchmark "ffiec_d_3_pc_im_b_1" {
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_1"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -280,9 +243,6 @@ benchmark "ffiec_d_3_pc_im_b_2" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_2"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -298,9 +258,6 @@ benchmark "ffiec_d_3_pc_im_b_3" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_3"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -313,9 +270,6 @@ benchmark "ffiec_d_3_pc_im_b_5" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_5"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -329,9 +283,6 @@ benchmark "ffiec_d_3_pc_im_b_6" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_6"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -348,9 +299,6 @@ benchmark "ffiec_d_3_pc_im_b_7" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_im_b_7"
-  # })
   tags = local.ffiec_common_tags
 }
 
@@ -362,8 +310,5 @@ benchmark "ffiec_d_3_pc_se_b_1" {
     control.codebuild_project_source_repo_oauth_configured
   ]
 
-  # tags = merge(local.ffiec_d_3_common_tags, {
-  #   ffiec_item_id = "ffiec_d_3_pc_se_b_1"
-  # })
   tags = local.ffiec_common_tags
 }

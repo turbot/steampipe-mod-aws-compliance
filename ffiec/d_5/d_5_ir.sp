@@ -5,7 +5,6 @@ benchmark "ffiec_d_5_ir" {
     benchmark.ffiec_d_5_ir_pi_b_6
   ]
 
-  # tags = local.ffiec_d_5_common_tags
   tags = local.ffiec_common_tags
 }
 
@@ -37,8 +36,5 @@ benchmark "ffiec_d_5_ir_pi_b_6" {
     control.vpc_vpn_tunnel_up
   ]
 
-  # tags = merge(local.ffiec_d_5_common_tags, {
-  #   ffiec_item_id = "ffiec_d_5_ir_pi_b_6"
-  # })
   tags = local.ffiec_common_tags
 }

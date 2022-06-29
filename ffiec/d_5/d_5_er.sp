@@ -5,7 +5,6 @@ benchmark "ffiec_d_5_er" {
     benchmark.ffiec_d_5_er_es_b_4
   ]
 
-  # tags = local.ffiec_d_5_common_tags
   tags = local.ffiec_common_tags
 }
 
@@ -16,8 +15,5 @@ benchmark "ffiec_d_5_er_es_b_4" {
     control.guardduty_finding_archived
   ]
 
-  # tags = merge(local.ffiec_d_5_common_tags, {
-  #   ffiec_item_id = "ffiec_d_5_er_es_b_4"
-  # })
   tags = local.ffiec_common_tags
 }
