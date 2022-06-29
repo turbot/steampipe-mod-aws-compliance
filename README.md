@@ -1,4 +1,4 @@
-# AWS Compliance Scanning Tool
+# AWS Compliance Mod for Steampipe
 
 475+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, FedRAMP, HIPAA, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.4.0) CIS benchmarks**.
 
