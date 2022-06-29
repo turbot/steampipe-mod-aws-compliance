@@ -1,3 +1,10 @@
+## v0.37 [2022-06-29]
+
+_What's new?_
+
+- AddedFederal Financial Institutions Examination Council (FFIEC)
+ benchmark (`steampipe check benchmark.ffiec`). ([#420](https://github.com/turbot/steampipe-mod-aws-compliance/pull/420))
+
 ## v0.36 [2022-06-27]
 
 _Bug fixes_
