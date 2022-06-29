@@ -42,9 +42,10 @@ benchmark "ffiec_d_3_pc_am_b_1" {
     control.iam_user_no_inline_attached_policies
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_pc_am_b_1"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_pc_am_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_pc_am_b_10" {
