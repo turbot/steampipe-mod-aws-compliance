@@ -27,6 +27,6 @@ control "securityhub_standards_subscription_enabled" {
   sql         = query.securityhub_standards_subscription_enabled.sql
 
   tags = merge(local.conformance_pack_securityhub_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

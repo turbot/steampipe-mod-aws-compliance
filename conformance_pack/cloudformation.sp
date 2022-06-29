@@ -10,6 +10,6 @@ control "cloudformation_stack_output_no_secrets" {
   sql         = query.cloudformation_stack_output_no_secrets.sql
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

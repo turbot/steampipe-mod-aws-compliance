@@ -147,7 +147,7 @@ control "elb_listener_use_secure_ssl_cipher" {
   sql         = query.elb_listener_use_secure_ssl_cipher.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -157,7 +157,7 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
   sql         = query.elb_application_classic_network_lb_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 

@@ -54,7 +54,7 @@ control "efs_file_system_encrypted_with_cmk" {
   sql         = query.efs_file_system_encrypted_with_cmk.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -64,6 +64,6 @@ control "efs_file_system_enforces_ssl" {
   sql         = query.efs_file_system_enforces_ssl.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

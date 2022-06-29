@@ -10,7 +10,7 @@ control "sqs_queue_policy_prohibit_public_access" {
   sql         = query.sqs_queue_policy_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -20,7 +20,7 @@ control "sqs_queue_dead_letter_queue_configured" {
   sql         = query.sqs_queue_dead_letter_queue_configured.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 

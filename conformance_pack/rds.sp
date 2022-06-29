@@ -168,7 +168,7 @@ control "rds_db_instance_iam_authentication_enabled" {
   sql         = query.rds_db_instance_iam_authentication_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    soc_2  = "true"
+    soc_2 = "true"
   })
 }
 
@@ -217,6 +217,6 @@ control "rds_db_instance_cloudwatch_logs_enabled" {
   sql         = query.rds_db_instance_cloudwatch_logs_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

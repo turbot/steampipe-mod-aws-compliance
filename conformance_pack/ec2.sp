@@ -135,7 +135,7 @@ control "ec2_instance_publicly_accessible_iam_profile_attached" {
   sql         = query.ec2_instance_publicly_accessible_iam_profile_attached.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -145,7 +145,7 @@ control "ec2_instance_user_data_no_secrets" {
   sql         = query.ec2_instance_user_data_no_secrets.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -155,6 +155,6 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   sql         = query.ec2_transit_gateway_auto_cross_account_attachment_disabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

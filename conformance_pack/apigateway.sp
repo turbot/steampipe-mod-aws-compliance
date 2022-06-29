@@ -68,6 +68,6 @@ control "apigateway_rest_api_authorizers_configured" {
   sql         = query.apigateway_rest_api_authorizers_configured.sql
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

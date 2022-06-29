@@ -71,7 +71,7 @@ control "es_domain_cognito_authentication_enabled" {
   sql         = query.es_domain_cognito_authentication_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -81,6 +81,6 @@ control "es_domain_internal_user_database_enabled" {
   sql         = query.es_domain_internal_user_database_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

@@ -10,7 +10,7 @@ control "route53_zone_query_logging_enabled" {
   sql         = query.route53_zone_query_logging_enabled.sql
 
   tags = merge(local.conformance_pack_route53_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -20,6 +20,6 @@ control "route53_domain_transfer_lock_enabled" {
   sql         = query.route53_domain_transfer_lock_enabled.sql
 
   tags = merge(local.conformance_pack_route53_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

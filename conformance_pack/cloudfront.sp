@@ -10,7 +10,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   sql         = query.cloudfront_distribution_encryption_in_transit_enabled.sql
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
     hipaa = "true"
   })
 }
@@ -21,6 +21,6 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
   sql         = query.cloudfront_distribution_geo_restrictions_enabled.sql
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

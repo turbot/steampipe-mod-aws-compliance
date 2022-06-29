@@ -355,7 +355,7 @@ control "iam_policy_custom_no_assume_role" {
   sql         = query.iam_policy_custom_no_assume_role.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -365,7 +365,7 @@ control "iam_user_hardware_mfa_enabled" {
   sql         = query.iam_user_hardware_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -375,6 +375,6 @@ control "iam_user_with_administrator_access_mfa_enabled" {
   sql         = query.iam_user_with_administrator_access_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

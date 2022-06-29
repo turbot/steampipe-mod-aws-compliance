@@ -27,6 +27,6 @@ control "sns_topic_policy_prohibit_public_access" {
   sql         = query.sns_topic_policy_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

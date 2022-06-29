@@ -22,6 +22,6 @@ control "ecs_task_definition_logging_enabled" {
   sql         = query.ecs_task_definition_logging_enabled.sql
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

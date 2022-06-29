@@ -71,6 +71,6 @@ control "lambda_function_cloudtrail_logging_enabled" {
   sql         = query.lambda_function_cloudtrail_logging_enabled.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

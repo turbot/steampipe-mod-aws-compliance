@@ -10,7 +10,7 @@ control "kinesis_stream_server_side_encryption_enabled" {
   sql         = query.kinesis_stream_server_side_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_kinesis_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -20,6 +20,6 @@ control "kinesis_stream_encrypted_with_kms_cmk" {
   sql         = query.kinesis_stream_encrypted_with_kms_cmk.sql
 
   tags = merge(local.conformance_pack_kinesis_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }

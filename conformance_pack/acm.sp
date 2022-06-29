@@ -28,6 +28,7 @@ control "acm_certificate_transparency_logging_enabled" {
   sql         = query.acm_certificate_transparency_logging_enabled.sql
 
   tags = merge(local.conformance_pack_acm_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
+    other = "true"
   })
 }

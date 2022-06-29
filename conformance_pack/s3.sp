@@ -201,7 +201,7 @@ control "s3_bucket_object_logging_enabled" {
   sql         = query.s3_bucket_object_logging_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 

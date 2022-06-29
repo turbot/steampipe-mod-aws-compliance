@@ -10,7 +10,7 @@ control "ecr_repository_image_scan_on_push_enabled" {
   sql         = query.ecr_repository_image_scan_on_push_enabled.sql
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -20,7 +20,7 @@ control "ecr_repository_prohibit_public_access" {
   sql         = query.ecr_repository_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 

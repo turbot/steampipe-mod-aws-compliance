@@ -168,7 +168,7 @@ control "vpc_security_group_restrict_ingress_redis_port" {
   sql         = query.vpc_security_group_restrict_ingress_redis_port.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
@@ -178,7 +178,7 @@ control "vpc_security_group_restrict_kibana_port" {
   sql         = query.vpc_security_group_restrict_kibana_port.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    extra_checks = "true"
+    other_checks = "true"
   })
 }
 
