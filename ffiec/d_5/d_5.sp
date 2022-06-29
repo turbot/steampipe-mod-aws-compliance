@@ -1,8 +1,8 @@
-locals {
-  ffiec_d_5_common_tags = merge(local.ffiec_common_tags, {
-    ffiec_domain = "5"
-  })
-}
+# locals {
+#   ffiec_d_5_common_tags = merge(local.ffiec_common_tags, {
+#     ffiec_domain = "5"
+#   })
+# }
 
 benchmark "ffiec_d_5" {
   title       = "Cyber Incident Management and Resilience (Domain 5)"
@@ -13,5 +13,6 @@ benchmark "ffiec_d_5" {
     benchmark.ffiec_d_5_ir
   ]
 
-  tags = local.ffiec_d_5_common_tags
+  # tags = local.ffiec_d_5_common_tags
+  tags = local.ffiec_common_tags
 }

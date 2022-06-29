@@ -1,8 +1,8 @@
-locals {
-  ffiec_d_3_common_tags = merge(local.ffiec_common_tags, {
-    ffiec_domain = "3"
-  })
-}
+# locals {
+#   ffiec_d_3_common_tags = merge(local.ffiec_common_tags, {
+#     ffiec_domain = "3"
+#   })
+# }
 
 benchmark "ffiec_d_3" {
   title       = "Cybersecurity Controls (Domain 3)"
@@ -13,5 +13,6 @@ benchmark "ffiec_d_3" {
     benchmark.ffiec_d_3_pc
   ]
 
-  tags = local.ffiec_d_3_common_tags
+  # tags = local.ffiec_d_3_common_tags
+  tags = local.ffiec_common_tags
 }

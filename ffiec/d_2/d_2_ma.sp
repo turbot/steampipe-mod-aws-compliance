@@ -6,7 +6,8 @@ benchmark "ffiec_d_2_ma" {
     benchmark.ffiec_d_2_ma_ma_b_2
   ]
 
-  tags = local.ffiec_d_2_common_tags
+  # tags = local.ffiec_d_2_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_2_ma_ma_b_1" {
@@ -30,9 +31,10 @@ benchmark "ffiec_d_2_ma_ma_b_1" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_ma_ma_b_1"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_ma_ma_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_2_ma_ma_b_2" {
@@ -52,7 +54,8 @@ benchmark "ffiec_d_2_ma_ma_b_2" {
     control.vpc_flow_logs_enabled
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_ma_ma_b_2"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_ma_ma_b_2"
+  # })
+  tags = local.ffiec_common_tags
 }

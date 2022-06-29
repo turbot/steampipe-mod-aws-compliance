@@ -6,7 +6,8 @@ benchmark "ffiec_d_3_cc" {
     benchmark.ffiec_d_3_cc_pm_b_3
   ]
 
-  tags = local.ffiec_d_3_common_tags
+  # tags = local.ffiec_d_3_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_cc_pm_b_1" {
@@ -18,9 +19,10 @@ benchmark "ffiec_d_3_cc_pm_b_1" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_cc_pm_b_1"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_cc_pm_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_cc_pm_b_3" {
@@ -32,7 +34,8 @@ benchmark "ffiec_d_3_cc_pm_b_3" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_cc_pm_b_3"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_cc_pm_b_3"
+  # })
+  tags = local.ffiec_common_tags
 }

@@ -6,7 +6,7 @@ benchmark "ffiec_d_1_rm" {
     benchmark.ffiec_d_1_rm_rm_b_1
   ]
 
-  tags = local.ffiec_d_1_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_1_rm_ra_b_2" {
@@ -16,9 +16,10 @@ benchmark "ffiec_d_1_rm_ra_b_2" {
     control.guardduty_enabled
   ]
 
-  tags = merge(local.ffiec_d_1_common_tags, {
-    ffiec_item_id = "ffiec_d_1_rm_ra_b_2"
-  })
+  tags = local.ffiec_common_tags
+  # tags = merge(local.ffiec_d_1_common_tags, {
+  #   ffiec_item_id = "ffiec_d_1_rm_ra_b_2"
+  # })
 }
 
 benchmark "ffiec_d_1_rm_rm_b_1" {
@@ -45,7 +46,8 @@ benchmark "ffiec_d_1_rm_rm_b_1" {
     control.s3_bucket_cross_region_replication_enabled
   ]
 
-  tags = merge(local.ffiec_d_1_common_tags, {
-    ffiec_item_id = "ffiec_d_1_rm_rm_b_1"
-  })
+  tags = local.ffiec_common_tags
+  # tags = merge(local.ffiec_d_1_common_tags, {
+  #   ffiec_item_id = "ffiec_d_1_rm_rm_b_1"
+  # })
 }

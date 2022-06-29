@@ -7,7 +7,8 @@ benchmark "ffiec_d_2_ti" {
     benchmark.ffiec_d_2_ti_ti_b_3
   ]
 
-  tags = local.ffiec_d_2_common_tags
+  tags = local.ffiec_common_tags
+  # tags = local.ffiec_d_2_common_tags
 }
 
 benchmark "ffiec_d_2_ti_ti_b_1" {
@@ -19,9 +20,10 @@ benchmark "ffiec_d_2_ti_ti_b_1" {
 
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_ti_ti_b_1"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_ti_ti_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_2_ti_ti_b_2" {
@@ -33,9 +35,10 @@ benchmark "ffiec_d_2_ti_ti_b_2" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_ti_ti_b_2"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_ti_ti_b_2"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_2_ti_ti_b_3" {
@@ -46,8 +49,9 @@ benchmark "ffiec_d_2_ti_ti_b_3" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_ti_ti_b_3"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_ti_ti_b_3"
+  # })
+  tags = local.ffiec_common_tags
 }
 

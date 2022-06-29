@@ -4,8 +4,8 @@ benchmark "ffiec_d_1_g" {
   children = [
     benchmark.ffiec_d_1_g_it_b_1
   ]
-
-  tags = local.ffiec_d_1_common_tags
+  tags = local.ffiec_common_tags
+  # tags = local.ffiec_d_1_common_tags
 }
 
 benchmark "ffiec_d_1_g_it_b_1" {
@@ -19,7 +19,8 @@ benchmark "ffiec_d_1_g_it_b_1" {
     control.vpc_eip_associated
   ]
 
-  tags = merge(local.ffiec_d_1_common_tags, {
-    ffiec_item_id = "ffiec_d_1_g_it_b_1"
-  })
+  tags = local.ffiec_common_tags
+  # tags = merge(local.ffiec_d_1_common_tags, {
+  #   ffiec_item_id = "ffiec_d_1_g_it_b_1"
+  # })
 }

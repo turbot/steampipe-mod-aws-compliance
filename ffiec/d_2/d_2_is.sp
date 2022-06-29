@@ -5,7 +5,8 @@ benchmark "ffiec_d_2_is" {
     benchmark.ffiec_d_2_is_is_b_1
   ]
 
-  tags = local.ffiec_d_2_common_tags
+  # tags = local.ffiec_d_2_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_2_is_is_b_1" {
@@ -17,7 +18,8 @@ benchmark "ffiec_d_2_is_is_b_1" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.ffiec_d_2_common_tags, {
-    ffiec_item_id = "ffiec_d_2_is_is_b_1"
-  })
+  # tags = merge(local.ffiec_d_2_common_tags, {
+  #   ffiec_item_id = "ffiec_d_2_is_is_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }

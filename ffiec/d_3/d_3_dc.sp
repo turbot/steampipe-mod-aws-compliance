@@ -13,7 +13,8 @@ benchmark "ffiec_d_3_dc" {
     benchmark.ffiec_d_3_dc_th_b_1
   ]
 
-  tags = local.ffiec_d_3_common_tags
+  # tags = local.ffiec_d_3_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_an_b_1" {
@@ -25,9 +26,10 @@ benchmark "ffiec_d_3_dc_an_b_1" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_an_b_1"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_an_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_an_b_2" {
@@ -38,9 +40,10 @@ benchmark "ffiec_d_3_dc_an_b_2" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_an_b_2"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_an_b_2"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_an_b_3" {
@@ -60,9 +63,10 @@ benchmark "ffiec_d_3_dc_an_b_3" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_an_b_3"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_an_b_3"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_an_b_4" {
@@ -84,9 +88,10 @@ benchmark "ffiec_d_3_dc_an_b_4" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_an_b_4"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_an_b_4"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 
@@ -98,9 +103,10 @@ benchmark "ffiec_d_3_dc_an_b_5" {
     control.cloudtrail_trail_integrated_with_logs
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_an_b_5"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_an_b_5"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 
@@ -120,9 +126,10 @@ benchmark "ffiec_d_3_dc_ev_b_1" {
     control.vpc_flow_logs_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_ev_b_1"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_ev_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_ev_b_2" {
@@ -132,9 +139,10 @@ benchmark "ffiec_d_3_dc_ev_b_2" {
     control.guardduty_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_ev_b_2"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_ev_b_2"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_ev_b_3" {
@@ -147,9 +155,10 @@ benchmark "ffiec_d_3_dc_ev_b_3" {
     control.vpc_flow_logs_enabled
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_ev_b_3"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_ev_b_3"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_3_dc_th_b_1" {
@@ -161,7 +170,8 @@ benchmark "ffiec_d_3_dc_th_b_1" {
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = merge(local.ffiec_d_3_common_tags, {
-    ffiec_item_id = "ffiec_d_3_dc_th_b_1"
-  })
+  # tags = merge(local.ffiec_d_3_common_tags, {
+  #   ffiec_item_id = "ffiec_d_3_dc_th_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }

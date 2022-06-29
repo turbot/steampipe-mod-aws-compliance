@@ -1,8 +1,8 @@
-locals {
-  ffiec_d_4_common_tags = merge(local.ffiec_common_tags, {
-    ffiec_domain = "4"
-  })
-}
+# locals {
+#   ffiec_d_4_common_tags = merge(local.ffiec_common_tags, {
+#     ffiec_domain = "4"
+#   })
+# }
 
 benchmark "ffiec_d_4" {
   title       = "External Dependency Management (Domain 4)"
@@ -11,5 +11,6 @@ benchmark "ffiec_d_4" {
     benchmark.ffiec_d_4_c
   ]
 
-  tags = local.ffiec_d_4_common_tags
+  # tags = local.ffiec_d_4_common_tags
+  tags = local.ffiec_common_tags
 }

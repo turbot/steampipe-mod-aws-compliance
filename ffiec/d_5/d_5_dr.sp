@@ -7,7 +7,8 @@ benchmark "ffiec_d_5_dr" {
     benchmark.ffiec_d_5_dr_de_b_3
   ]
 
-  tags = local.ffiec_d_5_common_tags
+  # tags = local.ffiec_d_5_common_tags
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_5_dr_de_b_1" {
@@ -19,9 +20,10 @@ benchmark "ffiec_d_5_dr_de_b_1" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.ffiec_d_5_common_tags, {
-    ffiec_item_id = "ffiec_d_5_dr_de_b_1"
-  })
+  # tags = merge(local.ffiec_d_5_common_tags, {
+  #   ffiec_item_id = "ffiec_d_5_dr_de_b_1"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_5_dr_de_b_2" {
@@ -31,9 +33,10 @@ benchmark "ffiec_d_5_dr_de_b_2" {
     control.lambda_function_dead_letter_queue_configured
   ]
 
-  tags = merge(local.ffiec_d_5_common_tags, {
-    ffiec_item_id = "ffiec_d_5_dr_de_b_2"
-  })
+  # tags = merge(local.ffiec_d_5_common_tags, {
+  #   ffiec_item_id = "ffiec_d_5_dr_de_b_2"
+  # })
+  tags = local.ffiec_common_tags
 }
 
 benchmark "ffiec_d_5_dr_de_b_3" {
@@ -55,8 +58,9 @@ benchmark "ffiec_d_5_dr_de_b_3" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.ffiec_d_5_common_tags, {
-    ffiec_item_id = "ffiec_d_5_dr_de_b_3"
-  })
+  # tags = merge(local.ffiec_d_5_common_tags, {
+  #   ffiec_item_id = "ffiec_d_5_dr_de_b_3"
+  # })
+  tags = local.ffiec_common_tags
 }
 
