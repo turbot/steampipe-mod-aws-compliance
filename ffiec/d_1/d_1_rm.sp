@@ -11,6 +11,9 @@ benchmark "ffiec_d_1_rm" {
 
 benchmark "ffiec_d_1_rm_rm_b_1" {
   title       = "D1.RM.Rm.B.1"
+  # Note: The Control ID according to [AWS Documentation](https://docs.aws.amazon.com/config/latest/developerguide/operational-best-practices-for-ffiec.html) is "D1.G.RM.Rm.1". 
+  # We think that is wrong and it should be "D1.RM.Rm.B.1". 
+  # Please refer to https://github.com/awsdocs/aws-config-developer-guide/issues/21 for more details.
   description = "An information security and business continuity risk management function(s) exists within the institution."
   children = [
     control.autoscaling_group_with_lb_use_health_check,

@@ -5,7 +5,7 @@ locals {
 }
 
 control "s3_bucket_cross_region_replication_enabled" {
-  title       = "S3 bucket cross-region replication should enabled"
+  title       = "S3 bucket cross-region replication should be enabled"
   description = "Amazon Simple Storage Service (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
 

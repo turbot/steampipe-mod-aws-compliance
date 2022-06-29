@@ -5,7 +5,7 @@ locals {
 }
 
 control "backup_recovery_point_manual_deletion_disabled" {
-  title       = "Backup recovery point manual deletion should be disabled"
+  title       = "Backup recovery points manual deletion should be disabled"
   description = "Checks if a backup vault has an attached resource-based policy which prevents deletion of recovery points. The rule is non complaint if the Backup Vault does not have resource-based policies or has policies without a suitable 'Deny' statement."
   sql         = query.backup_recovery_point_manual_deletion_disabled.sql
 
@@ -33,7 +33,7 @@ control "backup_plan_min_retention_35_days" {
 }
 
 control "backup_recovery_point_encryption_enabled" {
-  title       = "Backup recovery point should be encrypted"
+  title       = "Backup recovery points should be encrypted"
   description = "Ensure if a recovery point is encrypted. The rule is non complaint if the recovery point is not encrypted."
   sql         = query.backup_recovery_point_encryption_enabled.sql
 
@@ -46,7 +46,7 @@ control "backup_recovery_point_encryption_enabled" {
 }
 
 control "backup_recovery_point_min_retention_35_days" {
-  title       = "Backup recovery point should not expire before retention period"
+  title       = "Backup recovery points should not expire before retention period"
   description = "Ensure if a recovery point expires no earlier than after the specified period. The rule is non_compliant if the recovery point has a retention point less than 35 days."
   sql         = query.backup_recovery_point_min_retention_35_days.sql
 
