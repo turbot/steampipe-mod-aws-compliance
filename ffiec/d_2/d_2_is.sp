@@ -12,8 +12,8 @@ benchmark "ffiec_d_2_is_is_b_1" {
   title       = "D2.IS.Is.B.1"
   description = "Information security threats are gathered and shared with applicable internal employees."
   children = [
-    control.guardduty_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.guardduty_enabled,
     control.securityhub_enabled
   ]
 

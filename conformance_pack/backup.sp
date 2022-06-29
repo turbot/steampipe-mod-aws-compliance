@@ -47,7 +47,7 @@ control "backup_recovery_point_encryption_enabled" {
 
 control "backup_recovery_point_min_retention_35_days" {
   title       = "Backup recovery points should not expire before retention period"
-  description = "Ensure if a recovery point expires no earlier than after the specified period. The rule is non_compliant if the recovery point has a retention point less than 35 days."
+  description = "Ensure a recovery point expires no earlier than after the specified period. The rule is non-compliant if the recovery point has a retention point less than 35 days."
   sql         = query.backup_recovery_point_min_retention_35_days.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {

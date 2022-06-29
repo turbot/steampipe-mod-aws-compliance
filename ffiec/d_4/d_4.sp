@@ -12,5 +12,4 @@ benchmark "ffiec_d_4" {
   ]
 
   tags = local.ffiec_d_4_common_tags
-
 }

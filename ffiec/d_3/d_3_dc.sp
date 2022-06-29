@@ -20,9 +20,9 @@ benchmark "ffiec_d_3_dc_an_b_1" {
   title       = "D3.DC.An.B.1"
   description = "The institution is able to detect anomalous activities through monitoring across the environment."
   children = [
+    control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.securityhub_enabled,
-    control.guardduty_enabled
+    control.securityhub_enabled
   ]
 
   tags = merge(local.ffiec_d_3_common_tags, {
@@ -34,8 +34,8 @@ benchmark "ffiec_d_3_dc_an_b_2" {
   title       = "D3.DC.An.B.2"
   description = "Customer transactions generating anomalous activity alerts are monitored and reviewed."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled
+    control.guardduty_enabled,
+    control.securityhub_enabled
   ]
 
   tags = merge(local.ffiec_d_3_common_tags, {
@@ -47,17 +47,17 @@ benchmark "ffiec_d_3_dc_an_b_3" {
   title       = "D3.DC.An.B.3"
   description = "Logs of physical and/or logical access are reviewed following events."
   children = [
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.apigateway_stage_logging_enabled,
-    control.elb_application_classic_lb_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
-    control.es_domain_logs_to_cloudwatch
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
+    control.rds_db_instance_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.ffiec_d_3_common_tags, {
@@ -69,19 +69,19 @@ benchmark "ffiec_d_3_dc_an_b_4" {
   title       = "D3.DC.An.B.4"
   description = "Access to critical systems by third parties is monitored for unauthorized or unusual activity."
   children = [
-    control.redshift_cluster_kms_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
-    control.s3_bucket_logging_enabled,
     control.apigateway_stage_logging_enabled,
-    control.elb_application_classic_lb_logging_enabled,
-    control.vpc_flow_logs_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
-    control.es_domain_logs_to_cloudwatch
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.redshift_cluster_kms_enabled,
+    control.s3_bucket_logging_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.ffiec_d_3_common_tags, {
@@ -108,15 +108,15 @@ benchmark "ffiec_d_3_dc_ev_b_1" {
   title       = "D3.DC.Ev.B.1"
   description = "A normal network activity baseline is established."
   children = [
-    control.lambda_function_concurrent_execution_limit_configured,
     control.apigateway_stage_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.elb_application_classic_lb_logging_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.redshift_cluster_kms_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.elb_application_classic_lb_logging_enabled,
+    control.lambda_function_concurrent_execution_limit_configured,
     control.redshift_cluster_encryption_logging_enabled,
+    control.redshift_cluster_kms_enabled,
     control.vpc_flow_logs_enabled
   ]
 
@@ -141,10 +141,10 @@ benchmark "ffiec_d_3_dc_ev_b_3" {
   title       = "D3.DC.Ev.B.3"
   description = "Processes are in place to monitor for the presence of unauthorized users, devices, connections, and software."
   children = [
-    control.vpc_flow_logs_enabled,
+    control.cloudtrail_trail_enabled,
     control.guardduty_enabled,
     control.securityhub_enabled,
-    control.cloudtrail_trail_enabled
+    control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.ffiec_d_3_common_tags, {

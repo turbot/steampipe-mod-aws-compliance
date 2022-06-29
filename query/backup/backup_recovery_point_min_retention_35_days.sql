@@ -8,8 +8,7 @@ select
   end as status,
   case
     when (lifecycle -> 'DeleteAfterDays') is null then split_part(recovery_point_arn, ':', -1) || ' retention period set to never expire.'
-    when (lifecycle -> 'DeleteAfterDays')::int >= 35 then split_part(recovery_point_arn, ':', -1) || ' recovery point expires after retention period.'
-    else split_part(recovery_point_arn, ':', -1) || ' recovery point expires before retention period.'
+    else split_part(recovery_point_arn, ':', -1) || ' recovery point has a retention period of ' || (lifecycle -> 'DeleteAfterDays')::int || ' days.'
   end as reason,
   -- Additional Dimensions
   region,

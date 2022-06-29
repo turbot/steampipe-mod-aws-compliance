@@ -2,7 +2,7 @@ To obtain the latest version of the official guide, please visit https://www.ffi
 
 ## Overview
 
-In light of the increasing volume and sophistication of cyber threats, the Federal Financial Institutions Examination Council (FFIEC) developed the [Cybersecurity Assessment Tool (Assessment)](https://www.ffiec.gov/cyberassessmenttool.htm), on behalf of its members, to help institutions identify their risks and determine their cybersecurity maturity.
+In light of the increasing volume and sophistication of cyber threats, the Federal Financial Institutions Examination Council (FFIEC) developed the Cybersecurity Assessment Tool (Assessment), on behalf of its members, to help institutions identify their risks and determine their cybersecurity maturity.
 
 The Assessment is designed to provide a measurable and repeatable process to assess an institution's level of cybersecurity risk and preparedness. The Assessment consists of two parts: Part one of this Assessment is the Inherent Risk Profile, which identifies an institution's inherent risk relevant to cyber risks. Part two is the Cybersecurity Maturity, which determines an institution's current state of cybersecurity preparedness represented by maturity levels across five domains. For this Assessment to be an effective risk management tool, an institution may want to complete it periodically and as significant operational and technological changes occur.
 
