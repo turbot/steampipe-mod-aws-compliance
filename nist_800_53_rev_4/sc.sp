@@ -174,7 +174,7 @@ benchmark "nist_800_53_rev_4_sc_13" {
   title       = "Cryptographic Protection (SC-13)"
   description = "The information system implements [Assignment: organization-defined cryptographic uses and type of cryptography required for each use] in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
   children = [
-    control.dynamodb_table_encrypted_with_kms_cmk
+    control.dynamodb_table_encrypted_with_kms
   ]
 
   tags = merge(local.nist_800_53_rev_4_common_tags, {
