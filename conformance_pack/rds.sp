@@ -12,6 +12,7 @@ control "rds_db_instance_backup_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -28,6 +29,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -45,6 +47,7 @@ control "rds_db_instance_multiple_az_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -61,6 +64,7 @@ control "rds_db_instance_prohibit_public_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -95,6 +99,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -111,6 +116,7 @@ control "rds_db_instance_logging_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -125,6 +131,7 @@ control "rds_db_instance_in_backup_plan" {
   sql         = query.rds_db_instance_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    ffiec              = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
@@ -143,6 +150,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
@@ -156,6 +164,7 @@ control "rds_db_instance_deletion_protection_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     soc_2                  = "true"
@@ -168,7 +177,7 @@ control "rds_db_instance_iam_authentication_enabled" {
   sql         = query.rds_db_instance_iam_authentication_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    soc_2  = "true"
+    soc_2 = "true"
   })
 }
 
@@ -180,6 +189,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -194,6 +204,7 @@ control "rds_db_instance_protected_by_backup_plan" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -207,6 +218,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   sql         = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    ffiec              = "true"
     rbi_cyber_security = "true"
   })
 }

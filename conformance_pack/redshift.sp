@@ -12,6 +12,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -29,6 +30,7 @@ control "redshift_cluster_encryption_logging_enabled" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -47,6 +49,7 @@ control "redshift_cluster_prohibit_public_access" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -63,6 +66,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
@@ -80,6 +84,7 @@ control "redshift_cluster_kms_enabled" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -91,6 +96,7 @@ control "redshift_cluster_maintenance_settings_check" {
   sql         = query.redshift_cluster_maintenance_settings_check.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    ffiec              = "true"
     nist_800_53_rev_5  = "true"
     rbi_cyber_security = "true"
   })
@@ -102,6 +108,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
   sql         = query.redshift_cluster_enhanced_vpc_routing_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    nist_800_53_rev_5  = "true"
+    ffiec             = "true"
+    nist_800_53_rev_5 = "true"
   })
 }

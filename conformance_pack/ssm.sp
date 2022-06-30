@@ -12,6 +12,7 @@ control "ec2_instance_ssm_managed" {
   tags = merge(local.conformance_pack_ssm_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -29,6 +30,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
   tags = merge(local.conformance_pack_ssm_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -46,6 +48,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   tags = merge(local.conformance_pack_ssm_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"

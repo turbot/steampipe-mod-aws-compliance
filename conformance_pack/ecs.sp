@@ -12,6 +12,7 @@ control "ecs_task_definition_user_for_host_mode_check" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
   })
 }

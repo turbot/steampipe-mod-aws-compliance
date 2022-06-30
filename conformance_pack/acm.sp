@@ -12,6 +12,7 @@ control "acm_certificate_expires_30_days" {
   tags = merge(local.conformance_pack_acm_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"

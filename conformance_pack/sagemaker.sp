@@ -12,6 +12,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
