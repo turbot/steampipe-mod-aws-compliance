@@ -12,6 +12,7 @@ control "dms_replication_instance_not_publicly_accessible" {
   tags = merge(local.conformance_pack_dms_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"

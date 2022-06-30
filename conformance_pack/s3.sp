@@ -5,13 +5,14 @@ locals {
 }
 
 control "s3_bucket_cross_region_replication_enabled" {
-  title       = "S3 bucket cross-region replication should enabled"
+  title       = "S3 bucket cross-region replication should be enabled"
   description = "Amazon Simple Storage Service (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
   sql         = query.s3_bucket_cross_region_replication_enabled.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -46,6 +47,7 @@ control "s3_bucket_enforces_ssl" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -63,6 +65,7 @@ control "s3_bucket_logging_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -79,6 +82,7 @@ control "s3_bucket_object_lock_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -94,6 +98,7 @@ control "s3_bucket_restrict_public_read_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -112,6 +117,7 @@ control "s3_bucket_restrict_public_write_access" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -129,10 +135,11 @@ control "s3_bucket_versioning_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
-    nist_csf                    = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
+    nist_csf                    = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
   })
@@ -146,6 +153,7 @@ control "s3_public_access_block_account" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -161,6 +169,7 @@ control "s3_public_access_block_bucket_account" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
@@ -176,6 +185,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
