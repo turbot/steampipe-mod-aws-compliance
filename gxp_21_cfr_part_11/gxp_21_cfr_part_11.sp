@@ -13,6 +13,7 @@ benchmark "gxp_21_cfr_part_11" {
     benchmark.gxp_21_cfr_part_11_11_10,
     benchmark.gxp_21_cfr_part_11_11_30,
     benchmark.gxp_21_cfr_part_11_11_200,
+    benchmark.gxp_21_cfr_part_11_11_300,
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
