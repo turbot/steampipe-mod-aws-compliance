@@ -181,6 +181,16 @@ control "rds_db_instance_iam_authentication_enabled" {
   })
 }
 
+control "rds_db_cluster_iam_authentication_enabled" {
+  title       = "IAM authentication should be configured for RDS clusters"
+  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an RDS Cluster does not have IAM authentication enabled."
+  sql         = query.rds_db_cluster_iam_authentication_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_171_rev_2 = "true"
+  })
+}
+
 control "rds_db_cluster_aurora_protected_by_backup_plan" {
   title       = "RDS Aurora clusters should be protected by backup plan"
   description = "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is non complaint if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan."
