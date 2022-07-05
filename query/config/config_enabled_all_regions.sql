@@ -49,4 +49,6 @@ from
   global_recorders as g,
   aws_region as a
   left join aws_config_configuration_recorder as r
-    on r.account_id = a.account_id and r.region = a.name;
+    on r.account_id = a.account_id and r.region = a.name
+where
+  a.opt_in_status != 'not-opted-in';
