@@ -12,6 +12,7 @@ control "cloudwatch_alarm_action_enabled" {
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -46,6 +47,7 @@ control "cloudwatch_log_group_retention_period_365" {
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -139,8 +141,8 @@ control "log_metric_filter_network_acl" {
   sql         = query.log_metric_filter_network_acl.sql
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-     gdpr     = "true"
-     nist_csf = "true"
+    gdpr     = "true"
+    nist_csf = "true"
   })
 }
 

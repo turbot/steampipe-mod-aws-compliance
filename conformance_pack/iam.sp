@@ -24,6 +24,7 @@ control "iam_group_not_empty" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
@@ -39,6 +40,7 @@ control "iam_policy_no_star_star" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -57,6 +59,7 @@ control "iam_root_user_no_access_keys" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -74,6 +77,7 @@ control "iam_root_user_hardware_mfa_enabled" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -91,6 +95,7 @@ control "iam_root_user_mfa_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
@@ -107,6 +112,7 @@ control "iam_user_access_key_age_90" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -124,6 +130,7 @@ control "iam_user_console_access_mfa_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     gdpr                        = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
@@ -141,6 +148,7 @@ control "iam_user_mfa_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -156,6 +164,7 @@ control "iam_user_no_inline_attached_policies" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -174,6 +183,7 @@ control "iam_user_unused_credentials_90" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -191,6 +201,7 @@ control "iam_user_in_group" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -207,6 +218,7 @@ control "iam_group_user_role_no_inline_policies" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -256,7 +268,8 @@ control "iam_account_password_policy_strong" {
   sql         = query.iam_account_password_policy_strong.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    ffiec = "true"
+    gdpr  = "true"
   })
 }
 
@@ -323,6 +336,7 @@ control "iam_all_policy_no_service_wild_card" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -336,6 +350,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
   })
 }
 

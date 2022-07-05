@@ -12,6 +12,7 @@ control "ebs_snapshot_not_publicly_restorable" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -42,8 +43,9 @@ control "ebs_attached_volume_encryption_enabled" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower = "true"
     fedramp_moderate_rev_4      = "true"
-    hipaa                       = "true"
+    ffiec                       = "true"
     gdpr                        = "true"
+    hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -57,6 +59,7 @@ control "ebs_volume_in_backup_plan" {
   sql         = query.ebs_volume_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    ffiec              = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
@@ -75,6 +78,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     nist_800_53_rev_4           = "true"
     nist_csf                    = "true"
   })
@@ -88,6 +92,7 @@ control "ebs_volume_protected_by_backup_plan" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -102,6 +107,7 @@ control "ebs_volume_unused" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
   })
 }

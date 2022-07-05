@@ -12,6 +12,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -30,6 +31,7 @@ control "cloudtrail_s3_data_events_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -65,6 +67,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -98,6 +101,7 @@ control "cloudtrail_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"

@@ -10,6 +10,7 @@ control "efs_file_system_encrypt_data_at_rest" {
   sql         = query.efs_file_system_encrypt_data_at_rest.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    ffiec              = "true"
     gdpr               = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
@@ -25,6 +26,7 @@ control "efs_file_system_in_backup_plan" {
   sql         = query.efs_file_system_automatic_backups_enabled.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    ffiec              = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"

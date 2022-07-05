@@ -12,6 +12,7 @@ control "vpc_flow_logs_enabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     gdpr                   = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
@@ -43,6 +44,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -60,6 +62,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -77,6 +80,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -94,6 +98,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -109,6 +114,7 @@ control "vpc_vpn_tunnel_up" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -121,6 +127,7 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    ffiec    = "true"
     nist_csf = "true"
   })
 }
@@ -143,6 +150,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
@@ -157,6 +165,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
