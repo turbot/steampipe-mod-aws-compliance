@@ -10,9 +10,10 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    ffiec             = "true"
-    hipaa             = "true"
-    nist_800_53_rev_5 = "true"
+    ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
+    hipaa              = "true"
+    nist_800_53_rev_5  = "true"
   })
 }
 

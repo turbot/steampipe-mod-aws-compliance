@@ -90,6 +90,7 @@ control "redshift_cluster_kms_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -113,7 +114,8 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
   sql         = query.redshift_cluster_enhanced_vpc_routing_enabled.sql
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    ffiec             = "true"
-    nist_800_53_rev_5 = "true"
+    ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
+    nist_800_53_rev_5  = "true"
   })
 }

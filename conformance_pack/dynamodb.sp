@@ -47,6 +47,7 @@ control "dynamodb_table_encrypted_with_kms_cmk" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     gdpr               = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
