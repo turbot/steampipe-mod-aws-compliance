@@ -6,7 +6,9 @@ benchmark "gxp_21_cfr_part_11_11_10" {
     benchmark.gxp_21_cfr_part_11_11_10_c,
     benchmark.gxp_21_cfr_part_11_11_10_d,
     benchmark.gxp_21_cfr_part_11_11_10_e,
-    benchmark.gxp_21_cfr_part_11_11_10_g
+    benchmark.gxp_21_cfr_part_11_11_10_g,
+    benchmark.gxp_21_cfr_part_11_11_10_h,
+    benchmark.gxp_21_cfr_part_11_11_10_k,
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
@@ -205,6 +207,46 @@ benchmark "gxp_21_cfr_part_11_11_10_g" {
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.vpc_subnet_auto_assign_public_ip_disabled
+  ]
+
+  tags = local.gxp_21_cfr_part_11_common_tags
+}
+
+benchmark "gxp_21_cfr_part_11_11_10_h" {
+  title       = "11.10(h)"
+  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (h) Use of device (e.g., terminal) checks to determine, as appropriate, the validity of the source of data input or operational instruction."
+  children = [
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
+  ]
+
+  tags = local.gxp_21_cfr_part_11_common_tags
+}
+
+benchmark "gxp_21_cfr_part_11_11_10_k" {
+  title       = "11.10(k)"
+  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (k) Use of appropriate controls over systems documentation including: (1) Adequate controls over the distribution of, access to, and use of documentation for system operation and maintenance. (2) Revision and change control procedures to maintain an audit trail that documents time-sequenced development and modification of systems documentation."
+  children = [
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_in_vpc,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.rds_db_instance_logging_enabled,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_logging_enabled,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
