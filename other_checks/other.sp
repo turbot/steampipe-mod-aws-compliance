@@ -10,8 +10,11 @@ benchmark "other" {
   children = [
     control.acm_certificate_transparency_logging_enabled,
     control.apigateway_rest_api_authorizers_configured,
+    control.cloudformation_stack_notifications_enabled,
     control.cloudformation_stack_output_no_secrets,
+    control.cloudformation_stack_rollback_enabled,
     control.cloudfront_distribution_geo_restrictions_enabled,
+    control.ec2_instance_no_launch_wizard_security_group,
     control.ec2_instance_publicly_accessible_iam_profile_attached,
     control.ec2_instance_user_data_no_secrets,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
@@ -21,6 +24,7 @@ benchmark "other" {
     control.efs_file_system_encrypted_with_cmk,
     control.efs_file_system_enforces_ssl,
     control.eks_cluster_control_plane_audit_logging_enabled,
+    control.eks_cluster_no_default_vpc,
     control.elb_application_classic_network_lb_prohibit_public_access,
     control.elb_listener_use_secure_ssl_cipher,
     control.es_domain_cognito_authentication_enabled,
@@ -38,6 +42,7 @@ benchmark "other" {
     control.kinesis_stream_server_side_encryption_enabled,
     control.kms_cmk_policy_prohibit_public_access,
     control.lambda_function_cloudtrail_logging_enabled,
+    control.rds_db_instance_ca_certificate_expires_7_days,
     control.rds_db_instance_cloudwatch_logs_enabled,
     control.route53_domain_transfer_lock_enabled,
     control.route53_zone_query_logging_enabled,
@@ -54,6 +59,7 @@ benchmark "other" {
     control.sns_topic_policy_prohibit_public_access,
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_policy_prohibit_public_access,
+    control.vpc_security_group_not_uses_launch_wizard_sg,
     control.vpc_security_group_restrict_ingress_redis_port,
     control.vpc_security_group_restrict_kibana_port
   ]

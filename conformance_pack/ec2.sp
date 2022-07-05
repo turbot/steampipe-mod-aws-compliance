@@ -158,3 +158,13 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
     other_checks = "true"
   })
 }
+
+control "ec2_instance_no_launch_wizard_security_group" {
+  title       = "EC2 instances not attached to 'launch wizard' security groups"
+  description = "Ensure that EC2 instances provisioned in your AWS account are not associated with security groups that have their name prefixed with 'launch-wizard', in order to enforce using secure and custom security groups that exercise the principle of least privilege."
+  sql         = query.ec2_instance_no_launch_wizard_security_group.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}

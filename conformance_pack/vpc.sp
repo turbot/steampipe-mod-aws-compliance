@@ -182,4 +182,13 @@ control "vpc_security_group_restrict_kibana_port" {
   })
 }
 
+control "vpc_security_group_not_uses_launch_wizard_sg" {
+  title       = "VPC security groups should restrict uses of 'launch-wizard' security groups."
+  description = "Ensure the launch-wizard security group in your account is not being used."
+  sql         = query.vpc_security_group_not_uses_launch_wizard_sg.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
 
