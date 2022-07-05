@@ -3,7 +3,8 @@ benchmark "gxp_21_cfr_part_11_11_10" {
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following benchmarks"
   children = [
     benchmark.gxp_21_cfr_part_11_11_10_a,
-    benchmark.gxp_21_cfr_part_11_11_10_c
+    benchmark.gxp_21_cfr_part_11_11_10_c,
+    benchmark.gxp_21_cfr_part_11_11_10_d
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
@@ -27,7 +28,7 @@ benchmark "gxp_21_cfr_part_11_11_10_a" {
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_backup_enabled,
-    control.rds_db_instance_deletion_protection_enabled,    
+    control.rds_db_instance_deletion_protection_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_multiple_az_enabled,
     control.redshift_cluster_automatic_snapshots_min_7_days,
@@ -63,6 +64,60 @@ benchmark "gxp_21_cfr_part_11_11_10_c" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled
+  ]
+
+  tags = local.gxp_21_cfr_part_11_common_tags
+}
+
+benchmark "gxp_21_cfr_part_11_11_10_d" {
+  title       = "11.10(d)"
+  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (d) Limiting system access to authorized individuals."
+  children = [
+    control.account_part_of_organizations,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_iam_profile_attached,
+    control.ec2_instance_in_vpc,
+    control.ec2_instance_not_publicly_accessible,
+    control.ec2_instance_uses_imdsv2,
+    control.ecs_task_definition_user_for_host_mode_check,
+    control.emr_cluster_kerberos_enabled,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
+    control.iam_account_password_policy_strong,
+    control.iam_all_policy_no_service_wild_card,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_hardware_mfa_enabled,
+    control.iam_root_user_mfa_enabled,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_access_key_age_90,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_in_group,
+    control.iam_user_mfa_enabled,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.secretsmanager_secret_automatic_rotation_enabled,
+    control.secretsmanager_secret_rotated_as_scheduled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_route_table_restrict_public_access_to_igw,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

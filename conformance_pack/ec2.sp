@@ -39,6 +39,7 @@ control "ec2_instance_in_vpc" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -56,6 +57,7 @@ control "ec2_instance_not_publicly_accessible" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -106,6 +108,7 @@ control "ec2_instance_uses_imdsv2" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
   })
@@ -132,7 +135,8 @@ control "ec2_instance_iam_profile_attached" {
   sql         = query.ec2_instance_iam_profile_attached.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    ffiec             = "true"
-    nist_800_53_rev_5 = "true"
+    ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
+    nist_800_53_rev_5  = "true"
   })
 }

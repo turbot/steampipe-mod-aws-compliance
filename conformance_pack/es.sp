@@ -30,6 +30,7 @@ control "es_domain_in_vpc" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
