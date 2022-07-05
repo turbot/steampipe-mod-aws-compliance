@@ -11,7 +11,8 @@ benchmark "gxp_21_cfr_part_11" {
   # documentation = file("./gxp_21_cfr_part_11/docs/gxp_21_cfr_part_11_overview.md")
   children = [
     benchmark.gxp_21_cfr_part_11_11_10,
-    benchmark.gxp_21_cfr_part_11_11_30
+    benchmark.gxp_21_cfr_part_11_11_30,
+    benchmark.gxp_21_cfr_part_11_11_200,
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

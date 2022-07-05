@@ -1,5 +1,5 @@
 benchmark "gxp_21_cfr_part_11_11_30" {
-  title       = "Controls for open systems"
+  title       = "Controls for open systems (11.30)"
   description = "Persons who use open systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, as appropriate, the confidentiality of electronic records from the point of their creation to the point of their receipt. Such procedures and controls shall include those identified in 11.10, as appropriate, and additional measures such as document encryption and use of appropriate digital signature standards to ensure, as necessary under the circumstances, record authenticity, integrity, and confidentiality."
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
