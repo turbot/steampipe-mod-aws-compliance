@@ -15,7 +15,7 @@ control "sqs_queue_policy_prohibit_public_access" {
 }
 
 control "sqs_queue_dead_letter_queue_configured" {
-  title       = "SQS queue should be configured with a dead-letter queue."
+  title       = "SQS queues should be configured with a dead-letter queue."
   description = "Ensure SQS queue is configured with a dead-letter queue. Dead-letter queues are useful for debugging your application or messaging system because they let you isolate problematic messages to determine why their processing doesn't succeed."
   sql         = query.sqs_queue_dead_letter_queue_configured.sql
 

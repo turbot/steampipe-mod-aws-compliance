@@ -86,7 +86,7 @@ control "sagemaker_notebook_instance_in_vpc" {
 }
 
 control "sagemaker_notebook_instance_root_access_disabled" {
-  title       = "SageMaker Notebook instances root access should be disabled"
+  title       = "SageMaker notebook instances root access should be disabled"
   description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. This is recommeneded to disable root access to restrict users from accessing and editing all the files."
   sql         = query.sagemaker_notebook_instance_root_access_disabled.sql
 

@@ -32,3 +32,13 @@ control "acm_certificate_transparency_logging_enabled" {
     other_checks = "true"
   })
 }
+
+control "acm_certificate_no_wildcard_domain_name" {
+  title       = "ACM certificates should not use wildcard certificates"
+  description = "Ensure that ACM single domain name certificates are used instead of wildcard certificates within your AWS account in order to follow security best practices and protect each domain/subdomain with its own unique private key."
+  sql         = query.acm_certificate_no_wildcard_domain_name.sql
+
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    other_checks = "true"
+  })
+}

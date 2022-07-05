@@ -23,7 +23,7 @@ control "securityhub_enabled" {
 }
 
 control "securityhub_standards_subscription_enabled" {
-  title       = "AWS Security Hub should be enabled with its standard subscriptions"
+  title       = "AWS Security Hubs should be enabled with its standard subscriptions"
   description = "Ensure that AWS Security Hub security standards are enabled within your AWS account(s)."
   sql         = query.securityhub_standards_subscription_enabled.sql
 

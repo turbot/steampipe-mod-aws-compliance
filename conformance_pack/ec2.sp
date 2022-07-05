@@ -156,7 +156,7 @@ control "ec2_instance_user_data_no_secrets" {
 }
 
 control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
-  title       = "EC2 Transit Gateways auto accept shared attachments should be disabled"
+  title       = "EC2 transit gateways auto accept shared attachments should be disabled"
   description = "Ensure if Transit Gateways auto accept shared attachments is disabled. If this setting is disabled, then any VPC that attempts to attach to the transit gateway will need to request authorization, and the account that owns the Transit Gateway will need to accept the authorization."
   sql         = query.ec2_transit_gateway_auto_cross_account_attachment_disabled.sql
 
@@ -166,7 +166,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
 }
 
 control "ec2_instance_no_launch_wizard_security_group" {
-  title       = "EC2 instances not attached to 'launch wizard' security groups"
+  title       = "EC2 instances should not be attached to 'launch wizard' security groups"
   description = "Ensure that EC2 instances provisioned in your AWS account are not associated with security groups that have their name prefixed with 'launch-wizard', in order to enforce using secure and custom security groups that exercise the principle of least privilege."
   sql         = query.ec2_instance_no_launch_wizard_security_group.sql
 

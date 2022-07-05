@@ -8,8 +8,10 @@ benchmark "other" {
   title         = "Other"
   documentation = file("./other_checks/docs/other_checks_overview.md")
   children = [
+    control.acm_certificate_no_wildcard_domain_name,
     control.acm_certificate_transparency_logging_enabled,
     control.apigateway_rest_api_authorizers_configured,
+    control.autoscaling_group_no_suspended_process,
     control.cloudformation_stack_notifications_enabled,
     control.cloudformation_stack_output_no_secrets,
     control.cloudformation_stack_rollback_enabled,
@@ -59,9 +61,10 @@ benchmark "other" {
     control.sns_topic_policy_prohibit_public_access,
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_policy_prohibit_public_access,
+    control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_security_group_not_uses_launch_wizard_sg,
     control.vpc_security_group_restrict_ingress_redis_port,
-    control.vpc_security_group_restrict_kibana_port
+    control.vpc_security_group_restrict_kibana_port,
   ]
 
   tags = merge(local.other_common_tags, {
