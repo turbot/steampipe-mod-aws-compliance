@@ -12,6 +12,7 @@ control "kms_key_not_pending_deletion" {
   tags = merge(local.conformance_pack_kms_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -28,8 +29,9 @@ control "kms_cmk_rotation_enabled" {
   tags = merge(local.conformance_pack_kms_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
-    hippa                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
+    hippa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
@@ -37,7 +39,7 @@ control "kms_cmk_rotation_enabled" {
 }
 
 control "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
-  title      = "KMS key decryption should be restricted in IAM customer managed policy"
+  title       = "KMS key decryption should be restricted in IAM customer managed policy"
   description = "Checks whether the default version of IAM customer managed policies allow principals to use the AWS KMS decryption actions on all resources. This control uses Zelkova, an automated reasoning engine, to validate and warn you about policies that may grant broad access to your secrets across AWS accounts. This control fails if the kms:Decrypt or kms:ReEncryptFrom actions are allowed on all KMS keys. The control evaluates both attached and unattached customer managed policies. It does not check inline policies or AWS managed policies."
   sql         = query.kms_key_decryption_restricted_in_iam_customer_managed_policy.sql
 

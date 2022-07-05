@@ -1,7 +1,7 @@
 locals {
   gxp_21_cfr_part_11_common_tags = merge(local.aws_compliance_common_tags, {
     gxp_21_cfr_part_11 = "true"
-    type  = "Benchmark"
+    type               = "Benchmark"
   })
 }
 
@@ -11,6 +11,7 @@ benchmark "gxp_21_cfr_part_11" {
   # documentation = file("./gxp_21_cfr_part_11/docs/gxp_21_cfr_part_11_overview.md")
   children = [
     benchmark.gxp_21_cfr_part_11_11_10,
+    benchmark.gxp_21_cfr_part_11_11_30
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

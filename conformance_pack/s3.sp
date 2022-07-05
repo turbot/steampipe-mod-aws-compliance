@@ -196,6 +196,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
