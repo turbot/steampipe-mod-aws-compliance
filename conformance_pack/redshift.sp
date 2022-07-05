@@ -68,6 +68,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"

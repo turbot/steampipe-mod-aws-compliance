@@ -13,6 +13,7 @@ control "dynamodb_table_auto_scaling_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -29,6 +30,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -59,6 +61,7 @@ control "dynamodb_table_in_backup_plan" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"

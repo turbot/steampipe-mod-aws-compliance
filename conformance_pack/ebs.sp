@@ -60,6 +60,7 @@ control "ebs_volume_in_backup_plan" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
@@ -108,6 +109,7 @@ control "ebs_volume_unused" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
   })
 }

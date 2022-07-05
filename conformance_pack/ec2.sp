@@ -74,6 +74,7 @@ control "ec2_stopped_instance_30_days" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -89,9 +90,10 @@ control "ec2_instance_ebs_optimized" {
     audit_manager_control_tower = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
-    nist_csf                    = "true"
     nist_800_53_rev_5           = "true"
+    nist_csf                    = "true"
     soc_2                       = "true"
   })
 }
