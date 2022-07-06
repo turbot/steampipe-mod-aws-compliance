@@ -27,6 +27,7 @@ benchmark "other" {
     control.efs_file_system_enforces_ssl,
     control.eks_cluster_control_plane_audit_logging_enabled,
     control.eks_cluster_no_default_vpc,
+    control.elb_application_classic_lb_with_outbound_rule,
     control.elb_application_classic_network_lb_prohibit_public_access,
     control.elb_listener_use_secure_ssl_cipher,
     control.es_domain_cognito_authentication_enabled,
