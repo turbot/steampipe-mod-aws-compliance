@@ -56,7 +56,7 @@ control "es_domain_node_to_node_encryption_enabled" {
 }
 
 control "es_domain_logs_to_cloudwatch" {
-  title       = "Elasticsearch domain should send logs to cloudWatch"
+  title       = "Elasticsearch domain should send logs to CloudWatch"
   description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is complaint if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
