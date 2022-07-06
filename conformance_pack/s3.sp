@@ -214,4 +214,3 @@ control "s3_bucket_object_logging_enabled" {
     other_checks = "true"
   })
 }
-
