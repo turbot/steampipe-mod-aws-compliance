@@ -202,7 +202,7 @@ control "vpc_security_group_not_uses_launch_wizard_sg" {
 }
 
 control "vpc_endpoint_service_acceptance_required_enabled" {
-  title       = "VPC endpoint services should have acceptance_required feature enabled"
+  title       = "VPC endpoint services should have acceptance required enabled"
   description = "Ensure VPC endpoints connection requests to the service are accepted by the service owner."
   sql         = query.vpc_endpoint_service_acceptance_required_enabled.sql
 
