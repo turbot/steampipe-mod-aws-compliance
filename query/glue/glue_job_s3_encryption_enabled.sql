@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then j.title || ' enabled s3 encryption.'
-    else j.title || ' disabled s3 encryption.'
+    when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then j.title || ' S3 encryption enabled.'
+    else j.title || ' S3 encryption disabled.'
   end as reason,
   -- Additional Dimensions
   j.region,

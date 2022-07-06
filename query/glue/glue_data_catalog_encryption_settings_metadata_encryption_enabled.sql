@@ -3,10 +3,10 @@ select
   case
     when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'ok'
     else 'alarm'
-  end as "status",
+  end as status,
   case
-    when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'enabled glue data catalog metadata encryption in ' || region
-    else 'disabled glue data catalog metadata encryption in ' || region
+    when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'Glue data catalog metadata encryption is enabled in ' || region || '.'
+    else 'Glue data catalog metadata encryption is disabled in ' || region || '.'
   end as reason,
   -- Additional Dimensions
   region,

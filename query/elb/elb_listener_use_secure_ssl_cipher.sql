@@ -1,5 +1,5 @@
 select
- -- Required Columns
+  -- Required Columns
   load_balancer_arn as resource,
   case
     when ssl_policy like any (

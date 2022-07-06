@@ -4,10 +4,10 @@ select
   case
     when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
     else 'alarm'
-  end as "status",
+  end as status,
   case
-    when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then d.title || ' s3 encryption enabled.'
-    else d.title || ' s3 encryption disabled.'
+    when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then d.title || ' S3 encryption enabled.'
+    else d.title || ' S3 encryption disabled.'
   end as reason,
   -- Additional Dimensions
   d.region,

@@ -17,7 +17,7 @@ select
     else 'ok'
   end as status,
   case
-    when fu.user_id is not null then u.name || ' custom policies allows STS Role assumption.'
+    when fu.user_id is not null then u.name || ' custom policies allow STS Role assumption.'
     else u.name || ' custom policies does not allow STS Role assumption.'
   end as reason,
   -- Additional Dimensions

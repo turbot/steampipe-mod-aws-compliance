@@ -35,7 +35,7 @@ select
   end as status,
   case
     when k.group_id is null then sg.group_id || ' ingress restricted for kibana port from 0.0.0.0/0.'
-    else  sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kibana port from 0.0.0.0/0.'
+    else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kibana port from 0.0.0.0/0.'
   end as reason,
   -- Additional Dimensions
   sg.region,

@@ -19,8 +19,8 @@ select
   end as status,
   case
     when au.user_id is null then u.name || ' does not have administrator access.'
-    when au.user_id is not null and u.mfa_enabled then u.name || ' have MFA token enabled.'
-    else u.name || ' have MFA token disabled.'
+    when au.user_id is not null and u.mfa_enabled then u.name || ' has MFA token enabled.'
+    else u.name || ' has MFA token disabled.'
   end as reason,
   -- Additional Dimensions
   u.region,

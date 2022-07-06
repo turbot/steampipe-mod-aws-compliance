@@ -1,13 +1,13 @@
 with control_panel_audit_logging as (
   select
     distinct arn,
-    log -> 'Types'  as log_type
+    log -> 'Types' as log_type
   from
     aws_eks_cluster,
     jsonb_array_elements(logging -> 'ClusterLogging') as log
   where
     log ->> 'Enabled' = 'true'
-    and (log -> 'Types') @> '["api","audit", "authenticator", "controllerManager","scheduler"]'
+    and (log -> 'Types') @> '["api", "audit", "authenticator", "controllerManager", "scheduler"]'
 )
 select
   -- Required Columns
