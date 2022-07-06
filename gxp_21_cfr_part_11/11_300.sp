@@ -1,6 +1,6 @@
 benchmark "gxp_21_cfr_part_11_11_300" {
   title       = "Controls for identification codes/passwords (11.300)"
-  description = "Persons who use electronic signatures based upon use of identification codes in combination with passwords shall employ controls to ensure their security and integrity. Such controls shall include:"
+  description = "Persons who use electronic signatures based upon use of identification codes in combination with passwords shall employ controls to ensure their security and integrity. Such controls shall include the following benchmarks."
   children = [
     benchmark.gxp_21_cfr_part_11_11_300_b,
     benchmark.gxp_21_cfr_part_11_11_300_d
@@ -31,7 +31,7 @@ benchmark "gxp_21_cfr_part_11_11_300_d" {
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.guardduty_enabled,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

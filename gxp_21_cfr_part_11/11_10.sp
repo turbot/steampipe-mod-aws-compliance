@@ -1,6 +1,6 @@
 benchmark "gxp_21_cfr_part_11_11_10" {
   title       = "Controls for closed systems (11.10)"
-  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following benchmarks"
+  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following benchmarks."
   children = [
     benchmark.gxp_21_cfr_part_11_11_10_a,
     benchmark.gxp_21_cfr_part_11_11_10_c,
@@ -8,7 +8,7 @@ benchmark "gxp_21_cfr_part_11_11_10" {
     benchmark.gxp_21_cfr_part_11_11_10_e,
     benchmark.gxp_21_cfr_part_11_11_10_g,
     benchmark.gxp_21_cfr_part_11_11_10_h,
-    benchmark.gxp_21_cfr_part_11_11_10_k,
+    benchmark.gxp_21_cfr_part_11_11_10_k
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
@@ -145,7 +145,7 @@ benchmark "gxp_21_cfr_part_11_11_10_e" {
     control.redshift_cluster_kms_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
