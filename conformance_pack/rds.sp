@@ -235,7 +235,7 @@ control "rds_db_instance_cloudwatch_logs_enabled" {
 
 control "rds_db_instance_ca_certificate_expires_7_days" {
   title       = "RDS DB instances CA certificates should not expire within next 7 days"
-  description = "Ensure if RDS DB instances CA certificates are not getting expired within next 7 days."
+  description = "Ensure RDS DB instances CA certificates are not getting expired within the next 7 days."
   sql         = query.rds_db_instance_ca_certificate_expires_7_days.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {

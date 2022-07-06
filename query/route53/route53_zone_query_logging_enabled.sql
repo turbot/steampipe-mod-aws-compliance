@@ -8,8 +8,8 @@ select
   end as status,
   case
     when private_zone then title || ' is private hosted zone.'
-    when query_logging_configs is not null then title || ' query logging to cloudwatch enabled.'
-    else title || ' query logging to cloudwatch disabled.'
+    when query_logging_configs is not null then title || ' query logging to CloudWatch enabled.'
+    else title || ' query logging to CloudWatch disabled.'
   end as reason,
   -- Additional Dimensions
   region,

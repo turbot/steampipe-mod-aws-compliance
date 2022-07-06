@@ -151,7 +151,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
 
 control "elb_listener_use_secure_ssl_cipher" {
   title       = "ELB listeners should use secure SSL cipher"
-  description = "Ensure that ELB listeners does not have any insecure SSL ciphers. Using insecure and deprecated ciphers for your ELB Predefined Security Policy or Custom Security Policy could make the SSL connection between the client and the load balancer vulnerable to exploits."
+  description = "Ensure that ELB listeners do not have any insecure SSL ciphers. Using insecure and deprecated ciphers for your ELB Predefined Security Policy or Custom Security Policy could make the SSL connection between the client and the load balancer vulnerable to exploits."
   sql         = query.elb_listener_use_secure_ssl_cipher.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
@@ -161,7 +161,7 @@ control "elb_listener_use_secure_ssl_cipher" {
 
 control "elb_application_classic_network_lb_prohibit_public_access" {
   title       = "ELB load balancers should prohibit public access"
-  description = "An internet-facing load balancer has a publicly resolvable DNS name, so it can route requests from clients over the internet to the EC2 instances that are registered with the load balancer."
+  description = "An internet facing load balancer has a publicly resolvable DNS name, so it can route requests from clients over the internet to the EC2 instances that are registered with the load balancer."
   sql         = query.elb_application_classic_network_lb_prohibit_public_access.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
@@ -170,8 +170,8 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
 }
 
 control "elb_application_classic_lb_with_outbound_rule" {
-  title       = "ELB application and classic load balancer should have at leat one outbound rule"
-  description = "Ensure application and classic load balancers have at leat one outbound rule in all the attached security groups. A security group without any outbound rules rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
+  title       = "ELB application and classic load balancers should have at least one outbound rule"
+  description = "Ensure application and classic load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
   sql         = query.elb_application_classic_lb_with_outbound_rule.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {

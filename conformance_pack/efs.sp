@@ -52,7 +52,7 @@ control "efs_file_system_protected_by_backup_plan" {
 
 control "efs_file_system_encrypted_with_cmk" {
   title       = "EFS file systems should be encrypted with CMK"
-  description = "Ensure if Amazon Elastic File Systems (Amazon EFS) are encrypted using CMK. The rule is non complaint if the EFS File System is not encrypted using CMK."
+  description = "Ensure Amazon Elastic File Systems (Amazon EFS) are encrypted using CMK. The rule is non complaint if the EFS File System is not encrypted using CMK."
   sql         = query.efs_file_system_encrypted_with_cmk.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {

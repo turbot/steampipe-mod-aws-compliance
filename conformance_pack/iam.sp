@@ -375,7 +375,7 @@ control "iam_policy_custom_no_assume_role" {
 }
 
 control "iam_user_hardware_mfa_enabled" {
-  title       = "IAM users hardware MFA should be enabled"
+  title       = "IAM users should have hardware MFA enabled"
   description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
   sql         = query.iam_user_hardware_mfa_enabled.sql
 
@@ -385,8 +385,8 @@ control "iam_user_hardware_mfa_enabled" {
 }
 
 control "iam_user_with_administrator_access_mfa_enabled" {
-  title       = "IAM administrator users MFA should be enabled"
-  description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for the user."
+  title       = "IAM administrator users should have MFA enabled"
+  description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for users with administrative privileges."
   sql         = query.iam_user_with_administrator_access_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {

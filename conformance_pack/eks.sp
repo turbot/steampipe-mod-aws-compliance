@@ -25,8 +25,8 @@ control "eks_cluster_endpoint_restrict_public_access" {
 }
 
 control "eks_cluster_control_plane_audit_logging_enabled" {
-  title       = "EKS clusters control panel audit logging should be enabled"
-  description = "Amazon EKS control plane audit logging should be enabled. These logs make it easy to secure and run clusters."
+  title       = "EKS clusters control plane audit logging should be enabled"
+  description = "Amazon EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
   sql         = query.eks_cluster_control_plane_audit_logging_enabled.sql
 
   tags = merge(local.conformance_pack_eks_common_tags, {
@@ -36,7 +36,7 @@ control "eks_cluster_control_plane_audit_logging_enabled" {
 
 control "eks_cluster_no_default_vpc" {
   title       = "EKS clusters should not be configured within a default VPC"
-  description = "Ensure to configure a new VPC for your EKS cluster as default VPC comes with a default configuration that lacks the proper security controls. Your network should be well configured and follow the least privilege principle, meaning only the necessary privileges are granted."
+  description = "Ensure to configure a new VPC for your EKS cluster as default VPC comes with a default configuration that lacks the proper security controls. Your network should be well configured and should follow the least privilege principle, meaning only the necessary privileges are granted."
   sql         = query.eks_cluster_no_default_vpc.sql
 
   tags = merge(local.conformance_pack_eks_common_tags, {

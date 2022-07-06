@@ -5,7 +5,7 @@ locals {
 }
 
 control "kinesis_stream_server_side_encryption_enabled" {
-  title       = "Kinesis streams server side encryption should be enabled"
+  title       = "Kinesis streams should have server side encryption enabled"
   description = "Enable server side encryption (SSE) of your AWS Kinesis Server data at rest, in order to protect your data and metadata from breaches or unauthorized access, and fulfill compliance requirements for data-at-rest encryption within your organization."
   sql         = query.kinesis_stream_server_side_encryption_enabled.sql
 

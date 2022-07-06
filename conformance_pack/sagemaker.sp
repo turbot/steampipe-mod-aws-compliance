@@ -66,7 +66,7 @@ control "sagemaker_model_in_vpc" {
 }
 
 control "sagemaker_model_network_isolation_enabled" {
-  title       = "SageMaker models network isolation should be enabled"
+  title       = "SageMaker models should have network isolation enabled"
   description = "SageMaker models are internet-enabled by default. Network isolation should be enabled to avoid external network access to your inference containers."
   sql         = query.sagemaker_model_network_isolation_enabled.sql
 
@@ -87,7 +87,7 @@ control "sagemaker_notebook_instance_in_vpc" {
 
 control "sagemaker_notebook_instance_root_access_disabled" {
   title       = "SageMaker notebook instances root access should be disabled"
-  description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. This is recommeneded to disable root access to restrict users from accessing and editing all the files."
+  description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. It is recommeneded to disable root access to restrict users from accessing and editing all the files."
   sql         = query.sagemaker_notebook_instance_root_access_disabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -126,8 +126,8 @@ control "sagemaker_training_job_network_isolation_enabled" {
 }
 
 control "sagemaker_training_job_volume_and_data_encryption_enabled" {
-  title       = "SageMaker training jobs volumes and output should have KMS encryption enabled"
-  description = "Ensure that SageMaker training jobs have volume and output with KMS encryption enabled in order to have a more granular control over the data-at-rest encryption/decryption process and meet compliance requirements."
+  title       = "SageMaker training jobs volumes and outputs should have KMS encryption enabled"
+  description = "Ensure that SageMaker training jobs have volumes and outputs with KMS encryption enabled in order to have a more granular control over the data-at-rest encryption/decryption process and to meet compliance requirements."
   sql         = query.sagemaker_training_job_volume_and_data_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {

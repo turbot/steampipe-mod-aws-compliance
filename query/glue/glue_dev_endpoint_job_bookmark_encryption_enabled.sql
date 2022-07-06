@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then e.title || ' job bookmarks encryption enabled.'
-    else e.title || ' job bookmarks encryption disabled.'
+    when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then e.title || ' job bookmark encryption enabled.'
+    else e.title || ' job bookmark encryption disabled.'
   end as reason,
   -- Additional Dimensions
   e.region,
