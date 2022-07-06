@@ -29,7 +29,7 @@ select
   end as status,
   -- Below cases are for citing respective reasons for control state
   case
-    when a.opt_in_status = 'not-opted-in' then a.region || '  region is disabled.'
+    when a.opt_in_status = 'not-opted-in' then a.region || ' region is disabled.'
     else
       case
         when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then a.region || ' IncludeGlobalResourceTypes enabled,'
