@@ -1,6 +1,6 @@
 locals {
   other_common_tags = merge(local.aws_compliance_common_tags, {
-    other = "true"
+    other_checks = "true"
   })
 }
 
