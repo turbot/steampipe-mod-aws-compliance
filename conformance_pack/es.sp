@@ -80,7 +80,7 @@ control "es_domain_cognito_authentication_enabled" {
 }
 
 control "es_domain_internal_user_database_enabled" {
-  title       = "Elasticsearch domains internal user database should be enabled"
+  title       = "Elasticsearch domains should have internal user database enabled"
   description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
   sql         = query.es_domain_internal_user_database_enabled.sql
 
