@@ -18,7 +18,7 @@ control "ecs_task_definition_user_for_host_mode_check" {
 }
 
 control "ecs_task_definition_logging_enabled" {
-  title       = "ECS task definitions logging should be enabled"
+  title       = "ECS task definitions should have logging enabled"
   description = "Ensure logging is enabled for task definitions so that you can access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation."
   sql         = query.ecs_task_definition_logging_enabled.sql
 
