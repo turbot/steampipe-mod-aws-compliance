@@ -360,7 +360,6 @@ control "iam_policy_inline_no_blocked_kms_actions" {
   sql         = query.iam_policy_inline_no_blocked_kms_actions.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
   })
 }
 
