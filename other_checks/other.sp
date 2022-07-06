@@ -59,7 +59,6 @@ benchmark "other" {
     control.sagemaker_training_job_inter_container_traffic_encryption_enabled,
     control.sagemaker_training_job_network_isolation_enabled,
     control.sagemaker_training_job_volume_and_data_encryption_enabled,
-    control.securityhub_standards_subscription_enabled,
     control.sns_topic_policy_prohibit_public_access,
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_policy_prohibit_public_access,

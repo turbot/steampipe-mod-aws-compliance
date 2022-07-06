@@ -15,7 +15,7 @@ Includes support for:
 * [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
 * [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
 * [Federal Financial
-Institutions Examination Council (FFIEC)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.ffiec)
+Institutions Examination Council (FFIEC)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.ffiec) 🚀 New!
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
 * [General Data Protection Regulation (GDPR)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gdpr)
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)

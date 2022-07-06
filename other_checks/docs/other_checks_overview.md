@@ -1,1 +1,3 @@
-We are adding additional checks to improve the information gathering around other AWS compliance best practices, these checks are out of the scope of any predefined benchmarks for AWS but we consider them very helpful.
+## Overview
+
+This benchmark contains additional checks to help you detect resource configurations that do not meet best practice. These checks are not associated with any particular compliance framework, so we recommend integrating any relevant checks into your workflow on a per control basis.
