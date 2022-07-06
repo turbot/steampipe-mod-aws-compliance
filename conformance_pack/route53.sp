@@ -5,7 +5,7 @@ locals {
 }
 
 control "route53_zone_query_logging_enabled" {
-  title       = "Route 53 zones query logging should be enabled"
+  title       = "Route 53 zones should have query logging enabled"
   description = "Ensure Route 53 zones have query logging enabled."
   sql         = query.route53_zone_query_logging_enabled.sql
 
@@ -15,7 +15,7 @@ control "route53_zone_query_logging_enabled" {
 }
 
 control "route53_domain_transfer_lock_enabled" {
-  title       = "Route 53 domains transfer lock should be enabled"
+  title       = "Route 53 domains should have transfer lock enabled"
   description = "Ensure Route 53 registered domains are locked to prevent any unauthorized transfers to another domain name registrar."
   sql         = query.route53_domain_transfer_lock_enabled.sql
 
