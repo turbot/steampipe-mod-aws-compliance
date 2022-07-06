@@ -25,7 +25,7 @@ control "eks_cluster_endpoint_restrict_public_access" {
 }
 
 control "eks_cluster_control_plane_audit_logging_enabled" {
-  title       = "EKS clusters control plane audit logging should be enabled"
+  title       = "EKS clusters should have control plane audit logging enabled"
   description = "Amazon EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
   sql         = query.eks_cluster_control_plane_audit_logging_enabled.sql
 
