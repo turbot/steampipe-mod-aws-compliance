@@ -6,9 +6,9 @@ locals {
 }
 
 benchmark "gxp_21_cfr_part_11" {
-  title       = "GxP 21 CFR Part 11"
-  description = "The overall intent of GxP requirements is to ensure that food and medical products are safe for consumers and to ensure the integrity of data used to make product-related safety decisions."
-  # documentation = file("./gxp_21_cfr_part_11/docs/gxp_21_cfr_part_11_overview.md")
+  title         = "GxP 21 CFR Part 11"
+  description   = "The overall intent of GxP requirements is to ensure that food and medical products are safe for consumers and to ensure the integrity of data used to make product-related safety decisions."
+  documentation = file("./gxp_21_cfr_part_11/docs/gxp_21_cfr_part_11_overview.md")
   children = [
     benchmark.gxp_21_cfr_part_11_11_10,
     benchmark.gxp_21_cfr_part_11_11_30,
