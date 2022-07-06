@@ -354,6 +354,16 @@ control "iam_policy_custom_no_blocked_kms_actions" {
   })
 }
 
+control "iam_policy_inline_no_blocked_kms_actions" {
+  title       = "Ensure inline policies attached to IAM users, roles, and groups should not allow blocked actions on KMS keys"
+  description = "Checks if the inline policies attached to IAM users, roles, and groups do not allow blocked actions on all AWS Key Management Service (KMS) keys. The rule is non - compliant if any blocked action is allowed on all KMS keys in an inline policy."
+  sql         = query.iam_policy_inline_no_blocked_kms_actions.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+  })
+}
+
+
 control "account_part_of_organizations" {
   title       = "AWS account should be part of AWS Organizations"
   description = "Ensure if an AWS account is part of AWS Organizations. The rule is non compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
