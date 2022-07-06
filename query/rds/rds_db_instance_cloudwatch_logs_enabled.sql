@@ -1,7 +1,7 @@
 select
   -- Required Columns
   arn as resource,
-	case
+  case
     when enabled_cloudwatch_logs_exports is not null then 'ok'
     else 'alarm'
   end as status,
@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-	aws_rds_db_instance;
+  aws_rds_db_instance;

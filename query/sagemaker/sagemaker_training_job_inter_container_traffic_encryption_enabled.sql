@@ -1,7 +1,7 @@
 select
   -- Required Columns
-	arn as resource,
-	case
+  arn as resource,
+  case
     when enable_inter_container_traffic_encryption then 'ok'
     else 'alarm'
   end as status,
@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-	aws_sagemaker_training_job;
+  aws_sagemaker_training_job;

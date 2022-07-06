@@ -3,9 +3,9 @@ with sg_name as (
     arn,
     sg,
     count(*) as num
-	from
-		aws_ec2_application_load_balancer,
-		jsonb_array_elements_text(security_groups) as sg
+  from
+    aws_ec2_application_load_balancer,
+    jsonb_array_elements_text(security_groups) as sg
     left join aws_vpc_security_group_rule as sgr on sg = sgr.group_id
   where
     sgr.type = 'egress'
@@ -16,9 +16,9 @@ with sg_name as (
     arn,
     sg,
     count(*) as num
-	from
-		aws_ec2_classic_load_balancer,
-		jsonb_array_elements_text(security_groups) as sg
+  from
+    aws_ec2_classic_load_balancer,
+    jsonb_array_elements_text(security_groups) as sg
     left join aws_vpc_security_group_rule as sgr on sg = sgr.group_id
   where
     sgr.type = 'egress'
@@ -44,13 +44,13 @@ with sg_name as (
     aws_ec2_classic_load_balancer
 )
 select
-	distinct l.arn as resource,
+  distinct l.arn as resource,
   case
     when l.security_groups is null then 'alarm'
     when s.num = 0 then 'alarm'
     else 'ok'
   end as status,
-   case
+  case
     when l.security_groups is null then l.title || ' does not have security group attached.'
     when s.num = 0 then l.title || ' does not have outbound rule.'
     else l.title || ' have outbound rule(s).'

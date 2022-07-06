@@ -1,7 +1,7 @@
 select
   -- Required Columns
   p.name as resource,
-	case
+  case
     when a.provider_arns is not null then 'ok'
     else 'alarm'
   end as status,

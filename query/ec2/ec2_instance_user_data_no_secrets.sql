@@ -12,7 +12,7 @@ select
     else instance_id ||  ' no secrets found in user data.'
   end as reason,
   -- Additional Dimensions
-    region,
-    account_id
+  region,
+  account_id
 from
   aws_ec2_instance;

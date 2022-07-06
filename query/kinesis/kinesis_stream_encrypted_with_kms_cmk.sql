@@ -1,7 +1,7 @@
 select
   -- Required Columns
   stream_arn as resource,
-	case
+  case
     when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then 'ok'
     else 'alarm'
   end as status,

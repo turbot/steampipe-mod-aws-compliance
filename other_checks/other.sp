@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "other" {
-  title         = "Other"
+  title         = "Other Compliance Checks"
   documentation = file("./other_checks/docs/other_checks_overview.md")
   children = [
     control.acm_certificate_no_wildcard_domain_name,

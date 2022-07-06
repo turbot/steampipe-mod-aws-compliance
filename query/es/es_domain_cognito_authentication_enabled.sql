@@ -1,7 +1,7 @@
 select
   -- Required Columns
   arn as resource,
-	case
+  case
     when cognito_options ->> 'Enabled' = 'true' then 'ok'
     else 'alarm'
   end as status,
@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-	aws_elasticsearch_domain;
+  aws_elasticsearch_domain;

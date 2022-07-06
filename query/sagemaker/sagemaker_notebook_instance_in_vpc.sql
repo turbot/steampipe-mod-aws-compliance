@@ -1,7 +1,7 @@
 select
   -- Required Columns
-	arn as resource,
-	case
+  arn as resource,
+  case
     when subnet_id is not null then 'ok'
     else 'alarm'
   end as status,
@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-	aws_sagemaker_notebook_instance;
+  aws_sagemaker_notebook_instance;

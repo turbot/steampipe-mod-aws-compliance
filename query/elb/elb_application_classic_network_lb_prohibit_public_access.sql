@@ -1,10 +1,10 @@
 with all_lb_details as (
- 	select
+	select
 		arn,
 		scheme,
 		title,
 		region,
- 		account_id
+		account_id
 	from
 		aws_ec2_application_load_balancer
 	union
@@ -13,7 +13,7 @@ with all_lb_details as (
 		scheme,
 		title,
 		region,
- 		account_id
+		account_id
 	from
 		aws_ec2_network_load_balancer
 	union
@@ -22,7 +22,7 @@ with all_lb_details as (
 		scheme,
 		title,
 		region,
- 		account_id
+		account_id
 	from
 	aws_ec2_classic_load_balancer
 )
@@ -35,10 +35,10 @@ select
 	end as status,
 	case
 		when scheme = 'internet-facing' then title || ' publicly accessible.'
-		else title|| ' not publicly accessible.'
+    else title|| ' not publicly accessible.'
 	end as reason,
 	-- Additional Dimensions
 	region,
-  account_id
+	account_id
 from
 	all_lb_details;

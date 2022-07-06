@@ -1,7 +1,7 @@
 select
   -- Required Columns
   stream_arn as resource,
-	case
+  case
     when encryption_type = 'KMS' then 'ok'
     else 'alarm'
   end as status,
@@ -13,4 +13,4 @@ select
   region,
   account_id
 from
-	aws_kinesis_stream;
+  aws_kinesis_stream;
