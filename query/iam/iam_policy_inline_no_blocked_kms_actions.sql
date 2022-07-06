@@ -7,9 +7,7 @@ with iam_resource_types as (
     region
   from
     aws_iam_user
-  
   union
-
   select
     arn,
     inline_policies_std,
@@ -18,9 +16,7 @@ with iam_resource_types as (
     region
   from
     aws_iam_role
-
   union
-
   select
     arn,
     inline_policies_std,
@@ -29,7 +25,6 @@ with iam_resource_types as (
     region
   from
     aws_iam_group
-
 ),
 kms_blocked_actions as (
   select
