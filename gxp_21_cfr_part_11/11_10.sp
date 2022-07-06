@@ -1,5 +1,5 @@
 benchmark "gxp_21_cfr_part_11_11_10" {
-  title       = "Controls for closed systems (11.10)"
+  title       = "11.10 Controls for closed systems"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following benchmarks."
   children = [
     benchmark.gxp_21_cfr_part_11_11_10_a,
