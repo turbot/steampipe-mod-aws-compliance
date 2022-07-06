@@ -23,24 +23,30 @@ select
       and status ->> 'Recording' = 'true'
       and status ->> 'LastStatus' = 'SUCCESS'
     then 'ok'
+  -- Skip any regions that are disabled in the account.
+    when a.opt_in_status = 'not-opted-in' then 'skip'
     else 'alarm'
   end as status,
   -- Below cases are for citing respective reasons for control state
   case
-    when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then a.region || ' IncludeGlobalResourceTypes enabled,'
-    else a.region || ' IncludeGlobalResourceTypes disabled,'
-  end ||
-  case
-    when recording_group -> 'AllSupported' = 'true' then ' AllSupported enabled,'
-    else ' AllSupported disabled,'
-  end ||
-  case
-    when status ->> 'Recording' = 'true' then ' Recording enabled'
-    else ' Recording disabled'
-  end ||
-  case
-    when status ->> 'LastStatus' = 'SUCCESS' then ' and LastStatus is SUCCESS.'
-    else ' and LastStatus is not SUCCESS.'
+    when a.opt_in_status = 'not-opted-in' then 'Region is opted out.'
+    else
+      case
+        when recording_group -> 'IncludeGlobalResourceTypes' = 'true' then a.region || ' IncludeGlobalResourceTypes enabled,'
+        else a.region || ' IncludeGlobalResourceTypes disabled,'
+      end ||
+      case
+        when recording_group -> 'AllSupported' = 'true' then ' AllSupported enabled,'
+        else ' AllSupported disabled,'
+      end ||
+      case
+        when status ->> 'Recording' = 'true' then ' Recording enabled'
+        else ' Recording disabled'
+      end ||
+      case
+        when status ->> 'LastStatus' = 'SUCCESS' then ' and LastStatus is SUCCESS.'
+        else ' and LastStatus is not SUCCESS.'
+      end
   end as reason,
   -- Additional columns
   a.region,
@@ -49,6 +55,4 @@ from
   global_recorders as g,
   aws_region as a
   left join aws_config_configuration_recorder as r
-    on r.account_id = a.account_id and r.region = a.name
-where
-  a.opt_in_status != 'not-opted-in';
+    on r.account_id = a.account_id and r.region = a.name;
