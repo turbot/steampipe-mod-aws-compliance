@@ -72,7 +72,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
-    sco_2                  = "true"
+    soc_2                  = "true"
   })
 }
 

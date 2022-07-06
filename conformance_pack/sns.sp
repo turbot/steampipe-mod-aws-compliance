@@ -20,3 +20,13 @@ control "sns_topic_encrypted_at_rest" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "sns_topic_policy_prohibit_public_access" {
+  title       = "SNS topic policies should prohibit public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot be publicly accessed."
+  sql         = query.sns_topic_policy_prohibit_public_access.sql
+
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    other_checks = "true"
+  })
+}

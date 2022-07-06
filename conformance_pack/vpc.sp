@@ -170,3 +170,43 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "vpc_security_group_restrict_ingress_redis_port" {
+  title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0"
+  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_security_group_restrict_ingress_redis_port.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_restrict_kibana_port" {
+  title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
+  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  sql         = query.vpc_security_group_restrict_kibana_port.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_not_uses_launch_wizard_sg" {
+  title       = "VPC security groups should restrict uses of 'launch-wizard' security groups."
+  description = "Ensure the launch-wizard security group in your AWS account is not being used."
+  sql         = query.vpc_security_group_not_uses_launch_wizard_sg.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_endpoint_service_acceptance_required_enabled" {
+  title       = "VPC endpoint services should have acceptance required enabled"
+  description = "Ensure VPC endpoints connection requests to the service are accepted by the service owner."
+  sql         = query.vpc_endpoint_service_acceptance_required_enabled.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}

@@ -222,3 +222,23 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     rbi_cyber_security = "true"
   })
 }
+
+control "rds_db_instance_cloudwatch_logs_enabled" {
+  title       = "RDS DB instances should be integrated with CloudWatch logs"
+  description = "Use Amazon CloudWatch to centrally collect and manage RDS DB instance activity."
+  sql         = query.rds_db_instance_cloudwatch_logs_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "rds_db_instance_ca_certificate_expires_7_days" {
+  title       = "RDS DB instances CA certificates should not expire within next 7 days"
+  description = "Ensure RDS DB instances CA certificates are not getting expired within the next 7 days."
+  sql         = query.rds_db_instance_ca_certificate_expires_7_days.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
+  })
+}

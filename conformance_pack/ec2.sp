@@ -134,3 +134,43 @@ control "ec2_instance_iam_profile_attached" {
     nist_800_53_rev_5 = "true"
   })
 }
+
+control "ec2_instance_publicly_accessible_iam_profile_attached" {
+  title       = "Public EC2 instances should have IAM profile attached"
+  description = "Ensure Amazon Elastic Compute Cloud (Amazon EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non compliant if no IAM profile is attached to public Amazon EC2 instance."
+  sql         = query.ec2_instance_publicly_accessible_iam_profile_attached.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "ec2_instance_user_data_no_secrets" {
+  title       = "EC2 instances user data should not have secrets"
+  description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code which is exposed to any entity which has the most basic access to EC2, even read-only configurations. It is recommended to not use secrets in user data."
+  sql         = query.ec2_instance_user_data_no_secrets.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
+  title       = "EC2 transit gateways auto accept shared attachments should be disabled"
+  description = "Ensure transit gateways have auto accept shared attachments feature disabled. If this setting is disabled, then any VPC that attempts to attach to a transit gateway will need to request authorization, and the account that owns the transit gateway will need to accept the authorization."
+  sql         = query.ec2_transit_gateway_auto_cross_account_attachment_disabled.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "ec2_instance_no_launch_wizard_security_group" {
+  title       = "EC2 instances should not be attached to 'launch wizard' security groups"
+  description = "Ensure EC2 instances provisioned in your AWS account are not associated with security groups that have their name prefixed with 'launch-wizard', in order to enforce using secure and custom security groups that exercise the principle of least privilege."
+  sql         = query.ec2_instance_no_launch_wizard_security_group.sql
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}

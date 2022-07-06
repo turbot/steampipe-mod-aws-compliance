@@ -10,7 +10,17 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   sql         = query.cloudfront_distribution_encryption_in_transit_enabled.sql
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr = "true"
+    gdpr  = "true"
     hipaa = "true"
+  })
+}
+
+control "cloudfront_distribution_geo_restrictions_enabled" {
+  title       = "CloudFront distributions geo restrictions should be enabled"
+  description = "Geographic restriction is used to restrict access to all of the files that are associated with a distribution at the country level."
+  sql         = query.cloudfront_distribution_geo_restrictions_enabled.sql
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    other_checks = "true"
   })
 }
