@@ -5,7 +5,7 @@ locals {
 }
 
 control "ecr_repository_image_scan_on_push_enabled" {
-  title       = "ECR repositories image scan on push should be enabled"
+  title       = "ECR repositories should have image scan on push enabled"
   description = "Ensure Amazon Elastic Container Registry (ECR) repositories have image scanning enabled. The rule is non compliant if image scanning is not enabled for the ECR repository."
   sql         = query.ecr_repository_image_scan_on_push_enabled.sql
 
@@ -23,4 +23,3 @@ control "ecr_repository_prohibit_public_access" {
     other_checks = "true"
   })
 }
-
