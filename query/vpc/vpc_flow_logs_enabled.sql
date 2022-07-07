@@ -6,6 +6,7 @@ with vpc_with_active_flow_logs as (
     f.flow_log_status,
     v.region,
     v.account_id,
+    v.owner_id,
     f.resource_id
   from
     aws_vpc as v
@@ -16,16 +17,19 @@ with vpc_with_active_flow_logs as (
     f.flow_log_status,
     v.region,
     v.account_id,
-    f.resource_id
+    f.resource_id,
+    v.owner_id
 )
 select
   -- Required columns
   resource,
   case
+    when account_id <> owner_id then 'skip'
     when count > 0 then 'ok'
     else 'alarm'
   end as status,
   case
+    when account_id <> owner_id then vpc_id || ' is a shared VPC.'
     when count > 0 then vpc_id || ' flow logging enabled.'
     else vpc_id || ' flow logging disabled.'
   end as reason,
@@ -40,4 +44,5 @@ group by
   flow_log_status,
   resource,
   region,
-  account_id;
+  account_id,
+  owner_id;

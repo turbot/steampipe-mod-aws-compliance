@@ -13,6 +13,7 @@ control "es_domain_encryption_at_rest_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -30,6 +31,7 @@ control "es_domain_in_vpc" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -48,6 +50,7 @@ control "es_domain_node_to_node_encryption_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -57,14 +60,35 @@ control "es_domain_node_to_node_encryption_enabled" {
 
 control "es_domain_logs_to_cloudwatch" {
   title       = "Elasticsearch domain should send logs to CloudWatch"
-  description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is complaint if a log is enabled for an OpenSearch Service domain. This rule is non complain if logging is not configured."
+  description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is complaint if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
+  })
+}
+
+control "es_domain_cognito_authentication_enabled" {
+  title       = "Elasticsearch domains should have cognito authentication enabled"
+  description = "Amazon Elasticsearch service uses Amazon Cognito to offer user name and password protection for Kibana. This control is non compliant if Amazon Cognito authentication is not enabled."
+  sql         = query.es_domain_cognito_authentication_enabled.sql
+
+  tags = merge(local.conformance_pack_es_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "es_domain_internal_user_database_enabled" {
+  title       = "Elasticsearch domains should have internal user database enabled"
+  description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
+  sql         = query.es_domain_internal_user_database_enabled.sql
+
+  tags = merge(local.conformance_pack_es_common_tags, {
+    other_checks = "true"
   })
 }

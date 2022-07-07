@@ -29,6 +29,7 @@ control "lambda_function_in_vpc" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -46,6 +47,7 @@ control "lambda_function_restrict_public_access" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -66,5 +68,15 @@ control "lambda_function_concurrent_execution_limit_configured" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "lambda_function_cloudtrail_logging_enabled" {
+  title       = "Lambda functions CloudTrail logging should be enabled"
+  description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
+  sql         = query.lambda_function_cloudtrail_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+    other_checks = "true"
   })
 }
