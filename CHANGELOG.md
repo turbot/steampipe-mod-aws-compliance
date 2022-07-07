@@ -1,5 +1,9 @@
 ## v0.38 [2022-07-07]
 
+_Dependencies_
+
+- AWS plugin `v0.68.0` or higher is now required ([#446](https://github.com/turbot/steampipe-mod-aws-compliance/pull/446))
+
 _What's new?_
 
 - Added GxP 21 CFR Part 11 benchmark (`steampipe check benchmark.gxp_21_cfr_part_11`). ([#436](https://github.com/turbot/steampipe-mod-aws-compliance/pull/436))
