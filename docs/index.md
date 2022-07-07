@@ -26,7 +26,7 @@ Run individual configuration, compliance and security controls or full complianc
 
 [GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
 
-[GxP 21 CFR Part 11](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11?toc=1) provides a set of rules to ensure that food and medical products are safe for consumers and to ensure the integrity of data used to make product-related safety decisions."
+[GxP 21 CFR Part 11](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11?toc=1) includes details for the criteria under which electronic records and signatures are considered trustworthy and equivalent to paper records and ensures the integrity of data used to make product-related safety decisions.
 
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 
