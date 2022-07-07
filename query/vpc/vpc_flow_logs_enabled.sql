@@ -29,7 +29,7 @@ select
     else 'alarm'
   end as status,
   case
-    when account_id <> owner_id then vpc_id || ' is shared VPC.'
+    when account_id <> owner_id then vpc_id || ' is a shared VPC.'
     when count > 0 then vpc_id || ' flow logging enabled.'
     else vpc_id || ' flow logging disabled.'
   end as reason,
