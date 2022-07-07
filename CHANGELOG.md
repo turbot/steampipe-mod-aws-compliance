@@ -7,7 +7,7 @@ _What's new?_
 
 _Enhancements_
 
-- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled on the AWS console or by using the AWS CLI. ([#437](https://github.com/turbot/steampipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled. ([#437](https://github.com/turbot/steampipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
 
 _Bug fixes_
 
