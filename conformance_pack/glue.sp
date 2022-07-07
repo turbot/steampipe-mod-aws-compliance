@@ -63,5 +63,3 @@ control "glue_job_s3_encryption_enabled" {
     other_checks = "true"
   })
 }
-
-

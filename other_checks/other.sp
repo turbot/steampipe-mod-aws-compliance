@@ -1,6 +1,6 @@
 locals {
   other_common_tags = merge(local.aws_compliance_common_tags, {
-    other = "true"
+    other_checks = "true"
   })
 }
 
@@ -27,8 +27,9 @@ benchmark "other" {
     control.efs_file_system_enforces_ssl,
     control.eks_cluster_control_plane_audit_logging_enabled,
     control.eks_cluster_no_default_vpc,
-    control.elb_application_classic_lb_with_outbound_rule,
     control.elb_application_classic_network_lb_prohibit_public_access,
+    control.elb_application_lb_with_outbound_rule,
+    control.elb_classic_lb_with_outbound_rule,
     control.elb_listener_use_secure_ssl_cipher,
     control.es_domain_cognito_authentication_enabled,
     control.es_domain_internal_user_database_enabled,
@@ -58,14 +59,13 @@ benchmark "other" {
     control.sagemaker_training_job_inter_container_traffic_encryption_enabled,
     control.sagemaker_training_job_network_isolation_enabled,
     control.sagemaker_training_job_volume_and_data_encryption_enabled,
-    control.securityhub_standards_subscription_enabled,
     control.sns_topic_policy_prohibit_public_access,
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_policy_prohibit_public_access,
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_security_group_not_uses_launch_wizard_sg,
     control.vpc_security_group_restrict_ingress_redis_port,
-    control.vpc_security_group_restrict_kibana_port,
+    control.vpc_security_group_restrict_kibana_port
   ]
 
   tags = merge(local.other_common_tags, {

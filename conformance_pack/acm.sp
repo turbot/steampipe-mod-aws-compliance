@@ -24,7 +24,7 @@ control "acm_certificate_expires_30_days" {
 }
 
 control "acm_certificate_transparency_logging_enabled" {
-  title       = "ACM certificates transparency logging should be enabled"
+  title       = "ACM certificates should have transparency logging enabled"
   description = "Ensure ACM certificates transparency logging is enabled as certificate transparency logging guards against SSL/TLS certificates issued by mistake or by a compromised certificate authority."
   sql         = query.acm_certificate_transparency_logging_enabled.sql
 

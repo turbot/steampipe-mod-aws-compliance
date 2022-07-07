@@ -59,7 +59,7 @@ control "es_domain_node_to_node_encryption_enabled" {
 }
 
 control "es_domain_logs_to_cloudwatch" {
-  title       = "Elasticsearch domain should send logs to cloudWatch"
+  title       = "Elasticsearch domain should send logs to CloudWatch"
   description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is complaint if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
@@ -84,7 +84,7 @@ control "es_domain_cognito_authentication_enabled" {
 }
 
 control "es_domain_internal_user_database_enabled" {
-  title       = "Elasticsearch domains internal user database should be enabled"
+  title       = "Elasticsearch domains should have internal user database enabled"
   description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
   sql         = query.es_domain_internal_user_database_enabled.sql
 

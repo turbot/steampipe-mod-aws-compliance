@@ -419,3 +419,33 @@ control "iam_user_with_administrator_access_mfa_enabled" {
     other_checks = "true"
   })
 }
+
+control "iam_policy_custom_no_assume_role" {
+  title       = "IAM roles should not have any assume role policies attached"
+  description = "Role assume policies can provide access to roles in external AWS accounts."
+  sql         = query.iam_policy_custom_no_assume_role.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_user_hardware_mfa_enabled" {
+  title       = "IAM users should have hardware MFA enabled"
+  description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
+  sql         = query.iam_user_hardware_mfa_enabled.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_user_with_administrator_access_mfa_enabled" {
+  title       = "IAM administrator users should have MFA enabled"
+  description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for users with administrative privileges."
+  sql         = query.iam_user_with_administrator_access_mfa_enabled.sql
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}

@@ -176,10 +176,20 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
   })
 }
 
-control "elb_application_classic_lb_with_outbound_rule" {
-  title       = "ELB application and classic load balancers should have at least one outbound rule"
-  description = "Ensure application and classic load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
-  sql         = query.elb_application_classic_lb_with_outbound_rule.sql
+control "elb_application_lb_with_outbound_rule" {
+  title       = "ELB application load balancers should have at least one outbound rule"
+  description = "Ensure application load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
+  sql         = query.elb_application_lb_with_outbound_rule.sql
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "elb_classic_lb_with_outbound_rule" {
+  title       = "ELB classic load balancers should have at least one outbound rule"
+  description = "Ensure classic load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
+  sql         = query.elb_classic_lb_with_outbound_rule.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     other_checks = "true"
