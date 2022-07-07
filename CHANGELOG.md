@@ -1,3 +1,18 @@
+## v0.38 [2022-07-07]
+
+_What's new?_
+
+- Added GxP 21 CFR Part 11 benchmark (`steampipe check benchmark.gxp_21_cfr_part_11`). ([#436](https://github.com/turbot/steampipe-mod-aws-compliance/pull/436))
+- Added Other Compliance Checks benchmark (`steampipe check benchmark.other`). ([#431](https://github.com/turbot/steampipe-mod-aws-compliance/pull/431))
+
+_Enhancements_
+
+- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled. ([#437](https://github.com/turbot/steampipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+
+_Bug fixes_
+
+- Fixed the `vpc_flow_logs_enabled` query to skip VPCs which are shared with the owner account, since flow logs cannot be enabled for shared VPCs. ([#444](https://github.com/turbot/steampipe-mod-aws-compliance/pull/444))
+
 ## v0.37 [2022-06-29]
 
 _What's new?_
