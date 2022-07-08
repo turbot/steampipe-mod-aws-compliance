@@ -187,6 +187,9 @@ control "vpc_security_group_restricted_common_ports" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     nist_800_171_rev_2 = "true"
+  })
+}
+
 control "vpc_security_group_restrict_ingress_redis_port" {
   title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."

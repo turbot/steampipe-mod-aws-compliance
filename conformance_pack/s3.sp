@@ -226,3 +226,13 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
     nist_800_171_rev_2 = "true"
   })
 }
+
+control "s3_bucket_object_logging_enabled" {
+  title       = "S3 buckets object logging should be enabled"
+  description = "Object-Level logging saves events in JSON format in CloudTrail. This is recommended from a security best practice perspective for buckets that contain sensitive data."
+  sql         = query.s3_bucket_object_logging_enabled.sql
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    other_checks = "true"
+  })
+}
