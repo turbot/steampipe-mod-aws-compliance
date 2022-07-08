@@ -38,15 +38,15 @@ with ingress_ssh_rules as (
         or (
             from_port >= 23
             and to_port <= 23
-        ) 
+        )
         or (
             from_port >= 25
             and to_port <= 25
-        ) 
+        )
         or (
             from_port >= 445
             and to_port <= 445
-        ) 
+        )
         or (
             from_port >= 110
             and to_port <= 110
@@ -78,15 +78,15 @@ with ingress_ssh_rules as (
         or (
             from_port >= 5601
             and to_port <= 5601
-        )    
+        )
         or (
             from_port >= 9200
             and to_port <= 9300
-        )    
+        )
         or (
             from_port >= 8080
             and to_port <= 8080
-        )           
+        )
     )
   group by
     group_id
@@ -100,7 +100,7 @@ select
   end as status,
   case
     when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0..'
-    else  sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
+    else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
   end as reason,
   -- Additional Dimensions
   sg.region,

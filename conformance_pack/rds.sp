@@ -13,6 +13,7 @@ control "rds_db_instance_backup_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -31,6 +32,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -48,6 +50,7 @@ control "rds_db_instance_multiple_az_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -65,6 +68,7 @@ control "rds_db_instance_prohibit_public_access" {
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -83,6 +87,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
     audit_manager_control_tower = "true"
     fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -100,6 +105,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -118,6 +124,7 @@ control "rds_db_instance_logging_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
@@ -133,6 +140,7 @@ control "rds_db_instance_in_backup_plan" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     ffiec              = "true"
     gdpr               = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
@@ -165,6 +173,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     soc_2                  = "true"
@@ -234,14 +243,31 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
 }
 
 control "rds_db_cluster_deletion_protection_enabled" {
-  title         = "7 RDS clusters should have deletion protection enabled"
-  description   = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
-  severity      = "low"
-  sql           = query.rds_db_cluster_deletion_protection_enabled.sql
-  documentation = file("./foundational_security/docs/foundational_security_rds_7.md")
+  title       = "RDS clusters should have deletion protection enabled"
+  description = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
+  severity    = "low"
+  sql         = query.rds_db_cluster_deletion_protection_enabled.sql
 
-  tags = merge(local.foundational_security_rds_common_tags, {
-    foundational_security_item_id  = "rds_7"
-    foundational_security_category = "data_deletion_protection"
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
+  })
+}
+control "rds_db_instance_cloudwatch_logs_enabled" {
+  title       = "RDS DB instances should be integrated with CloudWatch logs"
+  description = "Use Amazon CloudWatch to centrally collect and manage RDS DB instance activity."
+  sql         = query.rds_db_instance_cloudwatch_logs_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "rds_db_instance_ca_certificate_expires_7_days" {
+  title       = "RDS DB instances CA certificates should not expire within next 7 days"
+  description = "Ensure RDS DB instances CA certificates are not getting expired within the next 7 days."
+  sql         = query.rds_db_instance_ca_certificate_expires_7_days.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
   })
 }
