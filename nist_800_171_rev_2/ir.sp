@@ -1,5 +1,5 @@
 benchmark "nist_800_171_rev_2_3_6" {
-  title       = "Incident Response"
+  title       = "3.6 Incident Response"
   description = "IR controls are specific to an organization’s incident response policies and procedures. This includes incident response training, testing, monitoring, reporting, and response plan."
   children = [
     benchmark.nist_800_171_rev_2_3_6_1
