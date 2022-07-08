@@ -170,3 +170,13 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     rbi_cyber_security     = "true"
   })
 }
+
+control "vpc_security_group_restricted_common_ports" {
+  title       = "Security groups should not allow unrestricted access to ports with high risk"
+  description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
+  sql         = query.vpc_security_group_restricted_common_ports.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_800_171_rev_2 = "true"
+  })
+}

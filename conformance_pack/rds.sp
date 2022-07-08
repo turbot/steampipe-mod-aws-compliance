@@ -232,3 +232,16 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     rbi_cyber_security = "true"
   })
 }
+
+control "rds_db_cluster_deletion_protection_enabled" {
+  title         = "7 RDS clusters should have deletion protection enabled"
+  description   = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
+  severity      = "low"
+  sql           = query.rds_db_cluster_deletion_protection_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_rds_7.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_7"
+    foundational_security_category = "data_deletion_protection"
+  })
+}

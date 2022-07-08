@@ -13,15 +13,12 @@ benchmark "nist_800_171_rev_2" {
   children = [
     benchmark.nist_800_171_rev_2_3_1,
     benchmark.nist_800_171_rev_2_3_3,
-    # benchmark.nist_800_53_rev_4_ca,
-    # benchmark.nist_800_53_rev_4_cm,
-    # benchmark.nist_800_53_rev_4_cp,
-    # benchmark.nist_800_53_rev_4_ia,
-    # benchmark.nist_800_53_rev_4_ir,
-    # benchmark.nist_800_53_rev_4_ra,
-    # benchmark.nist_800_53_rev_4_sa,
-    # benchmark.nist_800_53_rev_4_sc,
-    # benchmark.nist_800_53_rev_4_si
+    benchmark.nist_800_171_rev_2_3_4,
+    benchmark.nist_800_171_rev_2_3_5,
+    benchmark.nist_800_171_rev_2_3_6,
+    benchmark.nist_800_171_rev_2_3_11,
+    benchmark.nist_800_171_rev_2_3_13,
+    benchmark.nist_800_171_rev_2_3_14
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
