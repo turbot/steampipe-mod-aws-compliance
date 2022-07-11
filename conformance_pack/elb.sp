@@ -10,6 +10,7 @@ control "elb_application_classic_lb_logging_enabled" {
   sql         = query.elb_application_classic_lb_logging_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -30,6 +31,7 @@ control "elb_application_lb_deletion_protection_enabled" {
   sql         = query.elb_application_lb_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -46,6 +48,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
   sql         = query.elb_application_lb_redirect_http_request_to_https.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -65,6 +68,7 @@ control "elb_application_lb_waf_enabled" {
   sql         = query.elb_application_lb_waf_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -81,6 +85,7 @@ control "elb_classic_lb_use_ssl_certificate" {
   sql         = query.elb_classic_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -114,6 +119,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
   sql         = query.elb_classic_lb_use_tls_https_listeners.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -132,6 +138,7 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
   sql         = query.elb_classic_lb_cross_zone_load_balancing_enabled.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -148,6 +155,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
   sql         = query.elb_application_network_lb_use_ssl_certificate.sql
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"

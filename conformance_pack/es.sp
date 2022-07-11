@@ -10,6 +10,7 @@ control "es_domain_encryption_at_rest_enabled" {
   sql         = query.es_domain_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
@@ -28,6 +29,7 @@ control "es_domain_in_vpc" {
   sql         = query.es_domain_in_vpc.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -46,6 +48,7 @@ control "es_domain_node_to_node_encryption_enabled" {
   sql         = query.es_domain_node_to_node_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -64,6 +67,7 @@ control "es_domain_logs_to_cloudwatch" {
   sql         = query.es_domain_logs_to_cloudwatch.sql
 
   tags = merge(local.conformance_pack_es_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"

@@ -44,6 +44,7 @@ control "efs_file_system_protected_by_backup_plan" {
   sql         = query.efs_file_system_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
@@ -58,7 +59,8 @@ control "efs_file_system_encrypted_with_cmk" {
   sql         = query.efs_file_system_encrypted_with_cmk.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    other_checks = "true"
+    cisa_cyber_essentials = "true"
+    other_checks          = "true"
   })
 }
 

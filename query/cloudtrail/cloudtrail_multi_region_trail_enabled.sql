@@ -5,7 +5,7 @@ with multi_region_trails as (
   from
     aws_cloudtrail_trail
   where
-    is_multi_region_trail
+    is_multi_region_trail and region = home_region
     and is_logging
   group by
     account_id,

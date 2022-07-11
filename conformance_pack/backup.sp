@@ -10,10 +10,11 @@ control "backup_recovery_point_manual_deletion_disabled" {
   sql         = query.backup_recovery_point_manual_deletion_disabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec    = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -38,10 +39,11 @@ control "backup_recovery_point_encryption_enabled" {
   sql         = query.backup_recovery_point_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec    = "true"
-    hipaa    = "true"
-    nist_csf = "true"
-    soc_2    = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    hipaa                 = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 

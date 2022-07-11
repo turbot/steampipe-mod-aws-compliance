@@ -26,6 +26,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
   sql         = query.autoscaling_launch_config_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"

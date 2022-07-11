@@ -10,6 +10,7 @@ control "sns_topic_encrypted_at_rest" {
   sql         = query.sns_topic_encrypted_at_rest.sql
 
   tags = merge(local.conformance_pack_sns_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"

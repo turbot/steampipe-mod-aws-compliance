@@ -10,6 +10,7 @@ control "ec2_instance_ssm_managed" {
   sql         = query.ec2_instance_ssm_managed.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -29,6 +30,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
   sql         = query.ssm_managed_instance_compliance_association_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -48,6 +50,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   sql         = query.ssm_managed_instance_compliance_patch_compliant.sql
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"

@@ -10,6 +10,7 @@ control "rds_db_instance_backup_enabled" {
   sql         = query.rds_db_instance_backup_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -29,6 +30,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
@@ -47,6 +49,7 @@ control "rds_db_instance_multiple_az_enabled" {
   sql         = query.rds_db_instance_multiple_az_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -65,6 +68,7 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -85,6 +89,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
     gxp_21_cfr_part_11          = "true"
@@ -102,6 +107,7 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -120,6 +126,7 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -138,15 +145,16 @@ control "rds_db_instance_in_backup_plan" {
   sql         = query.rds_db_instance_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    ffiec              = "true"
-    gdpr               = "true"
-    gxp_21_cfr_part_11 = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gdpr                  = "true"
+    gxp_21_cfr_part_11    = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_800_53_rev_5     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -156,6 +164,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   sql         = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -170,6 +179,7 @@ control "rds_db_instance_deletion_protection_enabled" {
   sql         = query.rds_db_instance_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -196,6 +206,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -227,8 +238,9 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   sql         = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    ffiec              = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
