@@ -186,7 +186,7 @@ control "vpc_security_group_restricted_common_ports" {
   sql         = query.vpc_security_group_restricted_common_ports.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_800_171_rev_2 = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 

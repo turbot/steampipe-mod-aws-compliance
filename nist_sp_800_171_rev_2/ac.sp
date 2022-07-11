@@ -1,24 +1,24 @@
-benchmark "nist_800_171_rev_2_3_1" {
+benchmark "nist_sp_800_171_rev_2_3_1" {
   title       = "3.1 Access Control"
   description = "The access control family consists of security requirements detailing system logging. This includes who has access to what assets and reporting capabilities like account management, system privileges, and remote access logging to determine when users have access to the system and their level of access."
   children = [
-    benchmark.nist_800_171_rev_2_3_1_1,
-    benchmark.nist_800_171_rev_2_3_1_2,
-    benchmark.nist_800_171_rev_2_3_1_3,
-    benchmark.nist_800_171_rev_2_3_1_4,
-    benchmark.nist_800_171_rev_2_3_1_5,
-    benchmark.nist_800_171_rev_2_3_1_6,
-    benchmark.nist_800_171_rev_2_3_1_7,
-    benchmark.nist_800_171_rev_2_3_1_12,
-    benchmark.nist_800_171_rev_2_3_1_13,
-    benchmark.nist_800_171_rev_2_3_1_14,
-    benchmark.nist_800_171_rev_2_3_1_20
+    benchmark.nist_sp_800_171_rev_2_3_1_1,
+    benchmark.nist_sp_800_171_rev_2_3_1_2,
+    benchmark.nist_sp_800_171_rev_2_3_1_3,
+    benchmark.nist_sp_800_171_rev_2_3_1_4,
+    benchmark.nist_sp_800_171_rev_2_3_1_5,
+    benchmark.nist_sp_800_171_rev_2_3_1_6,
+    benchmark.nist_sp_800_171_rev_2_3_1_7,
+    benchmark.nist_sp_800_171_rev_2_3_1_12,
+    benchmark.nist_sp_800_171_rev_2_3_1_13,
+    benchmark.nist_sp_800_171_rev_2_3_1_14,
+    benchmark.nist_sp_800_171_rev_2_3_1_20
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_1" {
+benchmark "nist_sp_800_171_rev_2_3_1_1" {
   title       = "3.1.1"
   description = "Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems)."
   children = [
@@ -59,10 +59,10 @@ benchmark "nist_800_171_rev_2_3_1_1" {
     control.vpc_subnet_auto_assign_public_ip_disabled,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_2" {
+benchmark "nist_sp_800_171_rev_2_3_1_2" {
   title       = "3.1.2"
   description = "Limit system access to the types of transactions and functions that authorized users are permitted to execute."
   children = [
@@ -103,10 +103,10 @@ benchmark "nist_800_171_rev_2_3_1_2" {
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_3" {
+benchmark "nist_sp_800_171_rev_2_3_1_3" {
   title       = "3.1.3"
   description = "Control the flow of CUI in accordance with approved authorizations."
   children = [
@@ -133,10 +133,10 @@ benchmark "nist_800_171_rev_2_3_1_3" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_4" {
+benchmark "nist_sp_800_171_rev_2_3_1_4" {
   title       = "3.1.4"
   description = "Separate the duties of individuals to reduce the risk of malevolent activity without collusion."
   children = [
@@ -152,10 +152,10 @@ benchmark "nist_800_171_rev_2_3_1_4" {
     control.rds_db_instance_iam_authentication_enabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_5" {
+benchmark "nist_sp_800_171_rev_2_3_1_5" {
   title       = "3.1.5"
   description = "Employ the principle of least privilege, including for specific security functions and privileged accounts."
   children = [
@@ -172,10 +172,10 @@ benchmark "nist_800_171_rev_2_3_1_5" {
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_6" {
+benchmark "nist_sp_800_171_rev_2_3_1_6" {
   title       = "3.1.6"
   description = "Use non-privileged accounts or roles when accessing nonsecurity functions."
   children = [
@@ -183,10 +183,10 @@ benchmark "nist_800_171_rev_2_3_1_6" {
     control.iam_root_user_no_access_keys
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_7" {
+benchmark "nist_sp_800_171_rev_2_3_1_7" {
   title       = "3.1.7"
   description = "Prevent non-privileged users from executing privileged functions and capture the execution of such functions in audit logs."
   children = [
@@ -197,10 +197,10 @@ benchmark "nist_800_171_rev_2_3_1_7" {
     control.iam_user_in_group
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_12" {
+benchmark "nist_sp_800_171_rev_2_3_1_12" {
   title       = "3.1.12"
   description = "Monitor and control remote access sessions."
   children = [
@@ -216,10 +216,10 @@ benchmark "nist_800_171_rev_2_3_1_12" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_13" {
+benchmark "nist_sp_800_171_rev_2_3_1_13" {
   title       = "3.1.13"
   description = "Employ cryptographic mechanisms to protect the confidentiality of remote access sessions."
   children = [
@@ -230,10 +230,10 @@ benchmark "nist_800_171_rev_2_3_1_13" {
     control.s3_bucket_enforces_ssl,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_14" {
+benchmark "nist_sp_800_171_rev_2_3_1_14" {
   title       = "3.1.14"
   description = "Route remote access via managed access control points enhances explicit, organizational control over such connections, reducing the susceptibility to unauthorized access to organizational systems resulting in the unauthorized disclosure of CUI"
   children = [
@@ -258,10 +258,10 @@ benchmark "nist_800_171_rev_2_3_1_14" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_1_20" {
+benchmark "nist_sp_800_171_rev_2_3_1_20" {
   title       = "3.1.20"
   description = "Verify and control/limit connections to and use of external systems."
   children = [
@@ -273,5 +273,5 @@ benchmark "nist_800_171_rev_2_3_1_20" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }

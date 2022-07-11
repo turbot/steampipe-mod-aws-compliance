@@ -1,15 +1,16 @@
-benchmark "nist_800_171_rev_2_3_6" {
+benchmark "nist_sp_800_171_rev_2_3_6" {
   title       = "3.6 Incident Response"
   description = "IR controls are specific to an organization’s incident response policies and procedures. This includes incident response training, testing, monitoring, reporting, and response plan."
   children = [
-    benchmark.nist_800_171_rev_2_3_6_1
+    benchmark.nist_sp_800_171_rev_2_3_6_1,
+    benchmark.nist_sp_800_171_rev_2_3_6_2
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 
 }
 
-benchmark "nist_800_171_rev_2_3_6_1" {
+benchmark "nist_sp_800_171_rev_2_3_6_1" {
   title       = "3.6.1"
   description = "Establish an operational incident-handling capability for organizational systems that includes preparation, detection, analysis, containment, recovery, and user response activities."
   children = [
@@ -28,10 +29,10 @@ benchmark "nist_800_171_rev_2_3_6_1" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_6_2" {
+benchmark "nist_sp_800_171_rev_2_3_6_2" {
   title       = "3.6.2"
   description = "Track, document, and report incidents to designated officials and/or authorities both internal and external to the organization."
   children = [
@@ -50,5 +51,5 @@ benchmark "nist_800_171_rev_2_3_6_2" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }

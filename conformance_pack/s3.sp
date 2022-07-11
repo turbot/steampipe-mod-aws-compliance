@@ -217,13 +217,13 @@ control "s3_public_access_block_bucket" {
 }
 
 control "s3_bucket_policy_restricts_cross_account_permission_changes" {
-  title         = "Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
-  description   = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
-  severity      = "high"
-  sql           = query.s3_bucket_policy_restricts_cross_account_permission_changes.sql
+  title       = "Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
+  description = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
+  severity    = "high"
+  sql         = query.s3_bucket_policy_restricts_cross_account_permission_changes.sql
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_800_171_rev_2 = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 

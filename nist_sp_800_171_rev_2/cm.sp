@@ -1,18 +1,18 @@
-benchmark "nist_800_171_rev_2_3_4" {
+benchmark "nist_sp_800_171_rev_2_3_4" {
   title       = "3.4 Configuration Management"
   description = "CM controls are specific to an organization’s configuration management policies. This includes a baseline configuration to operate as the basis for future builds or changes to information systems. Additionally, this includes information system component inventories and a security impact analysis control."
   children = [
-    benchmark.nist_800_171_rev_2_3_4_1,
-    benchmark.nist_800_171_rev_2_3_4_2,
-    benchmark.nist_800_171_rev_2_3_4_6,
-    benchmark.nist_800_171_rev_2_3_4_7,
-    benchmark.nist_800_171_rev_2_3_4_9
+    benchmark.nist_sp_800_171_rev_2_3_4_1,
+    benchmark.nist_sp_800_171_rev_2_3_4_2,
+    benchmark.nist_sp_800_171_rev_2_3_4_6,
+    benchmark.nist_sp_800_171_rev_2_3_4_7,
+    benchmark.nist_sp_800_171_rev_2_3_4_9
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_4_1" {
+benchmark "nist_sp_800_171_rev_2_3_4_1" {
   title       = "3.4.1"
   description = "Establish and maintain baseline configurations and inventories of organizational systems (including hardware, software, firmware, and documentation) throughout the respective system development life cycles."
   children = [
@@ -27,10 +27,10 @@ benchmark "nist_800_171_rev_2_3_4_1" {
     control.vpc_security_group_restricted_common_ports
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_4_2" {
+benchmark "nist_sp_800_171_rev_2_3_4_2" {
   title       = "3.4.2"
   description = "Establish and enforce security configuration settings for information technology products employed in organizational systems."
   children = [
@@ -41,10 +41,10 @@ benchmark "nist_800_171_rev_2_3_4_2" {
     control.vpc_security_group_associated_to_eni
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_4_6" {
+benchmark "nist_sp_800_171_rev_2_3_4_6" {
   title       = "3.4.6"
   description = "Employ the principle of least functionality by configuring organizational systems to provide only essential capabilities."
   children = [
@@ -66,10 +66,10 @@ benchmark "nist_800_171_rev_2_3_4_6" {
     control.vpc_default_security_group_restricts_all_traffic
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_4_7" {
+benchmark "nist_sp_800_171_rev_2_3_4_7" {
   title       = "3.4.7"
   description = "Restrict, disable, or prevent the use of nonessential programs, functions, ports, protocols, and services."
   children = [
@@ -79,10 +79,10 @@ benchmark "nist_800_171_rev_2_3_4_7" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_4_9" {
+benchmark "nist_sp_800_171_rev_2_3_4_9" {
   title       = "3.4.9"
   description = "Control and monitor user-installed software."
   children = [
@@ -90,5 +90,5 @@ benchmark "nist_800_171_rev_2_3_4_9" {
     control.ssm_managed_instance_compliance_association_compliant,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }

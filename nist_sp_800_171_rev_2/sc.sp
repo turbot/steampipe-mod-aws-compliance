@@ -1,23 +1,23 @@
-benchmark "nist_800_171_rev_2_3_13" {
+benchmark "nist_sp_800_171_rev_2_3_13" {
   title       = "3.13 System and Communications Protection"
   description = "The SC control family is responsible for systems and communications protection procedures. This includes boundary protection, protection of information at rest, collaborative computing devices, cryptographic protection, denial of service protection, and many others."
   children = [
-    benchmark.nist_800_171_rev_2_3_13_1,
-    benchmark.nist_800_171_rev_2_3_13_2,
-    benchmark.nist_800_171_rev_2_3_13_3,
-    benchmark.nist_800_171_rev_2_3_13_4,
-    benchmark.nist_800_171_rev_2_3_13_5,
-    benchmark.nist_800_171_rev_2_3_13_6,
-    benchmark.nist_800_171_rev_2_3_13_8,
-    benchmark.nist_800_171_rev_2_3_13_11,
-    benchmark.nist_800_171_rev_2_3_13_15,
-    benchmark.nist_800_171_rev_2_3_13_16
+    benchmark.nist_sp_800_171_rev_2_3_13_1,
+    benchmark.nist_sp_800_171_rev_2_3_13_2,
+    benchmark.nist_sp_800_171_rev_2_3_13_3,
+    benchmark.nist_sp_800_171_rev_2_3_13_4,
+    benchmark.nist_sp_800_171_rev_2_3_13_5,
+    benchmark.nist_sp_800_171_rev_2_3_13_6,
+    benchmark.nist_sp_800_171_rev_2_3_13_8,
+    benchmark.nist_sp_800_171_rev_2_3_13_11,
+    benchmark.nist_sp_800_171_rev_2_3_13_15,
+    benchmark.nist_sp_800_171_rev_2_3_13_16
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_1" {
+benchmark "nist_sp_800_171_rev_2_3_13_1" {
   title       = "3.13.1"
   description = "Monitor, control, and protect communications (i.e., information transmitted or received by organizational systems) at the external boundaries and key internal boundaries of organizational systems."
   children = [
@@ -51,10 +51,10 @@ benchmark "nist_800_171_rev_2_3_13_1" {
     control.wafv2_web_acl_logging_enabled,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_2" {
+benchmark "nist_sp_800_171_rev_2_3_13_2" {
   title       = "3.13.2"
   description = "Employ architectural designs, software development techniques, and systems engineering principles that promote effective information security within organizational systems."
   children = [
@@ -102,10 +102,10 @@ benchmark "nist_800_171_rev_2_3_13_2" {
     control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_3" {
+benchmark "nist_sp_800_171_rev_2_3_13_3" {
   title       = "3.13.3"
   description = "Separate user functionality from system management functionalit."
   children = [
@@ -113,20 +113,20 @@ benchmark "nist_800_171_rev_2_3_13_3" {
     control.iam_user_in_group
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_4" {
+benchmark "nist_sp_800_171_rev_2_3_13_4" {
   title       = "3.13.4"
   description = "Prevent unauthorized and unintended information transfer via shared system resources."
   children = [
     control.ebs_volume_unused,
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_5" {
+benchmark "nist_sp_800_171_rev_2_3_13_5" {
   title       = "3.13.5"
   description = "Implement subnetworks for publicly accessible system components that are physically or logically separated from internal networks."
   children = [
@@ -161,22 +161,22 @@ benchmark "nist_800_171_rev_2_3_13_5" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_6" {
+benchmark "nist_sp_800_171_rev_2_3_13_6" {
   title       = "3.13.6"
   description = "Deny network communications traffic by default and allow network communications traffic by exception (i.e., deny all, permit by exception)."
   children = [
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all
-    ]
+  ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_8" {
+benchmark "nist_sp_800_171_rev_2_3_13_8" {
   title       = "3.13.8"
   description = "Implement cryptographic mechanisms to prevent unauthorized disclosure of CUI during transmission unless otherwise protected by alternative physical safeguards."
   children = [
@@ -188,12 +188,12 @@ benchmark "nist_800_171_rev_2_3_13_8" {
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl
-    ]
+  ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_11" {
+benchmark "nist_sp_800_171_rev_2_3_13_11" {
   title       = "3.13.11"
   description = "Employ FIPS-validated cryptography when used to protect the confidentiality of CUI."
   children = [
@@ -213,12 +213,12 @@ benchmark "nist_800_171_rev_2_3_13_11" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
-    ]
+  ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_15" {
+benchmark "nist_sp_800_171_rev_2_3_13_15" {
   title       = "3.13.15"
   description = "Protect the authenticity of communications sessions."
   children = [
@@ -226,12 +226,12 @@ benchmark "nist_800_171_rev_2_3_13_15" {
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners
-    ]
+  ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_13_16" {
+benchmark "nist_sp_800_171_rev_2_3_13_16" {
   title       = "3.13.16"
   description = "Protect the confidentiality of CUI at rest."
   children = [
@@ -250,7 +250,7 @@ benchmark "nist_800_171_rev_2_3_13_16" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
-    ]
+  ]
 
-  tags = local.nist_800_171_rev_2_common_tags
+  tags = local.nist_sp_800_171_rev_2_common_tags
 }

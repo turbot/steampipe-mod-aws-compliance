@@ -196,7 +196,7 @@ control "rds_db_cluster_iam_authentication_enabled" {
   sql         = query.rds_db_cluster_iam_authentication_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 
