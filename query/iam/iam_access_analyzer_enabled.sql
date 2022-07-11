@@ -10,7 +10,7 @@ select
   case
     when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
     when aa.arn is not null then aa.name ||  ' enabled in ' || r.region || '.'
-    else 'Access analyzer not enabled in ' || r.region || '.'
+    else 'Access Analyzer not enabled in ' || r.region || '.'
   end as reason,
   -- Additional Dimensions
   r.region,
