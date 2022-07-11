@@ -56,7 +56,7 @@ benchmark "nist_sp_800_171_rev_2_3_1_1" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled,
+    control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
   tags = local.nist_sp_800_171_rev_2_common_tags
@@ -255,7 +255,7 @@ benchmark "nist_sp_800_171_rev_2_3_1_14" {
     control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_sp_800_171_rev_2_common_tags
@@ -270,7 +270,7 @@ benchmark "nist_sp_800_171_rev_2_3_1_20" {
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.s3_public_access_block_account,
     control.vpc_default_security_group_restricts_all_traffic,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_sp_800_171_rev_2_common_tags
