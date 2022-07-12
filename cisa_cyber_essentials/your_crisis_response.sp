@@ -1,6 +1,6 @@
 benchmark "cisa_cyber_essentials_your_crisis_response" {
   title       = "Your Crisis Response"
-  description = "As your strategy for responding to and recovering from compromise, this is an essential element of your organization's Culture of Cyber Readiness. Your task for this element is to limit damage and quicken restoration of normal operations. "
+  description = "As your strategy for responding to and recovering from compromise, this is an essential element of your organization's Culture of Cyber Readiness. Your task for this element is to limit damage and quicken restoration of normal operations."
   children = [
     benchmark.cisa_cyber_essentials_your_crisis_response_2
   ]
