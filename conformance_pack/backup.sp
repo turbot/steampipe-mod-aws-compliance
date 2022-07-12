@@ -28,6 +28,7 @@ control "backup_plan_min_retention_35_days" {
     ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     soc_2                  = "true"
   })
 }
@@ -51,6 +52,7 @@ control "backup_recovery_point_min_retention_35_days" {
   sql         = query.backup_recovery_point_min_retention_35_days.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec = "true"
+    ffiec                 = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }

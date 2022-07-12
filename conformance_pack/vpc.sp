@@ -19,6 +19,7 @@ control "vpc_flow_logs_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -30,11 +31,12 @@ control "vpc_igw_attached_to_authorized_vpc" {
   sql         = query.vpc_igw_attached_to_authorized_vpc.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    gxp_21_cfr_part_11    = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_csf              = "true"
+    nist_sp_800_171_rev_2 = "true"
+    rbi_cyber_security    = "true"
   })
 }
 
@@ -90,6 +92,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    nist_sp_800_171_rev_2       = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
   })
@@ -108,6 +111,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -145,7 +149,8 @@ control "vpc_security_group_associated_to_eni" {
   sql         = query.vpc_security_group_associated_to_eni.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_csf = "true"
+    nist_csf              = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 
@@ -176,6 +181,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }

@@ -10,10 +10,11 @@ control "ec2_ebs_default_encryption_enabled" {
   sql         = query.ec2_ebs_default_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    ffiec              = "true"
-    gxp_21_cfr_part_11 = "true"
-    hipaa              = "true"
-    nist_800_53_rev_5  = "true"
+    ffiec                 = "true"
+    gxp_21_cfr_part_11    = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_5     = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 
@@ -27,6 +28,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
     fedramp_moderate_rev_4 = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     soc_2                  = "true"
   })
 }
@@ -44,6 +46,7 @@ control "ec2_instance_in_vpc" {
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_sp_800_171_rev_2  = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
@@ -63,6 +66,7 @@ control "ec2_instance_not_publicly_accessible" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -81,6 +85,7 @@ control "ec2_stopped_instance_30_days" {
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_sp_800_171_rev_2  = "true"
   })
 }
 
@@ -126,6 +131,7 @@ control "ec2_instance_protected_by_backup_plan" {
     ffiec                  = "true"
     hipaa                  = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     soc_2                  = "true"
   })
 }

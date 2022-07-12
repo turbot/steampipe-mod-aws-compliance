@@ -19,6 +19,7 @@ control "acm_certificate_expires_30_days" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

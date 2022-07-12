@@ -17,6 +17,7 @@ benchmark "nist_sp_800_171_rev_2" {
     benchmark.nist_sp_800_171_rev_2_3_5,
     benchmark.nist_sp_800_171_rev_2_3_6,
     benchmark.nist_sp_800_171_rev_2_3_11,
+    benchmark.nist_sp_800_171_rev_2_3_12,
     benchmark.nist_sp_800_171_rev_2_3_13,
     benchmark.nist_sp_800_171_rev_2_3_14
   ]
