@@ -10,6 +10,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   sql         = query.cloudtrail_trail_integrated_with_logs.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
