@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
