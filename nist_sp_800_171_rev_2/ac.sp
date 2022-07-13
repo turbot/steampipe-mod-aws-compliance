@@ -19,8 +19,8 @@ benchmark "nist_sp_800_171_rev_2_3_1" {
 }
 
 benchmark "nist_sp_800_171_rev_2_3_1_1" {
-  title       = "3.1.1"
-  description = "Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems)."
+  title       = "3.1.1 Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems)"
+  description = "Access control policies (e.g., identity- or role-based policies, control matrices, and cryptography) control access between active entities or subjects (i.e., users or processes acting on behalf of users) and passive entities or objects (e.g., devices, files, records, and domains) in systems. Access enforcement mechanisms can be employed at the application and service level to provide increased information security. Other systems include systems internal and external to the organization. This requirement focuses on account management for systems and applications. The definition of and enforcement of access authorizations, other than those determined by account type (e.g., privileged verses non-privileged) are addressed in requirement 3.1.2."
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
