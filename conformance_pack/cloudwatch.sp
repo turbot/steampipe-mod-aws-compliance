@@ -17,7 +17,7 @@ control "cloudwatch_alarm_action_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_sp_800_171_rev_2  = "true"
+    nist_800_171_rev_2     = "true"
     soc_2                  = "true"
   })
 }
@@ -36,7 +36,7 @@ control "log_group_encryption_at_rest_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_sp_800_171_rev_2  = "true"
+    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -55,7 +55,7 @@ control "cloudwatch_log_group_retention_period_365" {
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
-    nist_sp_800_171_rev_2  = "true"
+    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

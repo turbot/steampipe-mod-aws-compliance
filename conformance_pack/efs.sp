@@ -10,15 +10,15 @@ control "efs_file_system_encrypt_data_at_rest" {
   sql         = query.efs_file_system_encrypt_data_at_rest.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    ffiec                 = "true"
-    gdpr                  = "true"
-    gxp_21_cfr_part_11    = "true"
-    hipaa                 = "true"
-    nist_800_53_rev_4     = "true"
-    nist_800_53_rev_5     = "true"
-    nist_csf              = "true"
-    nist_sp_800_171_rev_2 = "true"
-    rbi_cyber_security    = "true"
+    ffiec              = "true"
+    gdpr               = "true"
+    gxp_21_cfr_part_11 = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
+    nist_csf           = "true"
+    nist_800_171_rev_2 = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -28,15 +28,15 @@ control "efs_file_system_in_backup_plan" {
   sql         = query.efs_file_system_automatic_backups_enabled.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    ffiec                 = "true"
-    gxp_21_cfr_part_11    = "true"
-    hipaa                 = "true"
-    nist_800_53_rev_4     = "true"
-    nist_800_53_rev_5     = "true"
-    nist_csf              = "true"
-    nist_sp_800_171_rev_2 = "true"
-    rbi_cyber_security    = "true"
-    soc_2                 = "true"
+    ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
+    nist_800_53_rev_5  = "true"
+    nist_csf           = "true"
+    nist_800_171_rev_2 = "true"
+    rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -50,7 +50,7 @@ control "efs_file_system_protected_by_backup_plan" {
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
     nist_csf               = "true"
-    nist_sp_800_171_rev_2  = "true"
+    nist_800_171_rev_2     = "true"
     soc_2                  = "true"
   })
 }

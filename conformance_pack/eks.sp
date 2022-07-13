@@ -20,8 +20,8 @@ control "eks_cluster_endpoint_restrict_public_access" {
   sql         = query.eks_cluster_endpoint_restrict_public_access.sql
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    nist_csf              = "true"
-    nist_sp_800_171_rev_2 = "true"
+    nist_csf           = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
