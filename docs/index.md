@@ -30,11 +30,11 @@ Run individual configuration, compliance and security controls or full complianc
 
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 
-[NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
+[NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
 
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
 
-[NIST SP 800-171](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective.
+[NIST SP 800-171](https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final) provides minimum baselines of security controls for protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective.
 
 [PCI DSS](https://www.pcisecuritystandards.org) provides security standards for the payment card industry.
 
