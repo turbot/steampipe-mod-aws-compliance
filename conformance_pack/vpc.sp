@@ -54,6 +54,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -73,6 +74,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    nist_sp_800_171_rev_2       = "true"
     rbi_cyber_security          = "true"
   })
 }
@@ -138,8 +140,9 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    ffiec    = "true"
-    nist_csf = "true"
+    ffiec                 = "true"
+    nist_csf              = "true"
+    nist_sp_800_171_rev_2 = "true"
   })
 }
 
@@ -166,6 +169,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }

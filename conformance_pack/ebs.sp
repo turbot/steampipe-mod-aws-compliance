@@ -17,8 +17,8 @@ control "ebs_snapshot_not_publicly_restorable" {
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
-    nist_sp_800_171_rev_2  = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -53,6 +53,7 @@ control "ebs_attached_volume_encryption_enabled" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    nist_sp_800_171_rev_2       = "true"
     rbi_cyber_security          = "true"
   })
 }

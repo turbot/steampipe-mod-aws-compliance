@@ -208,6 +208,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }

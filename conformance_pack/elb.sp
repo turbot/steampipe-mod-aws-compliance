@@ -74,6 +74,7 @@ control "elb_application_lb_waf_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -159,6 +160,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+    nist_sp_800_171_rev_2  = "true"
     rbi_cyber_security     = "true"
   })
 }
