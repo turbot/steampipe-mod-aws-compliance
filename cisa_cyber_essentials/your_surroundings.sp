@@ -16,7 +16,8 @@ benchmark "cisa_cyber_essentials_your_surroundings_1" {
   description = "Learn who is on your network. Maintain inventories of network connections (user accounts, vendors, business partners, etc.)."
   children = [
     control.vpc_eip_associated,
-    control.vpc_flow_logs_enabled
+    control.vpc_flow_logs_enabled,
+    control.vpc_network_acl_unused
   ]
 
   tags = local.cisa_cyber_essentials_common_tags

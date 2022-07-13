@@ -19,7 +19,8 @@ benchmark "cisa_cyber_essentials_your_systems_1" {
     control.ec2_stopped_instance_30_days,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant,
-    control.vpc_eip_associated
+    control.vpc_eip_associated,
+    control.vpc_network_acl_unused
   ]
 
   tags = local.cisa_cyber_essentials_common_tags
@@ -134,6 +135,7 @@ benchmark "cisa_cyber_essentials_your_systems_3" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
+    control.secretsmanager_secret_last_changed_90_day,
     control.secretsmanager_secret_unused_90_day,
     control.securityhub_enabled,
     control.sns_topic_encrypted_at_rest,

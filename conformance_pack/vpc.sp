@@ -227,3 +227,13 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
     other_checks = "true"
   })
 }
+
+control "vpc_network_acl_unused" {
+  title       = "VPC network access control lists (network ACLs) should be associated with a subnet."
+  description = "Ensure there are no unused network access control lists (network ACLs). The rule is compliant if each network ACL is associated with a subnet. The rule is non-compliant if a network ACL is not associated with a subnet."
+  sql         = query.vpc_network_acl_unused.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials = "true"
+  })
+}
