@@ -98,3 +98,17 @@ control "foundational_security_elb_10" {
     foundational_security_category = "high_availability"
   })
 }
+
+control "foundational_security_elb_12" {
+  title         = "12 Application Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  description   = "This control checks whether an Application Load Balancer is configured with defensive or strictest desync mitigation mode. The control fails if an Application Load Balancer is not configured with defensive or strictest desync mitigation mode."
+  severity      = "medium"
+  sql           = query.elb_application_lb_desync_mitigation_mode.sql
+  documentation = file("./foundational_security/docs/foundational_security_elb_12.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_12"
+    foundational_security_category = "data_integrity"
+  })
+}
+

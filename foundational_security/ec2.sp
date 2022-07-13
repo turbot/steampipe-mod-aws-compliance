@@ -23,7 +23,8 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_18,
     control.foundational_security_ec2_19,
     control.foundational_security_ec2_21,
-    control.foundational_security_ec2_22
+    control.foundational_security_ec2_22,
+    control.foundational_security_ec2_24
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -236,5 +237,31 @@ control "foundational_security_ec2_22" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_22"
     foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_ec2_24" {
+  title         = "24 Paravirtual EC2 instance types should not be used"
+  description   = "This control checks whether the virtualization type of an EC2 instance is paravirtual. The control fails if the virtualizationType of the EC2 instance is set to paravirtual."
+  severity      = "medium"
+  sql           = query.ec2_instance_virtualization_type_no_paravirtual.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_24.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_24"
+    foundational_security_category = "vulnerability_patch_and_version_management"
+  })
+}
+
+control "foundational_security_ec2_27" {
+  title         = "27 Running EC2 Instances should not use key pairs"
+  description   = "This control checks whether running EC2 instances are using key pairs. The control fails if a running EC2 instance uses a key pair."
+  severity      = "high"
+  sql           = query.ec2_instance_no_amazon_key_pair.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_27.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_27"
+    foundational_security_category = "resource_configuration"
   })
 }
