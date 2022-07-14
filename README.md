@@ -21,6 +21,7 @@ Institutions Examination Council (FFIEC)](https://hub.steampipe.io/mods/turbot/a
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
 * [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
+* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2) 🚀 New!
 * [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
 * [Other Compliance Checks](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.other) 🚀 New!
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)

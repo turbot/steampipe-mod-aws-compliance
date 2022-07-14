@@ -16,6 +16,7 @@ control "vpc_flow_logs_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -32,6 +33,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
+    nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
     rbi_cyber_security = "true"
@@ -49,6 +51,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -68,6 +71,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -87,6 +91,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -105,6 +110,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -134,8 +140,9 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    ffiec    = "true"
-    nist_csf = "true"
+    ffiec              = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -145,7 +152,8 @@ control "vpc_security_group_associated_to_eni" {
   sql         = query.vpc_security_group_associated_to_eni.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_csf = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -159,6 +167,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
@@ -175,8 +184,19 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
+  })
+}
+
+control "vpc_security_group_restricted_common_ports" {
+  title       = "Security groups should not allow unrestricted access to ports with high risk"
+  description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
+  sql         = query.vpc_security_group_restricted_common_ports.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_800_171_rev_2 = "true"
   })
 }
 
