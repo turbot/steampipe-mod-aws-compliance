@@ -1,3 +1,9 @@
+## v0.39 [2022-07-14]
+
+_What's new?_
+
+- Added NIST 800-171 Revision 2 benchmark (`steampipe check benchmark.nist_800_171_rev_2`). ([#453](https://github.com/turbot/steampipe-mod-aws-compliance/pull/453))
+
 ## v0.38 [2022-07-07]
 
 _Dependencies_
