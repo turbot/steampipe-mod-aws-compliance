@@ -4,6 +4,10 @@ _What's new?_
 
 - Added NIST 800-171 Revision 2 benchmark (`steampipe check benchmark.nist_800_171_rev_2`). ([#453](https://github.com/turbot/steampipe-mod-aws-compliance/pull/453))
 
+_Enhancements_
+
+- Updated `guardduty_enabled`, `iam_access_analyzer_enabled` and `securityhub_enabled` queries to skip the regions which have been disabled. ([#451](https://github.com/turbot/steampipe-mod-aws-compliance/pull/451))
+
 ## v0.38 [2022-07-07]
 
 _Dependencies_
