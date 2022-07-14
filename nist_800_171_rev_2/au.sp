@@ -7,7 +7,7 @@ benchmark "nist_800_171_rev_2_3_3" {
     benchmark.nist_800_171_rev_2_3_3_3,
     benchmark.nist_800_171_rev_2_3_3_4,
     benchmark.nist_800_171_rev_2_3_3_5,
-    benchmark.nist_800_171_rev_2_3_3_8,
+    benchmark.nist_800_171_rev_2_3_3_8
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
