@@ -63,7 +63,7 @@ control "foundational_security_autoscaling_4" {
   title         = "4 Auto Scaling group launch configuration should not have metadata response hop limit greater than 1"
   description   = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
   severity      = "high"
-  sql           = query.autoscaling_launch_config_requires_imdsv2.sql
+  sql           = query.autoscaling_launch_config_hop_limit.sql
   documentation = file("./foundational_security/docs/foundational_security_autoscaling_4.md")
 
   tags = merge(local.foundational_security_autoscaling_common_tags, {

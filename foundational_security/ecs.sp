@@ -13,7 +13,8 @@ benchmark "foundational_security_ecs" {
     control.foundational_security_ecs_3,
     control.foundational_security_ecs_4,
     control.foundational_security_ecs_5,
-    control.foundational_security_ecs_8
+    control.foundational_security_ecs_8,
+    control.foundational_security_ecs_10
   ]
 
   tags = merge(local.foundational_security_ecs_common_tags, {
