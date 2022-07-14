@@ -1,5 +1,5 @@
 benchmark "nist_800_171_rev_2_3_12" {
-  title       = "3.12 Assessment, Authorization, And Monitoring"
+  title       = "3.12 Assessment, Authorization, and Monitoring"
   description = "The Security Assessment and Authorization control family includes controls that supplement the execution of security assessments, authorizations, continuous monitoring, plan of actions and milestones, and system interconnections."
   children = [
     benchmark.nist_800_171_rev_2_3_12_4
