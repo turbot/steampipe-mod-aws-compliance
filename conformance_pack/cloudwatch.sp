@@ -14,10 +14,10 @@ control "cloudwatch_alarm_action_enabled" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     soc_2                  = "true"
   })
 }
@@ -33,10 +33,10 @@ control "log_group_encryption_at_rest_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -53,9 +53,9 @@ control "cloudwatch_log_group_retention_period_365" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
-    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

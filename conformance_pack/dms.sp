@@ -15,10 +15,10 @@ control "dms_replication_instance_not_publicly_accessible" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
   })
 }

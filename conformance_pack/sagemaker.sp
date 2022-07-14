@@ -15,10 +15,10 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -52,10 +52,10 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     rbi_cyber_security     = "true"
   })
 }
