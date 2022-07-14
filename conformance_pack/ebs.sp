@@ -15,6 +15,7 @@ control "ebs_snapshot_not_publicly_restorable" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -31,6 +32,7 @@ control "ebs_volume_encryption_at_rest_enabled" {
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -48,6 +50,7 @@ control "ebs_attached_volume_encryption_enabled" {
     gdpr                        = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -64,6 +67,7 @@ control "ebs_volume_in_backup_plan" {
     ffiec              = "true"
     gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
+    nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
     nist_csf           = "true"
@@ -97,6 +101,7 @@ control "ebs_volume_protected_by_backup_plan" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -112,6 +117,7 @@ control "ebs_volume_unused" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
   })
 }
