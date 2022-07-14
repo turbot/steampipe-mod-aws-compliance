@@ -259,9 +259,10 @@ control "rds_db_cluster_deletion_protection_enabled" {
   sql         = query.rds_db_cluster_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    other_checks = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
+
 control "rds_db_instance_cloudwatch_logs_enabled" {
   title       = "RDS DB instances should be integrated with CloudWatch logs"
   description = "Use Amazon CloudWatch to centrally collect and manage RDS DB instance activity."
