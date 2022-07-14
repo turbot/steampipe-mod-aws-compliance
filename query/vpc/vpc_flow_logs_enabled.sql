@@ -1,6 +1,6 @@
 select
   -- Required columns
-  distinct (arn),
+  distinct arn,
   case
     when v.account_id <> v.owner_id then 'skip'
     when f.resource_id is not null then 'ok'
