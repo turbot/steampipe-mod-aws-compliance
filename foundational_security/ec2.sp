@@ -24,6 +24,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_19,
     control.foundational_security_ec2_21,
     control.foundational_security_ec2_22,
+    control.foundational_security_ec2_23,
     control.foundational_security_ec2_24
   ]
 
@@ -237,6 +238,19 @@ control "foundational_security_ec2_22" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_22"
     foundational_security_category = "inventory"
+  })
+}
+
+control "foundational_security_ec2_23" {
+  title         = "23 EC2 Transit Gateways should not automatically accept VPC attachment requests"
+  description   = "This control checks if EC2 Transit Gateways are automatically accepting shared VPC attachments. This control fails for a Transit Gateway that automatically accepts shared VPC attachment requests."
+  severity      = "high"
+  sql           = query.ec2_transit_gateway_auto_cross_account_attachment_disabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_ec2_23.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_23"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 

@@ -13,7 +13,10 @@ benchmark "foundational_security_elb" {
     control.foundational_security_elb_5,
     control.foundational_security_elb_6,
     control.foundational_security_elb_7,
-    control.foundational_security_elb_10
+    control.foundational_security_elb_10,
+    control.foundational_security_elb_12,
+    control.foundational_security_elb_13,
+    control.foundational_security_elb_14
   ]
 
   tags = merge(local.foundational_security_elb_common_tags, {
@@ -112,3 +115,28 @@ control "foundational_security_elb_12" {
   })
 }
 
+control "foundational_security_elb_13" {
+  title         = "13 Application, Network, and Gateway Load Balancers should span multiple Availability Zones"
+  description   = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
+  severity      = "medium"
+  sql           = query.elb_application_gateway_network_lb_multiple_az_configured.sql
+  documentation = file("./foundational_security/docs/foundational_security_elb_13.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_13"
+    foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_elb_14" {
+  title         = "14 Classic Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  description   = "This control checks whether a Classic Load Balancer is configured with defensive or strictest desync mitigation mode. This control will fail if the Classic Load Balancer is not configured with defensive or strictest desync mitigation mode."
+  severity      = "medium"
+  sql           = query.elb_classic_lb_desync_mitigation_mode.sql
+  documentation = file("./foundational_security/docs/foundational_security_elb_14.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_14"
+    foundational_security_category = "data_integrity"
+  })
+}
