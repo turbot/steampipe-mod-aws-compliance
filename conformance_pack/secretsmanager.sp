@@ -33,7 +33,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
 
 control "secretsmanager_secret_unused_90_day" {
   title       = "Secrets Manager secrets should be rotated as per the rotation schedule"
-  description = "Ensure if AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is non compiant if a secret has not been accessed in 'unusedForDays' number of days. The default value is 90 days."
+  description = "Ensure if AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is non compliant if a secret has not been accessed in 'unusedForDays' number of days. The default value is 90 days."
   sql         = query.secretsmanager_secret_unused_90_day.sql
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
@@ -55,7 +55,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
 
 control "secretsmanager_secret_last_changed_90_day" {
   title       = "Secrets Manager secrets should be rotated within specific number of days."
-  description = "Ensure if AWS Secrets Manager secrets have been rotated in the past specified number of days. The rule is NON_COMPLIANT if a secret has not been rotated for more than 'maxDaysSinceRotation' number of days. The default value is 90 days."
+  description = "Ensure if AWS Secrets Manager secrets have been rotated in the past specified number of days. The rule is non compliant if a secret has not been rotated for more than 'maxDaysSinceRotation' number of days. The default value is 90 days."
   sql         = query.secretsmanager_secret_last_changed_90_day.sql
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
