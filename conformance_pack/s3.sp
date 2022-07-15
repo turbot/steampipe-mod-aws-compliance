@@ -36,6 +36,7 @@ control "s3_bucket_default_encryption_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -56,6 +57,7 @@ control "s3_bucket_enforces_ssl" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -75,6 +77,7 @@ control "s3_bucket_logging_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -93,6 +96,7 @@ control "s3_bucket_object_lock_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -111,6 +115,7 @@ control "s3_bucket_restrict_public_read_access" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -132,6 +137,7 @@ control "s3_bucket_restrict_public_write_access" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -152,6 +158,7 @@ control "s3_bucket_versioning_enabled" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -172,6 +179,7 @@ control "s3_public_access_block_account" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -188,6 +196,7 @@ control "s3_public_access_block_bucket_account" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
@@ -207,6 +216,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -223,6 +233,17 @@ control "s3_public_access_block_bucket" {
     fedramp_moderate_rev_4 = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+  })
+}
+
+control "s3_bucket_policy_restricts_cross_account_permission_changes" {
+  title       = "Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
+  description = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
+  severity    = "high"
+  sql         = query.s3_bucket_policy_restricts_cross_account_permission_changes.sql
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    nist_800_171_rev_2 = "true"
   })
 }
 

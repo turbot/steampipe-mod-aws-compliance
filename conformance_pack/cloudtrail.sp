@@ -17,6 +17,7 @@ control "cloudtrail_trail_integrated_with_logs" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -38,6 +39,7 @@ control "cloudtrail_s3_data_events_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -58,6 +60,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -77,6 +80,7 @@ control "cloudtrail_multi_region_trail_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -97,6 +101,7 @@ control "cloudtrail_trail_validation_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     soc_2                  = "true"
@@ -115,6 +120,7 @@ control "cloudtrail_trail_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -129,9 +135,10 @@ control "cloudtrail_security_trail_enabled" {
   sql         = query.cloudtrail_security_trail_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr              = "true"
-    nist_800_53_rev_4 = "true"
-    soc_2             = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_800_53_rev_4  = "true"
+    soc_2              = "true"
   })
 }
 

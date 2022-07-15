@@ -27,6 +27,7 @@ control "iam_group_not_empty" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -46,6 +47,7 @@ control "iam_policy_no_star_star" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -67,6 +69,7 @@ control "iam_root_user_no_access_keys" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -87,6 +90,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -107,6 +111,7 @@ control "iam_root_user_mfa_enabled" {
     gdpr                        = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -146,6 +151,7 @@ control "iam_user_console_access_mfa_enabled" {
     gdpr                        = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -165,6 +171,7 @@ control "iam_user_mfa_enabled" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -184,6 +191,7 @@ control "iam_user_no_inline_attached_policies" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -205,6 +213,7 @@ control "iam_user_unused_credentials_90" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -223,6 +232,7 @@ control "iam_user_in_group" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -242,6 +252,7 @@ control "iam_group_user_role_no_inline_policies" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
@@ -269,6 +280,7 @@ control "iam_account_password_policy_min_length_14" {
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
   })
 }
@@ -279,8 +291,9 @@ control "iam_account_password_policy_reuse_24" {
   sql         = query.iam_account_password_policy_reuse_24.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -303,8 +316,9 @@ control "iam_account_password_policy_one_lowercase_letter" {
   sql         = query.iam_account_password_policy_one_lowercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -314,8 +328,9 @@ control "iam_account_password_policy_one_uppercase_letter" {
   sql         = query.iam_account_password_policy_one_uppercase_letter.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -325,8 +340,9 @@ control "iam_account_password_policy_one_number" {
   sql         = query.iam_account_password_policy_one_number.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -336,8 +352,9 @@ control "iam_password_policy_expire_90" {
   sql         = query.iam_account_password_policy_expire_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -347,8 +364,9 @@ control "iam_account_password_policy_one_symbol" {
   sql         = query.iam_account_password_policy_one_symbol.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    gdpr               = "true"
+    hipaa              = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -377,6 +395,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
   })
 }
 

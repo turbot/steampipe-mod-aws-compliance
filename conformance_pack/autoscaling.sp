@@ -14,6 +14,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"

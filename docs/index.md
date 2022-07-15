@@ -36,6 +36,8 @@ Run individual configuration, compliance and security controls or full complianc
 
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
 
+[NIST 800-171](https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final) provides minimum baselines of security controls for protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective.
+
 [PCI DSS](https://www.pcisecuritystandards.org) provides security standards for the payment card industry.
 
 [RBI Cyber Security Framework](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11397) provides a cyber security framework for Urban Cooperative Banks (UCB) in India.

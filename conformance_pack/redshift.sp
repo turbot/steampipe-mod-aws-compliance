@@ -17,6 +17,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -57,6 +58,7 @@ control "redshift_cluster_prohibit_public_access" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -122,6 +124,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
   tags = merge(local.conformance_pack_redshift_common_tags, {
     ffiec              = "true"
     gxp_21_cfr_part_11 = "true"
+    nist_800_171_rev_2 = "true"
     nist_800_53_rev_5  = "true"
   })
 }

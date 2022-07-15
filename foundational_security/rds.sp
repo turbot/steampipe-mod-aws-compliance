@@ -235,10 +235,10 @@ control "foundational_security_rds_16" {
 }
 
 control "foundational_security_rds_17" {
-  title         = "17 RDS DB instances should be configured to copy tags to snapshots"
-  description   = "This control checks whether RDS DB instances are configured to copy all tags to snapshots when the snapshots are created."
-  severity      = "low"
-  sql           = query.rds_db_instance_copy_tags_to_snapshot_enabled.sql
+  title       = "17 RDS DB instances should be configured to copy tags to snapshots"
+  description = "This control checks whether RDS DB instances are configured to copy all tags to snapshots when the snapshots are created."
+  severity    = "low"
+  sql         = query.rds_db_instance_copy_tags_to_snapshot_enabled.sql
   #documentation = file("./foundational_security/docs/foundational_security_rds_17.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
