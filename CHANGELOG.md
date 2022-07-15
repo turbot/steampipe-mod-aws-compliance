@@ -1,3 +1,13 @@
+## v0.40 [2022-07-15]
+
+_What's new?_
+
+- Added CISA Cyber Essentials benchmark (`steampipe check benchmark.cisa_cyber_essentials`). ([#454](https://github.com/turbot/steampipe-mod-aws-compliance/pull/454))
+
+_Bug fixes_
+
+- Added the missing `resource` column in the `vpc_flow_logs_enabled` query so that all the controls using this query will get executed correctly instead of returning an error. ([#463](https://github.com/turbot/steampipe-mod-aws-compliance/pull/463)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+
 ## v0.39 [2022-07-14]
 
 _What's new?_
