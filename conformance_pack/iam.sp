@@ -40,6 +40,7 @@ control "iam_policy_no_star_star" {
   sql         = query.iam_policy_custom_no_star_star.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -61,6 +62,7 @@ control "iam_root_user_no_access_keys" {
   sql         = query.iam_root_user_no_access_keys.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -81,6 +83,7 @@ control "iam_root_user_hardware_mfa_enabled" {
   sql         = query.iam_root_user_hardware_mfa_enabled.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -101,6 +104,7 @@ control "iam_root_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -120,6 +124,7 @@ control "iam_user_access_key_age_90" {
   sql         = query.iam_user_access_key_age_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -139,6 +144,7 @@ control "iam_user_console_access_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -159,6 +165,7 @@ control "iam_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -177,6 +184,7 @@ control "iam_user_no_inline_attached_policies" {
   sql         = query.iam_user_no_inline_attached_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -198,6 +206,7 @@ control "iam_user_unused_credentials_90" {
   sql         = query.iam_user_unused_credentials_90.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -237,6 +246,7 @@ control "iam_group_user_role_no_inline_policies" {
   sql         = query.iam_group_user_role_no_inline_policies.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -293,9 +303,10 @@ control "iam_account_password_policy_strong" {
   sql         = query.iam_account_password_policy_strong.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    ffiec              = "true"
-    gdpr               = "true"
-    gxp_21_cfr_part_11 = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gdpr                  = "true"
+    gxp_21_cfr_part_11    = "true"
   })
 }
 
@@ -394,7 +405,8 @@ control "iam_policy_inline_no_blocked_kms_actions" {
   sql         = query.iam_policy_inline_no_blocked_kms_actions.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
+    cisa_cyber_essentials = "true"
+    gxp_21_cfr_part_11    = "true"
   })
 }
 

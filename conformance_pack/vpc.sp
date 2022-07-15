@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   sql         = query.vpc_flow_logs_enabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -46,6 +47,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   sql         = query.vpc_security_group_restrict_ingress_tcp_udp_all.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -66,6 +68,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -86,6 +89,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
@@ -106,6 +110,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
   sql         = query.vpc_default_security_group_restricts_all_traffic.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -140,9 +145,10 @@ control "vpc_eip_associated" {
   sql         = query.vpc_eip_associated.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    ffiec              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -163,6 +169,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -176,10 +183,11 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
 
 control "vpc_route_table_restrict_public_access_to_igw" {
   title       = "VPC route table should restrict public access to IGW"
-  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
+  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is non complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
   sql         = query.vpc_route_table_restrict_public_access_to_igw.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -237,5 +245,15 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "vpc_network_acl_unused" {
+  title       = "VPC network access control lists (network ACLs) should be associated with a subnet."
+  description = "Ensure there are no unused network access control lists (network ACLs). The rule is compliant if each network ACL is associated with a subnet. The rule is non-compliant if a network ACL is not associated with a subnet."
+  sql         = query.vpc_network_acl_unused.sql
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    cisa_cyber_essentials = "true"
   })
 }
