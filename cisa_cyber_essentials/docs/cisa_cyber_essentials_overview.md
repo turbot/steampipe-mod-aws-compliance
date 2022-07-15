@@ -1,6 +1,7 @@
 To obtain the latest version of the official guide, please visit https://www.cisa.gov/cyber-essentials.
 
 ## Overview
+
 Cybersecurity & Infrastructure Security Agency's (CISA) Cyber Essentials is a guide for leaders of small businesses as well as leaders of small and local government agencies to develop an actionable understanding of where to start implementing organizational cybersecurity practices.
 
 Managing cyber risks requires building a Culture of Cyber Readiness. The Culture of Cyber Readiness has six Essential Elements:
