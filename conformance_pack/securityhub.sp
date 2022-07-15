@@ -10,6 +10,7 @@ control "securityhub_enabled" {
   sql         = query.securityhub_enabled.sql
 
   tags = merge(local.conformance_pack_securityhub_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"

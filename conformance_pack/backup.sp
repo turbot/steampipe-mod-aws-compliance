@@ -10,11 +10,12 @@ control "backup_recovery_point_manual_deletion_disabled" {
   sql         = query.backup_recovery_point_manual_deletion_disabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec              = "true"
-    hipaa              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    hipaa                 = "true"
+    nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -24,6 +25,7 @@ control "backup_plan_min_retention_35_days" {
   sql         = query.backup_plan_min_retention_35_days.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -40,11 +42,12 @@ control "backup_recovery_point_encryption_enabled" {
   sql         = query.backup_recovery_point_encryption_enabled.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec              = "true"
-    hipaa              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    hipaa                 = "true"
+    nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -54,7 +57,8 @@ control "backup_recovery_point_min_retention_35_days" {
   sql         = query.backup_recovery_point_min_retention_35_days.sql
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    ffiec              = "true"
-    nist_800_171_rev_2 = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    nist_800_171_rev_2    = "true"
   })
 }
