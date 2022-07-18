@@ -10,10 +10,13 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   sql         = query.sagemaker_notebook_instance_direct_internet_access_disabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -27,9 +30,11 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
   sql         = query.sagemaker_notebook_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -44,10 +49,13 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
   sql         = query.sagemaker_endpoint_configuration_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"

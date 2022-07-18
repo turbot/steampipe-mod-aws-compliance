@@ -12,10 +12,12 @@ control "efs_file_system_encrypt_data_at_rest" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     ffiec              = "true"
     gdpr               = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
     nist_csf           = "true"
+    nist_800_171_rev_2 = "true"
     rbi_cyber_security = "true"
   })
 }
@@ -27,7 +29,9 @@ control "efs_file_system_in_backup_plan" {
 
   tags = merge(local.conformance_pack_efs_common_tags, {
     ffiec              = "true"
+    gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
+    nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
     nist_csf           = "true"
@@ -42,9 +46,11 @@ control "efs_file_system_protected_by_backup_plan" {
   sql         = query.efs_file_system_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_csf               = "true"
     soc_2                  = "true"
   })
@@ -56,7 +62,8 @@ control "efs_file_system_encrypted_with_cmk" {
   sql         = query.efs_file_system_encrypted_with_cmk.sql
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    other_checks = "true"
+    cisa_cyber_essentials = "true"
+    other_checks          = "true"
   })
 }
 

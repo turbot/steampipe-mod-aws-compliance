@@ -10,10 +10,13 @@ control "rds_db_instance_backup_enabled" {
   sql         = query.rds_db_instance_backup_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -28,9 +31,11 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   sql         = query.rds_db_instance_encryption_at_rest_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
@@ -45,10 +50,13 @@ control "rds_db_instance_multiple_az_enabled" {
   sql         = query.rds_db_instance_multiple_az_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
@@ -62,10 +70,13 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -81,9 +92,12 @@ control "rds_db_snapshot_encrypted_at_rest" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_moderate_rev_4      = "true"
     gdpr                        = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     rbi_cyber_security          = "true"
@@ -97,10 +111,13 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
+    gxp_21_cfr_part_11          = "true"
     hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
@@ -114,10 +131,13 @@ control "rds_db_instance_logging_enabled" {
   sql         = query.rds_db_instance_logging_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
@@ -131,14 +151,16 @@ control "rds_db_instance_in_backup_plan" {
   sql         = query.rds_db_instance_in_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    ffiec              = "true"
-    gdpr               = "true"
-    hipaa              = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gdpr                  = "true"
+    gxp_21_cfr_part_11    = "true"
+    hipaa                 = "true"
+    nist_800_53_rev_4     = "true"
+    nist_800_53_rev_5     = "true"
+    nist_csf              = "true"
+    rbi_cyber_security    = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -148,9 +170,11 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   sql         = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
   })
@@ -162,9 +186,12 @@ control "rds_db_instance_deletion_protection_enabled" {
   sql         = query.rds_db_instance_deletion_protection_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     soc_2                  = "true"
@@ -177,7 +204,18 @@ control "rds_db_instance_iam_authentication_enabled" {
   sql         = query.rds_db_instance_iam_authentication_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    soc_2 = "true"
+    nist_800_171_rev_2 = "true"
+    soc_2              = "true"
+  })
+}
+
+control "rds_db_cluster_iam_authentication_enabled" {
+  title       = "IAM authentication should be configured for RDS clusters"
+  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an RDS Cluster does not have IAM authentication enabled."
+  sql         = query.rds_db_cluster_iam_authentication_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -187,6 +225,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   sql         = query.rds_db_cluster_aurora_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -206,6 +245,7 @@ control "rds_db_instance_protected_by_backup_plan" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
@@ -218,8 +258,20 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   sql         = query.rds_db_instance_automatic_minor_version_upgrade_enabled.sql
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    ffiec              = "true"
-    rbi_cyber_security = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    rbi_cyber_security    = "true"
+  })
+}
+
+control "rds_db_cluster_deletion_protection_enabled" {
+  title       = "RDS clusters should have deletion protection enabled"
+  description = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
+  severity    = "low"
+  sql         = query.rds_db_cluster_deletion_protection_enabled.sql
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_800_171_rev_2 = "true"
   })
 }
 

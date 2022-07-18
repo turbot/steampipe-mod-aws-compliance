@@ -10,9 +10,12 @@ control "ecs_task_definition_user_for_host_mode_check" {
   sql         = query.ecs_task_definition_user_for_host_mode_check.sql
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
   })
 }

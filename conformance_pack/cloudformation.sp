@@ -15,7 +15,7 @@ control "cloudformation_stack_output_no_secrets" {
 }
 
 control "cloudformation_stack_notifications_enabled" {
-  title       = "CloudFormation stacks notifications should be enabled"
+  title       = "CloudFormation stacks should have notifications enabled"
   description = "Ensure CloudFormation stacks are associated with an SNS topic to receive notifications when an event occurs."
   sql         = query.cloudformation_stack_notifications_enabled.sql
 
@@ -25,7 +25,7 @@ control "cloudformation_stack_notifications_enabled" {
 }
 
 control "cloudformation_stack_rollback_enabled" {
-  title       = "CloudFormation stacks rollback should be enabled"
+  title       = "CloudFormation stacks should have rollback enabled"
   description = "Ensure CloudFormation stacks have the rollback feature enabled. Rollback triggers enable you to have AWS CloudFormation monitor the state of your application during stack creation and updating, and to rollback that operation if the application breaches the threshold of any of the alarms you've specified."
   sql         = query.cloudformation_stack_rollback_enabled.sql
 

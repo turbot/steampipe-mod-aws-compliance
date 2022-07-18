@@ -10,11 +10,14 @@ control "wafv2_web_acl_logging_enabled" {
   sql         = query.wafv2_web_acl_logging_enabled.sql
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
+    cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"

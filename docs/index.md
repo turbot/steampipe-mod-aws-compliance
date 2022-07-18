@@ -4,7 +4,7 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 # AWS Compliance Mod
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `FedRAMP`, `FFIEC`, `GDPR`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
+Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_compliance_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png" width="50%" type="thumbnail"/>
@@ -18,6 +18,8 @@ Run individual configuration, compliance and security controls or full complianc
 
 [CIS AWS Benchmarks](https://www.cisecurity.org/benchmark/amazon_web_services/) provide a predefined set of compliance and security best-practice checks for AWS accounts.
 
+[CISA Cyber Essentials](https://www.cisa.gov/cyber-essentials) provide an actionable understanding of where to start implementing organizational cybersecurity practices.
+
 [Audit Manager Control Tower](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html) provide the easiest way to set up and govern a secure, multi-account AWS environment.
 
 [FedRAMP](https://www.fedramp.gov/baselines/) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services.
@@ -26,11 +28,15 @@ Run individual configuration, compliance and security controls or full complianc
 
 [GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
 
+[GxP 21 CFR Part 11](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11?toc=1) includes details for the criteria under which electronic records and signatures are considered trustworthy and equivalent to paper records and ensures the integrity of data used to make product-related safety decisions.
+
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 
 [NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
 
 [NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
+
+[NIST 800-171](https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final) provides minimum baselines of security controls for protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective.
 
 [PCI DSS](https://www.pcisecuritystandards.org) provides security standards for the payment card industry.
 

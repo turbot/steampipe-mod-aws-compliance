@@ -1,3 +1,42 @@
+## v0.40 [2022-07-15]
+
+_What's new?_
+
+- Added CISA Cyber Essentials benchmark (`steampipe check benchmark.cisa_cyber_essentials`). ([#454](https://github.com/turbot/steampipe-mod-aws-compliance/pull/454))
+
+_Bug fixes_
+
+- Added the missing `resource` column in the `vpc_flow_logs_enabled` query so that all the controls using this query will get executed correctly instead of returning an error. ([#463](https://github.com/turbot/steampipe-mod-aws-compliance/pull/463)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+
+## v0.39 [2022-07-14]
+
+_What's new?_
+
+- Added NIST 800-171 Revision 2 benchmark (`steampipe check benchmark.nist_800_171_rev_2`). ([#453](https://github.com/turbot/steampipe-mod-aws-compliance/pull/453))
+
+_Enhancements_
+
+- Updated `guardduty_enabled`, `iam_access_analyzer_enabled` and `securityhub_enabled` queries to skip the regions which have been disabled. ([#451](https://github.com/turbot/steampipe-mod-aws-compliance/pull/451))
+
+## v0.38 [2022-07-07]
+
+_Dependencies_
+
+- AWS plugin `v0.68.0` or higher is now required ([#446](https://github.com/turbot/steampipe-mod-aws-compliance/pull/446))
+
+_What's new?_
+
+- Added GxP 21 CFR Part 11 benchmark (`steampipe check benchmark.gxp_21_cfr_part_11`). ([#436](https://github.com/turbot/steampipe-mod-aws-compliance/pull/436))
+- Added Other Compliance Checks benchmark (`steampipe check benchmark.other`). ([#431](https://github.com/turbot/steampipe-mod-aws-compliance/pull/431))
+
+_Enhancements_
+
+- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled. ([#437](https://github.com/turbot/steampipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+
+_Bug fixes_
+
+- Fixed the `vpc_flow_logs_enabled` query to skip VPCs which are shared with the owner account, since flow logs cannot be enabled for shared VPCs. ([#444](https://github.com/turbot/steampipe-mod-aws-compliance/pull/444))
+
 ## v0.37 [2022-06-29]
 
 _What's new?_
