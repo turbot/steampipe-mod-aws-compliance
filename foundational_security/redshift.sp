@@ -14,7 +14,8 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_4,
     control.foundational_security_redshift_6,
     control.foundational_security_redshift_7,
-    control.foundational_security_redshift_8
+    control.foundational_security_redshift_8,
+    control.foundational_security_redshift_9
   ]
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -109,6 +110,19 @@ control "foundational_security_redshift_8" {
 
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_8"
+    foundational_security_category = "resource_configuration"
+  })
+}
+
+control "foundational_security_redshift_9" {
+  title         = "9 Redshift clusters should not use the default database name"
+  description   = "This control checks whether an Amazon Redshift cluster has changed the database name from its default value. The control will fail if the database name for a Redshift cluster is set to dev."
+  severity      = "medium"
+  sql           = query.redshift_cluster_database_name_not_default.sql
+  documentation = file("./foundational_security/docs/foundational_security_redshift_9.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_9"
     foundational_security_category = "resource_configuration"
   })
 }
