@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when sse_description is null then title || ' not encrypted with CMK.'
-    else title || ' encrypted with CMK.'
+    when sse_description is null then title || ' not encrypted with KMS.'
+    else title || ' encrypted with KMS.'
   end as reason,
   -- Additional Dimensions
   region,
