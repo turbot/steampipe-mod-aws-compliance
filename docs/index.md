@@ -4,7 +4,7 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 # AWS Compliance Mod
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
+Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `GxP EU Annex 11`, `HIPAA`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_compliance_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png" width="50%" type="thumbnail"/>
@@ -29,6 +29,8 @@ Run individual configuration, compliance and security controls or full complianc
 [GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
 
 [GxP 21 CFR Part 11](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11?toc=1) includes details for the criteria under which electronic records and signatures are considered trustworthy and equivalent to paper records and ensures the integrity of data used to make product-related safety decisions.
+
+[GxP EU Annex 11](https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf.) includes a prebuilt collection of controls with descriptions and testing procedures where controls are grouped into control sets according to GxP requirements.
 
 [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/) provides a set of general-purpose security standards for the U.S. Health Insurance Portability and Accountability Act (HIPAA).
 

@@ -1,40 +1,47 @@
-benchmark "gxp_eu_annex_11_4_2" {
+benchmark "gxp_eu_annex_11_project_phase" {
+  title       = "Project Phase"
+  description = "TODO"
+  children = [
+    benchmark.gxp_eu_annex_11_project_phase_4_2,
+    benchmark.gxp_eu_annex_11_project_phase_4_5,
+    benchmark.gxp_eu_annex_11_project_phase_4_6,
+    benchmark.gxp_eu_annex_11_project_phase_4_8,
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
+benchmark "gxp_eu_annex_11_project_phase_4_2" {
   title       = "4.2 Validation - Documentation Change Control"
   description = "Validation documentation should include change control records (if applicable) and reports on any deviations observed during the validation process."
   children = [
     control.cloudtrail_trail_enabled
   ]
 
-  tags = merge(local.gxp_eu_annex_11_common_tags, {
-    control_set = "project_phase"
-  })
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
-benchmark "gxp_eu_annex_11_4_5" {
+benchmark "gxp_eu_annex_11_project_phase_4_5" {
   title       = "4.5 Validation - Development Quality"
   description = "The regulated user should take all reasonable steps, to ensure that the system has been developed in accordance with an appropriate quality management system. The supplier should be assessed appropriately."
   children = [
     control.config_enabled_all_regions
   ]
 
-  tags = merge(local.gxp_eu_annex_11_common_tags, {
-    control_set = "project_phase"
-  })
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
-benchmark "gxp_eu_annex_11_4_6" {
+benchmark "gxp_eu_annex_11_project_phase_4_6" {
   title       = "4.6 Validation - Quality and Performance"
   description = "For the validation of bespoke or customised computerised systems there should be a process in place that ensures the formal assessment and reporting of quality and performance measures for all the life-cycle stages of the system."
   children = [
     control.config_enabled_all_regions
   ]
 
-  tags = merge(local.gxp_eu_annex_11_common_tags, {
-    control_set = "project_phase"
-  })
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
-benchmark "gxp_eu_annex_11_4_8" {
+benchmark "gxp_eu_annex_11_project_phase_4_8" {
   title       = "4.8 Validation - Data Transfer"
   description = "If data are transferred to another data format or system, validation should include checks that data are not altered in value and/or meaning during this migration process."
   children = [
@@ -62,7 +69,5 @@ benchmark "gxp_eu_annex_11_4_8" {
     control.backup_recovery_point_encryption_enabled
   ]
 
-  tags = merge(local.gxp_eu_annex_11_common_tags, {
-    control_set = "project_phase"
-  })
+  tags = local.gxp_eu_annex_11_common_tags
 }
