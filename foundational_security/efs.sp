@@ -9,7 +9,9 @@ benchmark "foundational_security_efs" {
   documentation = file("./foundational_security/docs/foundational_security_efs.md")
   children = [
     control.foundational_security_efs_1,
-    control.foundational_security_efs_2
+    control.foundational_security_efs_2,
+    control.foundational_security_efs_3,
+    control.foundational_security_efs_4
   ]
 
   tags = merge(local.foundational_security_efs_common_tags, {
@@ -40,5 +42,31 @@ control "foundational_security_efs_2" {
   tags = merge(local.foundational_security_efs_common_tags, {
     foundational_security_item_id  = "efs_2"
     foundational_security_category = "backup"
+  })
+}
+
+control "foundational_security_efs_3" {
+  title         = "3 EFS access points should enforce a root directory"
+  description   = "This control checks if Amazon EFS access points are configured to enforce a root directory. The control fails if the value of Path is set to / (the default root directory of the file system)."
+  severity      = "medium"
+  sql           = query.efs_access_point_enforce_root_directory.sql
+  documentation = file("./foundational_security/docs/foundational_security_efs_3.md")
+
+  tags = merge(local.foundational_security_efs_common_tags, {
+    foundational_security_item_id  = "efs_3"
+    foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_efs_4" {
+  title         = "4 EFS access points should enforce a user identity"
+  description   = "This control checks whether Amazon EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
+  severity      = "medium"
+  sql           = query.efs_access_point_enforce_user_identity.sql
+  documentation = file("./foundational_security/docs/foundational_security_efs_4.md")
+
+  tags = merge(local.foundational_security_efs_common_tags, {
+    foundational_security_item_id  = "efs_4"
+    foundational_security_category = "secure_access_management"
   })
 }
