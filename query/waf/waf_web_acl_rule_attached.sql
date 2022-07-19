@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when rules is null or jsonb_array_length(rules) = 0 then title || ' no attached rules.'
-    else title || ' attached rules.'
+    when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
+    else title || ' has attached rules.'
   end as reason,
   -- Additional Dimensions
   region,

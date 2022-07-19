@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when predicates is null or jsonb_array_length(predicates) = 0 then title || ' no attached conditions.'
-    else title || ' attached conditions.'
+    when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
+    else title || ' has attached conditions.'
   end as reason,
   -- Additional Dimensions
   region,

@@ -8,8 +8,8 @@ select
   end as status,
   case 
     when (firewall_policy -> 'StatefulRuleGroupReferences' is null or jsonb_array_length(firewall_policy -> 'StatefulRuleGroupReferences') = 0)
-      and (firewall_policy -> 'StatelessRuleGroupReferences' is null or jsonb_array_length(firewall_policy -> 'StatelessRuleGroupReferences') = 0) then title || ' no associated rule groups'
-    else title || ' associated rule groups'
+      and (firewall_policy -> 'StatelessRuleGroupReferences' is null or jsonb_array_length(firewall_policy -> 'StatelessRuleGroupReferences') = 0) then title || ' has no associated rule groups'
+    else title || ' has associated rule groups'
   end as reason,
   -- Additional Dimensions
   region,

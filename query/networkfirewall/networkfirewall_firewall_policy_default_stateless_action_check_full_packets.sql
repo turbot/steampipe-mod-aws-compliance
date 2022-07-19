@@ -8,8 +8,8 @@ select
   end as status,
   case
     when (not (firewall_policy -> 'StatelessDefaultActions') ? 'aws:drop'
-        and not (firewall_policy -> 'StatelessDefaultActions') ? 'aws:forward_to_sfe') then title || ' stateless action neither drop nor forward for full packets'
-    else title || ' stateless action either drop or forward for full packets'
+        and not (firewall_policy -> 'StatelessDefaultActions') ? 'aws:forward_to_sfe') then title || ' stateless action is neither drop nor forward for full packets'
+    else title || ' stateless action is either drop or forward for full packets'
   end as reason,
   -- Additional Dimensions
   region,

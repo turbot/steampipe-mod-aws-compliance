@@ -6,8 +6,8 @@ select
     else 'ok'
   end as status,
   case
-    when db_name = 'dev' then title || ' default database name used.'
-    else title || ' default database name not used.'
+    when db_name = 'dev' then title || ' using default database name.'
+    else title || ' not using default database name.'
   end as reason,
   -- Additional Dimensions
   region,
