@@ -7,7 +7,7 @@ select
   end as status,
   case
     when posix_user is null then title || ' does not enforce a user identity.'
-    else title || ' enforce a user identity.'
+    else title || ' enforces a user identity.'
   end as reason,
   -- Additional Dimensions
   region,

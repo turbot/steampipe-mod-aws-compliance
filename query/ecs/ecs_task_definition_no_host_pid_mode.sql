@@ -6,7 +6,7 @@ select
     else 'ok'
   end as status,
   case
-    when pid_mode = 'host' then title || ' share the host process namespace.'
+    when pid_mode = 'host' then title || ' shares the host process namespace.'
     else title || ' does not share the host process namespace.'
   end as reason,
   -- Additional Dimensions

@@ -16,7 +16,7 @@ select
   end as status,
   case
     when c.arn is null then d.title || ' does not have elevated privileges.'
-    else d.title || ' have elevated privileges.'
+    else d.title || ' has elevated privileges.'
   end as reason,
   -- Additional Dimensions
   region,

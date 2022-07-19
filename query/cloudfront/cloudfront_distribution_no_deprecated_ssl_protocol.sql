@@ -17,7 +17,7 @@ select
   end as status,
   case
     when o.arn is null then title || ' does not have deprecated SSL protocols.'
-    else title || ' have deprecated SSL protocols.'
+    else title || ' has deprecated SSL protocols.'
   end as reason,
   -- Additional Dimensions
   region,

@@ -10,7 +10,7 @@ Enabling this option reduces security attack vectors since the container instanc
 
 1. Open the [Amazon ECS console](https://console.aws.amazon.com/ecs/).
 2. In the left navigation pane, choose `Task Definitions`.
-3.For each task definition that has container definitions that need to be updated, do the following:
+3. For each task definition that has container definitions that need to be updated, do the following:
     - Select the container definition that needs to be updated.
     - Choose `Edit Container`. For `Storage and Logging`, select `Read only root file system`.
     - Choose `Update` at the bottom of the `Edit Container` tab.

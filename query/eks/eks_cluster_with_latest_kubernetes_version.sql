@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when version = '1.22' then title || ' runs on a lastet kubernetes version.'
-    else title || ' does not run on a lastet kubernetes version.'
+    when version = '1.22' then title || ' runs on a latest kubernetes version.'
+    else title || ' does not run on a latest kubernetes version.'
   end as reason,
   -- Additional Dimensions
   region,
