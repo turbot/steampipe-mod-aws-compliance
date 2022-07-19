@@ -1,6 +1,6 @@
 benchmark "gxp_eu_annex_11_operational_phase" {
   title       = "Operational Phase"
-  description = "TODO"
+  description = "This section focuses on various operational phases of data, such as data accuracy, secure storage, authorized access and backup."
   children = [
     benchmark.gxp_eu_annex_11_operational_phase_5,
     benchmark.gxp_eu_annex_11_operational_phase_7_1,

@@ -1,6 +1,6 @@
 benchmark "gxp_eu_annex_11_general" {
   title       = "General"
-  description = "TODO"
+  description = "This section focuses on more human oriented checks that leverages risk management, personnel verification of process owners, suppliers and service providers agreement reviews, supplier audit and review documentation for COTS."
   children = [
     benchmark.gxp_eu_annex_11_general_1
   ]

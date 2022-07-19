@@ -1,6 +1,6 @@
 benchmark "gxp_eu_annex_11_project_phase" {
   title       = "Project Phase"
-  description = "TODO"
+  description = "This section focuses combination of both human-oriented and automated process that leverages documentation validation and reports for good manufacturing practice (GMP) life cycle process, change control and deviations, systems inventory, user requirement specifications, quality management system, procedure for customized systems, evidence of appropriate test methods and data transfer validation (automated)."
   children = [
     benchmark.gxp_eu_annex_11_project_phase_4_2,
     benchmark.gxp_eu_annex_11_project_phase_4_5,
