@@ -14,10 +14,10 @@ select
       and firehose_failure_feedback_role_arn is null 
       and http_failure_feedback_role_arn is null 
       and lambda_failure_feedback_role_arn is null 
-      and sqs_failure_feedback_role_arn is null then title || ' has delivery status logging for notification messages enabled.'
-    else title || ' has delivery status logging for notification messages disabled.'
+      and sqs_failure_feedback_role_arn is null then title || ' has delivery status logging for notification messages disabled.'
+    else title || ' has delivery status logging for notification messages enabled.'
   end as reason,
-  -- Additional Dimensionswaf
+  -- Additional Dimensions
   region,
   account_id
 from

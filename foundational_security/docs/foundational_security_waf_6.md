@@ -17,10 +17,12 @@ To remediate this issue, update your WAF rule to add a condition.
 5. To add a condition to the rule, specify the following values:
     
   **When a request does/does not**
+
     If you want AWS WAF Classic to allow or block requests based on the filters in a condition, choose does. For example, if an IP match condition includes the IP address range 192.0.2.0/24 and you want AWS WAF Classic to allow or block requests that come from those IP addresses, choose does.
     If you want AWS WAF Classic to allow or block requests based on the inverse of the filters in a condition, choose does not. For example, if an IP match condition includes the IP address range 192.0.2.0/24 and you want AWS WAF Classic to allow or block requests that do not come from those IP addresses, choose does not.
 
   **match/originate from**
+
     Choose the type of condition that you want to add to the rule:
     - Cross-site scripting match conditions – choose **match at least one of the filters in the cross-site scripting match condition**
     - IP match conditions – choose **originate from an IP address in**
@@ -29,7 +31,9 @@ To remediate this issue, update your WAF rule to add a condition.
     - SQL injection match conditions – choose **match at least one of the filters in the SQL injection match condition**
     - String match conditions – choose **match at least one of the filters in the string match condition**
     - Regular expression **match conditions – choose match at least one of the filters in the regex match condition**
+
   **condition name**
+  
     Choose the condition that you want to add to the rule. The list displays only conditions of the type that you chose in the preceding step.
 
 6. To add another condition to the rule, choose **Add another condition**, and repeat steps 4 and 5. Note the following:
