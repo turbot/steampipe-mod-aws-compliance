@@ -32,6 +32,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_kms,
     benchmark.foundational_security_lambda,
     benchmark.foundational_security_networkfirewall,
+    benchmark.foundational_security_opensearch,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
     benchmark.foundational_security_s3,
@@ -39,7 +40,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_secretsmanager,
     benchmark.foundational_security_sns,
     benchmark.foundational_security_ssm,
-    benchmark.foundational_security_sqs
+    benchmark.foundational_security_sqs,
+    benchmark.foundational_security_waf
   ]
 
   tags = merge(local.foundational_security_common_tags, {
