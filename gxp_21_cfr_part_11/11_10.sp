@@ -157,7 +157,7 @@ benchmark "gxp_21_cfr_part_11_11_10_g" {
   children = [
     control.account_part_of_organizations,
     control.dms_replication_instance_not_publicly_accessible,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_ebs_default_encryption_enabled,

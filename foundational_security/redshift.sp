@@ -118,7 +118,7 @@ control "foundational_security_redshift_9" {
   title         = "9 Redshift clusters should not use the default database name"
   description   = "This control checks whether an Amazon Redshift cluster has changed the database name from its default value. The control will fail if the database name for a Redshift cluster is set to dev."
   severity      = "medium"
-  sql           = query.redshift_cluster_database_name_not_default.sql
+  sql           = query.redshift_cluster_no_default_database_name.sql
   documentation = file("./foundational_security/docs/foundational_security_redshift_9.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {

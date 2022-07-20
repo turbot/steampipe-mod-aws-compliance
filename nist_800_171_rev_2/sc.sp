@@ -237,7 +237,7 @@ benchmark "nist_800_171_rev_2_3_13_16" {
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.ebs_volume_encryption_at_rest_enabled,
     control.efs_file_system_encrypt_data_at_rest,
