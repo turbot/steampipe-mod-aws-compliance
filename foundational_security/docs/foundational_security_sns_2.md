@@ -7,7 +7,6 @@ Logging is an important part of maintaining the reliability, availability, and p
   - Identifying the response sent from the Amazon SNS endpoint to Amazon SNS.
   - Determining the message dwell time (the time between the publish timestamp and the hand off to an Amazon SNS endpoint).
 
-
 ## Remediation
 
 To remediate this issue, configuring your SNS topic delivery status logging.
@@ -25,4 +24,3 @@ To remediate this issue, configuring your SNS topic delivery status logging.
   - To create a new service role in your account, choose Create new service role, choose Create new roles to define the IAM roles for successful and failed deliveries in the IAM console.
   - To give Amazon SNS write access to use CloudWatch Logs on your behalf, choose Allow.
 8. Choose Save changes.
-

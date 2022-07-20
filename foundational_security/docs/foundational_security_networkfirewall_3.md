@@ -12,5 +12,3 @@ A firewall policy defines how your firewall monitors and handles traffic in Amaz
 2. In the navigation pane, under Network Firewall, choose Firewall policies.
 3. In the Firewall policies page, select the name of the firewall policy you want to update.
 4. In the firewall policy's page, you can change the rule groups.
-
-

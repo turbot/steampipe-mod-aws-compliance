@@ -18,5 +18,3 @@ To remediate this issue, update your WAF web ACL to add atleast one rule or rule
 6. For Rules, choose a rule or rule group, and then choose Add rule to web ACL.
 7. At this point, you can modify the rule order within the web ACL if you are adding multiple rules or rule groups to the web ACL.
 8. Choose **Update**.
-
-

@@ -20,4 +20,3 @@ To remediate this issue, update your WAF rule group to add atleast one rule.
    When you've created all the rules you need, go to the next step.
 8. To add a rule to the rule group, select a rule then choose Add rule. Choose whether to allow, block, or count requests that match the rule's conditions. For more information on the choices, see [How AWS WAF Classic works](https://docs.aws.amazon.com/waf/latest/developerguide/classic-how-aws-waf-works.html).
 9. When you're finished adding conditions, choose **Save**.
-

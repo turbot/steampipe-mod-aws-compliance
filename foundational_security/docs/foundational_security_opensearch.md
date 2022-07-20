@@ -1,3 +1,3 @@
 ## Overview
 
-This section contains recommendations for configuring Opensearch resources and options.
+This section contains recommendations for configuring OpenSearch resources and options.
