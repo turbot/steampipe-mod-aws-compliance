@@ -25,9 +25,9 @@ _What's new?_
   - ELB.13
   - ELB.14
   - Kinesis.1
-  - Network Firewall.3
-  - Network Firewall.4
-  - Network Firewall.5
+  - NetworkFirewall.3
+  - NetworkFirewall.4
+  - NetworkFirewall.5
   - OpenSearch.7
   - Redshift.9
   - S3.13
@@ -42,11 +42,11 @@ _Enhancements_
 
 _Breaking changes_
 
-- Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to use `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/steampipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
+- Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/steampipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
 
 _Dependencies_
 
-- AWS plugin `v0.71.0` or higher is now required ([#470](https://github.com/turbot/steampipe-mod-aws-compliance/pull/470))
+- AWS plugin `v0.71.0` or higher is now required. ([#470](https://github.com/turbot/steampipe-mod-aws-compliance/pull/470))
 
 ## v0.40 [2022-07-15]
 
