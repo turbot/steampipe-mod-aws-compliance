@@ -12,6 +12,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_acm,
     benchmark.foundational_security_apigateway,
     benchmark.foundational_security_autoscaling,
+    benchmark.foundational_security_cloudformation,
     benchmark.foundational_security_cloudfront,
     benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_codebuild,
@@ -22,6 +23,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_ecr,
     benchmark.foundational_security_ecs,
     benchmark.foundational_security_efs,
+    benchmark.foundational_security_eks,
     benchmark.foundational_security_elasticbeanstalk,
     benchmark.foundational_security_elb,
     benchmark.foundational_security_elbv2,
@@ -29,17 +31,20 @@ benchmark "foundational_security" {
     benchmark.foundational_security_es,
     benchmark.foundational_security_guardduty,
     benchmark.foundational_security_iam,
+    benchmark.foundational_security_kinesis,
     benchmark.foundational_security_kms,
     benchmark.foundational_security_lambda,
     benchmark.foundational_security_networkfirewall,
+    benchmark.foundational_security_opensearch,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
     benchmark.foundational_security_s3,
     benchmark.foundational_security_sagemaker,
     benchmark.foundational_security_secretsmanager,
     benchmark.foundational_security_sns,
+    benchmark.foundational_security_sqs,
     benchmark.foundational_security_ssm,
-    benchmark.foundational_security_sqs
+    benchmark.foundational_security_waf
   ]
 
   tags = merge(local.foundational_security_common_tags, {

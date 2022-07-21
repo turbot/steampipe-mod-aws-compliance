@@ -6,7 +6,7 @@ benchmark "gxp_21_cfr_part_11_11_30" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,

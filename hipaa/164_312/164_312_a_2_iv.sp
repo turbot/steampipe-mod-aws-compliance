@@ -5,7 +5,7 @@ benchmark "hipaa_164_312_a_2_iv" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dax_cluster_encryption_at_rest_enabled,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.ebs_volume_encryption_at_rest_enabled,
     control.ec2_ebs_default_encryption_enabled,
