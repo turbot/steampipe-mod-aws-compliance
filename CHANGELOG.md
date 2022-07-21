@@ -44,6 +44,10 @@ _Breaking changes_
 
 - Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to use `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/steampipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
 
+_Dependencies_
+
+- AWS plugin `v0.71.0` or higher is now required ([#470](https://github.com/turbot/steampipe-mod-aws-compliance/pull/470))
+
 ## v0.40 [2022-07-15]
 
 _What's new?_
