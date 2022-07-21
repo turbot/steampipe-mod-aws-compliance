@@ -2,12 +2,13 @@ select
   -- Required Columns
   arn as resource,
   case
-    when version = '1.22' then 'ok'
+    -- eks:oldestVersionSupported (Current oldest supported version is 1.19)
+    when (version)::decimal >= 1.19 then 'ok'
     else 'alarm'
   end as status,
   case
-    when version = '1.22' then title || ' runs on a latest kubernetes version.'
-    else title || ' does not run on a latest kubernetes version.'
+    when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
+    else title || ' does not run on a supported kubernetes version.'
   end as reason,
   -- Additional Dimensions
   region,

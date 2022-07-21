@@ -14,7 +14,8 @@ benchmark "foundational_security_ecs" {
     control.foundational_security_ecs_4,
     control.foundational_security_ecs_5,
     control.foundational_security_ecs_8,
-    control.foundational_security_ecs_10
+    control.foundational_security_ecs_10,
+    control.foundational_security_ecs_12
   ]
 
   tags = merge(local.foundational_security_ecs_common_tags, {
@@ -110,5 +111,18 @@ control "foundational_security_ecs_10" {
   tags = merge(local.foundational_security_ecs_common_tags, {
     foundational_security_item_id  = "ecs_10"
     foundational_security_category = "vulnerability_patch_and_version_management"
+  })
+}
+
+control "foundational_security_ecs_12" {
+  title         = "12 ECS clusters should have Container Insights enabled"
+  description   = "This control checks if ECS clusters use Container Insights. This control fails if Container Insights are not set up for a cluster."
+  severity      = "medium"
+  sql           = query.ecs_cluster_container_insights_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_ecs_12.md")
+
+  tags = merge(local.foundational_security_ecs_common_tags, {
+    foundational_security_item_id  = "ecs_12"
+    foundational_security_category = "logging"
   })
 }

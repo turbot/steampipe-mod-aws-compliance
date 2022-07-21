@@ -58,7 +58,7 @@ benchmark "cisa_cyber_essentials_your_systems_3" {
     control.codebuild_project_source_repo_oauth_configured,
     control.dms_replication_instance_not_publicly_accessible,
     control.dynamodb_table_auto_scaling_enabled,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.dynamodb_table_protected_by_backup_plan,
