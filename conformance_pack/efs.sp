@@ -13,6 +13,7 @@ control "efs_file_system_encrypt_data_at_rest" {
     ffiec              = "true"
     gdpr               = "true"
     gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
@@ -30,6 +31,7 @@ control "efs_file_system_in_backup_plan" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     ffiec              = "true"
     gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
     hipaa              = "true"
     nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
@@ -49,6 +51,7 @@ control "efs_file_system_protected_by_backup_plan" {
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    gxp_eu_annex_11        = "true"
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_csf               = "true"
