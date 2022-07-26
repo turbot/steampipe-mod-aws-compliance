@@ -22,9 +22,9 @@ mod "aws_compliance" {
     image       = "/images/mods/turbot/aws-compliance-social-graphic.png"
   }
 
-  require {
-    plugin "aws" {
-      version = "0.71.0"
-    }
-  }
+  # require {
+  #   plugin "aws" {
+  #     version = "0.71.0"
+  #   }
+  # }
 }
