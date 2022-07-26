@@ -1,3 +1,9 @@
+## v0.42 [2022-07-26]
+
+_Bug fixes_
+
+- Fixed the `foundational_security_ec2` benchmark to correctly include the `foundational_security_ec2_27` control. ([#474](https://github.com/turbot/steampipe-mod-aws-compliance/pull/474))
+
 ## v0.41 [2022-07-21]
 
 _What's new?_
