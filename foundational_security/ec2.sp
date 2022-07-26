@@ -25,7 +25,8 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_21,
     control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
-    control.foundational_security_ec2_24
+    control.foundational_security_ec2_24,
+    control.foundational_security_ec2_27
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
