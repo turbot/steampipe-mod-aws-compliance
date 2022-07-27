@@ -24,7 +24,7 @@ mod "aws_compliance" {
 
   require {
     plugin "aws" {
-      version = "0.68.0"
+      version = "0.71.0"
     }
   }
 }

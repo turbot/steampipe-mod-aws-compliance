@@ -1,3 +1,59 @@
+## v0.42 [2022-07-26]
+
+_Bug fixes_
+
+- Fixed the `foundational_security_ec2` benchmark to correctly include the `foundational_security_ec2_27` control. ([#474](https://github.com/turbot/steampipe-mod-aws-compliance/pull/474))
+
+## v0.41 [2022-07-21]
+
+_What's new?_
+
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#468](https://github.com/turbot/steampipe-mod-aws-compliance/pull/468))([#457](https://github.com/turbot/steampipe-mod-aws-compliance/pull/457))
+  - AutoScaling.3
+  - AutoScaling.4
+  - CloudFormation.1
+  - CloudFront.10
+  - EC2.23
+  - EC2.24
+  - EC2.27
+  - ECR.1
+  - ECR.2
+  - ECS.3
+  - ECS.4
+  - ECS.5
+  - ECS.8
+  - ECS.10
+  - ECS.12
+  - EFS.3
+  - EFS.4
+  - EKS.2
+  - ELB.12
+  - ELB.13
+  - ELB.14
+  - Kinesis.1
+  - NetworkFirewall.3
+  - NetworkFirewall.4
+  - NetworkFirewall.5
+  - OpenSearch.7
+  - Redshift.9
+  - S3.13
+  - SNS.2
+  - WAF.6
+  - WAF.7
+  - WAF.8
+
+_Enhancements_
+
+- Updated the `kms_cmk_rotation_enabled` query to skip KMS keys which are either in `PendingDeletion` or `Disabled` state since we cannot set rotation for such keys. ([#466](https://github.com/turbot/steampipe-mod-aws-compliance/pull/466)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+
+_Breaking changes_
+
+- Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/steampipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
+
+_Dependencies_
+
+- AWS plugin `v0.71.0` or higher is now required. ([#470](https://github.com/turbot/steampipe-mod-aws-compliance/pull/470))
+
 ## v0.40 [2022-07-15]
 
 _What's new?_

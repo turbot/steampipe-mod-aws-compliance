@@ -16,7 +16,8 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_6,
     control.foundational_security_cloudfront_7,
     control.foundational_security_cloudfront_8,
-    control.foundational_security_cloudfront_9
+    control.foundational_security_cloudfront_9,
+    control.foundational_security_cloudfront_10
   ]
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
@@ -137,6 +138,19 @@ control "foundational_security_cloudfront_9" {
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_9"
+    foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_cloudfront_10" {
+  title         = "10 CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
+  description   = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
+  severity      = "medium"
+  sql           = query.cloudfront_distribution_no_deprecated_ssl_protocol.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_10.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_10"
     foundational_security_category = "encryption_of_data_in_transit"
   })
 }

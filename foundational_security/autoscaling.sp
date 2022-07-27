@@ -10,6 +10,8 @@ benchmark "foundational_security_autoscaling" {
   children = [
     control.foundational_security_autoscaling_1,
     control.foundational_security_autoscaling_2,
+    control.foundational_security_autoscaling_3,
+    control.foundational_security_autoscaling_4,
     control.foundational_security_autoscaling_5
   ]
 
@@ -41,6 +43,32 @@ control "foundational_security_autoscaling_2" {
   tags = merge(local.foundational_security_autoscaling_common_tags, {
     foundational_security_item_id  = "autoscaling_2"
     foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_autoscaling_3" {
+  title         = "3 Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
+  description   = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
+  severity      = "high"
+  sql           = query.autoscaling_launch_config_requires_imdsv2.sql
+  documentation = file("./foundational_security/docs/foundational_security_autoscaling_3.md")
+
+  tags = merge(local.foundational_security_autoscaling_common_tags, {
+    foundational_security_item_id  = "autoscaling_3"
+    foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_autoscaling_4" {
+  title         = "4 Auto Scaling group launch configuration should not have metadata response hop limit greater than 1"
+  description   = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
+  severity      = "high"
+  sql           = query.autoscaling_launch_config_hop_limit.sql
+  documentation = file("./foundational_security/docs/foundational_security_autoscaling_4.md")
+
+  tags = merge(local.foundational_security_autoscaling_common_tags, {
+    foundational_security_item_id  = "autoscaling_4"
+    foundational_security_category = "secure_network_configuration"
   })
 }
 
