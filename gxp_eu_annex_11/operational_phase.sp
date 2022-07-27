@@ -2,15 +2,15 @@ benchmark "gxp_eu_annex_11_operational_phase" {
   title       = "Operational Phase"
   description = "This section focuses on various operational phases of data, such as data accuracy, secure storage, authorized access and backup."
   children = [
-    benchmark.gxp_eu_annex_11_operational_phase_10,
-    benchmark.gxp_eu_annex_11_operational_phase_12_4,
-    benchmark.gxp_eu_annex_11_operational_phase_16,
-    benchmark.gxp_eu_annex_11_operational_phase_17,
     benchmark.gxp_eu_annex_11_operational_phase_5,
     benchmark.gxp_eu_annex_11_operational_phase_7_1,
     benchmark.gxp_eu_annex_11_operational_phase_7_2,
     benchmark.gxp_eu_annex_11_operational_phase_8_2,
-    benchmark.gxp_eu_annex_11_operational_phase_9
+    benchmark.gxp_eu_annex_11_operational_phase_9,
+    benchmark.gxp_eu_annex_11_operational_phase_10,
+    benchmark.gxp_eu_annex_11_operational_phase_12_4,
+    benchmark.gxp_eu_annex_11_operational_phase_16,
+    benchmark.gxp_eu_annex_11_operational_phase_17
   ]
 
   tags = local.gxp_eu_annex_11_common_tags
