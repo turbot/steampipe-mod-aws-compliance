@@ -1,3 +1,9 @@
+## v0.43 [2022-07-27]
+
+_What's new?_
+
+- Added GxP EU Annex 11 benchmark (`steampipe check benchmark.gxp_eu_annex_11`). ([#452](https://github.com/turbot/steampipe-mod-aws-compliance/pull/452))
+
 ## v0.42 [2022-07-26]
 
 _Bug fixes_
