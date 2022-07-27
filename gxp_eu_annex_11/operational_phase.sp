@@ -54,7 +54,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dax_cluster_encryption_at_rest_enabled,
-    control.dynamodb_table_encrypted_with_kms_cmk,
+    control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
