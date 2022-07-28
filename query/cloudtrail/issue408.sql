@@ -77,5 +77,5 @@ left join trail_details as d on d.region = r.name;
 
 -- Sample query to all related columns
 
-select event_selectors, name, is_multi_region_trail, home_region, region from aws_cloudtrail_trail
+select event_selectors, advanced_event_selectors, name, is_multi_region_trail, home_region, region from aws_cloudtrail_trail
 
