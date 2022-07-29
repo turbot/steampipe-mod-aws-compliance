@@ -9,7 +9,7 @@ benchmark "article_25" {
   documentation = file("./gdpr/docs/article_25.md")
   children = [
     control.cloudtrail_bucket_not_public,
-    control.cloudtrail_enabled_all_regions,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_logging_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
