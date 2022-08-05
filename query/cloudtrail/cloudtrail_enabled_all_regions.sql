@@ -5,7 +5,7 @@ with event_selectors_trail_details as (
     aws_cloudtrail_trail,
     jsonb_array_elements(event_selectors) as e
   where
-    (is_logging and e ->> 'ReadWriteType' = 'All' and is_multi_region_trail)
+    (is_logging and is_multi_region_trail and e ->> 'ReadWriteType' = 'All')
 ),
 advanced_event_selectors_trail_details as (
   select
@@ -14,7 +14,8 @@ advanced_event_selectors_trail_details as (
     aws_cloudtrail_trail,
     jsonb_array_elements_text(advanced_event_selectors) as a
   where
-    (is_multi_region_trail and is_logging and advanced_event_selectors is not null and (not a like '%readOnly%'))
+  -- when readOnly = true, then it is readOnly, when readOnly = false then it is writeOnly, if advanced_event_selectors is not null then it is both ReadWriteType
+    (is_logging and is_multi_region_trail and advanced_event_selectors is not null and (not a like '%readOnly%'))
 )
 select
   -- Required Columns
