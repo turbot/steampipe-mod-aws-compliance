@@ -29,7 +29,7 @@ benchmark "cis_v130_3" {
 control "cis_v130_3_1" {
   title         = "3.1 Ensure CloudTrail is enabled in all regions"
   description   = "AWS CloudTrail is a web service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service. CloudTrail provides a history of AWS API calls for an account, including API calls made via the Management Console, SDKs, command line tools, and higher-level AWS services (such as CloudFormation)."
-  sql           = query.cloudtrail_enabled_all_regions.sql
+  sql           = query.cloudtrail_multiregion_read_write_enabled.sql
   documentation = file("./cis_v130/docs/cis_v130_3_1.md")
 
   tags = merge(local.cis_v130_3_common_tags, {
