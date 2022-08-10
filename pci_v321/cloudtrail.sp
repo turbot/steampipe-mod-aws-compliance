@@ -36,7 +36,7 @@ control "pci_v321_cloudtrail_2" {
   title         = "2 CloudTrail should be enabled"
   description   = "This control checks whether CloudTrail is enabled in your AWS account. However, some AWS services do not enable logging of all APIs and events. You should implement any additional audit trails other than CloudTrail and review the documentation for each service."
   severity      = "high"
-  sql           = query.cloudtrail_enabled_all_regions.sql
+  sql           = query.cloudtrail_multi_region_trail_enabled.sql
   documentation = file("./pci_v321/docs/pci_v321_cloudtrail_2.md")
 
   tags = merge(local.pci_v321_cloudtrail_common_tags, {
