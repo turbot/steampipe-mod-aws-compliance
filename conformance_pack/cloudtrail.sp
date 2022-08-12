@@ -80,6 +80,7 @@ control "cloudtrail_multi_region_trail_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gdpr                   = "true"
     gxp_21_cfr_part_11     = "true"
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
@@ -148,10 +149,9 @@ control "cloudtrail_security_trail_enabled" {
 control "cloudtrail_enabled_all_regions" {
   title       = "Ensure CloudTrail is enabled in all Regions"
   description = "CloudTrail is a service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service."
-  sql         = query.cloudtrail_enabled_all_regions.sql
+  sql         = query.cloudtrail_multi_region_read_write_enabled.sql
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr = "true"
   })
 }
 
