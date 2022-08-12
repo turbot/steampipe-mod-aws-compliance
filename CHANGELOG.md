@@ -2,10 +2,9 @@
 
 _Bug fixes_
 
-- Fixed the `cis_v130_3_1` and `cis_v140_3_1` controls to correctly reference `cloudtrail_multi_region_read_write_enabled` query instead of `cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
-- Fixed `article_25` and `article_30` benchmarks to reference `cloudtrail_multi_region_trail_enabled` control instead of `cloudtrail_enabled_all_regions` control. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
-- Fixed the `pci_v321_cloudtrail_2` control to correctly reference `cloudtrail_trail_enabled` query instead of `cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
-
+- Fixed the `cis_v130_3_1` and `cis_v140_3_1` controls to correctly use the `cloudtrail_multi_region_read_write_enabled` query instead of `cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
+- Fixed the `article_25` and `article_30` benchmarks to include the `cloudtrail_multi_region_trail_enabled` control instead of the `cloudtrail_enabled_all_regions` control. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
+- Fixed the `pci_v321_cloudtrail_2` control to correctly use the `cloudtrail_trail_enabled` query instead of the`cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
 
 ## v0.43 [2022-07-27]
 
