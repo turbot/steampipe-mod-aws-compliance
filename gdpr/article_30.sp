@@ -8,7 +8,7 @@ benchmark "article_30" {
   title       = "Article 30 Records of processing activities"
   documentation = file("./gdpr/docs/article_30.md")
   children = [
-    control.cloudtrail_enabled_all_regions,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
