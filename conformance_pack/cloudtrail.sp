@@ -146,15 +146,6 @@ control "cloudtrail_security_trail_enabled" {
   })
 }
 
-control "cloudtrail_enabled_all_regions" {
-  title       = "Ensure CloudTrail is enabled in all Regions"
-  description = "CloudTrail is a service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service."
-  sql         = query.cloudtrail_multi_region_read_write_enabled.sql
-
-  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-  })
-}
-
 control "cloudtrail_s3_logging_enabled" {
   title       = "Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket"
   description = "S3 Bucket Access Logging generates a log that contains access records for each request made to your S3 bucket. An access log record contains details about the request, such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket."
