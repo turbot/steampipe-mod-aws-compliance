@@ -9,6 +9,7 @@ with data as (
     and (
       grants ->> 'Permission' = 'FULL_CONTROL'
       or grants ->> 'Permission' = 'WRITE_ACP'
+      or grants ->> 'Permission' = 'WRITE'
     )
   )
 select
