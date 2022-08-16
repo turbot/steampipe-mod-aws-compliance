@@ -1,3 +1,9 @@
+## v0.45 [2022-08-17]
+
+_Breaking changes_
+
+- Removed the control `cloudtrail_enabled_all_regions` since it was no longer being used by any benchmark. ([#485](https://github.com/turbot/steampipe-mod-aws-compliance/pull/485))
+
 ## v0.44 [2022-08-12]
 
 _Bug fixes_
