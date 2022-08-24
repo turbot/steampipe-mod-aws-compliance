@@ -17,7 +17,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_8,
     control.foundational_security_s3_9,
     control.foundational_security_s3_10,
-    control.foundational_security_s3_11
+    control.foundational_security_s3_11,
+    control.foundational_security_s3_12
   ]
 
   tags = merge(local.foundational_security_s3_common_tags, {
