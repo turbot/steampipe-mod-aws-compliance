@@ -12,7 +12,8 @@ benchmark "foundational_security_autoscaling" {
     control.foundational_security_autoscaling_2,
     control.foundational_security_autoscaling_3,
     control.foundational_security_autoscaling_4,
-    control.foundational_security_autoscaling_5
+    control.foundational_security_autoscaling_5,
+    control.foundational_security_autoscaling_6
   ]
 
   tags = merge(local.foundational_security_autoscaling_common_tags, {

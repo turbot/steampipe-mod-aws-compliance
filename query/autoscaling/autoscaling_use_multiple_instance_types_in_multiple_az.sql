@@ -10,15 +10,15 @@ with autoscaling_groups as (
 ),
 distinct_instance_types_count as (
    select
-      autoscaling_groups.autoscaling_group_arn,
+      autoscaling_group_arn,
       count(distinct(e -> 'InstanceType')) as distinct_instance_types 
    from
       autoscaling_groups,
       jsonb_array_elements(mixed_instances_policy_launch_template_overrides) as e 
    group by
-      autoscaling_groups.autoscaling_group_arn,
+      autoscaling_group_arn,
       title,
-      autoscaling_groups.mixed_instances_policy_launch_template_overrides 
+      mixed_instances_policy_launch_template_overrides 
 )
 select
    -- Required Columns
