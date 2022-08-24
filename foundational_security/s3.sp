@@ -154,3 +154,16 @@ control "foundational_security_s3_11" {
     foundational_security_category = "logging"
   })
 }
+
+control "foundational_security_s3_12" {
+  title         = "12 S3 access control lists (ACLs) should not be used to manage user access to buckets"
+  description   = "This control checks whether Amazon S3 buckets provide user permissions via ACLs. The control fails if ACLs are configured for managing user access on S3 buckets."
+  severity      = "medium"
+  sql           = query.s3_bucket_acls_should_prohibit_user_access.sql
+  documentation = file("./foundational_security/docs/foundational_security_s3_12.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_12"
+    foundational_security_category = "access_control"
+  })
+}
