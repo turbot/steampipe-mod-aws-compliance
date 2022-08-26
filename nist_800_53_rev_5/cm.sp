@@ -106,7 +106,7 @@ benchmark "nist_800_53_rev_5_cm_2_b_3" {
 }
 
 benchmark "nist_800_53_rev_5_cm_2_2" {
-  title       = "CM-2(2) Automation Support For AccuracyY And Currency"
+  title       = "CM-2(2) Automation Support For Accuracy And Currency"
   description = "Maintain the currency, completeness, accuracy, and availability of the baseline configuration of the system using [Assignment: organization-defined automated mechanisms]."
   children = [
     control.ebs_volume_unused,
