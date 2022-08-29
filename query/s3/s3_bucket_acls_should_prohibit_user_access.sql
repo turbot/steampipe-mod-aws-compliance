@@ -38,7 +38,7 @@ select
       else title || ' has ACLs for user access.' 
    end reason, 
    -- Additional Dimensions
-	region, 
+   region, 
    account_id 
 from
    bucket_acl_checks;
