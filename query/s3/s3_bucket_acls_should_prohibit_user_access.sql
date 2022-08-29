@@ -27,7 +27,8 @@ bucket_acl_checks as (
       bucket_acl_details 
 )
 select
-   arn,
+   -- Required Columns
+   arn as resource,
    case
       when jsonb_array_length(additional_permissions) = 0 then 'ok' 
       else 'alarm' 
@@ -36,7 +37,8 @@ select
       when jsonb_array_length(additional_permissions) = 0  then title || ' does not have ACLs for user access.' 
       else title || ' has ACLs for user access.' 
    end reason, 
-   region, 
+   -- Additional Dimensions
+	region, 
    account_id 
 from
    bucket_acl_checks;
