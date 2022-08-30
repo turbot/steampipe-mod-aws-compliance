@@ -110,13 +110,13 @@ steampipe check all
 Run a single benchmark:
 
 ```sh
-steampipe check benchmark.cis_v140
+steampipe check benchmark.cis_v150
 ```
 
 Run a specific control:
 
 ```sh
-steampipe check control.cis_v140_2_1_1
+steampipe check control.cis_v150_2_1_1
 ```
 
 Different output formats are also available, for more information please see

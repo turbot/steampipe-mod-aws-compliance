@@ -10,7 +10,7 @@ select
   -- Additional Dimensions
   u.account_id
 from aws_iam_user as u
-left join aws_iam_access_key as k on u.name = k.user_name and u.account_id = u.account_id
+left join aws_iam_access_key as k on u.name = k.user_name and u.account_id = k.account_id
 where
   k.status = 'Active' or k.status is null
 group by
