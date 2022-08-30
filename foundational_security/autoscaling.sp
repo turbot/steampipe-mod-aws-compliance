@@ -12,7 +12,8 @@ benchmark "foundational_security_autoscaling" {
     control.foundational_security_autoscaling_2,
     control.foundational_security_autoscaling_3,
     control.foundational_security_autoscaling_4,
-    control.foundational_security_autoscaling_5
+    control.foundational_security_autoscaling_5,
+    control.foundational_security_autoscaling_6
   ]
 
   tags = merge(local.foundational_security_autoscaling_common_tags, {
@@ -74,7 +75,7 @@ control "foundational_security_autoscaling_4" {
 
 control "foundational_security_autoscaling_5" {
   title         = "5 Amazon EC2 instances launched using Auto Scaling group launch configurations should not have Public IP addresses"
-  description   = "This control checks whether an Auto Scaling groups associated launch configuration assigns a public IP address to the group’s instances."
+  description   = "This control checks whether an Auto Scaling groups associated launch configuration assigns a public IP address to the group's instances."
   severity      = "high"
   sql           = query.autoscaling_launch_config_public_ip_disabled.sql
   documentation = file("./foundational_security/docs/foundational_security_autoscaling_5.md")
@@ -82,5 +83,18 @@ control "foundational_security_autoscaling_5" {
   tags = merge(local.foundational_security_autoscaling_common_tags, {
     foundational_security_item_id  = "autoscaling_5"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_autoscaling_6" {
+  title         = "6 Auto Scaling groups should use multiple instance types in multiple Availability Zones"
+  description   = "This control checks whether an Amazon EC2 Auto Scaling group uses multiple instance types. The control fails if the Auto Scaling group has only one instance type defined."
+  severity      = "medium"
+  sql           = query.autoscaling_use_multiple_instance_types_in_multiple_az.sql
+  documentation = file("./foundational_security/docs/foundational_security_autoscaling_6.md")
+
+  tags = merge(local.foundational_security_autoscaling_common_tags, {
+    foundational_security_item_id  = "autoscaling_6"
+    foundational_security_category = "high_availability"
   })
 }
