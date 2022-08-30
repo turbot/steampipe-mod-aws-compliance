@@ -1,10 +1,9 @@
-
 select
   -- Required Columns
   arn as resource,
   case
     when package_type <> 'Zip' then 'skip'
-    when runtime in ('nodejs16.x',  'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then 'ok'
+    when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then 'ok'
     else 'alarm'
   end as status,
   case
