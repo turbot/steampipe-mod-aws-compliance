@@ -185,7 +185,7 @@ control "cis_v150_1_11" {
   tags = merge(local.cis_v150_1_common_tags, {
     cis_item_id = "1.11"
     cis_level   = "1"
-    cis_type    = "manual"
+    cis_type    = "automated"
     service     = "AWS/IAM"
   })
 }

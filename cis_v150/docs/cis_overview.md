@@ -12,6 +12,7 @@ The CIS Amazon Web Services Foundations Benchmark provides prescriptive guidance
 - AWS Simple Notification Service (SNS)
 - AWS Simple Storage Service (S3)
 - Elastic Compute Cloud (EC2)
+- Elastic File System (EFS)
 - Relational Database Service (RDS)
 - AWS VPC (Default)
 

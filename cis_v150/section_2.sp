@@ -60,7 +60,7 @@ control "cis_v150_2_1_1" {
   tags = merge(local.cis_v150_2_1_common_tags, {
     cis_item_id = "2.1.1"
     cis_level   = "2"
-    cis_type    = "manual"
+    cis_type    = "automated"
     service     = "AWS/S3"
   })
 }
@@ -74,7 +74,7 @@ control "cis_v150_2_1_2" {
   tags = merge(local.cis_v150_2_1_common_tags, {
     cis_item_id = "2.1.2"
     cis_level   = "2"
-    cis_type    = "manual"
+    cis_type    = "automated"
     service     = "AWS/S3"
   })
 }
@@ -143,7 +143,7 @@ control "cis_v150_2_2_1" {
   tags = merge(local.cis_v150_2_2_common_tags, {
     cis_item_id = "2.2.1"
     cis_level   = "1"
-    cis_type    = "manual"
+    cis_type    = "automated"
     service     = "AWS/EBS"
   })
 }
@@ -227,7 +227,7 @@ control "cis_v150_2_4_1" {
   tags = merge(local.cis_v150_2_4_common_tags, {
     cis_item_id = "2.4.1"
     cis_level   = "1"
-    cis_type    = "automated"
+    cis_type    = "manual"
     service     = "AWS/EFS"
   })
 }
