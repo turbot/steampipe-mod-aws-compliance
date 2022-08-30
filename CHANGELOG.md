@@ -1,8 +1,24 @@
+## v0.46 [2022-08-30]
+
+_What's new?_
+
+- Added CIS v1.5.0 benchmark (`steampipe check benchmark.cis_v150`). ([#496](https://github.com/turbot/steampipe-mod-aws-compliance/pull/496))
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#488](https://github.com/turbot/steampipe-mod-aws-compliance/pull/488))
+  - AutoScaling.6
+
+_Enhancements_
+
+- Updated `foundational_security_lambda_2` control to use latest runtimes for each language.  ([#497](https://github.com/turbot/steampipe-mod-aws-compliance/pull/497))
+
+_Bug fixes_
+
+- Fixed typo in `nist_800_53_rev_5_si_2_2` control title. ([#490](https://github.com/turbot/steampipe-mod-aws-compliance/pull/490)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
+
 ## v0.45 [2022-08-17]
 
 _Breaking changes_
 
-- Removed the control `cloudtrail_enabled_all_regions` since it was no longer being used by any benchmark. ([#485](https://github.com/turbot/steampipe-mod-aws-compliance/pull/485))
+- Removed the `cloudtrail_enabled_all_regions` control since it was no longer being used by any benchmark. ([#485](https://github.com/turbot/steampipe-mod-aws-compliance/pull/485))
 
 ## v0.44 [2022-08-12]
 

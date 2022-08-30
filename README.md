@@ -1,6 +1,6 @@
 # AWS Compliance Mod for Steampipe
 
-475+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.4.0) CIS benchmarks**.
+475+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.5.0) CIS benchmarks**.
 
 Run checks in a dashboard:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png)
@@ -11,8 +11,9 @@ Or in a terminal:
 Includes support for:
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
+* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150) 🚀 New!
 * [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
-* [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials) 🚀 New!
+* [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
 * [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
 * [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
 * [Federal Financial Institutions Examination Council (FFIEC)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.ffiec)
@@ -22,9 +23,9 @@ Includes support for:
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
 * [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
-* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2) 🚀 New!
+* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2)
 * [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
-* [Other Compliance Checks](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.other) 🚀 New!
+* [Other Compliance Checks](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.other)
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security)
@@ -84,13 +85,13 @@ steampipe check all
 Run a single benchmark:
 
 ```sh
-steampipe check benchmark.cis_v140
+steampipe check benchmark.cis_v150
 ```
 
 Run a specific control:
 
 ```sh
-steampipe check control.cis_v140_2_1_1
+steampipe check control.cis_v150_2_1_1
 ```
 
 Different output formats are also available, for more information please see

@@ -108,7 +108,7 @@ benchmark "nist_800_53_rev_5_si_2_5" {
 }
 
 benchmark "nist_800_53_rev_5_si_2_2" {
-  title       = "SI-2(2) Automated Flaw RemediationN Status"
+  title       = "SI-2(2) Automated Flaw Remediation Status"
   description = "Determine if system components have applicable security-relevant software and firmware updates installed using [Assignment: organization-defined automated mechanisms] [Assignment: organization-defined frequency]."
   children = [
     control.elastic_beanstalk_enhanced_health_reporting_enabled,
