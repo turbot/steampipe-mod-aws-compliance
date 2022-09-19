@@ -19,4 +19,4 @@ select
   r.account_id
 from
   aws_region as r
-  left join aws_securityhub_hub as h on h.region = r.name;
+  left join aws_securityhub_hub as h on r.account_id = h.account_id and r.name = h.region;

@@ -22,4 +22,4 @@ select
   r.account_id
 from
   aws_region as r
-  left join aws_guardduty_detector d on d.region = r.name;
+  left join aws_guardduty_detector d on r.account_id = d.account_id and r.name = d.region;
