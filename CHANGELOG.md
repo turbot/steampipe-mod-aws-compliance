@@ -1,3 +1,14 @@
+## v0.47 [2022-09-19]
+
+_What's new?_
+
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#489](https://github.com/turbot/steampipe-mod-aws-compliance/pull/489))
+  - S3.12
+
+_Bug fixes_
+
+- Fixed `guardduty_enabled` and `securityhub_enabled` queries incorrectly showing the disabled service as enabled in regions if another connections' account has it enabled in the same region.
+
 ## v0.46 [2022-08-30]
 
 _What's new?_
