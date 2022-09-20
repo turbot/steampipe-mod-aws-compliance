@@ -40,7 +40,7 @@ benchmark "cis_v130_1" {
 control "cis_v130_1_1" {
   title         = "1.1 Maintain current contact details"
   description   = "Ensure contact email and telephone details for AWS accounts are current and map to more than one individual in your organization."
-  sql           = query.manual_control.sql
+  sql           = query.account_current_contact_registered.sql
   documentation = file("./cis_v130/docs/cis_v130_1_1.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
@@ -54,7 +54,7 @@ control "cis_v130_1_1" {
 control "cis_v130_1_2" {
   title         = "1.2 Ensure security contact information is registered"
   description   = "AWS provides customers with the option of specifying the contact information for accounts security team. It is recommended that this information be provided."
-  sql           = query.manual_control.sql
+  sql           = query.account_security_contact_registered.sql
   documentation = file("./cis_v130/docs/cis_v130_1_2.md")
 
   tags = merge(local.cis_v130_1_common_tags, {
