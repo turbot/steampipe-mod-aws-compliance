@@ -10,12 +10,14 @@ select
   -- Required Columns
   b.arn as resource,
   case
+    when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then 'skip'
     when l.bucket_name is not null then 'ok'
     else 'alarm'
   end status,
   case
-    when l.bucket_name is not null then b.title || ' is protected by Amazon Macie.'
-    else b.title || ' is not protected by Amazon Macie.'
+    when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then b.title || ' not protected by Macie as Macie is not supported in ' || b.region || '.'
+    when l.bucket_name is not null then b.title || ' protected by Macie.'
+    else b.title || ' not protected by Macie.'
   end reason,
   -- Additional Dimensions
   b.region,
