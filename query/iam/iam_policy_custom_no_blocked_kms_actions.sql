@@ -10,7 +10,7 @@ with kms_blocked_actions as (
   where
     not is_aws_managed
     and s ->> 'Effect' = 'Allow'
-    and action like any ( ARRAY['kms:decrypt', 'kms:reencryptfrom'])
+    and action like any(array['kms:decrypt', 'kms:reencryptfrom'])
   group by
     arn
 )

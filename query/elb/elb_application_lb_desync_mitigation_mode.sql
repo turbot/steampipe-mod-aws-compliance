@@ -13,7 +13,7 @@ select
   -- Required Columns
   a.arn as resource,
   case
-    when m.v = any ( ARRAY ['defensive', 'strictest'] ) then 'ok'
+    when m.v = any(array['defensive', 'strictest']) then 'ok'
     else 'alarm'
   end as status,
     title || ' has ' || m.v || ' desync mitigation mode.' as reason,

@@ -2,12 +2,12 @@ select
   -- Required Columns
   arn as resource,
   case
-    when engine like any ( ARRAY['aurora%', 'docdb', 'neptune']) then 'skip'
+    when engine like any(array['aurora%', 'docdb', 'neptune']) then 'skip'
     when deletion_protection then 'ok'
     else 'alarm'
   end status,
   case
-    when engine like any ( ARRAY['aurora%', 'docdb', 'neptune']) then title || ' is of ' || engine || ' cluster, deletion protection is set at cluster level.'
+    when engine like any(array['aurora%', 'docdb', 'neptune']) then title || ' has engine ' || engine || ' cluster, deletion protection is set at cluster level.'
     when deletion_protection then title || ' deletion protection enabled.'
     else title || ' deletion protection not enabled.'
   end reason,
