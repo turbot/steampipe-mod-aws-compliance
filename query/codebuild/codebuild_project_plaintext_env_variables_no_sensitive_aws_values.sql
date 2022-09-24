@@ -6,7 +6,7 @@ with invalid_key_name as (
     aws_codebuild_project,
     jsonb_array_elements(environment -> 'EnvironmentVariables') as env
   where
-    env ->> 'Name' ilike any (ARRAY['%AWS_ACCESS_KEY_ID%', '%AWS_SECRET_ACCESS_KEY%', '%PASSWORD%'])
+    env ->> 'Name' ilike any(array['%AWS_ACCESS_KEY_ID%', '%AWS_SECRET_ACCESS_KEY%', '%PASSWORD%'])
     and env ->> 'Type' = 'PLAINTEXT'
 )
 select
