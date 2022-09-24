@@ -3,12 +3,12 @@ select
   u.arn as resource,
   case
     when serial_number is null then 'alarm'
-    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%']) then 'info'
+    when serial_number like any(array['%mfa%','%sms-mfa%']) then 'info'
     else 'ok'
   end as status,
   case
     when serial_number is null then u.name || ' MFA device not configured.'
-    when serial_number like any (ARRAY ['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
+    when serial_number like any(array['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
     else u.name || ' hardware MFA device enabled.'
   end as reason,
   -- Additional Dimensions
