@@ -1,3 +1,18 @@
+## v0.48 [2022-09-23]
+
+_What's new?_
+
+- Added queries with automated checks to the following CIS controls: ([#502](https://github.com/turbot/steampipe-mod-aws-compliance/pull/502))
+  - `cis_v130_1_2`
+  - `cis_v140_1_2`
+  - `cis_v140_2_1_4`
+  - `cis_v150_1_2`
+  - `cis_v150_2_1_4`
+
+_Dependencies_
+
+- AWS plugin `v0.78.0` or higher is now required.
+
 ## v0.47 [2022-09-19]
 
 _What's new?_
