@@ -93,7 +93,7 @@ control "cis_v140_2_1_4" {
   title         = "2.1.4 Ensure all data in Amazon S3 has been discovered, classified and secured when required"
   description   = "Amazon S3 buckets can contain sensitive data, that for security purposes should be discovered, monitored, classified and protected. Macie along with other 3rd party tools can automatically provide an inventory of Amazon S3 buckets."
   documentation = file("./cis_v140/docs/cis_v140_2_1_4.md")
-  sql           = query.manual_control.sql
+  sql           = query.s3_bucket_protected_by_macie.sql
 
   tags = merge(local.cis_v140_2_1_common_tags, {
     cis_item_id = "2.1.4"
