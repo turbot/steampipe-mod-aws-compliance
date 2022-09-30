@@ -217,7 +217,7 @@ control "foundational_security_ec2_19" {
 }
 
 control "foundational_security_ec2_21" {
-  title         = "21 Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
+  title         = "21 Network ACLs should not allow ingress from 0.0.0.0/0 or ::/0 to port 22 or port 3389"
   description   = "This control checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule fails if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
   severity      = "medium"
   sql           = query.vpc_network_acl_remote_administration.sql

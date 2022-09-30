@@ -209,7 +209,7 @@ control "vpc_security_group_restricted_common_ports" {
 }
 
 control "vpc_security_group_restrict_ingress_redis_port" {
-  title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0"
+  title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0 or ::/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   sql         = query.vpc_security_group_restrict_ingress_redis_port.sql
 
@@ -219,7 +219,7 @@ control "vpc_security_group_restrict_ingress_redis_port" {
 }
 
 control "vpc_security_group_restrict_kibana_port" {
-  title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
+  title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0 or ::/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   sql         = query.vpc_security_group_restrict_kibana_port.sql
 
