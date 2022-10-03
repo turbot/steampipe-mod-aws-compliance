@@ -14,14 +14,13 @@ select
   case
     when kms_key_id is null
       or kms_key_id = 'alias/aws/secretsmanager'
-      or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]'then 'ok'
-    else 'alarm'
+      or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]'then 'alarm'
+    else 'ok'
   end as status,
   case
-    when kms_key_id is null
-      or kms_key_id = 'alias/aws/secretsmanager'
-      or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]' then title || ' encrypted with CMK.'
-    else title || ' not encrypted with CMK.'
+    when kms_key_id is null then title || ' not encrypted with KMS.'
+    when kms_key_id = 'alias/aws/secretsmanager' or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]' then title || ' encrypted with AWS managed key.'
+    else title || ' encrypted with CMK.'
   end as reason,
   -- Additional Dimensions
   region,
