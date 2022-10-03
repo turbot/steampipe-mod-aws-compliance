@@ -35,7 +35,7 @@ control "cis_v130_5_1" {
 }
 
 control "cis_v130_5_2" {
-  title         = "5.2 Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to remote server administration ports"
+  title         = "5.2 Ensure no security groups allow ingress from 0.0.0.0/0 to remote server administration ports"
   description   = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389."
   sql           = query.vpc_security_group_remote_administration.sql
   documentation = file("./cis_v130/docs/cis_v130_5_2.md")
