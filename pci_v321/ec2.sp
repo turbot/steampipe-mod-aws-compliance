@@ -74,7 +74,7 @@ control "pci_v321_ec2_4" {
 }
 
 control "pci_v321_ec2_5" {
-  title         = "5 Security groups should not allow ingress from 0.0.0.0/0 or ::/0 to port 22"
+  title         = "5 Security groups should not allow ingress from 0.0.0.0/0 to port 22"
   description   = "This control checks whether security groups in use disallow unrestricted incoming SSH traffic. It does not evaluate outbound traffic. Note that security groups are stateful. If you send a request from your instance, the response traffic for that request is allowed to flow in regardless of inbound security group rules. Responses to allowed inbound traffic are allowed to flow out regardless of outbound rules."
   severity      = "high"
   sql           = query.vpc_security_group_remote_administration.sql
