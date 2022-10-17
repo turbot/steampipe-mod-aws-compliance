@@ -2,7 +2,7 @@ select
   -- Required Columns
   arn as resource,
   case
-    when state != 'in-use' then 'info'
+    when state != 'in-use' then 'skip'
     when encrypted then 'ok'
     else 'alarm'
   end as status,
