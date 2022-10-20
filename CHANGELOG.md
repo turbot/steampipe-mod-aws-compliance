@@ -1,3 +1,12 @@
+## v0.49 [2022-10-20]
+
+_Bug fixes_
+
+- Fixed the `ecr_repository_prohibit_public_access` query to correctly check if the Cross-Account ECR repositories are public or not. ([#513](https://github.com/turbot/steampipe-mod-aws-compliance/pull/513))
+- Fixed the `ebs_attached_volume_encryption_enabled` query to validate all EBS volumes instead of ignoring the unattached volumes. ([#504](https://github.com/turbot/steampipe-mod-aws-compliance/pull/504))
+- Fixed the `secretsmanager_secret_encrypted_with_kms_cmk` query to correctly alarm if the secret is not encrypted with CMK.
+- Fixed typos in various CIS docs and NIST 800-53 benchmark title. ([#508](https://github.com/turbot/steampipe-mod-aws-compliance/pull/508)) (Thanks [@akumar-99](https://github.com/akumar-99) for the contribution!)
+
 ## v0.48 [2022-09-23]
 
 _What's new?_
