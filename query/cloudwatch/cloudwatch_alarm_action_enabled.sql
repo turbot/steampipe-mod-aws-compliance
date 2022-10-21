@@ -2,18 +2,18 @@ select
   -- Required Columns
   arn as resource,
   case
-    when alarm_actions is null
-    and insufficient_data_actions is null
-    and ok_actions is null then 'alarm'
+    when jsonb_array_length(alarm_actions) = 0
+    and jsonb_array_length(insufficient_data_actions) = 0
+    and jsonb_array_length(ok_actions) = 0 then 'alarm'
     else 'ok'
   end as status,
   case
-    when alarm_actions is null
-    and insufficient_data_actions is null
-    and ok_actions is null then title || ' no action enabled.'
-    when alarm_actions is not null then title || ' alarm action enabled.'
-    when insufficient_data_actions is not null then title || ' insufficient data action enabled.'
-    when ok_actions is not null then title || ' ok action enabled.'
+    when jsonb_array_length(alarm_actions) = 0
+    and jsonb_array_length(insufficient_data_actions) = 0
+    and jsonb_array_length(ok_actions) = 0 then title || ' no action enabled.'
+    when jsonb_array_length(alarm_actions) != 0 then title || ' alarm action enabled.'
+    when jsonb_array_length(insufficient_data_actions) != 0 then title || ' insufficient data action enabled.'
+    when jsonb_array_length(ok_actions) != 0 then title || ' ok action enabled.'
     else 'ok'
   end as reason,
   -- Additional Dimensions
