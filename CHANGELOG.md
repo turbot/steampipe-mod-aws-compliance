@@ -1,3 +1,13 @@
+## v0.50 [2022-10-21]
+
+_Enhancements_
+
+- Updated `cloudwatch_alarm_action_enabled` query to use updated column data in `aws_cloudwatch_alarm` table. ([#511](https://github.com/turbot/steampipe-mod-aws-compliance/pull/511))
+
+_Dependencies_
+
+- AWS plugin `v0.80.0` or higher is now required.
+
 ## v0.49 [2022-10-20]
 
 _Bug fixes_
