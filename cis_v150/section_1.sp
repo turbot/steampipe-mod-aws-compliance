@@ -53,7 +53,7 @@ control "cis_v150_1_1" {
 control "cis_v150_1_2" {
   title         = "1.2 Ensure security contact information is registered"
   description   = "AWS provides customers with the option of specifying the contact information for account's security team. It is recommended that this information be provided."
-  sql           = query.manual_control.sql
+  sql           = query.account_alternate_contact_security_registered.sql
   documentation = file("./cis_v150/docs/cis_v150_1_2.md")
 
   tags = merge(local.cis_v150_1_common_tags, {

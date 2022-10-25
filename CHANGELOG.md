@@ -1,3 +1,48 @@
+## v0.50 [2022-10-21]
+
+_Enhancements_
+
+- Updated `cloudwatch_alarm_action_enabled` query to use updated column data in `aws_cloudwatch_alarm` table. ([#511](https://github.com/turbot/steampipe-mod-aws-compliance/pull/511))
+
+_Dependencies_
+
+- AWS plugin `v0.80.0` or higher is now required.
+
+## v0.49 [2022-10-20]
+
+_Bug fixes_
+
+- Fixed the `ecr_repository_prohibit_public_access` query to correctly check if the Cross-Account ECR repositories are public or not. ([#513](https://github.com/turbot/steampipe-mod-aws-compliance/pull/513))
+- Fixed the `ebs_attached_volume_encryption_enabled` query to validate all EBS volumes instead of ignoring the unattached volumes. ([#504](https://github.com/turbot/steampipe-mod-aws-compliance/pull/504))
+- Fixed the `secretsmanager_secret_encrypted_with_kms_cmk` query to correctly alarm if the secret is not encrypted with CMK.
+- Fixed typos in various CIS docs and NIST 800-53 benchmark title. ([#508](https://github.com/turbot/steampipe-mod-aws-compliance/pull/508)) (Thanks [@akumar-99](https://github.com/akumar-99) for the contribution!)
+
+## v0.48 [2022-09-23]
+
+_What's new?_
+
+- Added queries with automated checks to the following CIS controls: ([#502](https://github.com/turbot/steampipe-mod-aws-compliance/pull/502))
+  - `cis_v130_1_2`
+  - `cis_v140_1_2`
+  - `cis_v140_2_1_4`
+  - `cis_v150_1_2`
+  - `cis_v150_2_1_4`
+
+_Dependencies_
+
+- AWS plugin `v0.78.0` or higher is now required.
+
+## v0.47 [2022-09-19]
+
+_What's new?_
+
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#489](https://github.com/turbot/steampipe-mod-aws-compliance/pull/489))
+  - S3.12
+
+_Bug fixes_
+
+- Fixed `guardduty_enabled` and `securityhub_enabled` queries incorrectly showing the disabled service as enabled in regions if another connections' account has it enabled in the same region.
+
 ## v0.46 [2022-08-30]
 
 _What's new?_

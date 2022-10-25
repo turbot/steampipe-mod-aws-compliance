@@ -10,8 +10,7 @@ with open_access_ecr_repo as(
   where
     s ->> 'Effect' = 'Allow'
     and (
-      pa [5] != account_id
-      or p = '*'
+      p = '*'
     )
 )
 select

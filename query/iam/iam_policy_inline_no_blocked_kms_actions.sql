@@ -38,7 +38,7 @@ kms_blocked_actions as (
     jsonb_array_elements_text(s -> 'Action') as action
   where
     s ->> 'Effect' = 'Allow'
-    and action like any (ARRAY['kms:decrypt','kms:decrypt*', 'kms:reencryptfrom', 'kms:*', 'kms:reencrypt*'])
+    and action like any(array['kms:decrypt','kms:decrypt*', 'kms:reencryptfrom', 'kms:*', 'kms:reencrypt*'])
   group by
     arn
 )
