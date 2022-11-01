@@ -2,11 +2,11 @@ select
   -- Required Columns
   id as resource,
   case
-    when notification_arns is not null then 'ok'
+    when jsonb_array_length(notification_arns) > 0 then 'ok'
     else 'alarm'
   end as status,
   case
-    when notification_arns is not null then title || ' notifications enabled.'
+    when jsonb_array_length(notification_arns) > 0 then title || ' notifications enabled.'
     else title || ' notifications disabled.'
   end as reason,
   -- Additional Dimensions
