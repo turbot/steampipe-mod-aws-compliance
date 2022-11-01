@@ -2,11 +2,11 @@ select
   -- Required Columns
   'arn:' || partition || ':ec2:' || region || ':' || account_id || ':internet-gateway/' || title as resource,
   case
-    when attachments is null then 'alarm'
+    when jsonb_array_length(attachments) = 0 then 'alarm'
     else 'ok'
   end as status,
   case
-    when attachments is null then title || ' not attached to VPC.'
+    when jsonb_array_length(attachments) = 0 then title || ' not attached to VPC.'
     else title || ' attached to ' || split_part(
       substring(attachments :: text, 3, length(attachments :: text) -6),
       '"VpcId": "',

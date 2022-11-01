@@ -23,11 +23,11 @@ select
   -- Required Columns
   arn as resource,
   case
-    when log_level is null or log_level = 'OFF' then 'alarm'
+    when log_level is null or log_level = '' or log_level = 'OFF' then 'alarm'
     else 'ok'
   end as status,
   case
-    when log_level is null or log_level = 'OFF' then title || ' logging not enabled.'
+    when log_level is null or log_level = '' or log_level = 'OFF' then title || ' logging not enabled.'
     else title || ' logging enabled.'
   end as reason,
   -- Additional Dimensions

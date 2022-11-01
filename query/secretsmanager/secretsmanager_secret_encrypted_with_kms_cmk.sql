@@ -6,7 +6,7 @@ with encryption_keys as (
     aws_secretsmanager_secret as s
     left join aws_kms_key as k on k.arn = s.kms_key_id
   where
-    k.aliases is not null
+    jsonb_array_length(k.aliases) > 0
 )
 select
   -- Required Columns
