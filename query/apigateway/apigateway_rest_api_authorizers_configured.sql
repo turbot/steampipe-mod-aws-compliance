@@ -2,11 +2,11 @@ select
   -- Required Columns
   p.name as resource,
   case
-    when a.provider_arns is not null then 'ok'
+    when jsonb_array_length(a.provider_arns) > 0 then 'ok'
     else 'alarm'
   end as status,
   case
-    when a.provider_arns is not null then p.name || ' authorizers configured.'
+    when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
     else p.name || ' authorizers not configured.'
   end as reason,
   -- Additional Dimensions
