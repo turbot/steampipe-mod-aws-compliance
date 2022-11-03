@@ -1,3 +1,9 @@
+## v0.51 [2022-11-03]
+
+_Bug fixes_
+
+- Fixed `apigateway_rest_api_authorizers_configured`, `apigateway_stage_logging_enabled`, `cloudformation_stack_notifications_enabled`, `route53_zone_query_logging_enabled`, `secretsmanager_secret_encrypted_with_kms_cmk` and `vpc_igw_attached_to_authorized_vpc` queries to correctly handle the columns when empty in their respective tables. ([#517](https://github.com/turbot/steampipe-mod-aws-compliance/pull/517))
+
 ## v0.50 [2022-10-21]
 
 _Enhancements_
