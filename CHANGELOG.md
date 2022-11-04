@@ -1,3 +1,13 @@
+## v0.52 [2022-11-04]
+
+_Enhancements_
+
+- Updated `iam_user_in_group` and `vpc_default_security_group_restricts_all_traffic` queries to correctly handle empty column data. ([#520](https://github.com/turbot/steampipe-mod-aws-compliance/pull/520))
+
+_Dependencies_
+
+- AWS plugin `v0.81.0` or higher is now required.
+
 ## v0.51 [2022-11-03]
 
 _Bug fixes_
