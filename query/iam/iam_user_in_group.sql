@@ -2,11 +2,11 @@ select
   -- Required Columns
   arn as resource,
   case
-    when groups is null then 'alarm'
+    when jsonb_array_length(groups) = 0 then 'alarm'
     else 'ok'
   end as status,
   case
-    when groups is null then title || ' not associated with any IAM group.'
+    when jsonb_array_length(groups) = 0 then title || ' not associated with any IAM group.'
     else title || ' associated with IAM group.'
   end as reason,
   -- Additional Dimensions
