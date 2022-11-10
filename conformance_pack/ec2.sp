@@ -130,7 +130,7 @@ control "ec2_instance_uses_imdsv2" {
 
 control "ec2_instance_protected_by_backup_plan" {
   title       = "EC2 instances should be protected by backup plan"
-  description = "Ensure if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is non complaint if the Amazon EC2 instance is not covered by a backup plan."
+  description = "Ensure if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is non compliant if the Amazon EC2 instance is not covered by a backup plan."
   sql         = query.ec2_instance_protected_by_backup_plan.sql
 
   tags = merge(local.conformance_pack_ec2_common_tags, {

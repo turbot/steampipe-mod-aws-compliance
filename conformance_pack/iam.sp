@@ -372,7 +372,7 @@ control "iam_account_password_policy_one_symbol" {
 
 control "iam_all_policy_no_service_wild_card" {
   title       = "Ensure IAM policy should not grant full access to service"
-  description = "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is non complaint if the managed IAM policy allows full access to at least 1 AWS service."
+  description = "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is non compliant if the managed IAM policy allows full access to at least 1 AWS service."
   sql         = query.iam_policy_custom_no_service_wildcard.sql
 
   tags = merge(local.conformance_pack_iam_common_tags, {

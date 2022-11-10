@@ -165,7 +165,7 @@ control "vpc_security_group_associated_to_eni" {
 
 control "vpc_subnet_auto_assign_public_ip_disabled" {
   title       = "VPC subnet auto assign public IP should be disabled"
-  description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is complaint if Amazon VPC does not have subnets that are assigned a public IP address. The control. is non complaint if Amazon VPC has subnets that are assigned a public IP address."
+  description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is compliant if Amazon VPC does not have subnets that are assigned a public IP address. The control is non compliant if Amazon VPC has subnets that are assigned a public IP address."
   sql         = query.vpc_subnet_auto_assign_public_ip_disabled.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -183,7 +183,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
 
 control "vpc_route_table_restrict_public_access_to_igw" {
   title       = "VPC route table should restrict public access to IGW"
-  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is non complaint if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
+  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is non compliant if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
   sql         = query.vpc_route_table_restrict_public_access_to_igw.sql
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
