@@ -3,13 +3,13 @@ select
   certificate_arn as resource,
   case
     when renewal_eligibility = 'INELIGIBLE' then 'skip'
-    when not_after <= (current_date - interval '30' day) then 'ok'
+    when date(not_after) - date(current_date) >= 30 then 'ok'
     else 'alarm'
   end as status,
   case
     when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
     else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
-    ' (' || extract(day from not_after - current_timestamp) || ' days).'
+    ' (' || extract(day from not_after - current_date) || ' days).'
   end as reason,
   -- Additional Dimensions
   region,
