@@ -16,7 +16,7 @@ benchmark "soc_2_p_8" {
 }
 
 benchmark "soc_2_p_8_1" {
-  title         = "P8.1 The entity implements a process for receiving, addressing, resolving, and communicating the resolution of inquiries,complaints, and disputes from data subjects and others and periodically monitors compliance to meet the entity’s objectives related to privacy"
+  title         = "P8.1 The entity implements a process for receiving, addressing, resolving, and communicating the resolution of inquiries, complaints, and disputes from data subjects and others and periodically monitors compliance to meet the entity’s objectives related to privacy"
   documentation = file("./soc_2/docs/p_8_1.md")
 
   children = [

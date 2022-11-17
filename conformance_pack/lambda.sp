@@ -63,7 +63,7 @@ control "lambda_function_restrict_public_access" {
 
 control "lambda_function_concurrent_execution_limit_configured" {
   title       = "Lambda functions concurrent execution limit configured"
-  description = "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The control is non complaint if the Lambda function is not configured with function-level concurrent execution limit."
+  description = "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The control is non compliant if the Lambda function is not configured with function-level concurrent execution limit."
   sql         = query.lambda_function_concurrent_execution_limit_configured.sql
 
   tags = merge(local.conformance_pack_lambda_common_tags, {

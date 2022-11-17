@@ -1,3 +1,10 @@
+## v0.53 [2022-11-17]
+
+_Bug fixes_
+
+- Fixed the `acm_certificate_expires_30_days` query to correctly alarm the ACM certificates which are set to expire within 30 days. ([#552](https://github.com/turbot/steampipe-mod-aws-compliance/pull/525))
+- Fixed typos in several compliance control descriptions to use `compliant` instead of `complaint`. ([#522](https://github.com/turbot/steampipe-mod-aws-compliance/pull/522)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
+
 ## v0.52 [2022-11-04]
 
 _Enhancements_
