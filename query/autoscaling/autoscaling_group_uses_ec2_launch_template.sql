@@ -6,8 +6,8 @@ select
     else 'alarm'
   end as status,
   case
-    when launch_template_id is not null then title || 'created from an EC2 launch template.'
-    else title || 'not created from an EC2 launch template.'
+    when launch_template_id is not null then title || ' using an EC2 launch template.'
+    else title || ' not using an EC2 launch template.'
   end as reason,
   -- Additional Dimensions
   region,
