@@ -13,7 +13,8 @@ benchmark "foundational_security_autoscaling" {
     control.foundational_security_autoscaling_3,
     control.foundational_security_autoscaling_4,
     control.foundational_security_autoscaling_5,
-    control.foundational_security_autoscaling_6
+    control.foundational_security_autoscaling_6,
+    control.foundational_security_autoscaling_9
   ]
 
   tags = merge(local.foundational_security_autoscaling_common_tags, {
@@ -96,5 +97,18 @@ control "foundational_security_autoscaling_6" {
   tags = merge(local.foundational_security_autoscaling_common_tags, {
     foundational_security_item_id  = "autoscaling_6"
     foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_autoscaling_9" {
+  title         = "9 EC2 Auto Scaling groups should use EC2 launch templates"
+  description   = "This control checks whether an Amazon EC2 Auto Scaling group is created from an EC2 launch template. This control fails if an Amazon EC2 Auto Scaling group is not created with a launch template or if a launch template is not specified in a mixed instances policy."
+  severity      = "medium"
+  sql           = query.autoscaling_group_uses_ec2_launch_template.sql
+  documentation = file("./foundational_security/docs/foundational_security_autoscaling_9.md")
+
+  tags = merge(local.foundational_security_autoscaling_common_tags, {
+    foundational_security_item_id  = "autoscaling_9"
+    foundational_security_category = "resource_configuration"
   })
 }
