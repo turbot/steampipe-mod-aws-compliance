@@ -1,3 +1,10 @@
+## v0.54 [2022-11-22]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices control added: ([#529](https://github.com/turbot/steampipe-mod-aws-compliance/pull/529))
+  - AutoScaling.9 (`steampipe check control.foundational_security_autoscaling_9`)
+
 ## v0.53 [2022-11-17]
 
 _Bug fixes_
