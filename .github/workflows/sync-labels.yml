@@ -1,17 +1,9 @@
-name: Sync labels
+name: Sync Labels
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/labels.yml
+  schedule:
+    - cron: "30 22 * * 1"
+  workflow_dispatch:
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: micnncim/action-label-syncer@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          manifest: .github/labels.yml
+  sync_labels_workflow:
+    uses: turbot/steampipe-workflows/.github/workflows/sync-labels.yml@main
