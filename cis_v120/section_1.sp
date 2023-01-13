@@ -313,7 +313,7 @@ control "cis_v120_1_20" {
     cis_item_id = "1.20"
     cis_level   = "1"
     cis_type    = "scored"
-    service     = "AWS/S3"
+    service     = "AWS/IAM"
   })
 }
 
