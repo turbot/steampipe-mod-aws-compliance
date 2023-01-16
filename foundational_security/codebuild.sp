@@ -10,6 +10,7 @@ benchmark "foundational_security_codebuild" {
   children = [
     control.foundational_security_codebuild_1,
     control.foundational_security_codebuild_2,
+    control.foundational_security_codebuild_3,
     control.foundational_security_codebuild_4,
     control.foundational_security_codebuild_5
   ]
@@ -44,6 +45,20 @@ control "foundational_security_codebuild_2" {
     foundational_security_category = "secure_development"
   })
 }
+
+control "foundational_security_codebuild_3" {
+  title         = "3 CodeBuild S3 logs should be encrypted"
+  description   = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
+  severity      = "low"
+  sql           = query.codebuild_project_s3_logs_encryption_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_codebuild_3.md")
+
+  tags = merge(local.foundational_security_codebuild_common_tags, {
+    foundational_security_item_id  = "codebuild_3"
+    foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
 
 control "foundational_security_codebuild_4" {
   title         = "4 CodeBuild project environments should have a logging configuration"

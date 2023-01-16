@@ -17,7 +17,8 @@ benchmark "foundational_security_cloudfront" {
     control.foundational_security_cloudfront_7,
     control.foundational_security_cloudfront_8,
     control.foundational_security_cloudfront_9,
-    control.foundational_security_cloudfront_10
+    control.foundational_security_cloudfront_10,
+    control.foundational_security_cloudfront_12
   ]
 
   tags = merge(local.foundational_security_cloudfront_common_tags, {
@@ -152,5 +153,18 @@ control "foundational_security_cloudfront_10" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_10"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_cloudfront_12" {
+  title         = "12 CloudFront distributions should not point to non-existent S3 origins"
+  description   = "This control checks whether Amazon CloudFront distributions are pointing to non-existent Amazon S3 origins. The control fails for a CloudFront distribution if the origin is configured to point to a non-existent bucket. This control only applies to CloudFront distributions where an S3 bucket without static website hosting is the S3 origin."
+  severity      = "high"
+  sql           = query.cloudfront_distribution_no_non_existent_s3_origin.sql
+  documentation = file("./foundational_security/docs/foundational_security_cloudfront_12.md")
+
+  tags = merge(local.foundational_security_cloudfront_common_tags, {
+    foundational_security_item_id  = "cloudfront_12"
+    foundational_security_category = "resource_configuration"
   })
 }

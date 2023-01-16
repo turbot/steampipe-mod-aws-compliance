@@ -12,7 +12,8 @@ benchmark "foundational_security_apigateway" {
     control.foundational_security_apigateway_2,
     control.foundational_security_apigateway_3,
     control.foundational_security_apigateway_4,
-    control.foundational_security_apigateway_5
+    control.foundational_security_apigateway_5,
+    control.foundational_security_apigateway_9
   ]
 
   tags = merge(local.foundational_security_apigateway_common_tags, {
@@ -82,5 +83,18 @@ control "foundational_security_apigateway_5" {
   tags = merge(local.foundational_security_apigateway_common_tags, {
     foundational_security_item_id  = "apigateway_5"
     foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
+control "foundational_security_apigateway_9" {
+  title         = "9 Access logging should be configured for API Gateway V2 Stages"
+  description   = "This control checks if Amazon API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
+  severity      = "medium"
+  sql           = query.gatewayv2_stage_access_logging_enabled.sql
+  documentation = file("./foundational_security/docs/foundational_security_apigateway_9.md")
+
+  tags = merge(local.foundational_security_apigateway_common_tags, {
+    foundational_security_item_id  = "apigateway_9"
+    foundational_security_category = "logging"
   })
 }
