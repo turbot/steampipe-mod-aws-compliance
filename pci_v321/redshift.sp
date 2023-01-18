@@ -20,7 +20,7 @@ control "pci_v321_redshift_1" {
   title         = "1 Amazon Redshift clusters should prohibit public access"
   description   = "This control checks whether Amazon Redshift clusters are publicly accessible by evaluating the publiclyAccessible field in the cluster configuration item."
   severity      = "critical"
-  sql           = query.redshift_cluster_prohibit_public_access.sql
+  query         = query.redshift_cluster_prohibit_public_access
   documentation = file("./pci_v321/docs/pci_v321_redshift_1.md")
 
   tags = merge(local.pci_v321_redshift_common_tags, {
