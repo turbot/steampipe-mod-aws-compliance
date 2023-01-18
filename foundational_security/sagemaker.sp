@@ -53,6 +53,6 @@ control "foundational_security_sagemaker_3" {
 
   tags = merge(local.foundational_security_sagemaker_common_tags, {
     foundational_security_item_id  = "sagemaker_3"
-    foundational_security_category = "root_user access_restrictions"
+    foundational_security_category = "root_user_access_restrictions"
   })
 }
