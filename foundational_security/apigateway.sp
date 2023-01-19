@@ -13,6 +13,7 @@ benchmark "foundational_security_apigateway" {
     control.foundational_security_apigateway_3,
     control.foundational_security_apigateway_4,
     control.foundational_security_apigateway_5,
+    control.foundational_security_apigateway_8,
     control.foundational_security_apigateway_9
   ]
 

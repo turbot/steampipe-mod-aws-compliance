@@ -59,7 +59,7 @@ control "foundational_security_iam_3" {
 
   tags = merge(local.foundational_security_iam_common_tags, {
     foundational_security_item_id = "iam_3"
-    #foundational_security_category = "secure_access_management"
+    foundational_security_category = "secure_access_management"
   })
 }
 
