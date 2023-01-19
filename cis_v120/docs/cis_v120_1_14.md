@@ -1,0 +1,25 @@
+## Description
+
+The root account is the most privileged user in an AWS account. MFA adds an extra layer of protection on top of a user name and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their user name and password as well as for an authentication code from their AWS MFA device. For Level 2, it is recommended that the root account be protected with a hardware MFA.
+
+A hardware MFA has a smaller attack surface than a virtual MFA. For example, a hardware MFA does not suffer the attack surface introduced by the mobile smartphone on which a virtual MFA resides.
+
+**Note**: Using hardware MFA for many, many AWS accounts may create a logistical device management issue. If this is the case, consider implementing this Level 2 recommendation selectively to the highest security AWS accounts and the Level 1 recommendation applied to the remaining accounts.
+
+Link to order AWS compatible hardware MFA device: http://onlinenoram.gemalto.com/
+
+## Remediation
+
+Perform the following to establish a hardware MFA for the root account:
+
+1. Sign in to the AWS Management Console and open the [IAM console](https://console.aws.amazon.com/iam/).
+
+**Note**: To manage MFA devices for the root AWS account, you must use your root account credentials to sign in to AWS. You cannot manage MFA devices for the root account using other credentials.
+
+2. Choose `Dashboard` , and under `Security Status` , expand `Activate MFA` on your root account.
+3. Choose `Activate MFA`.
+4. In the wizard, choose `A hardware MFA` device and then choose `Next Step`.
+5. In the `Serial Number` box, enter the serial number that is found on the back of the MFA device.
+6. In the `Authentication Code` 1 box, enter the six-digit number displayed by the MFA device. You might need to press the button on the front of the device to display the number.
+7. Wait 30 seconds while the device refreshes the code, and then enter the next six-digit number into the `Authentication Code 2` box. You might need to press the button on the front of the device again to display the second number.
+8. Choose `Next Step`. The MFA device is now associated with the AWS account. The next time you use your AWS account credentials to sign in, you must type a code from the hardware MFA device.
