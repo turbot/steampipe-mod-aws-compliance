@@ -28,7 +28,7 @@ select
   end as status,
   case
     when ingress_rdp_rules.group_id is null then sg.group_id || ' ingress restricted for RDP from 0.0.0.0/0.'
-    else  sg.group_id || ' contains ' || ingress_rdp_rules.num_rdp_rules || ' ingress rule(s) allowing RDP from 0.0.0.0/0.'
+    else sg.group_id || ' contains ' || ingress_rdp_rules.num_rdp_rules || ' ingress rule(s) allowing RDP from 0.0.0.0/0.'
   end as reason,
   -- Additional Dimensions
   sg.region,
