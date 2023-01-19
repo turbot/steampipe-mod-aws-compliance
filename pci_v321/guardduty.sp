@@ -20,7 +20,7 @@ control "pci_v321_guardduty_1" {
   title         = "1 GuardDuty should be enabled"
   description   = "This control checks whether Amazon GuardDuty is enabled in your AWS account and Region."
   severity      = "high"
-  sql           = query.guardduty_enabled.sql
+  query         = query.guardduty_enabled
   documentation = file("./pci_v321/docs/pci_v321_guardduty_1.md")
 
   tags = merge(local.pci_v321_guardduty_common_tags, {

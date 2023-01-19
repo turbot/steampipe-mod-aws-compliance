@@ -7,7 +7,7 @@ locals {
 control "guardduty_enabled" {
   title       = "GuardDuty should be enabled"
   description = "Amazon GuardDuty can help to monitor and detect potential cybersecurity events by using threat intelligence feeds."
-  sql         = query.guardduty_enabled.sql
+  query       = query.guardduty_enabled
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -27,7 +27,7 @@ control "guardduty_enabled" {
 control "guardduty_finding_archived" {
   title       = "GuardDuty findings should be archived"
   description = "Amazon GuardDuty helps you understand the impact of an incident by classifying findings by severity: low, medium, and high."
-  sql         = query.guardduty_finding_archived.sql
+  query       = query.guardduty_finding_archived
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
     fedramp_low_rev_4      = "true"

@@ -20,7 +20,7 @@ control "pci_v321_cw_1" {
   title         = "1 A log metric filter and alarm should exist for usage of the 'root' user"
   description   = "This control checks for the CloudWatch metric filters using the following pattern: { $.userIdentity.type = 'Root' && $.userIdentity.invokedBy NOT EXISTS && $.eventType != AwsServiceEvent }."
   severity      = "critical"
-  sql           = query.log_metric_filter_root_login.sql
+  query         = query.log_metric_filter_root_login
   documentation = file("./pci_v321/docs/pci_v321_cw_1.md")
 
   tags = merge(local.pci_v321_cw_common_tags, {

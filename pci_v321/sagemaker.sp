@@ -20,7 +20,7 @@ control "pci_v321_sagemaker_1" {
   title         = "1 Amazon SageMaker notebook instances should not have direct internet access"
   description   = "This control checks whether direct internet access is disabled for an SageMaker notebook instance. To do this, it checks whether the DirectInternetAccess field is disabled for the notebook instance."
   severity      = "high"
-  sql           = query.sagemaker_notebook_instance_direct_internet_access_disabled.sql
+  query         = query.sagemaker_notebook_instance_direct_internet_access_disabled
   documentation = file("./pci_v321/docs/pci_v321_sagemaker_1.md")
 
   tags = merge(local.pci_v321_sagemaker_common_tags, {
