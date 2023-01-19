@@ -20,7 +20,7 @@ control "foundational_security_cloudformation_1" {
   title         = "1 CloudFormation stacks should be integrated with Simple Notification Service (SNS)"
   description   = "This control checks whether an Amazon Simple Notification Service notification is integrated with a CloudFormation stack. The control fails for a CloudFormation stack if there is no SNS notification associated with it."
   severity      = "low"
-  sql           = query.cloudformation_stack_notifications_enabled.sql
+  query         = query.cloudformation_stack_notifications_enabled
   documentation = file("./foundational_security/docs/foundational_security_cloudformation_1.md")
 
   tags = merge(local.foundational_security_cloudformation_common_tags, {

@@ -27,7 +27,7 @@ control "foundational_security_redshift_1" {
   title         = "1 Amazon Redshift clusters should prohibit public access"
   description   = "This control checks whether Amazon Redshift clusters are publicly accessible. It evaluates the PubliclyAccessible field in the cluster configuration item. The PubliclyAccessible attribute of the Amazon Redshift cluster configuration indicates whether the cluster is publicly accessible. When the cluster is configured with PubliclyAccessible set to true, it is an Internet-facing instance that has a publicly resolvable DNS name, which resolves to a public IP address. When the cluster is not publicly accessible, it is an internal instance with a DNS name that resolves to a private IP address. Unless you intend for your cluster to be publicly accessible, the cluster should not be configured with PubliclyAccessible set to true."
   severity      = "critical"
-  sql           = query.redshift_cluster_prohibit_public_access.sql
+  query         = query.redshift_cluster_prohibit_public_access
   documentation = file("./foundational_security/docs/foundational_security_redshift_1.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -40,7 +40,7 @@ control "foundational_security_redshift_2" {
   title         = "2 Connections to Amazon Redshift clusters should be encrypted in transit"
   description   = "This control checks whether connections to Amazon Redshift clusters are required to use encryption in transit. The check fails if the Amazon Redshift cluster parameter require_SSL is not set to 1. TLS can be used to help prevent potential attackers from using person-in-the-middle or similar attacks to eavesdrop on or manipulate network traffic. Only encrypted connections over TLS should be allowed. Encrypting data in transit can affect performance. You should test your application with this feature to understand the performance profile and the impact of TLS."
   severity      = "medium"
-  sql           = query.redshift_cluster_encryption_in_transit_enabled.sql
+  query         = query.redshift_cluster_encryption_in_transit_enabled
   documentation = file("./foundational_security/docs/foundational_security_redshift_2.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -53,7 +53,7 @@ control "foundational_security_redshift_3" {
   title         = "3 Amazon Redshift clusters should have automatic snapshots enabled"
   description   = "This control checks whether Amazon Redshift clusters have automated snapshots enabled. It also checks whether the snapshot retention period is greater than or equal to seven."
   severity      = "medium"
-  sql           = query.redshift_cluster_automatic_snapshots_min_7_days.sql
+  query         = query.redshift_cluster_automatic_snapshots_min_7_days
   documentation = file("./foundational_security/docs/foundational_security_redshift_3.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -66,7 +66,7 @@ control "foundational_security_redshift_4" {
   title         = "4 Amazon Redshift clusters should have audit logging enabled"
   description   = "This control checks whether an Amazon Redshift cluster has audit logging enabled."
   severity      = "medium"
-  sql           = query.redshift_cluster_automatic_snapshots_min_7_days.sql
+  query         = query.redshift_cluster_automatic_snapshots_min_7_days
   documentation = file("./foundational_security/docs/foundational_security_redshift_4.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -79,7 +79,7 @@ control "foundational_security_redshift_6" {
   title         = "6 Amazon Redshift should have automatic upgrades to major versions enabled"
   description   = "This control checks whether automatic major version upgrades are enabled for the Amazon Redshift cluster."
   severity      = "medium"
-  sql           = query.redshift_cluster_automatic_upgrade_major_versions_enabled.sql
+  query         = query.redshift_cluster_automatic_upgrade_major_versions_enabled
   documentation = file("./foundational_security/docs/foundational_security_redshift_6.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -92,7 +92,7 @@ control "foundational_security_redshift_7" {
   title         = "7 Amazon Redshift clusters should use enhanced VPC routing"
   description   = "This control checks whether an Amazon Redshift cluster has EnhancedVpcRouting enabled."
   severity      = "high"
-  sql           = query.redshift_cluster_enhanced_vpc_routing_enabled.sql
+  query         = query.redshift_cluster_enhanced_vpc_routing_enabled
   documentation = file("./foundational_security/docs/foundational_security_redshift_7.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -105,7 +105,7 @@ control "foundational_security_redshift_8" {
   title         = "8 Amazon Redshift clusters should not use the default Admin username"
   description   = "This control checks whether a Amazon Redshift cluster has changed the admin username from its default value. This control will fail if the admin username for a Redshift cluster is set to awsuser."
   severity      = "high"
-  sql           = query.redshift_cluster_no_default_admin_name.sql
+  query         = query.redshift_cluster_no_default_admin_name
   documentation = file("./foundational_security/docs/foundational_security_redshift_8.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -118,7 +118,7 @@ control "foundational_security_redshift_9" {
   title         = "9 Redshift clusters should not use the default database name"
   description   = "This control checks whether an Amazon Redshift cluster has changed the database name from its default value. The control will fail if the database name for a Redshift cluster is set to dev."
   severity      = "medium"
-  sql           = query.redshift_cluster_no_default_database_name.sql
+  query         = query.redshift_cluster_no_default_database_name
   documentation = file("./foundational_security/docs/foundational_security_redshift_9.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {

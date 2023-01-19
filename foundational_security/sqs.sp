@@ -20,7 +20,7 @@ control "foundational_security_sqs_1" {
   title         = "1 Amazon SQS queues should be encrypted at rest"
   description   = "This control checks whether Amazon SQS queues are encrypted at rest."
   severity      = "medium"
-  sql           = query.sqs_queue_encrypted_at_rest.sql
+  query         = query.sqs_queue_encrypted_at_rest
   documentation = file("./foundational_security/docs/foundational_security_sqs_1.md")
 
   tags = merge(local.foundational_security_sqs_common_tags, {
