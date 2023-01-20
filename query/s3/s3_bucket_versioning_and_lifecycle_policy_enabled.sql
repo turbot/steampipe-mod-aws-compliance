@@ -18,7 +18,7 @@ select
   case
     when not versioning_enabled then name || ' versioning diabled.'
     when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
-    else name || '  lifecycle policy not configured.'
+    else name || ' lifecycle policy not configured.'
   end reason,
   -- Additional Dimensions
   region,

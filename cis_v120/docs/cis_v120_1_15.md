@@ -1,0 +1,22 @@
+## Description
+
+The AWS support portal allows account owners to establish security questions that can be used to authenticate individuals calling AWS customer service for support. It is recommended that security questions be established.
+
+When creating a new AWS account, a default super user is automatically created. This account is referred to as the "root" account. It is recommended that the use of this account be limited and highly controlled. During events in which the Root password is no longer accessible or the MFA token associated with root is lost/destroyed it is possible, through authentication using secret questions and associated answers, to recover root login access.
+
+## Remediation
+
+Perform the following in the AWS Management Console:
+
+1. Login to the AWS Account as root.
+2. Click on the `<Root_Account_Name>` from the top right of the console.
+3. From the drop-down menu Click My Account.
+4. Scroll down to the `Configure Security Questions` section.
+5. Click on `Edit`.
+6. Click on each `Question`.
+  - From the drop-down select an appropriate question
+  - Click on the `Answer` section
+  - Enter an appropriate answer.
+    - Follow process for all 3 questions
+7. Click `Update` when complete.
+8. Place Questions and Answers and place in a secure physical location.

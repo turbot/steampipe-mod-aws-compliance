@@ -7,7 +7,7 @@ locals {
 control "sns_topic_encrypted_at_rest" {
   title       = "SNS topics should be encrypted at rest"
   description = "To help protect data at rest, ensure that your Amazon Simple Notification Service (Amazon SNS) topics require encryption using AWS Key Management Service (AWS KMS)."
-  sql         = query.sns_topic_encrypted_at_rest.sql
+  query       = query.sns_topic_encrypted_at_rest
 
   tags = merge(local.conformance_pack_sns_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -28,7 +28,7 @@ control "sns_topic_encrypted_at_rest" {
 control "sns_topic_policy_prohibit_public_access" {
   title       = "SNS topic policies should prohibit public access"
   description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot be publicly accessed."
-  sql         = query.sns_topic_policy_prohibit_public_access.sql
+  query       = query.sns_topic_policy_prohibit_public_access
 
   tags = merge(local.conformance_pack_sns_common_tags, {
     other_checks = "true"

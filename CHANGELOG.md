@@ -1,3 +1,22 @@
+## v0.55 [2023-01-20]
+
+_Dependencies_
+
+- AWS plugin `v0.92.0` or higher is now required. ([#545](https://github.com/turbot/steampipe-mod-aws-compliance/pull/545))
+
+_What's new?_
+
+- Added CIS v1.2.0 benchmark (`steampipe check benchmark.cis_v120`). ([#535](https://github.com/turbot/steampipe-mod-aws-compliance/pull/535))
+- New AWS Foundational Security Best Practices control added: ([#542](https://github.com/turbot/steampipe-mod-aws-compliance/pull/542))
+  - Account.1
+  - APIGateway.8
+  - APIGateway.9
+  - CloudFront.12
+  - CodeBuild.3
+  - SageMaker.2
+  - SageMaker.3
+  - WAF.10
+
 ## v0.54 [2022-11-22]
 
 _What's new?_

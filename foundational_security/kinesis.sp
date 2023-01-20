@@ -20,7 +20,7 @@ control "foundational_security_kinesis_1" {
   title         = "1 Kinesis Data Streams should be encrypted at rest"
   description   = "This control checks if Kinesis Data Streams are encrypted at rest with server-side encryption. This control fails if a Kinesis stream is not encrypted at rest with server-side encryption."
   severity      = "medium"
-  sql           = query.kinesis_stream_server_side_encryption_enabled.sql
+  query         = query.kinesis_stream_server_side_encryption_enabled
   documentation = file("./foundational_security/docs/foundational_security_kinesis_1.md")
 
   tags = merge(local.foundational_security_kinesis_common_tags, {

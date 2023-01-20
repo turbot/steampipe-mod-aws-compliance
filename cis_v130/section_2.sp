@@ -57,7 +57,7 @@ control "cis_v130_2_1_1" {
   title         = "2.1.1 Ensure all S3 buckets employ encryption-at-rest"
   description   = "Amazon S3 provides a variety of no, or low, cost encryption options to protect data at rest."
   documentation = file("./cis_v130/docs/cis_v130_2_1_1.md")
-  sql           = query.s3_bucket_default_encryption_enabled.sql
+  query         = query.s3_bucket_default_encryption_enabled
 
   tags = merge(local.cis_v130_2_1_common_tags, {
     cis_item_id = "2.1.1"
@@ -71,7 +71,7 @@ control "cis_v130_2_1_2" {
   title         = "2.1.2 Ensure S3 Bucket Policy allows HTTPS requests"
   description   = "At the Amazon S3 bucket level, you can configure permissions through a bucket policy making the objects accessible only through HTTPS."
   documentation = file("./cis_v130/docs/cis_v130_2_1_2.md")
-  sql           = query.s3_bucket_enforces_ssl.sql
+  query         = query.s3_bucket_enforces_ssl
 
   tags = merge(local.cis_v130_2_1_common_tags, {
     cis_item_id = "2.1.2"
@@ -85,7 +85,7 @@ control "cis_v130_2_2_1" {
   title         = "2.2.1 Ensure EBS volume encryption is enabled"
   description   = "Elastic Compute Cloud (EC2) supports encryption at rest when using the Elastic Block Store (EBS) service. While disabled by default, forcing encryption at EBS volume creation is supported."
   documentation = file("./cis_v130/docs/cis_v130_2_2_1.md")
-  sql           = query.ebs_volume_encryption_at_rest_enabled.sql
+  query         = query.ebs_volume_encryption_at_rest_enabled
 
   tags = merge(local.cis_v130_2_2_common_tags, {
     cis_item_id = "2.2.1"

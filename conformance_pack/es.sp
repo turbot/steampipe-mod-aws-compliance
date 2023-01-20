@@ -7,7 +7,7 @@ locals {
 control "es_domain_encryption_at_rest_enabled" {
   title       = "ES domain encryption at rest should be enabled"
   description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elasticsearch Service (Amazon ES) domains"
-  sql         = query.es_domain_encryption_at_rest_enabled.sql
+  query       = query.es_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -28,7 +28,7 @@ control "es_domain_encryption_at_rest_enabled" {
 control "es_domain_in_vpc" {
   title       = "ES domains should be in a VPC"
   description = "Manage access to the AWS Cloud by ensuring Amazon Elasticsearch Service (Amazon ES) Domains are within an Amazon Virtual Private Cloud (Amazon VPC)."
-  sql         = query.es_domain_in_vpc.sql
+  query       = query.es_domain_in_vpc
 
   tags = merge(local.conformance_pack_es_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -48,7 +48,7 @@ control "es_domain_in_vpc" {
 control "es_domain_node_to_node_encryption_enabled" {
   title       = "Elasticsearch domain node-to-node encryption should be enabled"
   description = "Ensure node-to-node encryption for Amazon Elasticsearch Service is enabled. Node-to-node encryption enables TLS 1.2 encryption for all communications within the Amazon Virtual Private Cloud (Amazon VPC)."
-  sql         = query.es_domain_node_to_node_encryption_enabled.sql
+  query       = query.es_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -68,7 +68,7 @@ control "es_domain_node_to_node_encryption_enabled" {
 control "es_domain_logs_to_cloudwatch" {
   title       = "Elasticsearch domain should send logs to CloudWatch"
   description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is compliant if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
-  sql         = query.es_domain_logs_to_cloudwatch.sql
+  query       = query.es_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_es_common_tags, {
     cisa_cyber_essentials  = "true"
@@ -84,7 +84,7 @@ control "es_domain_logs_to_cloudwatch" {
 control "es_domain_cognito_authentication_enabled" {
   title       = "Elasticsearch domains should have cognito authentication enabled"
   description = "Amazon Elasticsearch service uses Amazon Cognito to offer user name and password protection for Kibana. This control is non compliant if Amazon Cognito authentication is not enabled."
-  sql         = query.es_domain_cognito_authentication_enabled.sql
+  query       = query.es_domain_cognito_authentication_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
     other_checks = "true"
@@ -94,7 +94,7 @@ control "es_domain_cognito_authentication_enabled" {
 control "es_domain_internal_user_database_enabled" {
   title       = "Elasticsearch domains should have internal user database enabled"
   description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
-  sql         = query.es_domain_internal_user_database_enabled.sql
+  query       = query.es_domain_internal_user_database_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
     other_checks = "true"

@@ -7,7 +7,7 @@ locals {
 control "cloudfront_distribution_encryption_in_transit_enabled" {
   title       = "CloudFront distributions should require encryption in transit"
   description = "This control checks whether an Amazon CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
-  sql         = query.cloudfront_distribution_encryption_in_transit_enabled.sql
+  query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gdpr  = "true"
@@ -18,7 +18,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
 control "cloudfront_distribution_geo_restrictions_enabled" {
   title       = "CloudFront distributions should have geo restriction enabled"
   description = "Geographic restriction is used to restrict access to all of the files that are associated with a distribution at the country level."
-  sql         = query.cloudfront_distribution_geo_restrictions_enabled.sql
+  query       = query.cloudfront_distribution_geo_restrictions_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     other_checks = "true"

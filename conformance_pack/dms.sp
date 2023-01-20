@@ -7,7 +7,7 @@ locals {
 control "dms_replication_instance_not_publicly_accessible" {
   title       = "DMS replication instances should not be publicly accessible"
   description = "Manage access to the AWS Cloud by ensuring DMS replication instances cannot be publicly accessed."
-  sql         = query.dms_replication_instance_not_publicly_accessible.sql
+  query       = query.dms_replication_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_dms_common_tags, {
     cisa_cyber_essentials  = "true"

@@ -21,7 +21,7 @@ control "pci_v321_opensearch_1" {
   title         = "1 Amazon OpenSearch domains should be in a VPC"
   description   = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
   severity      = "medium"
-  sql           = query.opensearch_domain_in_vpc.sql
+  query         = query.opensearch_domain_in_vpc
   documentation = file("./pci_v321/docs/pci_v321_opensearch_1.md")
 
   tags = merge(local.pci_v321_opensearch_common_tags, {
@@ -34,7 +34,7 @@ control "pci_v321_opensearch_2" {
   title         = "2 OpenSearch domains should have encryption at rest enabled"
   description   = "This control checks whether Amazon OpenSearch domains have encryption-at-rest configuration enabled. The check fails if encryption at rest is not enabled."
   severity      = "medium"
-  sql           = query.opensearch_domain_encryption_at_rest_enabled.sql
+  query         = query.opensearch_domain_encryption_at_rest_enabled
   documentation = file("./pci_v321/docs/pci_v321_opensearch_2.md")
 
   tags = merge(local.pci_v321_opensearch_common_tags, {
