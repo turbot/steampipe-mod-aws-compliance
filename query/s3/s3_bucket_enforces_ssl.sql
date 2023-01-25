@@ -21,10 +21,12 @@ select
   -- Required Columns
   b.arn as resource,
   case
+    when b.policy is null then 'info'
     when ok.status = 'ok' then 'ok'
     else 'alarm'
   end status,
   case
+    when b.policy is null then title || ' does not have defined policy or insufficient access to the policy.'
     when ok.status = 'ok' then b.name || ' bucket policy enforces HTTPS.'
     else b.name || ' bucket policy does not enforce HTTPS.'
   end reason,

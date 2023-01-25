@@ -25,10 +25,12 @@ select
   -- Required Columns
   a.arn as resource,
   case
+    when a.policy is null then 'info'
     when b.arn is null then 'ok'
     else 'alarm'
   end as status,
   case
+    when a.policy is null then title || ' does not have defined policy or insufficient access to the policy.'
     when b.arn is null then title || ' restricts cross-account bucket access.'
     else title || ' allows cross-account bucket access.'
   end as reason,

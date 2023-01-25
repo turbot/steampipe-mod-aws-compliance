@@ -11,14 +11,16 @@ select
   -- Required Columns
   b.arn as resource,
   case
+    when b.lifecycle_rules is null then 'info'
     when not versioning_enabled then 'alarm'
     when versioning_enabled and r.arn is not null then 'ok'
     else 'alarm'
   end status,
   case
-    when not versioning_enabled then name || ' versioning diabled.'
-    when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
-    else name || ' lifecycle policy not configured.'
+    when b.lifecycle_rules is null then title || ' does not have defined lifecycle rules or insufficient access to the policy.'
+    when not versioning_enabled then title || ' versioning diabled.'
+    when versioning_enabled and r.arn is not null then title || ' lifecycle policy configured.'
+    else title || ' lifecycle policy not configured.'
   end reason,
   -- Additional Dimensions
   region,

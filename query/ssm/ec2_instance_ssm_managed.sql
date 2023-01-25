@@ -2,10 +2,12 @@ select
   -- Required Columns
   i.arn as resource,
   case
+    when i.instance_state = 'stopped' then 'info'
     when m.instance_id is null then 'alarm'
     else 'ok'
   end as status,
   case
+    when i.instance_state = 'stopped' then i.title || ' is in stopped state.'
     when m.instance_id is null then i.title || ' not managed by AWS SSM.'
     else i.title || ' managed by AWS SSM.'
   end as reason,
@@ -13,5 +15,5 @@ select
   i.region,
   i.account_id
 from
-  aws_ec2_instance i
+  default_aab.aws_ec2_instance i
   left join aws_ssm_managed_instance m on m.instance_id = i.instance_id;
