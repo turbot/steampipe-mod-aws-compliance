@@ -6,7 +6,7 @@ select
     -- Skip any regions that are disabled in the account.
     when r.opt_in_status = 'not-opted-in' then 'skip'
     when status = 'ENABLED' and master_account ->> 'AccountId' is null then 'ok'
-     when status = 'ENABLED' and master_account ->> 'AccountId' is not null then 'info'
+    when status = 'ENABLED' and master_account ->> 'AccountId' is not null then 'info'
     else 'alarm'
   end as status,
   case
