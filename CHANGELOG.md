@@ -1,3 +1,10 @@
+## v0.56 [2023-02-03]
+
+_Bug fixes_
+
+- Fixed the `guardduty_enabled` query to no longer report false positive results on accounts which are members of an AWS organization where GuardDuty is managed by another account via Delegated Admin. ([#551](https://github.com/turbot/steampipe-mod-aws-compliance/pull/551))
+- Fixed the `ec2_instance_ssm_managed` query to return `info` instead of an `error` for instances that are in stopped state and are not managed by SSM. ([#550](https://github.com/turbot/steampipe-mod-aws-compliance/pull/550))
+
 ## v0.55 [2023-01-20]
 
 _Dependencies_
