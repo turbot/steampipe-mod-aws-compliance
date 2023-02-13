@@ -5,6 +5,6 @@ controls=( $(STEAMPIPE_INTROSPECTION=info steampipe query "select resource_name 
 for control in ${controls[*]}
 do
 if [ "$control" != "resource_name" ]; then
-steampipe check control.$control --output csv --export=/home/ec2-user/steampipe-test/aws$control.csv
+steampipe check control.$control --output csv --export=/home/ec2-user/compliance/aws/$control.csv
 fi
 done
