@@ -28,6 +28,7 @@ benchmark "hipaa_164_308_a_1_ii_b" {
     control.es_domain_in_vpc,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
+    control.iam_user_no_inline_attached_policies,
     control.kms_key_not_pending_deletion,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
