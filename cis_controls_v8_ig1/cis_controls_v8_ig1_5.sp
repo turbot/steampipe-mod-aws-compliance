@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_5" {
-  title       = "Account Management"
-  description = "."
+  title       = "5 Account Management"
+  description = "Use processes and tools to assign and manage authorization to credentials for user accounts, including administrator accounts, as well as service accounts, to enterprise assets and software."
   children = [
     benchmark.cis_controls_v8_ig1_5_2,
     benchmark.cis_controls_v8_ig1_5_3,

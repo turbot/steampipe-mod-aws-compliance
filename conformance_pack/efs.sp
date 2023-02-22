@@ -29,6 +29,7 @@ control "efs_file_system_in_backup_plan" {
   query       = query.efs_file_system_automatic_backups_enabled
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    cis                = "true"
     ffiec              = "true"
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"

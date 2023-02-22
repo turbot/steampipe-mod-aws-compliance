@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_8" {
-  title       = "Audit Log Management"
-  description = "."
+  title       = "8 Audit Log Management"
+  description = "Collect, alert, review, and retain audit logs of events that could help detect, understand, or recover from an attack."
   children = [
     benchmark.cis_controls_v8_ig1_8_1,
     benchmark.cis_controls_v8_ig1_8_2
@@ -25,7 +25,7 @@ benchmark "cis_controls_v8_ig1_8_2" {
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    # control.CLOUDFRONT_ACCESSLOGS_ENABLED,
+    control.cloudfront_distribution_logging_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,

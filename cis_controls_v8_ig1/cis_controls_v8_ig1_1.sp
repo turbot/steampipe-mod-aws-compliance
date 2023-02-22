@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_1" {
-  title       = "Inventory and Control of Enterprise Assets"
-  description = "."
+  title       = "1 Inventory and Control of Enterprise Assets"
+  description = "Actively manage (inventory, track, and correct) all enterprise assets (end-user devices, including portable and mobile; network devices; non-computing/Internet of Things (IoT) devices; and servers) connected to the infrastructure physically, virtually, remotely, and those within cloud environments, to accurately know the totality of assets that need to be monitored and protected within the enterprise. This will also support identifying unauthorized and unmanaged assets to remove or remediate."
   children = [
     benchmark.cis_controls_v8_ig1_1_1,
     benchmark.cis_controls_v8_ig1_1_2

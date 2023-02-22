@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_10" {
-  title       = "Malware Defenses"
-  description = "."
+  title       = "10 Malware Defenses"
+  description = "Prevent or control the installation, spread, and execution of malicious applications, code, or scripts on enterprise assets."
   children = [
     benchmark.cis_controls_v8_ig1_10_1,
     benchmark.cis_controls_v8_ig1_10_2

@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_4" {
-  title       = "Secure Configuration of Enterprise Assets and Software"
-  description = "."
+  title       = "4 Secure Configuration of Enterprise Assets and Software"
+  description = "Establish and maintain the secure configuration of enterprise assets (end-user devices, including portable and mobile; network devices; non-computing/IoT devices; and servers) and software (operating systems and applications)."
   children = [
     benchmark.cis_controls_v8_ig1_4_1,
     benchmark.cis_controls_v8_ig1_4_6,

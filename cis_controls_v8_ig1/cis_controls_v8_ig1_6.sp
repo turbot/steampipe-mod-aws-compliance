@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_6" {
-  title       = "Access Control Management"
-  description = "."
+  title       = "6 Access Control Management"
+  description = "Use processes and tools to create, assign, manage, and revoke access credentials and privileges for user, administrator, and service accounts for enterprise assets and software."
   children = [
     benchmark.cis_controls_v8_ig1_6_5,
   ]

@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_12" {
-  title       = "Data Recovery"
-  description = "."
+  title       = "12 Data Recovery"
+  description = "Establish, implement, and actively manage (track, report, correct) network devices, in order to prevent attackers from exploiting vulnerable network services and access points."
   children = [
     benchmark.cis_controls_v8_ig1_12_1
   ]

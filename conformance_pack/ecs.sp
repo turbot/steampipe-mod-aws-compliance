@@ -10,6 +10,7 @@ control "ecs_task_definition_user_for_host_mode_check" {
   query       = query.ecs_task_definition_user_for_host_mode_check
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    cis                    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

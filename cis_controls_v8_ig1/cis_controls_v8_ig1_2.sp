@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_2" {
-  title       = "Inventory and Control of Software Assets"
-  description = "."
+  title       = "2 Inventory and Control of Software Assets"
+  description = "Actively manage (inventory, track, and correct) all software (operating systems and applications) on the network so that only authorized software is installed and can execute, and that unauthorized and unmanaged software is found and prevented from installation or execution."
   children = [
     benchmark.cis_controls_v8_ig1_2_2
   ]

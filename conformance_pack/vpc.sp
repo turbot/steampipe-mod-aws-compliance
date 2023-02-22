@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   query       = query.vpc_flow_logs_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis                    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -145,6 +146,7 @@ control "vpc_eip_associated" {
   query       = query.vpc_eip_associated
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis                   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_800_171_rev_2    = "true"
@@ -158,6 +160,7 @@ control "vpc_security_group_associated_to_eni" {
   query       = query.vpc_security_group_associated_to_eni
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis                = "true"
     nist_800_171_rev_2 = "true"
     nist_csf           = "true"
   })
@@ -169,6 +172,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   query       = query.vpc_subnet_auto_assign_public_ip_disabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis                    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -254,6 +258,7 @@ control "vpc_network_acl_unused" {
   query       = query.vpc_network_acl_unused
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis                   = "true"
     cisa_cyber_essentials = "true"
   })
 }

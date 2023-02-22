@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_11" {
-  title       = "Data Recovery"
-  description = "."
+  title       = "11 Data Recovery"
+  description = "Establish and maintain data recovery practices sufficient to restore in-scope enterprise assets to a pre-incident and trusted state."
   children = [
     benchmark.cis_controls_v8_ig1_11_2,
     benchmark.cis_controls_v8_ig1_11_3,

@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_3" {
-  title       = "Data Protection"
-  description = "."
+  title       = "3 Data Protection"
+  description = "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data."
   children = [
     benchmark.cis_controls_v8_ig1_3_3,
     benchmark.cis_controls_v8_ig1_3_4
@@ -8,7 +8,6 @@ benchmark "cis_controls_v8_ig1_3" {
 
   tags = local.cis_controls_v8_ig1_common_tags
 }
-
 
 benchmark "cis_controls_v8_ig1_3_3" {
   title       = "3.3 - Configure Data Access Control Lists"
@@ -44,13 +43,10 @@ benchmark "cis_controls_v8_ig1_3_3" {
     control.dms_replication_instance_not_publicly_accessible,
     control.ec2_instance_iam_profile_attached,
     control.ec2_instance_uses_imdsv2,
-    # control.EBS_SNAPSHOT_SHARED_WITH_APPROVED_ACCOUNTS,
     control.eks_cluster_endpoint_restrict_public_access,
     # control.IAM_POLICY_IN_USE
-    # control.IAM_ROLE_MANAGED_POLICY_CHECK
+    control.iam_managed_policy_attached_to_role,
     control.ec2_instance_in_vpc,
-    # control.PUBLIC_SUBNET_CHECK
-    # control.SSM_DOCUMENT_NOT_PUBLIC
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags

@@ -1,6 +1,6 @@
 benchmark "cis_controls_v8_ig1_7" {
-  title       = "Continuous Vulnerability Management"
-  description = "."
+  title       = "7 Continuous Vulnerability Management"
+  description = "Develop a plan to continuously assess and track vulnerabilities on all enterprise assets within the enterprise’s infrastructure, in order to remediate, and minimize, the window of opportunity for attackers. Monitor public and private industry sources for new threat and vulnerability information."
   children = [
     benchmark.cis_controls_v8_ig1_7_1,
     benchmark.cis_controls_v8_ig1_7_3
