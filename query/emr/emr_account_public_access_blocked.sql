@@ -4,11 +4,11 @@ select
   case
     when block_public_security_group_rules then 'ok'
     else 'alarm'
-  end status,
+  end as status,
   case
     when block_public_security_group_rules then ' EMR account has block public access enabled.'
     else ' EMR account has block public access disabled.'
-  end reason,
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

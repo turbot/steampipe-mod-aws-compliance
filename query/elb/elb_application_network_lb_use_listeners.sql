@@ -32,8 +32,8 @@ select
     else 'alarm'
   end as status,
   case
-    when p.load_balancer_arn is not null then l.title || ' elastic load balancer have listeners underneath.'
-    else l.title || ' elastic load balancer does not have listeners underneath.'
+    when p.load_balancer_arn is not null then l.title || ' uses listeners.'
+    else l.title || ' does not uses listeners.'
   end as reason,
   -- Additional Dimensions
   l.region,
