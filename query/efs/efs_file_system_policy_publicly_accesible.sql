@@ -7,66 +7,8 @@ with wildcard_action_policies as (
     jsonb_array_elements(policy_std -> 'Statement') as s
   where
     s ->> 'Effect' = 'Allow'
-    -- aws:SourceOwner
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceowner' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceowner' is null
     and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' ? '*'
-    )
-    -- aws:SourceAccount
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceaccount' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceaccount' is null
-    and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' ? '*'
-    )
-    -- aws:PrincipalOrgID
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:principalorgid' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalorgid' is null
-    and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' ? '*'
-    )
-    -- aws:PrincipalAccount
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:principalaccount' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalaccount' is null
-    and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' ? '*'
-    )
-    -- aws:PrincipalArn
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:principalarn' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalarn' is null
-    and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' ? '*'
-    )
-    and (
-      s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' is null
-      or s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' ? '*'
-    )
-    and (
-      s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' is null
-      or s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' ? '*'
-    )
-    -- aws:SourceArn
-    and s -> 'Condition' -> 'StringEquals' -> 'aws:sourcearn' is null
-    and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourcearn' is null
-    and (
-      s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' is null
-      or s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' ? '*'
-    )
-    and (
-      s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' is null
-      or s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' ? '*'
-    )
-    and (
-      s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' is null
-      or s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' ? '*'
-    )
-    and (
-      s -> 'Principal' -> 'AWS' = '["*"]'
+      ( s -> 'Principal' -> 'AWS') = '["*"]'
       or s ->> 'Principal' = '*'
     )
   group by
