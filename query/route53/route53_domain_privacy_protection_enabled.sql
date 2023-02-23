@@ -6,9 +6,9 @@ select
     else 'alarm'
   end as status,
   case
-    when admin_privacy then title || ' route53 privacy protection enabled.'
-    else title || ' route53 privacy protection disabled.'
-    end reason,
+    when admin_privacy then title || ' privacy protection enabled.'
+    else title || ' privacy protection disabled.'
+    end as reason,
   -- Additional Dimensions
   region,
   account_id
