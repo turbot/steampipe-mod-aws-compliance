@@ -6,8 +6,6 @@ select
   end as status,
   case when expiration_date < (current_date - interval '1' minute) then
     title || ' expired ' || to_char(expiration_date, 'DD-Mon-YYYY') || '.'
-  else
-    title || ' valid until ' || to_char(expiration_date, 'DD-Mon-YYYY')  || '.'
   end as reason,
   -- Additional Dimensions
   region,

@@ -6,7 +6,7 @@ select
     else 'alarm'
   end as status,
   case
-    when date(not_after) - date(current_date) >= 30 then l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' else l.title || ' certificate expired' || to_char(not_after, 'DD-Mon-YYYY') || '.'
+    when date(not_after) - date(current_date) >= 30 then l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.'
   end as reason,
   -- Additional Dimensions
   l.region,
