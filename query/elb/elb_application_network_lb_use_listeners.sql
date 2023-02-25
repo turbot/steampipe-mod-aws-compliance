@@ -1,13 +1,4 @@
-with elb_listeners as (
-  select
-    load_balancer_arn,
-    count(*) as listeners_num
-  from
-    aws_ec2_load_balancer_listener
-  group by
-  load_balancer_arn
-),
-load_balancers as (
+with load_balancers as (
   select 
     n.arn,
     n.title,
@@ -26,18 +17,18 @@ load_balancers as (
 )
 select
   -- Required Columns
-  distinct l.arn as resource,
+  distinct lb.arn as resource,
   case
-    when p.load_balancer_arn is not null then 'ok'
+    when l.load_balancer_arn is not null then 'ok'
     else 'alarm'
   end as status,
   case
-    when p.load_balancer_arn is not null then l.title || ' uses listeners.'
-    else l.title || ' does not uses listeners.'
+    when l.load_balancer_arn is not null then lb.title || ' uses listener.'
+    else lb.title || ' does not uses listener.'
   end as reason,
   -- Additional Dimensions
-  l.region,
-  l.account_id
+  lb.region,
+  lb.account_id
 from
-  load_balancers as l
-  left join elb_listeners as p on l.arn = p.load_balancer_arn;
+  load_balancers as lb
+  left join aws_ec2_load_balancer_listener as l on lb.arn = l.load_balancer_arn;

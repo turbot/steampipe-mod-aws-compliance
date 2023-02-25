@@ -12,12 +12,12 @@ with iam_role_cross_account_sharing_count as (
 select 
   a.arn as resource,
   case
-    when c.arn is not null then 'ok'
-    else 'alarm'
+    when c.arn is null then 'ok'
+    else 'info'
   end as status,
   case
-    when c.arn is not null then 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
-    else 'CloudWatch does not allow cross-account sharing.'
+    when c.arn is null then 'CloudWatch does not allow cross-account sharing.' 
+    else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
   end as reason,
   a.account_id
 from

@@ -204,6 +204,16 @@ control "elb_application_lb_with_outbound_rule" {
   })
 }
 
+control "elb_application_network_lb_use_listeners" {
+  title       = "ELB application and network load balancers should use listeners"
+  description = "Ensure that application and network load balancer must have one or more listeners. A listener is a process that checks for connection requests, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets."
+  query       = query.elb_application_network_lb_use_listeners
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "elb_classic_lb_with_outbound_rule" {
   title       = "ELB classic load balancers should have at least one outbound rule"
   description = "Ensure classic load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."

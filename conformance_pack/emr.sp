@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "emr_account_public_access_blocked" {
+  title       = "EMR public access should be blocked at account level"
+  description = "The block public access feature prevents a cluster in a public subnet from launching when any security group associated with the cluster has a rule that allows inbound traffic from IPv4 0.0.0.0/0 or IPv6 ::/0 (public access) on a port, unless the port has been specified as an exception - port 22 is an exception by default. This feature is enabled by default for each AWS Region in your AWS account and is not recommended to be turned off."
+  query       = query.emr_account_public_access_blocked
+
+  tags = merge(local.conformance_pack_emr_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "emr_cluster_kerberos_enabled" {
   title       = "EMR cluster Kerberos should be enabled"
   description = "The access permissions and authorizations can be managed and incorporated with the principles of least privilege and separation of duties, by enabling Kerberos for Amazon EMR clusters."

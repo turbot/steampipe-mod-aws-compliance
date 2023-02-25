@@ -21,9 +21,9 @@ select
     else 'alarm'
   end as status,
   case
-    when r.policy is not null and p.arn is null then title || ' policy does not allow public access.'
-    when  r.policy is null then title || ' policy does not exist.'
-    else title || ' policy contains ' || coalesce(p.statements_num, 0) || ' statement(s) that allow public access.'
+    when r.policy is not null and p.arn is null then title || ' does not allow public access.'
+    when  r.policy is null then title || ' allow public acces as policy does not exist.'
+    else title || ' contains ' || coalesce(p.statements_num, 0) || ' statement(s) that allow public access.'
   end as reason,
   r.region, r.account_id
 from
