@@ -11,7 +11,7 @@ with viewer_protocol_policy_value as (
   where
     cb ->> 'ViewerProtocolPolicy' = 'allow-all'
 ),
- origin_protocol_policy_value as (
+origin_protocol_policy_value as (
   select
     distinct arn,
     o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' as origin_protocol_policy

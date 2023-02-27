@@ -24,4 +24,4 @@ select
   account_id
 from
   aws_ecs_cluster as c
-  left join unconnected_agent_instance as i on c.cluster_arn = i.cluster_arn
+  left join unconnected_agent_instance as i on c.cluster_arn = i.cluster_arn;

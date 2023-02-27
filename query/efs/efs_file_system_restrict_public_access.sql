@@ -15,6 +15,7 @@ with wildcard_action_policies as (
     arn
 )
 select
+  -- Required Columns
   r.arn as resource,
   case
     when r.policy is not null and p.arn is null then 'ok'
@@ -25,7 +26,9 @@ select
     when  r.policy is null then title || ' allow public acces as policy does not exist.'
     else title || ' contains ' || coalesce(p.statements_num, 0) || ' statement(s) that allow public access.'
   end as reason,
-  r.region, r.account_id
+  -- Additional Dimensions
+  r.region, 
+  r.account_id
 from
   aws_efs_file_system as r
-  left join wildcard_action_policies as p on p.arn = r.arn
+  left join wildcard_action_policies as p on p.arn = r.arn;

@@ -2,10 +2,10 @@ with unencrypted_volumes as (
   select
     distinct cluster_arn
   from
-   aws_ecs_container_instance as i,
-   aws_ec2_instance as e,
-   jsonb_array_elements(block_device_mappings) as b,
-   aws_ebs_volume as v
+    aws_ecs_container_instance as i,
+    aws_ec2_instance as e,
+    jsonb_array_elements(block_device_mappings) as b,
+    aws_ebs_volume as v
   where
     i.ec2_instance_id = e.instance_id
     and b -> 'Ebs' ->> 'VolumeId' = v.volume_id
@@ -28,5 +28,5 @@ select
   c.region,
   c.account_id
 from
- aws_ecs_cluster as c
+  aws_ecs_cluster as c
   left join unencrypted_volumes as v on v.cluster_arn = c.cluster_arn;

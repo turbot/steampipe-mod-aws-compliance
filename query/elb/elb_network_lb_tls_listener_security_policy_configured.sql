@@ -10,8 +10,8 @@ with tls_listeners as (
     load_balancer_arn
 ), nwl_without_tls_listener as (
     select
-     load_balancer_arn,
-     count(*)
+      load_balancer_arn,
+      count(*)
     from
       aws_ec2_load_balancer_listener
     where
@@ -37,4 +37,4 @@ select
   lb.account_id
 from
   aws_ec2_network_load_balancer as lb
-  left join nwl_without_tls_listener as l on l.load_balancer_arn = lb.arn
+  left join nwl_without_tls_listener as l on l.load_balancer_arn = lb.arn;

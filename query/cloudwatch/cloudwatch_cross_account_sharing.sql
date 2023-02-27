@@ -10,6 +10,7 @@ with iam_role_cross_account_sharing_count as (
     name = 'CloudWatch-CrossAccountSharingRole'
 )
 select 
+  -- Required Columns
   a.arn as resource,
   case
     when c.arn is null then 'ok'
@@ -19,7 +20,8 @@ select
     when c.arn is null then 'CloudWatch does not allow cross-account sharing.' 
     else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
   end as reason,
+  -- Additional Dimensions
   a.account_id
 from
   aws_account as a
-  left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id
+  left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;

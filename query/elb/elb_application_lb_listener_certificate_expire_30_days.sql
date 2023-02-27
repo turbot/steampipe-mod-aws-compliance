@@ -5,7 +5,7 @@ select
     when date(not_after) - date(current_date) >= 30 then 'ok'
     else 'alarm'
   end as status,
-   l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason,
+  l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason,
   -- Additional Dimensions
   l.region,
   l.account_id
