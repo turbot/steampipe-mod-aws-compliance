@@ -87,7 +87,7 @@ control "lambda_function_cloudtrail_logging_enabled" {
 }
 
 control "lambda_function_tracing_enabled" {
-  title       = "AWS Lambda functions tracing should be enabled"
+  title       = "Lambda functions tracing should be enabled"
   description = "AWS X-Ray can be used to visualize the components of application, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Lambda functions send trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries."
   query       = query.lambda_function_tracing_enabled
 

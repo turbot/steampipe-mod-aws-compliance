@@ -245,7 +245,7 @@ control "elb_classic_lb_with_outbound_rule" {
 }
 
 control "elb_tls_listener_protocol_version" {
-  title       = "ELB SSL/TLS protocol version should be checked"
+  title       = "ELB listeners SSL/TLS protocol version should be checked"
   description = "nil."
   query       = query.elb_tls_listener_protocol_version
 

@@ -5,7 +5,7 @@ locals {
 }
 
 control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
-  title       = "SageMaker Notebook Instance should be encrypted using CMK"
+  title       = "SageMaker notebook instances should be encrypted using CMK"
   description = "This control checks if SageMaker notebook instance storage volumes are encrypted with Amazon KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
   query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
 

@@ -35,8 +35,8 @@ control "cloudformation_stack_rollback_enabled" {
 }
 
 control "cloudformation_stack_termination_protection_enabled" {
-  title       = "Cloudformation Stacks termination protection should be enabled"
-  description = "Ensure that Amazon CloudFormation stacks have Termination Protection feature enabled in order to protect them from being accidentally deleted. The safety feature can be enabled when you create the CloudFormation stack or for existing stacks using the AWS API (UpdateTerminationProtection command)."
+  title       = "Cloudformation stacks termination protection should be enabled"
+  description = "Ensure that Amazon CloudFormation stacks have termination protection feature enabled in order to protect them from being accidentally deleted. The safety feature can be enabled when you create the CloudFormation stack or for existing stacks using the AWS API (UpdateTerminationProtection command)."
   query       = query.cloudformation_stack_termination_protection_enabled
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {

@@ -77,7 +77,7 @@ control "ec2_instance_not_publicly_accessible" {
 }
 
 control "ec2_instance_no_high_level_finding_in_inspector_scan" {
-  title       = "EC2 Instances high level findings should not be there in inspector scans"
+  title       = "EC2 instances high level findings should not be there in inspector scans"
   description = "Amazon Inspector scans operating system packages installed on your Amazon EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
   query       = query.ec2_instance_no_high_level_finding_in_inspector_scan
 

@@ -5,7 +5,7 @@ locals {
 }
 
 control "ecs_cluster_encryption_at_rest_enabled" {
-  title       = "ECS Cluster encryption at rest should be enabled"
+  title       = "ECS cluster encryption at rest should be enabled"
   description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
   query       = query.ecs_cluster_encryption_at_rest_enabled
 
@@ -15,7 +15,7 @@ control "ecs_cluster_encryption_at_rest_enabled" {
 }
 
 control "ecs_cluster_instance_in_vpc" {
-  title       = "ECS Cluster instances should be in a VPC"
+  title       = "ECS cluster instances should be in a VPC"
   description = "Deploy AWS ECS cluster instance within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a instance and other services within the Amazon VPC."
   query       = query.ecs_cluster_instance_in_vpc
 
@@ -25,8 +25,8 @@ control "ecs_cluster_instance_in_vpc" {
 }
 
 control "ecs_cluster_no_registered_container_instance" {
-  title       = "At least one instance should be registered with ECS Cluster"
-  description = "This control ensures that at least one container instance is  registered with an ECS cluster."
+  title       = "At least one instance should be registered with ECS cluster"
+  description = "This control ensures that at least one container instance is registered with an ECS cluster."
   query       = query.ecs_cluster_no_registered_container_instance
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
@@ -35,7 +35,7 @@ control "ecs_cluster_no_registered_container_instance" {
 }
 
 control "ecs_service_load_balancer_attached" {
-  title       = "ECS service should be attached to load balancer"
+  title       = "ECS service should be attached to a load balancer"
   description = "ECS service can be configured to use Elastic Load Balancing to distribute traffic evenly across the tasks in your service. It is recommend to use Application Load Balancers for your Amazon ECS services so that you can take advantage of these latest features, unless your service requires a feature that is only available with Network Load Balancers or Classic Load Balancers."
   query       = query.ecs_service_load_balancer_attached
 
