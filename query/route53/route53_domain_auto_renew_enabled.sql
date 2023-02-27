@@ -2,11 +2,12 @@ select
   -- Required Columns
   arn as resource,
   case
-    when auto_renew then 'alarm'
-    else 'ok'
+    when auto_renew then 'ok'
+    else 'alarm'
   end as status,
   case
-    when auto_renew then title || ' auto renew enabled.' else title || ' auto renew disabled.'
+    when auto_renew then title || ' auto renew enabled.'
+    else title || ' auto renew disabled.'
   end as reason,
   -- Additional Dimensions
   region,

@@ -6,7 +6,7 @@ with severity_list as (
     aws_inspector_finding,
     jsonb_array_elements(attributes) as a
   where
-    severity = 'Medium'
+    severity = 'High'
     and asset_type = 'ec2-instance'
     and a ->> 'Key' = 'INSTANCE_ID'
   group by

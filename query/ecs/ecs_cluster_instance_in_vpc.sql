@@ -13,7 +13,5 @@ select
   c.region,
   c.account_id
 from
-  aws_ec2_instance as i,
   aws_ecs_container_instance as c
-where
-  c.ec2_instance_id = i.instance_id;
+  left join aws_ec2_instance as i on c.ec2_instance_id = i.instance_id;
