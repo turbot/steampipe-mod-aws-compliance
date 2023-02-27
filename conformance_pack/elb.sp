@@ -194,6 +194,26 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
   })
 }
 
+control "elb_application_lb_listener_certificate_expire_7_days" {
+  title       = "ELB application load balancer secured listener certificate should not expire within next 7 days"
+  description = "nil."
+  query       = query.elb_application_lb_listener_certificate_expire_7_days
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "elb_application_lb_listener_certificate_expire_30_days" {
+  title       = "ELB application load balancer secured listener certificate should not expire within next 30 days"
+  description = "nil."
+  query       = query.elb_application_lb_listener_certificate_expire_30_days
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "elb_application_lb_with_outbound_rule" {
   title       = "ELB application load balancers should have at least one outbound rule"
   description = "Ensure application load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
@@ -224,3 +244,12 @@ control "elb_classic_lb_with_outbound_rule" {
   })
 }
 
+control "elb_tls_listener_protocol_version" {
+  title       = "ELB SSL/TLS protocol version should be checked"
+  description = "nil."
+  query       = query.elb_tls_listener_protocol_version
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    other_checks = "true"
+  })
+}

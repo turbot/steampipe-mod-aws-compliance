@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "ecs_cluster_encryption_at_rest_enabled" {
+  title       = "ECS Cluster encryption at rest should be enabled"
+  description = "nil."
+  query       = query.ecs_cluster_encryption_at_rest_enabled
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "ecs_cluster_instance_in_vpc" {
   title       = "ECS Cluster instances should be in a VPC"
   description = "Deploy AWS ECS cluster instance within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a instance and other services within the Amazon VPC."

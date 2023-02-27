@@ -24,3 +24,13 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
     other_checks = "true"
   })
 }
+
+control "cloudfront_distribution_use_secure_cipher" {
+  title       = "CloudFront distribution should use secure SSL cipher"
+  description = "nil."
+  query       = query.cloudfront_distribution_use_secure_cipher
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    other_checks = "true"
+  })
+}
