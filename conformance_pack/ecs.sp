@@ -6,7 +6,7 @@ locals {
 
 control "ecs_cluster_encryption_at_rest_enabled" {
   title       = "ECS Cluster encryption at rest should be enabled"
-  description = "nil."
+  description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
   query       = query.ecs_cluster_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_ecs_common_tags, {

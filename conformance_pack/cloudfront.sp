@@ -27,7 +27,7 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
 
 control "cloudfront_distribution_use_secure_cipher" {
   title       = "CloudFront distribution should use secure SSL cipher"
-  description = "nil."
+  description = "Ensure that CloudFront distributions do not have any insecure SSL ciphers. Using insecure and deprecated ciphers could make the SSL connection between the CloudFront and the origins vulnerable to exploits."
   query       = query.cloudfront_distribution_use_secure_cipher
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
