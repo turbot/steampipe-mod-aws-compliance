@@ -37,14 +37,14 @@ select
   b.arn as resource,
   case
     when (block_public_acls or a.name is null) and not bucket_policy_is_public then 'ok'
-    when bucket_policy_is_public and block_public_policy then 'ok'
-    when bucket_policy_is_public and p.name is null then 'ok'
+    when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then 'ok'
+    when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then 'ok'
     else 'alarm'
   end status,
   case
     when (block_public_acls or a.name is null) and not bucket_policy_is_public then b.title || ' not publicly readable.'
-    when bucket_policy_is_public and block_public_policy then b.title || ' not publicly readable.'
-    when bucket_policy_is_public and p.name is null then  b.title || ' not publicly readable.'
+    when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly readable.'
+    when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then  b.title || ' not publicly readable.'
     else b.title || ' publicly readable.'
   end reason,
   -- Additional Dimensions
