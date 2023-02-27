@@ -17,7 +17,7 @@ select
   case
     when c.registered_container_instances_count = 0 then 'skip'
     when v.cluster_arn is not null then 'alarm'
-    else 'alarm'
+    else 'ok'
   end as status,
   case
     when c.registered_container_instances_count = 0 then title || ' has no container instance registered.'
