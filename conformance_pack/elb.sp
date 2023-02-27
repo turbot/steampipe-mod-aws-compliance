@@ -196,7 +196,7 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
 
 control "elb_application_lb_listener_certificate_expire_7_days" {
   title       = "ELB application load balancer secured listener certificate should not expire within next 7 days"
-  description = "nil."
+  description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 7 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_7_days
 
   tags = merge(local.conformance_pack_elb_common_tags, {
@@ -206,7 +206,7 @@ control "elb_application_lb_listener_certificate_expire_7_days" {
 
 control "elb_application_lb_listener_certificate_expire_30_days" {
   title       = "ELB application load balancer secured listener certificate should not expire within next 30 days"
-  description = "nil."
+  description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 30 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_30_days
 
   tags = merge(local.conformance_pack_elb_common_tags, {
