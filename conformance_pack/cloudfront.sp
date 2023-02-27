@@ -26,8 +26,8 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
 }
 
 control "cloudfront_distribution_logging_enabled" {
-  title       = "CloudFront accesslogs enabled"
-  description = "This control checks if Amazon CloudFront distributions are configured to capture information from Amazon Simple Storage Service (Amazon S3) server access logs. This rule is NON_COMPLIANT if a CloudFront distribution does not have logging configured."
+  title       = "CloudFront distributions access logs should be enabled"
+  description = "This control checks if Amazon CloudFront distributions are configured to capture information from Amazon Simple Storage Service (Amazon S3) server access logs. This rule is non compliant if a CloudFront distribution does not have logging configured."
   query       = query.cloudfront_distribution_logging_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {

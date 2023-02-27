@@ -494,8 +494,8 @@ control "iam_user_with_administrator_access_mfa_enabled" {
 }
 
 control "iam_managed_policy_attached_to_role" {
-  title       = "IAM AWS managed policies attached to IAM role"
-  description = "This control checks if all AWS managed policies specified in the list of managed policies are attached to the AWS Identity and Access Management (IAM) role. The rule is NON_COMPLIANT if an AWS managed policy is not attached to the IAM role."
+  title       = "IAM AWS managed policies should be attached to IAM role"
+  description = "This control checks if all AWS managed policies specified in the list of managed policies are attached to the AWS Identity and Access Management (IAM) role. The rule is non compliant if an AWS managed policy is not attached to the IAM role."
   query       = query.iam_managed_policy_attached_to_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {

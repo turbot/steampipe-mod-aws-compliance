@@ -221,7 +221,7 @@ control "rds_db_instance_iam_authentication_enabled" {
 
 control "rds_db_cluster_iam_authentication_enabled" {
   title       = "IAM authentication should be configured for RDS clusters"
-  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an RDS Cluster does not have IAM authentication enabled."
+  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is non compliant if an RDS Cluster does not have IAM authentication enabled."
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -266,7 +266,7 @@ control "rds_db_instance_protected_by_backup_plan" {
 
 control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   title       = "RDS DB instance automatic minor version upgrade should be enabled"
-  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of 'autoMinorVersionUpgrade' is false."
+  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is non compliant if the value of 'autoMinorVersionUpgrade' is false."
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {

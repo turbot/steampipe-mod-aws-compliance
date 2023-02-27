@@ -41,8 +41,8 @@ control "codebuild_project_source_repo_oauth_configured" {
 }
 
 control "codebuild_project_logging_enabled" {
-  title       = "CodeBuild project logging enabled"
-  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is NON_COMPLIANT if the status of all present log configurations is set to 'DISABLED'."
+  title       = "CodeBuild project logging should beenabled"
+  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
@@ -52,7 +52,7 @@ control "codebuild_project_logging_enabled" {
 
 control "codebuild_project_environment_privileged_mode_disabled" {
   title       = "CodeBuild project environment privileged mode should be disabled"
-  description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is NON_COMPLIANT for a CodeBuild project if ‘privilegedMode’ is set to ‘true’."
+  description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is non compliant for a CodeBuild project if ‘privilegedMode’ is set to ‘true’."
   query       = query.codebuild_project_environment_privileged_mode_disabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
@@ -62,7 +62,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
 control "codebuild_project_artifact_encryption_enabled" {
   title       = "CodeBuild project artifact encryption should be enabled"
-  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is NON_COMPLIANT if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
