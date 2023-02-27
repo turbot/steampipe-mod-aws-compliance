@@ -22,7 +22,7 @@ control "iam_group_not_empty" {
   query       = query.iam_group_not_empty
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -41,7 +41,7 @@ control "iam_policy_no_star_star" {
   query       = query.iam_policy_custom_no_star_star
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -64,7 +64,7 @@ control "iam_root_user_no_access_keys" {
   query       = query.iam_root_user_no_access_keys
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -86,6 +86,7 @@ control "iam_root_user_hardware_mfa_enabled" {
   query       = query.iam_root_user_hardware_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -107,6 +108,7 @@ control "iam_root_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -147,6 +149,7 @@ control "iam_user_console_access_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -187,7 +190,7 @@ control "iam_user_no_inline_attached_policies" {
   query       = query.iam_user_no_inline_attached_policies
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -231,7 +234,7 @@ control "iam_user_in_group" {
   query       = query.iam_user_in_group
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -251,7 +254,7 @@ control "iam_group_user_role_no_inline_policies" {
   query       = query.iam_group_user_role_no_inline_policies
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -282,6 +285,7 @@ control "iam_account_password_policy_min_length_14" {
   query       = query.iam_account_password_policy_min_length_14
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
@@ -382,7 +386,7 @@ control "iam_all_policy_no_service_wild_card" {
   query       = query.iam_policy_custom_no_service_wildcard
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -423,8 +427,9 @@ control "account_part_of_organizations" {
   query       = query.account_part_of_organizations
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_800_53_rev_5  = "true"
+    cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
+    nist_800_53_rev_5   = "true"
   })
 }
 
@@ -494,7 +499,7 @@ control "iam_managed_policy_attached_to_role" {
   query       = query.iam_managed_policy_attached_to_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis = "true"
+    cis_controls_v8_ig1 = "true"
   })
 }
 
@@ -504,5 +509,6 @@ control "iam_policy_unused" {
   query       = query.iam_policy_unused
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1 = "true"
   })
 }

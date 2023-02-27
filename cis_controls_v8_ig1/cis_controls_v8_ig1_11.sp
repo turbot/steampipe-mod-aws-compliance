@@ -15,17 +15,17 @@ benchmark "cis_controls_v8_ig1_11_2" {
   description = "Perform automated backups of in-scope enterprise assets. Run backups weekly, or more frequently, based on the sensitivity of the data."
   children = [
     control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_volume_in_backup_plan,
     control.ec2_instance_ebs_optimized,
-    control.dynamodb_table_point_in_time_recovery_enabled,
-    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.efs_file_system_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
-    control.s3_bucket_versioning_enabled,
     control.redshift_cluster_maintenance_settings_check,
-    control.s3_bucket_cross_region_replication_enabled
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags
@@ -37,7 +37,7 @@ benchmark "cis_controls_v8_ig1_11_3" {
   children = [
     control.ebs_volume_encryption_at_rest_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.rds_db_instance_encryption_at_rest_enabled
+    control.rds_db_instance_encryption_at_rest_enabled,
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags
@@ -48,17 +48,17 @@ benchmark "cis_controls_v8_ig1_11_4" {
   description = "Establish and maintain an isolated instance of recovery data. Example implementations include, version controlling backup destinations through offline, cloud, or off-site systems or services."
   children = [
     control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_volume_in_backup_plan,
     control.ec2_instance_ebs_optimized,
-    control.dynamodb_table_point_in_time_recovery_enabled,
-    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.efs_file_system_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
-    control.s3_bucket_versioning_enabled,
     control.redshift_cluster_maintenance_settings_check,
-    control.s3_bucket_cross_region_replication_enabled
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags

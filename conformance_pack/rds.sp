@@ -10,7 +10,7 @@ control "rds_db_instance_backup_enabled" {
   query       = query.rds_db_instance_backup_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -33,7 +33,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   query       = query.rds_db_instance_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -74,7 +74,7 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
-    cis                         = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -117,7 +117,7 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower = "true"
-    cis                         = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -138,7 +138,7 @@ control "rds_db_instance_logging_enabled" {
   query       = query.rds_db_instance_logging_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -159,7 +159,7 @@ control "rds_db_instance_in_backup_plan" {
   query       = query.rds_db_instance_in_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis                   = "true"
+    cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     gdpr                  = "true"

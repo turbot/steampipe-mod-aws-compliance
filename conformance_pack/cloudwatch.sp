@@ -50,7 +50,7 @@ control "cloudwatch_log_group_retention_period_365" {
   query       = query.cloudwatch_log_group_retention_period_365
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"

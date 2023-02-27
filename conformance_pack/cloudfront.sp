@@ -31,6 +31,6 @@ control "cloudfront_distribution_logging_enabled" {
   query       = query.cloudfront_distribution_logging_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    cis = "true"
+    cis_controls_v8_ig1 = "true"
   })
 }

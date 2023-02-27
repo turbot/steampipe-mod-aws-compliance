@@ -31,7 +31,7 @@ control "redshift_cluster_encryption_logging_enabled" {
   query       = query.redshift_cluster_encryption_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -54,7 +54,7 @@ control "redshift_cluster_prohibit_public_access" {
   query       = query.redshift_cluster_prohibit_public_access
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -75,7 +75,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   query       = query.redshift_cluster_automatic_snapshots_min_7_days
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -114,7 +114,7 @@ control "redshift_cluster_maintenance_settings_check" {
   query       = query.redshift_cluster_maintenance_settings_check
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis                   = "true"
+    cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_800_53_rev_5     = "true"

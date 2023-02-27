@@ -29,17 +29,17 @@ control "efs_file_system_in_backup_plan" {
   query       = query.efs_file_system_automatic_backups_enabled
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    cis                = "true"
-    ffiec              = "true"
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
-    hipaa              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_4  = "true"
-    nist_800_53_rev_5  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
-    soc_2              = "true"
+    cis_controls_v8_ig1 = "true"
+    ffiec               = "true"
+    gxp_21_cfr_part_11  = "true"
+    gxp_eu_annex_11     = "true"
+    hipaa               = "true"
+    nist_800_171_rev_2  = "true"
+    nist_800_53_rev_4   = "true"
+    nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
+    rbi_cyber_security  = "true"
+    soc_2               = "true"
   })
 }
 

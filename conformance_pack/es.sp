@@ -31,7 +31,7 @@ control "es_domain_in_vpc" {
   query       = query.es_domain_in_vpc
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -72,7 +72,7 @@ control "es_domain_logs_to_cloudwatch" {
   query       = query.es_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

@@ -1,5 +1,5 @@
 benchmark "cis_controls_v8_ig1_13" {
-  title       = "13 Data Recovery"
+  title       = "13 Network Monitoring and Defense"
   description = "Operate processes and tooling to establish and maintain comprehensive network monitoring and defense against security threats across the enterprise’s network infrastructure and user base."
   children = [
     benchmark.cis_controls_v8_ig1_13_1,
@@ -13,8 +13,8 @@ benchmark "cis_controls_v8_ig1_13" {
 benchmark "cis_controls_v8_ig1_13_1" {
   title       = "13.1 - Perform Application Layer Filtering"
   children = [
-    control.guardduty_enabled,
     control.apigateway_stage_use_waf_web_acl,
+    control.guardduty_enabled,
     control.securityhub_enabled
   ]
 

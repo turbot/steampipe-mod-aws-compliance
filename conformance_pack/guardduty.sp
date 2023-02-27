@@ -10,7 +10,7 @@ control "guardduty_enabled" {
   query       = query.guardduty_enabled
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

@@ -1,7 +1,7 @@
 locals {
   cis_controls_v8_ig1_common_tags = merge(local.aws_compliance_common_tags, {
-    cis         = "true"
-    cis_version = "v8"
+    cis_controls_v8_ig1 = "true"
+    type                = "Benchmark"
   })
 }
 
@@ -11,7 +11,6 @@ benchmark "cis_controls_v8_ig1" {
   documentation = file("./cis_controls_v8_ig1/docs/cis_overview.md")
   children = [
     benchmark.cis_controls_v8_ig1_1,
-    benchmark.cis_controls_v8_ig1_2,
     benchmark.cis_controls_v8_ig1_3,
     benchmark.cis_controls_v8_ig1_4,
     benchmark.cis_controls_v8_ig1_5,

@@ -10,6 +10,7 @@ control "autoscaling_group_with_lb_use_health_check" {
   query       = query.autoscaling_group_with_lb_use_health_check
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -27,7 +28,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
   query       = query.autoscaling_launch_config_public_ip_disabled
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

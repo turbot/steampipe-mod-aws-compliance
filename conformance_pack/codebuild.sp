@@ -10,7 +10,7 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -28,7 +28,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis                    = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -46,7 +46,7 @@ control "codebuild_project_logging_enabled" {
   query       = query.codebuild_project_logging_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis = "true"
+    cis_controls_v8_ig1 = "true"
   })
 }
 
@@ -56,8 +56,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
   query       = query.codebuild_project_environment_privileged_mode_disabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis = "true"
-
+    cis_controls_v8_ig1 = "true"
   })
 }
 
@@ -67,6 +66,6 @@ control "codebuild_project_artifact_encryption_enabled" {
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis = "true"
+    cis_controls_v8_ig1 = "true"
   })
 }

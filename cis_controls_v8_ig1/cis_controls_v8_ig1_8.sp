@@ -24,19 +24,18 @@ benchmark "cis_controls_v8_ig1_8_2" {
   description = "Collect audit logs. Ensure that logging, per the enterprise’s audit log management process, has been enabled across enterprise assets."
   children = [
     control.apigateway_stage_logging_enabled,
-    control.cloudtrail_multi_region_trail_enabled,
     control.cloudfront_distribution_logging_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
-    control.vpc_flow_logs_enabled,
     control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
-    control.s3_bucket_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    # control.WAF_CLASSIC_LOGGING_ENABLED
-    control.wafv2_web_acl_logging_enabled
+    control.s3_bucket_logging_enabled,
+    control.vpc_flow_logs_enabled,
+    control.wafv2_web_acl_logging_enabled,
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags
