@@ -34,3 +34,13 @@ control "cloudfront_distribution_use_secure_cipher" {
     other_checks = "true"
   })
 }
+
+control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
+  title       = "CloudFront distributions should encrypt traffic to non S3 origins"
+  description = "This control ensures that conection between cloudfront and oriign server is encrypted. It is recommended to enforce HTTPS-only traffic between a CloudFront distribution and the origin."
+  query       = query.cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    other_checks = "true"
+  })
+}

@@ -50,7 +50,7 @@ control "codebuild_project_source_repo_oauth_configured" {
 
 control "codebuild_project_with_user_controlled_buildspec" {
   title       = "CodeBuild project should not use an user controlled buildspec"
-  description = "nil."
+  description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
   query       = query.codebuild_project_with_user_controlled_buildspec
 
   tags = merge(local.conformance_pack_ecs_common_tags, {

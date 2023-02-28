@@ -5,7 +5,7 @@ locals {
 }
 
 control "ecs_cluster_encryption_at_rest_enabled" {
-  title       = "ECS cluster encryption at rest should be enabled"
+  title       = "ECS clusters encryption at rest should be enabled"
   description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
   query       = query.ecs_cluster_encryption_at_rest_enabled
 

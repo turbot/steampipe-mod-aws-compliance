@@ -246,7 +246,7 @@ control "elb_classic_lb_with_outbound_rule" {
 
 control "elb_tls_listener_protocol_version" {
   title       = "ELB listeners SSL/TLS protocol version should be checked"
-  description = "nil."
+  description = "Using insecure ciphers for your ELB Predefined or Custom Security Policy, could make the SSL connection between the client and the load balancer vulnerable to exploits. TLS 1.0 was recommended to be disabled by PCI Council after June 30, 2016."
   query       = query.elb_tls_listener_protocol_version
 
   tags = merge(local.conformance_pack_elb_common_tags, {

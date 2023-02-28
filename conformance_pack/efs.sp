@@ -61,7 +61,7 @@ control "efs_file_system_protected_by_backup_plan" {
 
 control "efs_file_system_restrict_public_access" {
   title       = "EFS file systems should restrict public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring AWS EFS file systems cannot be publicly accessed."
+  description = "Manage access to resources in the AWS Cloud by ensuring EFS file systems cannot be publicly accessed."
   query       = query.efs_file_system_restrict_public_access
 
   tags = merge(local.conformance_pack_efs_common_tags, {
