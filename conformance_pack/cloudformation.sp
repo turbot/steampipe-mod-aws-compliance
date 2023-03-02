@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "cloudformation_stack_drift_detection_check" {
+  title       = "CloudFormation stacks differ from the expected configuration"
+  description = "Ensure if the actual configuration of a Cloud Formation stack differs, or has drifted, from the expected configuration, a stack is considered to have drifted if one or more of its resources differ from their expected configuration."
+  query       = query.cloudformation_stack_drift_detection_check
+
+  tags = merge(local.conformance_pack_cloudformation_common_tags, {
+    audit_manager_pci_v321_requirement_1 = "true"
+  })
+}
+
 control "cloudformation_stack_output_no_secrets" {
   title       = "CloudFormation stacks outputs should not have any secrets"
   description = "Ensure CloudFormation stacks outputs do not contain secrets like user names, passwords, and tokens. It is recommended to remove secrets since outputs cannot be encrypted resulting in any entity with basic read-metadata-only and access to CloudFormation outputs having access to these secrets."

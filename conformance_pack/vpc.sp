@@ -32,12 +32,23 @@ control "vpc_igw_attached_to_authorized_vpc" {
   query       = query.vpc_igw_attached_to_authorized_vpc
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    hipaa              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+  })
+}
+
+control "vpc_network_acl_remote_administration" {
+  title       = "Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
+  description = "This control checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule fails if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
+  query       = query.vpc_network_acl_remote_administration
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    audit_manager_pci_v321_requirement_1 = "true"
   })
 }
 
@@ -47,17 +58,18 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   query       = query.vpc_security_group_restrict_ingress_tcp_udp_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -88,19 +100,20 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   query       = query.vpc_security_group_restrict_ingress_ssh_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    audit_manager_control_tower = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_control_tower          = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 
@@ -110,16 +123,17 @@ control "vpc_default_security_group_restricts_all_traffic" {
   query       = query.vpc_default_security_group_restricts_all_traffic
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -187,14 +201,15 @@ control "vpc_route_table_restrict_public_access_to_igw" {
   query       = query.vpc_route_table_restrict_public_access_to_igw
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_5                    = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -254,7 +269,8 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
   query       = query.vpc_endpoint_service_acceptance_required_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    other_checks                         = "true"
   })
 }
 

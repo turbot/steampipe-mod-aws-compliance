@@ -71,19 +71,20 @@ control "rds_db_instance_prohibit_public_access" {
   query       = query.rds_db_instance_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_control_tower          = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 
@@ -113,18 +114,19 @@ control "rds_db_snapshot_prohibit_public_access" {
   query       = query.rds_db_snapshot_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    rbi_cyber_security          = "true"
+    audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_control_tower          = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
