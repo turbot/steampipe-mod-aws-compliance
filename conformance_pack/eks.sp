@@ -22,6 +22,7 @@ control "eks_cluster_endpoint_restrict_public_access" {
 
   tags = merge(local.conformance_pack_eks_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     nist_800_171_rev_2                   = "true"
     nist_csf                             = "true"
   })

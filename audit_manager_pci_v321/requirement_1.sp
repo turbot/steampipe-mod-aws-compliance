@@ -252,7 +252,6 @@ benchmark "audit_manager_pci_v321_requirement_1_3" {
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.eks_cluster_endpoint_restrict_public_access,
     benchmark.audit_manager_pci_v321_requirement_1_3_1,
-    // benchmark.audit_manager_pci_v321_requirement_1_3_1,
     benchmark.audit_manager_pci_v321_requirement_1_3_2,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
@@ -261,7 +260,7 @@ benchmark "audit_manager_pci_v321_requirement_1_3" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_1_3_1" {
-  title       = "1.3.1 Examine firewall and router configurations to verify that a DMZ is implemented to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports"
+  title       = "1.3.1 Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports"
   description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
 
   children = [
@@ -275,7 +274,6 @@ benchmark "audit_manager_pci_v321_requirement_1_3_1" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.autoscaling_launch_config_public_ip_disabled,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.lambda_function_in_vpc,
   ]
@@ -284,31 +282,8 @@ benchmark "audit_manager_pci_v321_requirement_1_3_1" {
   })
 }
 
-// benchmark "audit_manager_pci_v321_requirement_1_3_1" {
-//   title       = "1.3.1 Implement a DMZ to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports"
-//   description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
-
-//   children = [
-//     control.dms_replication_instance_not_publicly_accessible,
-//     control.ebs_snapshot_not_publicly_restorable,
-//     control.es_domain_in_vpc,
-//     control.lambda_function_restrict_public_access,
-//     control.rds_db_snapshot_prohibit_public_access,
-//     control.rds_db_instance_prohibit_public_access,
-//     control.redshift_cluster_prohibit_public_access,
-//     control.s3_bucket_restrict_public_write_access,
-//     control.s3_public_access_block_bucket_account,
-//     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-//     control.vpc_security_group_restrict_ingress_ssh_all,
-//     control.lambda_function_in_vpc,
-//   ]
-//   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-//     audit_manager_pci_v321_item_id = "1.3.1"
-//   })
-// }
-
 benchmark "audit_manager_pci_v321_requirement_1_3_2" {
-  title       = "1.3.2 Examine firewall and router configurations to verify that inbound Internet traffic is limited to IP addresses within the DMZ"
+  title       = "1.3.2 Limit inbound Internet traffic to IP addresses within the DMZ"
   description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
 
   children = [
@@ -322,13 +297,8 @@ benchmark "audit_manager_pci_v321_requirement_1_3_2" {
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.lambda_function_in_vpc,
-    control.autoscaling_launch_config_public_ip_disabled,
-    control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_igw_attached_to_authorized_vpc,
-    control.vpc_network_acl_remote_administration
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.3.1"
+    audit_manager_pci_v321_item_id = "1.3.2"
   })
 }

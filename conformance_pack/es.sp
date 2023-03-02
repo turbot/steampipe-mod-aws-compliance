@@ -32,6 +32,7 @@ control "es_domain_in_vpc" {
 
   tags = merge(local.conformance_pack_es_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"

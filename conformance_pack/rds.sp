@@ -72,6 +72,7 @@ control "rds_db_instance_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     audit_manager_control_tower          = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
@@ -115,6 +116,7 @@ control "rds_db_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     audit_manager_control_tower          = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
@@ -300,5 +302,25 @@ control "rds_db_instance_ca_certificate_expires_7_days" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "rds_db_instance_no_default_admin_name" {
+  title         = "RDS database instances should use a custom administrator username"
+  description   = "This control checks whether you've changed the administrative username for Amazon Relational Database Service (Amazon RDS) database instances from the default value. The control fails if the administrative username is set to the default value."
+  query         = query.rds_db_instance_no_default_admin_name
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    audit_manager_pci_v321_requirement_2  = "true"
+  })
+}
+
+control "rds_db_cluster_no_default_admin_name" {
+  title         = "RDS database clusters should use a custom administrator username"
+  description   = "This control checks whether an Amazon RDS database cluster has changed the admin username from its default value. This rule will fail if the admin username is set to the default value."
+  query         = query.rds_db_cluster_no_default_admin_name
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    audit_manager_pci_v321_requirement_2  = "true"
   })
 }

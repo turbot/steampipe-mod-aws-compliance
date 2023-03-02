@@ -33,6 +33,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     gxp_21_cfr_part_11                   = "true"
     hipaa                                = "true"
     nist_800_171_rev_2                   = "true"
@@ -270,6 +271,7 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     other_checks                         = "true"
   })
 }
