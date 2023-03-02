@@ -11,6 +11,7 @@ benchmark "audit_manager_pci_v321_requirement_2" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_2_1,
     benchmark.audit_manager_pci_v321_requirement_2_2,
+    benchmark.audit_manager_pci_v321_requirement_2_3,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_2_common_tags
@@ -39,7 +40,7 @@ benchmark "audit_manager_pci_v321_requirement_2_1_b" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
-    audit_manager_pci_v321_item_id = "2_1_b"
+    audit_manager_pci_v321_item_id = "2.1.b"
   })
 }
 
@@ -53,6 +54,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2" {
     control.s3_bucket_cross_region_replication_enabled,
     benchmark.audit_manager_pci_v321_requirement_2_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_2_4,
+    benchmark.audit_manager_pci_v321_requirement_2_2_5,
+    benchmark.audit_manager_pci_v321_requirement_2_2_a,
+    benchmark.audit_manager_pci_v321_requirement_2_2_d
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2"
@@ -99,5 +103,81 @@ benchmark "audit_manager_pci_v321_requirement_2_2_4" {
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.2"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_2_5" {
+  title       = "2.2.5 Remove all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers"
+  description = "Unnecessary functions can provide additional opportunities for malicious individuals to gain access to a system. By removing unnecessary functionality, organizations can focus on securing the functions that are required and reduce the risk that unknown functions will be exploited. Including this in server-hardening standards and processes addresses the specific security implications associated with unnecessary functions (for example, by removing/disabling FTP or the web server if the server will not be performing those functions)."
+
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_2_2_5_b,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.2.5_b"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_2_5_b" {
+  title       = "2.2.5.b. Examine the documentation and security parameters to verify enabled functions are documented and support secure configuration"
+  description = "Unnecessary functions can provide additional opportunities for malicious individuals to gain access to a system. By removing unnecessary functionality, organizations can focus on securing the functions that are required and reduce the risk that unknown functions will be exploited. Including this in server-hardening standards and processes addresses the specific security implications associated with unnecessary functions (for example, by removing/disabling FTP or the web server if the server will not be performing those functions)."
+
+  children = [
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.2.5.b"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_2_a" {
+  title       = "2.2.a Examine the organization's system configuration standards for all types of system components and verify the system configuration standards are consistent with industry- accepted hardening standards"
+  description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
+
+  children = [
+    control.cloudformation_stack_drift_detection_check,
+    control.autoscaling_launch_config_requires_imdsv2,
+    control.redshift_cluster_no_default_admin_name,
+    control.rds_db_instance_no_default_admin_name,
+    control.rds_db_cluster_no_default_admin_name
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.2.a"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_2_d" {
+  title       = "2.2.d Verify that system configuration standards include the following procedures for all types of system components: • Changing of all vendor-supplied defaults and elimination of unnecessary default accounts • Implementing only one primary function per server to prevent functions that require different security levels from co-existing on the same server • Enabling only necessary services, protocols, daemons, etc., as required for the function of the system • Implementing additional security features for any required services, protocols or daemons that are considered to be insecure • Configuring system security parameters to prevent misuse • Removing all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers"
+  description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
+
+  children = [
+    control.cloudformation_stack_drift_detection_check,
+    control.autoscaling_launch_config_requires_imdsv2,
+    control.redshift_cluster_no_default_admin_name,
+    control.rds_db_instance_no_default_admin_name,
+    control.rds_db_cluster_no_default_admin_name
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.2.d"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_3" {
+  title       = "2.3 Encrypt all non-console administrative access using strong cryptography"
+  description = "If non-console (including remote) administration does not use secure authentication and encrypted communications, sensitive administrative or operational level information (like administrator’s IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data. Clear-text protocols (such as HTTP, telnet, etc.) do not encrypt traffic or logon details, making it easy for an eavesdropper to intercept this information."
+
+  children = [
+    control.acm_certificate_expires_30_days,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.cloudfront_distribution_encryption_in_transit_enabled,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.elb_application_lb_redirect_http_request_to_https
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.3"
   })
 }

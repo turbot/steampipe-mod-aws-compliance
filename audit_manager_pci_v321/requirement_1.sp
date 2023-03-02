@@ -53,7 +53,7 @@ benchmark "audit_manager_pci_v321_requirement_1_1_4_c" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.1.4c"
+    audit_manager_pci_v321_item_id = "1.1.4.c"
     audit_manager_pci_v321_requirement_type    = "automated"
   })
 }
@@ -112,7 +112,7 @@ benchmark "audit_manager_pci_v321_requirement_1_2_1_a" {
     control.vpc_network_acl_remote_administration
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.2.1_a"
+    audit_manager_pci_v321_item_id = "1.2.1.a"
   })
 }
 
@@ -142,7 +142,7 @@ benchmark "audit_manager_pci_v321_requirement_1_2_1_b" {
     control.vpc_network_acl_remote_administration
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.2.1_b"
+    audit_manager_pci_v321_item_id = "1.2.1.b"
   })
 }
 
@@ -172,7 +172,7 @@ benchmark "audit_manager_pci_v321_requirement_1_2_1_c" {
     control.vpc_network_acl_remote_administration
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.2.1_c"
+    audit_manager_pci_v321_item_id = "1.2.1.c"
   })
 }
 
@@ -196,7 +196,7 @@ benchmark "audit_manager_pci_v321_requirement_1_2_2_b" {
     control.cloudformation_stack_drift_detection_check
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.2.2_b"
+    audit_manager_pci_v321_item_id = "1.2.2.b"
   })
 }
 
@@ -225,7 +225,7 @@ benchmark "audit_manager_pci_v321_requirement_1_2_3_b" {
     control.vpc_network_acl_remote_administration
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
-    audit_manager_pci_v321_item_id = "1.2.3_b"
+    audit_manager_pci_v321_item_id = "1.2.3.b"
   })
 }
 

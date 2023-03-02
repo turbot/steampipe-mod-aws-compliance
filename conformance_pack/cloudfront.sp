@@ -10,8 +10,9 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    gdpr                                 = "true"
+    hipaa                                = "true"
   })
 }
 

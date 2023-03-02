@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "autoscaling_launch_config_requires_imdsv2" {
+  title         = "Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
+  description   = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
+  query         = query.autoscaling_launch_config_requires_imdsv2
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    audit_manager_pci_v321_requirement_2 = "true"
+  })
+}
+
 control "autoscaling_group_with_lb_use_health_check" {
   title       = "Auto Scaling groups with a load balancer should use health checks"
   description = "The Elastic Load Balancer (ELB) health checks for Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling groups support maintenance of adequate capacity and availability."

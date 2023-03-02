@@ -50,18 +50,19 @@ control "elb_application_lb_redirect_http_request_to_https" {
   query       = query.elb_application_lb_redirect_http_request_to_https
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -90,18 +91,19 @@ control "elb_classic_lb_use_ssl_certificate" {
   query       = query.elb_classic_lb_use_ssl_certificate
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -111,12 +113,13 @@ control "elb_application_lb_drop_http_headers" {
   query       = query.elb_application_lb_drop_http_headers
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    fedramp_low_rev_4  = "true"
-    hipaa              = "true"
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_4  = "true"
-    rbi_cyber_security = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    fedramp_low_rev_4                    = "true"
+    hipaa                                = "true"
+    gdpr                                 = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
@@ -126,17 +129,18 @@ control "elb_classic_lb_use_tls_https_listeners" {
   query       = query.elb_classic_lb_use_tls_https_listeners
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 
