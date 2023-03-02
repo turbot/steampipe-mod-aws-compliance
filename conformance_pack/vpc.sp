@@ -160,10 +160,11 @@ control "vpc_eip_associated" {
   query       = query.vpc_eip_associated
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    nist_800_171_rev_2    = "true"
-    nist_csf              = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    cisa_cyber_essentials                = "true"
+    ffiec                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_csf                             = "true"
   })
 }
 

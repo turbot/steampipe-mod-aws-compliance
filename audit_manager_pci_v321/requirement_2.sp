@@ -12,6 +12,7 @@ benchmark "audit_manager_pci_v321_requirement_2" {
     benchmark.audit_manager_pci_v321_requirement_2_1,
     benchmark.audit_manager_pci_v321_requirement_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_3,
+    benchmark.audit_manager_pci_v321_requirement_2_4,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_2_common_tags
@@ -179,5 +180,19 @@ benchmark "audit_manager_pci_v321_requirement_2_3" {
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.3"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_4" {
+  title       = "2.4 Maintain an inventory of system components that are in scope for PCI DSS."
+  description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
+
+  children = [
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ec2_instance_ssm_managed,
+    control.vpc_eip_associated,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.4"
   })
 }
