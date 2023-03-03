@@ -59,10 +59,10 @@ query "acm_certificate_expires_30_days" {
         when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
         else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
         ' (' || extract(day from not_after - current_date) || ' days).'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      region,
-      account_id
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_acm_certificate;
   EOQ
@@ -80,10 +80,10 @@ query "acm_certificate_no_wildcard_domain_name" {
       case
         when domain_name like '*%' then title || ' uses wildcard domain name.'
         else title || ' does not use wildcard domain name.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      region,
-      account_id
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_acm_certificate;
   EOQ
@@ -103,10 +103,10 @@ query "acm_certificate_transparency_logging_enabled" {
         when type = 'IMPORTED' then title || ' is imported.'
         when certificate_transparency_logging_preference = 'ENABLED' then title || ' transparency logging enabled.'
         else title || ' transparency logging disabled.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      region,
-      account_id
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_acm_certificate;
   EOQ
