@@ -15,3 +15,24 @@ control "dax_cluster_encryption_at_rest_enabled" {
     hipaa           = "true"
   })
 }
+
+query "dax_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when sse_description ->> 'Status' = 'ENABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when sse_description ->> 'Status' = 'ENABLED' then title || ' encryption at rest enabled.'
+        else title || ' encryption at rest not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dax_cluster;
+  EOQ
+}
