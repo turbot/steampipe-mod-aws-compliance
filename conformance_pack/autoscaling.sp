@@ -39,7 +39,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
 control "autoscaling_group_no_suspended_process" {
   title       = "Auto Scaling groups should not have any suspended processes"
   description = "Ensure that there are no Auto Scaling Groups (ASGs) with suspended processes provisioned in your AWS account in order to avoid disrupting the auto scaling workflow."
-  query       = query.autoscaling_group_no_suspended_processe
+  query       = query.autoscaling_group_no_suspended_process
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     other_checks = "true"
