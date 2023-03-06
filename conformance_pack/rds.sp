@@ -300,3 +300,515 @@ control "rds_db_instance_ca_certificate_expires_7_days" {
     other_checks = "true"
   })
 }
+
+query "rds_db_instance_backup_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when backup_retention_period < 1 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when backup_retention_period < 1 then title || ' backups not enabled.'
+        else title || ' backups enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_multiple_az_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when engine ilike any (array ['%aurora-mysql%', '%aurora-postgres%']) then 'skip'
+        when multi_az then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine ilike any (array ['%aurora-mysql%', '%aurora-postgres%']) then title || ' cluster instance.'
+        when multi_az then title || ' Multi-AZ enabled.'
+        else title || ' Multi-AZ disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_prohibit_public_access" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when publicly_accessible then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when publicly_accessible then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_snapshot_encrypted_at_rest" {
+  sql = <<-EOQ
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster_snapshot
+    )
+    union
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_snapshot
+    );
+  EOQ
+}
+
+query "rds_db_snapshot_prohibit_public_access" {
+  sql = <<-EOQ
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when cluster_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
+        else title || ' not publicly restorable.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster_snapshot,
+      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot
+    )
+    union
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when database_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
+        else title || ' not publicly restorable.'
+      end reason,
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_snapshot,
+      jsonb_array_elements(db_snapshot_attributes) as database_snapshot
+    );
+  EOQ
+}
+
+query "rds_db_instance_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      engine,
+      case
+        when engine like any (array ['mariadb', '%mysql']) and enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery'] then 'ok'
+        when engine like any (array['%postgres%']) and enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then 'ok'
+        when engine like 'oracle%' and enabled_cloudwatch_logs_exports ?& array ['alert','audit', 'trace','listener'] then 'ok'
+        when engine = 'sqlserver-ex' and enabled_cloudwatch_logs_exports ?& array ['error'] then 'ok'
+        when engine like 'sqlserver%' and enabled_cloudwatch_logs_exports ?& array ['error','agent'] then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine like any (array ['mariadb', '%mysql']) and enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery']
+        then title || ' ' || engine || ' logging enabled.'
+        when engine like any (array['%postgres%']) and enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade']
+        then title || ' ' || engine || ' logging enabled.'
+        when engine like 'oracle%' and enabled_cloudwatch_logs_exports ?& array ['alert','audit', 'trace','listener']
+        then title || ' ' || engine || ' logging enabled.'
+        when engine = 'sqlserver-ex' and enabled_cloudwatch_logs_exports ?& array ['error']
+        then title || ' ' || engine || ' logging enabled.'
+        when engine like 'sqlserver%' and enabled_cloudwatch_logs_exports ?& array ['error','agent']
+        then title || ' ' || engine || ' logging enabled.'
+        else title || ' logging not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_in_backup_plan" {
+  sql = <<-EOQ
+    with mapped_with_id as (
+      select
+        jsonb_agg(elems) as mapped_ids
+      from
+        aws_backup_selection,
+        jsonb_array_elements(resources) as elems
+      group by backup_plan_id
+    ),
+    mapped_with_tags as (
+      select
+        jsonb_agg(elems ->> 'ConditionKey') as mapped_tags
+      from
+        aws_backup_selection,
+        jsonb_array_elements(list_of_tags) as elems
+      group by backup_plan_id
+    ),
+    backed_up_instance as (
+      select
+        i.db_instance_identifier
+      from
+        aws_rds_db_instance as i
+        join mapped_with_id as t on t.mapped_ids ?| array[i.arn]
+      union
+      select
+        i.db_instance_identifier
+      from
+        aws_rds_db_instance as i
+        join mapped_with_tags as t on t.mapped_tags ?| array(select jsonb_object_keys(tags))
+    )
+    select
+      -- Required Columns
+      i.arn as resource,
+      case
+        when b.db_instance_identifier is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.db_instance_identifier is null then i.title || ' not in backup plan.'
+        else i.title || ' in backup plan.'
+      end as reason,
+      -- Additional Dimensions
+      i.region,
+      i.account_id
+    from
+      aws_rds_db_instance as i
+      left join backed_up_instance as b on i.db_instance_identifier = b.db_instance_identifier;
+  EOQ
+}
+
+query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
+  sql = <<-EOQ
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when enabled_cloudwatch_logs_exports is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enabled_cloudwatch_logs_exports is not null then title || ' enhanced monitoring enabled.'
+        else title || ' enhanced monitoring not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster
+    )
+    union
+    (
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when class = 'db.m1.small' then 'skip'
+        when enhanced_monitoring_resource_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when class = 'db.m1.small' then title || ' enhanced monitoring not supported.'
+        when enhanced_monitoring_resource_arn is not null then title || ' enhanced monitoring enabled.'
+        else title || ' enhanced monitoring not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance
+    );
+  EOQ
+}
+
+query "rds_db_instance_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when engine like any(array['aurora%', 'docdb', 'neptune']) then 'skip'
+        when deletion_protection then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when engine like any(array['aurora%', 'docdb', 'neptune']) then title || ' has engine ' || engine || ' cluster, deletion protection is set at cluster level.'
+        when deletion_protection then title || ' deletion protection enabled.'
+        else title || ' deletion protection not enabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_iam_authentication_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when iam_database_authentication_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_database_authentication_enabled then title || ' IAM authentication enabled.'
+        else title || ' IAM authentication not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_iam_authentication_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when iam_database_authentication_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_database_authentication_enabled then title || ' IAM authentication enabled.'
+        else title || ' IAM authentication not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_cluster as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'Aurora'
+    )
+    select
+      -- Required Columns
+      c.arn as resource,
+      case
+        when c.engine not like '%aurora%' then 'skip'
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.engine not like '%aurora%' then c.title || ' not Aurora resources.'
+        when b.arn is not null then c.title || ' is protected by backup plan.'
+        else c.title || ' is not protected by backup plan.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_rds_db_cluster as c
+      left join backup_protected_cluster as b on c.arn = b.arn;
+  EOQ
+}
+
+query "rds_db_instance_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_rds_isntance as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'RDS'
+    )
+    select
+      -- Required Columns
+      r.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then r.title || ' is protected by backup plan.'
+        else r.title || ' is not protected by backup plan.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_rds_db_instance as r
+      left join backup_protected_rds_isntance as b on r.arn = b.arn;
+  EOQ
+}
+
+query "rds_db_instance_automatic_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
+        else title || ' automatic minor version upgrades not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      db_cluster_identifier as resource,
+      case
+        when deletion_protection then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when deletion_protection then title || ' deletion protection enabled.'
+        else title || ' deletion protection not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_instance_cloudwatch_logs_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when enabled_cloudwatch_logs_exports is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enabled_cloudwatch_logs_exports is not null then title || ' integrated with CloudWatch logs.'
+        else title || ' not integrated with CloudWatch logs.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_ca_certificate_expires_7_days" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when extract(day from (to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS')) - current_timestamp) <= '7' then 'alarm'
+        else 'ok'
+      end as status,
+        title || ' expires ' || to_char(to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS'), 'DD-Mon-YYYY') ||
+        ' (' || extract(day from (to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS')) - current_timestamp) || ' days).'
+      as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
