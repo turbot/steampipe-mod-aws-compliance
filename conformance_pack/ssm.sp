@@ -25,6 +25,16 @@ control "ec2_instance_ssm_managed" {
   })
 }
 
+control "ssm_document_publicly_accessible" {
+  title       = "SSM documents should restrict public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring AWS SSM documents cannot be publicly accessed."
+  query       = query.ssm_document_publicly_accessible
+
+  tags = merge(local.conformance_pack_ssm_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "ssm_managed_instance_compliance_association_compliant" {
   title       = "SSM managed instance associations should be compliant"
   description = "Use AWS Systems Manager Associations to help with inventory of software platforms and applications within an organization."
