@@ -44,3 +44,13 @@ control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
     other_checks = "true"
   })
 }
+
+control "cloudfront_distribution_logging_enabled" {
+  title       = "CloudFront distributions access logs should be enabled"
+  description = "This control checks if Amazon CloudFront distributions are configured to capture information from Amazon Simple Storage Service (Amazon S3) server access logs. This rule is non compliant if a CloudFront distribution does not have logging configured."
+  query       = query.cloudfront_distribution_logging_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    cis_controls_v8_ig1 = "true"
+  })
+}
