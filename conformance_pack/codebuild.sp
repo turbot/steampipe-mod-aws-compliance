@@ -41,7 +41,7 @@ control "codebuild_project_source_repo_oauth_configured" {
 }
 
 control "codebuild_project_logging_enabled" {
-  title       = "CodeBuild project logging should beenabled"
+  title       = "CodeBuild project logging should be enabled"
   description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
 
