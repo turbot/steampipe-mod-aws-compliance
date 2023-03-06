@@ -15,7 +15,7 @@ select
       and ignore_public_acls
       and restrict_public_buckets
       then 'Account level public access blocks enabled.'
-    else 'Account level public access not enabled for: ' ||
+    else 'Account level public access blocks not enabled for: ' ||
       concat_ws(', ',
         case when not (block_public_acls ) then 'block_public_acls' end,
         case when not (block_public_policy) then 'block_public_policy' end,
