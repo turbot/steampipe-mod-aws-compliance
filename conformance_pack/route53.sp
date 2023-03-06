@@ -23,3 +23,47 @@ control "route53_domain_transfer_lock_enabled" {
     other_checks = "true"
   })
 }
+
+query "route53_zone_query_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      id as resource,
+      case
+        when private_zone then 'skip'
+        when query_logging_configs is not null or jsonb_array_length(query_logging_configs) > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when private_zone then title || ' is private hosted zone.'
+        when query_logging_configs is not null or jsonb_array_length(query_logging_configs) > 0 then title || ' query logging to CloudWatch enabled.'
+        else title || ' query logging to CloudWatch disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_route53_zone;
+  EOQ
+}
+
+query "route53_domain_transfer_lock_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when transfer_lock then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when transfer_lock then title || ' transfer lock enabled.'
+        else title || ' transfer lock disabled.'
+        end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_route53_domain;
+  EOQ
+}

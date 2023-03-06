@@ -144,3 +144,234 @@ control "sagemaker_training_job_volume_and_data_encryption_enabled" {
     other_checks = "true"
   })
 }
+
+query "sagemaker_notebook_instance_direct_internet_access_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when direct_internet_access = 'Enabled' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when direct_internet_access = 'Enabled' then title || ' direct internet access enabled.'
+        else title || ' direct internet access disabled.'
+      end reason
+      -- Additional Dimentions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_notebook_instance;
+  EOQ
+}
+
+query "sagemaker_notebook_instance_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when kms_key_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_key_id is null then title || ' encryption at rest enabled'
+        else title || ' encryption at rest not enabled'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_notebook_instance;
+  EOQ
+}
+
+query "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when kms_key_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_key_id is null then title || ' encryption at rest disabled.'
+        else title || ' encryption at rest enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_endpoint_configuration;
+  EOQ
+}
+
+query "sagemaker_model_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when vpc_config is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when vpc_config is not null then title || ' in VPC.'
+        else title || ' not in VPC.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_model;
+  EOQ
+}
+
+query "sagemaker_model_network_isolation_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when enable_network_isolation then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enable_network_isolation then title || ' network isolation enabled.'
+        else title || ' network isolation disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_model;
+  EOQ
+}
+
+query "sagemaker_notebook_instance_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when subnet_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when subnet_id is not null then title || ' in VPC.'
+        else title || ' not in VPC.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_notebook_instance;
+  EOQ
+}
+
+query "sagemaker_notebook_instance_root_access_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when root_access = 'Disabled' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when root_access = 'Disabled' then title || ' root access disabled.'
+        else title || ' root access enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_notebook_instance;
+  EOQ
+}
+
+query "sagemaker_training_job_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when vpc_config is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when vpc_config is not null then title || ' in VPC.'
+        else title || ' not in VPC.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_training_job;
+  EOQ
+}
+
+query "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when enable_inter_container_traffic_encryption then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enable_inter_container_traffic_encryption then title || ' inter-container traffic encryption enabled.'
+        else title || ' inter-container traffic encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_training_job;
+  EOQ
+}
+
+query "sagemaker_training_job_network_isolation_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when enable_network_isolation then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enable_network_isolation then title || ' network isolation enabled.'
+        else title || ' network isolation disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_training_job;
+  EOQ
+}
+
+query "sagemaker_training_job_volume_and_data_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when output_data_config ->> 'KmsKeyId' is null or output_data_config ->> 'KmsKeyId' = '' then title || ' volume and output data encryption disabled.'
+        else title || ' volume and output data encryption enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_training_job;
+  EOQ
+}
