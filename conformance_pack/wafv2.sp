@@ -25,3 +25,24 @@ control "wafv2_web_acl_logging_enabled" {
     soc_2                  = "true"
   })
 }
+
+query "wafv2_web_acl_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when logging_configuration is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when logging_configuration is null then title || ' logging disabled.'
+        else title || ' logging enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafv2_web_acl;
+  EOQ
+}

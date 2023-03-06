@@ -62,3 +62,139 @@ control "secretsmanager_secret_last_changed_90_day" {
     cisa_cyber_essentials = "true"
   })
 }
+
+query "secretsmanager_secret_automatic_rotation_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when rotation_rules is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when rotation_rules is null then title || ' automatic rotation not enabled.'
+        else title || ' automatic rotation enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}
+
+query "secretsmanager_secret_rotated_as_scheduled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when primary_region is not null and region != primary_region then 'skip' -- Replica secret
+        when rotation_rules is null then 'alarm' -- Rotation not enabled
+        when last_rotated_date is null
+          and (date(current_date) - date(created_date)) <= (rotation_rules -> 'AutomaticallyAfterDays')::integer then 'ok' -- New secret not due for rotation yet
+        when last_rotated_date is null
+          and (date(current_date) - date(created_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer then 'alarm' -- New secret overdue for rotation
+        when last_rotated_date is not null
+        and (date(current_date) - date(last_rotated_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer then 'alarm' -- Secret has been rotated before but is overdue for another rotation
+      end as status,
+      case
+        when primary_region is not null and region != primary_region then title || ' is a replica.'
+        when rotation_rules is null then title || ' rotation not enabled.'
+        when last_rotated_date is null
+          and (date(current_date) - date(created_date)) <= (rotation_rules -> 'AutomaticallyAfterDays')::integer then title || ' scheduled for rotation.'
+        when last_rotated_date is null
+        and (date(current_date) - date(created_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer then title || ' not rotated as per schedule.'
+        when last_rotated_date is not null
+          and (date(current_date) - date(last_rotated_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer then title || ' not rotated as per schedule.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}
+
+query "secretsmanager_secret_unused_90_day" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when last_accessed_date is null then 'alarm'
+        when date(current_date) - date(last_accessed_date) <= 90 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when last_accessed_date is null then title || ' never accessed.'
+        else
+          title || ' last used ' || extract(day from current_timestamp - last_accessed_date) || ' day(s) ago.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}
+
+query "secretsmanager_secret_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    with encryption_keys as (
+      select
+        distinct s.arn,
+        k.aliases as alias
+      from
+        aws_secretsmanager_secret as s
+        left join aws_kms_key as k on k.arn = s.kms_key_id
+      where
+        jsonb_array_length(k.aliases) > 0
+    )
+    select
+      -- Required Columns
+      s.arn as resource,
+      case
+        when kms_key_id is null
+          or kms_key_id = 'alias/aws/secretsmanager'
+          or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]'then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_key_id is null then title || ' not encrypted with KMS.'
+        when kms_key_id = 'alias/aws/secretsmanager' or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]' then title || ' encrypted with AWS managed key.'
+        else title || ' encrypted with CMK.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret as s
+      left join encryption_keys as k on s.arn = k.arn;
+
+  EOQ
+}
+
+query "secretsmanager_secret_last_changed_90_day" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when last_changed_date is null then 'alarm'
+        when date(current_date) - date(last_changed_date) <= 90 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when last_changed_date is null then title || ' never rotated.'
+        else
+          title || ' last rotated ' || extract(day from current_timestamp - last_changed_date) || ' day(s) ago.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}

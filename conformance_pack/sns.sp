@@ -34,3 +34,63 @@ control "sns_topic_policy_prohibit_public_access" {
     other_checks = "true"
   })
 }
+
+query "sns_topic_encrypted_at_rest" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      topic_arn as resource,
+    case
+      when kms_master_key_id is null then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when kms_master_key_id is null then title || ' encryption at rest disabled.'
+      else title || ' encryption at rest enabled.'
+    end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sns_topic;
+  EOQ
+}
+
+query "sns_topic_policy_prohibit_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        topic_arn,
+        count(*) as statements_num
+      from
+        aws_sns_topic,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+      group by
+        topic_arn
+    )
+    select
+      -- Required Columns
+      t.topic_arn as resource,
+      case
+        when p.topic_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.topic_arn is null then title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows public access.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_sns_topic as t
+      left join wildcard_action_policies as p on p.topic_arn = t.topic_arn;
+  EOQ
+}

@@ -24,3 +24,62 @@ control "sqs_queue_dead_letter_queue_configured" {
   })
 }
 
+query "sqs_queue_policy_prohibit_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        queue_arn,
+        count(*) as statements_num
+      from
+        aws_sqs_queue,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+      group by
+        queue_arn
+    )
+    select
+      -- Required Columns
+      q.queue_arn as resource,
+      case
+        when p.queue_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.queue_arn is null then title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows public access.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
+    from
+      aws_sqs_queue as q
+      left join wildcard_action_policies as p on q.queue_arn = p.queue_arn;
+  EOQ
+}
+
+query "sqs_queue_dead_letter_queue_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      queue_arn as resource,
+      case
+        when redrive_policy is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when redrive_policy is not null then title || ' configured with dead-letter queue.'
+        else title || ' not configured with dead-letter queue.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sqs_queue;
+  EOQ
+}
