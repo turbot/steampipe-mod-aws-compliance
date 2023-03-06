@@ -10,7 +10,8 @@ benchmark "audit_manager_pci_v321" {
   description = "The Payment Card Industry Data Security Standard (PCI DSS) v3.2.1 is an information security standard for entities that store, process, and/or transmit cardholder data."
   children = [
     benchmark.audit_manager_pci_v321_requirement_1,
-    benchmark.audit_manager_pci_v321_requirement_2
+    benchmark.audit_manager_pci_v321_requirement_2,
+    benchmark.audit_manager_pci_v321_requirement_3,
   ]
   tags = local.audit_manager_pci_v321_common_tags
 }

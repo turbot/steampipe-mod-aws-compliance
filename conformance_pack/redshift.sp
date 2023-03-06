@@ -32,19 +32,20 @@ control "redshift_cluster_encryption_logging_enabled" {
   query       = query.redshift_cluster_encryption_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    audit_manager_pci_v321_requirement_3 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    gxp_eu_annex_11                      = "true"
+    hipaa                                = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 
@@ -76,18 +77,19 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   query       = query.redshift_cluster_automatic_snapshots_min_7_days
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    audit_manager_pci_v321_requirement_3 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    gxp_eu_annex_11                      = "true"
+    hipaa                                = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 

@@ -12,6 +12,7 @@ benchmark "audit_manager_pci_v321_requirement_2" {
     benchmark.audit_manager_pci_v321_requirement_2_1,
     benchmark.audit_manager_pci_v321_requirement_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_3,
+    benchmark.audit_manager_pci_v321_requirement_2_3_addon,
     benchmark.audit_manager_pci_v321_requirement_2_4,
   ]
 
@@ -180,6 +181,21 @@ benchmark "audit_manager_pci_v321_requirement_2_3" {
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.3"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_3_addon" {
+  title       = "2.3 Select a sample of system components and verify that non-console administrative access is encrypted"
+  description = "If non-console (including remote) administration does not use secure authentication and encrypted communications, sensitive administrative or operational level information (like administrator's IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data. Clear-text protocols (such as HTTP, telnet, etc.) do not encrypt traffic or logon details, making it easy for an eavesdropper to intercept this information."
+
+  children = [
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
+    control.elb_application_network_lb_use_ssl_certificate,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.3_addon"
   })
 }
 

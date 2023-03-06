@@ -38,19 +38,20 @@ control "log_group_encryption_at_rest_enabled" {
   query       = query.log_group_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    audit_manager_pci_v321_requirement_3 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    gxp_eu_annex_11                      = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 

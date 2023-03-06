@@ -252,7 +252,13 @@ benchmark "audit_manager_pci_v321_requirement_1_3" {
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.eks_cluster_endpoint_restrict_public_access,
     benchmark.audit_manager_pci_v321_requirement_1_3_1,
+    benchmark.audit_manager_pci_v321_requirement_1_3_1_addon,
     benchmark.audit_manager_pci_v321_requirement_1_3_2,
+    benchmark.audit_manager_pci_v321_requirement_1_3_2_addon,
+    benchmark.audit_manager_pci_v321_requirement_1_3_3,
+    benchmark.audit_manager_pci_v321_requirement_1_3_5,
+    benchmark.audit_manager_pci_v321_requirement_1_3_6,
+    benchmark.audit_manager_pci_v321_requirement_1_3_6_addon,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
     audit_manager_pci_v321_item_id = "1.3"
@@ -282,6 +288,30 @@ benchmark "audit_manager_pci_v321_requirement_1_3_1" {
   })
 }
 
+benchmark "audit_manager_pci_v321_requirement_1_3_1_addon" {
+  title       = "1.3.1 Examine firewall and router configurations to verify that a DMZ is implemented to limit inbound traffic to only system components that provide authorized publicly accessible services, protocols, and ports"
+  description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.es_domain_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.autoscaling_launch_config_public_ip_disabled,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.lambda_function_in_vpc,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.1_addon"
+  })
+}
+
 benchmark "audit_manager_pci_v321_requirement_1_3_2" {
   title       = "1.3.2 Limit inbound Internet traffic to IP addresses within the DMZ"
   description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
@@ -300,5 +330,96 @@ benchmark "audit_manager_pci_v321_requirement_1_3_2" {
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
     audit_manager_pci_v321_item_id = "1.3.2"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_1_3_2_addon" {
+  title       = "1.3.2 Examine firewall and router configurations to verify that inbound Internet traffic is limited to IP addresses within the DMZ"
+  description = "The DMZ is that part of the network that manages connections between the Internet (or other untrusted networks), and services that an organization needs to have available to the public (like a web server). This functionality is intended to prevent malicious individuals from accessing the organization's internal network from the Internet, or from using services, protocols, or ports in an unauthorized manner."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.lambda_function_in_vpc,
+    control.autoscaling_launch_config_public_ip_disabled,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_route_table_restrict_public_access_to_igw,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_network_acl_remote_administration
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.2_addon"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_1_3_3" {
+  title       = "1.3.3 Examine firewall and router configurations to verify that anti-spoofing measures are implemented, for example internal addresses cannot pass from the Internet into the DMZ"
+  description = "Normally a packet contains the IP address of the computer that originally sent it so other computers in the network know where the packet came from. Malicious individuals will often try to spoof (or imitate) the sending IP address so that the target system believes the packet is from a trusted source. Filtering packets coming into the network helps to, among other things, ensure packets are not “spoofed” to look like they are coming from an organization's own internal network."
+
+  children = [
+    control.autoscaling_launch_config_requires_imdsv2,
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.3"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_1_3_5" {
+  title       = "1.3.5 Examine firewall and router configurations to verify that the firewall permits only established connections into the internal network and denies any inbound connections not associated with a previously established session"
+  description = "A firewall that maintains the "state" (or the status) for each connection through the firewall knows whether an apparent response to a previous connection is actually a valid, authorized response (since it retains each connection's status) or is malicious traffic trying to trick the firewall into allowing the connection."
+
+  children = [
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.3"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_1_3_6" {
+  title       = "1.3.6 Examine firewall and router configurations to verify that system components that store cardholder data are on an internal network zone, segregated from the DMZ and other untrusted networks"
+  description = "If cardholder data is located within the DMZ, it is easier for an external attacker to access this information, since there are fewer layers to penetrate. Securing system components that store cardholder data in an internal network zone that is segregated from the DMZ and other untrusted networks by a firewall can prevent unauthorized network traffic from reaching the system component."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.6"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_1_3_6_addon" {
+  title       = "1.3.6 Place system components that store cardholder data (such as a database) in an internal network zone, segregated from the DMZ and other untrusted networks"
+  description = "If cardholder data is located within the DMZ, it is easier for an external attacker to access this information, since there are fewer layers to penetrate. Securing system components that store cardholder data in an internal network zone that is segregated from the DMZ and other untrusted networks by a firewall can prevent unauthorized network traffic from reaching the system component. Note: This requirement is not intended to apply to temporary storage of cardholder data in volatile memory."
+
+  children = [
+    control.dms_replication_instance_not_publicly_accessible,
+    control.es_domain_in_vpc,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_public_access_block_bucket_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
+    audit_manager_pci_v321_item_id = "1.3.6_addon"
   })
 }

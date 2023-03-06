@@ -45,3 +45,12 @@ control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
     other_checks = "true"
   })
 }
+
+control "cloudfront_distribution_no_deprecated_ssl_protocol" {
+  title         = "CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
+  description   = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
+  query         = query.cloudfront_distribution_no_deprecated_ssl_protocol
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    audit_manager_pci_v321_requirement_2 = "true"
+  })
+}
