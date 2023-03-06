@@ -218,20 +218,20 @@ control "vpc_security_group_restrict_ingress_redis_port" {
   })
 }
 
-control "vpc_security_group_restrict_kafka_port" {
+control "vpc_security_group_restrict_ingress_kafka_port" {
   title       = "VPC security groups should restrict ingress Kafka port access from 0.0.0.0/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
-  query       = query.vpc_security_group_restrict_kafka_port
+  query       = query.vpc_security_group_restrict_ingress_kafka_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
   })
 }
 
-control "vpc_security_group_restrict_kibana_port" {
+control "vpc_security_group_restrict_ingress_kibana_port" {
   title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
-  query       = query.vpc_security_group_restrict_kibana_port
+  query       = query.vpc_security_group_restrict_ingress_kibana_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
