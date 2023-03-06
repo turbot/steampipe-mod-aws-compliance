@@ -84,3 +84,133 @@ control "apigateway_rest_api_authorizers_configured" {
     other_checks = "true"
   })
 }
+
+query "apigateway_stage_cache_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || rest_api_id || '/stages/' || name as resource,
+      case
+        when method_settings -> '*/*' ->> 'CachingEnabled' = 'true'
+        and method_settings -> '*/*' ->> 'CacheDataEncrypted' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when method_settings -> '*/*' ->> 'CachingEnabled' = 'true'
+        and method_settings -> '*/*' ->> 'CacheDataEncrypted' = 'true'
+          then title || ' API cache and encryption enabled.'
+        else title || ' API cache and encryption not enabled.'
+      end as reason
+      -- Additional Dimensions
+        ${local.tag_dimensions_sql}
+        ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
+query "apigateway_stage_logging_enabled" {
+  sql = <<-EOQ
+    with all_stages as (
+      select
+        name as stage_name,
+        'arn:' || partition || ':apigateway:' || region || '::/apis/' || rest_api_id || '/stages/' || name as arn,
+        method_settings -> '*/*' ->> 'LoggingLevel' as log_level,
+        title,
+        region,
+        account_id
+      from
+        aws_api_gateway_stage
+      union
+      select
+        stage_name,
+        'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/stages/' || stage_name as arn,
+        default_route_logging_level as log_level,
+        title,
+        region,
+        account_id
+      from
+        aws_api_gatewayv2_stage
+    )
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when log_level is null or log_level = '' or log_level = 'OFF' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when log_level is null or log_level = '' or log_level = 'OFF' then title || ' logging not enabled.'
+        else title || ' logging enabled.'
+      end as reason
+      -- Additional Dimensions
+        ${local.tag_dimensions_sql}
+        ${local.common_dimensions_sql}
+    from
+      all_stages;
+    EOQ
+}
+
+query "apigateway_rest_api_stage_use_ssl_certificate" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when client_certificate_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when client_certificate_id is null then title || ' does not use SSL certificate.'
+        else title || ' uses SSL certificate.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
+query "apigateway_stage_use_waf_web_acl" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when web_acl_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when web_acl_arn is not null then title || ' associated with WAF web ACL.'
+        else title || ' not associated with WAF web ACL.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
+query "apigateway_rest_api_authorizers_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      p.name as resource,
+      case
+        when jsonb_array_length(a.provider_arns) > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
+        else p.name || ' authorizers not configured.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_api_gateway_rest_api as p
+      left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
+  EOQ
+}

@@ -46,3 +46,67 @@ control "autoscaling_group_no_suspended_process" {
   })
 }
 
+query "autoscaling_group_with_lb_use_health_check" {
+  sql = <<-EOQ
+    select
+    -- Required Columns
+    autoscaling_group_arn as resource,
+    case
+      when load_balancer_names is null and target_group_arns is null then 'alarm'
+      when health_check_type != 'ELB' then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when load_balancer_names is null and target_group_arns is null then title || ' not associated with a load balancer.'
+      when health_check_type != 'ELB' then title || ' does not use ELB health check.'
+      else title || ' uses ELB health check.'
+    end as reason
+    -- Additional Dimensions
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+  from
+    aws_ec2_autoscaling_group;
+  EOQ
+}
+
+query "autoscaling_launch_config_public_ip_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      launch_configuration_arn as resource,
+      case
+        when associate_public_ip_address then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when associate_public_ip_address then title || ' public IP enabled.'
+        else title || ' public IP disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+query "autoscaling_group_no_suspended_process" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      autoscaling_group_arn as resource,
+      case
+        when suspended_processes is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when suspended_processes is null then title || ' has no suspended process.'
+        else title || ' has suspended process.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
