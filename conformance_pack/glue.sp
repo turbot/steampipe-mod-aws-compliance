@@ -63,3 +63,137 @@ control "glue_job_s3_encryption_enabled" {
     other_checks = "true"
   })
 }
+
+query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      e.arn as resource,
+      case
+        when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then e.title || ' CloudWatch logs encryption enabled.'
+        else e.title || ' CloudWatch logs encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
+    from
+      aws_glue_dev_endpoint as e
+      left join aws_glue_security_configuration as c on e.security_configuration = c.name;
+  EOQ
+}
+
+query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      e.arn as resource,
+      case
+        when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then e.title || ' job bookmark encryption enabled.'
+        else e.title || ' job bookmark encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
+    from
+      aws_glue_dev_endpoint as e
+      left join aws_glue_security_configuration as c on e.security_configuration = c.name;
+  EOQ
+}
+
+query "glue_dev_endpoint_s3_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      d.arn as resource,
+      case
+        when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then d.title || ' S3 encryption enabled.'
+        else d.title || ' S3 encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+    from
+      aws_glue_dev_endpoint as d
+      left join aws_glue_security_configuration s on d.security_configuration = s.name,
+      jsonb_array_elements(s.s3_encryption) e;
+  EOQ
+}
+
+query "glue_job_cloudwatch_logs_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      j.arn as resource,
+      case
+        when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then j.title || ' CloudWatch logs encryption enabled.'
+        else j.title || ' CloudWatch logs encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
+    from
+      aws_glue_job as j
+      left join aws_glue_security_configuration as c on j.security_configuration = c.name;
+  EOQ
+}
+
+query "glue_job_bookmarks_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      j.arn as resource,
+      case
+        when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then j.title || ' job bookmarks encryption enabled.'
+        else j.title || ' job bookmarks encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
+    from
+      aws_glue_job as j
+      left join aws_glue_security_configuration as c on j.security_configuration = c.name;
+  EOQ
+}
+
+query "glue_job_s3_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      j.arn as resource,
+      case
+        when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then j.title || ' S3 encryption enabled.'
+        else j.title || ' S3 encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
+    from
+      aws_glue_job as j
+      left join aws_glue_security_configuration as s on j.security_configuration = s.name,
+      jsonb_array_elements(s.s3_encryption) e;
+  EOQ
+}

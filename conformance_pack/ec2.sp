@@ -198,3 +198,300 @@ control "ec2_instance_no_launch_wizard_security_group" {
     other_checks = "true"
   })
 }
+
+query "ec2_ebs_default_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      case
+        when not default_ebs_encryption_enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not default_ebs_encryption_enabled then region || ' default EBS encryption disabled.'
+        else region || ' default EBS encryption enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_regional_settings;
+  EOQ
+}
+
+query "ec2_instance_detailed_monitoring_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when monitoring_state = 'enabled' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when monitoring_state = 'enabled' then instance_id || ' detailed monitoring enabled.'
+        else instance_id || ' detailed monitoring disabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when vpc_id is null then title || ' not in VPC.'
+        else title || ' in VPC.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_not_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when public_ip_address is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when public_ip_address is null then instance_id || ' not publicly accessible.'
+        else instance_id || ' publicly accessible.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_stopped_instance_30_days" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when instance_state not in ('stopped', 'stopping') then 'skip'
+        when state_transition_time <= (current_date - interval '30' day) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when instance_state not in ('stopped', 'stopping') then title || ' is in ' || instance_state || ' state.'
+        else title || ' stopped since ' || to_char(state_transition_time , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - state_transition_time) || ' days).'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_ebs_optimized" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when ebs_optimized then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ebs_optimized then title || ' EBS optimization enabled.'
+        else title || ' EBS optimization disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_uses_imdsv2" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when metadata_options ->> 'HttpTokens' = 'optional' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when metadata_options ->> 'HttpTokens' = 'optional' then title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_instance as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'EC2'
+    )
+    select
+      -- Required Columns
+      i.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then i.title || ' is protected by backup plan.'
+        else i.title || ' is not protected by backup plan.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join backup_protected_instance as b on i.arn = b.arn;
+  EOQ
+}
+
+query "ec2_instance_iam_profile_attached" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when iam_instance_profile_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_instance_profile_id is not null then title || ' IAM profile attached.'
+        else title || ' IAM profile not attached.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_publicly_accessible_iam_profile_attached" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when iam_instance_profile_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_instance_profile_id is not null then title || ' IAM profile attached.'
+        else title || ' IAM profile not attached.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance
+    where
+      public_ip_address is not null;
+  EOQ
+}
+
+query "ec2_instance_user_data_no_secrets" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when user_data like any (array ['%pass%', '%secret%','%token%','%key%'])
+          or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when user_data like any (array ['%pass%', '%secret%','%token%','%key%'])
+          or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then instance_id ||' potential secret found in user data.'
+        else instance_id ||  ' no secrets found in user data.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      transit_gateway_arn as resource,
+      case
+        when auto_accept_shared_attachments = 'enable' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when auto_accept_shared_attachments = 'enable' then title || ' automatic shared account attachment enabled.'
+        else title || ' automatic shared account attachment disabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_transit_gateway;
+  EOQ
+}
+
+query "ec2_instance_no_launch_wizard_security_group" {
+  sql = <<-EOQ
+    with launch_wizard_sg_attached_instance as (
+      select
+        distinct arn as arn
+      from
+        aws_ec2_instance,
+        jsonb_array_elements(security_groups) as sg
+      where
+        sg ->> 'GroupName' like 'launch-wizard%'
+    )
+    select
+      -- Required Columns
+      i.arn as resource,
+      case
+        when sg.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when sg.arn is null then i.title || ' not associated with launch-wizard security group.'
+        else i.title || ' associated with launch-wizard security group.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join launch_wizard_sg_attached_instance as sg on i.arn = sg.arn;
+  EOQ
+}

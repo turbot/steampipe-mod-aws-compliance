@@ -19,3 +19,33 @@ control "fsx_file_system_protected_by_backup_plan" {
     soc_2                  = "true"
   })
 }
+
+query "fsx_file_system_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_fsx_file_system as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'FSx'
+    )
+    select
+      -- Required Columns
+      f.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then f.title || ' is protected by backup plan.'
+        else f.title || ' is not protected by backup plan.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+    from
+      aws_fsx_file_system as f
+      left join backup_protected_fsx_file_system as b on f.arn = b.arn;
+  EOQ
+}

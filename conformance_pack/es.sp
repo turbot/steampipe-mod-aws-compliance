@@ -100,3 +100,154 @@ control "es_domain_internal_user_database_enabled" {
     other_checks = "true"
   })
 }
+
+query "es_domain_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when encryption_at_rest_options ->> 'Enabled' = 'false' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
+        else title || ' encryption at rest enabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when vpc_options ->> 'VPCId' is null then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when vpc_options ->> 'VPCId' is null then title || ' not in VPC.'
+        else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_node_to_node_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
+        when not enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
+        when not enabled then title || ' node-to-node encryption disabled.'
+        else title || ' node-to-node encryption enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_logs_to_cloudwatch" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when
+          ( log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          )
+          and
+          ( log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          )
+          and
+          ( log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          )
+          then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when
+          ( log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          )
+          and
+          ( log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          )
+          and
+          ( log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'true'
+            and log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
+          ) then title || ' logging enabled for search , index and error.'
+        else title || ' logging not enabled for all search, index and error.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_cognito_authentication_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when cognito_options ->> 'Enabled' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cognito_options ->> 'Enabled' = 'true' then title || ' Amazon Cognito authentication for Kibana enabled.'
+        else title || ' Amazon Cognito authentication for Kibana disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_internal_user_database_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when advanced_security_options ->> 'InternalUserDatabaseEnabled' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when advanced_security_options ->> 'InternalUserDatabaseEnabled' = 'true' then title || ' internal user database enabled.'
+        else title || ' internal user database disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}

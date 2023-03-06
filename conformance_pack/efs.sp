@@ -79,3 +79,140 @@ control "efs_file_system_enforces_ssl" {
     other_checks = "true"
   })
 }
+
+query "efs_file_system_encrypt_data_at_rest" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system;
+  EOQ
+}
+
+query "efs_file_system_automatic_backups_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when automatic_backups = 'enabled' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
+        else title || ' automatic backups not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system;
+  EOQ
+}
+
+query "efs_file_system_protected_by_backup_plan" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when automatic_backups = 'enabled' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
+        else title || ' automatic backups not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system;
+  EOQ
+}
+
+query "efs_file_system_encrypted_with_cmk" {
+  sql = <<-EOQ
+    with encrypted_fs as (
+      select
+        fs.arn as arn,
+        key_manager
+      from
+        aws_efs_file_system as fs
+        left join aws_kms_key as k on fs.kms_key_id = k.arn
+      where
+        enabled
+    )
+    select
+      -- Required Columns
+      f.arn as resource,
+      case
+        when not encrypted then 'alarm'
+        when encrypted and e.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not encrypted then title || ' not encrypted.'
+        when encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system as f
+      left join encrypted_fs as e on f.arn = e.arn;
+  EOQ
+}
+
+query "efs_file_system_enforces_ssl" {
+  sql = <<-EOQ
+    with ssl_ok as (
+      select
+        distinct name,
+        arn,
+        'ok' as status
+      from
+        aws_efs_file_system,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p,
+        jsonb_array_elements_text(s -> 'Action') as a,
+        jsonb_array_elements_text(
+          s -> 'Condition' -> 'Bool' -> 'aws:securetransport'
+        ) as ssl
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Deny'
+        and ssl :: bool = false
+    )
+    select
+      -- Required Columns
+      f.arn as resource,
+      case
+        when ok.status = 'ok' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
+        else f.title || ' policy does not enforce HTTPS.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+    from
+      aws_efs_file_system as f
+      left join ssl_ok as ok on ok.name = f.name;
+  EOQ
+}

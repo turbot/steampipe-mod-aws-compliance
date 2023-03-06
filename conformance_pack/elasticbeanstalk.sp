@@ -15,3 +15,24 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
     nist_800_53_rev_5      = "true"
   })
 }
+
+query "elastic_beanstalk_enhanced_health_reporting_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      application_name as resource,
+      case
+        when health_status is not null and health is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when health_status is not null and health is not null then application_name || ' enhanced health check enabled.'
+        else application_name || ' enhanced health check disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elastic_beanstalk_environment;
+  EOQ
+}
