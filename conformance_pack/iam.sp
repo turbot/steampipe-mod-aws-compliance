@@ -483,7 +483,7 @@ query "iam_account_password_policy_strong_min_reuse_24" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -505,9 +505,9 @@ query "iam_group_not_empty" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_group;
+      aws_iam_group as i;
   EOQ
 }
 
@@ -545,7 +545,7 @@ query "iam_policy_custom_no_star_star" {
         ' statements that allow action "*" on resource "*".' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
       left join bad_policies as bad on p.arn = bad.arn
@@ -569,9 +569,9 @@ query "iam_root_user_no_access_keys" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_account_summary;
+      aws_iam_account_summary as i;
   EOQ
 }
 
@@ -591,7 +591,7 @@ query "iam_root_user_hardware_mfa_enabled" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
       aws_iam_account_summary as s
       left join aws_iam_virtual_mfa_device on serial_number = 'arn:' || s.partition || ':iam::' || s.account_id || ':mfa/root-account-mfa-device';
@@ -613,9 +613,9 @@ query "iam_root_user_mfa_enabled" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_account_summary;
+      aws_iam_account_summary as i;
   EOQ
 }
 
@@ -633,9 +633,9 @@ query "iam_user_access_key_age_90" {
       as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_access_key;
+      aws_iam_access_key as i;
 
   EOQ
 }
@@ -656,9 +656,9 @@ query "iam_user_console_access_mfa_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_credential_report;
+      aws_iam_credential_report as i;
   EOQ
 }
 
@@ -677,9 +677,9 @@ query "iam_user_mfa_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_credential_report;
+      aws_iam_credential_report as i;
   EOQ
 }
 
@@ -696,9 +696,9 @@ query "iam_user_no_inline_attached_policies" {
         coalesce(jsonb_array_length(attached_policy_arns),0) || ' directly attached policies.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_user;
+      aws_iam_user as i;
   EOQ
 }
 
@@ -752,9 +752,9 @@ query "iam_user_unused_credentials_90" {
       as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_credential_report;
+      aws_iam_credential_report as i;
   EOQ
 }
 
@@ -773,9 +773,9 @@ query "iam_user_in_group" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_user;
+      aws_iam_user as i;
   EOQ
 }
 
@@ -819,9 +819,9 @@ query "iam_group_user_role_no_inline_policies" {
       'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
-      aws_iam_group;
+      aws_iam_group as i;
   EOQ
 }
 
@@ -860,9 +860,9 @@ query "iam_support_role" {
       end  as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
-      support_role_count;
+      support_role_count as s;
   EOQ
 }
 
@@ -881,7 +881,7 @@ query "iam_account_password_policy_min_length_14" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -904,7 +904,7 @@ query "iam_account_password_policy_reuse_24" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -942,7 +942,7 @@ query "iam_account_password_policy_strong" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -965,7 +965,7 @@ query "iam_account_password_policy_one_lowercase_letter" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -988,7 +988,7 @@ query "iam_account_password_policy_one_uppercase_letter" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -1011,7 +1011,7 @@ query "iam_account_password_policy_one_number" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -1033,7 +1033,7 @@ query "iam_account_password_policy_expire_90" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -1056,7 +1056,7 @@ query "iam_account_password_policy_one_symbol" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
@@ -1096,7 +1096,7 @@ query "iam_policy_custom_no_service_wildcard" {
         ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
       left join wildcard_action_policies as w on p.arn = w.arn
@@ -1134,7 +1134,7 @@ query "iam_policy_custom_no_blocked_kms_actions" {
         ' statements that allow blocked actions on AWS KMS keys.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
       left join kms_blocked_actions as w on p.arn = w.arn
@@ -1200,7 +1200,7 @@ query "iam_policy_inline_no_blocked_kms_actions" {
         ' inline policy statement(s) that allow blocked actions on AWS KMS keys.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       iam_resource_types as u
       left join kms_blocked_actions as w on u.arn = w.arn;

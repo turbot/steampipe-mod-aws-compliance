@@ -238,3 +238,57 @@ query "dynamodb_table_in_backup_plan" {
       left join backed_up_table as b on t.name = b.name;
   EOQ
 }
+
+query "dynamodb_table_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when sse_description is not null and sse_description ->> 'SSEType' = 'KMS' then 'ok'
+        when sse_description is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when sse_description is not null and sse_description ->> 'SSEType' = 'KMS'
+          then title || ' encrypted with AWS KMS.'
+        when sse_description is null then title || ' encrypted with DynamoDB managed CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dynamodb_table;
+  EOQ
+}
+
+query "dynamodb_table_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_table as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'DynamoDB'
+    )
+    select
+      -- Required Columns
+      t.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then t.title || ' is protected by backup plan.'
+        else t.title || ' is not protected by backup plan.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_dynamodb_table as t
+      left join backup_protected_table as b on t.arn = b.arn;
+  EOQ
+}

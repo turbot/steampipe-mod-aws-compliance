@@ -149,7 +149,7 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_iam_policy i
     left join policy_with_decrypt_grant d on i.arn = d.arn
@@ -245,7 +245,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "g.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "g.")}
     from
       aws_iam_group g
       left join group_with_decrypt_grant d on g.arn = d.arn;
