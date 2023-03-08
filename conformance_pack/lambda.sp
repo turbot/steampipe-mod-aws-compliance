@@ -27,6 +27,7 @@ control "lambda_function_in_vpc" {
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -47,6 +48,7 @@ control "lambda_function_restrict_public_access" {
   query       = query.lambda_function_restrict_public_access
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
