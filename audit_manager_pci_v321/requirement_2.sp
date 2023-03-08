@@ -12,7 +12,6 @@ benchmark "audit_manager_pci_v321_requirement_2" {
     benchmark.audit_manager_pci_v321_requirement_2_1,
     benchmark.audit_manager_pci_v321_requirement_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_3,
-    benchmark.audit_manager_pci_v321_requirement_2_3_addon,
     benchmark.audit_manager_pci_v321_requirement_2_4,
   ]
 
@@ -72,22 +71,22 @@ benchmark "audit_manager_pci_v321_requirement_2_2_2" {
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
-    control.ec2_instance_not_publicly_accessible,
-    control.es_domain_in_vpc,
-    control.emr_cluster_master_nodes_no_public_ip,
     control.ec2_instance_in_vpc,
-    control.vpc_igw_attached_to_authorized_vpc,
-    control.lambda_function_restrict_public_access,
+    control.ec2_instance_not_publicly_accessible,
+    control.eks_cluster_endpoint_restrict_public_access,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
     control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.s3_public_access_block_bucket_account,
     control.s3_bucket_restrict_public_read_access,
-    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_endpoint_service_acceptance_required_enabled,
-    control.eks_cluster_endpoint_restrict_public_access,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_security_group_restrict_ingress_ssh_all,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.2"
@@ -139,11 +138,11 @@ benchmark "audit_manager_pci_v321_requirement_2_2_a" {
   description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
 
   children = [
-    control.cloudformation_stack_drift_detection_check,
     control.autoscaling_launch_config_requires_imdsv2,
-    control.redshift_cluster_no_default_admin_name,
+    control.cloudformation_stack_drift_detection_check,
+    control.rds_db_cluster_no_default_admin_name,
     control.rds_db_instance_no_default_admin_name,
-    control.rds_db_cluster_no_default_admin_name
+    control.redshift_cluster_no_default_admin_name,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.a"
@@ -155,11 +154,11 @@ benchmark "audit_manager_pci_v321_requirement_2_2_d" {
   description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
 
   children = [
-    control.cloudformation_stack_drift_detection_check,
     control.autoscaling_launch_config_requires_imdsv2,
-    control.redshift_cluster_no_default_admin_name,
+    control.cloudformation_stack_drift_detection_check,
+    control.rds_db_cluster_no_default_admin_name,
     control.rds_db_instance_no_default_admin_name,
-    control.rds_db_cluster_no_default_admin_name
+    control.redshift_cluster_no_default_admin_name,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.d"
@@ -168,34 +167,21 @@ benchmark "audit_manager_pci_v321_requirement_2_2_d" {
 
 benchmark "audit_manager_pci_v321_requirement_2_3" {
   title       = "2.3 Encrypt all non-console administrative access using strong cryptography"
-  description = "If non-console (including remote) administration does not use secure authentication and encrypted communications, sensitive administrative or operational level information (like administrator’s IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data. Clear-text protocols (such as HTTP, telnet, etc.) do not encrypt traffic or logon details, making it easy for an eavesdropper to intercept this information."
+  description = "If non-console (including remote) administration does not use secure authentication and encrypted communications, sensitive administrative or operational level information (like administrator's IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data. Clear-text protocols (such as HTTP, telnet, etc.) do not encrypt traffic or logon details, making it easy for an eavesdropper to intercept this information. Select a sample of system components and verify that non-console administrative access is encrypted."
 
   children = [
     control.acm_certificate_expires_30_days,
-    control.elb_classic_lb_use_ssl_certificate,
-    control.redshift_cluster_encryption_in_transit_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_network_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_lb_redirect_http_request_to_https
+    control.redshift_cluster_encryption_in_transit_enabled,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.3"
-  })
-}
-
-benchmark "audit_manager_pci_v321_requirement_2_3_addon" {
-  title       = "2.3 Select a sample of system components and verify that non-console administrative access is encrypted"
-  description = "If non-console (including remote) administration does not use secure authentication and encrypted communications, sensitive administrative or operational level information (like administrator's IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data. Clear-text protocols (such as HTTP, telnet, etc.) do not encrypt traffic or logon details, making it easy for an eavesdropper to intercept this information."
-
-  children = [
-    control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_lb_redirect_http_request_to_https,
-    control.cloudfront_distribution_no_deprecated_ssl_protocol,
-    control.elb_application_network_lb_use_ssl_certificate,
-  ]
-  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
-    audit_manager_pci_v321_item_id = "2.3_addon"
   })
 }
 

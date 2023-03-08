@@ -102,6 +102,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
     audit_manager_control_tower          = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
