@@ -275,9 +275,10 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    rbi_cyber_security    = "true"
+    audit_manager_pci_v321_requirement_6 = "true"
+    cisa_cyber_essentials                = "true"
+    ffiec                                = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 

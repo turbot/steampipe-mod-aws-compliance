@@ -10,7 +10,8 @@ control "kinesis_stream_server_side_encryption_enabled" {
   query       = query.kinesis_stream_server_side_encryption_enabled
 
   tags = merge(local.conformance_pack_kinesis_common_tags, {
-    other_checks = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
+    other_checks                         = "true"
   })
 }
 

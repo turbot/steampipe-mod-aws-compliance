@@ -53,6 +53,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -94,6 +95,7 @@ control "elb_classic_lb_use_ssl_certificate" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -116,6 +118,7 @@ control "elb_application_lb_drop_http_headers" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
     fedramp_low_rev_4                    = "true"
     hipaa                                = "true"
     gdpr                                 = "true"
@@ -132,6 +135,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -172,6 +176,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_moderate_rev_4               = "true"
     ffiec                                = "true"
@@ -188,7 +193,8 @@ control "elb_listener_use_secure_ssl_cipher" {
   query       = query.elb_listener_use_secure_ssl_cipher
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
+    audit_manager_pci_v321_requirement_4 = "true"
+    other_checks                         = "true"
   })
 }
 

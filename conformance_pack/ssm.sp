@@ -11,6 +11,7 @@ control "ec2_instance_ssm_managed" {
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_6 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -43,6 +44,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_5 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -65,6 +67,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_6 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"

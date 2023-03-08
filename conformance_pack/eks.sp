@@ -48,3 +48,13 @@ control "eks_cluster_no_default_vpc" {
     other_checks = "true"
   })
 }
+
+control "eks_cluster_with_latest_kubernetes_version" {
+  title         = "EKS clusters should run on a supported Kubernetes version"
+  description   = "This control checks whether an Amazon EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
+  query         = query.eks_cluster_with_latest_kubernetes_version
+
+  tags = merge(local.foundational_security_eks_common_tags, {
+    audit_manager_pci_v321_requirement_6 = "true"
+  })
+}

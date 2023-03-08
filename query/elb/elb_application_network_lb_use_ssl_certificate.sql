@@ -1,4 +1,4 @@
- with listeners_without_certificate as (
+with listeners_without_certificate as (
   select
     load_balancer_arn,
     count(*) as count
