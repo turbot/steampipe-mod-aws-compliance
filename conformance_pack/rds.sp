@@ -462,7 +462,7 @@ query "rds_db_snapshot_prohibit_public_access" {
       case
         when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
         else title || ' not publicly restorable.'
-      end reason,
+      end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

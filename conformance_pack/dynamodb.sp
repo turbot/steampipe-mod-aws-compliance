@@ -229,7 +229,7 @@ query "dynamodb_table_in_backup_plan" {
       case
         when b.name is null then t.title || ' not in backup plan.'
         else t.title || ' in backup plan.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
