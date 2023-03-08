@@ -72,7 +72,7 @@ query "cloudfront_distribution_geo_restrictions_enabled" {
       case
         when restrictions -> 'GeoRestriction' ->> 'RestrictionType' = 'none' then title || ' Geo Restriction disabled.'
         else title || ' Geo Restriction enabled.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

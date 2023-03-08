@@ -240,7 +240,7 @@ query "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
       case
         when kms_key_id is null then title || ' logs are not encrypted at rest.'
         else title || ' logs are encrypted at rest.'
-      end as reason,
+      end as reason
       -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -295,7 +295,7 @@ query "cloudtrail_trail_validation_enabled" {
       case
         when log_file_validation_enabled then title || ' log file validation enabled.'
         else title || ' log file validation disabled.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
