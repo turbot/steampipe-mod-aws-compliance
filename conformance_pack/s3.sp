@@ -171,7 +171,7 @@ control "s3_bucket_versioning_enabled" {
 }
 
 control "s3_bucket_static_website_hosting_disabled" {
-  title       = "S3 bucket static website hosting should be disabled"
+  title       = "S3 buckets static website hosting should be disabled"
   description = "Enabling static website on a S3 bucket requires to grant public read access to the bucket. There is a potential risk of exposure when you turn off block public access settings to make your bucket public. This is recommend to not configure static website on S3 bucket."
   query       = query.s3_bucket_static_website_hosting_disabled
 

@@ -5,7 +5,7 @@ locals {
 }
 
 control "codebuild_project_build_greater_then_90_days" {
-  title       = "CodeBuild project should not be unused for 90 days or greater"
+  title       = "CodeBuild projects should not be unused for 90 days or greater"
   description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
   query       = query.codebuild_project_build_greater_then_90_days
 
@@ -49,7 +49,7 @@ control "codebuild_project_source_repo_oauth_configured" {
 }
 
 control "codebuild_project_with_user_controlled_buildspec" {
-  title       = "CodeBuild project should not use an user controlled buildspec"
+  title       = "CodeBuild projects should not use an user controlled buildspec"
   description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
   query       = query.codebuild_project_with_user_controlled_buildspec
 

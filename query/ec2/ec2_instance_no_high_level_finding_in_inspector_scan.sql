@@ -14,7 +14,9 @@ with severity_list as (
     title
 ), ec2_istance_list as (
   select
-    distinct instance_id from severity_list
+    distinct instance_id
+  from
+    severity_list
 )
 select
   -- Required Columns
@@ -25,7 +27,7 @@ select
   end as status,
   case
     when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
-    else i.title || ' has ' || (select count(*) from severity_list where instance_id= i.instance_id) || ' high level findings in inspector scans.'
+    else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
   end as reason,
   -- Additional Dimensions
   region,

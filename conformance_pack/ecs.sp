@@ -35,7 +35,7 @@ control "ecs_cluster_no_registered_container_instance" {
 }
 
 control "ecs_service_load_balancer_attached" {
-  title       = "ECS service should be attached to a load balancer"
+  title       = "ECS services should be attached to a load balancer"
   description = "ECS service can be configured to use Elastic Load Balancing to distribute traffic evenly across the tasks in your service. It is recommend to use Application Load Balancers for your Amazon ECS services so that you can take advantage of these latest features, unless your service requires a feature that is only available with Network Load Balancers or Classic Load Balancers."
   query       = query.ecs_service_load_balancer_attached
 
