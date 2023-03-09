@@ -49,6 +49,8 @@ control "lambda_function_restrict_public_access" {
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"

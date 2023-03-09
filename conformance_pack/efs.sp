@@ -92,3 +92,13 @@ control "efs_file_system_enforces_ssl" {
     other_checks = "true"
   })
 }
+
+control "efs_access_point_enforce_user_identity" {
+  title         = "EFS access points should enforce a user identity"
+  description   = "This control checks whether Amazon EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
+  query         = query.efs_access_point_enforce_user_identity
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    audit_manager_pci_v321_requirement_7 = "true"
+  })
+}

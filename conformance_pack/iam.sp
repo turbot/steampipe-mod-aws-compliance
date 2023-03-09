@@ -40,19 +40,20 @@ control "iam_policy_no_star_star" {
   query       = query.iam_policy_custom_no_star_star
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 
@@ -63,6 +64,7 @@ control "iam_root_user_no_access_keys" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -185,19 +187,20 @@ control "iam_user_no_inline_attached_policies" {
   query       = query.iam_user_no_inline_attached_policies
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
+    cisa_cyber_essentials                = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gdpr                                 = "true"
+    gxp_21_cfr_part_11                   = "true"
+    hipaa                                = "true"
+    nist_800_171_rev_2                   = "true"
+    nist_800_53_rev_4                    = "true"
+    nist_800_53_rev_5                    = "true"
+    nist_csf                             = "true"
+    rbi_cyber_security                   = "true"
+    soc_2                                = "true"
   })
 }
 
@@ -377,12 +380,13 @@ control "iam_all_policy_no_service_wild_card" {
   query       = query.iam_policy_custom_no_service_wildcard
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_53_rev_5      = "true"
-    rbi_cyber_security     = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
+    fedramp_low_rev_4                    = "true"
+    fedramp_moderate_rev_4               = "true"
+    ffiec                                = "true"
+    gxp_21_cfr_part_11                   = "true"
+    nist_800_53_rev_5                    = "true"
+    rbi_cyber_security                   = "true"
   })
 }
 

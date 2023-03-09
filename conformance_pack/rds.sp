@@ -75,6 +75,7 @@ control "rds_db_instance_prohibit_public_access" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
     audit_manager_control_tower          = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
@@ -120,6 +121,7 @@ control "rds_db_snapshot_prohibit_public_access" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
     audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321_requirement_7 = "true"
     audit_manager_control_tower          = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
