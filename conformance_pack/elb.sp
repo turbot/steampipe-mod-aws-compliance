@@ -76,6 +76,7 @@ control "elb_application_lb_waf_enabled" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321_requirement_1 = "true"
+    audit_manager_pci_v321_requirement_6 = "true"
     cisa_cyber_essentials                = "true"
     fedramp_low_rev_4                    = "true"
     fedramp_moderate_rev_4               = "true"
@@ -265,5 +266,26 @@ control "elb_tls_listener_protocol_version" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "elb_application_lb_desync_mitigation_mode" {
+  title         = "Application Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  description   = "This control checks whether an Application Load Balancer is configured with defensive or strictest desync mitigation mode. The control fails if an Application Load Balancer is not configured with defensive or strictest desync mitigation mode."
+  query         = query.elb_application_lb_desync_mitigation_mode
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    audit_manager_pci_v321_requirement_6 = "true"
+  })
+}
+
+control "elb_classic_lb_desync_mitigation_mode" {
+  title         = "14 Classic Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  description   = "This control checks whether a Classic Load Balancer is configured with defensive or strictest desync mitigation mode. This control will fail if the Classic Load Balancer is not configured with defensive or strictest desync mitigation mode."
+  severity      = "medium"
+  query         = query.elb_classic_lb_desync_mitigation_mode
+  
+  tags = merge(local.foundational_security_elb_common_tags, {
+    audit_manager_pci_v321_requirement_6 = "true"
   })
 }
