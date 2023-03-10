@@ -5,12 +5,12 @@ locals {
 }
 
 control "autoscaling_launch_config_requires_imdsv2" {
-  title         = "Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
-  description   = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
-  query         = query.autoscaling_launch_config_requires_imdsv2
+  title       = "Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
+  description = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
+  query       = query.autoscaling_launch_config_requires_imdsv2
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321 = "true"
   })
 }
 
@@ -20,15 +20,15 @@ control "autoscaling_group_with_lb_use_health_check" {
   query       = query.autoscaling_group_with_lb_use_health_check
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    audit_manager_pci_v321_requirement_2 = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    hipaa                                = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_800_53_rev_5                    = "true"
-    nist_csf                             = "true"
+    audit_manager_pci_v321 = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -38,13 +38,13 @@ control "autoscaling_launch_config_public_ip_disabled" {
   query       = query.autoscaling_launch_config_public_ip_disabled
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    audit_manager_pci_v321_requirement_1 = "true"
-    cisa_cyber_essentials                = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    nist_800_53_rev_5                    = "true"
-    rbi_cyber_security                   = "true"
+    audit_manager_pci_v321 = "true"
+    cisa_cyber_essentials  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    nist_800_53_rev_5      = "true"
+    rbi_cyber_security     = "true"
   })
 }
 

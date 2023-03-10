@@ -10,20 +10,18 @@ control "ebs_snapshot_not_publicly_restorable" {
   query       = query.ebs_snapshot_not_publicly_restorable
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    audit_manager_pci_v321_requirement_1 = "true"
-    audit_manager_pci_v321_requirement_2 = "true"
-    audit_manager_pci_v321_requirement_7 = "true"
-    cisa_cyber_essentials                = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    gxp_21_cfr_part_11                   = "true"
-    hipaa                                = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_800_53_rev_5                    = "true"
-    nist_csf                             = "true"
-    rbi_cyber_security                   = "true"
+    audit_manager_pci_v321 = "true"
+    cisa_cyber_essentials  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
+    hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -49,19 +47,19 @@ control "ebs_attached_volume_encryption_enabled" {
   query       = query.ebs_attached_volume_encryption_enabled
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    audit_manager_pci_v321_requirement_3 = "true"
-    audit_manager_control_tower          = "true"
-    cisa_cyber_essentials                = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    gdpr                                 = "true"
-    gxp_21_cfr_part_11                   = "true"
-    hipaa                                = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_800_53_rev_5                    = "true"
-    nist_csf                             = "true"
-    rbi_cyber_security                   = "true"
+    audit_manager_pci_v321      = "true"
+    audit_manager_control_tower = "true"
+    cisa_cyber_essentials       = "true"
+    fedramp_moderate_rev_4      = "true"
+    ffiec                       = "true"
+    gdpr                        = "true"
+    gxp_21_cfr_part_11          = "true"
+    hipaa                       = "true"
+    nist_800_171_rev_2          = "true"
+    nist_800_53_rev_4           = "true"
+    nist_800_53_rev_5           = "true"
+    nist_csf                    = "true"
+    rbi_cyber_security          = "true"
   })
 }
 
@@ -71,18 +69,18 @@ control "ebs_volume_in_backup_plan" {
   query       = query.ebs_volume_in_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    audit_manager_pci_v321_requirement_3 = "true"
-    cisa_cyber_essentials                = "true"
-    ffiec                                = "true"
-    gxp_21_cfr_part_11                   = "true"
-    gxp_eu_annex_11                      = "true"
-    hipaa                                = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_800_53_rev_5                    = "true"
-    nist_csf                             = "true"
-    rbi_cyber_security                   = "true"
-    soc_2                                = "true"
+    audit_manager_pci_v321 = "true"
+    cisa_cyber_essentials  = "true"
+    ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
+    gxp_eu_annex_11        = "true"
+    hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -107,15 +105,15 @@ control "ebs_volume_protected_by_backup_plan" {
   query       = query.ebs_volume_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    audit_manager_pci_v321_requirement_3 = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    gxp_eu_annex_11                      = "true"
-    hipaa                                = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_csf                             = "true"
-    soc_2                                = "true"
+    audit_manager_pci_v321 = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    gxp_eu_annex_11        = "true"
+    hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 

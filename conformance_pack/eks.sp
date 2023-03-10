@@ -10,9 +10,9 @@ control "eks_cluster_secrets_encrypted" {
   query       = query.eks_cluster_secrets_encrypted
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    audit_manager_pci_v321_requirement_3 = "true"
-    gxp_eu_annex_11                      = "true"
-    hipaa                                = "true"
+    audit_manager_pci_v321 = "true"
+    gxp_eu_annex_11        = "true"
+    hipaa                  = "true"
   })
 }
 
@@ -22,11 +22,9 @@ control "eks_cluster_endpoint_restrict_public_access" {
   query       = query.eks_cluster_endpoint_restrict_public_access
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    audit_manager_pci_v321_requirement_1 = "true"
-    audit_manager_pci_v321_requirement_2 = "true"
-    audit_manager_pci_v321_requirement_7 = "true"
-    nist_800_171_rev_2                   = "true"
-    nist_csf                             = "true"
+    audit_manager_pci_v321 = "true"
+    nist_800_171_rev_2     = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -51,11 +49,11 @@ control "eks_cluster_no_default_vpc" {
 }
 
 control "eks_cluster_with_latest_kubernetes_version" {
-  title         = "EKS clusters should run on a supported Kubernetes version"
-  description   = "This control checks whether an Amazon EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
-  query         = query.eks_cluster_with_latest_kubernetes_version
+  title       = "EKS clusters should run on a supported Kubernetes version"
+  description = "This control checks whether an Amazon EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
+  query       = query.eks_cluster_with_latest_kubernetes_version
 
-  tags = merge(local.foundational_security_eks_common_tags, {
-    audit_manager_pci_v321_requirement_6 = "true"
+  tags = merge(local.conformance_pack_eks_common_tags, {
+    audit_manager_pci_v321 = "true"
   })
 }

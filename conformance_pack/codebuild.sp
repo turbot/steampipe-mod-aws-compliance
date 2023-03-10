@@ -9,7 +9,7 @@ control "codebuild_project_build_greater_then_90_days" {
   description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
   query       = query.codebuild_project_build_greater_then_90_days
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
     other_checks = "true"
   })
 }
@@ -20,15 +20,15 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    audit_manager_pci_v321_requirement_6 = "true"
-    cisa_cyber_essentials                = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    hipaa                                = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_csf                             = "true"
-    soc_2                                = "true"
+    audit_manager_pci_v321 = "true"
+    cisa_cyber_essentials  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -38,15 +38,15 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    audit_manager_pci_v321_requirement_6 = "true"
-    cisa_cyber_essentials                = "true"
-    fedramp_low_rev_4                    = "true"
-    fedramp_moderate_rev_4               = "true"
-    ffiec                                = "true"
-    hipaa                                = "true"
-    nist_800_53_rev_4                    = "true"
-    nist_csf                             = "true"
-    soc_2                                = "true"
+    audit_manager_pci_v321 = "true"
+    cisa_cyber_essentials  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    hipaa                  = "true"
+    nist_800_53_rev_4      = "true"
+    nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -65,6 +65,6 @@ control "codebuild_project_environment_privileged_mode_disabled" {
   description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
   query       = query.codebuild_project_environment_privileged_mode_disabled
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    audit_manager_pci_v321_requirement_6 = "true"
+    audit_manager_pci_v321 = "true"
   })
 }

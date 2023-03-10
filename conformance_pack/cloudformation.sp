@@ -10,8 +10,7 @@ control "cloudformation_stack_drift_detection_check" {
   query       = query.cloudformation_stack_drift_detection_check
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
-    audit_manager_pci_v321_requirement_1 = "true"
-    audit_manager_pci_v321_requirement_2 = "true"
+    audit_manager_pci_v321 = "true"
   })
 }
 
