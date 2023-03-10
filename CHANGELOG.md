@@ -2,7 +2,7 @@
 
 _Dependencies_
 
-- AWS plugin `v0.95.0` or higher is now required. ([]())
+- AWS plugin `v0.95.0` or higher is now required. ([#579](https://github.com/turbot/steampipe-mod-aws-compliance/pull/579))
 
 _What's new?_
 
