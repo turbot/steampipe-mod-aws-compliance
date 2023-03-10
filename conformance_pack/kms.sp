@@ -28,6 +28,7 @@ control "kms_cmk_rotation_enabled" {
   query       = query.kms_cmk_rotation_enabled
 
   tags = merge(local.conformance_pack_kms_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
