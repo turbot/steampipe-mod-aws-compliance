@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
+  title       = "SageMaker notebook instances should be encrypted using CMK"
+  description = "This control checks if SageMaker notebook instance storage volumes are encrypted with Amazon KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
+  query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
+
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   title       = "SageMaker notebook instances should not have direct internet access"
   description = "Manage access to resources in the AWS Cloud by ensuring that Amazon SageMaker notebooks do not allow direct internet access."

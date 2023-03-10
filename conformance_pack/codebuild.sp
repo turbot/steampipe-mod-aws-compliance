@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "codebuild_project_build_greater_then_90_days" {
+  title       = "CodeBuild projects should not be unused for 90 days or greater"
+  description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
+  query       = query.codebuild_project_build_greater_then_90_days
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   title       = "CodeBuild project plaintext environment variables should not contain sensitive AWS values"
   description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS CodeBuild project environments. Do not store these variables in clear text. Storing these variables in clear text leads to unintended data exposure and unauthorized access."
@@ -37,6 +47,16 @@ control "codebuild_project_source_repo_oauth_configured" {
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "codebuild_project_with_user_controlled_buildspec" {
+  title       = "CodeBuild projects should not use an user controlled buildspec"
+  description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
+  query       = query.codebuild_project_with_user_controlled_buildspec
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
   })
 }
 

@@ -177,6 +177,16 @@ control "s3_bucket_versioning_enabled" {
   })
 }
 
+control "s3_bucket_static_website_hosting_disabled" {
+  title       = "S3 buckets static website hosting should be disabled"
+  description = "Enabling static website on a S3 bucket requires to grant public read access to the bucket. There is a potential risk of exposure when you turn off block public access settings to make your bucket public. This is recommend to not configure static website on S3 bucket."
+  query       = query.s3_bucket_static_website_hosting_disabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "s3_public_access_block_account" {
   title       = "S3 public access should be blocked at account level"
   description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed."
