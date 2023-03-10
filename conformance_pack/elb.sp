@@ -227,10 +227,10 @@ query "elb_application_classic_lb_logging_enabled" {
         case
           when load_balancer_attributes @> '[{"Key": "access_logs.s3.enabled", "Value": "true"}]' then title || ' logging enabled.'
           else title || ' logging disabled.'
-        end as reason,
+        end as reason
         -- Additional Dimensions
-        region,
-        account_id
+        ${local.tag_dimensions_sql}
+        ${local.common_dimensions_sql}
       from
         aws_ec2_application_load_balancer
     )
@@ -587,10 +587,10 @@ query "elb_application_lb_with_outbound_rule" {
         when a.security_groups is null then a.title || ' does not have security group attached.'
         when o.arn is not null then a.title || ' all attached security groups does not have outbound rule(s).'
         else a.title || ' all attached security groups have outbound rule(s).'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      a.region,
-      a.account_id
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       aws_ec2_application_load_balancer as a
       left join application_lb_without_outbound as o on a.arn = o.arn;

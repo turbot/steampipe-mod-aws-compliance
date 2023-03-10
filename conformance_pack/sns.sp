@@ -48,9 +48,9 @@ query "sns_topic_encrypted_at_rest" {
       when kms_master_key_id is null then title || ' encryption at rest disabled.'
       else title || ' encryption at rest enabled.'
     end as reason
-      -- Additional Dimensions
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+    -- Additional Dimensions
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
     from
       aws_sns_topic;
   EOQ

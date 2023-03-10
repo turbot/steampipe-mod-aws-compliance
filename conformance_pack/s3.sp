@@ -473,11 +473,11 @@ query "s3_bucket_versioning_enabled" {
       case
         when versioning_enabled then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when versioning_enabled then name || ' versioning enabled.'
         else name || ' versioning disabled.'
-      end reason
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -515,7 +515,7 @@ query "s3_public_access_block_account" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_s3_account_settings;
   EOQ

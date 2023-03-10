@@ -277,7 +277,8 @@ query "vpc_flow_logs_enabled" {
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
-      aws_vpc as v left join aws_vpc_flow_log as f on v.vpc_id = f.resource_id;
+      aws_vpc as v
+      left join aws_vpc_flow_log as f on v.vpc_id = f.resource_id;
   EOQ
 }
 

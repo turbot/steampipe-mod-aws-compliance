@@ -102,8 +102,8 @@ query "apigateway_stage_cache_encryption_at_rest_enabled" {
         else title || ' API cache and encryption not enabled.'
       end as reason
       -- Additional Dimensions
-        ${local.tag_dimensions_sql}
-        ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_api_gateway_stage;
   EOQ
@@ -144,8 +144,8 @@ query "apigateway_stage_logging_enabled" {
         else title || ' logging enabled.'
       end as reason
       -- Additional Dimensions
-        ${local.tag_dimensions_sql}
-        ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       all_stages;
     EOQ

@@ -505,9 +505,9 @@ query "iam_group_not_empty" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_group as i;
+      aws_iam_group;
   EOQ
 }
 
@@ -569,9 +569,9 @@ query "iam_root_user_no_access_keys" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_account_summary as i;
+      aws_iam_account_summary;
   EOQ
 }
 
@@ -613,9 +613,9 @@ query "iam_root_user_mfa_enabled" {
       end reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_account_summary as i;
+      aws_iam_account_summary;
   EOQ
 }
 
@@ -633,9 +633,9 @@ query "iam_user_access_key_age_90" {
       as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_access_key as i;
+      aws_iam_access_key;
 
   EOQ
 }
@@ -656,9 +656,9 @@ query "iam_user_console_access_mfa_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_credential_report as i;
+      aws_iam_credential_report;
   EOQ
 }
 
@@ -677,9 +677,9 @@ query "iam_user_mfa_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_credential_report as i;
+      aws_iam_credential_report;
   EOQ
 }
 
@@ -696,9 +696,9 @@ query "iam_user_no_inline_attached_policies" {
         coalesce(jsonb_array_length(attached_policy_arns),0) || ' directly attached policies.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_user as i;
+      aws_iam_user;
   EOQ
 }
 
@@ -752,9 +752,9 @@ query "iam_user_unused_credentials_90" {
       as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_credential_report as i;
+      aws_iam_credential_report;
   EOQ
 }
 
@@ -773,9 +773,9 @@ query "iam_user_in_group" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_user as i;
+      aws_iam_user;
   EOQ
 }
 
@@ -788,9 +788,10 @@ query "iam_group_user_role_no_inline_policies" {
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
-      'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
+      'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
-      account_id
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_user
     union
@@ -801,9 +802,10 @@ query "iam_group_user_role_no_inline_policies" {
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
-      'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
+      'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
-      account_id
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_role
     where
@@ -819,9 +821,9 @@ query "iam_group_user_role_no_inline_policies" {
       'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_global_sql}
     from
-      aws_iam_group as i;
+      aws_iam_group;
   EOQ
 }
 
@@ -860,9 +862,9 @@ query "iam_support_role" {
       end  as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
+      ${local.common_dimensions_global_sql}
     from
-      support_role_count as s;
+      support_role_count;
   EOQ
 }
 
@@ -1280,7 +1282,7 @@ query "iam_user_hardware_mfa_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "m.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_virtual_mfa_device as m
       right join aws_iam_user as u on m.user_id = u.user_id;

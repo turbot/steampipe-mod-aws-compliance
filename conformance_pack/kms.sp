@@ -206,9 +206,10 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       case
         when d.arn is null then 'User ' || i.title || ' not allowed to perform decryption actions on all keys.'
         else 'User ' || i.title || ' allowed to perform decryption actions on all keys.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      i.account_id
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_iam_user i
       left join user_with_decrypt_grant d on i.arn = d.arn
@@ -223,9 +224,10 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       case
         when d.arn is null then 'Role ' || r.title || ' not allowed to perform decryption actions on all keys.'
         else 'Role ' || r.title || ' allowed to perform decryption actions on all keys.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      r.account_id
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
       aws_iam_role r
       left join role_with_decrypt_grant d on r.arn = d.arn
