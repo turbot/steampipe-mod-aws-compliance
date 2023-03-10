@@ -4,12 +4,23 @@ locals {
   })
 }
 
+control "codebuild_project_build_greater_then_90_days" {
+  title       = "CodeBuild projects should not be unused for 90 days or greater"
+  description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
+  query       = query.codebuild_project_build_greater_then_90_days
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   title       = "CodeBuild project plaintext environment variables should not contain sensitive AWS values"
   description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS CodeBuild project environments. Do not store these variables in clear text. Storing these variables in clear text leads to unintended data exposure and unauthorized access."
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -27,6 +38,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -35,5 +47,45 @@ control "codebuild_project_source_repo_oauth_configured" {
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "codebuild_project_with_user_controlled_buildspec" {
+  title       = "CodeBuild projects should not use an user controlled buildspec"
+  description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
+  query       = query.codebuild_project_with_user_controlled_buildspec
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "codebuild_project_logging_enabled" {
+  title       = "CodeBuild project logging should be enabled"
+  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
+  query       = query.codebuild_project_logging_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
+  })
+}
+
+control "codebuild_project_environment_privileged_mode_disabled" {
+  title       = "CodeBuild project environment privileged mode should be disabled"
+  description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is non compliant for a CodeBuild project if ‘privilegedMode’ is set to ‘true’."
+  query       = query.codebuild_project_environment_privileged_mode_disabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
+  })
+}
+
+control "codebuild_project_artifact_encryption_enabled" {
+  title       = "CodeBuild project artifact encryption should be enabled"
+  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  query       = query.codebuild_project_artifact_encryption_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
   })
 }

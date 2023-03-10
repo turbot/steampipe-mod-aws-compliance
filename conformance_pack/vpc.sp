@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   query       = query.vpc_flow_logs_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -89,6 +90,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -110,6 +112,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
   query       = query.vpc_default_security_group_restricts_all_traffic
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -145,6 +148,7 @@ control "vpc_eip_associated" {
   query       = query.vpc_eip_associated
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_800_171_rev_2    = "true"
@@ -158,8 +162,9 @@ control "vpc_security_group_associated_to_eni" {
   query       = query.vpc_security_group_associated_to_eni
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    cis_controls_v8_ig1 = "true"
+    nist_800_171_rev_2  = "true"
+    nist_csf            = "true"
   })
 }
 
@@ -169,6 +174,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
   query       = query.vpc_subnet_auto_assign_public_ip_disabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -218,10 +224,20 @@ control "vpc_security_group_restrict_ingress_redis_port" {
   })
 }
 
-control "vpc_security_group_restrict_kibana_port" {
+control "vpc_security_group_restrict_ingress_kafka_port" {
+  title       = "VPC security groups should restrict ingress Kafka port access from 0.0.0.0/0"
+  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  query       = query.vpc_security_group_restrict_ingress_kafka_port
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_restrict_ingress_kibana_port" {
   title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
-  query       = query.vpc_security_group_restrict_kibana_port
+  query       = query.vpc_security_group_restrict_ingress_kibana_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
@@ -254,6 +270,7 @@ control "vpc_network_acl_unused" {
   query       = query.vpc_network_acl_unused
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
   })
 }

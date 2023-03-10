@@ -22,6 +22,16 @@ control "cloudwatch_alarm_action_enabled" {
   })
 }
 
+control "cloudwatch_cross_account_sharing" {
+  title       = "CloudWatch should not allow cross-account sharing"
+  description = "Ensure that your Amazon CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."
+  query       = query.cloudwatch_cross_account_sharing
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "log_group_encryption_at_rest_enabled" {
   title       = "Log group encryption at rest should be enabled"
   description = "To help protect sensitive data at rest, ensure encryption is enabled for your Amazon CloudWatch Log Group"
@@ -50,6 +60,7 @@ control "cloudwatch_log_group_retention_period_365" {
   query       = query.cloudwatch_log_group_retention_period_365
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
