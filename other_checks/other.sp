@@ -86,7 +86,6 @@ benchmark "other" {
     control.sns_topic_policy_prohibit_public_access,
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_policy_prohibit_public_access,
-    control.ssm_document_publicly_accessible,
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_security_group_not_uses_launch_wizard_sg,
     control.vpc_security_group_restrict_ingress_redis_port,
