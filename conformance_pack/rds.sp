@@ -555,10 +555,10 @@ query "rds_db_instance_in_backup_plan" {
       case
         when b.db_instance_identifier is null then i.title || ' not in backup plan.'
         else i.title || ' in backup plan.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
-      i.region,
-      i.account_id
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_rds_db_instance as i
       left join backed_up_instance as b on i.db_instance_identifier = b.db_instance_identifier;

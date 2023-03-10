@@ -386,3 +386,27 @@ query "sagemaker_training_job_volume_and_data_encryption_enabled" {
       aws_sagemaker_training_job;
   EOQ
 }
+
+query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      i.arn as resource,
+      case
+        when kms_key_id is null then 'alarm'
+        when k.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when kms_key_id is null then i.title || ' encryption disabled.'
+        when k.key_manager = 'CUSTOMER' then i.title || ' encryption at rest with CMK enabled.'
+        else i.title || ' encryption at rest with CMK disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_sagemaker_notebook_instance as i
+      left join aws_kms_key as k on k.arn = i.kms_key_id;
+  EOQ
+}

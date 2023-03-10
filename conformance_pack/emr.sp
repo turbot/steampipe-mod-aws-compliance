@@ -95,3 +95,24 @@ query "emr_cluster_master_nodes_no_public_ip" {
       left join aws_vpc_subnet as s on c.ec2_instance_attributes ->> 'Ec2SubnetId' = s.subnet_id;
   EOQ
 }
+
+query "emr_account_public_access_blocked" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      case
+        when block_public_security_group_rules then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when block_public_security_group_rules then region || ' EMR block public access enabled.'
+        else region || ' EMR block public access disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_block_public_access_configuration;
+  EOQ
+}

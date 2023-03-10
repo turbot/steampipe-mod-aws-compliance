@@ -704,3 +704,105 @@ query "elb_classic_lb_with_outbound_rule" {
       aws_ec2_load_balancer_listener;
   EOQ
 }
+
+query "elb_application_lb_listener_certificate_expire_7_days" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      load_balancer_arn as resource,
+      case
+        when date(not_after) - date(current_date) >= 7 then 'ok'
+        else 'alarm'
+      end as status,
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
+    from
+      aws_ec2_load_balancer_listener as l,
+      jsonb_array_elements(certificates) as c
+      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
+  EOQ
+}
+
+query "elb_application_lb_listener_certificate_expire_30_days" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      load_balancer_arn as resource,
+      case
+        when date(not_after) - date(current_date) >= 30 then 'ok'
+        else 'alarm'
+      end as status,
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
+    from
+      aws_ec2_load_balancer_listener as l,
+      jsonb_array_elements(certificates) as c
+      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
+  EOQ
+}
+
+query "elb_application_network_lb_use_listeners" {
+  sql = <<-EOQ
+    with load_balancers as (
+      select
+        n.arn,
+        n.title,
+        n.region,
+        n.account_id
+      from
+        aws_ec2_network_load_balancer as n
+      union
+      select
+        a.arn,
+        a.title,
+        a.region,
+        a.account_id
+      from
+        aws_ec2_application_load_balancer as a
+    )
+    select
+      -- Required Columns
+      distinct lb.arn as resource,
+      case
+        when l.load_balancer_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.load_balancer_arn is not null then lb.title || ' uses listener.'
+        else lb.title || ' does not uses listener.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}
+    from
+      load_balancers as lb
+      left join aws_ec2_load_balancer_listener as l on lb.arn = l.load_balancer_arn;
+  EOQ
+}
+
+query "elb_tls_listener_protocol_version" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      load_balancer_arn as resource,
+      case
+        when protocol <> 'HTTPS' then 'skip'
+        when protocol = 'HTTPS' and ssl_policy like any(array['Protocol-SSLv3', 'Protocol-TLSv1']) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when protocol <> 'HTTPS' then title || ' uses protocol ' || protocol || '.'
+        when ssl_policy like any (array['Protocol-SSLv3', 'Protocol-TLSv1']) then title || ' uses insecure SSL or TLS cipher.'
+        else title || ' uses secure SSL or TLS cipher.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_load_balancer_listener;
+  EOQ
+}

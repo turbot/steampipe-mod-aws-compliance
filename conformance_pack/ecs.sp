@@ -142,3 +142,104 @@ query "ecs_task_definition_logging_enabled" {
       left join task_definitions_logging_enabled as b on a.task_definition_arn = b.arn;
   EOQ
 }
+
+query "ecs_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    with unencrypted_volumes as (
+      select
+        distinct cluster_arn
+      from
+        aws_ecs_container_instance as i,
+        aws_ec2_instance as e,
+        jsonb_array_elements(block_device_mappings) as b,
+        aws_ebs_volume as v
+      where
+        i.ec2_instance_id = e.instance_id
+        and b -> 'Ebs' ->> 'VolumeId' = v.volume_id
+        and not v.encrypted
+    )
+    select
+      -- Required Columns
+      c.cluster_arn as resource,
+      case
+        when c.registered_container_instances_count = 0 then 'skip'
+        when v.cluster_arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when c.registered_container_instances_count = 0 then title || ' has no container instance registered.'
+        when v.cluster_arn is not null then c.title || ' encryption at rest disabled.'
+        else c.title || ' encryption at rest enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ecs_cluster as c
+      left join unencrypted_volumes as v on v.cluster_arn = c.cluster_arn;
+  EOQ
+}
+
+query "ecs_cluster_instance_in_vpc" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      c.arn as resource,
+      case
+        when i.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when i.vpc_id is null then c.title || ' not in VPC.'
+        else c.title || ' in VPC.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ecs_container_instance as c
+      left join aws_ec2_instance as i on c.ec2_instance_id = i.instance_id;
+  EOQ
+}
+
+query "ecs_cluster_no_registered_container_instance" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      cluster_arn as resource,
+      case
+        when registered_container_instances_count = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when registered_container_instances_count = 0 then title || ' has no container instance registered.'
+        else title || ' has ' || registered_container_instances_count || ' container instance(s) registered.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_cluster;
+  EOQ
+}
+
+query "ecs_service_load_balancer_attached" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(load_balancers) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when jsonb_array_length(load_balancers) = 0 then title || ' has no load balancer attached.'
+        else title || ' has ' || jsonb_array_length(load_balancers) || ' load balancer(s) attached.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_service;
+  EOQ
+}

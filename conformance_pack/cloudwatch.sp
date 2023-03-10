@@ -1008,3 +1008,36 @@ query "log_metric_filter_cloudtrail_configuration" {
       left join filter_data as f on a.account_id = f.account_id;
   EOQ
 }
+
+query "cloudwatch_cross_account_sharing" {
+  sql = <<-EOQ
+    with iam_role_cross_account_sharing_count as (
+      select
+        arn,
+        replace(replace(replace((a -> 'Principal' ->> 'AWS'), '[',''), ']', ''), '"', '') as cross_account_details,
+        account_id
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as a
+      where
+        name = 'CloudWatch-CrossAccountSharingRole'
+    )
+    select
+      -- Required Columns
+      a.arn as resource,
+      case
+        when c.arn is null then 'ok'
+        else 'info'
+      end as status,
+      case
+        when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
+        else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;
+  EOQ
+}

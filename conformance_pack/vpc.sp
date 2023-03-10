@@ -750,7 +750,7 @@ query "vpc_security_group_restricted_common_ports" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
       left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
@@ -803,7 +803,7 @@ query "vpc_security_group_restrict_ingress_redis_port" {
   EOQ
 }
 
-query "vpc_security_group_restrict_kibana_port" {
+query "vpc_security_group_restrict_ingress_kibana_port" {
   sql = <<-EOQ
     with ingress_kibana_port as (
       select
@@ -843,7 +843,7 @@ query "vpc_security_group_restrict_kibana_port" {
       case
         when k.group_id is null then sg.group_id || ' ingress restricted for kibana port from 0.0.0.0/0.'
         else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kibana port from 0.0.0.0/0.'
-      end as reason,
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -925,5 +925,51 @@ query "vpc_network_acl_unused" {
       ${local.common_dimensions_sql}
     from
       aws_vpc_network_acl;
+  EOQ
+}
+
+query "vpc_security_group_restrict_ingress_kafka_port" {
+  sql = <<-EOQ
+    with ingress_kafka_port as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (
+          cidr_ipv4 = '0.0.0.0/0'
+          or cidr_ipv6 = '::/0'
+        )
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+              from_port >= 9092
+              and to_port <= 9092
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when k.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when k.group_id is null then sg.group_id || ' ingress restricted for kafka port from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kafka port from 0.0.0.0/0.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_kafka_port as k on k.group_id = sg.group_id;
   EOQ
 }

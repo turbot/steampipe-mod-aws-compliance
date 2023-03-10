@@ -819,3 +819,24 @@ query "s3_bucket_object_logging_enabled" {
       left join object_logging_region_advance_es as a on a. cloudtrail_region = s.region;
   EOQ
 }
+
+query "s3_bucket_static_website_hosting_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then name || ' static website hosting enabled.'
+        else name || ' static website hosting disabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
+  EOQ
+}
