@@ -4,11 +4,11 @@ select
   case
     when tracing_config ->> 'Mode' = 'PassThrough' then 'alarm'
     else 'ok'
-  end status,
+  end as status,
   case
     when tracing_config ->> 'Mode' = 'PassThrough' then title || ' has tracing disabled.'
     else title || ' has tracing enabled.'
-  end reason,
+  end as reason,
   -- Additional Dimensions
   region,
   account_id

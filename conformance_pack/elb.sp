@@ -11,6 +11,7 @@ control "elb_application_classic_lb_logging_enabled" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -203,7 +204,7 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
 }
 
 control "elb_application_lb_listener_certificate_expire_7_days" {
-  title       = "ELB application load balancer secured listener certificate should not expire within next 7 days"
+  title       = "ELB application load balancers secured listener certificate should not expire within next 7 days"
   description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 7 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_7_days
 
@@ -213,7 +214,7 @@ control "elb_application_lb_listener_certificate_expire_7_days" {
 }
 
 control "elb_application_lb_listener_certificate_expire_30_days" {
-  title       = "ELB application load balancer secured listener certificate should not expire within next 30 days"
+  title       = "ELB application load balancers secured listener certificate should not expire within next 30 days"
   description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 30 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_30_days
 
@@ -263,7 +264,7 @@ control "elb_tls_listener_protocol_version" {
 }
 
 control "elb_application_lb_desync_mitigation_mode" {
-  title       = "Application Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  title       = "ELB application load balancers should be configured with defensive or strictest desync mitigation mode"
   description = "This control checks whether an Application Load Balancer is configured with defensive or strictest desync mitigation mode. The control fails if an Application Load Balancer is not configured with defensive or strictest desync mitigation mode."
   query       = query.elb_application_lb_desync_mitigation_mode
 
@@ -273,7 +274,7 @@ control "elb_application_lb_desync_mitigation_mode" {
 }
 
 control "elb_classic_lb_desync_mitigation_mode" {
-  title       = "14 Classic Load Balancers should be configured with defensive or strictest desync mitigation mode"
+  title       = "ELB classic load balancers should be configured with defensive or strictest desync mitigation mode"
   description = "This control checks whether a Classic Load Balancer is configured with defensive or strictest desync mitigation mode. This control will fail if the Classic Load Balancer is not configured with defensive or strictest desync mitigation mode."
   query       = query.elb_classic_lb_desync_mitigation_mode
 

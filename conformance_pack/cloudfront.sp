@@ -27,7 +27,7 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
 }
 
 control "cloudfront_distribution_use_secure_cipher" {
-  title       = "CloudFront distribution should use secure SSL cipher"
+  title       = "CloudFront distributions should use secure SSL cipher"
   description = "Ensure that CloudFront distributions do not have any insecure SSL ciphers. Using insecure and deprecated ciphers could make the SSL connection between the CloudFront and the origins vulnerable to exploits."
   query       = query.cloudfront_distribution_use_secure_cipher
 
@@ -50,11 +50,12 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   title       = "CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
   description = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
   query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
-  
+
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     audit_manager_pci_v321 = "true"
   })
 }
+
 control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   title         = "CloudFront distributions should encrypt traffic to custom origins"
   description   = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
@@ -62,5 +63,15 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     audit_manager_pci_v321 = "true"
+  })
+}
+
+control "cloudfront_distribution_logging_enabled" {
+  title       = "CloudFront distributions access logs should be enabled"
+  description = "This control checks if Amazon CloudFront distributions are configured to capture information from Amazon Simple Storage Service (Amazon S3) server access logs. This rule is non compliant if a CloudFront distribution does not have logging configured."
+  query       = query.cloudfront_distribution_logging_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    cis_controls_v8_ig1 = "true"
   })
 }

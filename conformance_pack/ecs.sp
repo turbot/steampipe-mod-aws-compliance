@@ -35,8 +35,8 @@ control "ecs_cluster_no_registered_container_instance" {
 }
 
 control "ecs_service_load_balancer_attached" {
-  title       = "ECS service should be attached to a load balancer"
-  description = "ECS service can be configured to use Elastic Load Balancing to distribute traffic evenly across the tasks in your service. It is recommend to use Application Load Balancers for your Amazon ECS services so that you can take advantage of these latest features, unless your service requires a feature that is only available with Network Load Balancers or Classic Load Balancers."
+  title       = "ECS services should be attached to a load balancer"
+  description = "ECS service can be configured to use Elastic Load Balancing to distribute traffic evenly across the tasks in your service. It is recommended to use Application Load Balancers for your Amazon ECS services so that you can take advantage of these latest features, unless your service requires a feature that is only available with Network Load Balancers or Classic Load Balancers."
   query       = query.ecs_service_load_balancer_attached
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
@@ -46,10 +46,11 @@ control "ecs_service_load_balancer_attached" {
 
 control "ecs_task_definition_user_for_host_mode_check" {
   title       = "ECS task definition container definitions should be checked for host mode"
-  description = "Check if Amazon Elastic Container Service (Amazon ECS) task definition with host networking mode has 'privileged' or 'user' container definitions.The rule is NON_COMPLIANT for task definitions with host network mode and container definitions of privileged=false or empty and user=root or empty."
+  description = "Check if Amazon Elastic Container Service (Amazon ECS) task definition with host networking mode has 'privileged' or 'user' container definitions.The rule is non compliant for task definitions with host network mode and container definitions of privileged=false or empty and user=root or empty."
   query       = query.ecs_task_definition_user_for_host_mode_check
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

@@ -11,6 +11,7 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
 
   tags = merge(local.conformance_pack_elasticache_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

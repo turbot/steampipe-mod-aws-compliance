@@ -30,6 +30,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -72,6 +73,7 @@ control "dynamodb_table_in_backup_plan" {
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"

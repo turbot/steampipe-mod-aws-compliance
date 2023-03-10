@@ -30,6 +30,7 @@ control "efs_file_system_in_backup_plan" {
 
   tags = merge(local.conformance_pack_efs_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     gxp_eu_annex_11        = "true"

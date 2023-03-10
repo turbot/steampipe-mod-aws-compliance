@@ -91,8 +91,8 @@ benchmark "other" {
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_security_group_not_uses_launch_wizard_sg,
     control.vpc_security_group_restrict_ingress_redis_port,
-    control.vpc_security_group_restrict_kafka_port,
-    control.vpc_security_group_restrict_kibana_port
+    control.vpc_security_group_restrict_ingress_kafka_port,
+    control.vpc_security_group_restrict_ingress_kibana_port
   ]
 
   tags = merge(local.other_common_tags, {

@@ -32,9 +32,9 @@ select
     else 'ok'
   end as status,
   case
-    when o.arn is not null and o.origin_protocol_policy = 'http-only' then title || ' custom origins traffic not encrypted in transit.'
-    when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') )  then title || ' custom origins traffic not encrypted in transit.'
-    else title || ' custom origins traffic encrypted in transit.'
+    when o.arn is not null and o.origin_protocol_policy = 'http-only' then title || ' origins traffic not encrypted in transit.'
+    when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') ) then title || ' origins traffic not encrypted in transit.'
+    else title || ' origins traffic encrypted in transit.'
   end as reason,
   -- Additional Dimensions
   region,

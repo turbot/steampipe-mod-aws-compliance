@@ -1,3 +1,20 @@
+## v0.57 [2023-03-10]
+
+_Dependencies_
+
+- AWS plugin `v0.95.0` or higher is now required. ([#579](https://github.com/turbot/steampipe-mod-aws-compliance/pull/579))
+
+_What's new?_
+
+- Added CIS Controls v8 IG1 benchmark (`steampipe check benchmark.cis_controls_v8_ig1`). ([#568](https://github.com/turbot/steampipe-mod-aws-compliance/pull/568))
+- Add 30 new controls to Other Compliance Checks benchmark. ([#563](https://github.com/turbot/steampipe-mod-aws-compliance/pull/563))
+
+_Bug fixes_
+
+- Fixed the `cloudtrail_multi_region_trail_enabled` query to correctly evaluate organizational trails. ([#552](https://github.com/turbot/steampipe-mod-aws-compliance/pull/552))
+- Fixed `s3_bucket_restrict_*` queries to correctly check if buckets prohibit public read access or not. ([#548](https://github.com/turbot/steampipe-mod-aws-compliance/pull/548))
+- Fixed `s3_bucket_acls_should_prohibit_user_access` query to correctly evaluate a bucket to be in `ok` state if it does not have ACLs for user access. ([#549](https://github.com/turbot/steampipe-mod-aws-compliance/pull/549))
+
 ## v0.56 [2023-02-03]
 
 _Bug fixes_

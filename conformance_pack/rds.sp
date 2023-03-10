@@ -11,6 +11,7 @@ control "rds_db_instance_backup_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -34,6 +35,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -75,6 +77,7 @@ control "rds_db_instance_prohibit_public_access" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321      = "true"
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -119,6 +122,7 @@ control "rds_db_snapshot_prohibit_public_access" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321      = "true"
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -140,6 +144,7 @@ control "rds_db_instance_logging_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -161,6 +166,7 @@ control "rds_db_instance_in_backup_plan" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     ffiec                  = "true"
     gdpr                   = "true"
@@ -222,7 +228,7 @@ control "rds_db_instance_iam_authentication_enabled" {
 
 control "rds_db_cluster_iam_authentication_enabled" {
   title       = "IAM authentication should be configured for RDS clusters"
-  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is NON_COMPLIANT if an RDS Cluster does not have IAM authentication enabled."
+  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is non compliant if an RDS Cluster does not have IAM authentication enabled."
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -269,7 +275,7 @@ control "rds_db_instance_protected_by_backup_plan" {
 
 control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   title       = "RDS DB instance automatic minor version upgrade should be enabled"
-  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of 'autoMinorVersionUpgrade' is false."
+  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is non compliant if the value of 'autoMinorVersionUpgrade' is false."
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {

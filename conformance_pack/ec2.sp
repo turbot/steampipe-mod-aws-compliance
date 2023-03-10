@@ -11,6 +11,7 @@ control "ec2_ebs_default_encryption_enabled" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
@@ -43,6 +44,7 @@ control "ec2_instance_in_vpc" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -64,6 +66,7 @@ control "ec2_instance_not_publicly_accessible" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_pci_v321 = "true"
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -95,6 +98,7 @@ control "ec2_stopped_instance_30_days" {
   query       = query.ec2_stopped_instance_30_days
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -115,6 +119,7 @@ control "ec2_instance_ebs_optimized" {
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_control_tower = "true"
     audit_manager_pci_v321      = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -134,6 +139,7 @@ control "ec2_instance_uses_imdsv2" {
   query       = query.ec2_instance_uses_imdsv2
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gxp_21_cfr_part_11     = "true"
@@ -167,10 +173,11 @@ control "ec2_instance_iam_profile_attached" {
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    ffiec              = "true"
-    gxp_21_cfr_part_11 = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_5  = "true"
+    cis_controls_v8_ig1 = "true"
+    ffiec               = "true"
+    gxp_21_cfr_part_11  = "true"
+    nist_800_171_rev_2  = "true"
+    nist_800_53_rev_5   = "true"
   })
 }
 

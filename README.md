@@ -9,10 +9,12 @@ Or in a terminal:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png)
 
 Includes support for:
+* [AWS CIS Controls v8 IG1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_controls_v8_ig1) 🚀 New!
 * [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120) 🚀 New!
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
 * [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150)
+* [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
 * [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
 * [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
@@ -22,13 +24,12 @@ Includes support for:
 * [GxP 21 CFR Part 11](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gxp_21_cfr_part_11)
 * [GxP EU Annex 11](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gxp_eu_annex_11)
 * [HIPAA](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa)
+* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2)
 * [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
 * [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
-* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2)
 * [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
 * [Other Compliance Checks](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.other)
 * [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
-* [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security)
 * [SOC 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.soc_2)
 
