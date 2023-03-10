@@ -1,0 +1,517 @@
+[
+ {
+  "benchmark": "163_310_a_2_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "163_310_a_2_iii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "163_310_a_2_iv",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_1_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_1_ii_a",
+  "config_rule": "config.1",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_1_ii_c",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_3_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_4_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_a",
+  "config_rule": "ec2_createnetworkacl",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_a",
+  "config_rule": "ec2_createroute",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_a",
+  "config_rule": "ec2_createsecuritygroup",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_c",
+  "config_rule": "iam_listgroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_c",
+  "config_rule": "iam_listpolicies",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_c",
+  "config_rule": "iam_listroles",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_4_ii_c",
+  "config_rule": "iam_listusers",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_5_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_5_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_5_ii_a",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_5_ii_c",
+  "config_rule": "3.6",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_5_ii_c",
+  "config_rule": "signin_consolelogin",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_6_i",
+  "config_rule": "3.3",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_6_i",
+  "config_rule": "3.6",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_6_i",
+  "config_rule": "signin_consolelogin",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_6_ii",
+  "config_rule": "1.1",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_6_ii",
+  "config_rule": "3.3",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_6_ii",
+  "config_rule": "3.6",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_308_a_6_ii",
+  "config_rule": "signin_consolelogin",
+  "source_type": "AWS_Cloudtrail"
+ },
+ {
+  "benchmark": "164_308_a_7_i",
+  "config_rule": "ec2_describenetworkacls",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_i",
+  "config_rule": "ec2_describeroutetables",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_i",
+  "config_rule": "ec2_describesecuritygroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_i",
+  "config_rule": "ec2_describevpcs",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_a",
+  "config_rule": "ec2_describenetworkacls",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_a",
+  "config_rule": "ec2_describeroutetables",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_a",
+  "config_rule": "ec2_describesecuritygroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_a",
+  "config_rule": "ec2_describevpcs",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_b",
+  "config_rule": "ec2_describenetworkacls",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_b",
+  "config_rule": "ec2_describeroutetables",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_b",
+  "config_rule": "ec2_describesecuritygroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_b",
+  "config_rule": "ec2_describevpcs",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_c",
+  "config_rule": "ec2_describenetworkacls",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_c",
+  "config_rule": "ec2_describeroutetables",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_c",
+  "config_rule": "ec2_describesecuritygroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_c",
+  "config_rule": "ec2_describevpcs",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_d",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_a_7_ii_e",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_b_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_b_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_b_3",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_308_b_4",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_a_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_a_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_a_2_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_b",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_c",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_d_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_d_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_d_2_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_d_2_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_310_d_2_iii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_312_a_1",
+  "config_rule": "iam_listgroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_1",
+  "config_rule": "iam_listpolicies",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_1",
+  "config_rule": "iam_listroles",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_1",
+  "config_rule": "iam_listusers",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_2_i",
+  "config_rule": "iam_listgroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_2_i",
+  "config_rule": "iam_listpolicies",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_2_i",
+  "config_rule": "iam_listroles",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_2_i",
+  "config_rule": "iam_listusers",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_a_2_iii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_312_a_2_iv",
+  "config_rule": "kms.1",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_312_a_2_iv",
+  "config_rule": "kms.2",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_312_c_1",
+  "config_rule": "ec2.3",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_312_c_1",
+  "config_rule": "iam_listgroups",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_c_1",
+  "config_rule": "iam_listpolicies",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_c_1",
+  "config_rule": "iam_listroles",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_c_1",
+  "config_rule": "iam_listusers",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_c_2",
+  "config_rule": "ec2.3",
+  "source_type": "AWS_Security_Hub"
+ },
+ {
+  "benchmark": "164_312_d",
+  "config_rule": "iam_generatecredentialreport",
+  "source_type": "AWS_API_Call"
+ },
+ {
+  "benchmark": "164_312_e_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_1_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_1_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_1_ii_a",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_1_ii_b",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_i_a",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_i_b",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_i_c",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_i_d",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_ii_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_ii_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_ii_b",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_314_a_2_ii_c",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_a",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_1",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_1_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_1_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_2",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_2_i",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_2_ii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ },
+ {
+  "benchmark": "164_316_b_2_iii",
+  "config_rule": null,
+  "source_type": "MANUAL"
+ }
+]

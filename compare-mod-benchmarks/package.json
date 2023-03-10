@@ -1,0 +1,13 @@
+{
+  "name": "compare-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "json-2-csv": "^3.19.0",
+    "lodash": "^4.17.20"
+  }
+}
