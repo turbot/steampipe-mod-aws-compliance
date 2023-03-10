@@ -232,7 +232,8 @@ control "rds_db_cluster_iam_authentication_enabled" {
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
+    audit_manager_pci_v321 = "true"
+    nist_800_171_rev_2     = "true"
   })
 }
 
