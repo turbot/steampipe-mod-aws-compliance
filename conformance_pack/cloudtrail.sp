@@ -10,6 +10,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   query       = query.cloudtrail_trail_integrated_with_logs
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -32,6 +33,7 @@ control "cloudtrail_s3_data_events_enabled" {
   query       = query.cloudtrail_s3_data_events_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -55,6 +57,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   query       = query.cloudtrail_trail_logs_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -76,6 +79,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   query       = query.cloudtrail_multi_region_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -98,6 +102,7 @@ control "cloudtrail_trail_validation_enabled" {
   query       = query.cloudtrail_trail_validation_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -117,6 +122,7 @@ control "cloudtrail_trail_enabled" {
   query       = query.cloudtrail_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -139,10 +145,11 @@ control "cloudtrail_security_trail_enabled" {
   query       = query.cloudtrail_security_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_4  = "true"
-    soc_2              = "true"
+    cis_controls_v8_ig1 = "true"
+    gdpr                = "true"
+    nist_800_171_rev_2  = "true"
+    nist_800_53_rev_4   = "true"
+    soc_2               = "true"
   })
 }
 
@@ -265,21 +272,39 @@ query "cloudtrail_multi_region_trail_enabled" {
       group by
         account_id,
         is_multi_region_trail
+    ), organization_trails as (
+      select
+        is_organization_trail,
+        is_logging,
+        is_multi_region_trail,
+        account_id
+      from
+        aws_cloudtrail_trail
+      where
+        is_organization_trail
     )
     select
       -- Required Columns
-      a.arn as resource,
+      distinct a.arn as resource,
       case
-        when coalesce(num_multregion_trails, 0)  < 1 then 'alarm'
-        else 'ok'
+        when coalesce(num_multregion_trails, 0) >= 1 then 'ok'
+        when o.is_organization_trail and o.is_logging and o.is_multi_region_trail then 'ok'
+        when o.is_organization_trail and o.is_multi_region_trail and o.is_logging is null then 'info'
+        else 'alarm'
       end as status,
-      a.title || ' has ' || coalesce(num_multregion_trails, 0) || ' multi-region trail(s).' as reason
+      case
+        when coalesce(num_multregion_trails, 0) >= 1 then a.title || ' has ' || coalesce(num_multregion_trails, 0) || ' multi-region trail(s).'
+        when o.is_organization_trail and o.is_logging and o.is_multi_region_trail then a.title || ' has multi-region trail(s).'
+        when o.is_organization_trail and o.is_multi_region_trail and o.is_logging is null then a.title || ' has organization trail, check organization account for cloudtrail logging status.'
+        else a.title || ' does not have multi-region trail(s).'
+      end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
-      left join multi_region_trails as b on a.account_id = b.account_id;
+      left join multi_region_trails as b on a.account_id = b.account_id
+      left join organization_trails as o on a.account_id = o.account_id;
   EOQ
 }
 

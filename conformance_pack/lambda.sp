@@ -27,6 +27,7 @@ control "lambda_function_in_vpc" {
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -47,6 +48,7 @@ control "lambda_function_restrict_public_access" {
   query       = query.lambda_function_restrict_public_access
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -80,6 +82,16 @@ control "lambda_function_cloudtrail_logging_enabled" {
   title       = "Lambda functions CloudTrail logging should be enabled"
   description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
   query       = query.lambda_function_cloudtrail_logging_enabled
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "lambda_function_tracing_enabled" {
+  title       = "Lambda functions tracing should be enabled"
+  description = "AWS X-Ray can be used to visualize the components of application, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Lambda functions send trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries."
+  query       = query.lambda_function_tracing_enabled
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     other_checks = "true"
@@ -255,5 +267,26 @@ query "lambda_function_cloudtrail_logging_enabled" {
       left join function_logging_cloudtrails as c on l.arn = c.lambda_arn
       left join function_logging_region as r on r.cloudtrail_region = l.region
       left join function_logging_region_advance_es as a on a.cloudtrail_region = l.region;
+  EOQ
+}
+
+query "lambda_function_tracing_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when tracing_config ->> 'Mode' = 'PassThrough' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when tracing_config ->> 'Mode' = 'PassThrough' then title || ' has tracing disabled.'
+        else title || ' has tracing enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
   EOQ
 }

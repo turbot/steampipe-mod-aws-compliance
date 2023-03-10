@@ -10,6 +10,7 @@ control "ec2_ebs_default_encryption_enabled" {
   query       = query.ec2_ebs_default_encryption_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     gxp_21_cfr_part_11    = "true"
@@ -41,6 +42,7 @@ control "ec2_instance_in_vpc" {
   query       = query.ec2_instance_in_vpc
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -61,6 +63,7 @@ control "ec2_instance_not_publicly_accessible" {
   query       = query.ec2_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -76,12 +79,23 @@ control "ec2_instance_not_publicly_accessible" {
   })
 }
 
+control "ec2_instance_no_high_level_finding_in_inspector_scan" {
+  title       = "EC2 instances high level findings should not be there in inspector scans"
+  description = "Amazon Inspector scans operating system packages installed on your Amazon EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
+  query       = query.ec2_instance_no_high_level_finding_in_inspector_scan
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "ec2_stopped_instance_30_days" {
   title       = "EC2 stopped instances should be removed in 30 days"
   description = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
   query       = query.ec2_stopped_instance_30_days
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -101,6 +115,7 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -120,6 +135,7 @@ control "ec2_instance_uses_imdsv2" {
   query       = query.ec2_instance_uses_imdsv2
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gxp_21_cfr_part_11     = "true"
@@ -152,10 +168,11 @@ control "ec2_instance_iam_profile_attached" {
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    ffiec              = "true"
-    gxp_21_cfr_part_11 = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_5  = "true"
+    cis_controls_v8_ig1 = "true"
+    ffiec               = "true"
+    gxp_21_cfr_part_11  = "true"
+    nist_800_171_rev_2  = "true"
+    nist_800_53_rev_5   = "true"
   })
 }
 

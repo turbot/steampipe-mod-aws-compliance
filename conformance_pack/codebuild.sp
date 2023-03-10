@@ -4,12 +4,23 @@ locals {
   })
 }
 
+control "codebuild_project_build_greater_then_90_days" {
+  title       = "CodeBuild projects should not be unused for 90 days or greater"
+  description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
+  query       = query.codebuild_project_build_greater_then_90_days
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   title       = "CodeBuild project plaintext environment variables should not contain sensitive AWS values"
   description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS CodeBuild project environments. Do not store these variables in clear text. Storing these variables in clear text leads to unintended data exposure and unauthorized access."
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -27,6 +38,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -35,6 +47,46 @@ control "codebuild_project_source_repo_oauth_configured" {
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "codebuild_project_with_user_controlled_buildspec" {
+  title       = "CodeBuild projects should not use an user controlled buildspec"
+  description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
+  query       = query.codebuild_project_with_user_controlled_buildspec
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "codebuild_project_logging_enabled" {
+  title       = "CodeBuild project logging should be enabled"
+  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
+  query       = query.codebuild_project_logging_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
+  })
+}
+
+control "codebuild_project_environment_privileged_mode_disabled" {
+  title       = "CodeBuild project environment privileged mode should be disabled"
+  description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is non compliant for a CodeBuild project if 'privilegedMode' is set to 'true'."
+  query       = query.codebuild_project_environment_privileged_mode_disabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
+  })
+}
+
+control "codebuild_project_artifact_encryption_enabled" {
+  title       = "CodeBuild project artifact encryption should be enabled"
+  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  query       = query.codebuild_project_artifact_encryption_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    cis_controls_v8_ig1 = "true"
   })
 }
 
@@ -93,5 +145,101 @@ query "codebuild_project_source_repo_oauth_configured" {
     from
       aws_codebuild_project as p
       left join aws_codebuild_source_credential as c on (p.region = c.region and p.source ->> 'Type' = c.server_type);
+  EOQ
+}
+
+query "codebuild_project_with_user_controlled_buildspec" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then title || ' uses a user controlled buildspec.'
+        else title || ' does not uses a user controlled buildspec.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_environment_privileged_mode_disabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when environment ->> 'PrivilegedMode' = 'true' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when environment ->> 'PrivilegedMode' = 'true' then title || ' environment privileged mode enabled.'
+        else title || ' environment privileged mode disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_artifact_encryption_enabled" {
+  sql = <<-EOQ
+    with secondary_artifact as (
+      select
+        distinct arn
+      from
+        aws_codebuild_project,
+        jsonb_array_elements(secondary_artifacts) as a
+      where
+        a -> 'EncryptionDisabled' = 'true'
+    )
+    select
+      -- Required Columns
+      a.arn as resource,
+      case
+        when p.artifacts ->> 'EncryptionDisabled' = 'false'
+        and (p.secondary_artifacts is null or a.arn is null) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.artifacts ->> 'EncryptionDisabled' = 'false'
+        and (p.secondary_artifacts is null or a.arn is null) then p.title || ' all artifacts encryption enabled.'
+        else p.title || ' all artifacts encryption not enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_codebuild_project as p
+      left join secondary_artifact as a on a.arn = p.arn;
   EOQ
 }

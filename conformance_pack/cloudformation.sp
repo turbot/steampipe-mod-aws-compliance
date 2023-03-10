@@ -34,6 +34,16 @@ control "cloudformation_stack_rollback_enabled" {
   })
 }
 
+control "cloudformation_stack_termination_protection_enabled" {
+  title       = "Cloudformation stacks termination protection should be enabled"
+  description = "Ensure that Amazon CloudFormation stacks have termination protection feature enabled in order to protect them from being accidentally deleted. The safety feature can be enabled when you create the CloudFormation stack or for existing stacks using the AWS API (UpdateTerminationProtection command)."
+  query       = query.cloudformation_stack_termination_protection_enabled
+
+  tags = merge(local.conformance_pack_cloudformation_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "cloudformation_stack_output_no_secrets" {
   sql = <<-EOQ
     with stack_output as (
@@ -110,6 +120,27 @@ query "cloudformation_stack_rollback_enabled" {
       case
         when not disable_rollback then title || ' rollback enabled.'
         else title || ' rollback disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudformation_stack;
+  EOQ
+}
+
+query "cloudformation_stack_termination_protection_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      id as resource,
+      case
+        when enable_termination_protection then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enable_termination_protection then title || ' termination protection enabled.'
+        else title || ' termination protection disabled.'
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}

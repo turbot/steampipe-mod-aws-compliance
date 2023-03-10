@@ -10,6 +10,7 @@ control "s3_bucket_cross_region_replication_enabled" {
   query       = query.s3_bucket_cross_region_replication_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -31,6 +32,7 @@ control "s3_bucket_default_encryption_enabled" {
   query       = query.s3_bucket_default_encryption_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -52,6 +54,7 @@ control "s3_bucket_enforces_ssl" {
   query       = query.s3_bucket_enforces_ssl
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -73,6 +76,7 @@ control "s3_bucket_logging_enabled" {
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -111,6 +115,7 @@ control "s3_bucket_restrict_public_read_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -133,6 +138,7 @@ control "s3_bucket_restrict_public_write_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -154,6 +160,7 @@ control "s3_bucket_versioning_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_control_tower = "true"
+    cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
@@ -170,12 +177,23 @@ control "s3_bucket_versioning_enabled" {
   })
 }
 
+control "s3_bucket_static_website_hosting_disabled" {
+  title       = "S3 buckets static website hosting should be disabled"
+  description = "Enabling static website on a S3 bucket requires to grant public read access to the bucket. There is a potential risk of exposure when you turn off block public access settings to make your bucket public. This is recommend to not configure static website on S3 bucket."
+  query       = query.s3_bucket_static_website_hosting_disabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "s3_public_access_block_account" {
   title       = "S3 public access should be blocked at account level"
   description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed."
   query       = query.s3_public_access_block_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -232,6 +250,7 @@ control "s3_public_access_block_bucket" {
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -247,7 +266,8 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_800_171_rev_2 = "true"
+    cis_controls_v8_ig1 = "true"
+    nist_800_171_rev_2  = "true"
   })
 }
 
@@ -397,28 +417,54 @@ query "s3_bucket_object_lock_enabled" {
 
 query "s3_bucket_restrict_public_read_access" {
   sql = <<-EOQ
-    with data as (
+    with public_acl as (
       select
         distinct name
       from
         aws_s3_bucket,
         jsonb_array_elements(acl -> 'Grants') as grants
       where
-        grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AllUsers'
+        (grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AllUsers'
+        or grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AuthenticatedUsers')
         and (
           grants ->> 'Permission' = 'FULL_CONTROL'
           or grants ->> 'Permission' = 'READ_ACP'
+          or grants ->> 'Permission' = 'READ'
         )
-      )
+      ),read_access_policy as (
+        select
+          distinct name
+        from
+          aws_s3_bucket,
+          jsonb_array_elements(policy_std -> 'Statement') as s,
+          jsonb_array_elements_text(s -> 'Action') as action
+        where
+          s ->> 'Effect' = 'Allow'
+          and (
+            s -> 'Principal' -> 'AWS' = '["*"]'
+            or s ->> 'Principal' = '*'
+          )
+          and (
+            action = '*'
+            or action = '*:*'
+            or action = 's3:*'
+            or action ilike 's3:get%'
+            or action ilike 's3:list%'
+          )
+    )
     select
       -- Required Columns
       b.arn as resource,
       case
-        when d.name is null then 'ok'
+        when (block_public_acls or a.name is null) and not bucket_policy_is_public then 'ok'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then 'ok'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then 'ok'
         else 'alarm'
       end status,
       case
-        when d.name is null then b.title || ' not publicly readable.'
+        when (block_public_acls or a.name is null) and not bucket_policy_is_public then b.title || ' not publicly readable.'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly readable.'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then  b.title || ' not publicly readable.'
         else b.title || ' publicly readable.'
       end reason
       -- Additional Dimensions
@@ -426,34 +472,66 @@ query "s3_bucket_restrict_public_read_access" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
       aws_s3_bucket as b
-      left join data as d on b.name = d.name;
+      left join public_acl as a on b.name = a.name
+      left join read_access_policy as p on b.name = p.name;
   EOQ
 }
 
 query "s3_bucket_restrict_public_write_access" {
   sql = <<-EOQ
-    with data as (
+    with public_acl as (
       select
         distinct name
       from
         aws_s3_bucket,
         jsonb_array_elements(acl -> 'Grants') as grants
       where
-        grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AllUsers'
+        (grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AllUsers'
+        or grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AuthenticatedUsers')
         and (
           grants ->> 'Permission' = 'FULL_CONTROL'
           or grants ->> 'Permission' = 'WRITE_ACP'
+          or grants ->> 'Permission' = 'WRITE'
         )
-      )
+    ), write_access_policy as (
+        select
+          distinct name
+        from
+          aws_s3_bucket,
+          jsonb_array_elements(policy_std -> 'Statement') as s,
+          jsonb_array_elements_text(s -> 'Action') as action
+        where
+          s ->> 'Effect' = 'Allow'
+          and (
+            s -> 'Principal' -> 'AWS' = '["*"]'
+            or s ->> 'Principal' = '*'
+          )
+          and (
+            action = '*'
+            or action = '*:*'
+            or action = 's3:*'
+            or action ilike 's3:put%'
+            or action ilike 's3:delete%'
+            or action ilike 's3:create%'
+            or action ilike 's3:update%'
+            or action ilike 's3:replicate%'
+            or action ilike 's3:restore%'
+          )
+    )
     select
       -- Required Columns
       b.arn as resource,
+      bucket_policy_is_public,
       case
-        when d.name is null then 'ok'
+        when (block_public_acls or a.name is null) and not bucket_policy_is_public then 'ok'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then 'ok'
+        when bucket_policy_is_public and p.name is null then 'ok'
         else 'alarm'
       end status,
       case
-        when d.name is null then b.title || ' not publicly writable.'
+        when (block_public_acls or a.name is null ) and not bucket_policy_is_public then b.title || ' not publicly writable.'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly writable.'
+        when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then b.title || ' not publicly writable.'
         else b.title || ' publicly writable.'
       end reason
       -- Additional Dimensions
@@ -461,7 +539,8 @@ query "s3_bucket_restrict_public_write_access" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
       aws_s3_bucket as b
-      left join data as d on b.name = d.name;
+      left join public_acl as a on b.name = a.name
+      left join write_access_policy as p on b.name = p.name;
   EOQ
 }
 
@@ -505,7 +584,7 @@ query "s3_public_access_block_account" {
           and ignore_public_acls
           and restrict_public_buckets
           then 'Account level public access blocks enabled.'
-        else 'Account level public access not enabled for: ' ||
+        else 'Account level public access blocks not enabled for: ' ||
           concat_ws(', ',
             case when not (block_public_acls ) then 'block_public_acls' end,
             case when not (block_public_policy) then 'block_public_policy' end,
