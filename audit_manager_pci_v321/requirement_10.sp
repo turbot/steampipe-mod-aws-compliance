@@ -14,6 +14,7 @@ benchmark "audit_manager_pci_v321_requirement_10" {
     benchmark.audit_manager_pci_v321_requirement_10_3,
     benchmark.audit_manager_pci_v321_requirement_10_5,
     benchmark.audit_manager_pci_v321_requirement_10_7,
+    benchmark.audit_manager_pci_v321_requirement_10_8,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -430,6 +431,66 @@ benchmark "audit_manager_pci_v321_requirement_10_7_c" {
 
   children = [
     control.cloudwatch_log_group_retention_period_365,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_10_8" {
+  title       = "10.8 Additional requirement for service providers only: Implement a process for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of: • Firewalls • IDS/IPS • FIM • Anti-virus • Physical access controls • Logical access controls • Audit logging mechanisms • Segmentation controls"
+  description = "Note: This requirement applies only when the entity being assessed is a service provider. Without formal processes to detect and alert when critical security controls fail, failures may go undetected for extended periods and provide attackers ample time to compromise systems and steal sensitive data from the cardholder data environment. The specific types of failures may vary depending on the function of the device and technology in use. Typical failures include a system ceasing to perform its security function or not functioning in its intended manner; for example, a firewall erasing all its rules or going offline."
+
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_10_8_1,
+    benchmark.audit_manager_pci_v321_requirement_10_8_a,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_10_8" {
+  title       = "10.8 Additional requirement for service providers only: Implement a process for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of: • Firewalls • IDS/IPS • FIM • Anti-virus • Physical access controls • Logical access controls • Audit logging mechanisms • Segmentation controls"
+  description = "Note: This requirement applies only when the entity being assessed is a service provider. Without formal processes to detect and alert when critical security controls fail, failures may go undetected for extended periods and provide attackers ample time to compromise systems and steal sensitive data from the cardholder data environment. The specific types of failures may vary depending on the function of the device and technology in use. Typical failures include a system ceasing to perform its security function or not functioning in its intended manner; for example, a firewall erasing all its rules or going offline."
+
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_10_8_1,
+    benchmark.audit_manager_pci_v321_requirement_10_8_b,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_10_8_1" {
+  title       = "10.8.1 Additional requirement for service providers only: Respond to failures of any critical security controls in a timely manner. Processes for responding to failures in security controls must include: • Restoring security functions • Identifying and documenting the duration (date and time start to end) of the security failure • Identifying and documenting cause(s) of failure, including root cause, and documenting remediation required to address root cause • Identifying and addressing any security issues that arose during the failure • Performing a risk assessment to determine whether further actions are required as a result of the security failure • Implementing controls to prevent cause of failure from reoccurring • Resuming monitoring of security controls"
+  description = "Note: This requirement applies only when the entity being assessed is a service provider. If critical security control failures alerts are not quickly and effectively responded to, attackers may use this time to insert malicious software, gain control of a system, or steal data from the entity's environment. Documented evidence (e.g., records within a problem management system) should support that processes and procedures are in place to respond to security failures. In addition, personnel should be aware of their responsibilities in the event of a failure. Actions and responses to the failure should be captured in the documented evidence."
+
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_10_8_1_a,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_10_8_1_a" {
+  title       = "10.8.1.a Examine documented policies and procedures and interview personnel to verify processes are defined and implemented to respond to a security control failure, and include: • Restoring security functions • Identifying and documenting the duration (date and time start to end) of the security failure • Identifying and documenting cause(s) of failure, including root cause, and documenting remediation required to address root cause • Identifying and addressing any security issues that arose during the failure • Performing a risk assessment to determine whether further actions are required as a result of the security failure • Implementing controls to prevent cause of failure from reoccurring • Resuming monitoring of security controls"
+  description = "Note: This requirement applies only when the entity being assessed is a service provider. If critical security control failures alerts are not quickly and effectively responded to, attackers may use this time to insert malicious software, gain control of a system, or steal data from the entity's environment. Documented evidence (e.g., records within a problem management system) should support that processes and procedures are in place to respond to security failures. In addition, personnel should be aware of their responsibilities in the event of a failure. Actions and responses to the failure should be captured in the documented evidence."
+
+  children = [
+    control.cloudwatch_alarm_action_enabled,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_10_8_b" {
+  title       = "10.8.b Examine detection and alerting processes and interview personnel to verify that processes are implemented for all critical security controls, and that failure of a critical security control results in the generation of an alert.10.8.b Examine detection and alerting processes and interview personnel to verify that processes are implemented for all critical security controls, and that failure of a critical security control results in the generation of an alert"
+  description = "Note: This requirement applies only when the entity being assessed is a service provider. Without formal processes to detect and alert when critical security controls fail, failures may go undetected for extended periods and provide attackers ample time to compromise systems and steal sensitive data from the cardholder data environment. The specific types of failures may vary depending on the function of the device and technology in use. Typical failures include a system ceasing to perform its security function or not functioning in its intended manner; for example, a firewall erasing all its rules or going offline."
+
+  children = [
+    control.cloudtrail_trail_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.es_domain_logs_to_cloudwatch,
+    control.sns_topic_notification_delivery_status_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags

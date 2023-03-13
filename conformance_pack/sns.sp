@@ -35,3 +35,13 @@ control "sns_topic_policy_prohibit_public_access" {
     other_checks = "true"
   })
 }
+
+control "sns_topic_notification_delivery_status_enabled" {
+  title         = "Logging of delivery status should be enabled for notification messages sent to a topic"
+  description   = "This control checks whether logging is enabled for the delivery status of notification messages sent to an Amazon SNS topic for the endpoints. This control fails if the delivery status notification for messages is not enabled."
+  query         = query.sns_topic_notification_delivery_status_enabled
+
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    audit_manager_pci_v321 = "true"
+  })
+}
