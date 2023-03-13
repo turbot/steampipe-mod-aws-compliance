@@ -79,6 +79,7 @@ control "s3_bucket_logging_enabled" {
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    audit_manager_pci_v321 = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -295,5 +296,15 @@ control "s3_bucket_object_logging_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
+  title         = "S3 buckets with versioning enabled should have lifecycle policies configured"
+  description   = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  query         = query.s3_bucket_versioning_and_lifecycle_policy_enabled
+  
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    audit_manager_pci_v321 = "true"
   })
 }

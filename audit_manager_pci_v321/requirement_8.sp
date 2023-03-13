@@ -17,7 +17,7 @@ benchmark "audit_manager_pci_v321_requirement_8" {
     benchmark.audit_manager_pci_v321_requirement_8_7,
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_7_common_tags
+  tags = local.audit_manager_pci_v321_requirement_8_common_tags
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_1" {

@@ -34,6 +34,7 @@ control "cloudtrail_s3_data_events_enabled" {
   query       = query.cloudtrail_s3_data_events_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    audit_manager_pci_v321 = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -105,6 +106,7 @@ control "cloudtrail_trail_validation_enabled" {
   query       = query.cloudtrail_trail_validation_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    audit_manager_pci_v321 = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
