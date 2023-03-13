@@ -45,6 +45,7 @@ control "s3_bucket_default_encryption_enabled" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -67,6 +68,7 @@ control "s3_bucket_enforces_ssl" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -150,6 +152,7 @@ control "s3_bucket_restrict_public_write_access" {
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -204,6 +207,7 @@ control "s3_public_access_block_account" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -268,6 +272,7 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
+    soc_2               = "true"
   })
 }
 
@@ -278,5 +283,37 @@ control "s3_bucket_object_logging_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "s3_bucket_lifecycle_policy_enabled" {
+  title       = "S3 buckets should have lifecycle policies configured"
+  description = "This control checks if Amazon Simple Storage Service (Amazon S3) buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  query       = query.s3_bucket_lifecycle_policy_enabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    soc_2 = "true"
+  })
+}
+
+control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
+  title       = "S3 buckets with versioning enabled should have lifecycle policies configured"
+  description = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled"
+  query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    soc_2 = "true"
+  })
+}
+
+
+control "s3_bucket_event_notifications_enabled" {
+  title       = "S3 buckets should have event notifications enabled"
+  description = "This control checks whether S3 Event Notifications are enabled on an Amazon S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
+  severity    = "medium"
+  query       = query.s3_bucket_event_notifications_enabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    soc_2 = "true"
   })
 }

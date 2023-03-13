@@ -5,15 +5,13 @@ locals {
 }
 
 benchmark "soc_2_cc_6" {
-  title       = "CC6.0 - Logical and Physical Access"
+  title       = "CC6 - Logical and Physical Access"
   description = "The criteria relevant to how an entity (i) restricts logical and physical access, (ii) provides and removes that access, and (iii) prevents unauthorized access."
 
   children = [
     benchmark.soc_2_cc_6_1,
     benchmark.soc_2_cc_6_2,
     benchmark.soc_2_cc_6_3,
-    benchmark.soc_2_cc_6_4,
-    benchmark.soc_2_cc_6_5,
     benchmark.soc_2_cc_6_6,
     benchmark.soc_2_cc_6_7,
     benchmark.soc_2_cc_6_8
@@ -27,7 +25,68 @@ benchmark "soc_2_cc_6_1" {
   documentation = file("./soc_2/docs/cc_6_1.md")
 
   children = [
-   control.s3_bucket_restrict_public_read_access
+    control.acm_certificate_expires_30_days,
+    control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ebs_volume_encryption_at_rest_enabled,
+    control.ec2_ebs_default_encryption_enabled,
+    control.ec2_instance_in_vpc,
+    control.ec2_instance_not_publicly_accessible,
+    control.ec2_instance_ssm_managed,
+    control.efs_file_system_encrypt_data_at_rest,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_lb_waf_enabled,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.emr_cluster_kerberos_enabled,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_encryption_at_rest_enabled,
+    control.es_domain_in_vpc,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.iam_account_password_policy_min_length_14,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_access_key_age_90,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.kms_key_not_pending_deletion,
+    control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.log_group_encryption_at_rest_enabled,
+    control.rds_db_instance_encryption_at_rest_enabled,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_encrypted_at_rest,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_logging_enabled,
+    control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.sagemaker_notebook_instance_encrypted_with_kms_cmk,
+    control.secretsmanager_secret_automatic_rotation_enabled,
+    control.secretsmanager_secret_rotated_as_scheduled,
+    control.sns_topic_encrypted_at_rest,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_eip_associated,
+    control.vpc_security_group_associated_to_eni,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
@@ -42,7 +101,68 @@ benchmark "soc_2_cc_6_2" {
   documentation = file("./soc_2/docs/cc_6_2.md")
 
   children = [
-    control.rds_db_instance_prohibit_public_access
+    control.acm_certificate_expires_30_days,
+    control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ebs_volume_encryption_at_rest_enabled,
+    control.ec2_ebs_default_encryption_enabled,
+    control.ec2_instance_in_vpc,
+    control.ec2_instance_not_publicly_accessible,
+    control.ec2_instance_ssm_managed,
+    control.efs_file_system_encrypt_data_at_rest,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_lb_waf_enabled,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.emr_cluster_kerberos_enabled,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_encryption_at_rest_enabled,
+    control.es_domain_in_vpc,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.iam_account_password_policy_min_length_14,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.iam_user_access_key_age_90,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90,
+    control.kms_key_not_pending_deletion,
+    control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.log_group_encryption_at_rest_enabled,
+    control.rds_db_instance_encryption_at_rest_enabled,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_encrypted_at_rest,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_logging_enabled,
+    control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.sagemaker_notebook_instance_encrypted_with_kms_cmk,
+    control.secretsmanager_secret_automatic_rotation_enabled,
+    control.secretsmanager_secret_rotated_as_scheduled,
+    control.sns_topic_encrypted_at_rest,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_eip_associated,
+    control.vpc_security_group_associated_to_eni,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
@@ -57,7 +177,16 @@ benchmark "soc_2_cc_6_3" {
   documentation = file("./soc_2/docs/cc_6_3.md")
 
   children = [
-    control.iam_policy_no_star_star
+    control.emr_cluster_kerberos_enabled,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_user_unused_credentials_90,
+    control.iam_policy_no_star_star,
+    control.iam_group_not_empty,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_root_user_no_access_keys,
+    control.iam_managed_policy_attached_to_role,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
@@ -67,40 +196,40 @@ benchmark "soc_2_cc_6_3" {
   })
 }
 
-benchmark "soc_2_cc_6_4" {
-  title         = "CC6.4 The entity restricts physical access to facilities and protected information assets to authorized personnel to meet the entity’s objectives"
-  documentation = file("./soc_2/docs/cc_6_4.md")
-
-  children = [
-    control.manual_control
-  ]
-
-  tags = merge(local.soc_2_cc_6_common_tags, {
-    soc_2_item_id = "6.4"
-    soc_2_type    = "manual"
-  })
-}
-
-benchmark "soc_2_cc_6_5" {
-  title         = "CC6.5 The entity discontinues logical and physical protections over physical assets only after the ability to read or recover data and software from those assets has been diminished and is no longer required to meet the entity’s objectives"
-  documentation = file("./soc_2/docs/cc_6_5.md")
-
-  children = [
-    control.manual_control
-  ]
-
-  tags = merge(local.soc_2_cc_6_common_tags, {
-    soc_2_item_id = "6.5"
-    soc_2_type    = "automated"
-  })
-}
-
 benchmark "soc_2_cc_6_6" {
   title         = "CC6.6 The entity implements logical access security measures to protect against threats from sources outside its system boundaries"
   documentation = file("./soc_2/docs/cc_6_6.md")
 
   children = [
-    control.ec2_instance_not_publicly_accessible
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.ec2_instance_in_vpc,
+    control.ec2_instance_not_publicly_accessible,
+    control.elb_application_lb_waf_enabled,
+    control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
+    control.guardduty_enabled,
+    control.iam_root_user_hardware_mfa_enabled,
+    control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled,
+    control.lambda_function_in_vpc,
+    control.lambda_function_restrict_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.securityhub_enabled,
+    control.vpc_default_security_group_restricts_all_traffic,
+    control.vpc_flow_logs_enabled,
+    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
@@ -115,7 +244,14 @@ benchmark "soc_2_cc_6_7" {
   documentation = file("./soc_2/docs/cc_6_7.md")
 
   children = [
-    control.acm_certificate_expires_30_days
+    control.acm_certificate_expires_30_days,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
+    control.redshift_cluster_encryption_in_transit_enabled
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {

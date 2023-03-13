@@ -22,6 +22,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -66,6 +67,7 @@ control "redshift_cluster_prohibit_public_access" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 

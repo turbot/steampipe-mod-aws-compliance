@@ -63,6 +63,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -81,6 +82,7 @@ control "elb_application_lb_waf_enabled" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -102,6 +104,7 @@ control "elb_classic_lb_use_ssl_certificate" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -117,6 +120,7 @@ control "elb_application_lb_drop_http_headers" {
     nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -137,6 +141,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 

@@ -107,6 +107,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -129,6 +130,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 

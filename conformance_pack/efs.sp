@@ -20,6 +20,7 @@ control "efs_file_system_encrypt_data_at_rest" {
     nist_csf           = "true"
     nist_800_171_rev_2 = "true"
     rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
