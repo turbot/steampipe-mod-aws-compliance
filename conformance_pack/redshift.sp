@@ -22,6 +22,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -66,6 +67,7 @@ control "redshift_cluster_prohibit_public_access" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -132,6 +134,16 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     gxp_21_cfr_part_11 = "true"
     nist_800_171_rev_2 = "true"
     nist_800_53_rev_5  = "true"
+  })
+}
+
+control "redshift_cluster_audit_logging_enabled" {
+  title       = "Amazon Redshift audit logging should be enabled"
+  description = "This control ensures if redshift clusters are logging audits to a specific bucket. The rule is no compliant if audit logging is not enabled for a redshift cluster or if the 'bucketNames' parameter is provided but the audit logging destination does not match."
+  query       = query.redshift_cluster_audit_logging_enabled
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    soc_2 = "true"
   })
 }
 
@@ -308,7 +320,7 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
   EOQ
 }
 
-query "redshift_cluster_logging_enabled" {
+query "redshift_cluster_audit_logging_enabled" {
   sql = <<-EOQ
     select
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,

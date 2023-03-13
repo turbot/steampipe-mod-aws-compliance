@@ -77,6 +77,7 @@ control "iam_root_user_no_access_keys" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -98,6 +99,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -292,6 +294,7 @@ control "iam_account_password_policy_min_length_14" {
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -470,6 +473,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    soc_2               = "true"
   })
 }
 

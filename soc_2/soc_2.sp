@@ -14,21 +14,11 @@ benchmark "soc_2" {
     benchmark.soc_2_cc_2,
     benchmark.soc_2_cc_3,
     benchmark.soc_2_cc_4,
-    benchmark.soc_2_cc_5,
     benchmark.soc_2_cc_6,
     benchmark.soc_2_cc_7,
     benchmark.soc_2_cc_8,
-    benchmark.soc_2_cc_9,
     benchmark.soc_2_a_1,
     benchmark.soc_2_c_1,
-    benchmark.soc_2_p_1,
-    benchmark.soc_2_p_2,
-    benchmark.soc_2_p_3,
-    benchmark.soc_2_p_4,
-    benchmark.soc_2_p_5,
-    benchmark.soc_2_p_6,
-    benchmark.soc_2_p_7,
-    benchmark.soc_2_p_8
   ]
   tags = local.soc_2_common_tags
 }
