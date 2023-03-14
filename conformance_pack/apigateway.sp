@@ -215,3 +215,69 @@ query "apigateway_rest_api_authorizers_configured" {
       left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
   EOQ
 }
+
+# Non-Config rule query
+query "api_gatewayv2_route_authorization_type_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
+      case
+        when authorization_type is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when authorization_type is null then route_id || ' authorization type not configured.'
+        else route_id || ' authorization type ' || authorization_type || ' configured.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gatewayv2_route;
+  EOQ
+}
+
+# Non-Config rule query
+query "apigateway_rest_api_stage_xray_tracing_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when tracing_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when tracing_enabled then title || ' X-Ray tracing enabled.'
+        else title || ' X-Ray tracing disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
+# Non-Config rule query
+query "gatewayv2_stage_access_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/stages/' || stage_name as resource,
+      case
+        when access_log_settings is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when access_log_settings is null then title || ' access logging disabled.'
+        else title || ' access logging enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gatewayv2_stage;
+  EOQ
+}

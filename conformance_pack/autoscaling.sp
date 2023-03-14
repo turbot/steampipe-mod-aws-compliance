@@ -112,3 +112,135 @@ query "autoscaling_group_no_suspended_process" {
       aws_ec2_autoscaling_group;
   EOQ
 }
+
+# Non-Config rule query
+query "autoscaling_group_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      autoscaling_group_arn as resource,
+      case
+        when jsonb_array_length(availability_zones) > 1 then 'ok'
+        else 'alarm'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+# Non-Config rule query
+query "autoscaling_group_uses_ec2_launch_template" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      autoscaling_group_arn as resource,
+      case
+        when launch_template_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when launch_template_id is not null then title || ' using an EC2 launch template.'
+        else title || ' not using an EC2 launch template.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+# Non-Config rule query
+query "autoscaling_launch_config_hop_limit" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_put_response_hop_limit is null then 'ok'
+        when metadata_options_put_response_hop_limit > 1 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        --If you do not specify a value, the hop limit default is 1.
+        when metadata_options_put_response_hop_limit is null then title || ' metadata response hop limit set to default.'
+        else title || ' has a metadata response hop limit of ' || metadata_options_put_response_hop_limit || '.'
+      end as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+# Non-Config rule query
+query "autoscaling_launch_config_requires_imdsv2" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_http_tokens = 'required' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when metadata_options_http_tokens = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+# Non-Config rule query
+query "autoscaling_use_multiple_instance_types_in_multiple_az" {
+  sql = <<-EOQ
+    with autoscaling_groups as (
+      select
+          autoscaling_group_arn,
+          title,
+          mixed_instances_policy_launch_template_overrides,
+          region,
+          tags,
+          _ctx,
+          account_id
+      from
+          aws_ec2_autoscaling_group
+    ),
+    distinct_instance_types_count as (
+      select
+          autoscaling_group_arn,
+          count(distinct(e -> 'InstanceType')) as distinct_instance_types
+      from
+          autoscaling_groups,
+          jsonb_array_elements(mixed_instances_policy_launch_template_overrides) as e
+      group by
+          autoscaling_group_arn,
+          title,
+          mixed_instances_policy_launch_template_overrides
+    )
+    select
+      -- Required Columns
+      a.autoscaling_group_arn as resource,
+      case
+          when b.distinct_instance_types > 1 then 'ok'
+          else 'alarm'
+      end as status,
+      case
+          when b.distinct_instance_types > 1 then title || ' uses ' || b.distinct_instance_types || ' instance types.'
+          else title || ' does not use multiple instance types.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+    from
+      autoscaling_groups as a
+      left join distinct_instance_types_count as b on a.autoscaling_group_arn = b.autoscaling_group_arn;
+  EOQ
+}
