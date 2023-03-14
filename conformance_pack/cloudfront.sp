@@ -12,6 +12,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gdpr  = "true"
     hipaa = "true"
+    soc_2 = "true"
   })
 }
 

@@ -17,10 +17,11 @@ benchmark "soc_2_a_1" {
 
 benchmark "soc_2_a_1_2" {
   title         = "A1.2 The entity authorizes, designs, develops or acquires, implements, operates, approves, maintains, and monitors environmental protections, software, data back-up processes, and recovery infrastructure to meet its objectives"
-  documentation = file("./soc_2/docs/cc_a_1_2.md")
+  documentation = file("./soc_2/docs/a_1_2.md")
 
   children = [
     control.apigateway_stage_logging_enabled,
+    control.backup_recovery_point_min_retention_35_days,
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,

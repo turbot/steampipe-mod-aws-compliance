@@ -136,3 +136,14 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     nist_800_53_rev_5  = "true"
   })
 }
+
+control "redshift_cluster_audit_logging_enabled" {
+  title       = "Amazon Redshift audit logging should be enabled"
+  description = "This control ensures if redshift clusters are logging audits to a specific bucket. The rule is no compliant if audit logging is not enabled for a redshift cluster or if the 'bucketNames' parameter is provided but the audit logging destination does not match."
+  query       = query.redshift_cluster_audit_logging_enabled
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    soc_2 = "true"
+
+  })
+}
