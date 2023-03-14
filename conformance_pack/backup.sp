@@ -93,7 +93,6 @@ query "backup_recovery_point_manual_deletion_disabled" {
         else v.title || ' recovery point manual deletion not disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
       aws_backup_vault as v
@@ -109,7 +108,8 @@ query "backup_plan_min_retention_35_days" {
         r as Rules,
         title,
         region,
-        account_id
+        account_id,
+        _ctx
       from
         aws_backup_plan,
         jsonb_array_elements(backup_plan -> 'Rules') as r
@@ -132,7 +132,6 @@ query "backup_plan_min_retention_35_days" {
         else (r.Rules ->> 'RuleName') || ' retention period set to ' || (r.Rules -> 'Lifecycle' ->> 'DeleteAfterDays') || ' days.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       all_plans as r;
@@ -153,7 +152,6 @@ query "backup_recovery_point_encryption_enabled" {
         else recovery_point_arn || ' encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_backup_recovery_point;
@@ -175,7 +173,6 @@ query "backup_recovery_point_min_retention_35_days" {
         else split_part(recovery_point_arn, ':', -1) || ' recovery point has a retention period of ' || (lifecycle -> 'DeleteAfterDays')::int || ' days.'
       end as reason
       -- Additional Dimensions
-        ${local.tag_dimensions_sql}
         ${local.common_dimensions_sql}
     from
       aws_backup_recovery_point;

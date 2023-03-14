@@ -386,6 +386,8 @@ query "cloudtrail_security_trail_enabled" {
     all_trails as (
       select
         a.arn as arn,
+        tags,
+        _ctx,
         case
           when a.is_logging is null then b.is_logging
           else a.is_logging
@@ -453,7 +455,7 @@ query "cloudtrail_s3_logging_enabled" {
         else t.title || '''s logging bucket ' || t.s3_bucket_name || ' has access logging disabled.'
       end as reason
       -- Additional columns
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from
       aws_cloudtrail_trail t
@@ -473,6 +475,8 @@ query "cloudtrail_bucket_not_public" {
       b.arn,
       t.region,
       t.account_id,
+      t.tags,
+      t._ctx,
       count(acl_grant) filter (where acl_grant -> 'Grantee' ->> 'URI' like '%acs.amazonaws.com/groups/global/AllUsers') as all_user_grants,
       count(acl_grant) filter (where acl_grant -> 'Grantee' ->> 'URI' like '%acs.amazonaws.com/groups/global/AuthenticatedUsers') as auth_user_grants,
       count(s) filter (where s ->> 'Effect' = 'Allow' and  p = '*' ) as anon_statements
@@ -486,7 +490,9 @@ query "cloudtrail_bucket_not_public" {
       t.s3_bucket_name,
       b.arn,
       t.region,
-      t.account_id
+      t.account_id,
+      t.tags,
+      t._ctx
   )
   select
     -- Required Columns

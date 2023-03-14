@@ -71,7 +71,6 @@ query "config_enabled_all_regions" {
       end
       end as reason
       -- Additional columns
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       global_recorders as g,

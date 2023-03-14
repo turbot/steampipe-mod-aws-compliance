@@ -346,7 +346,6 @@ query "log_metric_filter_unauthorized_api" {
         else filter_name || ' forwards events for unauthorized API calls.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -396,7 +395,6 @@ query "log_metric_filter_console_login_mfa" {
         else filter_name || ' forwards events for console sign-in without MFA.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -446,7 +444,6 @@ query "log_metric_filter_root_login" {
         else filter_name || ' forwards events for usage of "root" account.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -497,7 +494,6 @@ query "log_metric_filter_iam_policy" {
         else filter_name || ' forwards events for IAM policy changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -548,7 +544,6 @@ query "log_metric_filter_vpc" {
         else filter_name || ' forwards events for VPC changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -599,7 +594,6 @@ query "log_metric_filter_route_table" {
         else filter_name || ' forwards events for route table changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -650,7 +644,6 @@ query "log_metric_filter_network_gateway" {
         else filter_name || ' forwards events for changes to network gateways.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -700,7 +693,6 @@ query "log_metric_filter_network_acl" {
         else filter_name || ' forwards events for changes to NACLs.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -750,7 +742,6 @@ query "log_metric_filter_security_group" {
         else filter_name || ' forwards events for security group changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -800,7 +791,6 @@ query "log_metric_filter_config_configuration" {
         else filter_name || ' forwards events for AWS Config configuration changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -851,7 +841,6 @@ query "log_metric_filter_bucket_policy" {
         else filter_name || ' forwards events for S3 bucket policy changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -901,7 +890,6 @@ query "log_metric_filter_disable_or_delete_cmk" {
         else filter_name || ' forwards events for disabling/deletion of CMKs.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -951,7 +939,6 @@ query "log_metric_filter_console_authentication_failure" {
         else filter_name || ' forwards events for console authentication failures.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1001,7 +988,6 @@ query "log_metric_filter_cloudtrail_configuration" {
         else filter_name || ' forwards events for CloudTrail configuration changes.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1034,7 +1020,6 @@ query "cloudwatch_cross_account_sharing" {
         else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
