@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_6" {
   title       = "Requirement 6: Develop and maintain secure systems and applications"
-  description = ""
+  description = "Unscrupulous individuals use security vulnerabilities to gain privileged access to systems. Many of these vulnerabilities are fixed by vendorprovided security patches, which must be installed by the entities that manage the systems."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_6_1,
@@ -49,8 +49,8 @@ benchmark "audit_manager_pci_v321_requirement_6_2" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_6_2_b,
-    control.ssm_managed_instance_compliance_patch_compliant,
     control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_patch_compliant,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.2"
@@ -100,6 +100,7 @@ benchmark "audit_manager_pci_v321_requirement_6_3_1" {
   })
 }
 
+// issue raised for CODEDEPLOY_LAMBDA_ALLATONCE_TRAFFIC_SHIFT_DISABLED query in audit_manager_pci_v321_requirement_6_3_2_b
 // benchmark "audit_manager_pci_v321_requirement_6_3_2" {
 //   title       = "6.3.2 Review custom code prior to release to production or customers in order to identify any potential coding vulnerability (using either manual or automated processes) to include at least the following: • Code changes are reviewed by individuals other than the originating code author, and by individuals knowledgeable about code-review techniques and secure coding practices. • Code reviews ensure code is developed according to secure coding guidelines • Appropriate corrections are implemented prior to release. • Code-review results are reviewed and approved by management prior to release"
 //   description = "Security vulnerabilities in custom code are commonly exploited by malicious individuals to gain access to a network and compromise cardholder data. An individual knowledgeable and experienced in code-review techniques should be involved in the review process. Code reviews should be performed by someone other than the developer of the code to allow for an independent, objective review. Automated tools or processes may also be used in lieu of manual reviews, but keep in mind that it may be difficult or even impossible for an automated tool to identify some coding issues. Correcting coding errors before the code is deployed into a production environment or released to customers prevents the code exposing the environments to potential exploit. Faulty code is also far more difficult and expensive to address after it has been deployed or released into production environments. Including a formal review and signoff by management prior to release helps to ensure that code is approved and has been developed in accordance with policies and procedures."
@@ -194,13 +195,14 @@ benchmark "audit_manager_pci_v321_requirement_6_6" {
   description = "Examine the system configuration settings and interview responsible personnel to verify that an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) is in place as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated.Public-facing web applications are primary targets for attackers, and poorly coded web applications provide an easy path for attackers to gain access to sensitive data and systems. The requirement for reviewing applications or installing web-application firewalls is intended to reduce the number of compromises on public-facing web applications due to poor coding or application management practices. • Manual or automated vulnerability security assessment tools or methods review and/or test the application for vulnerabilities • Web-application firewalls filter and block non- essential traffic at the application layer. Used in conjunction with a network-based firewall, a properly configured web-application firewall prevents application-layer attacks if applications are improperly coded or configured. This can be achieved through a combination of technology and process. Process-based solutions must have mechanisms that facilitate timely responses to alerts in order to meet the intent of this requirement, which is to prevent attacks. Note: “An organization that specializes in application security” can be either a third-party company or an internal organization, as long as the reviewers specialize in application security and can demonstrate independence from the development team. For public-facing web applications, address new threats and vulnerabilities on an ongoing basis and ensure these applications are protected against known attacks by either of the following methods: • Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, at least annually and after any changes Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. • Installing an automated technical solution that detects and prevents web- based attacks (for example, a web- application firewall) in front of public- facing web applications, to continually check all traffic."
 
   children = [
+    control.apigateway_stage_use_waf_web_acl,
     control.elb_application_lb_desync_mitigation_mode,
     control.elb_application_lb_waf_enabled,
-    control.apigateway_stage_use_waf_web_acl,
     control.elb_classic_lb_desync_mitigation_mode,
+    control.waf_regional_rule_condition_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached
+    control.waf_web_acl_rule_attached,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.6"

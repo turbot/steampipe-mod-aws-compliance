@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_7" {
   title       = "Requirement 7: Restrict access to cardholder data by business need to know"
-  description = ""
+  description = "To ensure critical data can only be accessed by authorized personnel, systems and processes must be in place to limit access based on need to know and according to job responsibilities."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_7_1,
@@ -75,20 +75,20 @@ benchmark "audit_manager_pci_v321_requirement_7_2_1" {
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_not_publicly_accessible,
     control.eks_cluster_endpoint_restrict_public_access,
-    control.es_domain_in_vpc,
     control.emr_cluster_master_nodes_no_public_ip,
+    control.es_domain_in_vpc,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
     control.iam_user_no_inline_attached_policies,
-    control.vpc_igw_attached_to_authorized_vpc,
     control.lambda_function_restrict_public_access,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.s3_public_access_block_bucket_account,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_igw_attached_to_authorized_vpc,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.2.1"

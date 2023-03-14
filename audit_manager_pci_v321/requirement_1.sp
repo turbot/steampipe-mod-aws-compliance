@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_1" {
   title       = "Requirement 1: Install and maintain a firewall configuration to protect cardholder data"
-  description = ""
+  description = "A firewall examines all network traffic and blocks those transmissions that do not meet the specified security criteria. All systems must be protected from unauthorized access from untrusted networks."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_1_1,
@@ -54,7 +54,6 @@ benchmark "audit_manager_pci_v321_requirement_1_1_4_c" {
 
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {
     audit_manager_pci_v321_item_id = "1.1.4.c"
-    audit_manager_pci_v321_requirement_type    = "automated"
   })
 }
 

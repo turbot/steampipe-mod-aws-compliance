@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_10" {
   title       = "Requirement 10: Track and monitor all access to network resources and cardholder data"
-  description = ""
+  description = "Logging mechanisms and the ability to track user activities are critical in preventing, detecting, or minimizing the impact of a data compromise. The presence of logs in all environments allows thorough tracking, alerting, and analysis when something does go wrong."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_10_1,
@@ -25,20 +25,20 @@ benchmark "audit_manager_pci_v321_requirement_10_1" {
   description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: • Audit trails are enabled and active for system components. • Access to system components is linked to individual users."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
     control.apigateway_stage_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
-    control.elb_application_classic_lb_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_log_group_retention_period_365,
+    control.elb_application_classic_lb_logging_enabled,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.cloudwatch_log_group_retention_period_365,
-    control.rds_db_instance_logging_enabled,
     control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -49,7 +49,6 @@ benchmark "audit_manager_pci_v321_requirement_10_2" {
   description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: • Audit trails are enabled and active for system components. • Access to system components is linked to individual users."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
     benchmark.audit_manager_pci_v321_requirement_10_2_1,
     benchmark.audit_manager_pci_v321_requirement_10_2_2,
     benchmark.audit_manager_pci_v321_requirement_10_2_3,
@@ -57,6 +56,10 @@ benchmark "audit_manager_pci_v321_requirement_10_2" {
     benchmark.audit_manager_pci_v321_requirement_10_2_5,
     benchmark.audit_manager_pci_v321_requirement_10_2_6,
     benchmark.audit_manager_pci_v321_requirement_10_2_7,
+    control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch,
+    control.redshift_cluster_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -66,13 +69,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_1" {
   title       = "10.2.1 All individual user accesses to cardholder data"
   description = "Malicious individuals could obtain knowledge of a user account with access to systems in the CDE, or they could create a new, unauthorized account in order to access cardholder data. A record of all individual accesses to cardholder data can identify which accounts may have been compromised or misused. This control verifies all individual access to cardholder data is loggedVerify all individual access to cardholder data is logged."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -82,13 +85,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_2" {
   title       = "10.2.2 All actions taken by any individual with root or administrative privileges"
   description = "Accounts with increased privileges, such as the “administrator” or “root” account, have the potential to greatly impact the security or operational functionality of a system. Without a log of the activities performed, an organization is unable to trace any issues resulting from an administrative mistake or misuse of privilege back to the specific action and individual. This control verifies all actions taken by any individual with root or administrative privileges are logged."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -98,13 +101,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_3" {
   title       = "10.2.3 Access to all audit trails"
   description = "Malicious users often attempt to alter audit logs to hide their actions, and a record of access allows an organization to trace any inconsistencies or potential tampering of the logs to an individual account. Having access to logs identifying changes, additions, and deletions can help retrace steps made by unauthorized personnel. This control verifies access to all audit trails is logged."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -114,13 +117,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_4" {
   title       = "10.2.4 Invalid logical access attempts"
   description = "Malicious users often attempt to alter audit logs to hide their actions, and a record of access allows an organization to trace any inconsistencies or potential tampering of the logs to an individual account. Having access to logs identifying changes, additions, and deletions can help retrace steps made by unauthorized personnel. This control verifies access to all audit trails is logged."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -150,13 +153,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_6" {
   title       = "10.2.6 Initialization, stopping, or pausing of the audit logs"
   description = "Turning the audit logs off (or pausing them) prior to performing illicit activities is a common practice for malicious users wishing to avoid detection. Initialization of audit logs could indicate that the log function was disabled by a user to hide their actions. This control verifies the following are logged: • Initialization of audit logs • Stopping or pausing of audit logs."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -166,13 +169,13 @@ benchmark "audit_manager_pci_v321_requirement_10_2_7" {
   title       = "10.2.7 Creation and deletion of system- level objects"
   description = "Malicious software, such as malware, often creates or replaces system level objects on the target system in order to control a particular function or operation on that system. By logging when system-level objects, such as database tables or stored procedures, are created or deleted, it will be easier to determine whether such modifications were authorized. This control verifies creation and deletion of system level objects are logged."
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -183,19 +186,19 @@ benchmark "audit_manager_pci_v321_requirement_10_3" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. Through interviews and observation of audit logs, for each auditable event (from 10.2), perform the following:"
 
   children = [
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
     benchmark.audit_manager_pci_v321_requirement_10_3_1,
     benchmark.audit_manager_pci_v321_requirement_10_3_2,
     benchmark.audit_manager_pci_v321_requirement_10_3_3,
     benchmark.audit_manager_pci_v321_requirement_10_3_4,
     benchmark.audit_manager_pci_v321_requirement_10_3_5,
     benchmark.audit_manager_pci_v321_requirement_10_3_6,
+    control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -206,14 +209,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_1" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This control verifies user identification is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -224,14 +227,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_2" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This control verifies event is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -242,14 +245,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_3" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This verifies date and time stamp is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -260,14 +263,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_4" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This control verifies success or failure indication is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -278,14 +281,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_5" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This control verifies origination of event is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -296,14 +299,14 @@ benchmark "audit_manager_pci_v321_requirement_10_3_6" {
   description = "By recording these details for the auditable events at 10.2, a potential compromise can be quickly identified, and with sufficient detail to know who, what, where, when, and how. This control verifies identity or name of affected data, system component, or resources is included in log entries."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -314,18 +317,18 @@ benchmark "audit_manager_pci_v321_requirement_10_5" {
   description = "Often a malicious individual who has entered the network will attempt to edit the audit logs in order to hide their activity. Without adequate protection of audit logs, their completeness, accuracy, and integrity cannot be guaranteed, and the audit logs can be rendered useless as an investigation tool after a compromise. This control checks secure audit trails so they cannot be altered."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
     benchmark.audit_manager_pci_v321_requirement_10_5_2,
     benchmark.audit_manager_pci_v321_requirement_10_5_3,
     benchmark.audit_manager_pci_v321_requirement_10_5_4,
-    benchmark.audit_manager_pci_v321_requirement_10_5_5
+    benchmark.audit_manager_pci_v321_requirement_10_5_5,
+    control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -348,8 +351,8 @@ benchmark "audit_manager_pci_v321_requirement_10_5_3" {
   description = "Adequate protection of the audit logs includes strong access control (limit access to logs based on “need to know” only), and use of physical or network segregation to make the logs harder to find and modify. Promptly backing up the logs to a centralized log server or media that is difficult to alter keeps the logs protected even if the system generating the logs becomes compromised. Promptly back up audit trail files to a centralized log server or media that is difficult to alter."
 
   children = [
-    control.s3_bucket_cross_region_replication_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.s3_bucket_cross_region_replication_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -360,14 +363,14 @@ benchmark "audit_manager_pci_v321_requirement_10_5_4" {
   description = "By writing logs from external-facing technologies such as wireless, firewalls, DNS, and mail servers, the risk of those logs being lost or altered is lowered, as they are more secure within the internal network. Logs may be written directly, or offloaded or copied from external systems, to the secure internal system or media."
 
   children = [
-    control.es_domain_logs_to_cloudwatch,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_multi_region_trail_enabled,
-    control.s3_bucket_logging_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -390,10 +393,10 @@ benchmark "audit_manager_pci_v321_requirement_10_7" {
   description = "Retaining logs for at least a year allows for the fact that it often takes a while to notice that a compromise has occurred or is occurring, and allows investigators sufficient log history to better determine the length of time of a potential breach and potential system(s) impacted. By having three months of logs immediately available, an entity can quickly identify and minimize impact of a data breach. Storing logs in off-line locations could prevent them from being readily available, resulting in longer time frames to restore log data, perform analysis, and identify impacted systems or data."
 
   children = [
-    control.cloudwatch_log_group_retention_period_365,
     benchmark.audit_manager_pci_v321_requirement_10_7_a,
     benchmark.audit_manager_pci_v321_requirement_10_7_b,
-    benchmark.audit_manager_pci_v321_requirement_10_7_c
+    benchmark.audit_manager_pci_v321_requirement_10_7_c,
+    control.cloudwatch_log_group_retention_period_365,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -490,6 +493,9 @@ benchmark "audit_manager_pci_v321_requirement_10_8_b" {
     control.cloudtrail_trail_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch,
+    control.redshift_cluster_logging_enabled,
     control.sns_topic_notification_delivery_status_enabled,
   ]
 

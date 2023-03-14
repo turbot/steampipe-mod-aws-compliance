@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_5" {
   title       = "Requirement 5: Protect all systems against malware and regularly update anti-virus software or programs"
-  description = ""
+  description = "Malicious software, commonly referred to as “malware”—including viruses, worms, and Trojans—enters the network during many businessapproved activities including employee e-mail and use of the Internet, mobile computers, and storage devices, resulting in the exploitation of system vulnerabilities. Anti-virus software must be used on all systems commonly affected by malware to protect systems from current and evolving malicious software threats"
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_5_1,

@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_8" {
   title       = "Requirement 8: Identify and authenticate access to system components"
-  description = ""
+  description = "Assigning a unique identification (ID) to each person with access ensures that each individual is uniquely accountable for their actions. When such accountability is in place, actions taken on critical data and systems are performed by, and can be traced to, known and authorized users and processes."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_1,
@@ -37,8 +37,8 @@ benchmark "audit_manager_pci_v321_requirement_8_1_4" {
   description = "Accounts that are not used regularly are often targets of attack since it is less likely that any changes (such as a changed password) will be noticed. As such, these accounts may be more easily exploited and used to access cardholder data."
 
   children = [
-    control.iam_user_unused_credentials_90,
     control.iam_account_password_policy_strong_min_reuse_24,
+    control.iam_user_unused_credentials_90,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.1.4"
@@ -74,8 +74,8 @@ benchmark "audit_manager_pci_v321_requirement_8_2" {
   description = "These authentication methods, when used in addition to unique IDs, help protect users' IDs from being compromised, since the one attempting the compromise needs to know both the unique ID and the password (or other authentication used). Note that a digital certificate is a valid option for “something you have” as long as it is unique for a particular user. Since one of the first steps a malicious individual will take to compromise a system is to exploit weak or nonexistent passwords, it is important to implement good processes for authentication management."
 
   children = [
-    control.iam_account_password_policy_strong,
     benchmark.audit_manager_pci_v321_requirement_8_2_1,
+    control.iam_account_password_policy_strong,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2"
@@ -89,6 +89,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_1_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_1_b,
+    benchmark.audit_manager_pci_v321_requirement_8_2_1_c,
     control.cloudfront_distribution_encryption_in_transit_enabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
@@ -97,6 +98,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1" {
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
+    control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
@@ -109,28 +111,29 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_a" {
   description = "Many network devices and applications transmit unencrypted, readable passwords across the network and/or store passwords without encryption. A malicious individual can easily intercept unencrypted passwords during transmission using a “sniffer,” or directly access unencrypted passwords in files where they are stored, and use this data to gain unauthorized access. Note: Testing Procedures 8.2.1.d and 8.2.1.e are additional procedures that only apply if the entity being assessed is a service provider."
 
   children = [
-    control.elb_application_lb_drop_http_headers,
-    control.elb_application_lb_redirect_http_request_to_https,
-    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudfront_distribution_encryption_in_transit_enabled,
-    control.log_group_encryption_at_rest_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
+    control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypted_with_cmk,
     control.eks_cluster_secrets_encrypted,
-    control.es_domain_encryption_at_rest_enabled,
-    control.es_domain_node_to_node_encryption_enabled,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.ebs_attached_volume_encryption_enabled,
-    control.rds_db_snapshot_encrypted_at_rest,
+    control.es_domain_encryption_at_rest_enabled,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
+    control.rds_db_snapshot_encrypted_at_rest,
+    control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
-    control.s3_bucket_enforces_ssl,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_enforces_ssl,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
@@ -207,9 +210,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_4" {
   description = "Passwords/passphrases that are valid for a long time without a change provide malicious individuals with more time to work on breaking the password/phrase. Note: Testing Procedure 8.2.4.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
     benchmark.audit_manager_pci_v321_requirement_8_2_4_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_4_b,
+    control.iam_account_password_policy_strong,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.4"
@@ -246,9 +249,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5" {
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
     benchmark.audit_manager_pci_v321_requirement_8_2_5_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_5_b,
+    control.iam_account_password_policy_strong,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.5"
@@ -285,6 +288,7 @@ benchmark "audit_manager_pci_v321_requirement_8_3" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_3_1,
+    benchmark.audit_manager_pci_v321_requirement_8_3_2,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3"
@@ -311,9 +315,9 @@ benchmark "audit_manager_pci_v321_requirement_8_3_1_a" {
   description = "This requirement is intended to apply to all personnel with administrative access to the CDE. This requirement applies only to personnel with administrative access and only for non-console access to the CDE; it does not apply to application or system accounts performing automated functions. If the entity does not use segmentation to separate the CDE from the rest of their network, an administrator could use multi-factor authentication either when logging onto the CDE network or when logging onto a system. If the CDE is segmented from the rest of the entity's network, an administrator would need to use multi- factor authentication when connecting to a CDE system from a non-CDE network. Multi-factor authentication can be implemented at network level or at system/application level; it does not have to be both. If the administrator uses MFA when logging into the CDE network, they do not also need to use MFA to log into a particular system or application within the CDE."
 
   children = [
+    control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled,
-    control.iam_root_user_hardware_mfa_enabled,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.1.a"
@@ -337,9 +341,9 @@ benchmark "audit_manager_pci_v321_requirement_8_3_2_a" {
   description = "This requirement is intended to apply to all personnel—including general users, administrators, and vendors (for support or maintenance) with remote access to the network—where that remote access could lead to access to the CDE. If remote access is to an entity's network that has appropriate segmentation, such that remote users cannot access or impact the cardholder data environment, multi-factor authentication for remote access to that network would not be required. However, multi- factor authentication is required for any remote access to networks with access to the cardholder data environment, and is recommended for all remote access to the entity's networks."
 
   children = [
+    control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled,
-    control.iam_root_user_hardware_mfa_enabled,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.2.a"
@@ -387,9 +391,9 @@ benchmark "audit_manager_pci_v321_requirement_8_6_c" {
   description = "If user authentication mechanisms such as tokens, smart cards, and certificates can be used by multiple accounts, it may be impossible to identify the individual using the authentication mechanism. Having physical and/or logical controls (for example, a PIN, biometric data, or a password) to uniquely identify the user of the account will prevent unauthorized users from gaining access through use of a shared authentication mechanism."
 
   children = [
+    control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled,
-    control.iam_root_user_hardware_mfa_enabled,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.6.c"

@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_4" {
   title       = "Requirement 4: Encrypt transmission of cardholder data across open, public networks"
-  description = ""
+  description = "Sensitive information must be encrypted during transmission over networks that are easily accessed by malicious individuals. Misconfigured wireless networks and vulnerabilities in legacy encryption and authentication protocols continue to be targets of malicious individuals who exploit these vulnerabilities to gain privileged access to cardholder data environments."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_4_1,
@@ -32,6 +32,7 @@ benchmark "audit_manager_pci_v321_requirement_4_1" {
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_listener_use_secure_ssl_cipher,
     control.es_domain_node_to_node_encryption_enabled,
+    control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
@@ -45,16 +46,18 @@ benchmark "audit_manager_pci_v321_requirement_4_1_a" {
 
   children = [
     control.acm_certificate_expires_30_days,
-    control.elb_application_lb_drop_http_headers,
-    control.elb_application_lb_redirect_http_request_to_https,
-    control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
-    control.es_domain_node_to_node_encryption_enabled,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_network_lb_use_ssl_certificate,
+    control.es_domain_node_to_node_encryption_enabled,
     control.kinesis_stream_server_side_encryption_enabled,
+    control.opensearch_domain_https_required,
+    control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
@@ -107,15 +110,16 @@ benchmark "audit_manager_pci_v321_requirement_4_1_g" {
 
   children = [
     control.acm_certificate_expires_30_days,
-    control.elb_application_lb_drop_http_headers,
-    control.elb_application_lb_redirect_http_request_to_https,
-    control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
-    control.es_domain_node_to_node_encryption_enabled,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
+    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.elb_application_network_lb_use_ssl_certificate,
+    control.es_domain_node_to_node_encryption_enabled,
+    control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {

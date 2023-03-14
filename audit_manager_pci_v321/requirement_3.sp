@@ -6,7 +6,7 @@ locals {
 
 benchmark "audit_manager_pci_v321_requirement_3" {
   title       = "Requirement 3: Protect stored cardholder data"
-  description = ""
+  description = "Protection methods such as encryption, truncation, masking, and hashing are critical components of cardholder data protection. If an intruder circumvents other security controls and gains access to encrypted data, without the proper cryptographic keys, the data is unreadable and unusable to that person."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_3_1,
@@ -128,6 +128,7 @@ benchmark "audit_manager_pci_v321_requirement_3_4" {
     benchmark.audit_manager_pci_v321_requirement_3_4_1,
     benchmark.audit_manager_pci_v321_requirement_3_4_a,
     benchmark.audit_manager_pci_v321_requirement_3_4_b,
+    benchmark.audit_manager_pci_v321_requirement_3_4_d,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dax_cluster_encryption_at_rest_enabled,
@@ -345,12 +346,12 @@ benchmark "audit_manager_pci_v321_requirement_3_5" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_3_5_2" {
-  title       = "3.5 Document and implement procedures to protect keys used to secure stored cardholder data against disclosure and misuse: Note: This requirement applies to keys used to encrypt stored cardholder data, and also applies to key-encrypting keys used to protect data-encrypting keys—such key- encrypting keys must be at least as strong as the data-encrypting key"
-  description = "Cryptographic keys must be strongly protected because those who obtain access will be able to decrypt data. Key-encrypting keys, if used, must be at least as strong as the data-encrypting key in order to ensure proper protection of the key that encrypts the data as well as the data encrypted with that key. The requirement to protect keys from disclosure and misuse applies to both data-encrypting keys and key-encrypting keys. Because one key- encrypting key may grant access to many data- encrypting keys, the key-encrypting keys require strong protection measures."
+  title       = "3.5.2 Restrict access to cryptographic keys to the fewest number of custodians necessary"
+  description = "There should be very few who have access to cryptographic keys (reducing the potential for rending cardholder data visible by unauthorized parties), usually only those who have key custodian responsibilities."
 
   children = [
+    control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.iam_policy_custom_no_blocked_kms_actions
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
     audit_manager_pci_v321_item_id = "3.5.2"

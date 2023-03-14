@@ -148,3 +148,13 @@ control "redshift_cluster_no_default_admin_name" {
     audit_manager_pci_v321 = "true"
   })
 }
+
+control "redshift_cluster_logging_enabled" {
+  title       = "Amazon Redshift clusters should have logging enabled."
+  description = "This control checks if Amazon Redshift clusters are logging audits to a specific bucket. The rule is NON_COMPLIANT if audit logging is not enabled for a Redshift cluster or if the 'bucketNames' parameter is provided but the audit logging destination does not match."
+  query       = query.redshift_cluster_logging_enabled
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    audit_manager_pci_v321 = "true"
+  })
+}

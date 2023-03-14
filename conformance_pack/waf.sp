@@ -43,3 +43,13 @@ control "waf_web_acl_logging_enabled" {
     audit_manager_pci_v321 = "true"
   })
 }
+
+control "waf_regional_rule_condition_attached" {
+  title         = "A WAF regional rule should have at least one condition"
+  description   = "This control checks whether an AWS WAF regional rule contains any conditions. The control fails if no conditions are present within a rule."
+  query         = query.waf_regional_rule_condition_attached
+
+  tags = merge(local.conformance_pack_waf_common_tags, {
+    audit_manager_pci_v321 = "true"
+  })
+}
