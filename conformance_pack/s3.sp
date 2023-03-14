@@ -298,7 +298,7 @@ control "s3_bucket_lifecycle_policy_enabled" {
 
 control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
   title       = "S3 buckets with versioning enabled should have lifecycle policies configured"
-  description = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled"
+  description = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
   query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
