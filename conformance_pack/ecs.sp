@@ -194,7 +194,7 @@ query "ecs_cluster_instance_in_vpc" {
         else c.title || ' in VPC.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ecs_container_instance as c

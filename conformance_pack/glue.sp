@@ -78,7 +78,6 @@ query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
         else e.title || ' CloudWatch logs encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
     from
       aws_glue_dev_endpoint as e
@@ -100,7 +99,6 @@ query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
         else e.title || ' job bookmark encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
     from
       aws_glue_dev_endpoint as e
@@ -122,7 +120,6 @@ query "glue_dev_endpoint_s3_encryption_enabled" {
         else d.title || ' S3 encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       aws_glue_dev_endpoint as d
@@ -145,7 +142,6 @@ query "glue_job_cloudwatch_logs_encryption_enabled" {
         else j.title || ' CloudWatch logs encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j
@@ -167,7 +163,6 @@ query "glue_job_bookmarks_encryption_enabled" {
         else j.title || ' job bookmarks encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j
@@ -189,7 +184,6 @@ query "glue_job_s3_encryption_enabled" {
         else j.title || ' S3 encryption disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j

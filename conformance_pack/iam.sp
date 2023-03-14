@@ -515,7 +515,6 @@ query "iam_account_password_policy_strong_min_reuse_24" {
         else 'Strong password policies not configured.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -537,7 +536,6 @@ query "iam_group_not_empty" {
         else title || ' associated with IAM user.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_group;
@@ -577,7 +575,7 @@ query "iam_policy_custom_no_star_star" {
       p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
         ' statements that allow action "*" on resource "*".' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
@@ -601,7 +599,6 @@ query "iam_root_user_no_access_keys" {
         else 'No root user access keys exist.'
       end reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;
@@ -623,7 +620,6 @@ query "iam_root_user_hardware_mfa_enabled" {
         else 'Hardware MFA device enabled for root account.'
       end reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
       aws_iam_account_summary as s
@@ -645,7 +641,6 @@ query "iam_root_user_mfa_enabled" {
         else 'MFA not enabled for root account.'
       end reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;
@@ -665,7 +660,6 @@ query "iam_user_access_key_age_90" {
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
       as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
@@ -688,7 +682,6 @@ query "iam_user_console_access_mfa_enabled" {
         else user_name || ' password login enabled and MFA device configured.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -709,7 +702,6 @@ query "iam_user_mfa_enabled" {
         else user_name || ' MFA device configured.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -784,7 +776,6 @@ query "iam_user_unused_credentials_90" {
         end
       as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -823,7 +814,6 @@ query "iam_group_user_role_no_inline_policies" {
       end status,
       'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_user
@@ -837,7 +827,6 @@ query "iam_group_user_role_no_inline_policies" {
       end status,
       'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_role
@@ -853,7 +842,6 @@ query "iam_group_user_role_no_inline_policies" {
       end status,
       'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_iam_group;
@@ -869,7 +857,8 @@ query "iam_support_role" {
         -- Required Columns
         'arn:' || a.partition || ':::' || a.account_id as resource,
         count(policy_arn),
-        a.account_id
+        a.account_id,
+        a._ctx
       from
         aws_account as a
         left join aws_iam_role as r on r.account_id = a.account_id
@@ -879,7 +868,8 @@ query "iam_support_role" {
         or policy_arn is null
       group by
         a.account_id,
-        a.partition
+        a.partition,
+        a._ctx
     )
     select
       -- Required Columns
@@ -894,7 +884,6 @@ query "iam_support_role" {
         else 'AWSSupportAccess policy not attached to any role.'
       end  as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       support_role_count;
@@ -915,7 +904,6 @@ query "iam_account_password_policy_min_length_14" {
         else 'Minimum password length set to ' || minimum_password_length || '.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -938,7 +926,6 @@ query "iam_account_password_policy_reuse_24" {
         else 'Password reuse prevention set to ' || password_reuse_prevention || '.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -976,7 +963,6 @@ query "iam_account_password_policy_strong" {
         else 'Strong password policies not configured.'
       end reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -999,7 +985,6 @@ query "iam_account_password_policy_one_lowercase_letter" {
         else 'Lowercase character not required.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1022,7 +1007,6 @@ query "iam_account_password_policy_one_uppercase_letter" {
         else 'Uppercase character not required.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1045,7 +1029,6 @@ query "iam_account_password_policy_one_number" {
         else 'Number not required.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1067,7 +1050,6 @@ query "iam_account_password_policy_expire_90" {
         else 'Password expiration set to ' || max_password_age || ' days.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1090,7 +1072,6 @@ query "iam_account_password_policy_one_symbol" {
         else 'Symbol not required.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1130,7 +1111,7 @@ query "iam_policy_custom_no_service_wildcard" {
       p.name || ' contains ' || coalesce(w.statements_num,0)  ||
         ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
@@ -1168,7 +1149,7 @@ query "iam_policy_custom_no_blocked_kms_actions" {
       p.name || ' contains ' || coalesce(w.statements_num,0)  ||
         ' statements that allow blocked actions on AWS KMS keys.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
@@ -1186,7 +1167,8 @@ query "iam_policy_inline_no_blocked_kms_actions" {
         inline_policies_std,
         name,
         account_id,
-        region
+        region,
+        _ctx
       from
         aws_iam_user
       union
@@ -1195,7 +1177,8 @@ query "iam_policy_inline_no_blocked_kms_actions" {
         inline_policies_std,
         name,
         account_id,
-        region
+        region,
+        _ctx
       from
         aws_iam_role
       union
@@ -1204,7 +1187,8 @@ query "iam_policy_inline_no_blocked_kms_actions" {
         inline_policies_std,
         name,
         account_id,
-        region
+        region,
+        _ctx
       from
         aws_iam_group
     ),
@@ -1234,7 +1218,6 @@ query "iam_policy_inline_no_blocked_kms_actions" {
       u.name || ' contains ' || coalesce(w.statements_num,0)  ||
         ' inline policy statement(s) that allow blocked actions on AWS KMS keys.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       iam_resource_types as u
@@ -1256,7 +1239,6 @@ query "account_part_of_organizations" {
         else title || ' is not part of organization.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_account;
@@ -1288,7 +1270,7 @@ query "iam_policy_custom_no_assume_role" {
         else u.name || ' custom policies does not allow STS Role assumption.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u
@@ -1314,7 +1296,7 @@ query "iam_user_hardware_mfa_enabled" {
         else u.name || ' hardware MFA device enabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_virtual_mfa_device as m
@@ -1349,7 +1331,7 @@ query "iam_user_with_administrator_access_mfa_enabled" {
         else u.name || ' has MFA token disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u

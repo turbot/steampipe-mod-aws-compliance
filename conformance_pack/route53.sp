@@ -195,3 +195,26 @@ query "route53_domain_privacy_protection_enabled" {
       aws_route53_domain;
   EOQ
 }
+
+# Non-Config rule query
+
+query "route53_domain_auto_renew_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when auto_renew then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_renew then title || ' auto renew enabled.'
+        else title || ' auto renew disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_route53_domain;
+  EOQ
+}

@@ -41,7 +41,6 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
         else title || ' automatic backup retention period is more than 15 days.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;

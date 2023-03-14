@@ -88,7 +88,6 @@ query "guardduty_finding_archived" {
         else title || ' archived.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_guardduty_finding;

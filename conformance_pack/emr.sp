@@ -88,7 +88,7 @@ query "emr_cluster_master_nodes_no_public_ip" {
         else c.title || ' master nodes not assigned with public IP.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
@@ -110,7 +110,6 @@ query "emr_account_public_access_blocked" {
         else region || ' EMR block public access disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_emr_block_public_access_configuration;

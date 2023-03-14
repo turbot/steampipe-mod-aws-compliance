@@ -840,3 +840,213 @@ query "s3_bucket_static_website_hosting_disabled" {
       aws_s3_bucket;
   EOQ
 }
+
+# Non-Config rule query
+
+query "s3_bucket_acls_should_prohibit_user_access" {
+  sql = <<-EOQ
+    with bucket_acl_details as (
+      select
+        arn,
+          title,
+          array[acl -> 'Owner' ->> 'ID'] as bucket_owner,
+          array_agg(grantee_id) as bucket_acl_permissions,
+          object_ownership_controls,
+          region,
+          account_id,
+          _ctx,
+          tags
+      from
+          aws_s3_bucket,
+          jsonb_path_query(acl, '$.Grants.Grantee.ID') as grantee_id
+      group by
+          arn,
+          title,
+          acl,
+          region,
+          account_id,
+          object_ownership_controls,
+          _ctx,
+          tags
+    ),
+    bucket_acl_checks as (
+      select
+          arn,
+          title,
+          to_jsonb(bucket_acl_permissions) - bucket_owner as additional_permissions,
+          object_ownership_controls,
+          region,
+          account_id,
+          _ctx,
+          tags
+      from
+          bucket_acl_details
+    )
+    select
+      -- Required Columns
+      arn as resource,
+      case
+          when object_ownership_controls -> 'Rules' @> '[{"ObjectOwnership": "BucketOwnerEnforced"} ]' then 'ok'
+          when jsonb_array_length(additional_permissions) = 0 then 'ok'
+          else 'alarm'
+      end status,
+      case
+          when object_ownership_controls -> 'Rules' @> '[{"ObjectOwnership": "BucketOwnerEnforced"} ]' then title || ' ACLs are disabled.'
+          when jsonb_array_length(additional_permissions) = 0 then title || ' does not have ACLs for user access.'
+          else title || ' has ACLs for user access.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      bucket_acl_checks;
+  EOQ
+}
+
+query "s3_bucket_event_notifications_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when
+          event_notification_configuration ->> 'EventBridgeConfiguration' is null
+          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
+          and event_notification_configuration ->> 'QueueConfigurations' is null
+          and event_notification_configuration ->> 'TopicConfigurations' is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when
+          event_notification_configuration ->> 'EventBridgeConfiguration' is null
+          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
+          and event_notification_configuration ->> 'QueueConfigurations' is null
+          and event_notification_configuration ->> 'TopicConfigurations' is null then title || ' event notifications disabled.'
+        else title || ' event notifications enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
+  EOQ
+}
+
+query "s3_bucket_mfa_delete_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when versioning_mfa_delete then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when versioning_mfa_delete then name || ' MFA delete enabled.'
+        else name || ' MFA delete disabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
+  EOQ
+}
+
+query "s3_bucket_protected_by_macie" {
+  sql = <<-EOQ
+    with bucket_list as (
+      select
+        trim(b::text, '"' ) as bucket_name
+      from
+        aws_macie2_classification_job,
+        jsonb_array_elements(s3_job_definition -> 'BucketDefinitions') as d,
+        jsonb_array_elements(d -> 'Buckets') as b
+    )
+    select
+      -- Required Columns
+      b.arn as resource,
+      case
+        when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then 'skip'
+        when l.bucket_name is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then b.title || ' not protected by Macie as Macie is not supported in ' || b.region || '.'
+        when l.bucket_name is not null then b.title || ' protected by Macie.'
+        else b.title || ' not protected by Macie.'
+      end reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+    from
+      aws_s3_bucket as b
+      left join bucket_list as l on b.name = l.bucket_name;
+  EOQ
+}
+
+query "s3_bucket_public_access_blocked" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when
+          block_public_acls
+          and block_public_policy
+          and ignore_public_acls
+          and restrict_public_buckets
+        then
+          'ok'
+        else
+          'alarm'
+      end status,
+      case
+        when
+          block_public_acls
+          and block_public_policy
+          and ignore_public_acls
+          and restrict_public_buckets
+        then name || ' blocks public access.'
+        else name || ' does not block public access.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
+  EOQ
+}
+
+query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
+  sql = <<-EOQ
+    with lifecycle_rules_enabled as (
+      select
+        arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(lifecycle_rules) as r
+      where
+        r ->> 'Status' = 'Enabled'
+    )
+    select
+      -- Required Columns
+      b.arn as resource,
+      case
+        when not versioning_enabled then 'alarm'
+        when versioning_enabled and r.arn is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when not versioning_enabled then name || ' versioning diabled.'
+        when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
+        else name || ' lifecycle policy not configured.'
+      end reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+    from
+      aws_s3_bucket as b
+      left join lifecycle_rules_enabled as r on r.arn = b.arn;
+  EOQ
+}

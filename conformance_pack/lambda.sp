@@ -290,3 +290,85 @@ query "lambda_function_tracing_enabled" {
       aws_lambda_function;
   EOQ
 }
+
+# Non-Config rule query
+
+query "lambda_function_cors_configuration" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when url_config is null then 'info'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when url_config is null then title || ' does not has a URL config.'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
+        else title || ' CORS configuration does not allow all origins.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+
+query "lambda_function_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when vpc_id is null then 'skip'
+        else case
+          when
+          (
+            select
+              count(distinct availability_zone_id)
+            from
+              aws_vpc_subnet
+            where
+              subnet_id in (select jsonb_array_elements_text(vpc_subnet_ids) )
+          ) >= 2
+          then 'ok'
+          else 'alarm'
+        end
+      end as status,
+      case
+        when vpc_id is null then title || ' is not in VPC.'
+        else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+
+query "lambda_function_use_latest_runtime" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when package_type <> 'Zip' then 'skip'
+        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
+        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
+        else title || ' uses ' || runtime || ' which is not the latest version.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+

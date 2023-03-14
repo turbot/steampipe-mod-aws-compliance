@@ -296,3 +296,89 @@ query "redshift_cluster_enhanced_vpc_routing_enabled" {
       aws_redshift_cluster;
   EOQ
 }
+
+# Non-Config rule query
+
+query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      case
+        when allow_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when allow_version_upgrade then title || ' automatic upgrades to major versions enabled.'
+        else title || ' automatic upgrades to major versions disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      case
+        when logging_status ->> 'LoggingEnabled' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when logging_status ->> 'LoggingEnabled' = 'true' then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when master_username = 'awsuser' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when master_username = 'awsuser' then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_no_default_database_name" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when db_name = 'dev' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when db_name = 'dev' then title || ' using default database name.'
+        else title || ' not using default database name.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}

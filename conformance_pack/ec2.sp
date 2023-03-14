@@ -230,7 +230,6 @@ query "ec2_ebs_default_encryption_enabled" {
         else region || ' default EBS encryption enabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_regional_settings;

@@ -492,7 +492,8 @@ query "elb_application_network_lb_use_ssl_certificate" {
         arn,
         account_id,
         region,
-        title
+        title,
+        _ctx
       from
         aws_ec2_application_load_balancer
       union
@@ -500,7 +501,8 @@ query "elb_application_network_lb_use_ssl_certificate" {
         arn,
         account_id,
         region,
-        title
+        title,
+        _ctx
       from
         aws_ec2_network_load_balancer
     )
@@ -516,7 +518,6 @@ query "elb_application_network_lb_use_ssl_certificate" {
         else a.title || ' has ' || b.count || ' listeners which do not use certificates provided by ACM.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       all_application_network_load_balacer as a
@@ -538,7 +539,6 @@ query "elb_listener_use_secure_ssl_cipher" {
         else title || ' uses insecure SSL cipher.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_load_balancer_listener;
@@ -553,7 +553,9 @@ query "elb_application_classic_network_lb_prohibit_public_access" {
         scheme,
         title,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx
       from
         aws_ec2_application_load_balancer
       union
@@ -562,7 +564,9 @@ query "elb_application_classic_network_lb_prohibit_public_access" {
         scheme,
         title,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx
       from
         aws_ec2_network_load_balancer
       union
@@ -571,7 +575,9 @@ query "elb_application_classic_network_lb_prohibit_public_access" {
         scheme,
         title,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx
       from
       aws_ec2_classic_load_balancer
     )
@@ -716,7 +722,6 @@ query "elb_application_lb_listener_certificate_expire_7_days" {
       end as status,
       l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
       aws_ec2_load_balancer_listener as l,
@@ -736,7 +741,6 @@ query "elb_application_lb_listener_certificate_expire_30_days" {
       end as status,
       l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
       aws_ec2_load_balancer_listener as l,
@@ -752,7 +756,9 @@ query "elb_application_network_lb_use_listeners" {
         n.arn,
         n.title,
         n.region,
-        n.account_id
+        n.account_id,
+        tags,
+        _ctx
       from
         aws_ec2_network_load_balancer as n
       union
@@ -760,7 +766,9 @@ query "elb_application_network_lb_use_listeners" {
         a.arn,
         a.title,
         a.region,
-        a.account_id
+        a.account_id,
+        tags,
+        _ctx
       from
         aws_ec2_application_load_balancer as a
     )
@@ -800,7 +808,6 @@ query "elb_tls_listener_protocol_version" {
         else title || ' uses secure SSL or TLS cipher.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_load_balancer_listener;

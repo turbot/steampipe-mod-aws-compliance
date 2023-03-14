@@ -198,3 +198,48 @@ query "secretsmanager_secret_last_changed_90_day" {
       aws_secretsmanager_secret;
   EOQ
 }
+
+# Non-Config rule query
+
+query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when rotation_rules is not null and rotation_lambda_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when rotation_rules is not null and rotation_lambda_arn is not null then title || ' scheduled for rotation using Lambda function.'
+        else title || ' automatic rotation using Lambda function disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+
+  EOQ
+}
+
+query "secretsmanager_secret_last_used_1_day" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when date(last_accessed_date) - date(created_date) >= 1 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when date(last_accessed_date)- date(created_date) >= 1 then title || ' recently used.'
+        else title || ' not used recently.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}

@@ -80,6 +80,6 @@ query "ecr_repository_prohibit_public_access" {
       aws_ecr_repository as r
       left join open_access_ecr_repo as o on r.arn = o.arn
     group by
-      resource, status, reason, r.region, r.account_id;
+      resource, status, reason, r.region, r.account_id, r.tags, r._ctx;
   EOQ
 }

@@ -55,7 +55,7 @@ query "sqs_queue_policy_prohibit_public_access" {
         ' statements that allows public access.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
     from
       aws_sqs_queue as q
@@ -75,6 +75,29 @@ query "sqs_queue_dead_letter_queue_configured" {
       case
         when redrive_policy is not null then title || ' configured with dead-letter queue.'
         else title || ' not configured with dead-letter queue.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sqs_queue;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "sqs_queue_encrypted_at_rest" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      queue_arn as resource,
+      case
+        when kms_master_key_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_master_key_id is null then title || ' encryption at rest disabled.'
+        else title || ' encryption at rest enabled.'
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
