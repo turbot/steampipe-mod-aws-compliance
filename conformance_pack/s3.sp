@@ -521,7 +521,6 @@ query "s3_bucket_restrict_public_write_access" {
     select
       -- Required Columns
       b.arn as resource,
-      bucket_policy_is_public,
       case
         when (block_public_acls or a.name is null) and not bucket_policy_is_public then 'ok'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then 'ok'
