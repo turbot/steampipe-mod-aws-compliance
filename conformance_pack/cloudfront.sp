@@ -213,3 +213,261 @@ query "cloudfront_distribution_logging_enabled" {
       aws_cloudfront_distribution;
   EOQ
 }
+
+# Non-Config rule query
+
+query "cloudfront_distribution_configured_with_origin_failover" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when origin_groups ->> 'Items' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
+        else title || ' origin group not configured.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    with viewer_protocol_policy_value as (
+      select
+        distinct arn
+      from
+        aws_cloudfront_distribution,
+          jsonb_array_elements(
+        case jsonb_typeof(cache_behaviors -> 'Items')
+            when 'array' then (cache_behaviors -> 'Items')
+            else null end
+        ) as cb
+      where
+        cb ->> 'ViewerProtocolPolicy' = 'allow-all'
+    ),
+    origin_protocol_policy_value as (
+      select
+        distinct arn,
+        o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' as origin_protocol_policy
+      from
+        aws_cloudfront_distribution,
+        jsonb_array_elements(origins) as o
+      where
+        o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' = 'http-only'
+        or o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' = 'match-viewer'
+    )
+    select
+      -- Required Columns
+      b.arn as resource,
+      case
+        when o.arn is not null and o.origin_protocol_policy = 'http-only' then 'alarm'
+        when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') ) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when o.arn is not null and o.origin_protocol_policy = 'http-only' then title || ' custom origins traffic not encrypted in transit.'
+        when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') )  then title || ' custom origins traffic not encrypted in transit.'
+        else title || ' custom origins traffic encrypted in transit.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution as b
+      left join origin_protocol_policy_value as o on b.arn = o.arn
+      left join viewer_protocol_policy_value as v on b.arn = v.arn;
+  EOQ
+}
+
+query "cloudfront_distribution_default_root_object_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when default_root_object = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when default_root_object = '' then title || ' default root object not configured.'
+        else title || ' default root object configured.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_no_deprecated_ssl_protocol" {
+  sql = <<-EOQ
+    with origin_ssl_protocols as (
+      select
+        distinct arn,
+        o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' as origin_protocol_policy
+      from
+        aws_cloudfront_distribution,
+        jsonb_array_elements(origins) as o
+      where
+        o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["SSLv3"]'
+    )
+    select
+      -- Required Columns
+      b.arn as resource,
+      case
+        when o.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when o.arn is null then title || ' does not have deprecated SSL protocols.'
+        else title || ' has deprecated SSL protocols.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution as b
+      left join origin_ssl_protocols as o on b.arn = o.arn;
+  EOQ
+}
+
+query "cloudfront_distribution_no_non_existent_s3_origin" {
+  sql = <<-EOQ
+    with distribution_with_non_existent_bucket as (
+      select
+        distinct d.arn as arn,
+        to_jsonb(string_to_array((string_agg(split_part(o ->> 'Id', '.s3', 1), ',')),',')) as bucket_name_list
+      from
+        aws_cloudfront_distribution as d,
+        jsonb_array_elements(d.origins) as o
+        left join aws_s3_bucket as b on b.name = split_part(o ->> 'Id', '.s3', 1)
+      where
+        b.name is null
+        and o ->> 'DomainName' like '%.s3.%'
+      group by
+        d.arn
+    )
+    select
+      -- Required Columns
+      distinct b.arn as resource,
+      case
+        when b.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is null then title || ' does not point to any non-existent S3 origins.'
+        when jsonb_array_length(b.bucket_name_list) > 0
+          then title ||
+        case
+          when jsonb_array_length(b.bucket_name_list) > 2
+            then concat(' point to non-existent S3 origins ', b.bucket_name_list #>> '{0}', ', ', b.bucket_name_list #>> '{1}', ' and ' || (jsonb_array_length(b.bucket_name_list) - 2)::text || ' more.' )
+          when jsonb_array_length(b.bucket_name_list) = 2
+            then concat(' point to non-existent S3 origins ', b.bucket_name_list #>> '{0}', ' and ', b.bucket_name_list #>> '{1}', '.')
+        else concat(' point to non-existent S3 origin ', b.bucket_name_list #>> '{0}', '.')
+        end
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution as d
+      left join distribution_with_non_existent_bucket as b on b.arn = d.arn;
+  EOQ
+}
+
+query "cloudfront_distribution_origin_access_identity_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when o ->> 'DomainName' not like '%s3.amazonaws.com' then 'skip'
+        when o ->> 'DomainName' like '%s3.amazonaws.com'
+        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when o ->> 'DomainName' not like '%s3.amazonaws.com' then title || ' origin type is not s3.'
+        when o ->> 'DomainName' like '%s3.amazonaws.com'
+        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then title || ' origin access identity not configured.'
+        else title || ' origin access identity configured.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution,
+      jsonb_array_elements(origins) as o;
+  EOQ
+}
+
+query "cloudfront_distribution_sni_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then title || ' SNI enabled.'
+        else title || ' SNI disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_use_custom_ssl_certificate" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then title || ' uses custom SSL certificate.'
+        else title || ' does not use custom SSL certificate.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_waf_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when web_acl_id <> '' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when web_acl_id <> '' then title || ' associated with WAF.'
+        else title || ' not associated with WAF.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}

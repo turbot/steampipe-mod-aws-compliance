@@ -813,3 +813,174 @@ query "elb_tls_listener_protocol_version" {
       aws_ec2_load_balancer_listener;
   EOQ
 }
+
+# Non-Config rule query
+
+query "elb_application_gateway_network_lb_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_application_load_balancer
+    union
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_load_balancer
+    union
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_gateway_load_balancer;
+  EOQ
+}
+
+query "elb_application_lb_desync_mitigation_mode" {
+  sql = <<-EOQ
+    with app_lb_desync_mitigation_mode as (
+      select
+        arn,
+        l ->> 'Key',
+        l ->> 'Value' as v
+      from
+        aws_ec2_application_load_balancer,
+        jsonb_array_elements(load_balancer_attributes) as l
+      where
+        l ->> 'Key' = 'routing.http.desync_mitigation_mode'
+    )
+    select
+      -- Required Columns
+      a.arn as resource,
+      case
+        when m.v = any(array['defensive', 'strictest']) then 'ok'
+        else 'alarm'
+      end as status,
+        title || ' has ' || m.v || ' desync mitigation mode.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_application_load_balancer as a
+      left join app_lb_desync_mitigation_mode as m on a.arn = m.arn;
+  EOQ
+}
+
+query "elb_classic_lb_desync_mitigation_mode" {
+  sql = <<-EOQ
+    with app_lb_desync_mitigation_mode as (
+      select
+        arn,
+        a ->> 'Key',
+        a ->> 'Value' as v
+      from
+        aws_ec2_classic_load_balancer,
+        jsonb_array_elements(additional_attributes) as a
+      where
+        a ->> 'Key' = 'elb.http.desyncmitigationmode'
+    )
+    select
+      -- Required Columns
+      c.arn as resource,
+      case
+        when m.v = any(array['defensive', 'strictest']) then 'ok'
+        else 'alarm'
+      end as status,
+        title || ' has ' || m.v || ' desync mitigation mode.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_classic_load_balancer as c
+      left join app_lb_desync_mitigation_mode as m on c.arn = m.arn;
+  EOQ
+}
+
+query "elb_classic_lb_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_classic_load_balancer;
+  EOQ
+}
+
+query "elb_network_lb_tls_listener_security_policy_configured" {
+  sql = <<-EOQ
+    with tls_listeners as (
+      select
+        distinct load_balancer_arn
+      from
+        aws_ec2_load_balancer_listener
+      where
+        protocol = 'TLS'
+        and ssl_policy not in ('ELBSecurityPolicy-2016-08', 'ELBSecurityPolicy-FS-2018-0', 'ELBSecurityPolicy-TLS13-1-2-Ext1-2021-06', 'ELBSecurityPolicy-TLS13-1-2-2021-06')
+      group by
+        load_balancer_arn
+    ), nwl_without_tls_listener as (
+        select
+          load_balancer_arn,
+          count(*)
+        from
+          aws_ec2_load_balancer_listener
+        where
+          protocol = 'TLS'
+        group by
+          load_balancer_arn
+    )
+    select
+      -- Required Columns
+      lb.arn as resource,
+      case
+        when l.load_balancer_arn is not null and lb.arn in (select load_balancer_arn from tls_listeners) then 'alarm'
+        when l.load_balancer_arn is not null then 'ok'
+        else 'info'
+      end as status,
+      case
+        when l.load_balancer_arn is not null and lb.arn in (select load_balancer_arn from tls_listeners) then lb.title || ' TLS listener security policy not updated.'
+        when l.load_balancer_arn is not null then lb.title || ' TLS listener security policy updated.'
+        else lb.title || ' does not use TLS listener.'
+      end as reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}
+    from
+      aws_ec2_network_load_balancer as lb
+      left join nwl_without_tls_listener as l on l.load_balancer_arn = lb.arn;
+  EOQ
+}

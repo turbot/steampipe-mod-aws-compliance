@@ -133,6 +133,7 @@ query "autoscaling_group_multiple_az_configured" {
 }
 
 # Non-Config rule query
+
 query "autoscaling_group_uses_ec2_launch_template" {
   sql = <<-EOQ
     select
@@ -154,7 +155,6 @@ query "autoscaling_group_uses_ec2_launch_template" {
   EOQ
 }
 
-# Non-Config rule query
 query "autoscaling_launch_config_hop_limit" {
   sql = <<-EOQ
     select
@@ -177,7 +177,6 @@ query "autoscaling_launch_config_hop_limit" {
   EOQ
 }
 
-# Non-Config rule query
 query "autoscaling_launch_config_requires_imdsv2" {
   sql = <<-EOQ
     select
@@ -198,7 +197,6 @@ query "autoscaling_launch_config_requires_imdsv2" {
   EOQ
 }
 
-# Non-Config rule query
 query "autoscaling_use_multiple_instance_types_in_multiple_az" {
   sql = <<-EOQ
     with autoscaling_groups as (

@@ -1435,3 +1435,323 @@ query "iam_access_analyzer_enabled" {
       left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
   EOQ
 }
+
+query "iam_account_password_policy_strong_min_length_8" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || a.partition || ':::' || a.account_id as resource,
+      case
+        when
+          minimum_password_length >= 8
+          and require_lowercase_characters = 'true'
+          and require_uppercase_characters = 'true'
+          and require_numbers = 'true'
+          and require_symbols = 'true'
+        then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when minimum_password_length is null then 'No password policy set.'
+        when
+          minimum_password_length >= 8
+          and require_lowercase_characters = 'true'
+          and require_uppercase_characters = 'true'
+          and require_numbers = 'true'
+          and require_symbols = 'true'
+        then 'Strong password policies configured.'
+        else 'Strong password policies not configured.'
+      end as reason
+      -- Additional Dimensions
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
+  EOQ
+}
+
+query "iam_policy_all_attached_no_star_star" {
+  sql = <<-EOQ
+    with star_access_policies as (
+      select
+        arn,
+        count(*) as num_bad_statements
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          (action = '*'
+          or action = '*:*'
+          )
+        )
+        and is_attached
+      group by arn
+    )
+    select
+      -- Required Columns
+      p.arn as resource,
+      case
+        when s.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  ||
+        ' statements that allow action "*" on resource "*".' as reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join star_access_policies as s on p.arn = s.arn
+    where
+      p.is_attached;
+  EOQ
+}
+
+query "iam_policy_custom_attached_no_star_star" {
+  sql = <<-EOQ
+    -- This query checks the customer managed policies having * access and attached to IAM resource(s)
+    with star_access_policies as (
+      select
+        arn,
+        count(*) as num_bad_statements
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        not is_aws_managed
+        and s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          (action = '*'
+          or action = '*:*'
+          )
+        )
+        and is_attached
+      group by arn
+    )
+    select
+      -- Required Columns
+      p.arn as resource,
+      case
+        when s.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  ||
+        ' statements that allow action "*" on resource "*".' as reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join star_access_policies as s on p.arn = s.arn
+    where
+      not p.is_aws_managed;
+  EOQ
+}
+
+query "iam_root_last_used" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      user_arn as resource,
+      case
+        when password_last_used >= (current_date - interval '90' day) then 'alarm'
+        when access_key_1_last_used_date <= (current_date - interval '90' day)  then 'alarm'
+        when access_key_2_last_used_date <= (current_date - interval '90' day)  then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when password_last_used is null then 'Root never logged in with password.'
+        else 'Root password used ' || to_char(password_last_used , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - password_last_used) || ' days).'
+      end ||
+      case
+        when access_key_1_last_used_date is null then ' Access Key 1 never used.'
+        else ' Access Key 1 used ' || to_char(access_key_1_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - access_key_1_last_used_date) || ' days).'
+      end ||
+        case
+        when access_key_2_last_used_date is null then ' Access Key 2 never used.'
+        else ' Access Key 2 used ' || to_char(access_key_2_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - access_key_2_last_used_date) || ' days).'
+      end as reason
+      -- Additional Dimensions
+       ${local.common_dimensions_global_sql}
+    from
+      aws_iam_credential_report
+    where
+      user_name = '<root_account>';
+  EOQ
+}
+
+query "iam_root_user_virtual_mfa" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      'arn:' || s.partition || ':::' || s.account_id as resource,
+      case
+        when account_mfa_enabled and serial_number is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when account_mfa_enabled = false then 'MFA is not enabled for the root user.'
+        when serial_number is null then 'MFA is enabled for the root user, but the MFA associated with the root user is a hardware device.'
+        else 'Virtual MFA enabled for the root user.'
+      end reason
+      -- Additional Dimensions
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
+    from
+      aws_iam_account_summary as s
+      left join aws_iam_virtual_mfa_device on serial_number = 'arn:' || s.partition || ':iam::' || s.account_id || ':mfa/root-account-mfa-device';
+  EOQ
+}
+
+query "iam_server_certificate_not_expired" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case when expiration < (current_date - interval '1' second) then 'alarm'
+      else 'ok'
+      end as status,
+      case when expiration < (current_date - interval '1' second) then
+        name || ' expired ' || to_char(expiration, 'DD-Mon-YYYY') || '.'
+      else
+        name || ' valid until ' || to_char(expiration, 'DD-Mon-YYYY')  || '.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_server_certificate;
+  EOQ
+}
+
+query "iam_user_access_keys_and_password_at_setup" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      user_arn as resource,
+      case
+        -- alarm when password is enabled and the key was created within 10 seconds of the user
+        when password_enabled and (extract(epoch from (access_key_1_last_rotated - user_creation_time)) < 10) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not password_enabled then user_name || ' password login disabled.'
+        when access_key_1_last_rotated is null then user_name || ' has no access keys.'
+        when password_enabled and (extract(epoch from (access_key_1_last_rotated - user_creation_time)) < 10)
+          then user_name || ' has access key created during user creation and password login enabled.'
+        else user_name || ' has access key not created during user creation.'
+      end as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_credential_report;
+  EOQ
+}
+
+query "iam_user_no_policies" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when attached_policy_arns is null then 'ok'
+        else 'alarm'
+      end status,
+      name || ' has ' || coalesce(jsonb_array_length(attached_policy_arns),0) || ' attached policies.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_user;
+  EOQ
+}
+
+query "iam_user_one_active_key" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      u.arn as resource,
+      case
+        when count(k.*) > 1 then 'alarm'
+        else 'ok'
+      end as status,
+      u.name || ' has ' || count(k.*) || ' active access key(s).' as reason
+      -- Additional Dimensions
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
+    from
+      aws_iam_user as u
+      left join aws_iam_access_key as k on u.name = k.user_name and u.account_id = k.account_id
+    where
+      k.status = 'Active' or k.status is null
+    group by
+      u.arn,
+      u.name,
+      u.account_id,
+      u.tags,
+      u._ctx;
+  EOQ
+}
+
+query "iam_user_unused_credentials_45" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      user_arn as resource,
+      case
+        --root_account will have always password associated even though AWS credential report returns 'not_supported' for password_enabled
+        when user_name = '<root_account>'
+          then 'info'
+        when password_enabled and password_last_used is null and password_last_changed < (current_date - interval '45' day)
+          then 'alarm'
+        when password_enabled and password_last_used  < (current_date - interval '45' day)
+          then 'alarm'
+        when access_key_1_active and access_key_1_last_used_date is null and access_key_1_last_rotated < (current_date - interval '45' day)
+          then 'alarm'
+        when access_key_1_active and access_key_1_last_used_date  < (current_date - interval '45' day)
+          then 'alarm'
+        when access_key_2_active and access_key_2_last_used_date is null and access_key_2_last_rotated < (current_date - interval '45' day)
+          then 'alarm'
+        when access_key_2_active and access_key_2_last_used_date  < (current_date - interval '45' day)
+          then 'alarm'
+        else 'ok'
+      end status,
+      user_name ||
+        case
+          when not password_enabled
+            then ' password not enabled,'
+          when password_enabled and password_last_used is null
+            then ' password created ' || to_char(password_last_changed, 'DD-Mon-YYYY') || ' never used,'
+          else
+            ' password used ' || to_char(password_last_used, 'DD-Mon-YYYY') || ','
+        end ||
+        case
+          when not access_key_1_active
+            then ' key 1 not enabled,'
+          when access_key_1_active and access_key_1_last_used_date is null
+            then ' key 1 created ' || to_char(access_key_1_last_rotated, 'DD-Mon-YYYY') || ' never used,'
+          else
+            ' key 1 used ' || to_char(access_key_1_last_used_date, 'DD-Mon-YYYY') || ','
+        end ||
+          case
+          when not access_key_2_active
+            then ' key 2 not enabled.'
+          when access_key_2_active and access_key_2_last_used_date is null
+            then ' key 2 created ' || to_char(access_key_2_last_rotated, 'DD-Mon-YYYY') || ' never used.'
+          else
+            ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
+        end
+      as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_credential_report;
+  EOQ
+}

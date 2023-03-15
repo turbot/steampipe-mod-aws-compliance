@@ -279,3 +279,26 @@ query "codebuild_project_build_greater_then_90_days" {
       left join latest_codebuild_build as b on p.name = b.project_name and p.region = b.region and p.account_id = b.account_id;
   EOQ
 }
+
+# Non-Config rule query
+
+query "codebuild_project_s3_logs_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then title || ' S3Logs encryption enabled.'
+        else title || ' S3Logs encryption disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}

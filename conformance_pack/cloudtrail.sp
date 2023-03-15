@@ -493,31 +493,168 @@ query "cloudtrail_bucket_not_public" {
       t.account_id,
       t.tags,
       t._ctx
-  )
-  select
-    -- Required Columns
-    case
-      when arn is null then 'arn:aws:s3::' || name
-      else arn
-    end as resource,
-    case
-      when arn is null then 'skip'
-      when all_user_grants > 0 then 'alarm'
-      when auth_user_grants > 0 then 'alarm'
-      when anon_statements > 0 then 'alarm'
-      else 'ok'
-    end as status,
-    case
-      when arn is null then name || ' not found in account ' || account_id || '.'
-      when all_user_grants > 0 then name || ' grants access to AllUsers in ACL.'
-      when auth_user_grants > 0 then name || ' grants access to AuthenticatedUsers in ACL.'
-      when anon_statements > 0 then name || ' grants access to AWS:*" in bucket policy.'
-      else name || ' does not grant anonymous access in ACL or bucket policy.'
-    end as reason
-    -- Additional Dimensions
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
-  from
-    public_bucket_data
+    )
+    select
+      -- Required Columns
+      case
+        when arn is null then 'arn:aws:s3::' || name
+        else arn
+      end as resource,
+      case
+        when arn is null then 'skip'
+        when all_user_grants > 0 then 'alarm'
+        when auth_user_grants > 0 then 'alarm'
+        when anon_statements > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when arn is null then name || ' not found in account ' || account_id || '.'
+        when all_user_grants > 0 then name || ' grants access to AllUsers in ACL.'
+        when auth_user_grants > 0 then name || ' grants access to AuthenticatedUsers in ACL.'
+        when anon_statements > 0 then name || ' grants access to AWS:*" in bucket policy.'
+        else name || ' does not grant anonymous access in ACL or bucket policy.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      public_bucket_data;
   EOQ
- }
+}
+
+# Non-Config rule query
+
+query "cloudtrail_multi_region_read_write_enabled" {
+  sql = <<-EOQ
+    with event_selectors_trail_details as (
+      select
+        distinct account_id
+      from
+        aws_cloudtrail_trail,
+        jsonb_array_elements(event_selectors) as e
+      where
+        (is_logging and is_multi_region_trail and e ->> 'ReadWriteType' = 'All')
+    ),
+    advanced_event_selectors_trail_details as (
+      select
+        distinct account_id
+      from
+        aws_cloudtrail_trail,
+        jsonb_array_elements_text(advanced_event_selectors) as a
+      where
+      -- when readOnly = true, then it is readOnly, when readOnly = false then it is writeOnly, if advanced_event_selectors is not null then it is both ReadWriteType
+        (is_logging and is_multi_region_trail and advanced_event_selectors is not null and (not a like '%readOnly%'))
+    )
+    select
+      -- Required Columns
+      a.title as resource,
+      case
+        when d.account_id is null and ad.account_id is null then 'alarm'
+        else 'ok'
+      end as status,
+        case
+        when d.account_id is null and ad.account_id is null then 'cloudtrail disabled.'
+        else 'cloudtrail enabled.'
+      end as reason
+      -- Additional Dimensions
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join event_selectors_trail_details as d on d.account_id = a.account_id
+      left join advanced_event_selectors_trail_details as ad on ad.account_id = a.account_id;
+  EOQ
+}
+
+query "cloudtrail_s3_object_read_events_audit_enabled" {
+  sql = <<-EOQ
+    with s3_selectors as
+    (
+      select
+        name as trail_name,
+        is_multi_region_trail,
+        bucket_selector
+      from
+        aws_cloudtrail_trail,
+        jsonb_array_elements(event_selectors) as event_selector,
+        jsonb_array_elements(event_selector -> 'DataResources') as data_resource,
+        jsonb_array_elements_text(data_resource -> 'Values') as bucket_selector
+      where
+        is_multi_region_trail
+        and data_resource ->> 'Type' = 'AWS::S3::Object'
+        and event_selector ->> 'ReadWriteType' in
+        (
+          'ReadOnly',
+          'All'
+        )
+    )
+    select
+      -- Required columns
+      b.arn as resource,
+      case
+        when count(bucket_selector) > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when count(bucket_selector) > 0 then b.name || ' object-level read events logging enabled.'
+        else b.name || ' object-level read events logging disabled.'
+      end as reason
+      -- Additional columns
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket as b
+      left join
+        s3_selectors
+        on bucket_selector like (b.arn || '%')
+        or bucket_selector = 'arn:aws:s3'
+    group by
+      b.account_id, b.region, b.arn, b.name, b.tags, b._ctx;
+  EOQ
+}
+
+query "cloudtrail_s3_object_write_events_audit_enabled" {
+  sql = <<-EOQ
+    with s3_selectors as
+    (
+      select
+        name as trail_name,
+        is_multi_region_trail,
+        bucket_selector
+      from
+        aws_cloudtrail_trail,
+        jsonb_array_elements(event_selectors) as event_selector,
+        jsonb_array_elements(event_selector -> 'DataResources') as data_resource,
+        jsonb_array_elements_text(data_resource -> 'Values') as bucket_selector
+      where
+        is_multi_region_trail
+        and data_resource ->> 'Type' = 'AWS::S3::Object'
+        and event_selector ->> 'ReadWriteType' in
+        (
+          'WriteOnly',
+          'All'
+        )
+    )
+    select
+      -- Required columns
+      b.arn as resource,
+      case
+        when count(bucket_selector) > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when count(bucket_selector) > 0 then b.name || ' object-level write events logging enabled.'
+        else b.name || ' object-level write events logging disabled.'
+      end as reason
+      -- Additional columns
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket as b
+      left join
+        s3_selectors
+        on bucket_selector like (b.arn || '%')
+        or bucket_selector = 'arn:aws:s3'
+    group by
+      b.account_id, b.region, b.arn, b.name, b.tags, b._ctx;
+  EOQ
+}

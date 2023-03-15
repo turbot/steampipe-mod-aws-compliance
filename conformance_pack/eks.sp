@@ -167,3 +167,27 @@ query "eks_cluster_no_default_vpc" {
       left join default_vpc_cluster as v on v.arn = c.arn;
   EOQ
 }
+
+# Non-Config rule query
+
+query "eks_cluster_with_latest_kubernetes_version" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        -- eks:oldestVersionSupported (Current oldest supported version is 1.19)
+        when (version)::decimal >= 1.19 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
+        else title || ' does not run on a supported kubernetes version.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}

@@ -553,3 +553,107 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
       left join ec2_istance_list as l on i.instance_id = l.instance_id;
   EOQ
 }
+
+# Non-Config rule query
+
+query "ec2_classic_lb_connection_draining_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when connection_draining_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when connection_draining_enabled then title || ' connection draining enabled.'
+        else title || ' connection draining disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_classic_load_balancer;
+  EOQ
+}
+
+query "ec2_instance_no_amazon_key_pair" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when instance_state <> 'running' then 'skip'
+        when key_name is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
+        when key_name is null then title || ' not launched using amazon key pairs.'
+        else title || ' launched using amazon key pairs.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_not_use_multiple_enis" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when jsonb_array_length(network_interfaces) = 1 then 'ok'
+        else 'alarm'
+      end status,
+      title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
+      as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_termination_protection_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when disable_api_termination then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when disable_api_termination then instance_id || ' termination protection enabled.'
+        else instance_id || ' termination protection disabled.'
+      end reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_virtualization_type_no_paravirtual" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when virtualization_type = 'paravirtual' then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' virtualization type is ' || virtualization_type || '.' as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}

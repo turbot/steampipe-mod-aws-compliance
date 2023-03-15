@@ -191,3 +191,43 @@ query "glue_job_s3_encryption_enabled" {
       jsonb_array_elements(s.s3_encryption) e;
   EOQ
 }
+
+# Non-Config rule query
+
+query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      case
+        when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'Glue data catalog metadata encryption is enabled in ' || region || '.'
+        else 'Glue data catalog metadata encryption is disabled in ' || region || '.'
+      end as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_sql}
+    from
+      aws_glue_data_catalog_encryption_settings;
+  EOQ
+}
+
+query "glue_data_catalog_encryption_settings_password_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      case
+        when connection_password_encryption is not null and connection_password_encryption ->> 'ReturnConnectionPasswordEncrypted' != 'false' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when connection_password_encryption is not null and connection_password_encryption ->> 'ReturnConnectionPasswordEncrypted' != 'false' then 'Glue data catalog connection password encryption enabled in ' || region || '.'
+        else 'Glue data catalog connection password encryption disabled in ' || region || '.'
+      end as reason
+      -- Additional Dimensions
+      ${local.common_dimensions_sql}
+    from
+      aws_glue_data_catalog_encryption_settings;
+  EOQ
+}

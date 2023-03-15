@@ -253,3 +253,124 @@ query "es_domain_internal_user_database_enabled" {
       aws_elasticsearch_domain;
   EOQ
 }
+
+# Non-Config rule query
+
+query "es_domain_audit_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when
+          log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'true'
+          and log_publishing_options -> 'AUDIT_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when
+          log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'true'
+          and log_publishing_options -> 'AUDIT_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then title || ' audit logging enabled.'
+        else title || ' audit logging disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_data_nodes_min_3" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when elasticsearch_cluster_config ->> 'ZoneAwarenessEnabled' = 'false' then 'alarm'
+        when
+          elasticsearch_cluster_config ->> 'ZoneAwarenessEnabled' = 'true'
+          and (elasticsearch_cluster_config ->> 'InstanceCount')::integer >= 3 then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when elasticsearch_cluster_config ->> 'ZoneAwarenessEnabled' = 'false' then title || ' zone awareness disabled.'
+        else title || ' has ' || (elasticsearch_cluster_config ->> 'InstanceCount') || ' data node(s).'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_dedicated_master_nodes_min_3" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when elasticsearch_cluster_config ->> 'DedicatedMasterEnabled' = 'false' then 'alarm'
+        when
+          elasticsearch_cluster_config ->> 'DedicatedMasterEnabled' = 'true'
+          and (elasticsearch_cluster_config ->> 'DedicatedMasterCount')::integer >= 3 then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when elasticsearch_cluster_config ->> 'DedicatedMasterEnabled' = 'false' then title || ' dedicated master nodes disabled.'
+        else title || ' has ' || (elasticsearch_cluster_config ->> 'DedicatedMasterCount') || ' dedicated master node(s).'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_encrypted_using_tls_1_2" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when domain_endpoint_options ->> 'TLSSecurityPolicy' = 'Policy-Min-TLS-1-2-2019-07' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when domain_endpoint_options ->> 'TLSSecurityPolicy' = 'Policy-Min-TLS-1-2-2019-07' then title || ' encrypted using TLS 1.2.'
+        else title || ' not encrypted using TLS 1.2.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "es_domain_error_logging_enabled" {
+  sql = <<-EOQ
+    select
+      -- Required Columns
+      arn as resource,
+      case
+        when
+          log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
+          and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when
+          log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
+          and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then title || ' error logging enabled.'
+        else title || ' error logging disabled.'
+      end as reason
+      -- Additional Dimensions
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}

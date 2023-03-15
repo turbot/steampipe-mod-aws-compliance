@@ -217,6 +217,7 @@ query "apigateway_rest_api_authorizers_configured" {
 }
 
 # Non-Config rule query
+
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
     select
@@ -238,7 +239,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
   EOQ
 }
 
-# Non-Config rule query
 query "apigateway_rest_api_stage_xray_tracing_enabled" {
   sql = <<-EOQ
     select
@@ -260,7 +260,6 @@ query "apigateway_rest_api_stage_xray_tracing_enabled" {
   EOQ
 }
 
-# Non-Config rule query
 query "gatewayv2_stage_access_logging_enabled" {
   sql = <<-EOQ
     select
