@@ -232,7 +232,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
         else route_id || ' authorization type ' || authorization_type || ' configured.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_route;
