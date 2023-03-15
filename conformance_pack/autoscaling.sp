@@ -132,8 +132,6 @@ query "autoscaling_group_multiple_az_configured" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "autoscaling_group_uses_ec2_launch_template" {
   sql = <<-EOQ
     select
