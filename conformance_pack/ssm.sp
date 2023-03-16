@@ -132,7 +132,6 @@ query "ssm_managed_instance_compliance_patch_compliant" {
         else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ssm_managed_instance as i,

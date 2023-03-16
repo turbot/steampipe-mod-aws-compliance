@@ -208,7 +208,7 @@ query "apigateway_rest_api_authorizers_configured" {
         else p.name || ' authorizers not configured.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
       aws_api_gateway_rest_api as p

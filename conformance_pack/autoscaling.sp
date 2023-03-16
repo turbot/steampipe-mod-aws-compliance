@@ -85,7 +85,6 @@ query "autoscaling_launch_config_public_ip_disabled" {
         else title || ' public IP disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_launch_configuration;
@@ -114,6 +113,7 @@ query "autoscaling_group_no_suspended_process" {
 }
 
 # Non-Config rule query
+
 query "autoscaling_group_multiple_az_configured" {
   sql = <<-EOQ
     select
@@ -233,7 +233,7 @@ query "autoscaling_use_multiple_instance_types_in_multiple_az" {
           else title || ' does not use multiple instance types.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       autoscaling_groups as a

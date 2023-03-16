@@ -1,4 +1,5 @@
 # Non-Config rule query
+
 query "account_alternate_contact_security_registered" {
   sql = <<-EOQ
     with alternate_security_contact as (
