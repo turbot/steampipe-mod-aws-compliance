@@ -299,7 +299,6 @@ query "cloudtrail_multi_region_trail_enabled" {
         else a.title || ' does not have multi-region trail(s).'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
