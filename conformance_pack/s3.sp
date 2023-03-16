@@ -592,7 +592,6 @@ query "s3_public_access_block_account" {
           ) || '.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
       aws_s3_account_settings;

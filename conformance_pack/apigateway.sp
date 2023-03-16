@@ -119,7 +119,8 @@ query "apigateway_stage_logging_enabled" {
         method_settings -> '*/*' ->> 'LoggingLevel' as log_level,
         title,
         region,
-        account_id
+        account_id,
+        tags
       from
         aws_api_gateway_stage
       union
@@ -129,7 +130,8 @@ query "apigateway_stage_logging_enabled" {
         default_route_logging_level as log_level,
         title,
         region,
-        account_id
+        account_id,
+        tags
       from
         aws_api_gatewayv2_stage
     )

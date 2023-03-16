@@ -209,7 +209,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         else 'User ' || i.title || ' allowed to perform decryption actions on all keys.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_iam_user i
@@ -227,7 +226,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         else 'Role ' || r.title || ' allowed to perform decryption actions on all keys.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
       aws_iam_role r
@@ -247,7 +245,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         else 'Group ' || g.title || ' allowed to perform decryption actions on all keys.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "g.")}
     from
       aws_iam_group g
