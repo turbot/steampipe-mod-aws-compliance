@@ -85,7 +85,7 @@ query "ec2_instance_ssm_managed" {
         else i.title || ' managed by AWS SSM.'
       end as reason
       -- Additional Dimentions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance i
@@ -107,7 +107,6 @@ query "ssm_managed_instance_compliance_association_compliant" {
         else c.resource_id || ' association ' || c.title || ' is non-compliant.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ssm_managed_instance as i,

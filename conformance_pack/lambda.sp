@@ -261,7 +261,7 @@ query "lambda_function_cloudtrail_logging_enabled" {
       end as reason
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
       aws_lambda_function as l
       left join function_logging_cloudtrails as c on l.arn = c.lambda_arn

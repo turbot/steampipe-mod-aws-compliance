@@ -557,7 +557,7 @@ query "rds_db_instance_in_backup_plan" {
         else i.title || ' in backup plan.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_rds_db_instance as i
@@ -698,7 +698,7 @@ query "rds_db_cluster_aurora_protected_by_backup_plan" {
         else c.title || ' is not protected by backup plan.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_rds_db_cluster as c
@@ -728,7 +728,7 @@ query "rds_db_instance_protected_by_backup_plan" {
         else r.title || ' is not protected by backup plan.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_rds_db_instance as r

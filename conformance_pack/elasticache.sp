@@ -44,6 +44,5 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;
-
   EOQ
 }

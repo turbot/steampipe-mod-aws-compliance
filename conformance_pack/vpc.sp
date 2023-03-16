@@ -1059,7 +1059,7 @@ query "vpc_network_acl_remote_administration" {
         else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
       aws_vpc_network_acl as acl
@@ -1115,7 +1115,7 @@ query "vpc_network_acl_remote_administration" {
         else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
       aws_vpc_network_acl as acl
@@ -1148,7 +1148,7 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
         when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
         else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
       end as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
@@ -1178,7 +1178,7 @@ query "vpc_security_group_associated" {
         else s.title || ' not associated.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
     from
       aws_vpc_security_group s
@@ -1227,7 +1227,7 @@ query "vpc_security_group_remote_administration_ipv4" {
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
@@ -1276,7 +1276,7 @@ query "vpc_security_group_remote_administration_ipv6" {
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from ::/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
@@ -1326,7 +1326,7 @@ query "vpc_security_group_remote_administration" {
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
@@ -1369,7 +1369,7 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
         else sg.group_id || ' contains ' || ingress_rdp_rules.num_rdp_rules || ' ingress rule(s) allowing RDP from 0.0.0.0/0.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
       aws_vpc_security_group as sg
@@ -1407,7 +1407,7 @@ query "vpc_security_group_unsued" {
         else s.title || ' not in use.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
     from
       aws_vpc_security_group as s

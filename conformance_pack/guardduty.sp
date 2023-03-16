@@ -66,7 +66,6 @@ query "guardduty_enabled" {
         else r.region || ' detector ' || d.title || ' disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r

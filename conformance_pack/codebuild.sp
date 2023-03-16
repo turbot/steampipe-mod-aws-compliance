@@ -140,7 +140,7 @@ query "codebuild_project_source_repo_oauth_configured" {
         else p.title || ' not using OAuth to connect source repository.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
       aws_codebuild_project as p

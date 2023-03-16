@@ -704,7 +704,6 @@ query "elb_classic_lb_with_outbound_rule" {
         else title || ' uses secure SSL or TLS cipher.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_load_balancer_listener;
