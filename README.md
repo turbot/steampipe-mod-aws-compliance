@@ -10,10 +10,10 @@ Or in a terminal:
 
 Includes support for:
 * [AWS CIS Controls v8 IG1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_controls_v8_ig1) 🚀 New!
-* [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120) 🚀 New!
+* [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120)
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
-* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150)
+* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150) 🚀 New!
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
 * [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
