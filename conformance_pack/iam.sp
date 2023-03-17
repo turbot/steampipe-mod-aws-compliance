@@ -1428,7 +1428,6 @@ query "iam_access_analyzer_enabled" {
         else 'Access Analyzer not enabled in ' || r.region || '.'
       end as reason
       -- Additional Dimensions
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r

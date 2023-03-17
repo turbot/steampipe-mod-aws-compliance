@@ -403,7 +403,7 @@ query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
         else i.title || ' encryption at rest with CMK disabled.'
       end as reason
       -- Additional Dimensions
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_sagemaker_notebook_instance as i

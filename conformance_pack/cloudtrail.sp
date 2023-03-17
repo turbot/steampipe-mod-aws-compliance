@@ -231,7 +231,7 @@ query "cloudtrail_s3_data_events_enabled" {
     aws_s3_bucket as b
     left join s3_selectors on bucket_selector like (b.arn || '%') or bucket_selector = 'arn:aws:s3'
   group by
-    b.account_id, b.region, b.arn, b.name;
+    b.account_id, b.region, b.arn, b.name, b.tags;
   EOQ
 }
 
