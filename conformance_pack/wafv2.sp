@@ -39,7 +39,7 @@ query "wafv2_web_acl_logging_enabled" {
       case
         when logging_configuration is null then title || ' logging disabled.'
         else title || ' logging enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -73,7 +73,7 @@ query "wafv2_web_acl_rule_attached" {
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
         else title || ' has ' || (select rule_group_count from rule_group_count ) || ' rule group(s) and ' || (jsonb_array_length(rules) - (select rule_group_count from rule_group_count )) || ' rule(s) attached.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

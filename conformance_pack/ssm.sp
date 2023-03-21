@@ -83,8 +83,8 @@ query "ec2_instance_ssm_managed" {
         when i.instance_state = 'stopped' then i.title || ' is in stopped state.'
         when m.instance_id is null then i.title || ' not managed by AWS SSM.'
         else i.title || ' managed by AWS SSM.'
-      end as reason
-      -- Additional Dimentions
+      end as reason,
+      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
@@ -105,7 +105,7 @@ query "ssm_managed_instance_compliance_association_compliant" {
       case
         when c.status = 'COMPLIANT' then c.resource_id || ' association ' || c.title || ' is compliant.'
         else c.resource_id || ' association ' || c.title || ' is non-compliant.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -129,7 +129,7 @@ query "ssm_managed_instance_compliance_patch_compliant" {
       case
         when c.status = 'COMPLIANT' then c.resource_id || ' patch ' || c.title || ' is compliant.'
         else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from

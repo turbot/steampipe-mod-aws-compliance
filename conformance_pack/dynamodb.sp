@@ -138,7 +138,7 @@ query "dynamodb_table_auto_scaling_enabled" {
         when t.resource_id is null then d.title || ' autoscaling not enabled.'
         when t.count < 2 then d.title || ' auto scaling not enabled for both read and write capacity.'
         else d.title || ' autoscaling enabled for both read and write capacity.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
@@ -160,7 +160,7 @@ query "dynamodb_table_point_in_time_recovery_enabled" {
       case
         when lower( point_in_time_recovery_description ->> 'PointInTimeRecoveryStatus' ) = 'disabled' then title || ' point-in-time recovery not enabled.'
         else title || ' point-in-time recovery enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -181,7 +181,7 @@ query "dynamodb_table_encrypted_with_kms" {
       case
         when sse_description is null then title || ' not encrypted with KMS.'
         else title || ' encrypted with KMS.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -231,7 +231,7 @@ query "dynamodb_table_in_backup_plan" {
       case
         when b.name is null then t.title || ' not in backup plan.'
         else t.title || ' in backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
@@ -256,7 +256,7 @@ query "dynamodb_table_encryption_enabled" {
           then title || ' encrypted with AWS KMS.'
         when sse_description is null then title || ' encrypted with DynamoDB managed CMK.'
         else title || ' not encrypted with CMK.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -285,7 +285,7 @@ query "dynamodb_table_protected_by_backup_plan" {
       case
         when b.arn is not null then t.title || ' is protected by backup plan.'
         else t.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}

@@ -101,7 +101,7 @@ query "apigateway_stage_cache_encryption_at_rest_enabled" {
         and method_settings -> '*/*' ->> 'CacheDataEncrypted' = 'true'
           then title || ' API cache and encryption enabled.'
         else title || ' API cache and encryption not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -145,7 +145,7 @@ query "apigateway_stage_logging_enabled" {
       case
         when log_level is null or log_level = '' or log_level = 'OFF' then title || ' logging not enabled.'
         else title || ' logging enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -166,7 +166,7 @@ query "apigateway_rest_api_stage_use_ssl_certificate" {
       case
         when client_certificate_id is null then title || ' does not use SSL certificate.'
         else title || ' uses SSL certificate.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -187,7 +187,7 @@ query "apigateway_stage_use_waf_web_acl" {
       case
         when web_acl_arn is not null then title || ' associated with WAF web ACL.'
         else title || ' not associated with WAF web ACL.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -208,7 +208,7 @@ query "apigateway_rest_api_authorizers_configured" {
       case
         when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
         else p.name || ' authorizers not configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
@@ -232,7 +232,7 @@ query "api_gatewayv2_route_authorization_type_configured" {
       case
         when authorization_type is null then route_id || ' authorization type not configured.'
         else route_id || ' authorization type ' || authorization_type || ' configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -252,7 +252,7 @@ query "apigateway_rest_api_stage_xray_tracing_enabled" {
       case
         when tracing_enabled then title || ' X-Ray tracing enabled.'
         else title || ' X-Ray tracing disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -273,7 +273,7 @@ query "gatewayv2_stage_access_logging_enabled" {
       case
         when access_log_settings is null then title || ' access logging disabled.'
         else title || ' access logging enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

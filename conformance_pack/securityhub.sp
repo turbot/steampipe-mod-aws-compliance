@@ -43,7 +43,7 @@ query "securityhub_enabled" {
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when h.hub_arn is not null then 'Security Hub enabled in ' || r.region || '.'
         else 'Security Hub disabled in ' || r.region || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from

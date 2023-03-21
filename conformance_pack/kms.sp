@@ -83,7 +83,7 @@ query "kms_key_not_pending_deletion" {
       case
         when key_state = 'PendingDeletion' then title || ' scheduled for deletion and will be deleted in ' || extract(day from deletion_date - current_timestamp) || ' day(s).'
         else title || ' not scheduled for deletion.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -112,7 +112,7 @@ query "kms_cmk_rotation_enabled" {
         when key_state = 'Disabled' then title || ' is disabled.'
         when not key_rotation_enabled then title || ' key rotation disabled.'
         else title || ' key rotation enabled.'
-      end as reason
+      end as reason,
       -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -147,7 +147,7 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
       case
         when d.arn is null then i.title || ' doesn''t allow decryption actions on all keys.'
         else i.title || ' allows decryption actions on all keys.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -207,7 +207,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       case
         when d.arn is null then 'User ' || i.title || ' not allowed to perform decryption actions on all keys.'
         else 'User ' || i.title || ' allowed to perform decryption actions on all keys.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
@@ -224,7 +224,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       case
         when d.arn is null then 'Role ' || r.title || ' not allowed to perform decryption actions on all keys.'
         else 'Role ' || r.title || ' allowed to perform decryption actions on all keys.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
@@ -243,7 +243,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       case
         when d.arn is null then 'Role ' || g.title || ' not allowed to perform decryption actions on all keys.'
         else 'Group ' || g.title || ' allowed to perform decryption actions on all keys.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "g.")}
     from
@@ -282,7 +282,7 @@ query "kms_cmk_policy_prohibit_public_access" {
         when p.arn is null then title || ' does not allow public access.'
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "k.")}

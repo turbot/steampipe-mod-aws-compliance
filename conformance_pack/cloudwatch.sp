@@ -250,7 +250,7 @@ query "cloudwatch_alarm_action_enabled" {
         when jsonb_array_length(insufficient_data_actions) != 0 then title || ' insufficient data action enabled.'
         when jsonb_array_length(ok_actions) != 0 then title || ' ok action enabled.'
         else 'ok'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -271,7 +271,7 @@ query "log_group_encryption_at_rest_enabled" {
       case
         when kms_key_id is null then title || ' not encrypted at rest.'
         else title || ' encrypted at rest.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -293,7 +293,7 @@ query "cloudwatch_log_group_retention_period_365" {
         when retention_in_days is null then title || ' retention period not set.'
         when retention_in_days < 365 then title || ' retention period less than 365 days.'
         else title || ' retention period 365 days or above.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -344,7 +344,7 @@ query "log_metric_filter_unauthorized_api" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for unauthorized API calls.'
         else filter_name || ' forwards events for unauthorized API calls.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -393,7 +393,7 @@ query "log_metric_filter_console_login_mfa" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for console sign-in without MFA.'
         else filter_name || ' forwards events for console sign-in without MFA.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -442,7 +442,7 @@ query "log_metric_filter_root_login" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for usage of "root" account.'
         else filter_name || ' forwards events for usage of "root" account.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -492,7 +492,7 @@ query "log_metric_filter_iam_policy" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for IAM policy changes.'
         else filter_name || ' forwards events for IAM policy changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -542,7 +542,7 @@ query "log_metric_filter_vpc" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for VPC changes.'
         else filter_name || ' forwards events for VPC changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -592,7 +592,7 @@ query "log_metric_filter_route_table" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for route table changes.'
         else filter_name || ' forwards events for route table changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -642,7 +642,7 @@ query "log_metric_filter_network_gateway" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to network gateways.'
         else filter_name || ' forwards events for changes to network gateways.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -691,7 +691,7 @@ query "log_metric_filter_network_acl" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to NACLs.'
         else filter_name || ' forwards events for changes to NACLs.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -740,7 +740,7 @@ query "log_metric_filter_security_group" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for security group changes.'
         else filter_name || ' forwards events for security group changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -789,7 +789,7 @@ query "log_metric_filter_config_configuration" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for AWS Config configuration changes.'
         else filter_name || ' forwards events for AWS Config configuration changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -839,7 +839,7 @@ query "log_metric_filter_bucket_policy" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for S3 bucket policy changes.'
         else filter_name || ' forwards events for S3 bucket policy changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -888,7 +888,7 @@ query "log_metric_filter_disable_or_delete_cmk" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for disabling/deletion of CMKs.'
         else filter_name || ' forwards events for disabling/deletion of CMKs.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -937,7 +937,7 @@ query "log_metric_filter_console_authentication_failure" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for console authentication failures.'
         else filter_name || ' forwards events for console authentication failures.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -986,7 +986,7 @@ query "log_metric_filter_cloudtrail_configuration" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for CloudTrail configuration changes.'
         else filter_name || ' forwards events for CloudTrail configuration changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1018,7 +1018,7 @@ query "cloudwatch_cross_account_sharing" {
       case
         when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
         else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1070,7 +1070,7 @@ query "log_metric_filter_organization" {
       case
         when f.trail_name is null then 'No log metric filter and alarm exists for AWS Organizations changes.'
         else filter_name || ' forwards relevant events for AWS Organizations changes.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from

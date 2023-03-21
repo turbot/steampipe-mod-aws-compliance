@@ -63,7 +63,7 @@ query "emr_cluster_kerberos_enabled" {
       case
         when kerberos_attributes is null then title || ' Kerberos not enabled.'
         else title || ' Kerberos enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -86,7 +86,7 @@ query "emr_cluster_master_nodes_no_public_ip" {
         when c.status ->> 'State' not in ('RUNNING', 'WAITING') then c.title || ' is in ' || (c.status ->> 'State') || ' state.'
         when s.map_public_ip_on_launch then c.title || ' master nodes assigned with public IP.'
         else c.title || ' master nodes not assigned with public IP.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -108,7 +108,7 @@ query "emr_account_public_access_blocked" {
       case
         when block_public_security_group_rules then region || ' EMR block public access enabled.'
         else region || ' EMR block public access disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from

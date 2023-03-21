@@ -39,7 +39,7 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
         when snapshot_retention_limit = 0 then title || ' automatic backups not enabled.'
         when snapshot_retention_limit < 15 then title || ' automatic backup retention period is less than 15 days.'
         else title || ' automatic backup retention period is more than 15 days.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from

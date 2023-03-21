@@ -77,7 +77,7 @@ query "cloudformation_stack_output_no_secrets" {
         when c.outputs is null then title || ' has no outputs.'
         when s.id is null then title || ' no secrets found in outputs.'
         else title || ' has secrets in outputs.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -99,7 +99,7 @@ query "cloudformation_stack_notifications_enabled" {
       case
         when jsonb_array_length(notification_arns) > 0 then title || ' notifications enabled.'
         else title || ' notifications disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -120,7 +120,7 @@ query "cloudformation_stack_rollback_enabled" {
       case
         when not disable_rollback then title || ' rollback enabled.'
         else title || ' rollback disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -141,7 +141,7 @@ query "cloudformation_stack_termination_protection_enabled" {
       case
         when enable_termination_protection then title || ' termination protection enabled.'
         else title || ' termination protection disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

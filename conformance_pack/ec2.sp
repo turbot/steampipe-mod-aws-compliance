@@ -228,7 +228,7 @@ query "ec2_ebs_default_encryption_enabled" {
       case
         when not default_ebs_encryption_enabled then region || ' default EBS encryption disabled.'
         else region || ' default EBS encryption enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -248,7 +248,7 @@ query "ec2_instance_detailed_monitoring_enabled" {
       case
         when monitoring_state = 'enabled' then instance_id || ' detailed monitoring enabled.'
         else instance_id || ' detailed monitoring disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -269,7 +269,7 @@ query "ec2_instance_in_vpc" {
       case
         when vpc_id is null then title || ' not in VPC.'
         else title || ' in VPC.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -290,7 +290,7 @@ query "ec2_instance_not_publicly_accessible" {
       case
         when public_ip_address is null then instance_id || ' not publicly accessible.'
         else instance_id || ' publicly accessible.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -312,7 +312,7 @@ query "ec2_stopped_instance_30_days" {
       case
         when instance_state not in ('stopped', 'stopping') then title || ' is in ' || instance_state || ' state.'
         else title || ' stopped since ' || to_char(state_transition_time , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - state_transition_time) || ' days).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -333,7 +333,7 @@ query "ec2_instance_ebs_optimized" {
       case
         when ebs_optimized then title || ' EBS optimization enabled.'
         else title || ' EBS optimization disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -354,7 +354,7 @@ query "ec2_instance_uses_imdsv2" {
       case
         when metadata_options ->> 'HttpTokens' = 'optional' then title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
         else title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -383,7 +383,7 @@ query "ec2_instance_protected_by_backup_plan" {
       case
         when b.arn is not null then i.title || ' is protected by backup plan.'
         else i.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
@@ -405,7 +405,7 @@ query "ec2_instance_iam_profile_attached" {
       case
         when iam_instance_profile_id is not null then title || ' IAM profile attached.'
         else title || ' IAM profile not attached.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -426,7 +426,7 @@ query "ec2_instance_publicly_accessible_iam_profile_attached" {
       case
         when iam_instance_profile_id is not null then title || ' IAM profile attached.'
         else title || ' IAM profile not attached.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -451,7 +451,7 @@ query "ec2_instance_user_data_no_secrets" {
         when user_data like any (array ['%pass%', '%secret%','%token%','%key%'])
           or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then instance_id ||' potential secret found in user data.'
         else instance_id ||  ' no secrets found in user data.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -472,7 +472,7 @@ query "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
       case
         when auto_accept_shared_attachments = 'enable' then title || ' automatic shared account attachment enabled.'
         else title || ' automatic shared account attachment disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -502,7 +502,7 @@ query "ec2_instance_no_launch_wizard_security_group" {
       case
         when sg.arn is null then i.title || ' not associated with launch-wizard security group.'
         else i.title || ' associated with launch-wizard security group.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
@@ -544,7 +544,7 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
       case
         when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
         else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
@@ -568,7 +568,7 @@ query "ec2_classic_lb_connection_draining_enabled" {
       case
         when connection_draining_enabled then title || ' connection draining enabled.'
         else title || ' connection draining disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -591,7 +591,7 @@ query "ec2_instance_no_amazon_key_pair" {
         when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
         when key_name is null then title || ' not launched using amazon key pairs.'
         else title || ' launched using amazon key pairs.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -610,7 +610,7 @@ query "ec2_instance_not_use_multiple_enis" {
         else 'alarm'
       end status,
       title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
-      as reason
+      as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -631,7 +631,7 @@ query "ec2_instance_termination_protection_enabled" {
       case
         when disable_api_termination then instance_id || ' termination protection enabled.'
         else instance_id || ' termination protection disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -649,7 +649,7 @@ query "ec2_instance_virtualization_type_no_paravirtual" {
         when virtualization_type = 'paravirtual' then 'alarm'
         else 'ok'
       end as status,
-      title || ' virtualization type is ' || virtualization_type || '.' as reason
+      title || ' virtualization type is ' || virtualization_type || '.' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

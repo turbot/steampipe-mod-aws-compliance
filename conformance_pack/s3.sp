@@ -301,7 +301,7 @@ query "s3_bucket_cross_region_replication_enabled" {
       case
         when b.name = r.name and r.rep_status = 'Enabled' then b.title || ' enabled with cross-region replication.'
         else b.title || ' not enabled with cross-region replication.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -323,7 +323,7 @@ query "s3_bucket_default_encryption_enabled" {
       case
         when server_side_encryption_configuration is not null then name || ' default encryption enabled.'
         else name || ' default encryption disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -363,7 +363,7 @@ query "s3_bucket_enforces_ssl" {
       case
         when ok.status = 'ok' then b.name || ' bucket policy enforces HTTPS.'
         else b.name || ' bucket policy does not enforce HTTPS.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -385,7 +385,7 @@ query "s3_bucket_logging_enabled" {
       case
         when logging -> 'TargetBucket' is null then title || ' logging disabled.'
         else title || ' logging enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -406,7 +406,7 @@ query "s3_bucket_object_lock_enabled" {
       case
         when object_lock_configuration is null then title || ' object lock not enabled.'
         else title || ' object lock enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -466,7 +466,7 @@ query "s3_bucket_restrict_public_read_access" {
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly readable.'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then  b.title || ' not publicly readable.'
         else b.title || ' publicly readable.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -532,7 +532,7 @@ query "s3_bucket_restrict_public_write_access" {
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly writable.'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then b.title || ' not publicly writable.'
         else b.title || ' publicly writable.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -555,7 +555,7 @@ query "s3_bucket_versioning_enabled" {
       case
         when versioning_enabled then name || ' versioning enabled.'
         else name || ' versioning disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -590,7 +590,7 @@ query "s3_public_access_block_account" {
             case when not (ignore_public_acls ) then 'ignore_public_acls' end,
             case when not (restrict_public_buckets) then 'restrict_public_buckets' end
           ) || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -624,7 +624,7 @@ query "s3_public_access_block_bucket_account" {
             case when not (bucket.ignore_public_acls or s3account.ignore_public_acls) then 'ignore_public_acls' end,
             case when not (bucket.restrict_public_buckets or s3account.restrict_public_buckets) then 'restrict_public_buckets' end
           ) || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "bucket.")}
@@ -658,7 +658,7 @@ query "s3_bucket_default_encryption_enabled_kms" {
       case
         when d.name is not null then b.name || ' default encryption with KMS enabled.'
         else b.name || ' default encryption with KMS disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -695,7 +695,7 @@ query "s3_public_access_block_bucket" {
             case when not ignore_public_acls then 'ignore_public_acls' end,
             case when not restrict_public_buckets then 'restrict_public_buckets' end
           ) || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -739,7 +739,7 @@ query "s3_bucket_policy_restricts_cross_account_permission_changes" {
       case
         when b.arn is null then title || ' restricts cross-account bucket access.'
         else title || ' allows cross-account bucket access.'
-      end as reason
+      end as reason,
       -- Additionl Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
@@ -806,7 +806,7 @@ query "s3_bucket_object_logging_enabled" {
           or (r.bucket_arn = 'arn:aws:s3' and r. cloudtrail_region = s.region )
           or a. cloudtrail_region =  s.region then s.name || ' object logging enabled.'
         else s.name || ' object logging not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -830,7 +830,7 @@ query "s3_bucket_static_website_hosting_disabled" {
       case
         when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then name || ' static website hosting enabled.'
         else name || ' static website hosting disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -892,7 +892,7 @@ query "s3_bucket_acls_should_prohibit_user_access" {
           when object_ownership_controls -> 'Rules' @> '[{"ObjectOwnership": "BucketOwnerEnforced"} ]' then title || ' ACLs are disabled.'
           when jsonb_array_length(additional_permissions) = 0 then title || ' does not have ACLs for user access.'
           else title || ' has ACLs for user access.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -921,7 +921,7 @@ query "s3_bucket_event_notifications_enabled" {
           and event_notification_configuration ->> 'QueueConfigurations' is null
           and event_notification_configuration ->> 'TopicConfigurations' is null then title || ' event notifications disabled.'
         else title || ' event notifications enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -942,7 +942,7 @@ query "s3_bucket_mfa_delete_enabled" {
       case
         when versioning_mfa_delete then name || ' MFA delete enabled.'
         else name || ' MFA delete disabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -973,7 +973,7 @@ query "s3_bucket_protected_by_macie" {
         when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then b.title || ' not protected by Macie as Macie is not supported in ' || b.region || '.'
         when l.bucket_name is not null then b.title || ' protected by Macie.'
         else b.title || ' not protected by Macie.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -1007,7 +1007,7 @@ query "s3_bucket_public_access_blocked" {
           and restrict_public_buckets
         then name || ' blocks public access.'
         else name || ' does not block public access.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1039,7 +1039,7 @@ query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
         when not versioning_enabled then name || ' versioning diabled.'
         when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}

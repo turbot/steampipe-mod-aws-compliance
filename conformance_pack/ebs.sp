@@ -145,7 +145,7 @@ query "ebs_snapshot_not_publicly_restorable" {
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then title || ' is publicly restorable.'
         else title || ' is not publicly restorable.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -166,7 +166,7 @@ query "ebs_volume_encryption_at_rest_enabled" {
       case
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -189,7 +189,7 @@ query "ebs_attached_volume_encryption_enabled" {
         when state != 'in-use' then volume_id || ' not attached.'
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -239,7 +239,7 @@ query "ebs_volume_in_backup_plan" {
       case
         when b.volume_id is null then v.title || ' not in backup plan.'
         else v.title || ' in backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
@@ -263,7 +263,7 @@ query "ebs_attached_volume_delete_on_termination_enabled" {
         when state != 'in-use' then title || ' not attached to EC2 instance.'
         when attachment ->> 'DeleteOnTermination' = 'true' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination enabled.'
         else title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -293,7 +293,7 @@ query "ebs_volume_protected_by_backup_plan" {
       case
         when b.arn is not null then v.title || ' is protected by backup plan.'
         else v.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
@@ -315,7 +315,7 @@ query "ebs_volume_unused" {
       case
         when state = 'in-use' then title || ' attached to EC2 instance.'
         else title || ' not attached to EC2 instance.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

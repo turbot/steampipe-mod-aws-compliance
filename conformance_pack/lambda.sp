@@ -110,7 +110,7 @@ query "lambda_function_dead_letter_queue_configured" {
       case
         when dead_letter_config_target_arn is null then title || ' configured with dead-letter queue.'
         else title || ' not configured with dead-letter queue.'
-      end as reason
+      end as reason,
       -- Additional Columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -131,7 +131,7 @@ query "lambda_function_in_vpc" {
       case
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -169,7 +169,7 @@ query "lambda_function_restrict_public_access" {
         when p.arn is null then title || ' does not allow public access.'
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
@@ -191,7 +191,7 @@ query "lambda_function_concurrent_execution_limit_configured" {
       case
         when reserved_concurrent_executions is null then title || ' function-level concurrent execution limit not configured.'
         else title || ' function-level concurrent execution limit configured.'
-      end as reason
+      end as reason,
       -- Additional Columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -258,7 +258,7 @@ query "lambda_function_cloudtrail_logging_enabled" {
           or (r.lambda_arn = 'arn:aws:s3' and r.cloudtrail_region = l.region )
           or a.cloudtrail_region =  l.region then l.name || ' logging enabled.'
         else l.name || ' logging not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
@@ -282,7 +282,7 @@ query "lambda_function_tracing_enabled" {
       case
         when tracing_config ->> 'Mode' = 'PassThrough' then title || ' has tracing disabled.'
         else title || ' has tracing enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -307,7 +307,7 @@ query "lambda_function_cors_configuration" {
         when url_config is null then title || ' does not has a URL config.'
         when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
         else title || ' CORS configuration does not allow all origins.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -340,7 +340,7 @@ query "lambda_function_multiple_az_configured" {
       case
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -363,7 +363,7 @@ query "lambda_function_use_latest_runtime" {
         when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
         when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
         else title || ' uses ' || runtime || ' which is not the latest version.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

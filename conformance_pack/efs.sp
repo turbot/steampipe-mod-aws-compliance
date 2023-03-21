@@ -93,7 +93,7 @@ query "efs_file_system_encrypt_data_at_rest" {
       case
         when encrypted then title || ' encrypted at rest.'
         else title || ' not encrypted at rest.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -114,7 +114,7 @@ query "efs_file_system_automatic_backups_enabled" {
       case
         when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
         else title || ' automatic backups not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -143,7 +143,7 @@ query "efs_file_system_protected_by_backup_plan" {
       case
         when b.arn is not null then f.title || ' is protected by backup plan.'
         else f.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
@@ -177,7 +177,7 @@ query "efs_file_system_encrypted_with_cmk" {
         when not encrypted then title || ' not encrypted.'
         when encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -217,7 +217,7 @@ query "efs_file_system_enforces_ssl" {
       case
         when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
         else f.title || ' policy does not enforce HTTPS.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
@@ -241,7 +241,7 @@ query "efs_access_point_enforce_root_directory" {
       case
         when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
         else title || ' configured to enforce a root directory.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -262,7 +262,7 @@ query "efs_access_point_enforce_user_identity" {
       case
         when posix_user is null then title || ' does not enforce a user identity.'
         else title || ' enforces a user identity.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

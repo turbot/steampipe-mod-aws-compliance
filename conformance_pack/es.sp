@@ -115,7 +115,7 @@ query "es_domain_encryption_at_rest_enabled" {
       case
         when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
         else title || ' encryption at rest enabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -136,7 +136,7 @@ query "es_domain_in_vpc" {
       case
         when vpc_options ->> 'VPCId' is null then title || ' not in VPC.'
         else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -159,7 +159,7 @@ query "es_domain_node_to_node_encryption_enabled" {
         when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
         when not enabled then title || ' node-to-node encryption disabled.'
         else title || ' node-to-node encryption enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -203,7 +203,7 @@ query "es_domain_logs_to_cloudwatch" {
             and log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null
           ) then title || ' logging enabled for search , index and error.'
         else title || ' logging not enabled for all search, index and error.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -224,7 +224,7 @@ query "es_domain_cognito_authentication_enabled" {
       case
         when cognito_options ->> 'Enabled' = 'true' then title || ' Amazon Cognito authentication for Kibana enabled.'
         else title || ' Amazon Cognito authentication for Kibana disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -245,7 +245,7 @@ query "es_domain_internal_user_database_enabled" {
       case
         when advanced_security_options ->> 'InternalUserDatabaseEnabled' = 'true' then title || ' internal user database enabled.'
         else title || ' internal user database disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -272,7 +272,7 @@ query "es_domain_audit_logging_enabled" {
           log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'true'
           and log_publishing_options -> 'AUDIT_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then title || ' audit logging enabled.'
         else title || ' audit logging disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -296,7 +296,7 @@ query "es_domain_data_nodes_min_3" {
       case
         when elasticsearch_cluster_config ->> 'ZoneAwarenessEnabled' = 'false' then title || ' zone awareness disabled.'
         else title || ' has ' || (elasticsearch_cluster_config ->> 'InstanceCount') || ' data node(s).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -320,7 +320,7 @@ query "es_domain_dedicated_master_nodes_min_3" {
       case
         when elasticsearch_cluster_config ->> 'DedicatedMasterEnabled' = 'false' then title || ' dedicated master nodes disabled.'
         else title || ' has ' || (elasticsearch_cluster_config ->> 'DedicatedMasterCount') || ' dedicated master node(s).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -341,7 +341,7 @@ query "es_domain_encrypted_using_tls_1_2" {
       case
         when domain_endpoint_options ->> 'TLSSecurityPolicy' = 'Policy-Min-TLS-1-2-2019-07' then title || ' encrypted using TLS 1.2.'
         else title || ' not encrypted using TLS 1.2.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -366,7 +366,7 @@ query "es_domain_error_logging_enabled" {
           log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true'
           and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null then title || ' error logging enabled.'
         else title || ' error logging disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

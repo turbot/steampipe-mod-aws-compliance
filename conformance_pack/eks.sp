@@ -70,7 +70,7 @@ query "eks_cluster_secrets_encrypted" {
         when encryption_config is null then a.title || ' encryption not enabled.'
         when b.arn is not null then a.title || ' encrypted with EKS secrets.'
         else a.title || ' not encrypted with EKS secrets.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -92,7 +92,7 @@ query "eks_cluster_endpoint_restrict_public_access" {
       case
         when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' then title || ' endpoint publicly accessible.'
         else title || ' endpoint not publicly accessible.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -127,7 +127,7 @@ query "eks_cluster_control_plane_audit_logging_enabled" {
           case when logging -> 'ClusterLogging' @> '[{"Enabled": true}]' then c.title || ' control plane audit logging not enabled for all log types.'
           else c.title || ' control plane audit logging not enabled.'
           end
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -158,7 +158,7 @@ query "eks_cluster_no_default_vpc" {
       case
         when v.arn is not null then title || ' uses default VPC.'
         else title || ' does not use default VPC.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -183,7 +183,7 @@ query "eks_cluster_with_latest_kubernetes_version" {
       case
         when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
         else title || ' does not run on a supported kubernetes version.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

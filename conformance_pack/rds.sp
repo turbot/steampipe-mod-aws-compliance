@@ -319,7 +319,7 @@ query "rds_db_instance_backup_enabled" {
       case
         when backup_retention_period < 1 then title || ' backups not enabled.'
         else title || ' backups enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -340,7 +340,7 @@ query "rds_db_instance_encryption_at_rest_enabled" {
       case
         when storage_encrypted then title || ' encrypted at rest.'
         else title || ' not encrypted at rest.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -363,7 +363,7 @@ query "rds_db_instance_multiple_az_enabled" {
         when engine ilike any (array ['%aurora-mysql%', '%aurora-postgres%']) then title || ' cluster instance.'
         when multi_az then title || ' Multi-AZ enabled.'
         else title || ' Multi-AZ disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -384,7 +384,7 @@ query "rds_db_instance_prohibit_public_access" {
       case
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -406,7 +406,7 @@ query "rds_db_snapshot_encrypted_at_rest" {
       case
         when storage_encrypted then title || ' encrypted at rest.'
         else title || ' not encrypted at rest.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -425,7 +425,7 @@ query "rds_db_snapshot_encrypted_at_rest" {
       case
         when encrypted then title || ' encrypted at rest.'
         else title || ' not encrypted at rest.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -448,7 +448,7 @@ query "rds_db_snapshot_prohibit_public_access" {
       case
         when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
         else title || ' not publicly restorable.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -468,7 +468,7 @@ query "rds_db_snapshot_prohibit_public_access" {
       case
         when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
         else title || ' not publicly restorable.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -505,7 +505,7 @@ query "rds_db_instance_logging_enabled" {
         when engine like 'sqlserver%' and enabled_cloudwatch_logs_exports ?& array ['error','agent']
         then title || ' ' || engine || ' logging enabled.'
         else title || ' logging not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -555,7 +555,7 @@ query "rds_db_instance_in_backup_plan" {
       case
         when b.db_instance_identifier is null then i.title || ' not in backup plan.'
         else i.title || ' in backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
@@ -578,7 +578,7 @@ query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
       case
         when enabled_cloudwatch_logs_exports is not null then title || ' enhanced monitoring enabled.'
         else title || ' enhanced monitoring not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -599,7 +599,7 @@ query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
         when class = 'db.m1.small' then title || ' enhanced monitoring not supported.'
         when enhanced_monitoring_resource_arn is not null then title || ' enhanced monitoring enabled.'
         else title || ' enhanced monitoring not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -623,7 +623,7 @@ query "rds_db_instance_deletion_protection_enabled" {
         when engine like any(array['aurora%', 'docdb', 'neptune']) then title || ' has engine ' || engine || ' cluster, deletion protection is set at cluster level.'
         when deletion_protection then title || ' deletion protection enabled.'
         else title || ' deletion protection not enabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -644,7 +644,7 @@ query "rds_db_instance_iam_authentication_enabled" {
       case
         when iam_database_authentication_enabled then title || ' IAM authentication enabled.'
         else title || ' IAM authentication not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -665,7 +665,7 @@ query "rds_db_cluster_iam_authentication_enabled" {
       case
         when iam_database_authentication_enabled then title || ' IAM authentication enabled.'
         else title || ' IAM authentication not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -696,7 +696,7 @@ query "rds_db_cluster_aurora_protected_by_backup_plan" {
         when c.engine not like '%aurora%' then c.title || ' not Aurora resources.'
         when b.arn is not null then c.title || ' is protected by backup plan.'
         else c.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -726,7 +726,7 @@ query "rds_db_instance_protected_by_backup_plan" {
       case
         when b.arn is not null then r.title || ' is protected by backup plan.'
         else r.title || ' is not protected by backup plan.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
@@ -748,7 +748,7 @@ query "rds_db_instance_automatic_minor_version_upgrade_enabled" {
       case
         when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
         else title || ' automatic minor version upgrades not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -769,7 +769,7 @@ query "rds_db_cluster_deletion_protection_enabled" {
       case
         when deletion_protection then title || ' deletion protection enabled.'
         else title || ' deletion protection not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -790,7 +790,7 @@ query "rds_db_instance_cloudwatch_logs_enabled" {
       case
         when enabled_cloudwatch_logs_exports is not null then title || ' integrated with CloudWatch logs.'
         else title || ' not integrated with CloudWatch logs.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -810,7 +810,7 @@ query "rds_db_instance_ca_certificate_expires_7_days" {
       end as status,
         title || ' expires ' || to_char(to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS'), 'DD-Mon-YYYY') ||
         ' (' || extract(day from (to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS')) - current_timestamp) || ' days).'
-      as reason
+      as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -835,7 +835,7 @@ query "rds_db_cluster_aurora_backtracking_enabled" {
         when engine not ilike '%aurora-mysql%' then title || ' not Aurora MySQL-compatible edition.'
         when backtrack_window is not null then title || ' backtracking enabled.'
         else title || ' backtracking not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -856,7 +856,7 @@ query "rds_db_cluster_copy_tags_to_snapshot_enabled" {
       case
         when copy_tags_to_snapshot then title || ' copy tags to snapshot enabled.'
         else title || ' copy tags to snapshot disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -879,7 +879,7 @@ query "rds_db_cluster_events_subscription" {
         when source_type <> 'db-cluster' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
         when source_type = 'db-cluster' and enabled and event_categories_list @> '["failure", "maintenance"]' then cust_subscription_id || ' event subscription enabled for critical db cluster events.'
         else cust_subscription_id || ' event subscription missing critical db cluster events.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -899,7 +899,7 @@ query "rds_db_cluster_multiple_az_enabled" {
       case
         when multi_az then title || ' Multi-AZ enabled.'
         else title || ' Multi-AZ disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -920,7 +920,7 @@ query "rds_db_cluster_no_default_admin_name" {
       case
         when master_user_name in ('admin','postgres') then title || ' using default master user name.'
         else title || ' not using default master user name.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -948,7 +948,7 @@ query "rds_db_instance_and_cluster_no_default_port" {
           when engine like 'oracle%' and port = '1521' then  title || ' ' ||  engine || ' uses a default port.'
           when engine like 'sqlserver%' and port = '1433' then  title || ' ' ||  engine || ' uses a default port.'
         else title || ' doesnt use a default port.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -973,7 +973,7 @@ query "rds_db_instance_and_cluster_no_default_port" {
           when engine like 'oracle%' and port = '1521' then  title || ' ' ||  engine || ' uses a default port.'
           when engine like 'sqlserver%' and port = '1433' then  title || ' ' ||  engine || ' uses a default port.'
         else title || ' doesnt use a default port.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -995,7 +995,7 @@ query "rds_db_instance_copy_tags_to_snapshot_enabled" {
       case
         when copy_tags_to_snapshot then title || ' copy tags to snapshot enabled.'
         else title || ' copy tags to snapshot disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1019,7 +1019,7 @@ query "rds_db_instance_events_subscription" {
         when source_type <> 'db-instance' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
         when source_type like 'db-instance' and enabled and event_categories_list @> '["failure", "maintenance", "configuration change"]' then cust_subscription_id || ' event subscription enabled for critical instance events.'
         else cust_subscription_id || ' event subscription missing critical instance events.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -1039,7 +1039,7 @@ query "rds_db_instance_in_vpc" {
       case
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1060,7 +1060,7 @@ query "rds_db_instance_no_default_admin_name" {
       case
         when master_user_name in ('admin','postgres') then title || ' using default master user name.'
         else title || ' not using default master user name.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1084,7 +1084,7 @@ query "rds_db_parameter_group_events_subscription" {
         when source_type <> 'db-parameter-group' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
         when source_type = 'db-parameter-group' and enabled and event_categories_list @> '["configuration change"]' then cust_subscription_id || ' event subscription enabled for critical database parameter group events.'
         else cust_subscription_id || ' event subscription missing critical database parameter group events.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -1106,7 +1106,7 @@ query "rds_db_security_group_events_subscription" {
         when source_type <> 'db-security-group' then cust_subscription_id || ' event subscription of ' || source_type || ' type.'
         when source_type = 'db-security-group' and enabled and event_categories_list @> '["failure", "configuration change"]' then cust_subscription_id || ' event subscription enabled for critical database security group events.'
         else cust_subscription_id || ' event subscription missing critical database security group events.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from

@@ -28,7 +28,7 @@ query "dax_cluster_encryption_at_rest_enabled" {
       case
         when sse_description ->> 'Status' = 'ENABLED' then title || ' encryption at rest enabled.'
         else title || ' encryption at rest not enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

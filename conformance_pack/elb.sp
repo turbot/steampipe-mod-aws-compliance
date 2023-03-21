@@ -268,7 +268,7 @@ query "elb_application_classic_lb_logging_enabled" {
         case
           when load_balancer_attributes @> '[{"Key": "access_logs.s3.enabled", "Value": "true"}]' then title || ' logging enabled.'
           else title || ' logging disabled.'
-        end as reason
+        end as reason,
         -- Additional Dimensions
         ${local.tag_dimensions_sql}
         ${local.common_dimensions_sql}
@@ -287,7 +287,7 @@ query "elb_application_classic_lb_logging_enabled" {
         case
           when access_log_enabled = 'true' then title || ' logging enabled.'
           else title || ' logging disabled.'
-        end as reason
+        end as reason,
         -- Additional Dimensions
         ${local.tag_dimensions_sql}
         ${local.common_dimensions_sql}
@@ -309,7 +309,7 @@ query "elb_application_lb_deletion_protection_enabled" {
       case
         when load_balancer_attributes @> '[{"Key": "deletion_protection.enabled", "Value": "true"}]' then title || ' deletion protection enabled.'
         else title || ' deletion protection disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -344,7 +344,7 @@ query "elb_application_lb_redirect_http_request_to_https" {
       case
         when b.load_balancer_arn is not null then  a.title || ' associated with HTTP redirection.'
         else a.title || ' not associated with HTTP redirection.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
@@ -366,7 +366,7 @@ query "elb_application_lb_waf_enabled" {
       case
         when load_balancer_attributes @> '[{"Key":"waf.fail_open.enabled","Value":"true"}]' then title || ' WAF enabled.'
         else title || ' WAF disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -399,7 +399,7 @@ query "elb_classic_lb_use_ssl_certificate" {
         when a.listener_descriptions is null then a.title || ' has no listener.'
         when b.name is not null then a.title || ' does not use certificates provided by ACM.'
         else a.title || ' uses certificates provided by ACM.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -421,7 +421,7 @@ query "elb_application_lb_drop_http_headers" {
       case
         when load_balancer_attributes @> '[{"Key": "routing.http.drop_invalid_header_fields.enabled", "Value": "true"}]' then title || ' configured to drop http headers.'
         else title || ' not configured to drop http headers.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -443,7 +443,7 @@ query "elb_classic_lb_use_tls_https_listeners" {
         when listener_description -> 'Listener' ->> 'Protocol' = 'HTTPS' then title || ' configured with HTTPS protocol.'
         when listener_description -> 'Listener' ->> 'Protocol' = 'SSL' then title || ' configured with TLS protocol.'
         else title || ' configured with ' || (listener_description -> 'Listener' ->> 'Protocol') || ' protocol.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -465,7 +465,7 @@ query "elb_classic_lb_cross_zone_load_balancing_enabled" {
       case
         when cross_zone_load_balancing_enabled then title || ' cross-zone load balancing enabled.'
         else title || ' cross-zone load balancing disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -516,7 +516,7 @@ query "elb_application_network_lb_use_ssl_certificate" {
       case
         when b.load_balancer_arn is null then a.title || ' uses certificates provided by ACM.'
         else a.title || ' has ' || b.count || ' listeners which do not use certificates provided by ACM.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
@@ -537,7 +537,7 @@ query "elb_listener_use_secure_ssl_cipher" {
       case
         when ssl_policy like any (array['ELBSecurityPolicy-TLS-1-2-2017-01', 'ELBSecurityPolicy-TLS-1-1-2017-01']) then title || ' uses secure SSL cipher.'
         else title || ' uses insecure SSL cipher.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -591,7 +591,7 @@ query "elb_application_classic_network_lb_prohibit_public_access" {
       case
         when scheme = 'internet-facing' then title || ' publicly accessible.'
         else title|| ' not publicly accessible.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -634,7 +634,7 @@ query "elb_application_lb_with_outbound_rule" {
         when a.security_groups is null then a.title || ' does not have security group attached.'
         when o.arn is not null then a.title || ' all attached security groups does not have outbound rule(s).'
         else a.title || ' all attached security groups have outbound rule(s).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
@@ -678,7 +678,7 @@ query "elb_classic_lb_with_outbound_rule" {
         when c.security_groups is null then c.title || ' does not have security group attached.'
         when o.arn is not null then c.title || ' all attached security groups does not have outbound rule(s).'
         else c.title || ' all attached security groups have outbound rule(s).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -702,7 +702,7 @@ query "elb_classic_lb_with_outbound_rule" {
         when protocol <> 'HTTPS' then title || ' uses protocol ' || protocol || '.'
         when ssl_policy like any (array['Protocol-SSLv3', 'Protocol-TLSv1']) then title || ' uses insecure SSL or TLS cipher.'
         else title || ' uses secure SSL or TLS cipher.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -719,7 +719,7 @@ query "elb_application_lb_listener_certificate_expire_7_days" {
         when date(not_after) - date(current_date) >= 7 then 'ok'
         else 'alarm'
       end as status,
-      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
@@ -738,7 +738,7 @@ query "elb_application_lb_listener_certificate_expire_30_days" {
         when date(not_after) - date(current_date) >= 30 then 'ok'
         else 'alarm'
       end as status,
-      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
@@ -781,7 +781,7 @@ query "elb_application_network_lb_use_listeners" {
       case
         when l.load_balancer_arn is not null then lb.title || ' uses listener.'
         else lb.title || ' does not uses listener.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}
@@ -805,7 +805,7 @@ query "elb_tls_listener_protocol_version" {
         when protocol <> 'HTTPS' then title || ' uses protocol ' || protocol || '.'
         when ssl_policy like any (array['Protocol-SSLv3', 'Protocol-TLSv1']) then title || ' uses insecure SSL or TLS cipher.'
         else title || ' uses secure SSL or TLS cipher.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -824,7 +824,7 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         when jsonb_array_length(availability_zones) < 2 then 'alarm'
         else 'ok'
       end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -838,7 +838,7 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         when jsonb_array_length(availability_zones) < 2 then 'alarm'
         else 'ok'
       end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -852,7 +852,7 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         when jsonb_array_length(availability_zones) < 2 then 'alarm'
         else 'ok'
       end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -881,7 +881,7 @@ query "elb_application_lb_desync_mitigation_mode" {
         when m.v = any(array['defensive', 'strictest']) then 'ok'
         else 'alarm'
       end as status,
-        title || ' has ' || m.v || ' desync mitigation mode.' as reason
+        title || ' has ' || m.v || ' desync mitigation mode.' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -911,7 +911,7 @@ query "elb_classic_lb_desync_mitigation_mode" {
         when m.v = any(array['defensive', 'strictest']) then 'ok'
         else 'alarm'
       end as status,
-        title || ' has ' || m.v || ' desync mitigation mode.' as reason
+        title || ' has ' || m.v || ' desync mitigation mode.' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -930,7 +930,7 @@ query "elb_classic_lb_multiple_az_configured" {
         when jsonb_array_length(availability_zones) < 2 then 'alarm'
         else 'ok'
       end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -974,7 +974,7 @@ query "elb_network_lb_tls_listener_security_policy_configured" {
         when l.load_balancer_arn is not null and lb.arn in (select load_balancer_arn from tls_listeners) then lb.title || ' TLS listener security policy not updated.'
         when l.load_balancer_arn is not null then lb.title || ' TLS listener security policy updated.'
         else lb.title || ' does not use TLS listener.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "lb.")}

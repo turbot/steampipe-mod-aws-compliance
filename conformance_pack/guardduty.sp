@@ -64,7 +64,7 @@ query "guardduty_enabled" {
         when status = 'ENABLED' and master_account ->> 'AccountId' is null then r.region || ' detector ' || d.title || ' enabled.'
         when status = 'ENABLED' and master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' is managed by account ' || (master_account ->> 'AccountId') ||  ' via delegated admin.'
         else r.region || ' detector ' || d.title || ' disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
@@ -85,7 +85,7 @@ query "guardduty_finding_archived" {
       case
         when service ->> 'Archived' = 'false' then title || ' not archived.'
         else title || ' archived.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from

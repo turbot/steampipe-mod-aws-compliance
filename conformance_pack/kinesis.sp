@@ -36,7 +36,7 @@ query "kinesis_stream_server_side_encryption_enabled" {
       case
         when encryption_type = 'KMS' then title || ' server side encryption enabled.'
         else title || ' server side encryption disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -57,7 +57,7 @@ query "kinesis_stream_encrypted_with_kms_cmk" {
       case
         when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

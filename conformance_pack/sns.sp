@@ -47,7 +47,7 @@ query "sns_topic_encrypted_at_rest" {
     case
       when kms_master_key_id is null then title || ' encryption at rest disabled.'
       else title || ' encryption at rest enabled.'
-    end as reason
+    end as reason,
     -- Additional Dimensions
     ${local.tag_dimensions_sql}
     ${local.common_dimensions_sql}
@@ -85,7 +85,7 @@ query "sns_topic_policy_prohibit_public_access" {
         when p.topic_arn is null then title || ' does not allow public access.'
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
@@ -117,7 +117,7 @@ query "sns_topic_notification_delivery_status_enabled" {
           and lambda_failure_feedback_role_arn is null
           and sqs_failure_feedback_role_arn is null then title || ' has delivery status logging for notification messages disabled.'
         else title || ' has delivery status logging for notification messages enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

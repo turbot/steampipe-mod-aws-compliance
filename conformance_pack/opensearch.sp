@@ -12,7 +12,7 @@ query "opensearch_domain_encryption_at_rest_enabled" {
       case
         when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
         else title || ' encryption at rest enabled.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -33,7 +33,7 @@ query "opensearch_domain_fine_grained_access_enabled" {
       case
         when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
         else title || ' having fine-grained access control enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -75,7 +75,7 @@ query "opensearch_domain_in_vpc" {
         when vpc_options ->> 'VPCId' is null then title || ' not in VPC.'
         when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then title || ' attached to public subnet.'
         else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}

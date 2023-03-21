@@ -289,7 +289,7 @@ query "vpc_flow_logs_enabled" {
         when v.account_id <> v.owner_id then vpc_id || ' is a shared VPC.'
         when f.resource_id is not null then vpc_id || ' flow logging enabled.'
         else vpc_id || ' flow logging disabled.'
-      end as reason
+      end as reason,
       -- Additional columns
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
@@ -315,7 +315,7 @@ query "vpc_igw_attached_to_authorized_vpc" {
           '"VpcId": "',
           2
         ) || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -355,7 +355,7 @@ query "vpc_security_group_restrict_ingress_tcp_udp_all" {
       case
         when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to TCP or UDP ports from 0.0.0.0/0.'
         else sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to TCP or UDP ports from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -418,7 +418,7 @@ query "vpc_security_group_restrict_ingress_common_ports_all" {
       case
         when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for ports 20, 21, 22, 3306, 3389, 4333 from 0.0.0.0/0.'
         else  sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access on ports 20, 21, 22, 3306, 3389, 4333 from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -461,7 +461,7 @@ query "vpc_security_group_restrict_ingress_ssh_all" {
       case
         when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for SSH from 0.0.0.0/0.'
         else  sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing SSH from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -488,7 +488,7 @@ query "vpc_default_security_group_restricts_all_traffic" {
         when jsonb_array_length(ip_permissions) = 0 and jsonb_array_length(ip_permissions_egress) > 0
           then 'Default security group ' || group_id || ' has outbound rules.'
         else 'Default security group ' || group_id || ' has no inbound or outbound rules.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -522,7 +522,7 @@ query "vpc_vpn_tunnel_up" {
         when b.count is null then a.title || ' has both tunnels offline.'
         when b.count = 1 then a.title || ' has one tunnel offline.'
         else a.title || ' has both tunnels online.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -544,7 +544,7 @@ query "vpc_eip_associated" {
       case
         when association_id is null then title || ' is not associated with any resource.'
         else title || ' is associated with a resource.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -574,7 +574,7 @@ query "vpc_security_group_associated_to_eni" {
       case
         when a.secgrp_id = s.group_id then s.title || ' is associated with ' || a.count || ' ENI(s).'
         else s.title || ' not associated to any ENI.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -596,7 +596,7 @@ query "vpc_subnet_auto_assign_public_ip_disabled" {
       case
         when map_public_ip_on_launch = 'false' then title || ' auto assign public IP disabled.'
         else title || ' auto assign public IP enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -632,7 +632,7 @@ query "vpc_route_table_restrict_public_access_to_igw" {
       case
         when b.route_table_id is null then a.title || ' does not have public routes to an Internet Gateway (IGW)'
         else a.title || ' contains ' || b.num || ' rule(s) which have public routes to an Internet Gateway (IGW)'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -747,7 +747,7 @@ query "vpc_security_group_restricted_common_ports" {
       case
         when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0..'
         else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -793,7 +793,7 @@ query "vpc_security_group_restrict_ingress_redis_port" {
       case
         when ingress_redis_port.group_id is null then sg.group_id || ' restricted ingress from 0.0.0.0/0 or ::/0 to Redis port 6379.'
         else sg.group_id || ' contains ' || ingress_redis_port.num_redis_rules || ' ingress rule(s) from 0.0.0.0/0 or ::/0 to Redis port 6379.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -843,7 +843,7 @@ query "vpc_security_group_restrict_ingress_kibana_port" {
       case
         when k.group_id is null then sg.group_id || ' ingress restricted for kibana port from 0.0.0.0/0.'
         else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kibana port from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -874,7 +874,7 @@ query "vpc_security_group_not_uses_launch_wizard_sg" {
       case
         when a.sg_name is null then title || ' not in use.'
         else title || ' in use.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -898,7 +898,7 @@ query "vpc_endpoint_service_acceptance_required_enabled" {
       case
         when acceptance_required then title || ' acceptance_required enabled.'
         else title || ' acceptance_required disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -919,7 +919,7 @@ query "vpc_network_acl_unused" {
       case
         when jsonb_array_length(associations) >= 1 then title || ' associated with subnet.'
         else title || ' not associated with subnet.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -964,7 +964,7 @@ query "vpc_security_group_restrict_ingress_kafka_port" {
       case
         when k.group_id is null then sg.group_id || ' ingress restricted for kafka port from 0.0.0.0/0.'
         else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kafka port from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1002,7 +1002,7 @@ query "vpc_configured_to_use_vpc_endpoints" {
             service_name like 'com.amazonaws.' || region || '.ec2'
         ) then title || ' not configured to use VPC endpoints.'
         else title || ' configured to use VPC endpoints.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1057,7 +1057,7 @@ query "vpc_network_acl_remote_administration" {
       case
         when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
         else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
@@ -1113,7 +1113,7 @@ query "vpc_network_acl_remote_administration" {
       case
         when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
         else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
@@ -1147,7 +1147,7 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
       case
         when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
         else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
-      end as reason
+      end as reason,
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
@@ -1176,7 +1176,7 @@ query "vpc_security_group_associated" {
       case
         when a.secgrp_id = s.group_id then s.title || ' is associated.'
         else s.title || ' not associated.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
@@ -1225,7 +1225,7 @@ query "vpc_security_group_remote_administration_ipv4" {
       case
         when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0.'
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1274,7 +1274,7 @@ query "vpc_security_group_remote_administration_ipv6" {
       case
         when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from ::/0.'
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from ::/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1324,7 +1324,7 @@ query "vpc_security_group_remote_administration" {
       case
         when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
         else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1367,7 +1367,7 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
       case
         when ingress_rdp_rules.group_id is null then sg.group_id || ' ingress restricted for RDP from 0.0.0.0/0.'
         else sg.group_id || ' contains ' || ingress_rdp_rules.num_rdp_rules || ' ingress rule(s) allowing RDP from 0.0.0.0/0.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1405,7 +1405,7 @@ query "vpc_security_group_unsued" {
       case
         when a.secgrp_id is not null then s.title || ' is in use.'
         else s.title || ' not in use.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}

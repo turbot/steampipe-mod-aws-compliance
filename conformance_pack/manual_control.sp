@@ -10,7 +10,7 @@ query "manual_control" {
       -- Required Columns
       'arn:' || partition || ':::' || account_id as resource,
       'info' as status,
-      'Manual verification required.' as reason
+      'Manual verification required.' as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from

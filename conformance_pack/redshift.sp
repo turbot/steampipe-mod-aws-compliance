@@ -159,7 +159,7 @@ query "redshift_cluster_encryption_in_transit_enabled" {
       case
         when cpg ->> 'ParameterGroupName' in (select pg_name from pg_with_ssl ) then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -183,7 +183,7 @@ query "redshift_cluster_encryption_logging_enabled" {
         when not encrypted then title || ' not encrypted.'
         when not (logging_status ->> 'LoggingEnabled') :: boolean then title || ' audit logging not enabled.'
         else title || ' audit logging and encryption enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -204,7 +204,7 @@ query "redshift_cluster_prohibit_public_access" {
       case
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -225,7 +225,7 @@ query "redshift_cluster_automatic_snapshots_min_7_days" {
       case
         when automated_snapshot_retention_period >= 7 then title || ' automatic snapshots enabled with retention period greater than equals 7 days.'
         else title || ' automatic snapshots not enabled with retention period greater than equals 7 days.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -246,7 +246,7 @@ query "redshift_cluster_kms_enabled" {
       case
         when encrypted and kms_key_id is not null then title || ' encrypted with KMS.'
         else title || ' not encrypted with KMS'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -267,7 +267,7 @@ query "redshift_cluster_maintenance_settings_check" {
       case
         when allow_version_upgrade and automated_snapshot_retention_period >= 7 then title || ' has the required maintenance settings.'
         else title || ' does not have required maintenance settings.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -288,7 +288,7 @@ query "redshift_cluster_enhanced_vpc_routing_enabled" {
       case
         when enhanced_vpc_routing then title || ' enhanced VPC routing enabled.'
         else title || ' enhanced VPC routing disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -311,7 +311,7 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
       case
         when allow_version_upgrade then title || ' automatic upgrades to major versions enabled.'
         else title || ' automatic upgrades to major versions disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -332,7 +332,7 @@ query "redshift_cluster_logging_enabled" {
       case
         when logging_status ->> 'LoggingEnabled' = 'true' then title || ' logging enabled.'
         else title || ' logging disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -353,7 +353,7 @@ query "redshift_cluster_no_default_admin_name" {
       case
         when master_username = 'awsuser' then title || ' using default master user name.'
         else title || ' not using default master user name.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -374,7 +374,7 @@ query "redshift_cluster_no_default_database_name" {
       case
         when db_name = 'dev' then title || ' using default database name.'
         else title || ' not using default database name.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

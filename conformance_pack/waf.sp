@@ -12,7 +12,7 @@ query "waf_rule_condition_attached" {
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
         else title || ' has attached conditions.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -33,7 +33,7 @@ query "waf_rule_group_rule_attached" {
       case
         when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
         else title || ' has attached rules.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -54,7 +54,7 @@ query "waf_web_acl_rule_attached" {
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
         else title || ' has attached rules.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

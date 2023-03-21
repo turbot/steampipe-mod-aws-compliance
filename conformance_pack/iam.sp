@@ -513,7 +513,7 @@ query "iam_account_password_policy_strong_min_reuse_24" {
           and max_password_age <= 90
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -534,7 +534,7 @@ query "iam_group_not_empty" {
       case
         when users is null then title || ' not associated with any IAM user.'
         else title || ' associated with IAM user.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -573,7 +573,7 @@ query "iam_policy_custom_no_star_star" {
         else 'alarm'
       end status,
       p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
-        ' statements that allow action "*" on resource "*".' as reason
+        ' statements that allow action "*" on resource "*".' as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
@@ -597,7 +597,7 @@ query "iam_root_user_no_access_keys" {
       case
         when account_access_keys_present > 0 then 'Root user access keys exist.'
         else 'No root user access keys exist.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -618,7 +618,7 @@ query "iam_root_user_hardware_mfa_enabled" {
         when account_mfa_enabled = false then  'MFA not enabled for root account.'
         when serial_number is not null then 'MFA enabled for root account, but the MFA associated is a virtual device.'
         else 'Hardware MFA device enabled for root account.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
@@ -639,7 +639,7 @@ query "iam_root_user_mfa_enabled" {
       case
         when account_mfa_enabled then 'MFA enabled for root account.'
         else 'MFA not enabled for root account.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -658,7 +658,7 @@ query "iam_user_access_key_age_90" {
       end status,
       user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
-      as reason
+      as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -680,7 +680,7 @@ query "iam_user_console_access_mfa_enabled" {
         when not password_enabled then user_name || ' password login disabled.'
         when password_enabled and not mfa_active then user_name || ' password login enabled but no MFA device configured.'
         else user_name || ' password login enabled and MFA device configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -700,7 +700,7 @@ query "iam_user_mfa_enabled" {
       case
         when not mfa_active then user_name || ' MFA device not configured.'
         else user_name || ' MFA device configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -773,8 +773,7 @@ query "iam_user_unused_credentials_90" {
             then ' key 2 created ' || to_char(access_key_2_last_rotated, 'DD-Mon-YYYY') || ' never used.'
           else
             ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
-        end
-      as reason
+        end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -794,7 +793,7 @@ query "iam_user_in_group" {
       case
         when jsonb_array_length(groups) = 0 then title || ' not associated with any IAM group.'
         else title || ' associated with IAM group.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
@@ -812,7 +811,7 @@ query "iam_group_user_role_no_inline_policies" {
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
-      'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
+      'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -825,7 +824,7 @@ query "iam_group_user_role_no_inline_policies" {
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
-      'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
+      'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -840,7 +839,7 @@ query "iam_group_user_role_no_inline_policies" {
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
-      'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
+      'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -902,7 +901,7 @@ query "iam_account_password_policy_min_length_14" {
       case
         when minimum_password_length is null then 'No password policy set.'
         else 'Minimum password length set to ' || minimum_password_length || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -924,7 +923,7 @@ query "iam_account_password_policy_reuse_24" {
         when minimum_password_length is null then 'No password policy set.'
         when password_reuse_prevention is null then 'Password reuse prevention not set.'
         else 'Password reuse prevention set to ' || password_reuse_prevention || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -961,7 +960,7 @@ query "iam_account_password_policy_strong" {
           and max_password_age <= 90
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -983,7 +982,7 @@ query "iam_account_password_policy_one_lowercase_letter" {
         when minimum_password_length is null then 'No password policy set.'
         when require_lowercase_characters then 'Lowercase character required.'
         else 'Lowercase character not required.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1005,7 +1004,7 @@ query "iam_account_password_policy_one_uppercase_letter" {
         when minimum_password_length is null then 'No password policy set.'
         when require_uppercase_characters then 'Uppercase character required.'
         else 'Uppercase character not required.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1027,7 +1026,7 @@ query "iam_account_password_policy_one_number" {
         when minimum_password_length is null then 'No password policy set.'
         when require_numbers then 'Number required.'
         else 'Number not required.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1048,7 +1047,7 @@ query "iam_account_password_policy_expire_90" {
       case
         when max_password_age is null then 'Password expiration not set.'
         else 'Password expiration set to ' || max_password_age || ' days.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1070,7 +1069,7 @@ query "iam_account_password_policy_one_symbol" {
         when minimum_password_length is null then 'No password policy set.'
         when require_symbols then 'Symbol required.'
         else 'Symbol not required.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1109,7 +1108,7 @@ query "iam_policy_custom_no_service_wildcard" {
         else 'alarm'
       end status,
       p.name || ' contains ' || coalesce(w.statements_num,0)  ||
-        ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason
+        ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
@@ -1147,7 +1146,7 @@ query "iam_policy_custom_no_blocked_kms_actions" {
         else 'alarm'
       end status,
       p.name || ' contains ' || coalesce(w.statements_num,0)  ||
-        ' statements that allow blocked actions on AWS KMS keys.' as reason
+        ' statements that allow blocked actions on AWS KMS keys.' as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
@@ -1237,7 +1236,7 @@ query "account_part_of_organizations" {
       case
         when organization_id is not null then title || ' is part of organization(s).'
         else title || ' is not part of organization.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -1268,7 +1267,7 @@ query "iam_policy_custom_no_assume_role" {
       case
         when fu.user_id is not null then u.name || ' custom policies allow STS Role assumption.'
         else u.name || ' custom policies does not allow STS Role assumption.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
@@ -1294,7 +1293,7 @@ query "iam_user_hardware_mfa_enabled" {
         when serial_number is null then u.name || ' MFA device not configured.'
         when serial_number like any(array['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
         else u.name || ' hardware MFA device enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
@@ -1329,7 +1328,7 @@ query "iam_user_with_administrator_access_mfa_enabled" {
         when au.user_id is null then u.name || ' does not have administrator access.'
         when au.user_id is not null and u.mfa_enabled then u.name || ' has MFA token enabled.'
         else u.name || ' has MFA token disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
@@ -1359,7 +1358,7 @@ query "iam_managed_policy_attached_to_role" {
       case
         when arn in (select policy_arn from role_attached_policies) then title || ' attached to IAM role.'
         else title || ' not attached to IAM role.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
@@ -1400,7 +1399,7 @@ query "iam_policy_unused" {
       case
         when arn in (select jsonb_array_elements_text(attached_policy_arns) from in_use_policies) then title || ' in use.'
         else title || ' not in use.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
@@ -1426,7 +1425,7 @@ query "iam_access_analyzer_enabled" {
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when aa.arn is not null then aa.name ||  ' enabled in ' || r.region || '.'
         else 'Access Analyzer not enabled in ' || r.region || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
@@ -1460,7 +1459,7 @@ query "iam_account_password_policy_strong_min_length_8" {
           and require_symbols = 'true'
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1577,7 +1576,7 @@ query "iam_root_last_used" {
         case
         when access_key_2_last_used_date is null then ' Access Key 2 never used.'
         else ' Access Key 2 used ' || to_char(access_key_2_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - access_key_2_last_used_date) || ' days).'
-      end as reason
+      end as reason,
       -- Additional Dimensions
        ${local.common_dimensions_global_sql}
     from
@@ -1600,7 +1599,7 @@ query "iam_root_user_virtual_mfa" {
         when account_mfa_enabled = false then 'MFA is not enabled for the root user.'
         when serial_number is null then 'MFA is enabled for the root user, but the MFA associated with the root user is a hardware device.'
         else 'Virtual MFA enabled for the root user.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
@@ -1621,7 +1620,7 @@ query "iam_server_certificate_not_expired" {
         name || ' expired ' || to_char(expiration, 'DD-Mon-YYYY') || '.'
       else
         name || ' valid until ' || to_char(expiration, 'DD-Mon-YYYY')  || '.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
@@ -1646,7 +1645,7 @@ query "iam_user_access_keys_and_password_at_setup" {
         when password_enabled and (extract(epoch from (access_key_1_last_rotated - user_creation_time)) < 10)
           then user_name || ' has access key created during user creation and password login enabled.'
         else user_name || ' has access key not created during user creation.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
@@ -1663,7 +1662,7 @@ query "iam_user_no_policies" {
         when attached_policy_arns is null then 'ok'
         else 'alarm'
       end status,
-      name || ' has ' || coalesce(jsonb_array_length(attached_policy_arns),0) || ' attached policies.' as reason
+      name || ' has ' || coalesce(jsonb_array_length(attached_policy_arns),0) || ' attached policies.' as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
@@ -1681,7 +1680,7 @@ query "iam_user_one_active_key" {
         when count(k.*) > 1 then 'alarm'
         else 'ok'
       end as status,
-      u.name || ' has ' || count(k.*) || ' active access key(s).' as reason
+      u.name || ' has ' || count(k.*) || ' active access key(s).' as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
@@ -1747,7 +1746,7 @@ query "iam_user_unused_credentials_45" {
           else
             ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
         end
-      as reason
+      as reason,
       -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from

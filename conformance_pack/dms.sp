@@ -37,7 +37,7 @@ query "dms_replication_instance_not_publicly_accessible" {
       case
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
-      end reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

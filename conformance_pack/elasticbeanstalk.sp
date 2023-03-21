@@ -28,7 +28,7 @@ query "elastic_beanstalk_enhanced_health_reporting_enabled" {
       case
         when health_status is not null and health is not null then application_name || ' enhanced health check enabled.'
         else application_name || ' enhanced health check disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

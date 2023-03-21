@@ -69,7 +69,7 @@ query "config_enabled_all_regions" {
         when status ->> 'LastStatus' = 'SUCCESS' then ' and LastStatus is SUCCESS.'
         else ' and LastStatus is not SUCCESS.'
       end
-      end as reason
+      end as reason,
       -- Additional columns
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from

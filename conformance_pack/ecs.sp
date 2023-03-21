@@ -102,7 +102,7 @@ query "ecs_task_definition_user_for_host_mode_check" {
         when a.network_mode is null or a.network_mode <> 'host' then a.title || ' not host network mode.'
         when b.arn is not null then a.title || ' have secure host network mode.'
         else a.title || ' not have secure host network mode.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -133,7 +133,7 @@ query "ecs_task_definition_logging_enabled" {
       case
         when b.arn is not null then a.title || ' logging enabled.'
         else a.title || ' logging disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -170,7 +170,7 @@ query "ecs_cluster_encryption_at_rest_enabled" {
         when c.registered_container_instances_count = 0 then title || ' has no container instance registered.'
         when v.cluster_arn is not null then c.title || ' encryption at rest disabled.'
         else c.title || ' encryption at rest enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -192,7 +192,7 @@ query "ecs_cluster_instance_in_vpc" {
       case
         when i.vpc_id is null then c.title || ' not in VPC.'
         else c.title || ' in VPC.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
@@ -214,7 +214,7 @@ query "ecs_cluster_no_registered_container_instance" {
       case
         when registered_container_instances_count = 0 then title || ' has no container instance registered.'
         else title || ' has ' || registered_container_instances_count || ' container instance(s) registered.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -235,7 +235,7 @@ query "ecs_service_load_balancer_attached" {
       case
         when jsonb_array_length(load_balancers) = 0 then title || ' has no load balancer attached.'
         else title || ' has ' || jsonb_array_length(load_balancers) || ' load balancer(s) attached.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -258,7 +258,7 @@ query "ecs_cluster_container_insights_enabled" {
       case
         when s ->> 'Name' = 'containerInsights' and s ->> 'Value' = 'enabled' then title || ' Container Insights enabled.'
         else title || ' Container Insights disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -290,7 +290,7 @@ query "ecs_cluster_container_instance_agent_connected" {
         when c.registered_container_instances_count = 0 then title || ' has no container instance registered.'
         when i.cluster_arn is null then title || ' container instance has connected agent.'
         else title || ' container instance is either draining or has unconnected agents.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -314,7 +314,7 @@ query "ecs_service_fargate_using_latest_platform_version" {
         when launch_type <> 'FARGATE' then title || ' is ' || launch_type || ' service.'
         when platform_version = 'LATEST' then title || ' running on the latest fargate platform version.'
         else title || ' not running on the latest fargate platform version.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -347,7 +347,7 @@ query "ecs_service_not_publicly_accessible" {
         when b.service_name is null then a.title || ' task definition not host network mode.'
         when network_configuration -> 'AwsvpcConfiguration' ->> 'AssignPublicIp' = 'DISABLED' then a.title || ' not publicly accessible.'
         else a.title || ' publicly accessible.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -385,7 +385,7 @@ query "ecs_task_definition_container_environment_no_secret" {
       case
         when e.arn is null then d.title || ' container environment variables does not have secrets.'
         else d.title || ' container environment variables have secrets.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -416,7 +416,7 @@ query "ecs_task_definition_container_non_privileged" {
       case
         when c.arn is null then d.title || ' does not have elevated privileges.'
         else d.title || ' has elevated privileges.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -447,7 +447,7 @@ query "ecs_task_definition_container_readonly_root_filesystem" {
       case
         when c.arn is not null then d.title || ' containers limited to read-only access to root filesystems.'
         else d.title || ' containers not limited to read-only access to root filesystems.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -469,7 +469,7 @@ query "ecs_task_definition_no_host_pid_mode" {
       case
         when pid_mode = 'host' then title || ' shares the host process namespace.'
         else title || ' does not share the host process namespace.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

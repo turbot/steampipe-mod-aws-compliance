@@ -53,7 +53,7 @@ query "sqs_queue_policy_prohibit_public_access" {
         when p.queue_arn is null then title || ' does not allow public access.'
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
@@ -75,7 +75,7 @@ query "sqs_queue_dead_letter_queue_configured" {
       case
         when redrive_policy is not null then title || ' configured with dead-letter queue.'
         else title || ' not configured with dead-letter queue.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -98,7 +98,7 @@ query "sqs_queue_encrypted_at_rest" {
       case
         when kms_master_key_id is null then title || ' encryption at rest disabled.'
         else title || ' encryption at rest enabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

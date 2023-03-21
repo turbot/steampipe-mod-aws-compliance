@@ -91,7 +91,7 @@ query "backup_recovery_point_manual_deletion_disabled" {
       case
         when d.arn is not null then v.title || ' recovery point manual deletion disabled.'
         else v.title || ' recovery point manual deletion not disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
@@ -130,7 +130,7 @@ query "backup_plan_min_retention_35_days" {
         when r.Rules is null then r.title || ' retention period not set.'
         when r.Rules ->> 'Lifecycle' is null then (r.Rules ->> 'RuleName') || ' retention period set to never expire.'
         else (r.Rules ->> 'RuleName') || ' retention period set to ' || (r.Rules -> 'Lifecycle' ->> 'DeleteAfterDays') || ' days.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -150,7 +150,7 @@ query "backup_recovery_point_encryption_enabled" {
       case
         when is_encrypted then recovery_point_arn || ' encryption enabled.'
         else recovery_point_arn || ' encryption disabled.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
@@ -171,7 +171,7 @@ query "backup_recovery_point_min_retention_35_days" {
       case
         when (lifecycle -> 'DeleteAfterDays') is null then split_part(recovery_point_arn, ':', -1) || ' retention period set to never expire.'
         else split_part(recovery_point_arn, ':', -1) || ' recovery point has a retention period of ' || (lifecycle -> 'DeleteAfterDays')::int || ' days.'
-      end as reason
+      end as reason,
       -- Additional Dimensions
         ${local.common_dimensions_sql}
     from
