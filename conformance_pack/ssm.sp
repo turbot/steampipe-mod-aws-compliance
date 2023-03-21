@@ -72,7 +72,6 @@ control "ssm_managed_instance_compliance_patch_compliant" {
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select
-      -- Required Columns
       i.arn as resource,
       case
         when i.instance_state = 'stopped' then 'info'
@@ -84,7 +83,6 @@ query "ec2_instance_ssm_managed" {
         when m.instance_id is null then i.title || ' not managed by AWS SSM.'
         else i.title || ' managed by AWS SSM.'
       end as reason
-      -- Additional Dimentions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
@@ -96,7 +94,6 @@ query "ec2_instance_ssm_managed" {
 query "ssm_managed_instance_compliance_association_compliant" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when c.status = 'COMPLIANT' then 'ok'
@@ -106,7 +103,7 @@ query "ssm_managed_instance_compliance_association_compliant" {
         when c.status = 'COMPLIANT' then c.resource_id || ' association ' || c.title || ' is compliant.'
         else c.resource_id || ' association ' || c.title || ' is non-compliant.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ssm_managed_instance as i,
@@ -120,7 +117,6 @@ query "ssm_managed_instance_compliance_association_compliant" {
 query "ssm_managed_instance_compliance_patch_compliant" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when c.status = 'COMPLIANT' then 'ok'
@@ -130,7 +126,6 @@ query "ssm_managed_instance_compliance_patch_compliant" {
         when c.status = 'COMPLIANT' then c.resource_id || ' patch ' || c.title || ' is compliant.'
         else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ssm_managed_instance as i,

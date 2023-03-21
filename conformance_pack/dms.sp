@@ -28,7 +28,6 @@ control "dms_replication_instance_not_publicly_accessible" {
 query "dms_replication_instance_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when publicly_accessible then 'alarm'
@@ -38,7 +37,7 @@ query "dms_replication_instance_not_publicly_accessible" {
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

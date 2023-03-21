@@ -47,7 +47,6 @@ control "guardduty_finding_archived" {
 query "guardduty_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
@@ -65,7 +64,6 @@ query "guardduty_enabled" {
         when status = 'ENABLED' and master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' is managed by account ' || (master_account ->> 'AccountId') ||  ' via delegated admin.'
         else r.region || ' detector ' || d.title || ' disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
@@ -76,7 +74,6 @@ query "guardduty_enabled" {
 query "guardduty_finding_archived" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when service ->> 'Archived' = 'false' then 'alarm'
@@ -86,7 +83,6 @@ query "guardduty_finding_archived" {
         when service ->> 'Archived' = 'false' then title || ' not archived.'
         else title || ' archived.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_guardduty_finding;

@@ -84,7 +84,6 @@ control "efs_file_system_enforces_ssl" {
 query "efs_file_system_encrypt_data_at_rest" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when encrypted then 'ok'
@@ -94,7 +93,6 @@ query "efs_file_system_encrypt_data_at_rest" {
         when encrypted then title || ' encrypted at rest.'
         else title || ' not encrypted at rest.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -105,7 +103,6 @@ query "efs_file_system_encrypt_data_at_rest" {
 query "efs_file_system_automatic_backups_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when automatic_backups = 'enabled' then 'ok'
@@ -115,7 +112,6 @@ query "efs_file_system_automatic_backups_enabled" {
         when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
         else title || ' automatic backups not enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -134,7 +130,6 @@ query "efs_file_system_protected_by_backup_plan" {
         resource_type = 'EFS'
     )
     select
-      -- Required Columns
       f.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -144,7 +139,6 @@ query "efs_file_system_protected_by_backup_plan" {
         when b.arn is not null then f.title || ' is protected by backup plan.'
         else f.title || ' is not protected by backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from
@@ -166,7 +160,6 @@ query "efs_file_system_encrypted_with_cmk" {
         enabled
     )
     select
-      -- Required Columns
       f.arn as resource,
       case
         when not encrypted then 'alarm'
@@ -178,7 +171,6 @@ query "efs_file_system_encrypted_with_cmk" {
         when encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -208,7 +200,6 @@ query "efs_file_system_enforces_ssl" {
         and ssl :: bool = false
     )
     select
-      -- Required Columns
       f.arn as resource,
       case
         when ok.status = 'ok' then 'ok'
@@ -218,7 +209,6 @@ query "efs_file_system_enforces_ssl" {
         when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
         else f.title || ' policy does not enforce HTTPS.'
       end reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from
@@ -232,7 +222,6 @@ query "efs_file_system_enforces_ssl" {
 query "efs_access_point_enforce_root_directory" {
   sql = <<-EOQ
     select
-      -- Required Columns
       access_point_arn as resource,
       case
         when root_directory ->> 'Path'= '/' then 'alarm'
@@ -242,7 +231,6 @@ query "efs_access_point_enforce_root_directory" {
         when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
         else title || ' configured to enforce a root directory.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -253,7 +241,6 @@ query "efs_access_point_enforce_root_directory" {
 query "efs_access_point_enforce_user_identity" {
   sql = <<-EOQ
     select
-      -- Required Columns
       access_point_arn as resource,
       case
         when posix_user is null then 'alarm'
@@ -263,7 +250,6 @@ query "efs_access_point_enforce_user_identity" {
         when posix_user is null then title || ' does not enforce a user identity.'
         else title || ' enforces a user identity.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

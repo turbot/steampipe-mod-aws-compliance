@@ -48,7 +48,6 @@ control "acm_certificate_no_wildcard_domain_name" {
 query "acm_certificate_expires_30_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       certificate_arn as resource,
       case
         when renewal_eligibility = 'INELIGIBLE' then 'skip'
@@ -70,7 +69,6 @@ query "acm_certificate_expires_30_days" {
 query "acm_certificate_no_wildcard_domain_name" {
   sql = <<-EOQ
     select
-      -- Required Columns
       certificate_arn as resource,
       case
         when domain_name like '*%' then 'alarm'
@@ -90,7 +88,6 @@ query "acm_certificate_no_wildcard_domain_name" {
 query "acm_certificate_transparency_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       certificate_arn as resource,
       case
         when type = 'IMPORTED' then 'skip'

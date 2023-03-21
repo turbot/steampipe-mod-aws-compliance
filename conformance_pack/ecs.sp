@@ -91,7 +91,6 @@ query "ecs_task_definition_user_for_host_mode_check" {
           )
     )
     select
-      -- Required Columns
       a.task_definition_arn as resource,
       case
         when a.network_mode is null or a.network_mode <> 'host' then 'skip'
@@ -103,7 +102,6 @@ query "ecs_task_definition_user_for_host_mode_check" {
         when b.arn is not null then a.title || ' have secure host network mode.'
         else a.title || ' not have secure host network mode.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -124,7 +122,6 @@ query "ecs_task_definition_logging_enabled" {
         c ->> 'LogConfiguration' is not null
     )
     select
-      -- Required Columns
       a.task_definition_arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -134,7 +131,6 @@ query "ecs_task_definition_logging_enabled" {
         when b.arn is not null then a.title || ' logging enabled.'
         else a.title || ' logging disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -159,7 +155,6 @@ query "ecs_cluster_encryption_at_rest_enabled" {
         and not v.encrypted
     )
     select
-      -- Required Columns
       c.cluster_arn as resource,
       case
         when c.registered_container_instances_count = 0 then 'skip'
@@ -171,7 +166,6 @@ query "ecs_cluster_encryption_at_rest_enabled" {
         when v.cluster_arn is not null then c.title || ' encryption at rest disabled.'
         else c.title || ' encryption at rest enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -183,7 +177,6 @@ query "ecs_cluster_encryption_at_rest_enabled" {
 query "ecs_cluster_instance_in_vpc" {
   sql = <<-EOQ
     select
-      -- Required Columns
       c.arn as resource,
       case
         when i.vpc_id is null then 'alarm'
@@ -193,7 +186,6 @@ query "ecs_cluster_instance_in_vpc" {
         when i.vpc_id is null then c.title || ' not in VPC.'
         else c.title || ' in VPC.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -205,7 +197,6 @@ query "ecs_cluster_instance_in_vpc" {
 query "ecs_cluster_no_registered_container_instance" {
   sql = <<-EOQ
     select
-      -- Required Columns
       cluster_arn as resource,
       case
         when registered_container_instances_count = 0 then 'alarm'
@@ -215,7 +206,6 @@ query "ecs_cluster_no_registered_container_instance" {
         when registered_container_instances_count = 0 then title || ' has no container instance registered.'
         else title || ' has ' || registered_container_instances_count || ' container instance(s) registered.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -226,7 +216,6 @@ query "ecs_cluster_no_registered_container_instance" {
 query "ecs_service_load_balancer_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when jsonb_array_length(load_balancers) = 0 then 'alarm'
@@ -236,7 +225,6 @@ query "ecs_service_load_balancer_attached" {
         when jsonb_array_length(load_balancers) = 0 then title || ' has no load balancer attached.'
         else title || ' has ' || jsonb_array_length(load_balancers) || ' load balancer(s) attached.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -249,7 +237,6 @@ query "ecs_service_load_balancer_attached" {
 query "ecs_cluster_container_insights_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       cluster_arn as resource,
       case
         when s ->> 'Name' = 'containerInsights' and s ->> 'Value' = 'enabled' then 'ok'
@@ -259,7 +246,6 @@ query "ecs_cluster_container_insights_enabled" {
         when s ->> 'Name' = 'containerInsights' and s ->> 'Value' = 'enabled' then title || ' Container Insights enabled.'
         else title || ' Container Insights disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -279,7 +265,6 @@ query "ecs_cluster_container_instance_agent_connected" {
         agent_connected = false and status = 'ACTIVE'
     )
     select
-      -- Required Columns
       c.cluster_arn as resource,
       case
         when c.registered_container_instances_count = 0 then 'skip'
@@ -291,7 +276,6 @@ query "ecs_cluster_container_instance_agent_connected" {
         when i.cluster_arn is null then title || ' container instance has connected agent.'
         else title || ' container instance is either draining or has unconnected agents.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -303,8 +287,7 @@ query "ecs_cluster_container_instance_agent_connected" {
 query "ecs_service_fargate_using_latest_platform_version" {
   sql = <<-EOQ
     select
-      -- Required Columns
-        arn as resource,
+      arn as resource,
       case
         when launch_type <> 'FARGATE' then 'skip'
         when platform_version = 'LATEST' then 'ok'
@@ -315,7 +298,6 @@ query "ecs_service_fargate_using_latest_platform_version" {
         when platform_version = 'LATEST' then title || ' running on the latest fargate platform version.'
         else title || ' not running on the latest fargate platform version.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -336,7 +318,6 @@ query "ecs_service_not_publicly_accessible" {
         b.network_mode = 'awsvpc'
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when b.service_name is null then 'skip'
@@ -348,7 +329,6 @@ query "ecs_service_not_publicly_accessible" {
         when network_configuration -> 'AwsvpcConfiguration' ->> 'AssignPublicIp' = 'DISABLED' then a.title || ' not publicly accessible.'
         else a.title || ' publicly accessible.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -376,7 +356,6 @@ query "ecs_task_definition_container_environment_no_secret" {
         or s ->> 'Name' like any (array ['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY','ECS_ENGINE_AUTH_DATA'])
     )
     select
-      -- Required Columns
       d.task_definition_arn as resource,
       case
         when e.arn is null then 'ok'
@@ -386,7 +365,6 @@ query "ecs_task_definition_container_environment_no_secret" {
         when e.arn is null then d.title || ' container environment variables does not have secrets.'
         else d.title || ' container environment variables have secrets.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -407,7 +385,6 @@ query "ecs_task_definition_container_non_privileged" {
         c ->> 'Privileged' = 'true'
     )
     select
-      -- Required Columns
       d.task_definition_arn as resource,
       case
         when c.arn is null then 'ok'
@@ -417,7 +394,6 @@ query "ecs_task_definition_container_non_privileged" {
         when c.arn is null then d.title || ' does not have elevated privileges.'
         else d.title || ' has elevated privileges.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -438,7 +414,6 @@ query "ecs_task_definition_container_readonly_root_filesystem" {
         c ->> 'ReadonlyRootFilesystem' = 'true'
     )
     select
-      -- Required Columns
       d.task_definition_arn as resource,
       case
         when c.arn is not null then 'ok'
@@ -448,7 +423,6 @@ query "ecs_task_definition_container_readonly_root_filesystem" {
         when c.arn is not null then d.title || ' containers limited to read-only access to root filesystems.'
         else d.title || ' containers not limited to read-only access to root filesystems.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -460,7 +434,6 @@ query "ecs_task_definition_container_readonly_root_filesystem" {
 query "ecs_task_definition_no_host_pid_mode" {
   sql = <<-EOQ
     select
-      -- Required Columns
       task_definition_arn as resource,
       case
         when pid_mode = 'host' then 'alarm'
@@ -470,7 +443,6 @@ query "ecs_task_definition_no_host_pid_mode" {
         when pid_mode = 'host' then title || ' shares the host process namespace.'
         else title || ' does not share the host process namespace.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

@@ -136,7 +136,6 @@ control "ebs_volume_unused" {
 query "ebs_snapshot_not_publicly_restorable" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':ec2:' || region || ':' || account_id || ':snapshot/' || snapshot_id as resource,
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then 'alarm'
@@ -146,7 +145,6 @@ query "ebs_snapshot_not_publicly_restorable" {
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then title || ' is publicly restorable.'
         else title || ' is not publicly restorable.'
       end reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -157,7 +155,7 @@ query "ebs_snapshot_not_publicly_restorable" {
 query "ebs_volume_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when encrypted then 'ok'
@@ -167,7 +165,7 @@ query "ebs_volume_encryption_at_rest_enabled" {
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -178,7 +176,6 @@ query "ebs_volume_encryption_at_rest_enabled" {
 query "ebs_attached_volume_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when state != 'in-use' then 'skip'
@@ -190,7 +187,6 @@ query "ebs_attached_volume_encryption_enabled" {
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -230,7 +226,6 @@ query "ebs_volume_in_backup_plan" {
         join mapped_with_tags as t on t.mapped_tags ?| array(select jsonb_object_keys(tags))
     )
     select
-      -- Required Columns
       v.arn as resource,
       case
         when b.volume_id is null then 'alarm'
@@ -240,7 +235,6 @@ query "ebs_volume_in_backup_plan" {
         when b.volume_id is null then v.title || ' not in backup plan.'
         else v.title || ' in backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
@@ -252,7 +246,6 @@ query "ebs_volume_in_backup_plan" {
 query "ebs_attached_volume_delete_on_termination_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when state != 'in-use' then 'skip'
@@ -264,7 +257,6 @@ query "ebs_attached_volume_delete_on_termination_enabled" {
         when attachment ->> 'DeleteOnTermination' = 'true' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination enabled.'
         else title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -284,7 +276,6 @@ query "ebs_volume_protected_by_backup_plan" {
         resource_type = 'EBS'
     )
     select
-      -- Required Columns
       v.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -294,7 +285,6 @@ query "ebs_volume_protected_by_backup_plan" {
         when b.arn is not null then v.title || ' is protected by backup plan.'
         else v.title || ' is not protected by backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
@@ -306,7 +296,6 @@ query "ebs_volume_protected_by_backup_plan" {
 query "ebs_volume_unused" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when state = 'in-use' then 'ok'
@@ -316,7 +305,6 @@ query "ebs_volume_unused" {
         when state = 'in-use' then title || ' attached to EC2 instance.'
         else title || ' not attached to EC2 instance.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

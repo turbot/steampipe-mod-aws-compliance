@@ -89,7 +89,6 @@ control "apigateway_rest_api_authorizers_configured" {
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':apigateway:' || region || '::/apis/' || rest_api_id || '/stages/' || name as resource,
       case
         when method_settings -> '*/*' ->> 'CachingEnabled' = 'true'
@@ -102,7 +101,6 @@ query "apigateway_stage_cache_encryption_at_rest_enabled" {
           then title || ' API cache and encryption enabled.'
         else title || ' API cache and encryption not enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -136,7 +134,6 @@ query "apigateway_stage_logging_enabled" {
         aws_api_gatewayv2_stage
     )
     select
-      -- Required Columns
       arn as resource,
       case
         when log_level is null or log_level = '' or log_level = 'OFF' then 'alarm'
@@ -146,7 +143,6 @@ query "apigateway_stage_logging_enabled" {
         when log_level is null or log_level = '' or log_level = 'OFF' then title || ' logging not enabled.'
         else title || ' logging enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -157,7 +153,6 @@ query "apigateway_stage_logging_enabled" {
 query "apigateway_rest_api_stage_use_ssl_certificate" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when client_certificate_id is null then 'alarm'
@@ -167,7 +162,6 @@ query "apigateway_rest_api_stage_use_ssl_certificate" {
         when client_certificate_id is null then title || ' does not use SSL certificate.'
         else title || ' uses SSL certificate.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -178,7 +172,6 @@ query "apigateway_rest_api_stage_use_ssl_certificate" {
 query "apigateway_stage_use_waf_web_acl" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when web_acl_arn is not null then 'ok'
@@ -188,7 +181,6 @@ query "apigateway_stage_use_waf_web_acl" {
         when web_acl_arn is not null then title || ' associated with WAF web ACL.'
         else title || ' not associated with WAF web ACL.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -199,7 +191,6 @@ query "apigateway_stage_use_waf_web_acl" {
 query "apigateway_rest_api_authorizers_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       p.name as resource,
       case
         when jsonb_array_length(a.provider_arns) > 0 then 'ok'
@@ -209,7 +200,7 @@ query "apigateway_rest_api_authorizers_configured" {
         when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
         else p.name || ' authorizers not configured.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
@@ -223,7 +214,6 @@ query "apigateway_rest_api_authorizers_configured" {
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
       case
         when authorization_type is null then 'alarm'
@@ -233,7 +223,7 @@ query "api_gatewayv2_route_authorization_type_configured" {
         when authorization_type is null then route_id || ' authorization type not configured.'
         else route_id || ' authorization type ' || authorization_type || ' configured.'
       end as reason
-      -- Additional Dimensions
+
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_route;
@@ -243,7 +233,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
 query "apigateway_rest_api_stage_xray_tracing_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when tracing_enabled then 'ok'
@@ -253,7 +242,6 @@ query "apigateway_rest_api_stage_xray_tracing_enabled" {
         when tracing_enabled then title || ' X-Ray tracing enabled.'
         else title || ' X-Ray tracing disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -264,7 +252,6 @@ query "apigateway_rest_api_stage_xray_tracing_enabled" {
 query "gatewayv2_stage_access_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/stages/' || stage_name as resource,
       case
         when access_log_settings is null then 'alarm'
@@ -274,7 +261,6 @@ query "gatewayv2_stage_access_logging_enabled" {
         when access_log_settings is null then title || ' access logging disabled.'
         else title || ' access logging enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

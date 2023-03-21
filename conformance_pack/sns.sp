@@ -38,7 +38,6 @@ control "sns_topic_policy_prohibit_public_access" {
 query "sns_topic_encrypted_at_rest" {
   sql = <<-EOQ
     select
-      -- Required Columns
       topic_arn as resource,
     case
       when kms_master_key_id is null then 'alarm'
@@ -48,7 +47,6 @@ query "sns_topic_encrypted_at_rest" {
       when kms_master_key_id is null then title || ' encryption at rest disabled.'
       else title || ' encryption at rest enabled.'
     end as reason
-    -- Additional Dimensions
     ${local.tag_dimensions_sql}
     ${local.common_dimensions_sql}
     from
@@ -75,7 +73,6 @@ query "sns_topic_policy_prohibit_public_access" {
         topic_arn
     )
     select
-      -- Required Columns
       t.topic_arn as resource,
       case
         when p.topic_arn is null then 'ok'
@@ -86,7 +83,6 @@ query "sns_topic_policy_prohibit_public_access" {
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from
@@ -100,7 +96,6 @@ query "sns_topic_policy_prohibit_public_access" {
 query "sns_topic_notification_delivery_status_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       topic_arn as resource,
       case
         when application_failure_feedback_role_arn is null
@@ -118,7 +113,6 @@ query "sns_topic_notification_delivery_status_enabled" {
           and sqs_failure_feedback_role_arn is null then title || ' has delivery status logging for notification messages disabled.'
         else title || ' has delivery status logging for notification messages enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

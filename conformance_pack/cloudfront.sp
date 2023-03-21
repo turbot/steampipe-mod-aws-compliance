@@ -71,7 +71,6 @@ query "cloudfront_distribution_encryption_in_transit_enabled" {
         cb ->> 'ViewerProtocolPolicy' = 'allow-all'
     )
     select
-      -- Required Columns
       b.arn as resource,
       case
         when d.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') then 'alarm'
@@ -81,7 +80,6 @@ query "cloudfront_distribution_encryption_in_transit_enabled" {
         when d.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') then title || ' data not encrypted in transit.'
         else title || ' data encrypted in transit.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -93,7 +91,6 @@ query "cloudfront_distribution_encryption_in_transit_enabled" {
 query "cloudfront_distribution_geo_restrictions_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when restrictions -> 'GeoRestriction' ->> 'RestrictionType' = 'none' then 'alarm'
@@ -103,7 +100,6 @@ query "cloudfront_distribution_geo_restrictions_enabled" {
         when restrictions -> 'GeoRestriction' ->> 'RestrictionType' = 'none' then title || ' Geo Restriction disabled.'
         else title || ' Geo Restriction enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -124,7 +120,6 @@ query "cloudfront_distribution_use_secure_cipher" {
         o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["TLSv1.2%", "TLSv1.1%"]'
     )
     select
-      -- Required Columns
       b.arn as resource,
       case
         when o.arn is not null then 'ok'
@@ -134,7 +129,6 @@ query "cloudfront_distribution_use_secure_cipher" {
         when o.arn is not null then title || ' use secure cipher.'
         else title || ' does not use secure cipher.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -171,7 +165,6 @@ query "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
         and o -> 'S3OriginConfig' is null
     )
     select
-      -- Required Columns
       b.arn as resource,
       case
         when o.arn is not null and o.origin_protocol_policy = 'http-only' then 'alarm'
@@ -183,7 +176,6 @@ query "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
         when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') ) then title || ' origins traffic not encrypted in transit.'
         else title || ' origins traffic encrypted in transit.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -196,7 +188,6 @@ query "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
 query "cloudfront_distribution_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when logging ->> 'Enabled' = 'true' then 'ok'
@@ -206,7 +197,6 @@ query "cloudfront_distribution_logging_enabled" {
         when logging ->> 'Enabled' = 'true' then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -219,7 +209,6 @@ query "cloudfront_distribution_logging_enabled" {
 query "cloudfront_distribution_configured_with_origin_failover" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when origin_groups ->> 'Items' is not null then 'ok'
@@ -229,7 +218,6 @@ query "cloudfront_distribution_configured_with_origin_failover" {
         when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
         else title || ' origin group not configured.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -264,7 +252,6 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
         or o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' = 'match-viewer'
     )
     select
-      -- Required Columns
       b.arn as resource,
       case
         when o.arn is not null and o.origin_protocol_policy = 'http-only' then 'alarm'
@@ -276,7 +263,6 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
         when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') )  then title || ' custom origins traffic not encrypted in transit.'
         else title || ' custom origins traffic encrypted in transit.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -289,7 +275,6 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
 query "cloudfront_distribution_default_root_object_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when default_root_object = '' then 'alarm'
@@ -299,7 +284,6 @@ query "cloudfront_distribution_default_root_object_configured" {
         when default_root_object = '' then title || ' default root object not configured.'
         else title || ' default root object configured.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -320,7 +304,6 @@ query "cloudfront_distribution_no_deprecated_ssl_protocol" {
         o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["SSLv3"]'
     )
     select
-      -- Required Columns
       b.arn as resource,
       case
         when o.arn is null then 'ok'
@@ -330,7 +313,6 @@ query "cloudfront_distribution_no_deprecated_ssl_protocol" {
         when o.arn is null then title || ' does not have deprecated SSL protocols.'
         else title || ' has deprecated SSL protocols.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -356,7 +338,6 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
         d.arn
     )
     select
-      -- Required Columns
       distinct b.arn as resource,
       case
         when b.arn is null then 'ok'
@@ -374,7 +355,6 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
         else concat(' point to non-existent S3 origin ', b.bucket_name_list #>> '{0}', '.')
         end
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -386,7 +366,6 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
 query "cloudfront_distribution_origin_access_identity_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when o ->> 'DomainName' not like '%s3.amazonaws.com' then 'skip'
@@ -400,7 +379,6 @@ query "cloudfront_distribution_origin_access_identity_enabled" {
         and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then title || ' origin access identity not configured.'
         else title || ' origin access identity configured.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -412,7 +390,6 @@ query "cloudfront_distribution_origin_access_identity_enabled" {
 query "cloudfront_distribution_sni_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then 'ok'
@@ -422,7 +399,6 @@ query "cloudfront_distribution_sni_enabled" {
         when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then title || ' SNI enabled.'
         else title || ' SNI disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -433,7 +409,6 @@ query "cloudfront_distribution_sni_enabled" {
 query "cloudfront_distribution_use_custom_ssl_certificate" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then 'ok'
@@ -443,7 +418,6 @@ query "cloudfront_distribution_use_custom_ssl_certificate" {
         when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then title || ' uses custom SSL certificate.'
         else title || ' does not use custom SSL certificate.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -454,7 +428,6 @@ query "cloudfront_distribution_use_custom_ssl_certificate" {
 query "cloudfront_distribution_waf_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when web_acl_id <> '' then 'ok'
@@ -464,7 +437,6 @@ query "cloudfront_distribution_waf_enabled" {
         when web_acl_id <> '' then title || ' associated with WAF.'
         else title || ' not associated with WAF.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

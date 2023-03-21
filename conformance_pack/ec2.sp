@@ -219,7 +219,6 @@ control "ec2_instance_no_launch_wizard_security_group" {
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
         when not default_ebs_encryption_enabled then 'alarm'
@@ -229,7 +228,6 @@ query "ec2_ebs_default_encryption_enabled" {
         when not default_ebs_encryption_enabled then region || ' default EBS encryption disabled.'
         else region || ' default EBS encryption enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_ec2_regional_settings;
@@ -239,7 +237,6 @@ query "ec2_ebs_default_encryption_enabled" {
 query "ec2_instance_detailed_monitoring_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when monitoring_state = 'enabled' then 'ok'
@@ -249,7 +246,7 @@ query "ec2_instance_detailed_monitoring_enabled" {
         when monitoring_state = 'enabled' then instance_id || ' detailed monitoring enabled.'
         else instance_id || ' detailed monitoring disabled.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -260,7 +257,6 @@ query "ec2_instance_detailed_monitoring_enabled" {
 query "ec2_instance_in_vpc" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when vpc_id is null then 'alarm'
@@ -270,7 +266,6 @@ query "ec2_instance_in_vpc" {
         when vpc_id is null then title || ' not in VPC.'
         else title || ' in VPC.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -281,17 +276,15 @@ query "ec2_instance_in_vpc" {
 query "ec2_instance_not_publicly_accessible" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when public_ip_address is null then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when public_ip_address is null then instance_id || ' not publicly accessible.'
         else instance_id || ' publicly accessible.'
-      end reason
-      -- Additional Dimensions
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -302,7 +295,6 @@ query "ec2_instance_not_publicly_accessible" {
 query "ec2_stopped_instance_30_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when instance_state not in ('stopped', 'stopping') then 'skip'
@@ -313,7 +305,6 @@ query "ec2_stopped_instance_30_days" {
         when instance_state not in ('stopped', 'stopping') then title || ' is in ' || instance_state || ' state.'
         else title || ' stopped since ' || to_char(state_transition_time , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - state_transition_time) || ' days).'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -324,7 +315,6 @@ query "ec2_stopped_instance_30_days" {
 query "ec2_instance_ebs_optimized" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when ebs_optimized then 'ok'
@@ -334,7 +324,6 @@ query "ec2_instance_ebs_optimized" {
         when ebs_optimized then title || ' EBS optimization enabled.'
         else title || ' EBS optimization disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -345,7 +334,6 @@ query "ec2_instance_ebs_optimized" {
 query "ec2_instance_uses_imdsv2" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when metadata_options ->> 'HttpTokens' = 'optional' then 'alarm'
@@ -355,7 +343,6 @@ query "ec2_instance_uses_imdsv2" {
         when metadata_options ->> 'HttpTokens' = 'optional' then title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
         else title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -374,7 +361,6 @@ query "ec2_instance_protected_by_backup_plan" {
         resource_type = 'EC2'
     )
     select
-      -- Required Columns
       i.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -384,7 +370,6 @@ query "ec2_instance_protected_by_backup_plan" {
         when b.arn is not null then i.title || ' is protected by backup plan.'
         else i.title || ' is not protected by backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
@@ -396,7 +381,6 @@ query "ec2_instance_protected_by_backup_plan" {
 query "ec2_instance_iam_profile_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when iam_instance_profile_id is not null then 'ok'
@@ -406,7 +390,6 @@ query "ec2_instance_iam_profile_attached" {
         when iam_instance_profile_id is not null then title || ' IAM profile attached.'
         else title || ' IAM profile not attached.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -417,7 +400,6 @@ query "ec2_instance_iam_profile_attached" {
 query "ec2_instance_publicly_accessible_iam_profile_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when iam_instance_profile_id is not null then 'ok'
@@ -427,7 +409,6 @@ query "ec2_instance_publicly_accessible_iam_profile_attached" {
         when iam_instance_profile_id is not null then title || ' IAM profile attached.'
         else title || ' IAM profile not attached.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -440,7 +421,6 @@ query "ec2_instance_publicly_accessible_iam_profile_attached" {
 query "ec2_instance_user_data_no_secrets" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when user_data like any (array ['%pass%', '%secret%','%token%','%key%'])
@@ -452,7 +432,6 @@ query "ec2_instance_user_data_no_secrets" {
           or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then instance_id ||' potential secret found in user data.'
         else instance_id ||  ' no secrets found in user data.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -463,17 +442,15 @@ query "ec2_instance_user_data_no_secrets" {
 query "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       transit_gateway_arn as resource,
       case
         when auto_accept_shared_attachments = 'enable' then 'alarm'
         else 'ok'
-      end status,
+      end as status,
       case
         when auto_accept_shared_attachments = 'enable' then title || ' automatic shared account attachment enabled.'
         else title || ' automatic shared account attachment disabled.'
-      end reason
-      -- Additional Dimensions
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -493,7 +470,6 @@ query "ec2_instance_no_launch_wizard_security_group" {
         sg ->> 'GroupName' like 'launch-wizard%'
     )
     select
-      -- Required Columns
       i.arn as resource,
       case
         when sg.arn is null then 'ok'
@@ -503,7 +479,6 @@ query "ec2_instance_no_launch_wizard_security_group" {
         when sg.arn is null then i.title || ' not associated with launch-wizard security group.'
         else i.title || ' associated with launch-wizard security group.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
@@ -535,7 +510,6 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
         severity_list
     )
     select
-      -- Required Columns
       arn as resource,
       case
         when l.instance_id is null then 'ok'
@@ -545,7 +519,6 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
         when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
         else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
@@ -559,7 +532,6 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
 query "ec2_classic_lb_connection_draining_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when connection_draining_enabled then 'ok'
@@ -569,7 +541,6 @@ query "ec2_classic_lb_connection_draining_enabled" {
         when connection_draining_enabled then title || ' connection draining enabled.'
         else title || ' connection draining disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -580,7 +551,6 @@ query "ec2_classic_lb_connection_draining_enabled" {
 query "ec2_instance_no_amazon_key_pair" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when instance_state <> 'running' then 'skip'
@@ -592,7 +562,6 @@ query "ec2_instance_no_amazon_key_pair" {
         when key_name is null then title || ' not launched using amazon key pairs.'
         else title || ' launched using amazon key pairs.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -603,7 +572,6 @@ query "ec2_instance_no_amazon_key_pair" {
 query "ec2_instance_not_use_multiple_enis" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when jsonb_array_length(network_interfaces) = 1 then 'ok'
@@ -611,7 +579,6 @@ query "ec2_instance_not_use_multiple_enis" {
       end status,
       title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
       as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -622,7 +589,6 @@ query "ec2_instance_not_use_multiple_enis" {
 query "ec2_instance_termination_protection_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when disable_api_termination then 'ok'
@@ -632,7 +598,6 @@ query "ec2_instance_termination_protection_enabled" {
         when disable_api_termination then instance_id || ' termination protection enabled.'
         else instance_id || ' termination protection disabled.'
       end reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -643,14 +608,12 @@ query "ec2_instance_termination_protection_enabled" {
 query "ec2_instance_virtualization_type_no_paravirtual" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when virtualization_type = 'paravirtual' then 'alarm'
         else 'ok'
       end as status,
       title || ' virtualization type is ' || virtualization_type || '.' as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

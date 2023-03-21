@@ -27,7 +27,6 @@ control "ecr_repository_prohibit_public_access" {
 query "ecr_repository_image_scan_on_push_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when image_scanning_configuration ->> 'ScanOnPush' = 'true' then 'ok'
@@ -37,7 +36,6 @@ query "ecr_repository_image_scan_on_push_enabled" {
         when image_scanning_configuration ->> 'ScanOnPush' = 'true' then title || ' scan on push enabled.'
         else title || ' scan on push disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -63,7 +61,6 @@ query "ecr_repository_prohibit_public_access" {
         )
     )
     select
-      -- Required Columns
       r.arn as resource,
       case
         when o.arn is not null then 'alarm'
@@ -73,7 +70,6 @@ query "ecr_repository_prohibit_public_access" {
         when o.arn is not null then r.title || ' allows public access.'
         else r.title || ' does not allow public access.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
@@ -89,7 +85,6 @@ query "ecr_repository_prohibit_public_access" {
 query "ecr_repository_lifecycle_policy_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when lifecycle_policy -> 'rules' is not null then 'ok'
@@ -99,7 +94,6 @@ query "ecr_repository_lifecycle_policy_configured" {
         when lifecycle_policy -> 'rules' is not null then title || ' lifecycle policy configured.'
         else title || ' lifecycle policy not configured.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -110,7 +104,6 @@ query "ecr_repository_lifecycle_policy_configured" {
 query "ecr_repository_tag_immutability_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when image_tag_mutability = 'IMMUTABLE' then 'ok'
@@ -120,7 +113,6 @@ query "ecr_repository_tag_immutability_enabled" {
         when image_tag_mutability = 'IMMUTABLE' then title || ' tag immutability enabled.'
         else title || ' tag immutability disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

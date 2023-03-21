@@ -125,7 +125,6 @@ query "dynamodb_table_auto_scaling_enabled" {
         group by t.resource_id
     )
     select
-      -- Required Columns
       d.arn as resource,
       case
         when d.billing_mode = 'PAY_PER_REQUEST' then 'ok'
@@ -139,7 +138,6 @@ query "dynamodb_table_auto_scaling_enabled" {
         when t.count < 2 then d.title || ' auto scaling not enabled for both read and write capacity.'
         else d.title || ' autoscaling enabled for both read and write capacity.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
@@ -151,7 +149,6 @@ query "dynamodb_table_auto_scaling_enabled" {
 query "dynamodb_table_point_in_time_recovery_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when lower( point_in_time_recovery_description ->> 'PointInTimeRecoveryStatus' ) = 'disabled' then 'alarm'
@@ -161,7 +158,6 @@ query "dynamodb_table_point_in_time_recovery_enabled" {
         when lower( point_in_time_recovery_description ->> 'PointInTimeRecoveryStatus' ) = 'disabled' then title || ' point-in-time recovery not enabled.'
         else title || ' point-in-time recovery enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -172,7 +168,6 @@ query "dynamodb_table_point_in_time_recovery_enabled" {
 query "dynamodb_table_encrypted_with_kms" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when sse_description is null then 'alarm'
@@ -182,7 +177,6 @@ query "dynamodb_table_encrypted_with_kms" {
         when sse_description is null then title || ' not encrypted with KMS.'
         else title || ' encrypted with KMS.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -222,7 +216,6 @@ query "dynamodb_table_in_backup_plan" {
         join mapped_with_tags as m on m.mapped_tags ?| array(select jsonb_object_keys(tags))
     )
     select
-      -- Required Columns
       t.arn as resource,
       case
         when b.name is null then 'alarm'
@@ -232,7 +225,6 @@ query "dynamodb_table_in_backup_plan" {
         when b.name is null then t.title || ' not in backup plan.'
         else t.title || ' in backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from
@@ -244,7 +236,6 @@ query "dynamodb_table_in_backup_plan" {
 query "dynamodb_table_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when sse_description is not null and sse_description ->> 'SSEType' = 'KMS' then 'ok'
@@ -257,7 +248,6 @@ query "dynamodb_table_encryption_enabled" {
         when sse_description is null then title || ' encrypted with DynamoDB managed CMK.'
         else title || ' not encrypted with CMK.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -276,7 +266,6 @@ query "dynamodb_table_protected_by_backup_plan" {
         resource_type = 'DynamoDB'
     )
     select
-      -- Required Columns
       t.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -286,7 +275,6 @@ query "dynamodb_table_protected_by_backup_plan" {
         when b.arn is not null then t.title || ' is protected by backup plan.'
         else t.title || ' is not protected by backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from

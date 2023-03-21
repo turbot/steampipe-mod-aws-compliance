@@ -66,7 +66,6 @@ control "secretsmanager_secret_last_changed_90_day" {
 query "secretsmanager_secret_automatic_rotation_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when rotation_rules is null then 'alarm'
@@ -76,7 +75,6 @@ query "secretsmanager_secret_automatic_rotation_enabled" {
         when rotation_rules is null then title || ' automatic rotation not enabled.'
         else title || ' automatic rotation enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -87,7 +85,6 @@ query "secretsmanager_secret_automatic_rotation_enabled" {
 query "secretsmanager_secret_rotated_as_scheduled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when primary_region is not null and region != primary_region then 'skip' -- Replica secret
@@ -109,7 +106,6 @@ query "secretsmanager_secret_rotated_as_scheduled" {
         when last_rotated_date is not null
           and (date(current_date) - date(last_rotated_date)) > (rotation_rules -> 'AutomaticallyAfterDays')::integer then title || ' not rotated as per schedule.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -120,7 +116,6 @@ query "secretsmanager_secret_rotated_as_scheduled" {
 query "secretsmanager_secret_unused_90_day" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when last_accessed_date is null then 'alarm'
@@ -132,7 +127,6 @@ query "secretsmanager_secret_unused_90_day" {
         else
           title || ' last used ' || extract(day from current_timestamp - last_accessed_date) || ' day(s) ago.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -153,7 +147,6 @@ query "secretsmanager_secret_encrypted_with_kms_cmk" {
         jsonb_array_length(k.aliases) > 0
     )
     select
-      -- Required Columns
       s.arn as resource,
       case
         when kms_key_id is null
@@ -166,7 +159,6 @@ query "secretsmanager_secret_encrypted_with_kms_cmk" {
         when kms_key_id = 'alias/aws/secretsmanager' or k.alias @> '[{"AliasName":"alias/aws/secretsmanager"}]' then title || ' encrypted with AWS managed key.'
         else title || ' encrypted with CMK.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -179,7 +171,6 @@ query "secretsmanager_secret_encrypted_with_kms_cmk" {
 query "secretsmanager_secret_last_changed_90_day" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when last_changed_date is null then 'alarm'
@@ -191,7 +182,6 @@ query "secretsmanager_secret_last_changed_90_day" {
         else
           title || ' last rotated ' || extract(day from current_timestamp - last_changed_date) || ' day(s) ago.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -204,7 +194,6 @@ query "secretsmanager_secret_last_changed_90_day" {
 query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when rotation_rules is not null and rotation_lambda_arn is not null then 'ok'
@@ -214,7 +203,6 @@ query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
         when rotation_rules is not null and rotation_lambda_arn is not null then title || ' scheduled for rotation using Lambda function.'
         else title || ' automatic rotation using Lambda function disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -226,7 +214,6 @@ query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
 query "secretsmanager_secret_last_used_1_day" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when date(last_accessed_date) - date(created_date) >= 1 then 'ok'
@@ -236,7 +223,6 @@ query "secretsmanager_secret_last_used_1_day" {
         when date(last_accessed_date)- date(created_date) >= 1 then title || ' recently used.'
         else title || ' not used recently.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

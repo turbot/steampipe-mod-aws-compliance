@@ -59,7 +59,6 @@ query "eks_cluster_secrets_encrypted" {
         e -> 'Resources'  @> '["secrets"]'
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when encryption_config is null then 'alarm'
@@ -71,7 +70,6 @@ query "eks_cluster_secrets_encrypted" {
         when b.arn is not null then a.title || ' encrypted with EKS secrets.'
         else a.title || ' not encrypted with EKS secrets.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -83,7 +81,6 @@ query "eks_cluster_secrets_encrypted" {
 query "eks_cluster_endpoint_restrict_public_access" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' then 'alarm'
@@ -93,7 +90,6 @@ query "eks_cluster_endpoint_restrict_public_access" {
         when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' then title || ' endpoint publicly accessible.'
         else title || ' endpoint not publicly accessible.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -115,7 +111,6 @@ query "eks_cluster_control_plane_audit_logging_enabled" {
         and (log -> 'Types') @> '["api", "audit", "authenticator", "controllerManager", "scheduler"]'
     )
     select
-      -- Required Columns
       c.arn as resource,
       case
         when l.arn is not null then 'ok'
@@ -128,7 +123,6 @@ query "eks_cluster_control_plane_audit_logging_enabled" {
           else c.title || ' control plane audit logging not enabled.'
           end
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -149,7 +143,6 @@ query "eks_cluster_no_default_vpc" {
         v.is_default
     )
     select
-      -- Required Columns
       c.arn as resource,
       case
         when v.arn is not null then 'alarm'
@@ -159,7 +152,6 @@ query "eks_cluster_no_default_vpc" {
         when v.arn is not null then title || ' uses default VPC.'
         else title || ' does not use default VPC.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -173,7 +165,6 @@ query "eks_cluster_no_default_vpc" {
 query "eks_cluster_with_latest_kubernetes_version" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         -- eks:oldestVersionSupported (Current oldest supported version is 1.19)
@@ -184,7 +175,6 @@ query "eks_cluster_with_latest_kubernetes_version" {
         when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
         else title || ' does not run on a supported kubernetes version.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

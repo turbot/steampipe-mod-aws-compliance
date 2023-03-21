@@ -27,7 +27,6 @@ control "kinesis_stream_encrypted_with_kms_cmk" {
 query "kinesis_stream_server_side_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       stream_arn as resource,
       case
         when encryption_type = 'KMS' then 'ok'
@@ -37,7 +36,6 @@ query "kinesis_stream_server_side_encryption_enabled" {
         when encryption_type = 'KMS' then title || ' server side encryption enabled.'
         else title || ' server side encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -48,7 +46,6 @@ query "kinesis_stream_server_side_encryption_enabled" {
 query "kinesis_stream_encrypted_with_kms_cmk" {
   sql = <<-EOQ
     select
-      -- Required Columns
       stream_arn as resource,
       case
         when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then 'ok'
@@ -58,7 +55,6 @@ query "kinesis_stream_encrypted_with_kms_cmk" {
         when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

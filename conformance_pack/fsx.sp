@@ -31,7 +31,6 @@ query "fsx_file_system_protected_by_backup_plan" {
         resource_type = 'FSx'
     )
     select
-      -- Required Columns
       f.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -41,7 +40,6 @@ query "fsx_file_system_protected_by_backup_plan" {
         when b.arn is not null then f.title || ' is protected by backup plan.'
         else f.title || ' is not protected by backup plan.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from

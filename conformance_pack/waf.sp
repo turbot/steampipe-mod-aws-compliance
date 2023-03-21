@@ -3,7 +3,6 @@
 query "waf_rule_condition_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       akas as resource,
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
@@ -13,7 +12,6 @@ query "waf_rule_condition_attached" {
         when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
         else title || ' has attached conditions.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -24,7 +22,6 @@ query "waf_rule_condition_attached" {
 query "waf_rule_group_rule_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when activated_rules is null or jsonb_array_length(activated_rules) = 0 then 'alarm'
@@ -34,7 +31,6 @@ query "waf_rule_group_rule_attached" {
         when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
         else title || ' has attached rules.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -45,7 +41,6 @@ query "waf_rule_group_rule_attached" {
 query "waf_web_acl_rule_attached" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when rules is null or jsonb_array_length(rules) = 0 then 'alarm'
@@ -55,7 +50,6 @@ query "waf_web_acl_rule_attached" {
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
         else title || ' has attached rules.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

@@ -34,7 +34,6 @@ query "config_enabled_all_regions" {
         and status ->> 'LastStatus' = 'SUCCESS'
     )
     select
-      -- Required columns
       'arn:aws::' || a.region || ':' || a.account_id as resource,
       case
       -- When any of the region satisfies with above CTE

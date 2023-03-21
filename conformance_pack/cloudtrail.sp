@@ -176,7 +176,6 @@ control "cloudtrail_bucket_not_public" {
 query "cloudtrail_trail_integrated_with_logs" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when log_group_arn != 'null' and ((latest_delivery_time) > current_date - 1) then 'ok'
@@ -186,7 +185,6 @@ query "cloudtrail_trail_integrated_with_logs" {
         when log_group_arn != 'null' and ((latest_delivery_time) > current_date - 1) then title || ' integrated with CloudWatch logs.'
         else title || ' not integrated with CloudWatch logs.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -214,7 +212,6 @@ query "cloudtrail_s3_data_events_enabled" {
       and event_selector ->> 'ReadWriteType' = 'All'
   )
   select
-    -- Required columns
     b.arn as resource,
     case
       when count(bucket_selector) > 0 then 'ok'
@@ -224,7 +221,6 @@ query "cloudtrail_s3_data_events_enabled" {
       when count(bucket_selector) > 0 then b.name || ' object-level data events logging enabled.'
       else b.name || ' object-level data events logging disabled.'
     end as reason
-    -- Additional columns
     ${local.tag_dimensions_sql}
     ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
   from
@@ -238,7 +234,6 @@ query "cloudtrail_s3_data_events_enabled" {
 query "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   sql = <<-EOQ
     select
-      -- Required columns
       arn as resource,
       case
         when kms_key_id is null then 'alarm'
@@ -248,7 +243,6 @@ query "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
         when kms_key_id is null then title || ' logs are not encrypted at rest.'
         else title || ' logs are encrypted at rest.'
       end as reason
-      -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -284,7 +278,6 @@ query "cloudtrail_multi_region_trail_enabled" {
         is_organization_trail
     )
     select
-      -- Required Columns
       distinct a.arn as resource,
       case
         when coalesce(num_multregion_trails, 0) >= 1 then 'ok'
@@ -298,7 +291,7 @@ query "cloudtrail_multi_region_trail_enabled" {
         when o.is_organization_trail and o.is_multi_region_trail and o.is_logging is null then a.title || ' has organization trail, check organization account for cloudtrail logging status.'
         else a.title || ' does not have multi-region trail(s).'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -310,7 +303,6 @@ query "cloudtrail_multi_region_trail_enabled" {
 query "cloudtrail_trail_validation_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when log_file_validation_enabled then 'ok'
@@ -320,7 +312,6 @@ query "cloudtrail_trail_validation_enabled" {
         when log_file_validation_enabled then title || ' log file validation enabled.'
         else title || ' log file validation disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -342,7 +333,6 @@ query "cloudtrail_trail_enabled" {
         home_region = region
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when b.is_logging is null and a.is_logging then 'ok'
@@ -354,7 +344,6 @@ query "cloudtrail_trail_enabled" {
         when b.is_logging then a.title || ' enabled.'
         else a.title || ' disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
@@ -408,7 +397,6 @@ query "cloudtrail_security_trail_enabled" {
         left join trails_enabled as b on a.arn = b.arn
     )
   select
-    -- Required Columns
     arn as resource,
     case
       when not is_logging then 'alarm'
@@ -432,7 +420,7 @@ query "cloudtrail_security_trail_enabled" {
       when jsonb_array_length(excludeManagementEventSources) > 0 then title || ' excludes management events for ' || trim(excludeManagementEventSources::text, '[]') || '.'
       else title || ' meets all security best practices.'
     end as reason
-    -- Additional Dimensions
+
     ${local.tag_dimensions_sql}
     ${local.common_dimensions_sql}
   from
@@ -443,7 +431,6 @@ query "cloudtrail_security_trail_enabled" {
 query "cloudtrail_s3_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required columns
       t.arn as resource,
       case
         when b.logging is not null then 'ok'
@@ -453,7 +440,6 @@ query "cloudtrail_s3_logging_enabled" {
         when b.logging is not null then t.title || '''s logging bucket ' || t.s3_bucket_name || ' has access logging enabled.'
         else t.title || '''s logging bucket ' || t.s3_bucket_name || ' has access logging disabled.'
       end as reason
-      -- Additional columns
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from
@@ -494,7 +480,6 @@ query "cloudtrail_bucket_not_public" {
       t._ctx
     )
     select
-      -- Required Columns
       case
         when arn is null then 'arn:aws:s3::' || name
         else arn
@@ -513,7 +498,6 @@ query "cloudtrail_bucket_not_public" {
         when anon_statements > 0 then name || ' grants access to AWS:*" in bucket policy.'
         else name || ' does not grant anonymous access in ACL or bucket policy.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -545,7 +529,6 @@ query "cloudtrail_multi_region_read_write_enabled" {
         (is_logging and is_multi_region_trail and advanced_event_selectors is not null and (not a like '%readOnly%'))
     )
     select
-      -- Required Columns
       a.title as resource,
       case
         when d.account_id is null and ad.account_id is null then 'alarm'
@@ -555,7 +538,7 @@ query "cloudtrail_multi_region_read_write_enabled" {
         when d.account_id is null and ad.account_id is null then 'cloudtrail disabled.'
         else 'cloudtrail enabled.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -587,7 +570,6 @@ query "cloudtrail_s3_object_read_events_audit_enabled" {
         )
     )
     select
-      -- Required columns
       b.arn as resource,
       case
         when count(bucket_selector) > 0 then 'ok'
@@ -597,7 +579,6 @@ query "cloudtrail_s3_object_read_events_audit_enabled" {
         when count(bucket_selector) > 0 then b.name || ' object-level read events logging enabled.'
         else b.name || ' object-level read events logging disabled.'
       end as reason
-      -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -634,7 +615,6 @@ query "cloudtrail_s3_object_write_events_audit_enabled" {
         )
     )
     select
-      -- Required columns
       b.arn as resource,
       case
         when count(bucket_selector) > 0 then 'ok'
@@ -644,7 +624,6 @@ query "cloudtrail_s3_object_write_events_audit_enabled" {
         when count(bucket_selector) > 0 then b.name || ' object-level write events logging enabled.'
         else b.name || ' object-level write events logging disabled.'
       end as reason
-      -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

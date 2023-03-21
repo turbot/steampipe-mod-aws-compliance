@@ -54,7 +54,6 @@ control "emr_cluster_master_nodes_no_public_ip" {
 query "emr_cluster_kerberos_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       cluster_arn as resource,
       case
         when kerberos_attributes is null then 'alarm'
@@ -64,7 +63,6 @@ query "emr_cluster_kerberos_enabled" {
         when kerberos_attributes is null then title || ' Kerberos not enabled.'
         else title || ' Kerberos enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -75,7 +73,6 @@ query "emr_cluster_kerberos_enabled" {
 query "emr_cluster_master_nodes_no_public_ip" {
   sql = <<-EOQ
     select
-      -- Required Columns
       c.cluster_arn as resource,
       case
         when c.status ->> 'State' not in ('RUNNING', 'WAITING') then 'skip'
@@ -87,7 +84,6 @@ query "emr_cluster_master_nodes_no_public_ip" {
         when s.map_public_ip_on_launch then c.title || ' master nodes assigned with public IP.'
         else c.title || ' master nodes not assigned with public IP.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -99,7 +95,6 @@ query "emr_cluster_master_nodes_no_public_ip" {
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
         when block_public_security_group_rules then 'ok'
@@ -109,7 +104,6 @@ query "emr_account_public_access_blocked" {
         when block_public_security_group_rules then region || ' EMR block public access enabled.'
         else region || ' EMR block public access disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_emr_block_public_access_configuration;

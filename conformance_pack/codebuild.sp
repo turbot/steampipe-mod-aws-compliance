@@ -104,7 +104,6 @@ query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
         and env ->> 'Type' = 'PLAINTEXT'
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when b.arn is null then 'ok'
@@ -114,7 +113,6 @@ query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
         when b.arn is null then a.title || ' has no plaintext environment variables with sensitive AWS values.'
         else a.title || ' has plaintext environment variables with sensitive AWS values.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
@@ -126,7 +124,6 @@ query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
 query "codebuild_project_source_repo_oauth_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       p.arn as resource,
       case
         when p.source ->> 'Type' not in ('GITHUB', 'BITBUCKET') then 'skip'
@@ -139,7 +136,7 @@ query "codebuild_project_source_repo_oauth_configured" {
         when c.auth_type = 'OAUTH' then p.title || ' using OAuth to connect source repository.'
         else p.title || ' not using OAuth to connect source repository.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
@@ -151,7 +148,6 @@ query "codebuild_project_source_repo_oauth_configured" {
 query "codebuild_project_with_user_controlled_buildspec" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then 'alarm'
@@ -161,7 +157,6 @@ query "codebuild_project_with_user_controlled_buildspec" {
         when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then title || ' uses a user controlled buildspec.'
         else title || ' does not uses a user controlled buildspec.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -172,7 +167,6 @@ query "codebuild_project_with_user_controlled_buildspec" {
 query "codebuild_project_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then 'ok'
@@ -182,7 +176,6 @@ query "codebuild_project_logging_enabled" {
         when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -193,7 +186,6 @@ query "codebuild_project_logging_enabled" {
 query "codebuild_project_environment_privileged_mode_disabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when environment ->> 'PrivilegedMode' = 'true' then 'alarm'
@@ -203,7 +195,6 @@ query "codebuild_project_environment_privileged_mode_disabled" {
         when environment ->> 'PrivilegedMode' = 'true' then title || ' environment privileged mode enabled.'
         else title || ' environment privileged mode disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -223,7 +214,6 @@ query "codebuild_project_artifact_encryption_enabled" {
         a -> 'EncryptionDisabled' = 'true'
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when p.artifacts ->> 'EncryptionDisabled' = 'false'
@@ -235,7 +225,6 @@ query "codebuild_project_artifact_encryption_enabled" {
         and (p.secondary_artifacts is null or a.arn is null) then p.title || ' all artifacts encryption enabled.'
         else p.title || ' all artifacts encryption not enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
@@ -260,7 +249,6 @@ query "codebuild_project_build_greater_then_90_days" {
         account_id
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when b.build_time is null then 'alarm'
@@ -271,7 +259,6 @@ query "codebuild_project_build_greater_then_90_days" {
         when b.build_time is null then p.title || ' was never build.'
         else p.title || ' was build ' || build_time || ' day(s) before.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
@@ -285,7 +272,6 @@ query "codebuild_project_build_greater_then_90_days" {
 query "codebuild_project_s3_logs_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then 'ok'
@@ -295,7 +281,6 @@ query "codebuild_project_s3_logs_encryption_enabled" {
         when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then title || ' S3Logs encryption enabled.'
         else title || ' S3Logs encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

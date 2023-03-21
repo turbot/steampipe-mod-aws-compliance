@@ -150,7 +150,7 @@ query "redshift_cluster_encryption_in_transit_enabled" {
       and p ->> 'ParameterValue' = 'true'
     )
     select
-      -- Required Columns
+
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when cpg ->> 'ParameterGroupName' in (select pg_name from pg_with_ssl ) then 'ok'
@@ -160,7 +160,6 @@ query "redshift_cluster_encryption_in_transit_enabled" {
         when cpg ->> 'ParameterGroupName' in (select pg_name from pg_with_ssl ) then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -172,7 +171,7 @@ query "redshift_cluster_encryption_in_transit_enabled" {
 query "redshift_cluster_encryption_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when not encrypted then 'alarm'
@@ -184,7 +183,6 @@ query "redshift_cluster_encryption_logging_enabled" {
         when not (logging_status ->> 'LoggingEnabled') :: boolean then title || ' audit logging not enabled.'
         else title || ' audit logging and encryption enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -195,7 +193,7 @@ query "redshift_cluster_encryption_logging_enabled" {
 query "redshift_cluster_prohibit_public_access" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       cluster_namespace_arn as resource,
       case
         when publicly_accessible then 'alarm'
@@ -205,7 +203,7 @@ query "redshift_cluster_prohibit_public_access" {
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -216,7 +214,6 @@ query "redshift_cluster_prohibit_public_access" {
 query "redshift_cluster_automatic_snapshots_min_7_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when automated_snapshot_retention_period >= 7 then 'ok'
@@ -226,7 +223,6 @@ query "redshift_cluster_automatic_snapshots_min_7_days" {
         when automated_snapshot_retention_period >= 7 then title || ' automatic snapshots enabled with retention period greater than equals 7 days.'
         else title || ' automatic snapshots not enabled with retention period greater than equals 7 days.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -237,7 +233,6 @@ query "redshift_cluster_automatic_snapshots_min_7_days" {
 query "redshift_cluster_kms_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when encrypted and kms_key_id is not null then 'ok'
@@ -247,7 +242,6 @@ query "redshift_cluster_kms_enabled" {
         when encrypted and kms_key_id is not null then title || ' encrypted with KMS.'
         else title || ' not encrypted with KMS'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -258,7 +252,6 @@ query "redshift_cluster_kms_enabled" {
 query "redshift_cluster_maintenance_settings_check" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when allow_version_upgrade and automated_snapshot_retention_period >= 7 then 'ok'
@@ -268,7 +261,6 @@ query "redshift_cluster_maintenance_settings_check" {
         when allow_version_upgrade and automated_snapshot_retention_period >= 7 then title || ' has the required maintenance settings.'
         else title || ' does not have required maintenance settings.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -279,7 +271,6 @@ query "redshift_cluster_maintenance_settings_check" {
 query "redshift_cluster_enhanced_vpc_routing_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when enhanced_vpc_routing then 'ok'
@@ -289,7 +280,6 @@ query "redshift_cluster_enhanced_vpc_routing_enabled" {
         when enhanced_vpc_routing then title || ' enhanced VPC routing enabled.'
         else title || ' enhanced VPC routing disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -302,7 +292,6 @@ query "redshift_cluster_enhanced_vpc_routing_enabled" {
 query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when allow_version_upgrade then 'ok'
@@ -312,7 +301,6 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
         when allow_version_upgrade then title || ' automatic upgrades to major versions enabled.'
         else title || ' automatic upgrades to major versions disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -323,7 +311,6 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
 query "redshift_cluster_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
       case
         when logging_status ->> 'LoggingEnabled' = 'true' then 'ok'
@@ -333,7 +320,6 @@ query "redshift_cluster_logging_enabled" {
         when logging_status ->> 'LoggingEnabled' = 'true' then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -344,7 +330,6 @@ query "redshift_cluster_logging_enabled" {
 query "redshift_cluster_no_default_admin_name" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when master_username = 'awsuser' then 'alarm'
@@ -354,7 +339,7 @@ query "redshift_cluster_no_default_admin_name" {
         when master_username = 'awsuser' then title || ' using default master user name.'
         else title || ' not using default master user name.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -365,7 +350,6 @@ query "redshift_cluster_no_default_admin_name" {
 query "redshift_cluster_no_default_database_name" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when db_name = 'dev' then 'alarm'
@@ -375,7 +359,6 @@ query "redshift_cluster_no_default_database_name" {
         when db_name = 'dev' then title || ' using default database name.'
         else title || ' not using default database name.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

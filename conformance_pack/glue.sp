@@ -67,7 +67,6 @@ control "glue_job_s3_encryption_enabled" {
 query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       e.arn as resource,
       case
         when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then 'ok'
@@ -77,7 +76,6 @@ query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
         when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then e.title || ' CloudWatch logs encryption enabled.'
         else e.title || ' CloudWatch logs encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
     from
       aws_glue_dev_endpoint as e
@@ -88,7 +86,6 @@ query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
 query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       e.arn as resource,
       case
         when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then 'ok'
@@ -98,7 +95,6 @@ query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
         when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then e.title || ' job bookmark encryption enabled.'
         else e.title || ' job bookmark encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
     from
       aws_glue_dev_endpoint as e
@@ -109,7 +105,6 @@ query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
 query "glue_dev_endpoint_s3_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       d.arn as resource,
       case
         when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
@@ -119,7 +114,6 @@ query "glue_dev_endpoint_s3_encryption_enabled" {
         when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then d.title || ' S3 encryption enabled.'
         else d.title || ' S3 encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       aws_glue_dev_endpoint as d
@@ -131,7 +125,6 @@ query "glue_dev_endpoint_s3_encryption_enabled" {
 query "glue_job_cloudwatch_logs_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       j.arn as resource,
       case
         when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then 'ok'
@@ -141,7 +134,6 @@ query "glue_job_cloudwatch_logs_encryption_enabled" {
         when cloud_watch_encryption is not null and cloud_watch_encryption ->> 'CloudWatchEncryptionMode' != 'DISABLED' then j.title || ' CloudWatch logs encryption enabled.'
         else j.title || ' CloudWatch logs encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j
@@ -152,7 +144,6 @@ query "glue_job_cloudwatch_logs_encryption_enabled" {
 query "glue_job_bookmarks_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       j.arn as resource,
       case
         when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then 'ok'
@@ -162,7 +153,6 @@ query "glue_job_bookmarks_encryption_enabled" {
         when job_bookmarks_encryption is not null and job_bookmarks_encryption ->> 'JobBookmarksEncryptionMode' != 'DISABLED' then j.title || ' job bookmarks encryption enabled.'
         else j.title || ' job bookmarks encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j
@@ -173,7 +163,6 @@ query "glue_job_bookmarks_encryption_enabled" {
 query "glue_job_s3_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       j.arn as resource,
       case
         when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then 'ok'
@@ -183,7 +172,6 @@ query "glue_job_s3_encryption_enabled" {
         when e is not null and e ->> 'S3EncryptionMode' != 'DISABLED' then j.title || ' S3 encryption enabled.'
         else j.title || ' S3 encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "j.")}
     from
       aws_glue_job as j
@@ -197,7 +185,6 @@ query "glue_job_s3_encryption_enabled" {
 query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       case
         when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'ok'
         else 'alarm'
@@ -206,7 +193,6 @@ query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
         when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'Glue data catalog metadata encryption is enabled in ' || region || '.'
         else 'Glue data catalog metadata encryption is disabled in ' || region || '.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_glue_data_catalog_encryption_settings;
@@ -216,7 +202,6 @@ query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
 query "glue_data_catalog_encryption_settings_password_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       case
         when connection_password_encryption is not null and connection_password_encryption ->> 'ReturnConnectionPasswordEncrypted' != 'false' then 'ok'
         else 'alarm'
@@ -225,7 +210,6 @@ query "glue_data_catalog_encryption_settings_password_encryption_enabled" {
         when connection_password_encryption is not null and connection_password_encryption ->> 'ReturnConnectionPasswordEncrypted' != 'false' then 'Glue data catalog connection password encryption enabled in ' || region || '.'
         else 'Glue data catalog connection password encryption disabled in ' || region || '.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_glue_data_catalog_encryption_settings;

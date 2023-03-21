@@ -29,7 +29,6 @@ control "securityhub_enabled" {
 query "securityhub_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         when r.region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'ap-northeast-3']) then 'skip'
@@ -44,7 +43,7 @@ query "securityhub_enabled" {
         when h.hub_arn is not null then 'Security Hub enabled in ' || r.region || '.'
         else 'Security Hub disabled in ' || r.region || '.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r

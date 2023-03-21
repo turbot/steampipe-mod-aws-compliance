@@ -66,7 +66,6 @@ query "cloudformation_stack_output_no_secrets" {
         or k::text ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' or lower(v::text) like any (array ['%pass%', '%secret%','%token%','%key%']) or v::text ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]'
     )
     select
-      -- Required Columns
       c.id as resource,
       case
         when c.outputs is null then 'ok'
@@ -78,7 +77,6 @@ query "cloudformation_stack_output_no_secrets" {
         when s.id is null then title || ' no secrets found in outputs.'
         else title || ' has secrets in outputs.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
@@ -90,7 +88,6 @@ query "cloudformation_stack_output_no_secrets" {
 query "cloudformation_stack_notifications_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when jsonb_array_length(notification_arns) > 0 then 'ok'
@@ -100,7 +97,6 @@ query "cloudformation_stack_notifications_enabled" {
         when jsonb_array_length(notification_arns) > 0 then title || ' notifications enabled.'
         else title || ' notifications disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -111,7 +107,6 @@ query "cloudformation_stack_notifications_enabled" {
 query "cloudformation_stack_rollback_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when not disable_rollback then 'ok'
@@ -121,7 +116,6 @@ query "cloudformation_stack_rollback_enabled" {
         when not disable_rollback then title || ' rollback enabled.'
         else title || ' rollback disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -132,7 +126,6 @@ query "cloudformation_stack_rollback_enabled" {
 query "cloudformation_stack_termination_protection_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when enable_termination_protection then 'ok'
@@ -142,7 +135,6 @@ query "cloudformation_stack_termination_protection_enabled" {
         when enable_termination_protection then title || ' termination protection enabled.'
         else title || ' termination protection disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

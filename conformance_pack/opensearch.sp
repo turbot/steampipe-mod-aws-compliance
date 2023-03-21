@@ -3,7 +3,7 @@
 query "opensearch_domain_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when encryption_at_rest_options ->> 'Enabled' = 'false' then 'alarm'
@@ -13,7 +13,7 @@ query "opensearch_domain_encryption_at_rest_enabled" {
         when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
         else title || ' encryption at rest enabled.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -24,7 +24,6 @@ query "opensearch_domain_encryption_at_rest_enabled" {
 query "opensearch_domain_fine_grained_access_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then 'alarm'
@@ -34,7 +33,6 @@ query "opensearch_domain_fine_grained_access_enabled" {
         when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
         else title || ' having fine-grained access control enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -64,7 +62,6 @@ query "opensearch_domain_in_vpc" {
         s in (select SubnetId from public_subnets)
     )
     select
-      -- Required Columns
       d.arn as resource,
       case
         when d.vpc_options ->> 'VPCId' is null then 'alarm'
@@ -76,7 +73,6 @@ query "opensearch_domain_in_vpc" {
         when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then title || ' attached to public subnet.'
         else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
       end reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from

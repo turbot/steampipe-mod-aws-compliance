@@ -77,7 +77,6 @@ control "route53_domain_transfer_lock_enabled" {
 query "route53_zone_query_logging_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       id as resource,
       case
         when private_zone then 'skip'
@@ -89,7 +88,6 @@ query "route53_zone_query_logging_enabled" {
         when query_logging_configs is not null or jsonb_array_length(query_logging_configs) > 0 then title || ' query logging to CloudWatch enabled.'
         else title || ' query logging to CloudWatch disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -100,7 +98,6 @@ query "route53_zone_query_logging_enabled" {
 query "route53_domain_transfer_lock_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when transfer_lock then 'ok'
@@ -110,7 +107,7 @@ query "route53_domain_transfer_lock_enabled" {
         when transfer_lock then title || ' transfer lock enabled.'
         else title || ' transfer lock disabled.'
         end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -121,14 +118,13 @@ query "route53_domain_transfer_lock_enabled" {
 query "route53_domain_expires_30_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when date(expiration_date) - date(current_date) >= 30 then 'ok'
         else 'alarm'
       end as status,
         title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.' as reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -139,14 +135,12 @@ query "route53_domain_expires_30_days" {
 query "route53_domain_expires_7_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when date(expiration_date) - date(current_date) >= 7 then 'ok'
         else 'alarm'
       end as status,
         title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.' as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -157,7 +151,6 @@ query "route53_domain_expires_7_days" {
 query "route53_domain_not_expired" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when expiration_date < (current_date - interval '1' minute) then 'alarm'
@@ -167,7 +160,6 @@ query "route53_domain_not_expired" {
         when expiration_date < (current_date - interval '1' minute) then title || ' expired on ' || to_char(expiration_date, 'DD-Mon-YYYY') || '.'
         else title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -178,7 +170,6 @@ query "route53_domain_not_expired" {
 query "route53_domain_privacy_protection_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when admin_privacy then 'ok'
@@ -188,7 +179,6 @@ query "route53_domain_privacy_protection_enabled" {
         when admin_privacy then title || ' privacy protection enabled.'
         else title || ' privacy protection disabled.'
         end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -201,7 +191,6 @@ query "route53_domain_privacy_protection_enabled" {
 query "route53_domain_auto_renew_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when auto_renew then 'ok'
@@ -211,7 +200,6 @@ query "route53_domain_auto_renew_enabled" {
         when auto_renew then title || ' auto renew enabled.'
         else title || ' auto renew disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

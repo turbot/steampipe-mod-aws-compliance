@@ -19,7 +19,6 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
 query "elastic_beanstalk_enhanced_health_reporting_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       application_name as resource,
       case
         when health_status is not null and health is not null then 'ok'
@@ -29,7 +28,6 @@ query "elastic_beanstalk_enhanced_health_reporting_enabled" {
         when health_status is not null and health is not null then application_name || ' enhanced health check enabled.'
         else application_name || ' enhanced health check disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

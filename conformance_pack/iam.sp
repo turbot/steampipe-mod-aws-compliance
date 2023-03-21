@@ -487,7 +487,6 @@ control "iam_policy_unused" {
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when
@@ -514,7 +513,6 @@ query "iam_account_password_policy_strong_min_reuse_24" {
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -525,7 +523,6 @@ query "iam_account_password_policy_strong_min_reuse_24" {
 query "iam_group_not_empty" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when users is null then 'alarm'
@@ -535,7 +532,6 @@ query "iam_group_not_empty" {
         when users is null then title || ' not associated with any IAM user.'
         else title || ' associated with IAM user.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_group;
@@ -566,7 +562,6 @@ query "iam_policy_custom_no_star_star" {
         arn
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when bad.arn is null then 'ok'
@@ -574,7 +569,6 @@ query "iam_policy_custom_no_star_star" {
       end status,
       p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
         ' statements that allow action "*" on resource "*".' as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
@@ -588,7 +582,6 @@ query "iam_policy_custom_no_star_star" {
 query "iam_root_user_no_access_keys" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':::' || account_id as resource,
       case
         when account_access_keys_present > 0 then 'alarm'
@@ -598,7 +591,6 @@ query "iam_root_user_no_access_keys" {
         when account_access_keys_present > 0 then 'Root user access keys exist.'
         else 'No root user access keys exist.'
       end reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;
@@ -608,7 +600,6 @@ query "iam_root_user_no_access_keys" {
 query "iam_root_user_hardware_mfa_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || s.partition || ':::' || s.account_id as resource,
       case
         when account_mfa_enabled and serial_number is null then 'ok'
@@ -619,7 +610,6 @@ query "iam_root_user_hardware_mfa_enabled" {
         when serial_number is not null then 'MFA enabled for root account, but the MFA associated is a virtual device.'
         else 'Hardware MFA device enabled for root account.'
       end reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
       aws_iam_account_summary as s
@@ -630,7 +620,6 @@ query "iam_root_user_hardware_mfa_enabled" {
 query "iam_root_user_mfa_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':::' || account_id as resource,
       case
         when account_mfa_enabled then 'ok'
@@ -640,7 +629,6 @@ query "iam_root_user_mfa_enabled" {
         when account_mfa_enabled then 'MFA enabled for root account.'
         else 'MFA not enabled for root account.'
       end reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;
@@ -650,7 +638,6 @@ query "iam_root_user_mfa_enabled" {
 query "iam_user_access_key_age_90" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || partition || ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
       case
         when create_date <= (current_date - interval '90' day) then 'alarm'
@@ -659,7 +646,6 @@ query "iam_user_access_key_age_90" {
       user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
       as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
@@ -670,7 +656,6 @@ query "iam_user_access_key_age_90" {
 query "iam_user_console_access_mfa_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         when password_enabled and not mfa_active then 'alarm'
@@ -681,7 +666,6 @@ query "iam_user_console_access_mfa_enabled" {
         when password_enabled and not mfa_active then user_name || ' password login enabled but no MFA device configured.'
         else user_name || ' password login enabled and MFA device configured.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -691,7 +675,6 @@ query "iam_user_console_access_mfa_enabled" {
 query "iam_user_mfa_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         when not mfa_active then 'alarm'
@@ -701,7 +684,6 @@ query "iam_user_mfa_enabled" {
         when not mfa_active then user_name || ' MFA device not configured.'
         else user_name || ' MFA device configured.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -711,7 +693,6 @@ query "iam_user_mfa_enabled" {
 query "iam_user_no_inline_attached_policies" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when inline_policies is null and attached_policy_arns is null then 'ok'
@@ -719,7 +700,6 @@ query "iam_user_no_inline_attached_policies" {
       end status,
       name || ' has ' || coalesce(jsonb_array_length(inline_policies),0) || ' inline and ' ||
         coalesce(jsonb_array_length(attached_policy_arns),0) || ' directly attached policies.' as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -730,7 +710,6 @@ query "iam_user_no_inline_attached_policies" {
 query "iam_user_unused_credentials_90" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         when user_name = '<root_account>'
@@ -775,7 +754,6 @@ query "iam_user_unused_credentials_90" {
             ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
         end
       as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -785,7 +763,6 @@ query "iam_user_unused_credentials_90" {
 query "iam_user_in_group" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when jsonb_array_length(groups) = 0 then 'alarm'
@@ -795,7 +772,6 @@ query "iam_user_in_group" {
         when jsonb_array_length(groups) = 0 then title || ' not associated with any IAM group.'
         else title || ' associated with IAM group.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -806,27 +782,23 @@ query "iam_user_in_group" {
 query "iam_group_user_role_no_inline_policies" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
       'User ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_user
     union
     select
-      -- Required Columns
       arn as resource,
       case
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
       'Role ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_role
@@ -834,14 +806,12 @@ query "iam_group_user_role_no_inline_policies" {
       arn not like '%service-role/%'
     union
     select
-      -- Required Columns
       arn as resource,
       case
         when inline_policies is null then 'ok'
         else 'alarm'
       end status,
       'Group ' || title || ' has ' || coalesce(jsonb_array_length(inline_policies), 0) || ' inline policies.' as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_group;
@@ -854,7 +824,6 @@ query "iam_support_role" {
     with support_role_count as
     (
       select
-        -- Required Columns
         'arn:' || a.partition || ':::' || a.account_id as resource,
         count(policy_arn),
         a.account_id,
@@ -872,7 +841,6 @@ query "iam_support_role" {
         a._ctx
     )
     select
-      -- Required Columns
       resource,
       case
         when count > 0 then 'ok'
@@ -883,7 +851,6 @@ query "iam_support_role" {
         when count > 1 then 'AWSSupportAccess policy attached to ' || count || ' roles.'
         else 'AWSSupportAccess policy not attached to any role.'
       end  as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       support_role_count;
@@ -893,7 +860,6 @@ query "iam_support_role" {
 query "iam_account_password_policy_min_length_14" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when minimum_password_length >= 14 then 'ok'
@@ -903,7 +869,6 @@ query "iam_account_password_policy_min_length_14" {
         when minimum_password_length is null then 'No password policy set.'
         else 'Minimum password length set to ' || minimum_password_length || '.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -914,7 +879,6 @@ query "iam_account_password_policy_min_length_14" {
 query "iam_account_password_policy_reuse_24" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when password_reuse_prevention >= 24 then 'ok'
@@ -925,19 +889,16 @@ query "iam_account_password_policy_reuse_24" {
         when password_reuse_prevention is null then 'Password reuse prevention not set.'
         else 'Password reuse prevention set to ' || password_reuse_prevention || '.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
-
   EOQ
 }
 
 query "iam_account_password_policy_strong" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when
@@ -962,7 +923,6 @@ query "iam_account_password_policy_strong" {
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
       end reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -973,7 +933,6 @@ query "iam_account_password_policy_strong" {
 query "iam_account_password_policy_one_lowercase_letter" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when require_lowercase_characters then 'ok'
@@ -984,7 +943,6 @@ query "iam_account_password_policy_one_lowercase_letter" {
         when require_lowercase_characters then 'Lowercase character required.'
         else 'Lowercase character not required.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -995,7 +953,6 @@ query "iam_account_password_policy_one_lowercase_letter" {
 query "iam_account_password_policy_one_uppercase_letter" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when require_uppercase_characters then 'ok'
@@ -1006,7 +963,6 @@ query "iam_account_password_policy_one_uppercase_letter" {
         when require_uppercase_characters then 'Uppercase character required.'
         else 'Uppercase character not required.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1017,7 +973,6 @@ query "iam_account_password_policy_one_uppercase_letter" {
 query "iam_account_password_policy_one_number" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when require_numbers then 'ok'
@@ -1028,7 +983,6 @@ query "iam_account_password_policy_one_number" {
         when require_numbers then 'Number required.'
         else 'Number not required.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1039,7 +993,6 @@ query "iam_account_password_policy_one_number" {
 query "iam_account_password_policy_expire_90" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when max_password_age <= 90 then 'ok'
@@ -1049,7 +1002,6 @@ query "iam_account_password_policy_expire_90" {
         when max_password_age is null then 'Password expiration not set.'
         else 'Password expiration set to ' || max_password_age || ' days.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1060,7 +1012,6 @@ query "iam_account_password_policy_expire_90" {
 query "iam_account_password_policy_one_symbol" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when require_symbols then 'ok'
@@ -1071,7 +1022,6 @@ query "iam_account_password_policy_one_symbol" {
         when require_symbols then 'Symbol required.'
         else 'Symbol not required.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1102,7 +1052,6 @@ query "iam_policy_custom_no_service_wildcard" {
         arn
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when w.arn is null then 'ok'
@@ -1110,7 +1059,6 @@ query "iam_policy_custom_no_service_wildcard" {
       end status,
       p.name || ' contains ' || coalesce(w.statements_num,0)  ||
         ' statements that allow action "*" on at least 1 AWS service on resource "*".' as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
@@ -1140,15 +1088,12 @@ query "iam_policy_custom_no_blocked_kms_actions" {
         arn
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when w.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(w.statements_num,0)  ||
-        ' statements that allow blocked actions on AWS KMS keys.' as reason
-      -- Additional Dimensions
+      p.name || ' contains ' || coalesce(w.statements_num,0)  || ' statements that allow blocked actions on AWS KMS keys.' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
@@ -1209,15 +1154,12 @@ query "iam_policy_inline_no_blocked_kms_actions" {
         arn
     )
     select
-      -- Required Columns
       u.arn as resource,
       case
         when w.arn is null then 'ok'
         else 'alarm'
       end status,
-      u.name || ' contains ' || coalesce(w.statements_num,0)  ||
-        ' inline policy statement(s) that allow blocked actions on AWS KMS keys.' as reason
-      -- Additional Dimensions
+      u.name || ' contains ' || coalesce(w.statements_num,0)  || ' inline policy statement(s) that allow blocked actions on AWS KMS keys.' as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       iam_resource_types as u
@@ -1228,7 +1170,6 @@ query "iam_policy_inline_no_blocked_kms_actions" {
 query "account_part_of_organizations" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when organization_id is not null then 'ok'
@@ -1238,7 +1179,6 @@ query "account_part_of_organizations" {
         when organization_id is not null then title || ' is part of organization(s).'
         else title || ' is not part of organization.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_account;
@@ -1259,7 +1199,6 @@ query "iam_policy_custom_no_assume_role" {
         policies like '%AssumeRole%'
     )
     select
-      -- Required Columns
       u.arn as resource,
       case
         when fu.user_id is not null then 'alarm'
@@ -1269,7 +1208,6 @@ query "iam_policy_custom_no_assume_role" {
         when fu.user_id is not null then u.name || ' custom policies allow STS Role assumption.'
         else u.name || ' custom policies does not allow STS Role assumption.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
@@ -1283,7 +1221,6 @@ query "iam_policy_custom_no_assume_role" {
 query "iam_user_hardware_mfa_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       u.arn as resource,
       case
         when serial_number is null then 'alarm'
@@ -1295,7 +1232,6 @@ query "iam_user_hardware_mfa_enabled" {
         when serial_number like any(array['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
         else u.name || ' hardware MFA device enabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
@@ -1318,7 +1254,6 @@ query "iam_user_with_administrator_access_mfa_enabled" {
         split_part(attachments, '/', 2) = 'AdministratorAccess'
     )
     select
-      -- Required Columns
       u.arn as resource,
       case
         when au.user_id is null then 'skip'
@@ -1330,7 +1265,6 @@ query "iam_user_with_administrator_access_mfa_enabled" {
         when au.user_id is not null and u.mfa_enabled then u.name || ' has MFA token enabled.'
         else u.name || ' has MFA token disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
     from
@@ -1350,7 +1284,6 @@ query "iam_managed_policy_attached_to_role" {
         aws_iam_role
     )
     select
-      -- Required Columns
       arn as resource,
       case
         when arn in (select policy_arn from role_attached_policies) then 'ok'
@@ -1360,7 +1293,6 @@ query "iam_managed_policy_attached_to_role" {
         when arn in (select policy_arn from role_attached_policies) then title || ' attached to IAM role.'
         else title || ' not attached to IAM role.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -1391,7 +1323,6 @@ query "iam_policy_unused" {
         aws_iam_role
     )
     select
-      -- Required Columns
       arn as resource,
       case
         when arn in (select jsonb_array_elements_text(attached_policy_arns) from in_use_policies) then 'ok'
@@ -1401,7 +1332,6 @@ query "iam_policy_unused" {
         when arn in (select jsonb_array_elements_text(attached_policy_arns) from in_use_policies) then title || ' in use.'
         else title || ' not in use.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -1414,7 +1344,6 @@ query "iam_policy_unused" {
 query "iam_access_analyzer_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         -- Skip any regions that are disabled in the account.
@@ -1427,7 +1356,6 @@ query "iam_access_analyzer_enabled" {
         when aa.arn is not null then aa.name ||  ' enabled in ' || r.region || '.'
         else 'Access Analyzer not enabled in ' || r.region || '.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
@@ -1438,7 +1366,6 @@ query "iam_access_analyzer_enabled" {
 query "iam_account_password_policy_strong_min_length_8" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when
@@ -1461,7 +1388,6 @@ query "iam_account_password_policy_strong_min_length_8" {
         then 'Strong password policies configured.'
         else 'Strong password policies not configured.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1492,15 +1418,12 @@ query "iam_policy_all_attached_no_star_star" {
       group by arn
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when s.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  ||
-        ' statements that allow action "*" on resource "*".' as reason
-      -- Additional Dimensions
+      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  || ' statements that allow action "*" on resource "*".' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
@@ -1536,15 +1459,12 @@ query "iam_policy_custom_attached_no_star_star" {
       group by arn
     )
     select
-      -- Required Columns
       p.arn as resource,
       case
         when s.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  ||
-        ' statements that allow action "*" on resource "*".' as reason
-      -- Additional Dimensions
+      p.name || ' contains ' || coalesce(s.num_bad_statements,0)  || ' statements that allow action "*" on resource "*".' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
@@ -1558,7 +1478,6 @@ query "iam_policy_custom_attached_no_star_star" {
 query "iam_root_last_used" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         when password_last_used >= (current_date - interval '90' day) then 'alarm'
@@ -1578,8 +1497,7 @@ query "iam_root_last_used" {
         when access_key_2_last_used_date is null then ' Access Key 2 never used.'
         else ' Access Key 2 used ' || to_char(access_key_2_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - access_key_2_last_used_date) || ' days).'
       end as reason
-      -- Additional Dimensions
-       ${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report
     where
@@ -1590,7 +1508,6 @@ query "iam_root_last_used" {
 query "iam_root_user_virtual_mfa" {
   sql = <<-EOQ
     select
-      -- Required Columns
       'arn:' || s.partition || ':::' || s.account_id as resource,
       case
         when account_mfa_enabled and serial_number is not null then 'ok'
@@ -1601,7 +1518,6 @@ query "iam_root_user_virtual_mfa" {
         when serial_number is null then 'MFA is enabled for the root user, but the MFA associated with the root user is a hardware device.'
         else 'Virtual MFA enabled for the root user.'
       end reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
       aws_iam_account_summary as s
@@ -1612,7 +1528,6 @@ query "iam_root_user_virtual_mfa" {
 query "iam_server_certificate_not_expired" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case when expiration < (current_date - interval '1' second) then 'alarm'
       else 'ok'
@@ -1622,7 +1537,6 @@ query "iam_server_certificate_not_expired" {
       else
         name || ' valid until ' || to_char(expiration, 'DD-Mon-YYYY')  || '.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -1633,7 +1547,6 @@ query "iam_server_certificate_not_expired" {
 query "iam_user_access_keys_and_password_at_setup" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         -- alarm when password is enabled and the key was created within 10 seconds of the user
@@ -1647,7 +1560,6 @@ query "iam_user_access_keys_and_password_at_setup" {
           then user_name || ' has access key created during user creation and password login enabled.'
         else user_name || ' has access key not created during user creation.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
@@ -1657,14 +1569,12 @@ query "iam_user_access_keys_and_password_at_setup" {
 query "iam_user_no_policies" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when attached_policy_arns is null then 'ok'
         else 'alarm'
       end status,
       name || ' has ' || coalesce(jsonb_array_length(attached_policy_arns),0) || ' attached policies.' as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_global_sql}
     from
@@ -1675,14 +1585,12 @@ query "iam_user_no_policies" {
 query "iam_user_one_active_key" {
   sql = <<-EOQ
     select
-      -- Required Columns
       u.arn as resource,
       case
         when count(k.*) > 1 then 'alarm'
         else 'ok'
       end as status,
       u.name || ' has ' || count(k.*) || ' active access key(s).' as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
@@ -1702,7 +1610,6 @@ query "iam_user_one_active_key" {
 query "iam_user_unused_credentials_45" {
   sql = <<-EOQ
     select
-      -- Required Columns
       user_arn as resource,
       case
         --root_account will have always password associated even though AWS credential report returns 'not_supported' for password_enabled
@@ -1748,7 +1655,6 @@ query "iam_user_unused_credentials_45" {
             ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
         end
       as reason
-      -- Additional Dimensions
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;

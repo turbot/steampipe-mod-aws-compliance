@@ -74,7 +74,7 @@ control "kms_cmk_policy_prohibit_public_access" {
 query "kms_key_not_pending_deletion" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when key_state = 'PendingDeletion' then 'alarm'
@@ -84,7 +84,6 @@ query "kms_key_not_pending_deletion" {
         when key_state = 'PendingDeletion' then title || ' scheduled for deletion and will be deleted in ' || extract(day from deletion_date - current_timestamp) || ' day(s).'
         else title || ' not scheduled for deletion.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -97,7 +96,7 @@ query "kms_key_not_pending_deletion" {
 query "kms_cmk_rotation_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when origin = 'EXTERNAL' then 'skip'
@@ -113,7 +112,6 @@ query "kms_cmk_rotation_enabled" {
         when not key_rotation_enabled then title || ' key rotation disabled.'
         else title || ' key rotation enabled.'
       end as reason
-      -- Additional columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -138,7 +136,7 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:reencryptfrom', 'kms:reencrypt*']
     )
     select
-      -- Required Columns
+
       i.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -148,7 +146,6 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
         when d.arn is null then i.title || ' doesn''t allow decryption actions on all keys.'
         else i.title || ' allows decryption actions on all keys.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
@@ -198,7 +195,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:deencrypt*', 'kms:reencryptfrom']
     )
     select
-      -- Required Columns
+
       i.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -208,14 +205,13 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         when d.arn is null then 'User ' || i.title || ' not allowed to perform decryption actions on all keys.'
         else 'User ' || i.title || ' allowed to perform decryption actions on all keys.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_iam_user i
       left join user_with_decrypt_grant d on i.arn = d.arn
     union
     select
-      -- Required Columns
       r.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -225,7 +221,7 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         when d.arn is null then 'Role ' || r.title || ' not allowed to perform decryption actions on all keys.'
         else 'Role ' || r.title || ' allowed to perform decryption actions on all keys.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
       aws_iam_role r
@@ -234,7 +230,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
       r.arn not like '%service-role/%'
     union
     select
-      -- Required Columns
       g.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -244,7 +239,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         when d.arn is null then 'Role ' || g.title || ' not allowed to perform decryption actions on all keys.'
         else 'Group ' || g.title || ' allowed to perform decryption actions on all keys.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "g.")}
     from
       aws_iam_group g
@@ -272,7 +266,6 @@ query "kms_cmk_policy_prohibit_public_access" {
         arn
     )
     select
-      -- Required Columns
       k.arn as resource,
       case
         when p.arn is null then 'ok'
@@ -283,7 +276,6 @@ query "kms_cmk_policy_prohibit_public_access" {
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "k.")}
     from

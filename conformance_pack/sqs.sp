@@ -43,7 +43,6 @@ query "sqs_queue_policy_prohibit_public_access" {
         queue_arn
     )
     select
-      -- Required Columns
       q.queue_arn as resource,
       case
         when p.queue_arn is null then 'ok'
@@ -54,7 +53,7 @@ query "sqs_queue_policy_prohibit_public_access" {
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "q.")}
     from
@@ -66,7 +65,6 @@ query "sqs_queue_policy_prohibit_public_access" {
 query "sqs_queue_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       queue_arn as resource,
       case
         when redrive_policy is not null then 'ok'
@@ -76,7 +74,6 @@ query "sqs_queue_dead_letter_queue_configured" {
         when redrive_policy is not null then title || ' configured with dead-letter queue.'
         else title || ' not configured with dead-letter queue.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -89,7 +86,6 @@ query "sqs_queue_dead_letter_queue_configured" {
 query "sqs_queue_encrypted_at_rest" {
   sql = <<-EOQ
     select
-      -- Required Columns
       queue_arn as resource,
       case
         when kms_master_key_id is null then 'alarm'
@@ -99,7 +95,6 @@ query "sqs_queue_encrypted_at_rest" {
         when kms_master_key_id is null then title || ' encryption at rest disabled.'
         else title || ' encryption at rest enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

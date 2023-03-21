@@ -234,7 +234,6 @@ control "log_metric_filter_cloudtrail_configuration" {
 query "cloudwatch_alarm_action_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when jsonb_array_length(alarm_actions) = 0
@@ -251,7 +250,6 @@ query "cloudwatch_alarm_action_enabled" {
         when jsonb_array_length(ok_actions) != 0 then title || ' ok action enabled.'
         else 'ok'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -262,7 +260,6 @@ query "cloudwatch_alarm_action_enabled" {
 query "log_group_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when kms_key_id is null then 'alarm'
@@ -272,7 +269,6 @@ query "log_group_encryption_at_rest_enabled" {
         when kms_key_id is null then title || ' not encrypted at rest.'
         else title || ' encrypted at rest.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -283,7 +279,6 @@ query "log_group_encryption_at_rest_enabled" {
 query "cloudwatch_log_group_retention_period_365" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when retention_in_days is null or retention_in_days < 365 then 'alarm'
@@ -294,7 +289,6 @@ query "cloudwatch_log_group_retention_period_365" {
         when retention_in_days < 365 then title || ' retention period less than 365 days.'
         else title || ' retention period 365 days or above.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -335,7 +329,6 @@ query "log_metric_filter_unauthorized_api" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -345,7 +338,7 @@ query "log_metric_filter_unauthorized_api" {
         when f.trail_name is null then 'No log metric filter and alarm exist for unauthorized API calls.'
         else filter_name || ' forwards events for unauthorized API calls.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -384,7 +377,6 @@ query "log_metric_filter_console_login_mfa" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -394,7 +386,7 @@ query "log_metric_filter_console_login_mfa" {
         when f.trail_name is null then 'No log metric filter and alarm exist for console sign-in without MFA.'
         else filter_name || ' forwards events for console sign-in without MFA.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -433,7 +425,6 @@ query "log_metric_filter_root_login" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -443,7 +434,7 @@ query "log_metric_filter_root_login" {
         when f.trail_name is null then 'No log metric filter and alarm exist for usage of "root" account.'
         else filter_name || ' forwards events for usage of "root" account.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -483,7 +474,6 @@ query "log_metric_filter_iam_policy" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -493,7 +483,7 @@ query "log_metric_filter_iam_policy" {
         when f.trail_name is null then 'No log metric filter and alarm exist for IAM policy changes.'
         else filter_name || ' forwards events for IAM policy changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -533,7 +523,6 @@ query "log_metric_filter_vpc" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -543,7 +532,7 @@ query "log_metric_filter_vpc" {
         when f.trail_name is null then 'No log metric filter and alarm exist for VPC changes.'
         else filter_name || ' forwards events for VPC changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -583,7 +572,6 @@ query "log_metric_filter_route_table" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -593,7 +581,7 @@ query "log_metric_filter_route_table" {
         when f.trail_name is null then 'No log metric filter and alarm exist for route table changes.'
         else filter_name || ' forwards events for route table changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -633,7 +621,6 @@ query "log_metric_filter_network_gateway" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -643,7 +630,7 @@ query "log_metric_filter_network_gateway" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to network gateways.'
         else filter_name || ' forwards events for changes to network gateways.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -682,7 +669,6 @@ query "log_metric_filter_network_acl" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -692,7 +678,7 @@ query "log_metric_filter_network_acl" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to NACLs.'
         else filter_name || ' forwards events for changes to NACLs.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -731,7 +717,6 @@ query "log_metric_filter_security_group" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -741,7 +726,7 @@ query "log_metric_filter_security_group" {
         when f.trail_name is null then 'No log metric filter and alarm exist for security group changes.'
         else filter_name || ' forwards events for security group changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -780,7 +765,6 @@ query "log_metric_filter_config_configuration" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -790,7 +774,7 @@ query "log_metric_filter_config_configuration" {
         when f.trail_name is null then 'No log metric filter and alarm exist for AWS Config configuration changes.'
         else filter_name || ' forwards events for AWS Config configuration changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -830,7 +814,6 @@ query "log_metric_filter_bucket_policy" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -840,7 +823,7 @@ query "log_metric_filter_bucket_policy" {
         when f.trail_name is null then 'No log metric filter and alarm exist for S3 bucket policy changes.'
         else filter_name || ' forwards events for S3 bucket policy changes.'
       end as reason
-      -- Additional Dimensions
+
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -879,7 +862,6 @@ query "log_metric_filter_disable_or_delete_cmk" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -889,7 +871,6 @@ query "log_metric_filter_disable_or_delete_cmk" {
         when f.trail_name is null then 'No log metric filter and alarm exist for disabling/deletion of CMKs.'
         else filter_name || ' forwards events for disabling/deletion of CMKs.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -928,7 +909,6 @@ query "log_metric_filter_console_authentication_failure" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -938,7 +918,6 @@ query "log_metric_filter_console_authentication_failure" {
         when f.trail_name is null then 'No log metric filter and alarm exist for console authentication failures.'
         else filter_name || ' forwards events for console authentication failures.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -977,7 +956,6 @@ query "log_metric_filter_cloudtrail_configuration" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -987,7 +965,6 @@ query "log_metric_filter_cloudtrail_configuration" {
         when f.trail_name is null then 'No log metric filter and alarm exist for CloudTrail configuration changes.'
         else filter_name || ' forwards events for CloudTrail configuration changes.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1009,7 +986,6 @@ query "cloudwatch_cross_account_sharing" {
         name = 'CloudWatch-CrossAccountSharingRole'
     )
     select
-      -- Required Columns
       a.arn as resource,
       case
         when c.arn is null then 'ok'
@@ -1019,7 +995,6 @@ query "cloudwatch_cross_account_sharing" {
         when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
         else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1061,7 +1036,6 @@ query "log_metric_filter_organization" {
         and subscription.topic_arn = action_arn
     )
     select
-      -- Required Columns
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
       case
         when f.trail_name is null then 'alarm'
@@ -1071,7 +1045,6 @@ query "log_metric_filter_organization" {
         when f.trail_name is null then 'No log metric filter and alarm exists for AWS Organizations changes.'
         else filter_name || ' forwards relevant events for AWS Organizations changes.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a

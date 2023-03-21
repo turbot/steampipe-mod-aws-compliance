@@ -82,7 +82,6 @@ query "backup_recovery_point_manual_deletion_disabled" {
         arn
     )
     select
-      -- Required Columns
       v.arn as resource,
       case
         when d.arn is not null then 'ok'
@@ -92,7 +91,6 @@ query "backup_recovery_point_manual_deletion_disabled" {
         when d.arn is not null then v.title || ' recovery point manual deletion disabled.'
         else v.title || ' recovery point manual deletion not disabled.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
       aws_backup_vault as v
@@ -115,7 +113,6 @@ query "backup_plan_min_retention_35_days" {
         jsonb_array_elements(backup_plan -> 'Rules') as r
     )
     select
-      -- Required Columns
       -- The resource ARN can be duplicate as we are checking all the associated rules to the backup-plan
       -- Backup plans are composed of one or more backup rules.
       -- https://docs.aws.amazon.com/aws-backup/latest/devguide/creating-a-backup-plan.html
@@ -131,7 +128,6 @@ query "backup_plan_min_retention_35_days" {
         when r.Rules ->> 'Lifecycle' is null then (r.Rules ->> 'RuleName') || ' retention period set to never expire.'
         else (r.Rules ->> 'RuleName') || ' retention period set to ' || (r.Rules -> 'Lifecycle' ->> 'DeleteAfterDays') || ' days.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       all_plans as r;
@@ -141,7 +137,6 @@ query "backup_plan_min_retention_35_days" {
 query "backup_recovery_point_encryption_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       recovery_point_arn as resource,
       case
         when is_encrypted then 'ok'
@@ -151,7 +146,6 @@ query "backup_recovery_point_encryption_enabled" {
         when is_encrypted then recovery_point_arn || ' encryption enabled.'
         else recovery_point_arn || ' encryption disabled.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_backup_recovery_point;
@@ -161,7 +155,6 @@ query "backup_recovery_point_encryption_enabled" {
 query "backup_recovery_point_min_retention_35_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       recovery_point_arn as resource,
       case
         when (lifecycle -> 'DeleteAfterDays') is null then 'ok'
@@ -172,8 +165,7 @@ query "backup_recovery_point_min_retention_35_days" {
         when (lifecycle -> 'DeleteAfterDays') is null then split_part(recovery_point_arn, ':', -1) || ' retention period set to never expire.'
         else split_part(recovery_point_arn, ':', -1) || ' recovery point has a retention period of ' || (lifecycle -> 'DeleteAfterDays')::int || ' days.'
       end as reason
-      -- Additional Dimensions
-        ${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_backup_recovery_point;
   EOQ

@@ -12,7 +12,6 @@ query "account_alternate_contact_security_registered" {
         contact_type = 'SECURITY'
     )
     select
-      -- Required Columns
       arn as resource,
       case
         when a.partition = 'aws-us-gov' then 'info'
@@ -25,7 +24,6 @@ query "account_alternate_contact_security_registered" {
         when c.name is not null then a.title || ' has security contact ' || c.name || ' registered.'
         else a.title || ' security contact not registered.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a

@@ -101,7 +101,7 @@ control "lambda_function_tracing_enabled" {
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when dead_letter_config_target_arn is null then 'alarm'
@@ -111,7 +111,6 @@ query "lambda_function_dead_letter_queue_configured" {
         when dead_letter_config_target_arn is null then title || ' configured with dead-letter queue.'
         else title || ' not configured with dead-letter queue.'
       end as reason
-      -- Additional Columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -122,7 +121,7 @@ query "lambda_function_dead_letter_queue_configured" {
 query "lambda_function_in_vpc" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when vpc_id is null then 'alarm'
@@ -132,7 +131,7 @@ query "lambda_function_in_vpc" {
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end reason
-      -- Additional Dimensions
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -159,7 +158,7 @@ query "lambda_function_restrict_public_access" {
         arn
     )
     select
-      -- Required Columns
+
       f.arn as resource,
       case
         when p.arn is null then 'ok'
@@ -170,7 +169,6 @@ query "lambda_function_restrict_public_access" {
         else title || ' contains ' || coalesce(p.statements_num,0) ||
         ' statements that allows public access.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from
@@ -182,7 +180,7 @@ query "lambda_function_restrict_public_access" {
 query "lambda_function_concurrent_execution_limit_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
+
       arn as resource,
       case
         when reserved_concurrent_executions is null then 'alarm'
@@ -192,7 +190,6 @@ query "lambda_function_concurrent_execution_limit_configured" {
         when reserved_concurrent_executions is null then title || ' function-level concurrent execution limit not configured.'
         else title || ' function-level concurrent execution limit configured.'
       end as reason
-      -- Additional Columns
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -245,7 +242,6 @@ query "lambda_function_cloudtrail_logging_enabled" {
         region
     )
     select
-      -- Required Columns
       distinct l.arn as resource,
       case
         when (l.arn = c.lambda_arn)
@@ -259,7 +255,6 @@ query "lambda_function_cloudtrail_logging_enabled" {
           or a.cloudtrail_region =  l.region then l.name || ' logging enabled.'
         else l.name || ' logging not enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
     from
@@ -273,7 +268,6 @@ query "lambda_function_cloudtrail_logging_enabled" {
 query "lambda_function_tracing_enabled" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when tracing_config ->> 'Mode' = 'PassThrough' then 'alarm'
@@ -283,7 +277,6 @@ query "lambda_function_tracing_enabled" {
         when tracing_config ->> 'Mode' = 'PassThrough' then title || ' has tracing disabled.'
         else title || ' has tracing enabled.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -296,7 +289,6 @@ query "lambda_function_tracing_enabled" {
 query "lambda_function_cors_configuration" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when url_config is null then 'info'
@@ -308,7 +300,6 @@ query "lambda_function_cors_configuration" {
         when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
         else title || ' CORS configuration does not allow all origins.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -319,7 +310,6 @@ query "lambda_function_cors_configuration" {
 query "lambda_function_multiple_az_configured" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when vpc_id is null then 'skip'
@@ -341,7 +331,6 @@ query "lambda_function_multiple_az_configured" {
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -352,7 +341,6 @@ query "lambda_function_multiple_az_configured" {
 query "lambda_function_use_latest_runtime" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when package_type <> 'Zip' then 'skip'
@@ -364,7 +352,6 @@ query "lambda_function_use_latest_runtime" {
         when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
         else title || ' uses ' || runtime || ' which is not the latest version.'
       end as reason
-      -- Additional Dimensions
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

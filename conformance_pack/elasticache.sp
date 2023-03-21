@@ -29,7 +29,6 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
 query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   sql = <<-EOQ
     select
-      -- Required Columns
       arn as resource,
       case
         when snapshot_retention_limit < 15 then 'alarm'
@@ -40,7 +39,6 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
         when snapshot_retention_limit < 15 then title || ' automatic backup retention period is less than 15 days.'
         else title || ' automatic backup retention period is more than 15 days.'
       end as reason
-      -- Additional Dimensions
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;
