@@ -34,3 +34,88 @@ control "sns_topic_policy_prohibit_public_access" {
     other_checks = "true"
   })
 }
+
+query "sns_topic_encrypted_at_rest" {
+  sql = <<-EOQ
+    select
+      topic_arn as resource,
+    case
+      when kms_master_key_id is null then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when kms_master_key_id is null then title || ' encryption at rest disabled.'
+      else title || ' encryption at rest enabled.'
+    end as reason
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+    from
+      aws_sns_topic;
+  EOQ
+}
+
+query "sns_topic_policy_prohibit_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        topic_arn,
+        count(*) as statements_num
+      from
+        aws_sns_topic,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+      group by
+        topic_arn
+    )
+    select
+      t.topic_arn as resource,
+      case
+        when p.topic_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.topic_arn is null then title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows public access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_sns_topic as t
+      left join wildcard_action_policies as p on p.topic_arn = t.topic_arn;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "sns_topic_notification_delivery_status_enabled" {
+  sql = <<-EOQ
+    select
+      topic_arn as resource,
+      case
+        when application_failure_feedback_role_arn is null
+          and firehose_failure_feedback_role_arn is null
+          and http_failure_feedback_role_arn is null
+          and lambda_failure_feedback_role_arn is null
+          and sqs_failure_feedback_role_arn is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when application_failure_feedback_role_arn is null
+          and firehose_failure_feedback_role_arn is null
+          and http_failure_feedback_role_arn is null
+          and lambda_failure_feedback_role_arn is null
+          and sqs_failure_feedback_role_arn is null then title || ' has delivery status logging for notification messages disabled.'
+        else title || ' has delivery status logging for notification messages enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sns_topic;
+  EOQ
+}

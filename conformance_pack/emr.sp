@@ -50,3 +50,62 @@ control "emr_cluster_master_nodes_no_public_ip" {
     rbi_cyber_security     = "true"
   })
 }
+
+query "emr_cluster_kerberos_enabled" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when kerberos_attributes is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kerberos_attributes is null then title || ' Kerberos not enabled.'
+        else title || ' Kerberos enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_cluster;
+  EOQ
+}
+
+query "emr_cluster_master_nodes_no_public_ip" {
+  sql = <<-EOQ
+    select
+      c.cluster_arn as resource,
+      case
+        when c.status ->> 'State' not in ('RUNNING', 'WAITING') then 'skip'
+        when s.map_public_ip_on_launch then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when c.status ->> 'State' not in ('RUNNING', 'WAITING') then c.title || ' is in ' || (c.status ->> 'State') || ' state.'
+        when s.map_public_ip_on_launch then c.title || ' master nodes assigned with public IP.'
+        else c.title || ' master nodes not assigned with public IP.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_vpc_subnet as s on c.ec2_instance_attributes ->> 'Ec2SubnetId' = s.subnet_id;
+  EOQ
+}
+
+query "emr_account_public_access_blocked" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      case
+        when block_public_security_group_rules then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when block_public_security_group_rules then region || ' EMR block public access enabled.'
+        else region || ' EMR block public access disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_block_public_access_configuration;
+  EOQ
+}
