@@ -11,7 +11,7 @@ benchmark "cis_controls_v8_ig1_11" {
 }
 
 benchmark "cis_controls_v8_ig1_11_2" {
-  title       = "11.2 - Perform Automated Backups"
+  title       = "11.2 Perform Automated Backups"
   description = "Perform automated backups of in-scope enterprise assets. Run backups weekly, or more frequently, based on the sensitivity of the data."
   children = [
     control.dynamodb_table_in_backup_plan,
@@ -32,7 +32,7 @@ benchmark "cis_controls_v8_ig1_11_2" {
 }
 
 benchmark "cis_controls_v8_ig1_11_3" {
-  title       = "11.3 - Protect Recovery Data"
+  title       = "11.3 Protect Recovery Data"
   description = "Protect recovery data with equivalent controls to the original data. Reference encryption or data separation, based on requirements."
   children = [
     control.ebs_volume_encryption_at_rest_enabled,
@@ -44,7 +44,7 @@ benchmark "cis_controls_v8_ig1_11_3" {
 }
 
 benchmark "cis_controls_v8_ig1_11_4" {
-  title       = "11.4 - Establish and Maintain an Isolated Instance of Recovery Data"
+  title       = "11.4 Establish and Maintain an Isolated Instance of Recovery Data"
   description = "Establish and maintain an isolated instance of recovery data. Example implementations include, version controlling backup destinations through offline, cloud, or off-site systems or services."
   children = [
     control.dynamodb_table_in_backup_plan,

@@ -10,7 +10,7 @@ benchmark "cis_controls_v8_ig1_3" {
 }
 
 benchmark "cis_controls_v8_ig1_3_3" {
-  title       = "3.3 - Configure Data Access Control Lists"
+  title       = "3.3 Configure Data Access Control Lists"
   description = "Configure data access control lists based on a user’s need to know. Apply data access control lists, also known as access permissions, to local and remote file systems, databases, and applications."
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
@@ -53,7 +53,7 @@ benchmark "cis_controls_v8_ig1_3_3" {
 }
 
 benchmark "cis_controls_v8_ig1_3_4" {
-  title       = "3.4 - Enforce Data Retention"
+  title       = "3.4 Enforce Data Retention"
   description = "Retain data according to the enterprise’s data management process. Data retention must include both minimum and maximum timelines."
   children = [
     control.cloudwatch_log_group_retention_period_365

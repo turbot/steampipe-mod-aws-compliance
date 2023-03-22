@@ -11,7 +11,7 @@ benchmark "cis_controls_v8_ig1_4" {
 }
 
 benchmark "cis_controls_v8_ig1_4_1" {
-  title       = "4.1 - Establish and Maintain a Secure Configuration Process"
+  title       = "4.1 Establish and Maintain a Secure Configuration Process"
   description = "Establish and maintain a secure configuration process for enterprise assets (end-user devices, including portable and mobile, non-computing/IoT devices, and servers) and software (operating systems and applications). Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard."
   children = [
     control.account_part_of_organizations,
@@ -26,7 +26,7 @@ benchmark "cis_controls_v8_ig1_4_1" {
 }
 
 benchmark "cis_controls_v8_ig1_4_6" {
-  title       = "4.6 - Securely Manage Enterprise Assets and Software"
+  title       = "4.6 Securely Manage Enterprise Assets and Software"
   description = "Securely manage enterprise assets and software. Example implementations include managing configuration through version-controlled-infrastructure-as-code and accessing administrative interfaces over secure network protocols, such as Secure Shell (SSH) and Hypertext Transfer Protocol Secure (HTTPS). Do not use insecure management protocols, such as Telnet (Teletype Network) and HTTP, unless operationally essential."
   children = [
     control.account_part_of_organizations,
@@ -65,7 +65,7 @@ benchmark "cis_controls_v8_ig1_4_6" {
 }
 
 benchmark "cis_controls_v8_ig1_4_7" {
-  title       = "4.7 - Manage Default Accounts on Enterprise Assets and Software"
+  title       = "4.7 Manage Default Accounts on Enterprise Assets and Software"
   description = "Manage default accounts on enterprise assets and software, such as root, administrator, and other pre-configured vendor accounts. Example implementations can include: disabling default accounts or making them unusable."
   children = [
     control.iam_root_user_mfa_enabled,

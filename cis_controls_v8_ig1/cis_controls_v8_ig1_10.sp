@@ -10,7 +10,7 @@ benchmark "cis_controls_v8_ig1_10" {
 }
 
 benchmark "cis_controls_v8_ig1_10_1" {
-  title       = "10.1 - Deploy and Maintain Anti-Malware Software"
+  title       = "10.1 Deploy and Maintain Anti-Malware Software"
   description = "Deploy and maintain anti-malware software on all enterprise assets."
   children = [
     control.guardduty_enabled
@@ -20,7 +20,7 @@ benchmark "cis_controls_v8_ig1_10_1" {
 }
 
 benchmark "cis_controls_v8_ig1_10_2" {
-  title       = "10.2 - Configure Automatic Anti-Malware Signature Updates"
+  title       = "10.2 Configure Automatic Anti-Malware Signature Updates"
   description = "Configure automatic updates for anti-malware signature files on all enterprise assets."
   children = [
     control.guardduty_enabled

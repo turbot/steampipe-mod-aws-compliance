@@ -10,7 +10,7 @@ benchmark "cis_controls_v8_ig1_16" {
 }
 
 benchmark "cis_controls_v8_ig1_16_1" {
-  title       = "16.1 - Establish and Maintain a Secure Application Development Process"
+  title       = "16.1 Establish and Maintain a Secure Application Development Process"
   description = "Deploy and maintain anti-malware software on all enterprise assets."
   children = [
     control.codebuild_project_artifact_encryption_enabled,
@@ -24,7 +24,7 @@ benchmark "cis_controls_v8_ig1_16_1" {
 }
 
 benchmark "cis_controls_v8_ig1_16_12" {
-  title       = "16.12 - Implement Code-Level Security Checks"
+  title       = "16.12 Implement Code-Level Security Checks"
   children = [
     control.codebuild_project_artifact_encryption_enabled,
     control.codebuild_project_environment_privileged_mode_disabled,
