@@ -1,3 +1,16 @@
+## v0.58 [2023-03-22]
+
+_What's new?_
+
+- New AWS Foundational Security Best Practices control added: ([#586](https://github.com/turbot/steampipe-mod-aws-compliance/pull/586))
+  - EC2.25 (`steampipe check control.foundational_security_ec2_25`)
+- Added `tags` as dimensions to group and filter findings. (see [var.tag_dimensions](https://hub.steampipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/steampipe-mod-aws-compliance/pull/574))
+- Added `connection_name` in the common dimensions to group and filter findings. (see [var.common_dimensions](https://hub.steampipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/steampipe-mod-aws-compliance/pull/574))
+
+_Bug fixes_
+
+- Fixed the sub-benchmark titles of `CIS Controls v8 IG1` benchmark to maintain consistency across other CIS benchmark titles. ([#589](https://github.com/turbot/steampipe-mod-aws-compliance/pull/589))
+
 ## v0.57 [2023-03-10]
 
 _Dependencies_
