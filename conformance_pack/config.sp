@@ -69,7 +69,6 @@ query "config_enabled_all_regions" {
         else ' and LastStatus is not SUCCESS.'
       end
       end as reason
-      -- Additional columns
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       global_recorders as g,

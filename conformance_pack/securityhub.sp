@@ -43,7 +43,6 @@ query "securityhub_enabled" {
         when h.hub_arn is not null then 'Security Hub enabled in ' || r.region || '.'
         else 'Security Hub disabled in ' || r.region || '.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
