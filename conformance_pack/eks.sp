@@ -46,3 +46,138 @@ control "eks_cluster_no_default_vpc" {
     other_checks = "true"
   })
 }
+
+query "eks_cluster_secrets_encrypted" {
+  sql = <<-EOQ
+    with eks_secrets_encrypted as (
+      select
+        distinct arn as arn
+      from
+        aws_eks_cluster,
+        jsonb_array_elements(encryption_config) as e
+      where
+        e -> 'Resources'  @> '["secrets"]'
+    )
+    select
+      a.arn as resource,
+      case
+        when encryption_config is null then 'alarm'
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encryption_config is null then a.title || ' encryption not enabled.'
+        when b.arn is not null then a.title || ' encrypted with EKS secrets.'
+        else a.title || ' not encrypted with EKS secrets.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster as a
+      left join eks_secrets_encrypted as b on a.arn = b.arn;
+  EOQ
+}
+
+query "eks_cluster_endpoint_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' then title || ' endpoint publicly accessible.'
+        else title || ' endpoint not publicly accessible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}
+
+query "eks_cluster_control_plane_audit_logging_enabled" {
+  sql = <<-EOQ
+    with control_panel_audit_logging as (
+      select
+        distinct arn,
+        log -> 'Types' as log_type
+      from
+        aws_eks_cluster,
+        jsonb_array_elements(logging -> 'ClusterLogging') as log
+      where
+        log ->> 'Enabled' = 'true'
+        and (log -> 'Types') @> '["api", "audit", "authenticator", "controllerManager", "scheduler"]'
+    )
+    select
+      c.arn as resource,
+      case
+        when l.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.arn is not null then c.title || ' control plane audit logging enabled for all log types.'
+        else
+          case when logging -> 'ClusterLogging' @> '[{"Enabled": true}]' then c.title || ' control plane audit logging not enabled for all log types.'
+          else c.title || ' control plane audit logging not enabled.'
+          end
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_eks_cluster as c
+      left join control_panel_audit_logging as l on l.arn = c.arn;
+  EOQ
+}
+
+query "eks_cluster_no_default_vpc" {
+  sql = <<-EOQ
+    with default_vpc_cluster as (
+      select
+        distinct c.arn
+      from
+        aws_eks_cluster as c
+        left join aws_vpc as v on v.vpc_id = c.resources_vpc_config ->> 'VpcId'
+      where
+        v.is_default
+    )
+    select
+      c.arn as resource,
+      case
+        when v.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when v.arn is not null then title || ' uses default VPC.'
+        else title || ' does not use default VPC.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_eks_cluster as c
+      left join default_vpc_cluster as v on v.arn = c.arn;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "eks_cluster_with_latest_kubernetes_version" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        -- eks:oldestVersionSupported (Current oldest supported version is 1.19)
+        when (version)::decimal >= 1.19 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
+        else title || ' does not run on a supported kubernetes version.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}

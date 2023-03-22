@@ -9,7 +9,7 @@ benchmark "cis_controls_v8_ig1_12" {
 }
 
 benchmark "cis_controls_v8_ig1_12_1" {
-  title       = "12.1 - Ensure Network Infrastructure is Up-to-Date"
+  title       = "12.1 Ensure Network Infrastructure is Up-to-Date"
   description = "Ensure network infrastructure is kept up-to-date. Example implementations include running the latest stable release of software and/or using currently supported network-as-a-service (NaaS) offerings. Review software versions monthly, or more frequently, to verify software support."
   children = [
     control.ec2_instance_ssm_managed,

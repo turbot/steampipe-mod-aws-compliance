@@ -68,3 +68,70 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     soc_2                  = "true"
   })
 }
+
+query "ec2_instance_ssm_managed" {
+  sql = <<-EOQ
+    select
+      i.arn as resource,
+      case
+        when i.instance_state = 'stopped' then 'info'
+        when m.instance_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when i.instance_state = 'stopped' then i.title || ' is in stopped state.'
+        when m.instance_id is null then i.title || ' not managed by AWS SSM.'
+        else i.title || ' managed by AWS SSM.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance i
+      left join aws_ssm_managed_instance m on m.instance_id = i.instance_id;
+  EOQ
+}
+
+query "ssm_managed_instance_compliance_association_compliant" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when c.status = 'COMPLIANT' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.status = 'COMPLIANT' then c.resource_id || ' association ' || c.title || ' is compliant.'
+        else c.resource_id || ' association ' || c.title || ' is non-compliant.'
+      end as reason
+
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ssm_managed_instance as i,
+      aws_ssm_managed_instance_compliance as c
+    where
+      c.resource_id = i.instance_id
+      and c.compliance_type = 'Association';
+  EOQ
+}
+
+query "ssm_managed_instance_compliance_patch_compliant" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when c.status = 'COMPLIANT' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.status = 'COMPLIANT' then c.resource_id || ' patch ' || c.title || ' is compliant.'
+        else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ssm_managed_instance as i,
+      aws_ssm_managed_instance_compliance as c
+    where
+      c.resource_id = i.instance_id
+      and c.compliance_type = 'Patch';
+  EOQ
+}

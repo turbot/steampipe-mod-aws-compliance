@@ -10,7 +10,7 @@ benchmark "cis_controls_v8_ig1_8" {
 }
 
 benchmark "cis_controls_v8_ig1_8_1" {
-  title       = "8.1 - Establish and Maintain an Audit Log Management Process"
+  title       = "8.1 Establish and Maintain an Audit Log Management Process"
   description = "Establish and maintain an audit log management process that defines the enterprise’s logging requirements. At a minimum, address the collection, review, and retention of audit logs for enterprise assets. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard."
   children = [
     control.cloudwatch_log_group_retention_period_365
@@ -20,7 +20,7 @@ benchmark "cis_controls_v8_ig1_8_1" {
 }
 
 benchmark "cis_controls_v8_ig1_8_2" {
-  title       = "8.2 - Collect Audit Logs"
+  title       = "8.2 Collect Audit Logs"
   description = "Collect audit logs. Ensure that logging, per the enterprise’s audit log management process, has been enabled across enterprise assets."
   children = [
     control.apigateway_stage_logging_enabled,

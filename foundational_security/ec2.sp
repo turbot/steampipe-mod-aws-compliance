@@ -26,6 +26,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
+    control.foundational_security_ec2_25,
     control.foundational_security_ec2_27
   ]
 
@@ -265,6 +266,19 @@ control "foundational_security_ec2_24" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_24"
     foundational_security_category = "vulnerability_patch_and_version_management"
+  })
+}
+
+control "foundational_security_ec2_25" {
+  title         = "25 Amazon EC2 launch templates should not assign public IPs to network interfaces"
+  description   = "This control checks if Amazon EC2 launch templates are configured to assign public IP addresses to network interfaces upon launch. The control fails if an EC2 launch template is configured to assign a public IP address to network interfaces or if there is at least one network interface that has a public IP address."
+  severity      = "high"
+  query         = query.ec2_launch_template_not_publicly_accessible
+  documentation = file("./foundational_security/docs/foundational_security_ec2_25.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_25"
+    foundational_security_category = "resources_not_publicly_accessible"
   })
 }
 

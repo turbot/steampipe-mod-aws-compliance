@@ -80,3 +80,179 @@ control "efs_file_system_enforces_ssl" {
     other_checks = "true"
   })
 }
+
+query "efs_file_system_encrypt_data_at_rest" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system;
+  EOQ
+}
+
+query "efs_file_system_automatic_backups_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when automatic_backups = 'enabled' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when automatic_backups = 'enabled' then title || ' automatic backups enabled.'
+        else title || ' automatic backups not enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system;
+  EOQ
+}
+
+query "efs_file_system_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_file_system as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'EFS'
+    )
+    select
+      f.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then f.title || ' is protected by backup plan.'
+        else f.title || ' is not protected by backup plan.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+    from
+      aws_efs_file_system as f
+      left join backup_protected_file_system as b on f.arn = b.arn;
+  EOQ
+}
+
+query "efs_file_system_encrypted_with_cmk" {
+  sql = <<-EOQ
+    with encrypted_fs as (
+      select
+        fs.arn as arn,
+        key_manager
+      from
+        aws_efs_file_system as fs
+        left join aws_kms_key as k on fs.kms_key_id = k.arn
+      where
+        enabled
+    )
+    select
+      f.arn as resource,
+      case
+        when not encrypted then 'alarm'
+        when encrypted and e.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not encrypted then title || ' not encrypted.'
+        when encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_file_system as f
+      left join encrypted_fs as e on f.arn = e.arn;
+  EOQ
+}
+
+query "efs_file_system_enforces_ssl" {
+  sql = <<-EOQ
+    with ssl_ok as (
+      select
+        distinct name,
+        arn,
+        'ok' as status
+      from
+        aws_efs_file_system,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p,
+        jsonb_array_elements_text(s -> 'Action') as a,
+        jsonb_array_elements_text(
+          s -> 'Condition' -> 'Bool' -> 'aws:securetransport'
+        ) as ssl
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Deny'
+        and ssl :: bool = false
+    )
+    select
+      f.arn as resource,
+      case
+        when ok.status = 'ok' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
+        else f.title || ' policy does not enforce HTTPS.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+    from
+      aws_efs_file_system as f
+      left join ssl_ok as ok on ok.name = f.name;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "efs_access_point_enforce_root_directory" {
+  sql = <<-EOQ
+    select
+      access_point_arn as resource,
+      case
+        when root_directory ->> 'Path'= '/' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
+        else title || ' configured to enforce a root directory.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_access_point;
+  EOQ
+}
+
+query "efs_access_point_enforce_user_identity" {
+  sql = <<-EOQ
+    select
+      access_point_arn as resource,
+      case
+        when posix_user is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when posix_user is null then title || ' does not enforce a user identity.'
+        else title || ' enforces a user identity.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_access_point;
+  EOQ
+}
