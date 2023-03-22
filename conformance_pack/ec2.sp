@@ -639,7 +639,6 @@ query "ec2_launch_template_not_publicly_accessible" {
         aws_ec2_instance
     )
     select
-      -- Required Columns
       t.launch_template_id as resource,
       case
         when i.launch_template_id is null then 'skip'
@@ -651,7 +650,6 @@ query "ec2_launch_template_not_publicly_accessible" {
         when t.launch_template_id in ( select public_launch_template_id from public_launch_templates ) then t.title || ' publicly accessible.'
         else t.title || ' not publicly accessible.'
       end as reason
-      -- Additional Dimensions
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
     from
