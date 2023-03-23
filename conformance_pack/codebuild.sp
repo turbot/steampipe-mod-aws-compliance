@@ -82,7 +82,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
 control "codebuild_project_artifact_encryption_enabled" {
   title       = "CodeBuild project artifact encryption should be enabled"
-  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  description = "This control checks if an CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
@@ -92,7 +92,7 @@ control "codebuild_project_artifact_encryption_enabled" {
 
 control "codebuild_project_s3_logs_encryption_enabled" {
   title       = "CodeBuild projects S3 logs should be encrypted"
-  description = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
+  description = "This control checks if S3 logs for CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
   query       = query.codebuild_project_s3_logs_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {

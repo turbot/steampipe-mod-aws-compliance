@@ -100,7 +100,7 @@ control "lambda_function_tracing_enabled" {
 
 control "lambda_function_use_latest_runtime" {
   title       = "Lambda functions should use latest runtimes"
-  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs14.x, nodejs12.x, nodejs10.x, python3.8, python3.7, python3.6, ruby2.7, ruby2.5,java11, java8, go1.x, dotnetcore3.1, dotnetcore2.1."
+  description = "This control checks that the lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs14.x, nodejs12.x, nodejs10.x, python3.8, python3.7, python3.6, ruby2.7, ruby2.5,java11, java8, go1.x, dotnetcore3.1, dotnetcore2.1."
   query       = query.lambda_function_use_latest_runtime
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -109,7 +109,7 @@ control "lambda_function_use_latest_runtime" {
 
 control "lambda_function_multiple_az_configured" {
   title       = "Lambda functions should operate in more than one availability zone"
-  description = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
+  description = "This control checks if lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with lambda."
   query       = query.lambda_function_multiple_az_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {

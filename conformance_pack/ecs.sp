@@ -82,7 +82,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
 
 control "ecs_task_definition_non_root_user" {
   title       = "ECS task definitions should not use root user to run EC2 launch type containers"
-  description = "This control checks if ECSTaskDefinitions specify a user for Amazon Elastic Container Service (Amazon ECS) EC2 launch type containers to run on. The rule is non compliant if the 'user' parameter is not present or set to 'root'."
+  description = "This control checks if ECSTaskDefinitions specify a user for Elastic Container Service (ECS) EC2 launch type containers to run on. The rule is non compliant if the 'user' parameter is not present or set to 'root'."
   query       = query.ecs_task_definition_non_root_user
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
@@ -100,7 +100,7 @@ control "ecs_cluster_container_insights_enabled" {
 
 control "ecs_task_definition_container_readonly_root_filesystem" {
   title       = "ECS containers should be limited to read-only access to root filesystems"
-  description = "This control checks if ECS containers are limited to read-only access to mounted root filesystems. This control fails if the ReadonlyRootFilesystem parameter in the container definition of ECS task definitions is set to false."
+  description = "This control checks if ECS containers are limited to read-only access to mounted root filesystems. This control fails if the 'ReadonlyRootFilesystem' parameter in the container definition of ECS task definitions is set to false."
   query       = query.ecs_task_definition_container_readonly_root_filesystem
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
@@ -109,7 +109,7 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
 
 control "ecs_task_definition_container_non_privileged" {
   title       = "ECS containers should run as non-privileged"
-  description = "This control checks if the privileged parameter in the container definition of Amazon ECS Task Definitions is set to true. The control fails if this parameter is equal to true."
+  description = "This control checks if the privileged parameter in the container definition of ECS task definitions is set to true. The control fails if this parameter is equal to true."
   query       = query.ecs_task_definition_container_non_privileged
 
   tags = merge(local.conformance_pack_ecs_common_tags, {

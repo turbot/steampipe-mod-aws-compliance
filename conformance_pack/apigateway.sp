@@ -88,7 +88,7 @@ control "apigateway_rest_api_authorizers_configured" {
 
 control "apigateway_rest_api_stage_xray_tracing_enabled" {
   title       = "API Gateway REST API stages should have AWS X-Ray tracing enabled"
-  description = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  description = "This control checks whether X-Ray active tracing is enabled for your API gateway REST API stages."
   query       = query.apigateway_rest_api_stage_xray_tracing_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
