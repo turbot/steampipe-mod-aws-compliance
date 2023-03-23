@@ -81,7 +81,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
 }
 
 control "ecs_task_definition_non_root_user" {
-  title       = "ECS task definitions should not use root user"
+  title       = "ECS task definitions should not use root user to run EC2 launch type containers"
   description = "This control checks if ECSTaskDefinitions specify a user for Amazon Elastic Container Service (Amazon ECS) EC2 launch type containers to run on. The rule is non compliant if the 'user' parameter is not present or set to 'root'."
   query       = query.ecs_task_definition_non_root_user
 
