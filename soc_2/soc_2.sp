@@ -18,7 +18,7 @@ benchmark "soc_2" {
     benchmark.soc_2_cc_7,
     benchmark.soc_2_cc_8,
     benchmark.soc_2_a_1,
-    benchmark.soc_2_c_1,
+    benchmark.soc_2_c_1
   ]
   tags = local.soc_2_common_tags
 }
