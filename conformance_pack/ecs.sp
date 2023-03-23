@@ -72,7 +72,7 @@ control "ecs_task_definition_logging_enabled" {
 }
 
 control "ecs_service_fargate_using_latest_platform_version" {
-  title       = "Fargate services should run on the latest Fargate platform version"
+  title       = "ECS fargate services should run on the latest fargate platform version"
   description = "This control checks if Amazon ECS Fargate services are running the latest Fargate platform version. This control fails if the platform version is not the latest."
   query       = query.ecs_service_fargate_using_latest_platform_version
 
