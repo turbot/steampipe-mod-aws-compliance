@@ -90,6 +90,15 @@ control "codebuild_project_artifact_encryption_enabled" {
   })
 }
 
+control "codebuild_project_s3_logs_encryption_enabled" {
+  title       = "CodeBuild S3 logs should be encrypted"
+  description = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
+  query       = query.codebuild_project_s3_logs_encryption_enabled
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+  })
+}
+
 query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   sql = <<-EOQ
     with invalid_key_name as (
@@ -266,8 +275,6 @@ query "codebuild_project_build_greater_then_90_days" {
       left join latest_codebuild_build as b on p.name = b.project_name and p.region = b.region and p.account_id = b.account_id;
   EOQ
 }
-
-# Non-Config rule query
 
 query "codebuild_project_s3_logs_encryption_enabled" {
   sql = <<-EOQ

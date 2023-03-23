@@ -98,6 +98,24 @@ control "lambda_function_tracing_enabled" {
   })
 }
 
+control "lambda_function_use_latest_runtime" {
+  title       = "Lambda functions should use latest runtimes"
+  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs14.x, nodejs12.x, nodejs10.x, python3.8, python3.7, python3.6, ruby2.7, ruby2.5,java11, java8, go1.x, dotnetcore3.1, dotnetcore2.1."
+  query       = query.lambda_function_use_latest_runtime
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+  })
+}
+
+control "lambda_function_multiple_az_configured" {
+  title       = "VPC Lambda functions should operate in more than one Availability Zone"
+  description = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
+  query       = query.lambda_function_multiple_az_configured
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+  })
+}
+
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
@@ -284,21 +302,19 @@ query "lambda_function_tracing_enabled" {
   EOQ
 }
 
-# Non-Config rule query
-
-query "lambda_function_cors_configuration" {
+query "lambda_function_use_latest_runtime" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when url_config is null then 'info'
-        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then 'alarm'
-        else 'ok'
+        when package_type <> 'Zip' then 'skip'
+        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then 'ok'
+        else 'alarm'
       end as status,
       case
-        when url_config is null then title || ' does not has a URL config.'
-        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
-        else title || ' CORS configuration does not allow all origins.'
+        when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
+        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
+        else title || ' uses ' || runtime || ' which is not the latest version.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -338,19 +354,21 @@ query "lambda_function_multiple_az_configured" {
   EOQ
 }
 
-query "lambda_function_use_latest_runtime" {
+# Non-Config rule query
+
+query "lambda_function_cors_configuration" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when package_type <> 'Zip' then 'skip'
-        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then 'ok'
-        else 'alarm'
+        when url_config is null then 'info'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then 'alarm'
+        else 'ok'
       end as status,
       case
-        when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
-        when runtime in ('nodejs16.x', 'nodejs14.x', 'nodejs12.x', 'nodejs10.x', 'python3.9', 'python3.8', 'python3.7', 'python3.6', 'ruby2.5', 'ruby2.7', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnetcore2.1', 'dotnetcore3.1', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
-        else title || ' uses ' || runtime || ' which is not the latest version.'
+        when url_config is null then title || ' does not has a URL config.'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
+        else title || ' CORS configuration does not allow all origins.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -358,4 +376,3 @@ query "lambda_function_use_latest_runtime" {
       aws_lambda_function;
   EOQ
 }
-

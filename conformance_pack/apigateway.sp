@@ -86,6 +86,15 @@ control "apigateway_rest_api_authorizers_configured" {
   })
 }
 
+control "apigateway_rest_api_stage_xray_tracing_enabled" {
+  title       = "API Gateway REST API stages should have AWS X-Ray tracing enabled"
+  description = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  query       = query.apigateway_rest_api_stage_xray_tracing_enabled
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+  })
+}
+
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -209,6 +218,25 @@ query "apigateway_rest_api_authorizers_configured" {
   EOQ
 }
 
+query "apigateway_rest_api_stage_xray_tracing_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when tracing_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when tracing_enabled then title || ' X-Ray tracing enabled.'
+        else title || ' X-Ray tracing disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "api_gatewayv2_route_authorization_type_configured" {
@@ -227,25 +255,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_route;
-  EOQ
-}
-
-query "apigateway_rest_api_stage_xray_tracing_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when tracing_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when tracing_enabled then title || ' X-Ray tracing enabled.'
-        else title || ' X-Ray tracing disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_api_gateway_stage;
   EOQ
 }
 
