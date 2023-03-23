@@ -273,6 +273,37 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   })
 }
 
+control "elb_network_lb_cross_zone_load_balancing_enabled" {
+  title       = "Network Load Balancers should span multiple Availability Zones"
+  description = "This control checks if cross-zone load balancing is enabled on Network Load Balancers (NLBs). The rule is non compliant if cross-zone load balancing is not enabled for an NLB."
+  query       = query.elb_network_lb_cross_zone_load_balancing_enabled
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+  })
+}
+
+query "elb_network_lb_cross_zone_load_balancing_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when a ->> 'Value' = 'true'  then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when a ->> 'Value' = 'true' then title || ' cross-zone load balancing enabled.'
+        else title || ' cross-zone load balancing disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_load_balancer,
+      jsonb_array_elements(load_balancer_attributes) as a
+    where
+      a ->> 'Key' = 'load_balancing.cross_zone.enabled';
+  EOQ
+}
+
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ
     (

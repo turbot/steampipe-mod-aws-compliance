@@ -107,6 +107,35 @@ control "ecs_service_fargate_using_latest_platform_version" {
   })
 }
 
+control "ecs_task_definition_nonroot_user" {
+  title       = "ECS task definition should not use root user"
+  description = "This control checks if ECSTaskDefinitions specify a user for Amazon Elastic Container Service (Amazon ECS) EC2 launch type containers to run on. The rule is non compliant if the 'user' parameter is not present or set to 'root'."
+  query       = query.ecs_task_definition_nonroot_user
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+  })
+}
+
+query "ecs_task_definition_nonroot_user" {
+  sql = <<-EOQ
+  select
+    task_definition_arn as resource,
+    case
+      when c ->> 'User' is null or c ->> 'User' = 'root' then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when c ->> 'User' is null or c ->> 'User' = 'root' then title || ' has root user.'
+      else title || ' has non-root user.'
+    end as reason
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+  from
+    aws_ecs_task_definition,
+    jsonb_array_elements(container_definitions) as c;
+  EOQ
+}
+
 query "ecs_task_definition_user_for_host_mode_check" {
   sql = <<-EOQ
     with host_network_task_definition as (

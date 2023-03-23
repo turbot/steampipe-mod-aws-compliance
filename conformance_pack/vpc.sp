@@ -284,10 +284,37 @@ control "vpc_network_acl_remote_administration" {
   })
 }
 
+control "vpc_peering_dns_resolution_check" {
+  title       = "Ensure VPC peering DNS resolution is enabled"
+  description = "This control checks if DNS resolution from accepter/requester VPC to private IP is enabled. The rule is non compliant if DNS resolution from accepter/requester VPC to private IP is not enabled."
+  query       = query.vpc_peering_dns_resolution_check
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+  })
+}
+
+query "vpc_peering_dns_resolution_check" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then title || ' DNS resolution enabled.'
+        else title || ' DNS resolution disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection;
+  EOQ
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
-
       distinct arn as resource,
       case
         when v.account_id <> v.owner_id then 'skip'

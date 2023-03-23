@@ -16,6 +16,64 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   })
 }
 
+control "opensearch_domain_data_node_fault_tolerance" {
+  title       = "OpenSearch domains data node should be fault tolerant"
+  description = "This control checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is non compliant for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'."
+  query       = query.opensearch_domain_data_node_fault_tolerance
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+  })
+}
+
+control "opensearch_domain_node_to_node_encryption_enabled" {
+  title       = "OpenSearch domain node-to-node encryption should be enabled"
+  description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  query       = query.opensearch_domain_node_to_node_encryption_enabled
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+  })
+}
+
+query "opensearch_domain_node_to_node_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
+        when node_to_node_encryption_options_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
+        when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
+        else title || ' node-to-node encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticsearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_data_node_fault_tolerance" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then title || ' data node fault tolerant.'
+        else title || ' data node fault intolerant.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
 query "opensearch_domain_in_vpc" {
   sql = <<-EOQ
     with public_subnets as (
@@ -60,7 +118,6 @@ query "opensearch_domain_in_vpc" {
 query "opensearch_domain_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when encryption_at_rest_options ->> 'Enabled' = 'false' then 'alarm'
