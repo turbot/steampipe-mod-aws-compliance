@@ -830,6 +830,44 @@ query "rds_db_instance_ca_certificate_expires_7_days" {
   EOQ
 }
 
+query "rds_db_instance_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when master_user_name in ('admin','postgres') then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when master_user_name in ('admin','postgres') then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "rds_db_cluster_aurora_backtracking_enabled" {
@@ -904,25 +942,6 @@ query "rds_db_cluster_multiple_az_enabled" {
         when multi_az then title || ' Multi-AZ enabled.'
         else title || ' Multi-AZ disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_cluster;
-  EOQ
-}
-
-query "rds_db_cluster_no_default_admin_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when master_user_name in ('admin','postgres') then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
-        else title || ' not using default master user name.'
-      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1031,25 +1050,6 @@ query "rds_db_instance_in_vpc" {
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_instance;
-  EOQ
-}
-
-query "rds_db_instance_no_default_admin_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when master_user_name in ('admin','postgres') then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
-        else title || ' not using default master user name.'
-      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

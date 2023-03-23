@@ -837,6 +837,37 @@ query "s3_bucket_static_website_hosting_disabled" {
   EOQ
 }
 
+query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
+  sql = <<-EOQ
+    with lifecycle_rules_enabled as (
+      select
+        arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(lifecycle_rules) as r
+      where
+        r ->> 'Status' = 'Enabled'
+    )
+    select
+      b.arn as resource,
+      case
+        when not versioning_enabled then 'alarm'
+        when versioning_enabled and r.arn is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when not versioning_enabled then name || ' versioning diabled.'
+        when versioning_enabled and r.arn is not null then ' versioning enabled and lifecycle policy configured.'
+        else name || ' lifecycle policy not configured.'
+      end reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+    from
+      aws_s3_bucket as b
+      left join lifecycle_rules_enabled as r on r.arn = b.arn;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "s3_bucket_acls_should_prohibit_user_access" {
@@ -936,7 +967,6 @@ query "s3_bucket_mfa_delete_enabled" {
         when versioning_mfa_delete then name || ' MFA delete enabled.'
         else name || ' MFA delete disabled.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1002,36 +1032,5 @@ query "s3_bucket_public_access_blocked" {
       ${local.common_dimensions_sql}
     from
       aws_s3_bucket;
-  EOQ
-}
-
-query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
-  sql = <<-EOQ
-    with lifecycle_rules_enabled as (
-      select
-        arn
-      from
-        aws_s3_bucket,
-        jsonb_array_elements(lifecycle_rules) as r
-      where
-        r ->> 'Status' = 'Enabled'
-    )
-    select
-      b.arn as resource,
-      case
-        when not versioning_enabled then 'alarm'
-        when versioning_enabled and r.arn is not null then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when not versioning_enabled then name || ' versioning diabled.'
-        when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
-        else name || ' lifecycle policy not configured.'
-      end reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
-    from
-      aws_s3_bucket as b
-      left join lifecycle_rules_enabled as r on r.arn = b.arn;
   EOQ
 }
