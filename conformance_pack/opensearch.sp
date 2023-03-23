@@ -104,8 +104,8 @@ query "opensearch_domain_data_node_fault_tolerance" {
         else 'alarm'
       end as status,
       case
-        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then title || ' data node fault tolerant.'
-        else title || ' data node fault intolerant.'
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then title || ' data node is fault tolerant.'
+        else title || ' data node is fault intolerant.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
