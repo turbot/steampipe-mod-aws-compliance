@@ -82,6 +82,15 @@ control "efs_file_system_enforces_ssl" {
   })
 }
 
+control "efs_access_point_enforce_user_identity" {
+  title       = "EFS access points should enforce a user identity"
+  description = "This control checks whether EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
+  query       = query.efs_access_point_enforce_user_identity
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+  })
+}
+
 query "efs_file_system_encrypt_data_at_rest" {
   sql = <<-EOQ
     select
@@ -218,6 +227,25 @@ query "efs_file_system_enforces_ssl" {
   EOQ
 }
 
+query "efs_access_point_enforce_user_identity" {
+  sql = <<-EOQ
+    select
+      access_point_arn as resource,
+      case
+        when posix_user is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when posix_user is null then title || ' does not enforce a user identity.'
+        else title || ' enforces a user identity.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_access_point;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "efs_access_point_enforce_root_directory" {
@@ -231,25 +259,6 @@ query "efs_access_point_enforce_root_directory" {
       case
         when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
         else title || ' configured to enforce a root directory.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_efs_access_point;
-  EOQ
-}
-
-query "efs_access_point_enforce_user_identity" {
-  sql = <<-EOQ
-    select
-      access_point_arn as resource,
-      case
-        when posix_user is null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when posix_user is null then title || ' does not enforce a user identity.'
-        else title || ' enforces a user identity.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
