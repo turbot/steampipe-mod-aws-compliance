@@ -5,7 +5,7 @@ locals {
 }
 
 control "networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets" {
-  title       = "The default stateless action for Network Firewall policies should be drop or forward for fragmented packets"
+  title       = "Network Firewall policies default stateless action for fragmented packets should be drop or forward for fragmented packets"
   description = "This control checks whether the default stateless action for fragmented packets for a Network Firewall policy is drop or forward. The control passes if Drop or Forward is selected, and fails if Pass is selected."
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets
 
@@ -14,7 +14,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
 }
 
 control "networkfirewall_firewall_policy_default_stateless_action_check_full_packets" {
-  title       = "The default stateless action for Network Firewall policies should be drop or forward for full packets"
+  title       = "Network Firewall policies default stateless action should be drop or forward for full packets"
   description = "A firewall policy defines how your firewall monitors and handles traffic in Amazon VPC. You configure stateless and stateful rule groups to filter packets and traffic flows. Defaulting to Pass can allow unintended traffic."
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_full_packets
 
