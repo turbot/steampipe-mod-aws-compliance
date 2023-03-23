@@ -255,15 +255,6 @@ control "elb_tls_listener_protocol_version" {
   })
 }
 
-control "elb_classic_lb_multiple_az_configured" {
-  title       = "Classic Load Balancers should span multiple Availability Zones"
-  description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
-  query       = query.elb_classic_lb_multiple_az_configured
-
-  tags = merge(local.conformance_pack_elb_common_tags, {
-  })
-}
-
 control "elb_application_gateway_network_lb_multiple_az_configured" {
   title       = "Application, Network, and Gateway Load Balancers should span multiple Availability Zones"
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
@@ -282,26 +273,13 @@ control "elb_network_lb_cross_zone_load_balancing_enabled" {
   })
 }
 
-query "elb_network_lb_cross_zone_load_balancing_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when a ->> 'Value' = 'true'  then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when a ->> 'Value' = 'true' then title || ' cross-zone load balancing enabled.'
-        else title || ' cross-zone load balancing disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_network_load_balancer,
-      jsonb_array_elements(load_balancer_attributes) as a
-    where
-      a ->> 'Key' = 'load_balancing.cross_zone.enabled';
-  EOQ
+control "elb_classic_lb_multiple_az_configured" {
+  title       = "Classic Load Balancers should span multiple Availability Zones"
+  description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
+  query       = query.elb_classic_lb_multiple_az_configured
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+  })
 }
 
 query "elb_application_classic_lb_logging_enabled" {
@@ -867,6 +845,28 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_gateway_load_balancer;
+  EOQ
+}
+
+query "elb_network_lb_cross_zone_load_balancing_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when a ->> 'Value' = 'true'  then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when a ->> 'Value' = 'true' then title || ' cross-zone load balancing enabled.'
+        else title || ' cross-zone load balancing disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_load_balancer,
+      jsonb_array_elements(load_balancer_attributes) as a
+    where
+      a ->> 'Key' = 'load_balancing.cross_zone.enabled';
   EOQ
 }
 

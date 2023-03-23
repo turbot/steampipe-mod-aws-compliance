@@ -91,7 +91,7 @@ control "codebuild_project_artifact_encryption_enabled" {
 }
 
 control "codebuild_project_s3_logs_encryption_enabled" {
-  title       = "CodeBuild S3 logs should be encrypted"
+  title       = "CodeBuild projects S3 logs should be encrypted"
   description = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
   query       = query.codebuild_project_s3_logs_encryption_enabled
 

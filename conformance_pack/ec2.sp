@@ -543,7 +543,7 @@ query "ec2_instance_not_use_multiple_enis" {
       case
         when jsonb_array_length(network_interfaces) = 1 then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
       as reason
       ${local.tag_dimensions_sql}

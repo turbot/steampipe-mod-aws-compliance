@@ -293,25 +293,6 @@ control "vpc_peering_dns_resolution_check" {
   })
 }
 
-query "vpc_peering_dns_resolution_check" {
-  sql = <<-EOQ
-    select
-      id as resource,
-      case
-        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then title || ' DNS resolution enabled.'
-        else title || ' DNS resolution disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_vpc_peering_connection;
-  EOQ
-}
-
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1025,6 +1006,25 @@ query "vpc_network_acl_remote_administration" {
     from
       aws_vpc_network_acl as acl
       left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
+  EOQ
+}
+
+query "vpc_peering_dns_resolution_check" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when requester_peering_options ->> 'AllowDnsResolutionFromRemoteVpc' = 'true' or accepter_peering_options -> 'AllowDnsResolutionFromRemoteVpc' = 'true' then title || ' DNS resolution enabled.'
+        else title || ' DNS resolution disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection;
   EOQ
 }
 

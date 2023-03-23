@@ -71,33 +71,6 @@ control "ecs_task_definition_logging_enabled" {
   })
 }
 
-control "ecs_task_definition_container_non_privileged" {
-  title       = "ECS containers should run as non-privileged"
-  description = "This control checks if the privileged parameter in the container definition of Amazon ECS Task Definitions is set to true. The control fails if this parameter is equal to true."
-  query       = query.ecs_task_definition_container_non_privileged
-
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-  })
-}
-
-control "ecs_task_definition_container_readonly_root_filesystem" {
-  title       = "ECS containers should be limited to read-only access to root filesystems"
-  description = "This control checks if ECS containers are limited to read-only access to mounted root filesystems. This control fails if the ReadonlyRootFilesystem parameter in the container definition of ECS task definitions is set to false."
-  query       = query.ecs_task_definition_container_readonly_root_filesystem
-
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-  })
-}
-
-control "ecs_cluster_container_insights_enabled" {
-  title       = "ECS clusters should have Container Insights enabled"
-  description = "This control checks if ECS clusters use Container Insights. This control fails if Container Insights are not set up for a cluster."
-  query       = query.ecs_cluster_container_insights_enabled
-
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-  })
-}
-
 control "ecs_service_fargate_using_latest_platform_version" {
   title       = "Fargate services should run on the latest Fargate platform version"
   description = "This control checks if Amazon ECS Fargate services are running the latest Fargate platform version. This control fails if the platform version is not the latest."
@@ -116,24 +89,31 @@ control "ecs_task_definition_nonroot_user" {
   })
 }
 
-query "ecs_task_definition_nonroot_user" {
-  sql = <<-EOQ
-  select
-    task_definition_arn as resource,
-    case
-      when c ->> 'User' is null or c ->> 'User' = 'root' then 'alarm'
-      else 'ok'
-    end as status,
-    case
-      when c ->> 'User' is null or c ->> 'User' = 'root' then title || ' has root user.'
-      else title || ' has non-root user.'
-    end as reason
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
-  from
-    aws_ecs_task_definition,
-    jsonb_array_elements(container_definitions) as c;
-  EOQ
+control "ecs_cluster_container_insights_enabled" {
+  title       = "ECS clusters should have container insights enabled"
+  description = "This control checks if ECS clusters use Container Insights. This control fails if Container Insights are not set up for a cluster."
+  query       = query.ecs_cluster_container_insights_enabled
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+  })
+}
+
+control "ecs_task_definition_container_readonly_root_filesystem" {
+  title       = "ECS containers should be limited to read-only access to root filesystems"
+  description = "This control checks if ECS containers are limited to read-only access to mounted root filesystems. This control fails if the ReadonlyRootFilesystem parameter in the container definition of ECS task definitions is set to false."
+  query       = query.ecs_task_definition_container_readonly_root_filesystem
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+  })
+}
+
+control "ecs_task_definition_container_non_privileged" {
+  title       = "ECS containers should run as non-privileged"
+  description = "This control checks if the privileged parameter in the container definition of Amazon ECS Task Definitions is set to true. The control fails if this parameter is equal to true."
+  query       = query.ecs_task_definition_container_non_privileged
+
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+  })
 }
 
 query "ecs_task_definition_user_for_host_mode_check" {
@@ -315,6 +295,26 @@ query "ecs_service_fargate_using_latest_platform_version" {
       ${local.common_dimensions_sql}
     from
       aws_ecs_service;
+  EOQ
+}
+
+query "ecs_task_definition_nonroot_user" {
+  sql = <<-EOQ
+  select
+    task_definition_arn as resource,
+    case
+      when c ->> 'User' is null or c ->> 'User' = 'root' then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when c ->> 'User' is null or c ->> 'User' = 'root' then title || ' has root user.'
+      else title || ' has non-root user.'
+    end as reason
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+  from
+    aws_ecs_task_definition,
+    jsonb_array_elements(container_definitions) as c;
   EOQ
 }
 
