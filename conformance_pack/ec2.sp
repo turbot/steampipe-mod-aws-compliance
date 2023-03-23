@@ -221,7 +221,7 @@ control "ec2_instance_not_use_multiple_enis" {
   description = "This control checks whether an EC2 instance uses multiple Elastic Network Interfaces (ENIs) or Elastic Fabric Adapters (EFAs). This control passes if a single network adapter is used. The control includes an optional parameter list to identify the allowed ENIs."
   query       = query.ec2_instance_not_use_multiple_enis
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
+  tags = merge(local.conformance_pack_ec2_common_tags, {
   })
 }
 

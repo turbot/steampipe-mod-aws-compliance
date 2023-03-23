@@ -95,7 +95,7 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   description = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
   query       = query.codebuild_project_s3_logs_encryption_enabled
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
   })
 }
 

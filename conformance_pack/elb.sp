@@ -256,25 +256,25 @@ control "elb_tls_listener_protocol_version" {
 }
 
 control "elb_application_gateway_network_lb_multiple_az_configured" {
-  title       = "Application, Network, and Gateway Load Balancers should span multiple Availability Zones"
+  title       = "ELB load balancers should span multiple Availability Zones"
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
+  tags = merge(local.conformance_pack_elb_common_tags, {
   })
 }
 
 control "elb_network_lb_cross_zone_load_balancing_enabled" {
-  title       = "Network Load Balancers should span multiple Availability Zones"
+  title       = "ELB network load balancers cross-zone load balancing should be enabled"
   description = "This control checks if cross-zone load balancing is enabled on Network Load Balancers (NLBs). The rule is non compliant if cross-zone load balancing is not enabled for an NLB."
   query       = query.elb_network_lb_cross_zone_load_balancing_enabled
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
+  tags = merge(local.conformance_pack_elb_common_tags, {
   })
 }
 
 control "elb_classic_lb_multiple_az_configured" {
-  title       = "Classic Load Balancers should span multiple Availability Zones"
+  title       = "ELB classic load balancers should span multiple availability zones"
   description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
   query       = query.elb_classic_lb_multiple_az_configured
 

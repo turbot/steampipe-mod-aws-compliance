@@ -91,7 +91,7 @@ control "ecs_task_definition_nonroot_user" {
 
 control "ecs_cluster_container_insights_enabled" {
   title       = "ECS clusters should have container insights enabled"
-  description = "This control checks if ECS clusters use Container Insights. This control fails if Container Insights are not set up for a cluster."
+  description = "This control checks if ECS clusters use container insights. This control fails if container insights are not set up for a cluster."
   query       = query.ecs_cluster_container_insights_enabled
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
