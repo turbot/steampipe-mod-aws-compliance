@@ -86,7 +86,7 @@ benchmark "soc_2_cc_6_1" {
     control.vpc_security_group_associated_to_eni,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {
@@ -178,14 +178,14 @@ benchmark "soc_2_cc_6_3" {
 
   children = [
     control.emr_cluster_kerberos_enabled,
-    control.iam_group_user_role_no_inline_policies,
-    control.iam_user_unused_credentials_90,
-    control.iam_policy_no_star_star,
     control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_managed_policy_attached_to_role,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
-    control.iam_root_user_no_access_keys,
-    control.iam_managed_policy_attached_to_role,
+    control.iam_user_unused_credentials_90,
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
@@ -229,7 +229,7 @@ benchmark "soc_2_cc_6_6" {
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.soc_2_cc_6_common_tags, {

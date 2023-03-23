@@ -22,9 +22,9 @@ benchmark "soc_2_cc_3_1" {
   documentation = file("./soc_2/docs/cc_3_1.md")
 
   children = [
+    control.config_enabled_all_regions,
     control.guardduty_enabled,
-    control.securityhub_enabled,
-    control.config_enabled_all_regions
+    control.securityhub_enabled
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {
@@ -43,7 +43,7 @@ benchmark "soc_2_cc_3_2" {
     control.guardduty_finding_archived,
     control.iam_user_console_access_mfa_enabled,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {

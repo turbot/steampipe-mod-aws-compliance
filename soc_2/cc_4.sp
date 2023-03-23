@@ -20,9 +20,9 @@ benchmark "soc_2_cc_4_2" {
   documentation = file("./soc_2/docs/cc_4_2.md")
 
   children = [
+    control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
-    control.guardduty_finding_archived,
-    control.cloudwatch_alarm_action_enabled
+    control.guardduty_finding_archived
   ]
 
   tags = merge(local.soc_2_cc_4_common_tags, {

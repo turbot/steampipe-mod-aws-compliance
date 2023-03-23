@@ -37,8 +37,8 @@ benchmark "soc_2_c_1_2" {
   documentation = file("./soc_2/docs/c_1_2.md")
 
   children = [
-    control.s3_bucket_versioning_enabled,
-    control.s3_bucket_lifecycle_policy_enabled
+    control.s3_bucket_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = merge(local.soc_2_cc_c_1_common_tags, {

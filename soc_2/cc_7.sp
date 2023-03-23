@@ -23,9 +23,9 @@ benchmark "soc_2_cc_7_1" {
   documentation = file("./soc_2/docs/cc_7_1.md")
 
   children = [
+    control.ec2_instance_ssm_managed,
     control.guardduty_enabled,
     control.securityhub_enabled,
-    control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
   ]
 
@@ -92,7 +92,7 @@ benchmark "soc_2_cc_7_3" {
     control.s3_bucket_event_notifications_enabled,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -108,8 +108,8 @@ benchmark "soc_2_cc_7_4" {
   children = [
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
-    control.backup_recovery_point_min_retention_35_days,
     control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_recovery_point_min_retention_35_days,
     control.cloudwatch_alarm_action_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
