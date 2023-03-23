@@ -300,21 +300,23 @@ query "ecs_service_fargate_using_latest_platform_version" {
 
 query "ecs_task_definition_non_root_user" {
   sql = <<-EOQ
-  select
-    task_definition_arn as resource,
-    case
-      when c ->> 'User' is null or c ->> 'User' = 'root' then 'alarm'
-      else 'ok'
-    end as status,
-    case
-      when c ->> 'User' is null or c ->> 'User' = 'root' then title || ' has root user.'
-      else title || ' has non-root user.'
-    end as reason
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
-  from
-    aws_ecs_task_definition,
-    jsonb_array_elements(container_definitions) as c;
+    select
+      task_definition_arn as resource,
+      case
+        when c ->> 'User' is null then 'alarm'
+        when c ->> 'User' = 'root' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when c ->> 'User' is null then title || ' user not set.'
+        when c ->> 'User' = 'root' then title || ' uses root user to run EC2 launch type containers.'
+        else title || ' uses non-root user to run EC2 launch type containers.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_task_definition,
+      jsonb_array_elements(container_definitions) as c;
   EOQ
 }
 

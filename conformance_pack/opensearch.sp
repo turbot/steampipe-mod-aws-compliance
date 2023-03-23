@@ -131,7 +131,7 @@ query "opensearch_domain_node_to_node_encryption_enabled" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_elasticsearch_domain;
+      aws_opensearch_domain;
   EOQ
 }
 
