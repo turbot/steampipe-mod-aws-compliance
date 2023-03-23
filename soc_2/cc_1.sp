@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_1" {
-  title       = "CC1 - Common Criteria Related to Control Environment"
+  title       = "CC1 Common Criteria Related to Control Environment"
   description = "The criteria relevant to how the entity demonstrates commitment to integrity and ethical values, exercises oversight responsibility, establishes structure, authority and responsibility, demonstrates commitment to competence, and enforces accountability."
 
   children = [

@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_6" {
-  title       = "CC6 - Logical and Physical Access"
+  title       = "CC6 Logical and Physical Access"
   description = "The criteria relevant to how an entity (i) restricts logical and physical access, (ii) provides and removes that access, and (iii) prevents unauthorized access."
 
   children = [

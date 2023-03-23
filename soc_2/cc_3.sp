@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_3" {
-  title       = "CC3 - Common Criteria Related to Risk Assessment"
+  title       = "CC3 Common Criteria Related to Risk Assessment"
   description = "The criteria relevant to how the entity (i) specifies suitable objectives, (ii) identifies and analyzes risk, and (iii) assess fraud risk."
 
   children = [

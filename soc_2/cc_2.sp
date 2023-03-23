@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_2" {
-  title       = "CC2 - Common Criteria Related to Communication and Information"
+  title       = "CC2 Common Criteria Related to Communication and Information"
   description = "The criteria relevant to how the entity (i) uses relevant information, (ii) communicates internally, and (iii) communicates externally."
 
   children = [

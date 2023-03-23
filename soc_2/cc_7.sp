@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_7" {
-  title       = "CC7 - System Operations"
+  title       = "CC7 System Operations"
   description = "The criteria relevant to how an entity (i) manages the operation of system(s) and (ii) detects and mitigates processing deviations including logical and physical security deviations."
 
   children = [

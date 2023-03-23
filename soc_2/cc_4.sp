@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_4" {
-  title       = "CC4 - Monitoring Activities"
+  title       = "CC4 Monitoring Activities"
   description = "The criteria relevant to how the entity (i) conducts ongoing and/or separate evaluations, and (ii) evaluates and communicates deficiencies."
 
   children = [

@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_8" {
-  title       = "CC8 - Change Management"
+  title       = "CC8 Change Management"
   description = "The criteria relevant to how an entity (i) identifies the need for changes, (ii) makes the changes using a controlled change management process, and (iii) prevents unauthorized changes from being made."
 
   children = [

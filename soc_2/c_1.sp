@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_c_1" {
-  title       = "C1 - Additional Criterial for Confidentiality"
+  title       = "C1 Additional Criterial for Confidentiality"
   description = "The Confidentiality category refers that all confidential material and information should be sufficiently protected—this includes private customer data."
 
   children = [
