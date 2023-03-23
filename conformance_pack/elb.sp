@@ -256,7 +256,7 @@ control "elb_tls_listener_protocol_version" {
 }
 
 control "elb_application_gateway_network_lb_multiple_az_configured" {
-  title       = "ELB load balancers should span multiple Availability Zones"
+  title       = "ELB load balancers should span multiple availability zones"
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 
@@ -850,23 +850,31 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
 
 query "elb_network_lb_cross_zone_load_balancing_enabled" {
   sql = <<-EOQ
+    with cross_zone_enabled_nlb as (
+      select
+        arn
+      from
+        aws_ec2_network_load_balancer,
+        jsonb_array_elements(load_balancer_attributes) as a
+      where
+        a ->> 'Key' = 'load_balancing.cross_zone.enabled'
+        and a ->> 'Value' = 'true'
+    )
     select
-      arn as resource,
+      nlb.arn as resource,
       case
-        when a ->> 'Value' = 'true'  then 'ok'
-        else 'alarm'
+        when c.arn is null then 'alarm'
+        else 'ok'
       end as status,
       case
-        when a ->> 'Value' = 'true' then title || ' cross-zone load balancing enabled.'
-        else title || ' cross-zone load balancing disabled.'
+        when c.arn is null then title || ' cross-zone load balancing disabled.'
+        else title || ' cross-zone load balancing enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_ec2_network_load_balancer,
-      jsonb_array_elements(load_balancer_attributes) as a
-    where
-      a ->> 'Key' = 'load_balancing.cross_zone.enabled';
+      aws_ec2_network_load_balancer as nlb
+      left join cross_zone_enabled_nlb as c on c.arn = nlb.arn;
   EOQ
 }
 

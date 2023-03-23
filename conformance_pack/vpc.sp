@@ -265,7 +265,7 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
 }
 
 control "vpc_network_acl_unused" {
-  title       = "VPC network access control lists (network ACLs) should be associated with a subnet."
+  title       = "VPC network access control lists (network ACLs) should be associated with a subnet"
   description = "Ensure there are no unused network access control lists (network ACLs). The rule is compliant if each network ACL is associated with a subnet. The rule is non-compliant if a network ACL is not associated with a subnet."
   query       = query.vpc_network_acl_unused
 
@@ -276,7 +276,7 @@ control "vpc_network_acl_unused" {
 }
 
 control "vpc_network_acl_remote_administration" {
-  title       = "Ensure no Network ACLs allow ingress from 0.0.0.0/0 to remote server administration ports"
+  title       = "Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
   description = "The Network Access Control List (NACL) function provide stateless filtering of ingress and egress network traffic to AWS resources. It is recommended that no NACL allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389."
   query       = query.vpc_network_acl_remote_administration
 
@@ -285,7 +285,7 @@ control "vpc_network_acl_remote_administration" {
 }
 
 control "vpc_peering_dns_resolution_check" {
-  title       = "Ensure VPC peering DNS resolution is enabled"
+  title       = "VPC peering DNS resolution from accepter/requester VPC to private IP should be enabled"
   description = "This control checks if DNS resolution from accepter/requester VPC to private IP is enabled. The rule is non compliant if DNS resolution from accepter/requester VPC to private IP is not enabled."
   query       = query.vpc_peering_dns_resolution_check
 

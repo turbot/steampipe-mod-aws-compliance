@@ -1,5 +1,5 @@
 control "opensearch_domain_in_vpc" {
-  title       = "Amazon OpenSearch domains should be in a VPC"
+  title       = "OpenSearch domains should be in a VPC"
   description = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
   query       = query.opensearch_domain_in_vpc
 
