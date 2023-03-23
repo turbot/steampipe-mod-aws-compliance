@@ -32,7 +32,7 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
 }
 
 control "networkfirewall_stateless_rule_group_not_empty" {
-  title       = "Stateless network firewall rule group should not be empty"
+  title       = "Network firewall policies should not have an empty stateless rule group"
   description = "A rule group contains rules that define how your firewall processes traffic in your VPC. An empty stateless rule group when present in a firewall policy might give the impression that the rule group will process traffic. However, when the stateless rule group is empty, it does not process traffic."
   query       = query.networkfirewall_stateless_rule_group_not_empty
 
