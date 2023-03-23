@@ -1,9 +1,15 @@
+locals {
+  conformance_pack_opensearch_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/OpenSearch"
+  })
+}
+
 control "opensearch_domain_in_vpc" {
   title       = "OpenSearch domains should be in a VPC"
   description = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
   query       = query.opensearch_domain_in_vpc
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
   })
 }
 
@@ -12,7 +18,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   description = "This control checks whether Amazon OpenSearch domains have encryption-at-rest configuration enabled. The check fails if encryption at rest is not enabled."
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
   })
 }
 
@@ -21,7 +27,7 @@ control "opensearch_domain_data_node_fault_tolerance" {
   description = "This control checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is non compliant for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'."
   query       = query.opensearch_domain_data_node_fault_tolerance
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
   })
 }
 
@@ -30,7 +36,7 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
   description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
   })
 }
 
