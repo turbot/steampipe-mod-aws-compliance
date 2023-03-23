@@ -12,7 +12,7 @@ benchmark "audit_manager_pci_v321_requirement_2" {
     benchmark.audit_manager_pci_v321_requirement_2_1,
     benchmark.audit_manager_pci_v321_requirement_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_3,
-    benchmark.audit_manager_pci_v321_requirement_2_4,
+    benchmark.audit_manager_pci_v321_requirement_2_4
   ]
 
   tags = local.audit_manager_pci_v321_requirement_2_common_tags
@@ -23,7 +23,7 @@ benchmark "audit_manager_pci_v321_requirement_2_1" {
   description = "Malicious individuals (external and internal to an organization) often use vendor default settings, account names, and passwords to compromise operating system software, applications, and the systems on which they are installed. Because these default settings are often published and are well known in hacker communities, changing these settings will leave systems less vulnerable to attack. Even if a default account is not intended to be used, changing the default password to a strong unique password and then disabling the account will prevent a malicious individual from re-enabling the account and gaining access with the default password."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_2_1_b,
+    benchmark.audit_manager_pci_v321_requirement_2_1_b
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.1"
@@ -112,7 +112,7 @@ benchmark "audit_manager_pci_v321_requirement_2_2_5" {
   description = "Unnecessary functions can provide additional opportunities for malicious individuals to gain access to a system. By removing unnecessary functionality, organizations can focus on securing the functions that are required and reduce the risk that unknown functions will be exploited. Including this in server-hardening standards and processes addresses the specific security implications associated with unnecessary functions (for example, by removing/disabling FTP or the web server if the server will not be performing those functions)."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_2_2_5_b,
+    benchmark.audit_manager_pci_v321_requirement_2_2_5_b
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.5_b"
@@ -186,13 +186,25 @@ benchmark "audit_manager_pci_v321_requirement_2_3" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_2_4" {
-  title       = "2.4 Maintain an inventory of system components that are in scope for PCI DSS."
+  title       = "2.4 Maintain an inventory of system components that are in scope for PCI DSS"
   description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
 
   children = [
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_instance_ssm_managed,
     control.vpc_eip_associated,
+    control.config_enabled_all_regions
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
+    audit_manager_pci_v321_item_id = "2.4"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_2_4_a" {
+  title       = "Examine system inventory to verify that a list of hardware and software components is maintained and includes a description of function/use for each"
+  description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
+  children = [
+    control.config_enabled_all_regions
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.4"

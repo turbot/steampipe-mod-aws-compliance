@@ -25,11 +25,25 @@ benchmark "audit_manager_pci_v321_requirement_8_1" {
   description = "By ensuring each user is uniquely identified— instead of using one ID for several employees—an organization can maintain individual responsibility for actions and an effective audit trail per employee. This will help speed issue resolution and containment when misuse or malicious intent occurs."
 
   children = [
+    benchmark.audit_manager_pci_v321_requirement_8_1_2,
     benchmark.audit_manager_pci_v321_requirement_8_1_4,
-    benchmark.audit_manager_pci_v321_requirement_8_1_5,
+    benchmark.audit_manager_pci_v321_requirement_8_1_5
+
   ]
 
   tags = local.audit_manager_pci_v321_requirement_8_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_8_1_2" {
+  title       = "8.1.2 Control addition, deletion, and modification of user IDs, credentials, and other identifier objects"
+  description = "To ensure that user accounts granted access to systems are all valid and recognized users, strong processes must manage all changes to user IDs and other authentication credentials, including adding new ones and modifying or deleting existing ones."
+
+  children = [
+    control.log_metric_filter_iam_policy
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
+    audit_manager_pci_v321_item_id = "8.1.2"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_1_4" {
@@ -75,7 +89,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_1,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2"
@@ -174,7 +188,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_3_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_3_b,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.3"
@@ -288,7 +302,7 @@ benchmark "audit_manager_pci_v321_requirement_8_3" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_3_1,
-    benchmark.audit_manager_pci_v321_requirement_8_3_2,
+    benchmark.audit_manager_pci_v321_requirement_8_3_2
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3"
@@ -367,7 +381,7 @@ benchmark "audit_manager_pci_v321_requirement_8_5_a" {
   description = "If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual's actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
 
   children = [
-    control.iam_root_user_no_access_keys,
+    control.iam_root_user_no_access_keys
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.5.a"
@@ -379,7 +393,7 @@ benchmark "audit_manager_pci_v321_requirement_8_6" {
   description = "If user authentication mechanisms such as tokens, smart cards, and certificates can be used by multiple accounts, it may be impossible to identify the individual using the authentication mechanism. Having physical and/or logical controls (for example, a PIN, biometric data, or a password) to uniquely identify the user of the account will prevent unauthorized users from gaining access through use of a shared authentication mechanism."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_8_6_c,
+    benchmark.audit_manager_pci_v321_requirement_8_6_c
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.6"
@@ -408,7 +422,7 @@ benchmark "audit_manager_pci_v321_requirement_8_7" {
     benchmark.audit_manager_pci_v321_requirement_8_7_a,
     benchmark.audit_manager_pci_v321_requirement_8_7_b,
     benchmark.audit_manager_pci_v321_requirement_8_7_c,
-    benchmark.audit_manager_pci_v321_requirement_8_7_d,
+    benchmark.audit_manager_pci_v321_requirement_8_7_d
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7"

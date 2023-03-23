@@ -10,7 +10,7 @@ benchmark "audit_manager_pci_v321_requirement_7" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_7_1,
-    benchmark.audit_manager_pci_v321_requirement_7_2,
+    benchmark.audit_manager_pci_v321_requirement_7_2
   ]
 
   tags = local.audit_manager_pci_v321_requirement_7_common_tags
@@ -59,7 +59,7 @@ benchmark "audit_manager_pci_v321_requirement_7_2" {
   description = "Without a mechanism to restrict access based on user's need to know, a user may unknowingly be granted access to cardholder data. Access control systems automate the process of restricting access and assigning privileges. Additionally, a default “deny-all” setting ensures no one is granted access until and unless a rule is established specifically granting such access. Entities may have one or more access controls systems to manage user access. Note: Some access control systems are set by default to “allow-all,” thereby permitting access unless/until a rule is written to specifically deny it."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_7_2_1,
+    benchmark.audit_manager_pci_v321_requirement_7_2_1
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.2"
@@ -69,7 +69,6 @@ benchmark "audit_manager_pci_v321_requirement_7_2" {
 benchmark "audit_manager_pci_v321_requirement_7_2_1" {
   title       = "7.2.1 Confirm that access control systems are in place on all system components"
   description = "Without a mechanism to restrict access based on user's need to know, a user may unknowingly be granted access to cardholder data. Access control systems automate the process of restricting access and assigning privileges. Additionally, a default “deny-all” setting ensures no one is granted access until and unless a rule is established specifically granting such access. Entities may have one or more access controls systems to manage user access. Note: Some access control systems are set by default to “allow-all,” thereby permitting access unless/until a rule is written to specifically deny it."
-
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,

@@ -10,6 +10,7 @@ benchmark "audit_manager_pci_v321_requirement_11" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_11_4,
+    benchmark.audit_manager_pci_v321_requirement_11_5
   ]
 
   tags = local.audit_manager_pci_v321_requirement_11_common_tags
@@ -57,6 +58,41 @@ benchmark "audit_manager_pci_v321_requirement_11_4_c" {
 
   children = [
     control.guardduty_enabled,
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_11_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_11_5" {
+  title       = "11.5 Deploy a change-detection mechanism (for example, file-integrity monitoring tools) to alert personnel to unauthorized modification (including changes, additions, and deletions) of critical system files, configuration files, or content files; and configure the software to perform critical file comparisons at least weekly"
+  description = "Change-detection solutions such as file-integrity monitoring (FIM) tools check for changes, additions, and deletions to critical files, and notify when such changes are detected. If not implemented properly and the output of the change-detection solution monitored, a malicious individual could add, remove, or alter configuration file contents, operating system programs, or application executables. Unauthorized changes, if undetected, could render existing security controls ineffective and/or result in cardholder data being stolen with no perceptible impact to normal processing."
+
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_11_5_a,
+    benchmark.audit_manager_pci_v321_requirement_11_5_b,
+    control.config_enabled_all_regions
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_11_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_11_5_a" {
+  title       = "11.5.a Verify the use of a change-detection mechanism by observing system settings and monitored files, as well as reviewing results from monitoring activities. Examples of files that should be monitored: • System executables • Application executables • Configuration and parameter files • Centrally stored, historical or archived, log and audit files • Additional critical files determined by entity (for example, through risk assessment or other means)"
+  description = "Change-detection solutions such as file-integrity monitoring (FIM) tools check for changes, additions, and deletions to critical files, and notify when such changes are detected. If not implemented properly and the output of the change-detection solution monitored, a malicious individual could add, remove, or alter configuration file contents, operating system programs, or application executables. Unauthorized changes, if undetected, could render existing security controls ineffective and/or result in cardholder data being stolen with no perceptible impact to normal processing."
+
+  children = [
+    control.config_enabled_all_regions
+  ]
+
+  tags = local.audit_manager_pci_v321_requirement_11_common_tags
+}
+
+benchmark "audit_manager_pci_v321_requirement_11_5_b" {
+  title       = "11.5.b Verify the mechanism is configured to alert personnel to unauthorized modification (including changes, additions, and deletions) of critical files, and to perform critical file comparisons at least weekly"
+  description = "todo"
+
+  children = [
+    control.config_enabled_all_regions
   ]
 
   tags = local.audit_manager_pci_v321_requirement_11_common_tags

@@ -12,7 +12,8 @@ benchmark "audit_manager_pci_v321_requirement_3" {
     benchmark.audit_manager_pci_v321_requirement_3_1,
     benchmark.audit_manager_pci_v321_requirement_3_2,
     benchmark.audit_manager_pci_v321_requirement_3_4,
-    benchmark.audit_manager_pci_v321_requirement_3_5
+    benchmark.audit_manager_pci_v321_requirement_3_5,
+    benchmark.audit_manager_pci_v321_requirement_3_6
   ]
 
   tags = local.audit_manager_pci_v321_requirement_3_common_tags
@@ -24,7 +25,7 @@ benchmark "audit_manager_pci_v321_requirement_3_1" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_3_1_a,
-    benchmark.audit_manager_pci_v321_requirement_3_1_c,
+    benchmark.audit_manager_pci_v321_requirement_3_1_c
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
     audit_manager_pci_v321_item_id = "3.1"
@@ -82,7 +83,7 @@ benchmark "audit_manager_pci_v321_requirement_3_2" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_3_2_3,
-    benchmark.audit_manager_pci_v321_requirement_3_2_c,
+    benchmark.audit_manager_pci_v321_requirement_3_2_c
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
     audit_manager_pci_v321_item_id = "3.2"
@@ -355,5 +356,44 @@ benchmark "audit_manager_pci_v321_requirement_3_5_2" {
   ]
   tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
     audit_manager_pci_v321_item_id = "3.5.2"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_3_6" {
+  title       = "3.6 Fully document and implement all key- management processes and procedures for cryptographic keys used for encryption of cardholder data, including the following: Note: Numerous industry standards for key management are available from various resources including NIST, which can be found at http://csrc.nist.gov"
+  description = "The manner in which cryptographic keys are managed is a critical part of the continued security of the encryption solution. A good key- management process, whether it is manual or automated as part of the encryption product, is based on industry standards and addresses all key elements at 3.6.1 through 3.6.8. Providing guidance to customers on how to securely transmit, store and update cryptographic keys can help prevent keys from being mismanaged or disclosed to unauthorized entities. This requirement applies to keys used to encrypt stored cardholder data, and any respective key- encrypting keys. Note: Testing Procedure 3.6.a is an additional procedure that only applies if the entity being assessed is a service provider."
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_3_6_4
+  ]
+
+  tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
+    audit_manager_pci_v321_item_id = "3.6"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_3_6_4" {
+  title       = "3.6.4 Cryptographic key changes for keys that have reached the end of their cryptoperiod (for example, after a defined period of time has passed and/or after a certain amount of cipher-text has been produced by a given key), as defined by the associated application vendor or key owner, and based on industry best practices and guidelines"
+  description = "A cryptoperiod is the time span during which a particular cryptographic key can be used for its defined purpose. Considerations for defining the cryptoperiod include, but are not limited to, the strength of the underlying algorithm, size or length of the key, risk of key compromise, and the sensitivity of the data being encrypted. Periodic changing of encryption keys when the keys have reached the end of their cryptoperiod is imperative to minimize the risk of someone’s obtaining the encryption keys, and using them to decrypt data."
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_3_6_4_a,
+    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
+    control.kms_key_decryption_restricted_in_iam_inline_policy
+  ]
+
+  tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
+    audit_manager_pci_v321_item_id = "3.6.4"
+  })
+}
+
+benchmark "audit_manager_pci_v321_requirement_3_6_4_a" {
+  title       = "3.6.4.a Verify that key-management procedures include a defined cryptoperiod for each key type in use and define a process for key changes at the end of the defined cryptoperiod(s)"
+  description = "A cryptoperiod is the time span during which a particular cryptographic key can be used for its defined purpose. Considerations for defining the cryptoperiod include, but are not limited to, the strength of the underlying algorithm, size or length of the key, risk of key compromise, and the sensitivity of the data being encrypted. Periodic changing of encryption keys when the keys have reached the end of their cryptoperiod is imperative to minimize the risk of someone’s obtaining the encryption keys, and using them to decrypt data."
+  children = [
+    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
+    control.kms_key_decryption_restricted_in_iam_inline_policy
+  ]
+
+  tags = merge(local.audit_manager_pci_v321_requirement_3_common_tags, {
+    audit_manager_pci_v321_item_id = "3.6.4.a"
   })
 }

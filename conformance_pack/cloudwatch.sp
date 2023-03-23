@@ -118,8 +118,9 @@ control "log_metric_filter_iam_policy" {
   query       = query.log_metric_filter_iam_policy
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    audit_manager_pci_v321 = "true"
+    gdpr                   = "true"
+    nist_csf               = "true"
   })
 }
 
