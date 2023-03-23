@@ -136,3 +136,182 @@ control "ebs_volume_unused" {
     nist_800_53_rev_5      = "true"
   })
 }
+
+query "ebs_snapshot_not_publicly_restorable" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':ec2:' || region || ':' || account_id || ':snapshot/' || snapshot_id as resource,
+      case
+        when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then title || ' is publicly restorable.'
+        else title || ' is not publicly restorable.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_snapshot;
+  EOQ
+}
+
+query "ebs_volume_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when encrypted then volume_id || ' encrypted.'
+        else volume_id || ' not encrypted.'
+      end reason
+
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_volume;
+  EOQ
+}
+
+query "ebs_attached_volume_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when state != 'in-use' then 'skip'
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when state != 'in-use' then volume_id || ' not attached.'
+        when encrypted then volume_id || ' encrypted.'
+        else volume_id || ' not encrypted.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_volume;
+  EOQ
+}
+
+query "ebs_volume_in_backup_plan" {
+  sql = <<-EOQ
+    with mapped_with_id as (
+      select
+        jsonb_agg(elems) as mapped_ids
+      from
+        aws_backup_selection,
+        jsonb_array_elements(resources) as elems
+      group by backup_plan_id
+    ),
+    mapped_with_tags as (
+      select
+        jsonb_agg(elems ->> 'ConditionKey') as mapped_tags
+      from
+        aws_backup_selection,
+        jsonb_array_elements(list_of_tags) as elems
+      group by backup_plan_id
+    ),
+    backed_up_volume as (
+      select
+        v.volume_id
+      from
+        aws_ebs_volume as v
+        join mapped_with_id as t on t.mapped_ids ?| array[v.arn]
+      union
+      select
+        v.volume_id
+      from
+        aws_ebs_volume as v
+        join mapped_with_tags as t on t.mapped_tags ?| array(select jsonb_object_keys(tags))
+    )
+    select
+      v.arn as resource,
+      case
+        when b.volume_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.volume_id is null then v.title || ' not in backup plan.'
+        else v.title || ' in backup plan.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+    from
+      aws_ebs_volume as v
+      left join backed_up_volume as b on v.volume_id = b.volume_id;
+  EOQ
+}
+
+query "ebs_attached_volume_delete_on_termination_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when state != 'in-use' then 'skip'
+        when attachment ->> 'DeleteOnTermination' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when state != 'in-use' then title || ' not attached to EC2 instance.'
+        when attachment ->> 'DeleteOnTermination' = 'true' then title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination enabled.'
+        else title || ' attached to ' || (attachment ->> 'InstanceId') || ', delete on termination disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_volume
+      left join jsonb_array_elements(attachments) as attachment on true;
+  EOQ
+}
+
+query "ebs_volume_protected_by_backup_plan" {
+  sql = <<-EOQ
+    with backup_protected_volume as (
+      select
+        resource_arn as arn
+      from
+        aws_backup_protected_resource as b
+      where
+        resource_type = 'EBS'
+    )
+    select
+      v.arn as resource,
+      case
+        when b.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is not null then v.title || ' is protected by backup plan.'
+        else v.title || ' is not protected by backup plan.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+    from
+      aws_ebs_volume as v
+      left join backup_protected_volume as b on v.arn = b.arn;
+  EOQ
+}
+
+query "ebs_volume_unused" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when state = 'in-use' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when state = 'in-use' then title || ' attached to EC2 instance.'
+        else title || ' not attached to EC2 instance.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_volume;
+  EOQ
+}

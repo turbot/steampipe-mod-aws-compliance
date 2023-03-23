@@ -82,7 +82,7 @@ control "codebuild_project_logging_enabled" {
 }
 
 control "codebuild_project_environment_privileged_mode_disabled" {
-  title       = "CodeBuild project environments privileged mode should be disabled"
+  title       = "CodeBuild project environment privileged mode should be disabled"
   description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is non compliant for a CodeBuild project if 'privilegedMode' is set to 'true'."
   query       = query.codebuild_project_environment_privileged_mode_disabled
 
@@ -99,4 +99,202 @@ control "codebuild_project_artifact_encryption_enabled" {
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
   })
+}
+
+query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
+  sql = <<-EOQ
+    with invalid_key_name as (
+      select
+        distinct arn,
+        name
+      from
+        aws_codebuild_project,
+        jsonb_array_elements(environment -> 'EnvironmentVariables') as env
+      where
+        env ->> 'Name' ilike any(array['%AWS_ACCESS_KEY_ID%', '%AWS_SECRET_ACCESS_KEY%', '%PASSWORD%'])
+        and env ->> 'Type' = 'PLAINTEXT'
+    )
+    select
+      a.arn as resource,
+      case
+        when b.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.arn is null then a.title || ' has no plaintext environment variables with sensitive AWS values.'
+        else a.title || ' has plaintext environment variables with sensitive AWS values.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_codebuild_project as a
+      left join invalid_key_name b on a.arn = b.arn;
+  EOQ
+}
+
+query "codebuild_project_source_repo_oauth_configured" {
+  sql = <<-EOQ
+    select
+      p.arn as resource,
+      case
+        when p.source ->> 'Type' not in ('GITHUB', 'BITBUCKET') then 'skip'
+        when c.auth_type = 'OAUTH' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.source ->> 'Type' = 'NO_SOURCE' then p.title || ' doesn''t have input source code.'
+        when p.source ->> 'Type' not in ('GITHUB', 'BITBUCKET') then p.title || ' source code isn''t in GitHub/Bitbucket repository.'
+        when c.auth_type = 'OAUTH' then p.title || ' using OAuth to connect source repository.'
+        else p.title || ' not using OAuth to connect source repository.'
+      end as reason
+
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_codebuild_project as p
+      left join aws_codebuild_source_credential as c on (p.region = c.region and p.source ->> 'Type' = c.server_type);
+  EOQ
+}
+
+query "codebuild_project_with_user_controlled_buildspec" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when split_part(source ->> 'Buildspec', '.', -1) = 'yml' then title || ' uses a user controlled buildspec.'
+        else title || ' does not uses a user controlled buildspec.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when logs_config -> 'CloudWatchLogs' ->> 'Status' = 'ENABLED' or logs_config -> 'S3Logs' ->> 'Status' = 'ENABLED' then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_environment_privileged_mode_disabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when environment ->> 'PrivilegedMode' = 'true' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when environment ->> 'PrivilegedMode' = 'true' then title || ' environment privileged mode enabled.'
+        else title || ' environment privileged mode disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
+}
+
+query "codebuild_project_artifact_encryption_enabled" {
+  sql = <<-EOQ
+    with secondary_artifact as (
+      select
+        distinct arn
+      from
+        aws_codebuild_project,
+        jsonb_array_elements(secondary_artifacts) as a
+      where
+        a -> 'EncryptionDisabled' = 'true'
+    )
+    select
+      a.arn as resource,
+      case
+        when p.artifacts ->> 'EncryptionDisabled' = 'false'
+        and (p.secondary_artifacts is null or a.arn is null) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.artifacts ->> 'EncryptionDisabled' = 'false'
+        and (p.secondary_artifacts is null or a.arn is null) then p.title || ' all artifacts encryption enabled.'
+        else p.title || ' all artifacts encryption not enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_codebuild_project as p
+      left join secondary_artifact as a on a.arn = p.arn;
+  EOQ
+}
+
+query "codebuild_project_build_greater_then_90_days" {
+  sql = <<-EOQ
+    with latest_codebuild_build as (
+      select
+        project_name,
+        region,
+        account_id,
+        min(date_part('day', now() - end_time)) as build_time
+      from
+        aws_codebuild_build
+      group by
+        project_name,
+        region,
+        account_id
+    )
+    select
+      p.arn as resource,
+      case
+        when b.build_time is null then 'alarm'
+        when b.build_time < 90 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.build_time is null then p.title || ' was never build.'
+        else p.title || ' was build ' || build_time || ' day(s) before.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_codebuild_project as p
+      left join latest_codebuild_build as b on p.name = b.project_name and p.region = b.region and p.account_id = b.account_id;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "codebuild_project_s3_logs_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not (logs_config -> 'S3Logs' ->> 'EncryptionDisabled')::bool then title || ' S3Logs encryption enabled.'
+        else title || ' S3Logs encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_project;
+  EOQ
 }

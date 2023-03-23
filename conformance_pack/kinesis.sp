@@ -24,3 +24,41 @@ control "kinesis_stream_encrypted_with_kms_cmk" {
     other_checks = "true"
   })
 }
+
+query "kinesis_stream_server_side_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      stream_arn as resource,
+      case
+        when encryption_type = 'KMS' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encryption_type = 'KMS' then title || ' server side encryption enabled.'
+        else title || ' server side encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_kinesis_stream;
+  EOQ
+}
+
+query "kinesis_stream_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      stream_arn as resource,
+      case
+        when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encryption_type = 'KMS' and key_id <> 'alias/aws/kinesis' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_kinesis_stream;
+  EOQ
+}

@@ -10,7 +10,7 @@ benchmark "cis_controls_v8_ig1_7" {
 }
 
 benchmark "cis_controls_v8_ig1_7_1" {
-  title       = "7.1 - Establish and Maintain a Vulnerability Management Process"
+  title       = "7.1 Establish and Maintain a Vulnerability Management Process"
   description = "Establish and maintain a documented vulnerability management process for enterprise assets. Review and update documentation annually, or when significant enterprise changes occur that could impact this Safeguard."
   children = [
     control.guardduty_enabled,
@@ -22,7 +22,7 @@ benchmark "cis_controls_v8_ig1_7_1" {
 }
 
 benchmark "cis_controls_v8_ig1_7_3" {
-  title       = "7.3 - Perform Automated Operating System Patch Management"
+  title       = "7.3 Perform Automated Operating System Patch Management"
   description = "Perform operating system updates on enterprise assets through automated patch management on a monthly, or more frequent, basis."
   children = [
     control.redshift_cluster_maintenance_settings_check,

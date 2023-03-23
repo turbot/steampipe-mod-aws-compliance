@@ -53,10 +53,186 @@ control "autoscaling_launch_config_public_ip_disabled" {
 control "autoscaling_group_no_suspended_process" {
   title       = "Auto Scaling groups should not have any suspended processes"
   description = "Ensure that there are no Auto Scaling Groups (ASGs) with suspended processes provisioned in your AWS account in order to avoid disrupting the auto scaling workflow."
-  query       = query.autoscaling_group_no_suspended_processe
+  query       = query.autoscaling_group_no_suspended_process
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     other_checks = "true"
   })
 }
 
+query "autoscaling_group_with_lb_use_health_check" {
+  sql = <<-EOQ
+    select
+      autoscaling_group_arn as resource,
+      case
+        when load_balancer_names is null and target_group_arns is null then 'alarm'
+        when health_check_type != 'ELB' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when load_balancer_names is null and target_group_arns is null then title || ' not associated with a load balancer.'
+        when health_check_type != 'ELB' then title || ' does not use ELB health check.'
+        else title || ' uses ELB health check.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+query "autoscaling_launch_config_public_ip_disabled" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when associate_public_ip_address then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when associate_public_ip_address then title || ' public IP enabled.'
+        else title || ' public IP disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+query "autoscaling_group_no_suspended_process" {
+  sql = <<-EOQ
+    select
+      autoscaling_group_arn as resource,
+      case
+        when suspended_processes is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when suspended_processes is null then title || ' has no suspended process.'
+        else title || ' has suspended process.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "autoscaling_group_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      autoscaling_group_arn as resource,
+      case
+        when jsonb_array_length(availability_zones) > 1 then 'ok'
+        else 'alarm'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+query "autoscaling_group_uses_ec2_launch_template" {
+  sql = <<-EOQ
+    select
+      autoscaling_group_arn as resource,
+      case
+        when launch_template_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when launch_template_id is not null then title || ' using an EC2 launch template.'
+        else title || ' not using an EC2 launch template.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
+  EOQ
+}
+
+query "autoscaling_launch_config_hop_limit" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_put_response_hop_limit is null then 'ok'
+        when metadata_options_put_response_hop_limit > 1 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        --If you do not specify a value, the hop limit default is 1.
+        when metadata_options_put_response_hop_limit is null then title || ' metadata response hop limit set to default.'
+        else title || ' has a metadata response hop limit of ' || metadata_options_put_response_hop_limit || '.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+query "autoscaling_launch_config_requires_imdsv2" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_http_tokens = 'required' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when metadata_options_http_tokens = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+query "autoscaling_use_multiple_instance_types_in_multiple_az" {
+  sql = <<-EOQ
+    with autoscaling_groups as (
+      select
+        autoscaling_group_arn,
+        title,
+        mixed_instances_policy_launch_template_overrides,
+        region,
+        tags,
+        _ctx,
+        account_id
+    from
+        aws_ec2_autoscaling_group
+    ),
+    distinct_instance_types_count as (
+      select
+        autoscaling_group_arn,
+        count(distinct(e -> 'InstanceType')) as distinct_instance_types
+    from
+        autoscaling_groups,
+        jsonb_array_elements(mixed_instances_policy_launch_template_overrides) as e
+    group by
+        autoscaling_group_arn,
+        title,
+        mixed_instances_policy_launch_template_overrides
+    )
+    select
+      a.autoscaling_group_arn as resource,
+      case
+        when b.distinct_instance_types > 1 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.distinct_instance_types > 1 then title || ' uses ' || b.distinct_instance_types || ' instance types.'
+        else title || ' does not use multiple instance types.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+    from
+      autoscaling_groups as a
+      left join distinct_instance_types_count as b on a.autoscaling_group_arn = b.autoscaling_group_arn;
+  EOQ
+}

@@ -7,3 +7,7 @@
 
 # Swap files
 *.swp
+
+# Steampipe variable files
+*.spvars
+*.auto.spvars

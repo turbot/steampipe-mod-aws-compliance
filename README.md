@@ -10,10 +10,10 @@ Or in a terminal:
 
 Includes support for:
 * [AWS CIS Controls v8 IG1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_controls_v8_ig1) 🚀 New!
-* [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120) 🚀 New!
+* [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120)
 * [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
 * [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
-* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150)
+* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150) 🚀 New!
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
 * [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
 * [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
@@ -106,6 +106,31 @@ This mod uses the credentials configured in the [Steampipe AWS plugin](https://h
 ### Configuration
 
 No extra configuration is required.
+
+### Common and Tag Dimensions
+
+The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the form of a default list of strings in the `mod.sp` file. These properties can be overwritten in several ways:
+
+- Copy and rename the `steampipe.spvars.example` file to `steampipe.spvars`, and then modify the variable values inside that file
+- Pass in a value on the command line:
+
+  ```shell
+  steampipe check benchmark.cis_v150 --var 'common_dimensions=["account_id", "connection_name", "region"]'
+  ```
+
+  ```shell
+  steampipe check benchmark.cis_v150 --var 'tag_dimensions=["Environment", "Owner"]'
+  ```
+
+- Set an environment variable:
+
+  ```shell
+  SP_VAR_common_dimensions='["account_id", "connection_name", "region"]' steampipe check control.cis_v150_5_1
+  ```
+
+  ```shell
+  SP_VAR_tag_dimensions='["Environment", "Owner"]' steampipe check control.cis_v150_5_1
+  ```
 
 ## Contributing
 
