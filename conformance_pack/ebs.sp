@@ -22,6 +22,7 @@ control "ebs_snapshot_not_publicly_restorable" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -39,6 +40,7 @@ control "ebs_volume_encryption_at_rest_enabled" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
