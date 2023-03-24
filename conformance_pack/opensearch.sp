@@ -10,6 +10,7 @@ control "opensearch_domain_in_vpc" {
   query       = query.opensearch_domain_in_vpc
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -19,6 +20,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -28,6 +30,7 @@ control "opensearch_domain_data_node_fault_tolerance" {
   query       = query.opensearch_domain_data_node_fault_tolerance
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -37,6 +40,41 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
+    well_architected = "true"
+  })
+}
+
+control "opensearch_domain_audit_logging_enabled" {
+  title       = "OpenSearch domains have audit logging enabled."
+  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
+  query       = query.opensearch_domain_audit_logging_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    audit_manager_pci_v321 = "true"
+    well_architected       = "true"
+  })
+}
+
+control "opensearch_domain_logs_to_cloudwatch" {
+  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
+  description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
+  query       = query.opensearch_domain_logs_to_cloudwatch
+
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    audit_manager_pci_v321 = "true"
+    well_architected       = "true"
+  })
+}
+
+control "opensearch_domain_https_required" {
+  title       = "OpenSearch domains should use HTTPS"
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  query       = query.opensearch_domain_https_required
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    audit_manager_pci_v321 = "true"
+    well_architected       = "true"
   })
 }
 
@@ -134,6 +172,104 @@ query "opensearch_domain_node_to_node_encryption_enabled" {
         when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
         else title || ' node-to-node encryption disabled.'
       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_audit_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then title || ' audit logging enabled.'
+        else title || ' audit logging disabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_logs_to_cloudwatch" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when log_publishing_options is null then 'alarm'
+        when
+          ( log_publishing_options -> 'AUDIT_LOGS' is null
+            or log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'AUDIT_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'INDEX_SLOW_LOGS' is null
+            or log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'SEARCH_SLOW_LOGS' is null
+            or log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'ES_APPLICATION_LOGS' is null
+            or log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when log_publishing_options is null then title || ' logging not enabled.'
+        when
+          ( log_publishing_options -> 'AUDIT_LOGS' is null
+            or log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'AUDIT_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'AUDIT_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'INDEX_SLOW_LOGS' is null
+            or log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'INDEX_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'SEARCH_SLOW_LOGS' is null
+            or log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'SEARCH_SLOW_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          )
+          and
+          ( log_publishing_options -> 'ES_APPLICATION_LOGS' is null
+            or log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'false'
+            or (log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
+          ) then title || ' send logs to Amazon CloudWatch.'
+        else title || ' does not send logs to Amazon CloudWatch.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_https_required" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' not using HTTPS.'
+        else title || ' using HTTPS.'
+      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

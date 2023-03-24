@@ -96,6 +96,7 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   query       = query.codebuild_project_s3_logs_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    
   })
 }
 

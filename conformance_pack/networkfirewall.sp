@@ -10,6 +10,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -19,6 +20,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_full_pac
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_full_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -28,6 +30,7 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
   query       = query.networkfirewall_firewall_policy_rule_group_not_empty
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -37,6 +40,7 @@ control "networkfirewall_stateless_rule_group_not_empty" {
   query       = query.networkfirewall_stateless_rule_group_not_empty
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    well_architected = "true"
   })
 }
 

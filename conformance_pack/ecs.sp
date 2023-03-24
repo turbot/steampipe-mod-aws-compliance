@@ -77,6 +77,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
   query       = query.ecs_service_fargate_using_latest_platform_version
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -86,6 +87,7 @@ control "ecs_task_definition_non_root_user" {
   query       = query.ecs_task_definition_non_root_user
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -95,6 +97,7 @@ control "ecs_cluster_container_insights_enabled" {
   query       = query.ecs_cluster_container_insights_enabled
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -104,6 +107,7 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
   query       = query.ecs_task_definition_container_readonly_root_filesystem
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -113,6 +117,7 @@ control "ecs_task_definition_container_non_privileged" {
   query       = query.ecs_task_definition_container_non_privileged
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
+    well_architected = "true"
   })
 }
 

@@ -222,6 +222,7 @@ control "ec2_instance_not_use_multiple_enis" {
   query       = query.ec2_instance_not_use_multiple_enis
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    well_architected = "true"
   })
 }
 

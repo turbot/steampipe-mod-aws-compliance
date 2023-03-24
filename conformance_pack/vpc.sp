@@ -281,6 +281,7 @@ control "vpc_network_acl_remote_administration" {
   query       = query.vpc_network_acl_remote_administration
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -290,6 +291,7 @@ control "vpc_peering_dns_resolution_check" {
   query       = query.vpc_peering_dns_resolution_check
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    well_architected = "true"
   })
 }
 

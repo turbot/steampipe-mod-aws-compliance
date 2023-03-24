@@ -104,6 +104,7 @@ control "lambda_function_use_latest_runtime" {
   query       = query.lambda_function_use_latest_runtime
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -113,6 +114,7 @@ control "lambda_function_multiple_az_configured" {
   query       = query.lambda_function_multiple_az_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
+    well_architected = "true"
   })
 }
 

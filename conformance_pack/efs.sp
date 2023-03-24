@@ -87,6 +87,7 @@ control "efs_access_point_enforce_user_identity" {
   query       = query.efs_access_point_enforce_user_identity
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    well_architected = "true"
   })
 }
 

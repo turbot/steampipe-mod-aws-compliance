@@ -261,6 +261,7 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -270,6 +271,7 @@ control "elb_network_lb_cross_zone_load_balancing_enabled" {
   query       = query.elb_network_lb_cross_zone_load_balancing_enabled
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    well_architected = "true"
   })
 }
 
@@ -279,6 +281,7 @@ control "elb_classic_lb_multiple_az_configured" {
   query       = query.elb_classic_lb_multiple_az_configured
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    well_architected = "true"
   })
 }
 
