@@ -15,6 +15,7 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
     hipaa                 = "true"
     nist_800_53_rev_5     = "true"
     nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -28,6 +29,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nist_800_53_rev_4  = "true"
     nist_800_53_rev_5  = "true"
     nist_csf           = "true"
+    soc_2              = "true"
   })
 }
 

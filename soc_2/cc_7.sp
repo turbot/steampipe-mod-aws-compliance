@@ -5,15 +5,14 @@ locals {
 }
 
 benchmark "soc_2_cc_7" {
-  title       = "CC7.0 - System Operations"
+  title       = "CC7 System Operations"
   description = "The criteria relevant to how an entity (i) manages the operation of system(s) and (ii) detects and mitigates processing deviations including logical and physical security deviations."
 
   children = [
     benchmark.soc_2_cc_7_1,
     benchmark.soc_2_cc_7_2,
     benchmark.soc_2_cc_7_3,
-    benchmark.soc_2_cc_7_4,
-    benchmark.soc_2_cc_7_5
+    benchmark.soc_2_cc_7_4
   ]
 
   tags = local.soc_2_cc_7_common_tags
@@ -24,9 +23,9 @@ benchmark "soc_2_cc_7_1" {
   documentation = file("./soc_2/docs/cc_7_1.md")
 
   children = [
+    control.ec2_instance_ssm_managed,
     control.guardduty_enabled,
     control.securityhub_enabled,
-    control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant
   ]
 
@@ -41,27 +40,27 @@ benchmark "soc_2_cc_7_2" {
   documentation = file("./soc_2/docs/cc_7_2.md")
 
   children = [
+    control.apigateway_stage_logging_enabled,
+    control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
-    control.cloudtrail_s3_data_events_enabled,
-    control.lambda_function_dead_letter_queue_configured,
-    control.elb_application_classic_lb_logging_enabled,
-    control.s3_bucket_logging_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
-    control.cloudtrail_trail_enabled,
-    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.securityhub_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.cloudtrail_multi_region_trail_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
-    control.vpc_flow_logs_enabled,
-    control.ec2_instance_detailed_monitoring_enabled,
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
-    control.apigateway_stage_logging_enabled,
     control.lambda_function_concurrent_execution_limit_configured,
-    control.vpc_security_group_restrict_ingress_ssh_all
+    control.lambda_function_dead_letter_queue_configured,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
+    control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -75,21 +74,25 @@ benchmark "soc_2_cc_7_3" {
   documentation = file("./soc_2/docs/cc_7_3.md")
 
   children = [
-    control.log_group_encryption_at_rest_enabled,
-    control.cloudtrail_trail_validation_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.guardduty_enabled,
     control.apigateway_stage_logging_enabled,
-    control.lambda_function_dead_letter_queue_configured,
-    control.rds_db_instance_logging_enabled,
-    control.securityhub_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_validation_enabled,
     control.cloudwatch_alarm_action_enabled,
-    control.elb_application_classic_lb_logging_enabled,
-    control.s3_bucket_logging_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.vpc_flow_logs_enabled,
+    control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
+    control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.wafv2_web_acl_logging_enabled
+    control.lambda_function_dead_letter_queue_configured,
+    control.log_group_encryption_at_rest_enabled,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_audit_logging_enabled,
+    control.s3_bucket_event_notifications_enabled,
+    control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {
@@ -106,6 +109,7 @@ benchmark "soc_2_cc_7_4" {
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_recovery_point_min_retention_35_days,
     control.cloudwatch_alarm_action_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
@@ -134,19 +138,5 @@ benchmark "soc_2_cc_7_4" {
   tags = merge(local.soc_2_cc_7_common_tags, {
     soc_2_item_id = "7.4"
     soc_2_type    = "automated"
-  })
-}
-
-benchmark "soc_2_cc_7_5" {
-  title         = "CC7.5 The entity identifies, develops, and implements activities to recover from identified security incidents"
-  documentation = file("./soc_2/docs/cc_7_5.md")
-
-  children = [
-    control.manual_control
-  ]
-
-  tags = merge(local.soc_2_cc_7_common_tags, {
-    soc_2_item_id = "7.5"
-    soc_2_type    = "manual"
   })
 }

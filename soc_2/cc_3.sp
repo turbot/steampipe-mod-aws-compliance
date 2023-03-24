@@ -5,13 +5,12 @@ locals {
 }
 
 benchmark "soc_2_cc_3" {
-  title       = "CC3.0 - Common Criteria Related to Risk Assessment"
+  title       = "CC3 Common Criteria Related to Risk Assessment"
   description = "The criteria relevant to how the entity (i) specifies suitable objectives, (ii) identifies and analyzes risk, and (iii) assess fraud risk."
 
   children = [
     benchmark.soc_2_cc_3_1,
     benchmark.soc_2_cc_3_2,
-    benchmark.soc_2_cc_3_3,
     benchmark.soc_2_cc_3_4
   ]
 
@@ -23,9 +22,9 @@ benchmark "soc_2_cc_3_1" {
   documentation = file("./soc_2/docs/cc_3_1.md")
 
   children = [
+    control.config_enabled_all_regions,
     control.guardduty_enabled,
-    control.securityhub_enabled,
-    control.config_enabled_all_regions
+    control.securityhub_enabled
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {
@@ -40,29 +39,16 @@ benchmark "soc_2_cc_3_2" {
 
   children = [
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.guardduty_finding_archived,
     control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.iam_user_console_access_mfa_enabled,
+    control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = merge(local.soc_2_cc_3_common_tags, {
     soc_2_item_id = "3.2"
     soc_2_type    = "automated"
-  })
-}
-
-benchmark "soc_2_cc_3_3" {
-  title         = "CC3.3 COSO Principle 8: The entity considers the potential for fraud in assessing risks to the achievement of objectives"
-  documentation = file("./soc_2/docs/cc_3_3.md")
-
-  children = [
-    control.manual_control
-  ]
-
-  tags = merge(local.soc_2_cc_4_common_tags, {
-    soc_2_item_id = "3.3"
-    soc_2_type    = "manual"
   })
 }
 

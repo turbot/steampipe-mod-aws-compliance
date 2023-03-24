@@ -22,6 +22,7 @@ control "sns_topic_encrypted_at_rest" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
