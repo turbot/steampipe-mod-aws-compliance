@@ -56,7 +56,7 @@ control "opensearch_domain_audit_logging_enabled" {
 }
 
 control "opensearch_domain_logs_to_cloudwatch" {
-  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
+  title       = "OpenSearch domains logs to CloudWatch Logs."
   description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 
@@ -186,11 +186,11 @@ query "opensearch_domain_audit_logging_enabled" {
       case
         when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then title || ' audit logging enabled.'
         else title || ' audit logging disabled.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -265,11 +265,11 @@ query "opensearch_domain_https_required" {
       case
         when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
         else 'ok'
-      end status,
+      end as status,
       case
         when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' not using HTTPS.'
         else title || ' using HTTPS.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
