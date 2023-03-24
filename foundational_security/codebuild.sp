@@ -59,7 +59,6 @@ control "foundational_security_codebuild_3" {
   })
 }
 
-
 control "foundational_security_codebuild_4" {
   title         = "4 CodeBuild project environments should have a logging configuration"
   description   = "This control checks whether a CodeBuild project environment has at least one log option, either to S3 or CloudWatch logs enabled. This control fails if a CodeBuild project environment does not have at least one log option enabled."
