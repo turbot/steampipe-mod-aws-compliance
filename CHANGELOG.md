@@ -16,7 +16,7 @@ _What's new?_
 
 - New benchmark added: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
   - `soc_2_c_1` (`steampipe check benchmark.soc_2_c_1`)
-- New controls were added to the following SOC 2 sub-benchmarks: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
+- New controls were added to the following `SOC 2` sub-benchmarks: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
   - `a_1_2`
   - `soc2_c_1_1`
   - `soc2_c_1_2`
