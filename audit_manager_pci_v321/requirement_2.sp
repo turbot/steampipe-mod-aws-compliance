@@ -19,7 +19,7 @@ benchmark "audit_manager_pci_v321_requirement_2" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_2_1" {
-  title       = "2.1 Always change vendor-supplied defaults and remove or disable unnecessary default accounts before installing a system on the network. This applies to ALL default passwords, including but not limited to those used by operating systems, software that provides security services, application and system accounts, point-of-sale (POS) terminals, payment applications, Simple Network Management Protocol (SNMP) community strings, etc.)"
+  title       = "2.1 Always change vendor-supplied defaults and remove or disable unnecessary default accounts before installing a system on the network. This applies to ALL default passwords, including but not limited to those used by operating systems, software that provides security services, application and system accounts, point-of-sale (POS) terminals, payment applications, Simple Network Management Protocol (SNMP) community strings, etc"
   description = "Malicious individuals (external and internal to an organization) often use vendor default settings, account names, and passwords to compromise operating system software, applications, and the systems on which they are installed. Because these default settings are often published and are well known in hacker communities, changing these settings will leave systems less vulnerable to attack. Even if a default account is not intended to be used, changing the default password to a strong unique password and then disabling the account will prevent a malicious individual from re-enabling the account and gaining access with the default password."
 
   children = [
@@ -211,7 +211,7 @@ benchmark "audit_manager_pci_v321_requirement_2_4" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_2_4_a" {
-  title       = "Examine system inventory to verify that a list of hardware and software components is maintained and includes a description of function/use for each"
+  title       = "2.4.a Examine system inventory to verify that a list of hardware and software components is maintained and includes a description of function/use for each"
   description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
 
   children = [
