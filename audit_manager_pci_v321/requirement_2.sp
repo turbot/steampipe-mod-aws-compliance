@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_2_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_2"
+    control_set = "1"
   })
 }
 
@@ -50,15 +50,16 @@ benchmark "audit_manager_pci_v321_requirement_2_2" {
   description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
 
   children = [
-    control.autoscaling_group_with_lb_use_health_check,
-    control.iam_root_user_no_access_keys,
-    control.s3_bucket_cross_region_replication_enabled,
     benchmark.audit_manager_pci_v321_requirement_2_2_2,
     benchmark.audit_manager_pci_v321_requirement_2_2_4,
     benchmark.audit_manager_pci_v321_requirement_2_2_5,
     benchmark.audit_manager_pci_v321_requirement_2_2_a,
-    benchmark.audit_manager_pci_v321_requirement_2_2_d
+    benchmark.audit_manager_pci_v321_requirement_2_2_d,
+    control.autoscaling_group_with_lb_use_health_check,
+    control.iam_root_user_no_access_keys,
+    control.s3_bucket_cross_region_replication_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2"
   })
@@ -86,8 +87,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2_2" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_igw_attached_to_authorized_vpc,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.2"
   })
@@ -100,8 +102,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2_4" {
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.2"
   })
@@ -114,6 +117,7 @@ benchmark "audit_manager_pci_v321_requirement_2_2_5" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_2_2_5_b
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.5_b"
   })
@@ -126,8 +130,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2_5_b" {
   children = [
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.5.b"
   })
@@ -142,8 +147,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2_a" {
     control.cloudformation_stack_drift_detection_check,
     control.rds_db_cluster_no_default_admin_name,
     control.rds_db_instance_no_default_admin_name,
-    control.redshift_cluster_no_default_admin_name,
+    control.redshift_cluster_no_default_admin_name
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.a"
   })
@@ -158,8 +164,9 @@ benchmark "audit_manager_pci_v321_requirement_2_2_d" {
     control.cloudformation_stack_drift_detection_check,
     control.rds_db_cluster_no_default_admin_name,
     control.rds_db_instance_no_default_admin_name,
-    control.redshift_cluster_no_default_admin_name,
+    control.redshift_cluster_no_default_admin_name
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.2.d"
   })
@@ -178,8 +185,9 @@ benchmark "audit_manager_pci_v321_requirement_2_3" {
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
-    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_in_transit_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.3"
   })
@@ -195,6 +203,7 @@ benchmark "audit_manager_pci_v321_requirement_2_4" {
     control.vpc_eip_associated,
     control.config_enabled_all_regions
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.4"
   })
@@ -203,9 +212,11 @@ benchmark "audit_manager_pci_v321_requirement_2_4" {
 benchmark "audit_manager_pci_v321_requirement_2_4_a" {
   title       = "Examine system inventory to verify that a list of hardware and software components is maintained and includes a description of function/use for each"
   description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
+
   children = [
     control.config_enabled_all_regions
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
     audit_manager_pci_v321_item_id = "2.4"
   })

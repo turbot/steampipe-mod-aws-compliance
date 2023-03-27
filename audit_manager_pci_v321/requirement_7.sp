@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_7_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_7"
+    control_set = "7"
   })
 }
 
@@ -21,8 +21,9 @@ benchmark "audit_manager_pci_v321_requirement_7_1" {
   description = "The more people who have access to cardholder data, the more risk there is that a user's account will be used maliciously. Limiting access to those with a legitimate business reason for the access helps an organization prevent mishandling of cardholder data through inexperience or malice."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_7_1_2,
+    benchmark.audit_manager_pci_v321_requirement_7_1_2
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.1"
   })
@@ -33,8 +34,9 @@ benchmark "audit_manager_pci_v321_requirement_7_1_2" {
   description = "When assigning privileged IDs, it is important to assign individuals only the privileges they need to perform their job (the “least privileges”). For example, the database administrator or backup administrator should not be assigned the same privileges as the overall systems administrator."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_7_1_2_a,
+    benchmark.audit_manager_pci_v321_requirement_7_1_2_a
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.1.2"
   })
@@ -47,8 +49,9 @@ benchmark "audit_manager_pci_v321_requirement_7_1_2_a" {
   children = [
     control.efs_access_point_enforce_user_identity,
     control.iam_all_policy_no_service_wild_card,
-    control.opensearch_domain_fine_grained_access_enabled,
+    control.opensearch_domain_fine_grained_access_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.1.2"
   })
@@ -61,6 +64,7 @@ benchmark "audit_manager_pci_v321_requirement_7_2" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_7_2_1
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.2"
   })
@@ -87,8 +91,9 @@ benchmark "audit_manager_pci_v321_requirement_7_2_1" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_igw_attached_to_authorized_vpc
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_7_common_tags, {
     audit_manager_pci_v321_item_id = "7.2.1"
   })

@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_4_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_4"
+    control_set = "4"
   })
 }
 
@@ -32,8 +32,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1" {
     control.elb_listener_use_secure_ssl_cipher,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1"
   })
@@ -57,8 +58,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1_a" {
     control.kinesis_stream_server_side_encryption_enabled,
     control.opensearch_domain_https_required,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1.a"
   })
@@ -70,8 +72,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1_d" {
 
   children = [
     control.acm_certificate_expires_30_days,
-    control.elb_classic_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_ssl_certificate
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1.d"
   })
@@ -83,8 +86,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1_e" {
 
   children = [
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1.e"
   })
@@ -96,8 +100,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1_f" {
 
   children = [
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1.f"
   })
@@ -119,8 +124,9 @@ benchmark "audit_manager_pci_v321_requirement_4_1_g" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
     audit_manager_pci_v321_item_id = "4.1.f"
   })

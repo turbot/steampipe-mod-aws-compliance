@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_5_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_5"
+    control_set = "5"
   })
 }
 
@@ -10,7 +10,7 @@ benchmark "audit_manager_pci_v321_requirement_5" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_5_1,
-    benchmark.audit_manager_pci_v321_requirement_5_2,
+    benchmark.audit_manager_pci_v321_requirement_5_2
   ]
 
   tags = local.audit_manager_pci_v321_requirement_5_common_tags
@@ -23,6 +23,7 @@ benchmark "audit_manager_pci_v321_requirement_5_1" {
   children = [
     control.ssm_managed_instance_compliance_association_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_5_common_tags, {
     audit_manager_pci_v321_item_id = "5.1"
   })
@@ -33,8 +34,9 @@ benchmark "audit_manager_pci_v321_requirement_5_2" {
   description = "Even the best anti-virus solutions are limited in effectiveness if they are not maintained and kept current with the latest security updates, signature files, or malware protections. Audit logs provide the ability to monitor virus and malware activity and anti-malware reactions. Thus, it is imperative that anti-malware solutions be configured to generate audit logs and that these logs be managed in accordance with Requirement 10."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_5_2_c,
+    benchmark.audit_manager_pci_v321_requirement_5_2_c
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_5_common_tags, {
     audit_manager_pci_v321_item_id = "5.2"
   })
@@ -45,8 +47,9 @@ benchmark "audit_manager_pci_v321_requirement_5_2_c" {
   description = "Even the best anti-virus solutions are limited in effectiveness if they are not maintained and kept current with the latest security updates, signature files, or malware protections. Audit logs provide the ability to monitor virus and malware activity and anti-malware reactions. Thus, it is imperative that anti-malware solutions be configured to generate audit logs and that these logs be managed in accordance with Requirement 10."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
+    control.ssm_managed_instance_compliance_association_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_5_common_tags, {
     audit_manager_pci_v321_item_id = "5.2.c"
   })

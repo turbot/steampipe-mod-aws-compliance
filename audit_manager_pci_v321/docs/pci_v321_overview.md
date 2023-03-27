@@ -1,3 +1,0 @@
-## Overview
-
-AWS establishes itself as a PCI DSS Service Provider to enable, upon further configuration, the compliance of our customers. The scope for each service assessed assumes that any data provided by the customer could include credit card numbers, sensitive authentication data (SAD), or the service could impact the security of the provided sensitive data. Therefore, AWS services listed as PCI DSS compliant are assessed as if they store, process, or transmit cardholder data on behalf of customers.This includes all physical security requirements for AWS data centers that support those PCI DSS in scope services.

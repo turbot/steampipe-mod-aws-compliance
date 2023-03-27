@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_6_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_6"
+    control_set = "6"
   })
 }
 
@@ -13,7 +13,7 @@ benchmark "audit_manager_pci_v321_requirement_6" {
     benchmark.audit_manager_pci_v321_requirement_6_2,
     benchmark.audit_manager_pci_v321_requirement_6_3,
     benchmark.audit_manager_pci_v321_requirement_6_5,
-    benchmark.audit_manager_pci_v321_requirement_6_6,
+    benchmark.audit_manager_pci_v321_requirement_6_6
   ]
 
   tags = local.audit_manager_pci_v321_requirement_6_common_tags
@@ -24,8 +24,9 @@ benchmark "audit_manager_pci_v321_requirement_6_1" {
   description = "The intent of this requirement is that organizations keep up to date with new vulnerabilities that may impact their environment. Sources for vulnerability information should be trustworthy and often include vendor websites, industry news groups, mailing list, or RSS feeds. Once an organization identifies a vulnerability that could affect their environment, the risk that the vulnerability poses must be evaluated and ranked. The organization must therefore have a method in place to evaluate vulnerabilities on an ongoing basis and assign risk rankings to those vulnerabilities. This is not achieved by an ASV scan or internal vulnerability scan, rather this requires a process to actively monitor industry sources for vulnerability information. Classifying the risks (for example, as “high,” “medium,” or “low”) allows organizations to identify, prioritize, and address the highest risk items more quickly and reduce the likelihood that vulnerabilities posing the greatest risk will be exploited."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_6_1_b,
+    benchmark.audit_manager_pci_v321_requirement_6_1_b
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.1"
   })
@@ -36,8 +37,9 @@ benchmark "audit_manager_pci_v321_requirement_6_1_b" {
   description = "The intent of this requirement is that organizations keep up to date with new vulnerabilities that may impact their environment. Sources for vulnerability information should be trustworthy and often include vendor websites, industry news groups, mailing list, or RSS feeds. Once an organization identifies a vulnerability that could affect their environment, the risk that the vulnerability poses must be evaluated and ranked. The organization must therefore have a method in place to evaluate vulnerabilities on an ongoing basis and assign risk rankings to those vulnerabilities. This is not achieved by an ASV scan or internal vulnerability scan, rather this requires a process to actively monitor industry sources for vulnerability information. Classifying the risks (for example, as “high,” “medium,” or “low”) allows organizations to identify, prioritize, and address the highest risk items more quickly and reduce the likelihood that vulnerabilities posing the greatest risk will be exploited."
 
   children = [
-    control.guardduty_finding_archived,
+    control.guardduty_finding_archived
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.1.b"
   })
@@ -50,8 +52,9 @@ benchmark "audit_manager_pci_v321_requirement_6_2" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_6_2_b,
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.2"
   })
@@ -64,8 +67,9 @@ benchmark "audit_manager_pci_v321_requirement_6_2_b" {
   children = [
     control.eks_cluster_with_latest_kubernetes_version,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.2.b"
   })
@@ -79,8 +83,9 @@ benchmark "audit_manager_pci_v321_requirement_6_3" {
     benchmark.audit_manager_pci_v321_requirement_6_3_1,
     benchmark.audit_manager_pci_v321_requirement_6_3_a,
     benchmark.audit_manager_pci_v321_requirement_6_3_b,
-    benchmark.audit_manager_pci_v321_requirement_6_3_c,
+    benchmark.audit_manager_pci_v321_requirement_6_3_c
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.3"
   })
@@ -95,6 +100,7 @@ benchmark "audit_manager_pci_v321_requirement_6_3_1" {
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.3"
   })
@@ -131,8 +137,9 @@ benchmark "audit_manager_pci_v321_requirement_6_3_a" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.codebuild_project_source_repo_oauth_configured,
+    control.codebuild_project_source_repo_oauth_configured
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.3.a"
   })
@@ -145,8 +152,9 @@ benchmark "audit_manager_pci_v321_requirement_6_3_b" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.codebuild_project_source_repo_oauth_configured,
+    control.codebuild_project_source_repo_oauth_configured
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.3.b"
   })
@@ -159,8 +167,9 @@ benchmark "audit_manager_pci_v321_requirement_6_3_c" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.codebuild_project_source_repo_oauth_configured,
+    control.codebuild_project_source_repo_oauth_configured
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.3.c"
   })
@@ -171,8 +180,9 @@ benchmark "audit_manager_pci_v321_requirement_6_5" {
   description = "The application layer is high-risk and may be targeted by both internal and external threats. Requirements 6.5.1 through 6.5.10 are the minimum controls that should be in place, and organizations should incorporate the relevant secure coding practices as applicable to the particular technology in their environment. Application developers should be properly trained to identify and resolve issues related to these (and other) common coding vulnerabilities. Having staff knowledgeable of secure coding guidelines should minimize the number of security vulnerabilities introduced through poor coding practices. Training for developers may be provided in-house or by third parties and should be applicable for technology used. As industry-accepted secure coding practices change, organizational coding practices and developer training should likewise be updated to address new threats—for example, memory scraping attacks. The vulnerabilities identified in 6.5.1 through 6.5.10 provide a minimum baseline. It is up to the organization to remain up to date with vulnerability trends and incorporate appropriate measures into their secure coding practices."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_6_5_8,
+    benchmark.audit_manager_pci_v321_requirement_6_5_8
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.5"
   })
@@ -183,8 +193,9 @@ benchmark "audit_manager_pci_v321_requirement_6_5_8" {
   description = "A direct object reference occurs when a developer exposes a reference to an internal implementation object, such as a file, directory, database record, or key, as a URL or form parameter. Attackers can manipulate those references to access other objects without authorization. Consistently enforce access control in presentation layer and business logic for all URLs. Frequently, the only way an application protects sensitive functionality is by preventing the display of links or URLs to unauthorized users. Attackers can use this weakness to access and perform unauthorized operations by accessing those URLs directly. An attacker may be able to enumerate and navigate the directory structure of a website (directory traversal) thus gaining access to unauthorized information as well as gaining further insight into the workings of the site for later exploitation. If user interfaces permit access to unauthorized functions, this access could result in unauthorized individuals gaining access to privileged credentials or cardholder data. Only authorized users should be permitted to access direct object references to sensitive resources. Limiting access to data resources will help prevent cardholder data from being presented to unauthorized resources."
 
   children = [
-    control.codebuild_project_environment_privileged_mode_disabled,
+    control.codebuild_project_environment_privileged_mode_disabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.5.8"
   })
@@ -193,6 +204,7 @@ benchmark "audit_manager_pci_v321_requirement_6_5_8" {
 benchmark "audit_manager_pci_v321_requirement_6_6" {
   title       = "6.6 For public-facing web applications, ensure that either one of the following methods is in place as follows: • Examine documented processes, interview personnel, and examine records of application security assessments to verify that public-facing web applications are reviewed—using either manual or automated vulnerability security assessment tools or methods—as follows: - At least annually - After any changes - By an organization that specializes in application security - That, at a minimum, all vulnerabilities in Requirement 6.5 are included in the assessment - That all vulnerabilities are corrected - That the application is re-evaluated after the corrections"
   description = "Examine the system configuration settings and interview responsible personnel to verify that an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) is in place as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated.Public-facing web applications are primary targets for attackers, and poorly coded web applications provide an easy path for attackers to gain access to sensitive data and systems. The requirement for reviewing applications or installing web-application firewalls is intended to reduce the number of compromises on public-facing web applications due to poor coding or application management practices. • Manual or automated vulnerability security assessment tools or methods review and/or test the application for vulnerabilities • Web-application firewalls filter and block non- essential traffic at the application layer. Used in conjunction with a network-based firewall, a properly configured web-application firewall prevents application-layer attacks if applications are improperly coded or configured. This can be achieved through a combination of technology and process. Process-based solutions must have mechanisms that facilitate timely responses to alerts in order to meet the intent of this requirement, which is to prevent attacks. Note: “An organization that specializes in application security” can be either a third-party company or an internal organization, as long as the reviewers specialize in application security and can demonstrate independence from the development team. For public-facing web applications, address new threats and vulnerabilities on an ongoing basis and ensure these applications are protected against known attacks by either of the following methods: • Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, at least annually and after any changes Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. • Installing an automated technical solution that detects and prevents web- based attacks (for example, a web- application firewall) in front of public- facing web applications, to continually check all traffic."
+
   children = [
     control.apigateway_stage_use_waf_web_acl,
     control.elb_application_lb_desync_mitigation_mode,
@@ -201,8 +213,9 @@ benchmark "audit_manager_pci_v321_requirement_6_6" {
     control.waf_regional_rule_condition_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
     audit_manager_pci_v321_item_id = "6.6"
   })

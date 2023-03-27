@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_10_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_10"
+    control_set = "10"
   })
 }
 
@@ -14,7 +14,7 @@ benchmark "audit_manager_pci_v321_requirement_10" {
     benchmark.audit_manager_pci_v321_requirement_10_3,
     benchmark.audit_manager_pci_v321_requirement_10_5,
     benchmark.audit_manager_pci_v321_requirement_10_7,
-    benchmark.audit_manager_pci_v321_requirement_10_8,
+    benchmark.audit_manager_pci_v321_requirement_10_8
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -41,7 +41,9 @@ benchmark "audit_manager_pci_v321_requirement_10_1" {
     control.wafv2_web_acl_logging_enabled,
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2" {
@@ -59,10 +61,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2" {
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
-    control.redshift_cluster_audit_logging_enabled,
+    control.redshift_cluster_audit_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_1" {
@@ -75,10 +79,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_1" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_2" {
@@ -91,10 +97,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_2" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_3" {
@@ -107,10 +115,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_3" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.3"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_4" {
@@ -123,10 +133,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_4" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.4"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_5" {
@@ -136,17 +148,21 @@ benchmark "audit_manager_pci_v321_requirement_10_2_5" {
     benchmark.audit_manager_pci_v321_requirement_10_2_5_a
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.5"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_5_a" {
   title       = "10.2.5.a Verify use of identification and authentication mechanisms is logged"
   description = "Without knowing who was logged on at the time of an incident, it is impossible to identify the accounts that may have been used. Additionally, malicious users may attempt to manipulate the authentication controls with the intent of bypassing them or impersonating a valid account."
   children = [
-    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.5.a"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_6" {
@@ -159,10 +175,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_6" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.6"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_2_7" {
@@ -175,10 +193,12 @@ benchmark "audit_manager_pci_v321_requirement_10_2_7" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.2.7"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3" {
@@ -198,10 +218,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3" {
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_1" {
@@ -216,10 +238,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_1" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_2" {
@@ -234,10 +258,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_2" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.2"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_3" {
@@ -252,10 +278,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_3" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.3"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_4" {
@@ -270,10 +298,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_4" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.4"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_5" {
@@ -288,10 +318,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_5" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.5"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_3_6" {
@@ -306,10 +338,12 @@ benchmark "audit_manager_pci_v321_requirement_10_3_6" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.3.6"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_5" {
@@ -328,10 +362,12 @@ benchmark "audit_manager_pci_v321_requirement_10_5" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.5"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_5_2" {
@@ -340,10 +376,12 @@ benchmark "audit_manager_pci_v321_requirement_10_5_2" {
 
   children = [
     control.cloudtrail_trail_validation_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.5.2"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_5_3" {
@@ -352,10 +390,12 @@ benchmark "audit_manager_pci_v321_requirement_10_5_3" {
 
   children = [
     control.cloudtrail_trail_integrated_with_logs,
-    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_cross_region_replication_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.5.3"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_5_4" {
@@ -370,10 +410,12 @@ benchmark "audit_manager_pci_v321_requirement_10_5_4" {
     control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.s3_bucket_logging_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.5.4"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_5_5" {
@@ -382,10 +424,12 @@ benchmark "audit_manager_pci_v321_requirement_10_5_5" {
 
   children = [
     control.cloudtrail_trail_validation_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.5.5"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_7" {
@@ -396,10 +440,12 @@ benchmark "audit_manager_pci_v321_requirement_10_7" {
     benchmark.audit_manager_pci_v321_requirement_10_7_a,
     benchmark.audit_manager_pci_v321_requirement_10_7_b,
     benchmark.audit_manager_pci_v321_requirement_10_7_c,
-    control.cloudwatch_log_group_retention_period_365,
+    control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.7"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_7_a" {
@@ -411,10 +457,12 @@ benchmark "audit_manager_pci_v321_requirement_10_7_a" {
     control.backup_recovery_point_manual_deletion_disabled,
     control.backup_recovery_point_min_retention_35_days,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.7.a"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_7_b" {
@@ -422,10 +470,12 @@ benchmark "audit_manager_pci_v321_requirement_10_7_b" {
   description = "Retaining logs for at least a year allows for the fact that it often takes a while to notice that a compromise has occurred or is occurring, and allows investigators sufficient log history to better determine the length of time of a potential breach and potential system(s) impacted. By having three months of logs immediately available, an entity can quickly identify and minimize impact of a data breach. Storing logs in off-line locations could prevent them from being readily available, resulting in longer time frames to restore log data, perform analysis, and identify impacted systems or data."
 
   children = [
-    control.cloudwatch_log_group_retention_period_365,
+    control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.7.b"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_7_c" {
@@ -433,10 +483,12 @@ benchmark "audit_manager_pci_v321_requirement_10_7_c" {
   description = "Retaining logs for at least a year allows for the fact that it often takes a while to notice that a compromise has occurred or is occurring, and allows investigators sufficient log history to better determine the length of time of a potential breach and potential system(s) impacted. By having three months of logs immediately available, an entity can quickly identify and minimize impact of a data breach. Storing logs in off-line locations could prevent them from being readily available, resulting in longer time frames to restore log data, perform analysis, and identify impacted systems or data."
 
   children = [
-    control.cloudwatch_log_group_retention_period_365,
+    control.cloudwatch_log_group_retention_period_365
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.7.c"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_8" {
@@ -445,10 +497,12 @@ benchmark "audit_manager_pci_v321_requirement_10_8" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_10_8_1,
-    benchmark.audit_manager_pci_v321_requirement_10_8_a,
+    benchmark.audit_manager_pci_v321_requirement_10_8_a
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.8"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_8" {
@@ -457,10 +511,12 @@ benchmark "audit_manager_pci_v321_requirement_10_8" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_10_8_1,
-    benchmark.audit_manager_pci_v321_requirement_10_8_b,
+    benchmark.audit_manager_pci_v321_requirement_10_8_b
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.8"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_8_1" {
@@ -471,7 +527,9 @@ benchmark "audit_manager_pci_v321_requirement_10_8_1" {
     benchmark.audit_manager_pci_v321_requirement_10_8_1_a,
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.8.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_8_1_a" {
@@ -482,7 +540,9 @@ benchmark "audit_manager_pci_v321_requirement_10_8_1_a" {
     control.cloudwatch_alarm_action_enabled,
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.8.1.a"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_10_8_b" {
@@ -496,8 +556,10 @@ benchmark "audit_manager_pci_v321_requirement_10_8_b" {
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
     control.redshift_cluster_audit_logging_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_10_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
+    audit_manager_pci_v321_item_id = "10.8.b"
+  })
 }

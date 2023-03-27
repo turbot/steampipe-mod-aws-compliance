@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_8_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "pci_v321_requirement_8"
+    control_set = "8"
   })
 }
 
@@ -14,7 +14,7 @@ benchmark "audit_manager_pci_v321_requirement_8" {
     benchmark.audit_manager_pci_v321_requirement_8_3,
     benchmark.audit_manager_pci_v321_requirement_8_5,
     benchmark.audit_manager_pci_v321_requirement_8_6,
-    benchmark.audit_manager_pci_v321_requirement_8_7,
+    benchmark.audit_manager_pci_v321_requirement_8_7
   ]
 
   tags = local.audit_manager_pci_v321_requirement_8_common_tags
@@ -28,10 +28,11 @@ benchmark "audit_manager_pci_v321_requirement_8_1" {
     benchmark.audit_manager_pci_v321_requirement_8_1_2,
     benchmark.audit_manager_pci_v321_requirement_8_1_4,
     benchmark.audit_manager_pci_v321_requirement_8_1_5
-
   ]
 
-  tags = local.audit_manager_pci_v321_requirement_8_common_tags
+  tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
+    audit_manager_pci_v321_item_id = "8.1"
+  })
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_1_2" {
@@ -41,6 +42,7 @@ benchmark "audit_manager_pci_v321_requirement_8_1_2" {
   children = [
     control.log_metric_filter_iam_policy
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.1.2"
   })
@@ -52,8 +54,9 @@ benchmark "audit_manager_pci_v321_requirement_8_1_4" {
 
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
-    control.iam_user_unused_credentials_90,
+    control.iam_user_unused_credentials_90
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.1.4"
   })
@@ -64,8 +67,9 @@ benchmark "audit_manager_pci_v321_requirement_8_1_5" {
   description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_8_1_5_a,
+    benchmark.audit_manager_pci_v321_requirement_8_1_5_a
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.1.5"
   })
@@ -76,8 +80,9 @@ benchmark "audit_manager_pci_v321_requirement_8_1_5_a" {
   description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
-    control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_multi_region_trail_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.1.5.a"
   })
@@ -91,6 +96,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2" {
     benchmark.audit_manager_pci_v321_requirement_8_2_1,
     control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2"
   })
@@ -113,8 +119,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.1"
   })
@@ -150,8 +157,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_a" {
     control.s3_bucket_enforces_ssl,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.1.a"
   })
@@ -162,8 +170,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_b" {
   description = "Many network devices and applications transmit unencrypted, readable passwords across the network and/or store passwords without encryption. A malicious individual can easily intercept unencrypted passwords during transmission using a “sniffer,” or directly access unencrypted passwords in files where they are stored, and use this data to gain unauthorized access. Note: Testing Procedures 8.2.1.d and 8.2.1.e are additional procedures that only apply if the entity being assessed is a service provider."
 
   children = [
-    control.secretsmanager_secret_encrypted_with_kms_cmk,
+    control.secretsmanager_secret_encrypted_with_kms_cmk
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.1.b"
   })
@@ -174,8 +183,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_c" {
   description = "Many network devices and applications transmit unencrypted, readable passwords across the network and/or store passwords without encryption. A malicious individual can easily intercept unencrypted passwords during transmission using a “sniffer,” or directly access unencrypted passwords in files where they are stored, and use this data to gain unauthorized access. Note: Testing Procedures 8.2.1.d and 8.2.1.e are additional procedures that only apply if the entity being assessed is a service provider."
 
   children = [
-    control.secretsmanager_secret_encrypted_with_kms_cmk,
+    control.secretsmanager_secret_encrypted_with_kms_cmk
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.1.c"
   })
@@ -190,6 +200,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3" {
     benchmark.audit_manager_pci_v321_requirement_8_2_3_b,
     control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.3"
   })
@@ -200,8 +211,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3_a" {
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.3.a"
   })
@@ -212,8 +224,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3_b" {
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.3.b"
   })
@@ -226,8 +239,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_4" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_4_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_4_b,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.4"
   })
@@ -239,8 +253,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_4_a" {
 
   children = [
     control.iam_account_password_policy_strong,
-    control.secretsmanager_secret_last_changed_90_day,
+    control.secretsmanager_secret_last_changed_90_day
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.4.a"
   })
@@ -251,8 +266,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_4_b" {
   description = "Passwords/passphrases that are valid for a long time without a change provide malicious individuals with more time to work on breaking the password/phrase. Note: Testing Procedure 8.2.4.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.4.b"
   })
@@ -265,8 +281,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_5_a,
     benchmark.audit_manager_pci_v321_requirement_8_2_5_b,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.5"
   })
@@ -277,8 +294,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5_a" {
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.5.a"
   })
@@ -289,8 +307,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5_b" {
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.2.5.b"
   })
@@ -304,6 +323,7 @@ benchmark "audit_manager_pci_v321_requirement_8_3" {
     benchmark.audit_manager_pci_v321_requirement_8_3_1,
     benchmark.audit_manager_pci_v321_requirement_8_3_2
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3"
   })
@@ -315,10 +335,11 @@ benchmark "audit_manager_pci_v321_requirement_8_3_1" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_3_1_a,
-    control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.1"
   })
@@ -331,8 +352,9 @@ benchmark "audit_manager_pci_v321_requirement_8_3_1_a" {
   children = [
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.1.a"
   })
@@ -343,8 +365,9 @@ benchmark "audit_manager_pci_v321_requirement_8_3_2" {
   description = "This requirement is intended to apply to all personnel—including general users, administrators, and vendors (for support or maintenance) with remote access to the network—where that remote access could lead to access to the CDE. If remote access is to an entity's network that has appropriate segmentation, such that remote users cannot access or impact the cardholder data environment, multi-factor authentication for remote access to that network would not be required. However, multi- factor authentication is required for any remote access to networks with access to the cardholder data environment, and is recommended for all remote access to the entity's networks."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_8_3_2_a,
+    benchmark.audit_manager_pci_v321_requirement_8_3_2_a
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.2"
   })
@@ -357,8 +380,9 @@ benchmark "audit_manager_pci_v321_requirement_8_3_2_a" {
   children = [
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.3.2.a"
   })
@@ -369,8 +393,9 @@ benchmark "audit_manager_pci_v321_requirement_8_5" {
   description = "If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual’s actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_8_5_a,
+    benchmark.audit_manager_pci_v321_requirement_8_5_a
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.5"
   })
@@ -383,6 +408,7 @@ benchmark "audit_manager_pci_v321_requirement_8_5_a" {
   children = [
     control.iam_root_user_no_access_keys
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.5.a"
   })
@@ -395,6 +421,7 @@ benchmark "audit_manager_pci_v321_requirement_8_6" {
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_6_c
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.6"
   })
@@ -407,8 +434,9 @@ benchmark "audit_manager_pci_v321_requirement_8_6_c" {
   children = [
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.6.c"
   })
@@ -424,6 +452,7 @@ benchmark "audit_manager_pci_v321_requirement_8_7" {
     benchmark.audit_manager_pci_v321_requirement_8_7_c,
     benchmark.audit_manager_pci_v321_requirement_8_7_d
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7"
   })
@@ -434,8 +463,9 @@ benchmark "audit_manager_pci_v321_requirement_8_7_a" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled,
+    control.rds_db_cluster_iam_authentication_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7.a"
   })
@@ -446,8 +476,9 @@ benchmark "audit_manager_pci_v321_requirement_8_7_b" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled,
+    control.rds_db_cluster_iam_authentication_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7.b"
   })
@@ -458,8 +489,9 @@ benchmark "audit_manager_pci_v321_requirement_8_7_c" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled,
+    control.rds_db_cluster_iam_authentication_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7.c"
   })
@@ -470,8 +502,9 @@ benchmark "audit_manager_pci_v321_requirement_8_7_d" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled,
+    control.rds_db_cluster_iam_authentication_enabled
   ]
+
   tags = merge(local.audit_manager_pci_v321_requirement_8_common_tags, {
     audit_manager_pci_v321_item_id = "8.7.d"
   })
