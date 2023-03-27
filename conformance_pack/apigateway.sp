@@ -204,7 +204,6 @@ query "apigateway_rest_api_authorizers_configured" {
         when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
         else p.name || ' authorizers not configured.'
       end as reason
-
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from

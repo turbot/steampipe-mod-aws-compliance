@@ -31,8 +31,8 @@ benchmark "audit_manager_pci_v321_requirement_1_1" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_1_1_4" {
-  title         = "1.1.4 Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zone"
-  description   = "Using a firewall on every Internet connection coming into (and out of) the network, and between any DMZ and the internal network, allows the organization to monitor and control access and minimizes the chances of a malicious individual obtaining access to the internal network via an unprotected connection."
+  title       = "1.1.4 Requirements for a firewall at each Internet connection and between any demilitarized zone (DMZ) and the internal network zone"
+  description = "Using a firewall on every Internet connection coming into (and out of) the network, and between any DMZ and the internal network, allows the organization to monitor and control access and minimizes the chances of a malicious individual obtaining access to the internal network via an unprotected connection."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_1_1_4_c
@@ -330,7 +330,7 @@ benchmark "audit_manager_pci_v321_requirement_1_3_3" {
   description = "Normally a packet contains the IP address of the computer that originally sent it so other computers in the network know where the packet came from. Malicious individuals will often try to spoof (or imitate) the sending IP address so that the target system believes the packet is from a trusted source. Filtering packets coming into the network helps to, among other things, ensure packets are not “spoofed” to look like they are coming from an organization's own internal network."
 
   children = [
-    control.autoscaling_launch_config_requires_imdsv2,
+    control.autoscaling_launch_config_requires_imdsv2
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_1_common_tags, {

@@ -81,6 +81,7 @@ benchmark "audit_manager_pci_v321_requirement_6_3" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_6_3_1,
+    benchmark.audit_manager_pci_v321_requirement_6_3_2,
     benchmark.audit_manager_pci_v321_requirement_6_3_a,
     benchmark.audit_manager_pci_v321_requirement_6_3_b,
     benchmark.audit_manager_pci_v321_requirement_6_3_c
@@ -102,33 +103,34 @@ benchmark "audit_manager_pci_v321_requirement_6_3_1" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
-    audit_manager_pci_v321_item_id = "6.3"
+    audit_manager_pci_v321_item_id = "6.3.1"
   })
 }
 
-// issue raised for CODEDEPLOY_LAMBDA_ALLATONCE_TRAFFIC_SHIFT_DISABLED query in audit_manager_pci_v321_requirement_6_3_2_b
-// benchmark "audit_manager_pci_v321_requirement_6_3_2" {
-//   title       = "6.3.2 Review custom code prior to release to production or customers in order to identify any potential coding vulnerability (using either manual or automated processes) to include at least the following: • Code changes are reviewed by individuals other than the originating code author, and by individuals knowledgeable about code-review techniques and secure coding practices. • Code reviews ensure code is developed according to secure coding guidelines • Appropriate corrections are implemented prior to release. • Code-review results are reviewed and approved by management prior to release"
-//   description = "Security vulnerabilities in custom code are commonly exploited by malicious individuals to gain access to a network and compromise cardholder data. An individual knowledgeable and experienced in code-review techniques should be involved in the review process. Code reviews should be performed by someone other than the developer of the code to allow for an independent, objective review. Automated tools or processes may also be used in lieu of manual reviews, but keep in mind that it may be difficult or even impossible for an automated tool to identify some coding issues. Correcting coding errors before the code is deployed into a production environment or released to customers prevents the code exposing the environments to potential exploit. Faulty code is also far more difficult and expensive to address after it has been deployed or released into production environments. Including a formal review and signoff by management prior to release helps to ensure that code is approved and has been developed in accordance with policies and procedures."
+benchmark "audit_manager_pci_v321_requirement_6_3_2" {
+  title       = "6.3.2 Review custom code prior to release to production or customers in order to identify any potential coding vulnerability (using either manual or automated processes) to include at least the following: • Code changes are reviewed by individuals other than the originating code author, and by individuals knowledgeable about code-review techniques and secure coding practices. • Code reviews ensure code is developed according to secure coding guidelines • Appropriate corrections are implemented prior to release. • Code-review results are reviewed and approved by management prior to release"
+  description = "Security vulnerabilities in custom code are commonly exploited by malicious individuals to gain access to a network and compromise cardholder data. An individual knowledgeable and experienced in code-review techniques should be involved in the review process. Code reviews should be performed by someone other than the developer of the code to allow for an independent, objective review. Automated tools or processes may also be used in lieu of manual reviews, but keep in mind that it may be difficult or even impossible for an automated tool to identify some coding issues. Correcting coding errors before the code is deployed into a production environment or released to customers prevents the code exposing the environments to potential exploit. Faulty code is also far more difficult and expensive to address after it has been deployed or released into production environments. Including a formal review and signoff by management prior to release helps to ensure that code is approved and has been developed in accordance with policies and procedures."
 
-//   children = [
-//     benchmark.audit_manager_pci_v321_requirement_6_3_2_b,
-//   ]
-//   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
-//     audit_manager_pci_v321_item_id = "6.3.2"
-//   })
-// }
+  children = [
+    benchmark.audit_manager_pci_v321_requirement_6_3_2_b
+  ]
+  tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
+    audit_manager_pci_v321_item_id = "6.3.2"
+  })
+}
 
-// benchmark "audit_manager_pci_v321_requirement_6_3_2_b" {
-//   title       = "6.3.2.b Select a sample of recent custom application changes and verify that custom application code is reviewed"
-//   description = "Security vulnerabilities in custom code are commonly exploited by malicious individuals to gain access to a network and compromise cardholder data. An individual knowledgeable and experienced in code-review techniques should be involved in the review process. Code reviews should be performed by someone other than the developer of the code to allow for an independent, objective review. Automated tools or processes may also be used in lieu of manual reviews, but keep in mind that it may be difficult or even impossible for an automated tool to identify some coding issues. Correcting coding errors before the code is deployed into a production environment or released to customers prevents the code exposing the environments to potential exploit. Faulty code is also far more difficult and expensive to address after it has been deployed or released into production environments. Including a formal review and signoff by management prior to release helps to ensure that code is approved and has been developed in accordance with policies and procedures."
+benchmark "audit_manager_pci_v321_requirement_6_3_2_b" {
+  title       = "6.3.2.b Select a sample of recent custom application changes and verify that custom application code is reviewed according to 6.3.2.a, above"
+  description = "Security vulnerabilities in custom code are commonly exploited by malicious individuals to gain access to a network and compromise cardholder data. An individual knowledgeable and experienced in code-review techniques should be involved in the review process. Code reviews should be performed by someone other than the developer of the code to allow for an independent, objective review. Automated tools or processes may also be used in lieu of manual reviews, but keep in mind that it may be difficult or even impossible for an automated tool to identify some coding issues. Correcting coding errors before the code is deployed into a production environment or released to customers prevents the code exposing the environments to potential exploit. Faulty code is also far more difficult and expensive to address after it has been deployed or released into production environments. Including a formal review and signoff by management prior to release helps to ensure that code is approved and has been developed in accordance with policies and procedures."
 
-//   children = [
-//   ]
-//   tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
-//     audit_manager_pci_v321_item_id = "6.3.2.b"
-//   })
-// }
+  children = [
+    control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
+  ]
+
+  tags = merge(local.audit_manager_pci_v321_requirement_6_common_tags, {
+     audit_manager_pci_v321_item_id = "6.3.2.b"
+  })
+}
 
 benchmark "audit_manager_pci_v321_requirement_6_3_a" {
   title       = "6.3.a Examine written software-development processes to verify that the processes are based on industry standards and/or best practices"

@@ -128,6 +128,6 @@ benchmark "audit_manager_pci_v321_requirement_4_1_g" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_4_common_tags, {
-    audit_manager_pci_v321_item_id = "4.1.f"
+    audit_manager_pci_v321_item_id = "4.1.g"
   })
 }

@@ -101,7 +101,7 @@ benchmark "audit_manager_pci_v321_requirement_10_2_2" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
-    audit_manager_pci_v321_item_id = "10.2.1"
+    audit_manager_pci_v321_item_id = "10.2.2"
   })
 }
 
@@ -376,7 +376,8 @@ benchmark "audit_manager_pci_v321_requirement_10_5_2" {
 
   children = [
     control.cloudtrail_trail_validation_enabled,
-    control.s3_bucket_versioning_enabled
+    control.s3_bucket_versioning_enabled,
+    control.config_enabled_all_regions
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
@@ -497,20 +498,6 @@ benchmark "audit_manager_pci_v321_requirement_10_8" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_10_8_1,
-    benchmark.audit_manager_pci_v321_requirement_10_8_a
-  ]
-
-  tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
-    audit_manager_pci_v321_item_id = "10.8"
-  })
-}
-
-benchmark "audit_manager_pci_v321_requirement_10_8" {
-  title       = "10.8 Additional requirement for service providers only: Implement a process for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of: • Firewalls • IDS/IPS • FIM • Anti-virus • Physical access controls • Logical access controls • Audit logging mechanisms • Segmentation controls"
-  description = "Note: This requirement applies only when the entity being assessed is a service provider. Without formal processes to detect and alert when critical security controls fail, failures may go undetected for extended periods and provide attackers ample time to compromise systems and steal sensitive data from the cardholder data environment. The specific types of failures may vary depending on the function of the device and technology in use. Typical failures include a system ceasing to perform its security function or not functioning in its intended manner; for example, a firewall erasing all its rules or going offline."
-
-  children = [
-    benchmark.audit_manager_pci_v321_requirement_10_8_1,
     benchmark.audit_manager_pci_v321_requirement_10_8_b
   ]
 
@@ -524,7 +511,7 @@ benchmark "audit_manager_pci_v321_requirement_10_8_1" {
   description = "Note: This requirement applies only when the entity being assessed is a service provider. If critical security control failures alerts are not quickly and effectively responded to, attackers may use this time to insert malicious software, gain control of a system, or steal data from the entity's environment. Documented evidence (e.g., records within a problem management system) should support that processes and procedures are in place to respond to security failures. In addition, personnel should be aware of their responsibilities in the event of a failure. Actions and responses to the failure should be captured in the documented evidence."
 
   children = [
-    benchmark.audit_manager_pci_v321_requirement_10_8_1_a,
+    benchmark.audit_manager_pci_v321_requirement_10_8_1_a
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {
@@ -537,7 +524,7 @@ benchmark "audit_manager_pci_v321_requirement_10_8_1_a" {
   description = "Note: This requirement applies only when the entity being assessed is a service provider. If critical security control failures alerts are not quickly and effectively responded to, attackers may use this time to insert malicious software, gain control of a system, or steal data from the entity's environment. Documented evidence (e.g., records within a problem management system) should support that processes and procedures are in place to respond to security failures. In addition, personnel should be aware of their responsibilities in the event of a failure. Actions and responses to the failure should be captured in the documented evidence."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_alarm_action_enabled
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_10_common_tags, {

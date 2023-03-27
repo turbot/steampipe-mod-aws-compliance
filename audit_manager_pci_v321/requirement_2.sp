@@ -1,6 +1,6 @@
 locals {
   audit_manager_pci_v321_requirement_2_common_tags = merge(local.audit_manager_pci_v321_common_tags, {
-    control_set = "1"
+    control_set = "2"
   })
 }
 
@@ -106,7 +106,7 @@ benchmark "audit_manager_pci_v321_requirement_2_2_4" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
-    audit_manager_pci_v321_item_id = "2.2.2"
+    audit_manager_pci_v321_item_id = "2.2.4"
   })
 }
 
@@ -119,7 +119,7 @@ benchmark "audit_manager_pci_v321_requirement_2_2_5" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
-    audit_manager_pci_v321_item_id = "2.2.5_b"
+    audit_manager_pci_v321_item_id = "2.2.5"
   })
 }
 
@@ -198,6 +198,7 @@ benchmark "audit_manager_pci_v321_requirement_2_4" {
   description = "Maintaining a current list of all system components will enable an organization to accurately and efficiently define the scope of their environment for implementing PCI DSS controls. Without an inventory, some system components could be forgotten, and be inadvertently excluded from the organization's configuration standards."
 
   children = [
+    benchmark.audit_manager_pci_v321_requirement_2_4_a,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_instance_ssm_managed,
     control.vpc_eip_associated,
@@ -218,6 +219,6 @@ benchmark "audit_manager_pci_v321_requirement_2_4_a" {
   ]
 
   tags = merge(local.audit_manager_pci_v321_requirement_2_common_tags, {
-    audit_manager_pci_v321_item_id = "2.4"
+    audit_manager_pci_v321_item_id = "2.4.a"
   })
 }
