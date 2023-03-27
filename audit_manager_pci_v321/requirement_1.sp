@@ -247,6 +247,7 @@ benchmark "audit_manager_pci_v321_requirement_1_3" {
     benchmark.audit_manager_pci_v321_requirement_1_3_2,
     benchmark.audit_manager_pci_v321_requirement_1_3_3,
     benchmark.audit_manager_pci_v321_requirement_1_3_5,
+    benchmark.audit_manager_pci_v321_requirement_1_3_4,
     benchmark.audit_manager_pci_v321_requirement_1_3_6,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,

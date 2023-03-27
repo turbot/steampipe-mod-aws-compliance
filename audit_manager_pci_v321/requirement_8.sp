@@ -94,6 +94,9 @@ benchmark "audit_manager_pci_v321_requirement_8_2" {
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_1,
+    benchmark.audit_manager_pci_v321_requirement_8_2_3,
+    benchmark.audit_manager_pci_v321_requirement_8_2_4,
+    benchmark.audit_manager_pci_v321_requirement_8_2_5,
     control.iam_account_password_policy_strong
   ]
 
@@ -192,7 +195,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_c" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_3" {
-  title       = "8.2.3 Passwords/passphrases must meet the following: • Require a minimum length of at least seven characters. • Contain both numeric and alphabetic characters. Alternatively, the passwords/ passphrases must have complexity and strength at least equivalent to the parameters specified above"
+  title       = "8.2.3 Passwords/passphrases must meet the following: Require a minimum length of at least seven characters. • Contain both numeric and alphabetic characters. Alternatively, the passwords/ passphrases must have complexity and strength at least equivalent to the parameters specified above"
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
