@@ -215,6 +215,7 @@ benchmark "audit_manager_pci_v321_requirement_6_6" {
     control.waf_regional_rule_condition_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
+    control.waf_web_acl_resource_associated,
     control.waf_web_acl_rule_attached
   ]
 
