@@ -13,6 +13,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
     audit_manager_pci_v321 = "true"
     gdpr                   = "true"
     hipaa                  = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -57,9 +58,9 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
 }
 
 control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
-  title         = "CloudFront distributions should encrypt traffic to custom origins"
-  description   = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
-  query         = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
+  title       = "CloudFront distributions should encrypt traffic to custom origins"
+  description = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
+  query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     audit_manager_pci_v321 = "true"

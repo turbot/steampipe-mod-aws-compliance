@@ -19,6 +19,7 @@ control "ec2_ebs_default_encryption_enabled" {
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -56,6 +57,7 @@ control "ec2_instance_in_vpc" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 

@@ -47,6 +47,7 @@ control "s3_bucket_default_encryption_enabled" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -70,6 +71,7 @@ control "s3_bucket_enforces_ssl" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -109,16 +111,6 @@ control "s3_bucket_object_lock_enabled" {
     nist_800_171_rev_2     = "true"
     nist_csf               = "true"
     soc_2                  = "true"
-  })
-}
-
-control "s3_bucket_lifecycle_policy_enabled" {
-  title       = "S3 buckets should have lifecycle policies configured"
-  description = "This control checks if Amazon Simple Storage Service (Amazon S3) buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
-  query       = query.s3_bucket_lifecycle_policy_enabled
-
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    audit_manager_pci_v321 = "true"
   })
 }
 
@@ -166,6 +158,7 @@ control "s3_bucket_restrict_public_write_access" {
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -221,6 +214,7 @@ control "s3_public_access_block_account" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -286,6 +280,7 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
+    soc_2               = "true"
   })
 }
 
@@ -299,13 +294,36 @@ control "s3_bucket_object_logging_enabled" {
   })
 }
 
-control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
-  title         = "S3 buckets with versioning enabled should have lifecycle policies configured"
-  description   = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
-  query         = query.s3_bucket_versioning_and_lifecycle_policy_enabled
-  
+control "s3_bucket_lifecycle_policy_enabled" {
+  title       = "S3 buckets should have lifecycle policies configured"
+  description = "This control checks if Amazon Simple Storage Service (Amazon S3) buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  query       = query.s3_bucket_lifecycle_policy_enabled
+
   tags = merge(local.conformance_pack_s3_common_tags, {
     audit_manager_pci_v321 = "true"
+    soc_2                  = "true"
+  })
+}
+
+control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
+  title       = "S3 buckets with versioning enabled should have lifecycle policies configured"
+  description = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    audit_manager_pci_v321 = "true"
+    soc_2                  = "true"
+  })
+}
+
+control "s3_bucket_event_notifications_enabled" {
+  title       = "S3 buckets should have event notifications enabled"
+  description = "This control checks whether S3 Event Notifications are enabled on an Amazon S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
+  severity    = "medium"
+  query       = query.s3_bucket_event_notifications_enabled
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    soc_2 = "true"
   })
 }
 
@@ -576,6 +594,25 @@ query "s3_bucket_versioning_enabled" {
   EOQ
 }
 
+query "s3_bucket_static_website_hosting_disabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then name || ' static website hosting enabled.'
+        else name || ' static website hosting disabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
+  EOQ
+}
+
 query "s3_public_access_block_account" {
   sql = <<-EOQ
     select
@@ -818,22 +855,32 @@ query "s3_bucket_object_logging_enabled" {
   EOQ
 }
 
-query "s3_bucket_static_website_hosting_disabled" {
+query "s3_bucket_lifecycle_policy_enabled" {
   sql = <<-EOQ
+    with lifecycle_rules_enabled as (
+      select
+        arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(lifecycle_rules) as r
+      where
+        r ->> 'Status' = 'Enabled'
+    )
     select
-      arn as resource,
+      b.arn as resource,
       case
-        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then 'alarm'
-        else 'ok'
+        when r.arn is not null then 'ok'
+        else 'alarm'
       end status,
       case
-        when website_configuration -> 'IndexDocument' ->> 'Suffix' is not null then name || ' static website hosting enabled.'
-        else name || ' static website hosting disabled.'
+        when r.arn is not null then ' lifecycle policy or rules configured.'
+        else name || ' lifecycle policy or rules not configured.'
       end reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
-      aws_s3_bucket;
+      aws_s3_bucket as b
+      left join lifecycle_rules_enabled as r on r.arn = b.arn;
   EOQ
 }
 
@@ -857,7 +904,7 @@ query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
       end status,
       case
         when not versioning_enabled then name || ' versioning diabled.'
-        when versioning_enabled and r.arn is not null then ' versioning enabled and lifecycle policy configured.'
+        when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
       end reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
@@ -865,6 +912,33 @@ query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
     from
       aws_s3_bucket as b
       left join lifecycle_rules_enabled as r on r.arn = b.arn;
+  EOQ
+}
+
+query "s3_bucket_event_notifications_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when
+          event_notification_configuration ->> 'EventBridgeConfiguration' is null
+          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
+          and event_notification_configuration ->> 'QueueConfigurations' is null
+          and event_notification_configuration ->> 'TopicConfigurations' is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when
+          event_notification_configuration ->> 'EventBridgeConfiguration' is null
+          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
+          and event_notification_configuration ->> 'QueueConfigurations' is null
+          and event_notification_configuration ->> 'TopicConfigurations' is null then title || ' event notifications disabled.'
+        else title || ' event notifications enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket;
   EOQ
 }
 
@@ -925,33 +999,6 @@ query "s3_bucket_acls_should_prohibit_user_access" {
       ${local.common_dimensions_sql}
     from
       bucket_acl_checks;
-  EOQ
-}
-
-query "s3_bucket_event_notifications_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when
-          event_notification_configuration ->> 'EventBridgeConfiguration' is null
-          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
-          and event_notification_configuration ->> 'QueueConfigurations' is null
-          and event_notification_configuration ->> 'TopicConfigurations' is null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when
-          event_notification_configuration ->> 'EventBridgeConfiguration' is null
-          and event_notification_configuration ->> 'LambdaFunctionConfigurations' is null
-          and event_notification_configuration ->> 'QueueConfigurations' is null
-          and event_notification_configuration ->> 'TopicConfigurations' is null then title || ' event notifications disabled.'
-        else title || ' event notifications enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_s3_bucket;
   EOQ
 }
 

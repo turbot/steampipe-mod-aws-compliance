@@ -27,6 +27,7 @@ control "emr_cluster_kerberos_enabled" {
     nist_800_171_rev_2  = "true"
     nist_800_53_rev_4   = "true"
     nist_csf            = "true"
+    soc_2               = "true"
   })
 }
 
@@ -49,6 +50,7 @@ control "emr_cluster_master_nodes_no_public_ip" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 

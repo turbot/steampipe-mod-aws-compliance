@@ -19,6 +19,7 @@ control "kms_key_not_pending_deletion" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 

@@ -59,7 +59,7 @@ benchmark "audit_manager_pci_v321_requirement_10_2" {
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
-    control.redshift_cluster_logging_enabled,
+    control.redshift_cluster_audit_logging_enabled,
   ]
 
   tags = local.audit_manager_pci_v321_requirement_10_common_tags
@@ -495,7 +495,7 @@ benchmark "audit_manager_pci_v321_requirement_10_8_b" {
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
-    control.redshift_cluster_logging_enabled,
+    control.redshift_cluster_audit_logging_enabled,
     control.sns_topic_notification_delivery_status_enabled,
   ]
 
