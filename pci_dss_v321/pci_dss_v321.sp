@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "pci_dss_v321" {
-  title         = "AWS Audit Manager PCI DSS V3.2.1"
+  title         = "PCI DSS v3.2.1"
   description   = "The Payment Card Industry Data Security Standard (PCI DSS) v3.2.1 is an information security standard for entities that store, process, and/or transmit cardholder data."
   documentation = file("./pci_dss_v321/docs/pci_dss_v321_overview.md")
   children = [
