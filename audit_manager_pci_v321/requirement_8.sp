@@ -63,8 +63,8 @@ benchmark "audit_manager_pci_v321_requirement_8_1_4" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_1_5" {
-  title       = "8.1.5 Manage IDs used by third parties to access, support, or maintain system components via remote access as follows: • Enabled only during the time period needed and disabled when not in use. • Monitored when in use"
-  description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
+  title       = "8.1.5 Manage IDs used by third parties to access, support, or maintain system components via remote access as follows"
+  description = "Enabled only during the time period needed and disabled when not in use and monitored when in use. Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_1_5_a
@@ -76,7 +76,7 @@ benchmark "audit_manager_pci_v321_requirement_8_1_5" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_1_5_a" {
-  title       = "8.1.5.a Interview personnel and observe processes for managing accounts used by third parties to access, support, or maintain system components to verify that accounts used for remote access are: • Disabled when not in use • Enabled only when needed by the third party, and disabled when not in use"
+  title       = "8.1.5.a Interview personnel and observe processes for managing accounts used by third parties to access, support, or maintain system components to verify that accounts used for remote access are disabled when not in use, enabled only when needed by the third party and disabled when not in use"
   description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
@@ -89,8 +89,8 @@ benchmark "audit_manager_pci_v321_requirement_8_1_5_a" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2" {
-  title       = "8.2 To verify that users are authenticated using unique ID and additional authentication (for example, a password/phrase) for access to the cardholder data environment, perform the following: • Examine documentation describing the authentication method(s) used. • For each type of authentication method used and for each type of system component, observe an authentication to verify authentication is functioning consistent with documented authentication method(s)"
-  description = "These authentication methods, when used in addition to unique IDs, help protect users' IDs from being compromised, since the one attempting the compromise needs to know both the unique ID and the password (or other authentication used). Note that a digital certificate is a valid option for “something you have” as long as it is unique for a particular user. Since one of the first steps a malicious individual will take to compromise a system is to exploit weak or nonexistent passwords, it is important to implement good processes for authentication management."
+  title       = "8.2 To verify that users are authenticated using unique ID and additional authentication (for example, a password/phrase) for access to the cardholder data environment, perform the following: • Examine documentation describing the authentication method(s) used"
+  description = "For each type of authentication method used and for each type of system component, observe an authentication to verify authentication is functioning consistent with documented authentication method(s). These authentication methods, when used in addition to unique IDs, help protect users' IDs from being compromised, since the one attempting the compromise needs to know both the unique ID and the password (or other authentication used). Note that a digital certificate is a valid option for “something you have” as long as it is unique for a particular user. Since one of the first steps a malicious individual will take to compromise a system is to exploit weak or nonexistent passwords, it is important to implement good processes for authentication management."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_1,
@@ -195,8 +195,8 @@ benchmark "audit_manager_pci_v321_requirement_8_2_1_c" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_3" {
-  title       = "8.2.3 Passwords/passphrases must meet the following: Require a minimum length of at least seven characters. • Contain both numeric and alphabetic characters. Alternatively, the passwords/ passphrases must have complexity and strength at least equivalent to the parameters specified above"
-  description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
+  title       = "8.2.3 Passwords/passphrases require a minimum length of at least seven characters, contain both numeric and alphabetic characters"
+  description = "The passwords/ passphrases must have complexity and strength at least equivalent to the parameters specified above. Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_2_3_a,
@@ -210,7 +210,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_3_a" {
-  title       = "8.2.3.a For a sample of system components, inspect system configuration settings to verify that user password/passphrase parameters are set to require at least the following strength/complexity: • Require a minimum length of at least seven characters. • Contain both numeric and alphabetic characters"
+  title       = "8.2.3.a For a sample of system components, inspect system configuration settings to verify that user password/passphrase parameters are set to require at least the following strength/complexity that is require a minimum length of at least seven characters and contain both numeric and alphabetic characters"
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
@@ -223,7 +223,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_3_a" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_3_b" {
-  title       = "8.2.3.b Additional testing procedure for service provider assessments only: Review internal processes and customer/user documentation to verify that non-consumer customer passwords/passphrases are required to meet at least the following strength/complexity: • Require a minimum length of at least seven characters. • Contain both numeric and alphabetic characters"
+  title       = "8.2.3.b Additional testing procedure for service provider assessments only to review internal processes and customer/user documentation to verify that non-consumer customer passwords/passphrases are required to meet at least the following strength/complexity that is require a minimum length of at least seven characters and contain both numeric and alphabetic characters"
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
@@ -265,7 +265,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_4_a" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_4_b" {
-  title       = "8.2.4.b Additional testing procedure for service provider assessments only: Review internal processes and customer/user documentation to verify that: • Non-consumer customer user passwords/passphrases are required to change periodically; and • Non-consumer customer users are given guidance as to when, and under what circumstances, passwords/passphrases must change"
+  title       = "8.2.4.b Additional testing procedure for service provider assessments only: Review internal processes and customer/user documentation to verify that non-consumer customer user passwords/passphrases are required to change periodically; and non-consumer customer users are given guidance as to when, and under what circumstances, passwords/passphrases must change"
   description = "Passwords/passphrases that are valid for a long time without a change provide malicious individuals with more time to work on breaking the password/phrase. Note: Testing Procedure 8.2.4.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
@@ -306,7 +306,7 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5_a" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_2_5_b" {
-  title       = "8.2.5.b Additional testing procedure for service provider assessments only: Review internal processes and customer/user documentation to verify that new non-consumer customer user passwords/passphrase cannot be the same as the previous four passwords"
+  title       = "8.2.5.b Additional testing procedure for service provider assessments only to review internal processes and customer/user documentation to verify that new non-consumer customer user passwords/passphrase cannot be the same as the previous four passwords"
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
@@ -319,8 +319,8 @@ benchmark "audit_manager_pci_v321_requirement_8_2_5_b" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_3" {
-  title       = "8.3 Secure all individual non-console administrative access and all remote access to the CDE using multi-factor authentication. Note: Multi-factor authentication requires that a minimum of two of the three authentication methods (see Requirement 8.2 for descriptions of authentication methods) be used for authentication. Using one factor twice (for example, using two separate passwords) is not considered multi-factor authentication"
-  description = "Multi-factor authentication requires an individual to present a minimum of two separate forms of authentication (as described in Requirement 8.2), before access is granted. Multi-factor authentication provides additional assurance that the individual attempting to gain access is who they claim to be. With multi-factor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk. Multi-factor authentication is not required at both the system-level and application-level for a particular system component. Multi-factor authentication can be performed either upon authentication to the particular network or to the system component. Examples of multi-factor technologies include but are not limited to remote authentication and dial-in service (RADIUS) with tokens; terminal access controller access control system (TACACS) with tokens; and other technologies that facilitate multi- factor authentication."
+  title       = "8.3 Secure all individual non-console administrative access and all remote access to the CDE using multi-factor authentication"
+  description = "Note: Multi-factor authentication requires that a minimum of two of the three authentication methods (see Requirement 8.2 for descriptions of authentication methods) be used for authentication. Using one factor twice (for example, using two separate passwords) is not considered multi-factor authentication. Multi-factor authentication requires an individual to present a minimum of two separate forms of authentication (as described in Requirement 8.2), before access is granted. Multi-factor authentication provides additional assurance that the individual attempting to gain access is who they claim to be. With multi-factor authentication, an attacker would need to compromise at least two different authentication mechanisms, increasing the difficulty of compromise and thus reducing the risk. Multi-factor authentication is not required at both the system-level and application-level for a particular system component. Multi-factor authentication can be performed either upon authentication to the particular network or to the system component. Examples of multi-factor technologies include but are not limited to remote authentication and dial-in service (RADIUS) with tokens; terminal access controller access control system (TACACS) with tokens; and other technologies that facilitate multi- factor authentication."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_3_1,
@@ -392,8 +392,8 @@ benchmark "audit_manager_pci_v321_requirement_8_3_2_a" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_5" {
-  title       = "8.5 Do not use group, shared, or generic IDs, passwords, or other authentication methods as follows: • Generic user IDs are disabled or removed. • Shared user IDs do not exist for system administration and other critical functions. • Shared and generic user IDs are not used to administer any system components"
-  description = "If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual’s actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
+  title       = "8.5 Do not use group, shared, or generic IDs, passwords, or other authentication methods"
+  description = "Generic user IDs are disabled or removed. Shared user IDs do not exist for system administration and other critical functions. Shared and generic user IDs are not used to administer any system components. If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual's actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_5_a
@@ -405,8 +405,8 @@ benchmark "audit_manager_pci_v321_requirement_8_5" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_5_a" {
-  title       = "8.5.a For a sample of system components, examine user ID lists to verify the following: • Generic user IDs are disabled or removed. • Shared user IDs for system administration activities and other critical functions do not exist. • Shared and generic user IDs are not used to administer any system components"
-  description = "If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual's actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
+  title       = "8.5.a For a sample of system components, examine user ID lists to verify"
+  description = "Generic user IDs are disabled or removed.  Shared user IDs for system administration activities and other critical functions do not exist.  Shared and generic user IDs are not used to administer any system components. If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual's actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
 
   children = [
     control.iam_root_user_no_access_keys
@@ -446,8 +446,8 @@ benchmark "audit_manager_pci_v321_requirement_8_6_c" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_8_7" {
-  title       = "8.7 All access to any database containing cardholder data (including access by applications, administrators, and all other users) is restricted as follows: • All user access to, user queries of, and user actions on databases are through programmatic methods. • Only database administrators have the ability to directly access or query databases. • Application IDs for database applications can only be used by the applications (and not by individual users or other non-application processes)"
-  description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
+  title       = "8.7 All access to any database containing cardholder data (including access by applications, administrators, and all other users) is restricted"
+  description = "All user access to, user queries of, and user actions on databases are through programmatic methods. Only database administrators have the ability to directly access or query databases. Application IDs for database applications can only be used by the applications (and not by individual users or other non-application processes). Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
     benchmark.audit_manager_pci_v321_requirement_8_7_a,

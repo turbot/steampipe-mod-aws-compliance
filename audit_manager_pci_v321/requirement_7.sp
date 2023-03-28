@@ -43,7 +43,7 @@ benchmark "audit_manager_pci_v321_requirement_7_1_2" {
 }
 
 benchmark "audit_manager_pci_v321_requirement_7_1_2_a" {
-  title       = "7.1.2.a Interview personnel responsible for assigning access to verify that access to privileged user IDs is: • Assigned only to roles that specifically require such privileged access • Restricted to least privileges necessary to perform job responsibilities"
+  title       = "7.1.2.a Interview personnel responsible for assigning access to verify that access to privileged user IDs is assigned only to roles that specifically require such privileged access and restricted to least privileges necessary to perform job responsibilities"
   description = "When assigning privileged IDs, it is important to assign individuals only the privileges they need to perform their job (the “least privileges”). For example, the database administrator or backup administrator should not be assigned the same privileges as the overall systems administrator."
 
   children = [
