@@ -37,7 +37,7 @@ control "emr_cluster_master_nodes_no_public_ip" {
   query       = query.emr_cluster_master_nodes_no_public_ip
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"

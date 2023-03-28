@@ -27,7 +27,7 @@ control "lambda_function_in_vpc" {
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -50,7 +50,7 @@ control "lambda_function_restrict_public_access" {
   query       = query.lambda_function_restrict_public_access
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"

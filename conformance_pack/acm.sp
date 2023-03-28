@@ -10,7 +10,7 @@ control "acm_certificate_expires_30_days" {
   query       = query.acm_certificate_expires_30_days
 
   tags = merge(local.conformance_pack_acm_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

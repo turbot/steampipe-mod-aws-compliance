@@ -30,18 +30,18 @@ control "efs_file_system_in_backup_plan" {
   query       = query.efs_file_system_automatic_backups_enabled
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cis_controls_v8_ig1    = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    pci_dss_v321        = "true"
+    cis_controls_v8_ig1 = "true"
+    ffiec               = "true"
+    gxp_21_cfr_part_11  = "true"
+    gxp_eu_annex_11     = "true"
+    hipaa               = "true"
+    nist_800_171_rev_2  = "true"
+    nist_800_53_rev_4   = "true"
+    nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
+    rbi_cyber_security  = "true"
+    soc_2               = "true"
   })
 }
 
@@ -51,7 +51,7 @@ control "efs_file_system_protected_by_backup_plan" {
   query       = query.efs_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -69,9 +69,9 @@ control "efs_file_system_encrypted_with_cmk" {
   query       = query.efs_file_system_encrypted_with_cmk
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cisa_cyber_essentials  = "true"
-    other_checks           = "true"
+    pci_dss_v321          = "true"
+    cisa_cyber_essentials = "true"
+    other_checks          = "true"
   })
 }
 
@@ -91,7 +91,7 @@ control "efs_access_point_enforce_user_identity" {
   query       = query.efs_access_point_enforce_user_identity
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 

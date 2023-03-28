@@ -10,7 +10,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -20,7 +20,7 @@ control "opensearch_domain_fine_grained_access_enabled" {
   query       = query.opensearch_domain_fine_grained_access_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -30,7 +30,7 @@ control "opensearch_domain_https_required" {
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -40,8 +40,8 @@ control "opensearch_domain_audit_logging_enabled" {
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
-    soc_2                  = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 
@@ -52,8 +52,8 @@ control "opensearch_domain_logs_to_cloudwatch" {
 
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
-    soc_2                  = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 

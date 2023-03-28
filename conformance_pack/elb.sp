@@ -10,7 +10,7 @@ control "elb_application_classic_lb_logging_enabled" {
   query       = query.elb_application_classic_lb_logging_enabled
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -52,7 +52,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
   query       = query.elb_application_lb_redirect_http_request_to_https
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -75,7 +75,7 @@ control "elb_application_lb_waf_enabled" {
   query       = query.elb_application_lb_waf_enabled
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -95,7 +95,7 @@ control "elb_classic_lb_use_ssl_certificate" {
   query       = query.elb_classic_lb_use_ssl_certificate
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -118,14 +118,14 @@ control "elb_application_lb_drop_http_headers" {
   query       = query.elb_application_lb_drop_http_headers
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
-    fedramp_low_rev_4      = "true"
-    hipaa                  = "true"
-    gdpr                   = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    pci_dss_v321       = "true"
+    fedramp_low_rev_4  = "true"
+    hipaa              = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_800_53_rev_4  = "true"
+    rbi_cyber_security = "true"
+    soc_2              = "true"
   })
 }
 
@@ -135,7 +135,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
   query       = query.elb_classic_lb_use_tls_https_listeners
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -176,7 +176,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
   query       = query.elb_application_network_lb_use_ssl_certificate
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -193,8 +193,8 @@ control "elb_listener_use_secure_ssl_cipher" {
   query       = query.elb_listener_use_secure_ssl_cipher
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
-    other_checks           = "true"
+    pci_dss_v321 = "true"
+    other_checks = "true"
   })
 }
 
@@ -274,7 +274,7 @@ control "elb_application_lb_desync_mitigation_mode" {
   query       = query.elb_application_lb_desync_mitigation_mode
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -284,7 +284,7 @@ control "elb_classic_lb_desync_mitigation_mode" {
   query       = query.elb_classic_lb_desync_mitigation_mode
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 

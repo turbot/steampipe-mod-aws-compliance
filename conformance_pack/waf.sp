@@ -10,7 +10,7 @@ control "waf_rule_condition_attached" {
   query       = query.waf_rule_condition_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -20,7 +20,7 @@ control "waf_rule_group_rule_attached" {
   query       = query.waf_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -30,7 +30,7 @@ control "waf_web_acl_rule_attached" {
   query       = query.waf_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -40,7 +40,7 @@ control "waf_web_acl_logging_enabled" {
   query       = query.waf_web_acl_logging_enabled
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -50,7 +50,7 @@ control "waf_regional_rule_condition_attached" {
   query       = query.waf_regional_rule_condition_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -60,7 +60,7 @@ control "waf_web_acl_resource_associated" {
   query       = query.waf_web_acl_resource_associated
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 

@@ -10,10 +10,10 @@ control "iam_account_password_policy_strong_min_reuse_24" {
   query       = query.iam_account_password_policy_strong_min_reuse_24
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    rbi_cyber_security     = "true"
+    pci_dss_v321       = "true"
+    hipaa              = "true"
+    nist_800_53_rev_4  = "true"
+    rbi_cyber_security = "true"
   })
 }
 
@@ -42,7 +42,7 @@ control "iam_policy_no_star_star" {
   query       = query.iam_policy_custom_no_star_star
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -66,7 +66,7 @@ control "iam_root_user_no_access_keys" {
   query       = query.iam_root_user_no_access_keys
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -90,7 +90,7 @@ control "iam_root_user_hardware_mfa_enabled" {
   query       = query.iam_root_user_hardware_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -154,7 +154,7 @@ control "iam_user_console_access_mfa_enabled" {
   query       = query.iam_user_console_access_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321      = "true"
+    pci_dss_v321                = "true"
     audit_manager_control_tower = "true"
     cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
@@ -177,7 +177,7 @@ control "iam_user_mfa_enabled" {
   query       = query.iam_user_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321      = "true"
+    pci_dss_v321                = "true"
     audit_manager_control_tower = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
@@ -198,7 +198,7 @@ control "iam_user_no_inline_attached_policies" {
   query       = query.iam_user_no_inline_attached_policies
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -222,7 +222,7 @@ control "iam_user_unused_credentials_90" {
   query       = query.iam_user_unused_credentials_90
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -397,7 +397,7 @@ control "iam_all_policy_no_service_wild_card" {
   query       = query.iam_policy_custom_no_service_wildcard
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -414,7 +414,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
   query       = query.iam_policy_custom_no_blocked_kms_actions
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -429,9 +429,9 @@ control "iam_policy_inline_no_blocked_kms_actions" {
   query       = query.iam_policy_inline_no_blocked_kms_actions
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cisa_cyber_essentials  = "true"
-    gxp_21_cfr_part_11     = "true"
+    pci_dss_v321          = "true"
+    cisa_cyber_essentials = "true"
+    gxp_21_cfr_part_11    = "true"
   })
 }
 

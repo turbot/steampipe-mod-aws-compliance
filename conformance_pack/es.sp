@@ -10,7 +10,7 @@ control "es_domain_encryption_at_rest_enabled" {
   query       = query.es_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
@@ -33,7 +33,7 @@ control "es_domain_in_vpc" {
   query       = query.es_domain_in_vpc
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -56,7 +56,7 @@ control "es_domain_node_to_node_encryption_enabled" {
   query       = query.es_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -78,7 +78,7 @@ control "es_domain_logs_to_cloudwatch" {
   query       = query.es_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"

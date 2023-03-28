@@ -10,10 +10,10 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    audit_manager_pci_v321 = "true"
-    gdpr                   = "true"
-    hipaa                  = "true"
-    soc_2                  = "true"
+    pci_dss_v321 = "true"
+    gdpr         = "true"
+    hipaa        = "true"
+    soc_2        = "true"
   })
 }
 
@@ -53,7 +53,7 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -63,7 +63,7 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321 = "true"
   })
 }
 

@@ -10,7 +10,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
   query       = query.apigateway_stage_cache_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
@@ -31,7 +31,7 @@ control "apigateway_stage_logging_enabled" {
   query       = query.apigateway_stage_logging_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -70,7 +70,7 @@ control "apigateway_stage_use_waf_web_acl" {
   query       = query.apigateway_stage_use_waf_web_acl
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

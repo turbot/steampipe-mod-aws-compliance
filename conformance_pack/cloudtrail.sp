@@ -10,7 +10,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   query       = query.cloudtrail_trail_integrated_with_logs
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -34,7 +34,7 @@ control "cloudtrail_s3_data_events_enabled" {
   query       = query.cloudtrail_s3_data_events_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -59,7 +59,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   query       = query.cloudtrail_trail_logs_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -83,7 +83,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   query       = query.cloudtrail_multi_region_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -107,7 +107,7 @@ control "cloudtrail_trail_validation_enabled" {
   query       = query.cloudtrail_trail_validation_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -128,7 +128,7 @@ control "cloudtrail_trail_enabled" {
   query       = query.cloudtrail_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"

@@ -10,14 +10,14 @@ control "backup_recovery_point_manual_deletion_disabled" {
   query       = query.backup_recovery_point_manual_deletion_disabled
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cisa_cyber_essentials  = "true"
-    ffiec                  = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    pci_dss_v321          = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gxp_eu_annex_11       = "true"
+    hipaa                 = "true"
+    nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -27,7 +27,7 @@ control "backup_plan_min_retention_35_days" {
   query       = query.backup_plan_min_retention_35_days
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    audit_manager_pci_v321 = "true"
+    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -44,16 +44,16 @@ control "backup_recovery_point_encryption_enabled" {
   title       = "Backup recovery points should be encrypted"
   description = "Ensure if a recovery point is encrypted. The rule is non compliant if the recovery point is not encrypted."
   query       = query.backup_recovery_point_encryption_enabled
-  
+
   tags = merge(local.conformance_pack_backup_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cisa_cyber_essentials  = "true"
-    ffiec                  = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    pci_dss_v321          = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gxp_eu_annex_11       = "true"
+    hipaa                 = "true"
+    nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -63,11 +63,11 @@ control "backup_recovery_point_min_retention_35_days" {
   query       = query.backup_recovery_point_min_retention_35_days
 
   tags = merge(local.conformance_pack_backup_common_tags, {
-    audit_manager_pci_v321 = "true"
-    cisa_cyber_essentials  = "true"
-    ffiec                  = "true"
-    gxp_eu_annex_11        = "true"
-    nist_800_171_rev_2     = "true"
+    pci_dss_v321          = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gxp_eu_annex_11       = "true"
+    nist_800_171_rev_2    = "true"
   })
 }
 
