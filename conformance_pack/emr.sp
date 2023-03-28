@@ -20,13 +20,13 @@ control "emr_cluster_kerberos_enabled" {
   query       = query.emr_cluster_kerberos_enabled
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    cis_controls_v8_ig1 = "true"
-    ffiec               = "true"
-    gxp_21_cfr_part_11  = "true"
-    hipaa               = "true"
-    nist_800_171_rev_2  = "true"
-    nist_800_53_rev_4   = "true"
-    nist_csf            = "true"
+    cis_controls_v8_ig1      = "true"
+    ffiec                    = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -36,18 +36,18 @@ control "emr_cluster_master_nodes_no_public_ip" {
   query       = query.emr_cluster_master_nodes_no_public_ip
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    cis_controls_v8_ig1      = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 

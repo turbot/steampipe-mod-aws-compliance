@@ -10,15 +10,15 @@ control "autoscaling_group_with_lb_use_health_check" {
   query       = query.autoscaling_group_with_lb_use_health_check
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
+    cis_controls_v8_ig1      = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
   })
 }
 

@@ -10,8 +10,8 @@ control "eks_cluster_secrets_encrypted" {
   query       = query.eks_cluster_secrets_encrypted
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    gxp_eu_annex_11 = "true"
-    hipaa           = "true"
+    gxp_eu_annex_11          = "true"
+    hipaa_security_rule_2003 = "true"
   })
 }
 

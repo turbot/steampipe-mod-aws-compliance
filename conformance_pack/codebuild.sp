@@ -20,15 +20,15 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1      = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -38,15 +38,15 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1      = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -66,7 +66,8 @@ control "codebuild_project_logging_enabled" {
   query       = query.codebuild_project_logging_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    cis_controls_v8_ig1 = "true"
+    cis_controls_v8_ig1      = "true"
+    hipaa_security_rule_2003 = "true"
   })
 }
 

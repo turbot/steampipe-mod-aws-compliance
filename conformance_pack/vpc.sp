@@ -10,20 +10,20 @@ control "vpc_flow_logs_enabled" {
   query       = query.vpc_flow_logs_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1      = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    gdpr                     = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -33,12 +33,12 @@ control "vpc_igw_attached_to_authorized_vpc" {
   query       = query.vpc_igw_attached_to_authorized_vpc
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    hipaa              = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_4  = "true"
-    nist_csf           = "true"
-    rbi_cyber_security = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 
@@ -48,17 +48,16 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   query       = query.vpc_security_group_restrict_ingress_tcp_udp_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    gxp_21_cfr_part_11       = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
   })
 }
 
@@ -74,7 +73,6 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -96,7 +94,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
+    hipaa_security_rule_2003    = "true"
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
@@ -132,13 +130,13 @@ control "vpc_vpn_tunnel_up" {
   query       = query.vpc_vpn_tunnel_up
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -260,7 +258,8 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
   query       = query.vpc_endpoint_service_acceptance_required_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
+    hipaa_security_rule_2003 = "true"
+    other_checks             = "true"
   })
 }
 
@@ -272,6 +271,18 @@ control "vpc_network_acl_unused" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_authorized_ports" {
+  title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description = "This control checks whether the security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  query       = query.vpc_security_group_allows_ingress_authorized_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    cis_controls_v8_ig1      = "true"
+    cisa_cyber_essentials    = "true"
+    hipaa_security_rule_2003 = "true"
   })
 }
 
@@ -939,6 +950,38 @@ query "vpc_security_group_restrict_ingress_kafka_port" {
   EOQ
 }
 
+query "vpc_security_group_allows_ingress_authorized_ports" {
+  sql = <<-EOQ
+    with ingress_unauthorized_ports as (
+      select
+        group_id,
+        count(*)
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (from_port is null or from_port not in (80,443))
+      group by group_id
+    )
+    select
+      sg.arn as resource,
+      case
+        when ingress_unauthorized_ports.count > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
+        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "vpc_configured_to_use_vpc_endpoints" {
@@ -1077,38 +1120,6 @@ query "vpc_network_acl_remote_administration" {
     from
       aws_vpc_network_acl as acl
       left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
-  EOQ
-}
-
-query "vpc_security_group_allows_ingress_authorized_ports" {
-  sql = <<-EOQ
-    with ingress_unauthorized_ports as (
-      select
-        group_id,
-        count(*)
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and cidr_ipv4 = '0.0.0.0/0'
-        and (from_port is null or from_port not in (80,443))
-      group by group_id
-    )
-    select
-      sg.arn as resource,
-      case
-        when ingress_unauthorized_ports.count > 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
-        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
   EOQ
 }
 

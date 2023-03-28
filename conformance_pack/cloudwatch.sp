@@ -10,15 +10,15 @@ control "cloudwatch_alarm_action_enabled" {
   query       = query.cloudwatch_alarm_action_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -38,19 +38,19 @@ control "log_group_encryption_at_rest_enabled" {
   query       = query.log_group_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cisa_cyber_essentials    = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    gdpr                     = "true"
+    gxp_21_cfr_part_11       = "true"
+    gxp_eu_annex_11          = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    nist_csf                 = "true"
+    rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -60,17 +60,17 @@ control "cloudwatch_log_group_retention_period_365" {
   query       = query.cloudwatch_log_group_retention_period_365
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1      = "true"
+    fedramp_low_rev_4        = "true"
+    fedramp_moderate_rev_4   = "true"
+    ffiec                    = "true"
+    gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
+    nist_800_53_rev_4        = "true"
+    nist_800_53_rev_5        = "true"
+    rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -91,9 +91,8 @@ control "log_metric_filter_console_login_mfa" {
   query       = query.log_metric_filter_console_login_mfa
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    hipaa    = "true"
-    nist_csf = "true"
+    gdpr                     = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -103,9 +102,9 @@ control "log_metric_filter_root_login" {
   query       = query.log_metric_filter_root_login
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    hipaa    = "true"
-    nist_csf = "true"
+    gdpr                     = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_csf                 = "true"
   })
 }
 
@@ -214,9 +213,9 @@ control "log_metric_filter_console_authentication_failure" {
   query       = query.log_metric_filter_console_authentication_failure
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    hipaa    = "true"
-    nist_csf = "true"
+    gdpr                     = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_csf                 = "true"
   })
 }
 
