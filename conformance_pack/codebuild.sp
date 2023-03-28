@@ -93,11 +93,21 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
 control "codebuild_project_artifact_encryption_enabled" {
   title       = "CodeBuild projects artifact encryption should be enabled"
-  description = "This control checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  description = "This control checks if an CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
+  })
+}
+
+control "codebuild_project_s3_logs_encryption_enabled" {
+  title       = "CodeBuild projects S3 logs should be encrypted"
+  description = "This control checks if S3 logs for CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
+  query       = query.codebuild_project_s3_logs_encryption_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+
   })
 }
 
@@ -277,8 +287,6 @@ query "codebuild_project_build_greater_then_90_days" {
       left join latest_codebuild_build as b on p.name = b.project_name and p.region = b.region and p.account_id = b.account_id;
   EOQ
 }
-
-# Non-Config rule query
 
 query "codebuild_project_s3_logs_encryption_enabled" {
   sql = <<-EOQ
