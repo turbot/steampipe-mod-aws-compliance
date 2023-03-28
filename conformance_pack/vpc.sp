@@ -59,6 +59,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -80,6 +81,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -123,6 +125,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
     rbi_cyber_security     = "true"
+    soc_2                  = "true"
   })
 }
 
@@ -153,6 +156,7 @@ control "vpc_eip_associated" {
     ffiec                 = "true"
     nist_800_171_rev_2    = "true"
     nist_csf              = "true"
+    soc_2                 = "true"
   })
 }
 
@@ -161,10 +165,12 @@ control "vpc_security_group_associated_to_eni" {
   description = "This rule ensures the security groups are attached to an Amazon Elastic Compute Cloud (Amazon EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
   query       = query.vpc_security_group_associated_to_eni
 
+
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
     nist_csf            = "true"
+    soc_2               = "true"
   })
 }
 

@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "soc_2_cc_8" {
-  title       = "CC8.0 - Change Management"
+  title       = "CC8 Change Management"
   description = "The criteria relevant to how an entity (i) identifies the need for changes, (ii) makes the changes using a controlled change management process, and (iii) prevents unauthorized changes from being made."
 
   children = [
@@ -20,9 +20,9 @@ benchmark "soc_2_cc_8_1" {
   documentation = file("./soc_2/docs/cc_8_1.md")
 
   children = [
-    control.config_enabled_all_regions,
+    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_source_repo_oauth_configured,
-    control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
+    control.config_enabled_all_regions
   ]
 
   tags = merge(local.soc_2_cc_8_common_tags, {
