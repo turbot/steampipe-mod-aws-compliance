@@ -122,7 +122,8 @@ query "apigateway_stage_logging_enabled" {
         title,
         region,
         account_id,
-        tags
+        tags,
+        _ctx
       from
         aws_api_gateway_stage
       union
@@ -133,7 +134,8 @@ query "apigateway_stage_logging_enabled" {
         title,
         region,
         account_id,
-        tags
+        tags,
+        _ctx
       from
         aws_api_gatewayv2_stage
     )
