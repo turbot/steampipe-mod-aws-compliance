@@ -873,7 +873,7 @@ query "s3_bucket_lifecycle_policy_enabled" {
         else 'alarm'
       end status,
       case
-        when r.arn is not null then ' lifecycle policy or rules configured.'
+        when r.arn is not null then name || ' lifecycle policy or rules configured.'
         else name || ' lifecycle policy or rules not configured.'
       end reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
