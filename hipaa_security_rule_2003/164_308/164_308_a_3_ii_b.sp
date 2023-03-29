@@ -7,7 +7,8 @@ benchmark "hipaa_security_rule_2003_164_308_a_3_ii_b" {
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
-    control.iam_user_unused_credentials_90
+    control.iam_user_unused_credentials_90,
+    control.waf_web_acl_logging_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {

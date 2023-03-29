@@ -61,7 +61,8 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
     control.vpc_security_group_allows_ingress_authorized_ports,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restricted_common_ports,
-    control.vpc_vpn_tunnel_up
+    control.vpc_vpn_tunnel_up,
+    control.waf_web_acl_logging_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {

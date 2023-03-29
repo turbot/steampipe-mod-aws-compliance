@@ -12,6 +12,7 @@ benchmark "hipaa_security_rule_2003_164_312_b" {
     control.guardduty_enabled,
     control.rds_db_instance_logging_enabled,
     control.vpc_flow_logs_enabled,
+    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 
