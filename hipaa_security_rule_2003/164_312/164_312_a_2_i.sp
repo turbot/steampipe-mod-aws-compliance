@@ -1,6 +1,6 @@
 benchmark "hipaa_security_rule_2003_164_312_a_2_i" {
-  title       = "164.312(a)(2)(i) Unique user identification"
-  description = "Assign a unique name and/or number for identifying and tracking user identity."
+  title       = "164.312(a)(2)(i) Implementation specifications"
+  description = "Unique user identification (Required). Assign a unique name and/or number for identifying and tracking user identity."
   children = [
     control.cloudtrail_s3_data_events_enabled,
     control.iam_root_user_no_access_keys,

@@ -11,8 +11,7 @@ benchmark "hipaa_security_rule_2003_164_312_e_1" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.opensearch_domain_node_to_node_encryption_enabled,
-    control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.redshift_cluster_encryption_in_transit_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {

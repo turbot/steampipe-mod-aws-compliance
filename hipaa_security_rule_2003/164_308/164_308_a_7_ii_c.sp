@@ -1,6 +1,6 @@
 benchmark "hipaa_security_rule_2003_164_308_a_7_ii_c" {
   title       = "164.308(a)(7)(ii)(C) Emergency mode operation plan"
-  description = " Establish (and implement as needed) procedures to enable continuation of critical business processes for protection of the security of electronic protected health information while operating in emergency mode."
+  description = "Establish (and implement as needed) procedures to enable continuation of critical business processes for protection of the security of electronic protected health information while operating in emergency mode."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.backup_plan_min_retention_35_days,

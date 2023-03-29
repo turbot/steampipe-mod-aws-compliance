@@ -3,10 +3,10 @@ benchmark "hipaa_security_rule_2003_164_308_a_7_i" {
   description = "Establish (and implement as needed) policies and procedures for responding to an emergency or other occurrence (for example, fire, vandalism, system failure, and natural disaster) that damages systems that contain electronic protected health information."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
-    control.backup_recovery_point_min_retention_35_days,
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_recovery_point_min_retention_35_days,
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,

@@ -4,7 +4,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_a" {
   children = [
     control.elb_classic_lb_use_ssl_certificate,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.redshift_cluster_encryption_logging_enabled
+    control.redshift_cluster_encryption_logging_enabled,
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,

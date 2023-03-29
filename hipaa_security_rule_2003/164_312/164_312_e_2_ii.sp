@@ -12,6 +12,7 @@ benchmark "hipaa_security_rule_2003_164_312_e_2_ii" {
     control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
+    control.log_group_encryption_at_rest_enabled,
     control.opensearch_domain_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
@@ -20,7 +21,7 @@ benchmark "hipaa_security_rule_2003_164_312_e_2_ii" {
     control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {

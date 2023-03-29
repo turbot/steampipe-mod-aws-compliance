@@ -23,7 +23,7 @@ benchmark "hipaa_security_rule_2003_164_312_a_2_ii" {
     control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {

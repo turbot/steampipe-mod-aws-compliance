@@ -7,7 +7,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_5_ii_d" {
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_last_changed_90_day,
-    control.secretsmanager_secret_rotated_as_scheduled,
+    control.secretsmanager_secret_rotated_as_scheduled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {

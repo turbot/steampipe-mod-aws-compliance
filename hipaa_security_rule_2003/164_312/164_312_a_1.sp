@@ -23,7 +23,7 @@ benchmark "hipaa_security_rule_2003_164_312_a_1" {
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
-    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {

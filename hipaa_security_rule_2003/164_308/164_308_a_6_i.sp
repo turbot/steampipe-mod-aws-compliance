@@ -7,7 +7,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_6_i" {
     control.lambda_function_dead_letter_queue_configured,
     control.log_metric_filter_console_authentication_failure,
     control.log_metric_filter_root_login,
-    control.securityhub_enabled,
+    control.securityhub_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {

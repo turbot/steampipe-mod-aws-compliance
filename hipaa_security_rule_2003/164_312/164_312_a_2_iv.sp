@@ -19,11 +19,11 @@ benchmark "hipaa_security_rule_2003_164_312_a_2_iv" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.sns_topic_encrypted_at_rest,
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {
