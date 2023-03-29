@@ -4,7 +4,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_a" {
   children = [
     control.cloudtrail_trail_enabled,
     control.config_enabled_all_regions,
-    control.guardduty_enabled,
+    control.guardduty_enabled
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {

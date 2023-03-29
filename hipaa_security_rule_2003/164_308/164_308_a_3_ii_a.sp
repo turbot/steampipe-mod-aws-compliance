@@ -13,8 +13,8 @@ benchmark "hipaa_security_rule_2003_164_308_a_3_ii_a" {
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled,
     control.lambda_function_restrict_public_access,
-    control.redshift_cluster_encryption_logging_enabled,
     control.rds_db_instance_iam_authentication_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled
   ]
