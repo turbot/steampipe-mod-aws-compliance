@@ -72,7 +72,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 }
 
 control "codebuild_project_logging_enabled" {
-  title       = "CodeBuild project logging should be enabled"
+  title       = "CodeBuild projects should have logging enabled"
   description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
 
