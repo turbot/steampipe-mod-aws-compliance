@@ -372,7 +372,7 @@ benchmark "pci_dss_v321_requirement_1_3_5" {
   ]
 
   tags = merge(local.pci_dss_v321_requirement_1_common_tags, {
-    pci_dss_v321_item_id = "1.3.3"
+    pci_dss_v321_item_id = "1.3.5"
   })
 }
 
