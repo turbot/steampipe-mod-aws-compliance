@@ -199,7 +199,7 @@ benchmark "pci_dss_v321_requirement_2_4" {
 
   children = [
     benchmark.pci_dss_v321_requirement_2_4_a,
-    control.config_enabled_all_regions
+    control.config_enabled_all_regions,
     control.ec2_instance_ssm_managed,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_eip_associated

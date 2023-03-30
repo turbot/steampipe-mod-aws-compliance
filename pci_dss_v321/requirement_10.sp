@@ -376,8 +376,8 @@ benchmark "pci_dss_v321_requirement_10_5_2" {
 
   children = [
     control.cloudtrail_trail_validation_enabled,
-    control.config_enabled_all_regions
-    control.s3_bucket_versioning_enabled,
+    control.config_enabled_all_regions,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_10_common_tags, {
