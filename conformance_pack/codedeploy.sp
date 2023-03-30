@@ -9,7 +9,7 @@ control "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
   description = "This control checks if the deployment group for Lambda Compute Platform is not using the default deployment configuration. The rule is non compliant if the deployment group is using the deployment configuration 'CodeDeployDefault.LambdaAllAtOnce'."
   query       = query.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
 
-  tags = merge(local.conformance_pack_acm_common_tags, {
+  tags = merge(local.conformance_pack_codedeploy_common_tags, {
     pci_dss_v321 = "true"
   })
 }

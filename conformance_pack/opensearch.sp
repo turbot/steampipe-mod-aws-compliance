@@ -26,7 +26,7 @@ control "opensearch_domain_fine_grained_access_enabled" {
 
 control "opensearch_domain_https_required" {
   title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is NON_COMPLIANT if the Amazon OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the Amazon OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -36,7 +36,7 @@ control "opensearch_domain_https_required" {
 
 control "opensearch_domain_audit_logging_enabled" {
   title       = "OpenSearch domains should have audit logging enabled"
-  description = "This control checks whether Amazon OpenSearch Service domains have audit logging enabled. The rule is NON_COMPLIANT if an OpenSearch Service domain does not have audit logging enabled."
+  description = "This control checks whether Amazon OpenSearch Service domains have audit logging enabled. The rule is non compliant if an OpenSearch Service domain does not have audit logging enabled."
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -47,7 +47,7 @@ control "opensearch_domain_audit_logging_enabled" {
 
 control "opensearch_domain_logs_to_cloudwatch" {
   title       = "OpenSearch domains logs to Amazon CloudWatch Logs"
-  description = "This control checks whether Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is NON_COMPLIANT if logging is not configured."
+  description = "This control checks whether Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 
 
