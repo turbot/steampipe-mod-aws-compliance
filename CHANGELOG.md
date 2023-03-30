@@ -1,8 +1,27 @@
+## v0.60 [2023-03-31]
+
+_Breaking changes_
+
+- As part of its alignment with the AWS Audit Manager framework, the `PCI v3.2.1` benchmark has been updated to use the names `pci_dss_v321` and `PCI DSS v3.2.1` for its benchmark and title, respectively. Additionally, the benchmark has undergone a replacement of its old sub-benchmarks and controls with new ones, in compliance with [PCI DSS V3.2.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+- The following controls have been removed as a part of the above update: ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+  - `iam_root_user_virtual_mfa`
+  - `kms_cmk_rotation_enabled`
+  - `opensearch_domain_in_vpc`
+  - `vpc_security_group_associated`
+
+_What's new?_
+
+- Added more than 100 controls in `PCI DSS v3.2.1` benchmark (`steampipe check benchmark.pci_dss_v321`). ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+
+_Dependencies_
+
+- AWS plugin `v0.97.0` or higher is now required. ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+
 ## v0.59 [2023-03-24]
 
 _Breaking changes_
 
-- Fixed the titles of the following benchmarks to align with the AWS Audit Manager framework: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
+- Fixed the names of the following benchmarks to align with the AWS Audit Manager framework: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
   - `soc_2_cc_a_1` to `soc_2_a_1`
   - `soc_2_cc_a_1_1` to `soc_2_a_1_1`
   - `soc_2_cc_a_1_2` to `soc_2_a_1_2`
@@ -16,7 +35,7 @@ _What's new?_
 
 - New benchmark added: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
   - `soc_2_c_1` (`steampipe check benchmark.soc_2_c_1`)
-- New controls were added to the following `SOC 2` sub-benchmarks: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
+- More than 200 controls were added to the following `SOC 2` sub-benchmarks: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
   - `a_1_2`
   - `soc2_c_1_1`
   - `soc2_c_1_2`
