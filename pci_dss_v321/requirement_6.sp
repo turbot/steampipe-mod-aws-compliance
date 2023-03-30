@@ -99,7 +99,7 @@ benchmark "pci_dss_v321_requirement_6_3_1" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.codebuild_project_source_repo_oauth_configured,
+    control.codebuild_project_source_repo_oauth_configured
   ]
 
   tags = merge(local.pci_dss_v321_requirement_6_common_tags, {

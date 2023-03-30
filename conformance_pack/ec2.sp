@@ -10,7 +10,6 @@ control "ec2_ebs_default_encryption_enabled" {
   query       = query.ec2_ebs_default_encryption_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    pci_dss_v321          = "true"
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
@@ -19,6 +18,7 @@ control "ec2_ebs_default_encryption_enabled" {
     hipaa                 = "true"
     nist_800_171_rev_2    = "true"
     nist_800_53_rev_5     = "true"
+    pci_dss_v321          = "true"
     soc_2                 = "true"
   })
 }
@@ -44,7 +44,6 @@ control "ec2_instance_in_vpc" {
   query       = query.ec2_instance_in_vpc
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -56,6 +55,7 @@ control "ec2_instance_in_vpc" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -67,7 +67,6 @@ control "ec2_instance_not_publicly_accessible" {
   query       = query.ec2_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -79,6 +78,7 @@ control "ec2_instance_not_publicly_accessible" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -120,7 +120,6 @@ control "ec2_instance_ebs_optimized" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     audit_manager_control_tower = "true"
-    pci_dss_v321                = "true"
     cis_controls_v8_ig1         = "true"
     cisa_cyber_essentials       = "true"
     fedramp_low_rev_4           = "true"
@@ -131,6 +130,7 @@ control "ec2_instance_ebs_optimized" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    pci_dss_v321                = "true"
     soc_2                       = "true"
   })
 }
@@ -156,7 +156,6 @@ control "ec2_instance_protected_by_backup_plan" {
   query       = query.ec2_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -165,6 +164,7 @@ control "ec2_instance_protected_by_backup_plan" {
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     soc_2                  = "true"
   })
 }

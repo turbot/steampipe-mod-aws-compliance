@@ -10,7 +10,6 @@ control "acm_certificate_expires_30_days" {
   query       = query.acm_certificate_expires_30_days
 
   tags = merge(local.conformance_pack_acm_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -21,6 +20,7 @@ control "acm_certificate_expires_30_days" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

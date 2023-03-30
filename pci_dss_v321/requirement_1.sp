@@ -383,11 +383,11 @@ benchmark "pci_dss_v321_requirement_1_3_6" {
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.es_domain_in_vpc,
-    control.rds_db_snapshot_prohibit_public_access,
     control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]

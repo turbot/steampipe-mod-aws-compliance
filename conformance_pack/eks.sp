@@ -10,9 +10,9 @@ control "eks_cluster_secrets_encrypted" {
   query       = query.eks_cluster_secrets_encrypted
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    pci_dss_v321    = "true"
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
+    pci_dss_v321    = "true"
   })
 }
 
@@ -22,10 +22,10 @@ control "eks_cluster_endpoint_restrict_public_access" {
   query       = query.eks_cluster_endpoint_restrict_public_access
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    pci_dss_v321        = "true"
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
     nist_csf            = "true"
+    pci_dss_v321        = "true"
   })
 }
 

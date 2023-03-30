@@ -150,8 +150,8 @@ benchmark "pci_dss_v321_requirement_3_4" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -183,8 +183,8 @@ benchmark "pci_dss_v321_requirement_3_4_1" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -214,8 +214,8 @@ benchmark "pci_dss_v321_requirement_3_4_1_a" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -245,8 +245,8 @@ benchmark "pci_dss_v321_requirement_3_4_1_c" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -278,8 +278,8 @@ benchmark "pci_dss_v321_requirement_3_4_a" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -311,8 +311,8 @@ benchmark "pci_dss_v321_requirement_3_4_b" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -336,8 +336,8 @@ benchmark "pci_dss_v321_requirement_3_4_d" {
     control.elb_application_classic_lb_logging_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_logging_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]

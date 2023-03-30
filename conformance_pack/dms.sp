@@ -10,7 +10,6 @@ control "dms_replication_instance_not_publicly_accessible" {
   query       = query.dms_replication_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_dms_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -22,6 +21,7 @@ control "dms_replication_instance_not_publicly_accessible" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

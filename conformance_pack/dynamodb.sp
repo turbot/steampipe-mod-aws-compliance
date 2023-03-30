@@ -29,7 +29,6 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   query       = query.dynamodb_table_point_in_time_recovery_enabled
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -42,6 +41,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -53,7 +53,6 @@ control "dynamodb_table_encrypted_with_kms" {
   query       = query.dynamodb_table_encrypted_with_kms
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    pci_dss_v321          = "true"
     cisa_cyber_essentials = "true"
     gdpr                  = "true"
     gxp_21_cfr_part_11    = "true"
@@ -62,6 +61,7 @@ control "dynamodb_table_encrypted_with_kms" {
     nist_800_171_rev_2    = "true"
     nist_800_53_rev_4     = "true"
     nist_800_53_rev_5     = "true"
+    pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
   })
 }
@@ -72,7 +72,6 @@ control "dynamodb_table_in_backup_plan" {
   query       = query.dynamodb_table_in_backup_plan
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    pci_dss_v321          = "true"
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
@@ -83,6 +82,7 @@ control "dynamodb_table_in_backup_plan" {
     nist_800_53_rev_4     = "true"
     nist_800_53_rev_5     = "true"
     nist_csf              = "true"
+    pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
     soc_2                 = "true"
   })
@@ -94,10 +94,10 @@ control "dynamodb_table_encryption_enabled" {
   query       = query.dynamodb_table_encryption_enabled
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    pci_dss_v321    = "true"
     gdpr            = "true"
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
+    pci_dss_v321    = "true"
   })
 }
 
@@ -107,7 +107,6 @@ control "dynamodb_table_protected_by_backup_plan" {
   query       = query.dynamodb_table_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -115,6 +114,7 @@ control "dynamodb_table_protected_by_backup_plan" {
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     soc_2                  = "true"
   })
 }

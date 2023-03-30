@@ -1,6 +1,6 @@
 locals {
   conformance_pack_opensearch_common_tags = merge(local.aws_compliance_common_tags, {
-    service = "AWS/OPENSEARCH"
+    service = "AWS/OpenSearch"
   })
 }
 
@@ -85,8 +85,8 @@ query "opensearch_domain_fine_grained_access_enabled" {
         else 'ok'
       end as status,
       case
-        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
-        else title || ' having fine-grained access control enabled.'
+        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' has fine-grained access control disabled.'
+        else title || ' has fine-grained access control enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -104,8 +104,8 @@ query "opensearch_domain_https_required" {
         else 'ok'
       end status,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' not using HTTPS.'
-        else title || ' using HTTPS.'
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' does not use HTTPS.'
+        else title || ' uses HTTPS.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

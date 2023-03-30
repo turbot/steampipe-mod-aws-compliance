@@ -10,13 +10,13 @@ control "fsx_file_system_protected_by_backup_plan" {
   query       = query.fsx_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_fsx_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gxp_eu_annex_11        = "true"
     hipaa                  = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     soc_2                  = "true"
   })
 }

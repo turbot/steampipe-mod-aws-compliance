@@ -48,8 +48,8 @@ control "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
   query       = query.kms_key_decryption_restricted_in_iam_customer_managed_policy
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    pci_dss_v321 = "true"
     hipaa        = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -59,8 +59,8 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
   query       = query.kms_key_decryption_restricted_in_iam_inline_policy
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    pci_dss_v321 = "true"
     hipaa        = "true"
+    pci_dss_v321 = "true"
   })
 }
 

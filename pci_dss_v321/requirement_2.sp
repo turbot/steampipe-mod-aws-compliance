@@ -35,9 +35,9 @@ benchmark "pci_dss_v321_requirement_2_1_b" {
   description = "Malicious individuals (external and internal to an organization) often use vendor default settings, account names, and passwords to compromise operating system software, applications, and the systems on which they are installed. Because these default settings are often published and are well known in hacker communities, changing these settings will leave systems less vulnerable to attack. Even if a default account is not intended to be used, changing the default password to a strong unique password and then disabling the account will prevent a malicious individual from re-enabling the account and gaining access with the default password."
 
   children = [
-    control.redshift_cluster_no_default_admin_name,
+    control.rds_db_cluster_no_default_admin_name,
     control.rds_db_instance_no_default_admin_name,
-    control.rds_db_cluster_no_default_admin_name
+    control.redshift_cluster_no_default_admin_name
   ]
 
   tags = merge(local.pci_dss_v321_requirement_2_common_tags, {
@@ -199,10 +199,10 @@ benchmark "pci_dss_v321_requirement_2_4" {
 
   children = [
     benchmark.pci_dss_v321_requirement_2_4_a,
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_ssm_managed,
-    control.vpc_eip_associated,
     control.config_enabled_all_regions
+    control.ec2_instance_ssm_managed,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_eip_associated
   ]
 
   tags = merge(local.pci_dss_v321_requirement_2_common_tags, {

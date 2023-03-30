@@ -10,11 +10,11 @@ control "config_enabled_all_regions" {
   query       = query.config_enabled_all_regions
 
   tags = merge(local.conformance_pack_config_common_tags, {
-    pci_dss_v321    = "true"
     gdpr            = "true"
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
     nist_csf        = "true"
+    pci_dss_v321    = "true"
     soc_2           = "true"
   })
 }

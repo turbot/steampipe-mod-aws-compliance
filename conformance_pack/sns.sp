@@ -10,7 +10,6 @@ control "sns_topic_encrypted_at_rest" {
   query       = query.sns_topic_encrypted_at_rest
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -22,6 +21,7 @@ control "sns_topic_encrypted_at_rest" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

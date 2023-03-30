@@ -14,9 +14,9 @@ control "lambda_function_dead_letter_queue_configured" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     hipaa                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
-    nist_800_171_rev_2     = "true"
     soc_2                  = "true"
   })
 }
@@ -27,7 +27,6 @@ control "lambda_function_in_vpc" {
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -39,6 +38,7 @@ control "lambda_function_in_vpc" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -50,7 +50,6 @@ control "lambda_function_restrict_public_access" {
   query       = query.lambda_function_restrict_public_access
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -62,6 +61,7 @@ control "lambda_function_restrict_public_access" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

@@ -5,7 +5,7 @@ locals {
 }
 
 control "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
-  title       = "ACM certificates should not use wildcard certificates"
+  title       = "Codedeploy deployment groups lambda allatonce traffic shift should be disabled"
   description = "This control checks if the deployment group for Lambda Compute Platform is not using the default deployment configuration. The rule is non compliant if the deployment group is using the deployment configuration 'CodeDeployDefault.LambdaAllAtOnce'."
   query       = query.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
 

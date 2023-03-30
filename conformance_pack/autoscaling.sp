@@ -20,7 +20,6 @@ control "autoscaling_group_with_lb_use_health_check" {
   query       = query.autoscaling_group_with_lb_use_health_check
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -30,6 +29,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
   })
 }
 
@@ -39,13 +39,13 @@ control "autoscaling_launch_config_public_ip_disabled" {
   query       = query.autoscaling_launch_config_public_ip_disabled
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     nist_800_53_rev_5      = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
 }

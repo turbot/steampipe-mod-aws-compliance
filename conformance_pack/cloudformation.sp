@@ -64,9 +64,9 @@ query "cloudformation_stack_drift_detection_check" {
         else 'skip'
       end as status,
       case
-        when stack_drift_status = 'IN_SYNC' then title || ' drift status is'|| stack_drift_status || '.'
-        when stack_drift_status = 'DRIFTED' then title || ' drift status is'|| stack_drift_status || '.'
-        else title || ' drift status is'|| stack_drift_status || '.'
+        when stack_drift_status = 'IN_SYNC' then title || ' drift status is ' || stack_drift_status || '.'
+        when stack_drift_status = 'DRIFTED' then title || ' drift status is ' || stack_drift_status || '.'
+        else title || ' drift status is ' || stack_drift_status || '.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

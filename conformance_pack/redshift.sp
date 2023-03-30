@@ -10,7 +10,6 @@ control "redshift_cluster_encryption_in_transit_enabled" {
   query       = query.redshift_cluster_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    pci_dss_v321           = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
@@ -22,6 +21,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -33,7 +33,6 @@ control "redshift_cluster_encryption_logging_enabled" {
   query       = query.redshift_cluster_encryption_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -46,6 +45,7 @@ control "redshift_cluster_encryption_logging_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -57,7 +57,6 @@ control "redshift_cluster_prohibit_public_access" {
   query       = query.redshift_cluster_prohibit_public_access
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -69,6 +68,7 @@ control "redshift_cluster_prohibit_public_access" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -80,7 +80,6 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   query       = query.redshift_cluster_automatic_snapshots_min_7_days
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -92,6 +91,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     hipaa                  = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -337,7 +337,7 @@ query "redshift_cluster_no_default_admin_name" {
 query "redshift_cluster_audit_logging_enabled" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when logging_status ->> 'LoggingEnabled' = 'true' then 'ok'
         else 'alarm'
@@ -358,7 +358,7 @@ query "redshift_cluster_audit_logging_enabled" {
 query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when allow_version_upgrade then 'ok'
         else 'alarm'
@@ -408,8 +408,7 @@ query "redshift_cluster_encryption_in_transit_enabled" {
       and p ->> 'ParameterValue' = 'true'
     )
     select
-
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when cpg ->> 'ParameterGroupName' in (select pg_name from pg_with_ssl ) then 'ok'
         else 'alarm'
@@ -429,7 +428,6 @@ query "redshift_cluster_encryption_in_transit_enabled" {
 query "redshift_cluster_encryption_logging_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when not encrypted then 'alarm'
@@ -438,7 +436,7 @@ query "redshift_cluster_encryption_logging_enabled" {
       end as status,
       case
         when not encrypted then title || ' not encrypted.'
-        when not (logging_status ->> 'LoggingEnabled') :: boolean then title || ' audit logging not enabled.'
+        when not (logging_status ->> 'LoggingEnabled')::boolean then title || ' audit logging not enabled.'
         else title || ' audit logging and encryption enabled.'
       end as reason
       ${local.tag_dimensions_sql}
@@ -451,7 +449,6 @@ query "redshift_cluster_encryption_logging_enabled" {
 query "redshift_cluster_prohibit_public_access" {
   sql = <<-EOQ
     select
-
       cluster_namespace_arn as resource,
       case
         when publicly_accessible then 'alarm'
@@ -472,14 +469,14 @@ query "redshift_cluster_prohibit_public_access" {
 query "redshift_cluster_automatic_snapshots_min_7_days" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when automated_snapshot_retention_period >= 7 then 'ok'
         else 'alarm'
       end as status,
       case
         when automated_snapshot_retention_period >= 7 then title || ' automatic snapshots enabled with retention period greater than equals 7 days.'
-        else title || ' automatic snapshots not enabled with retention period greater than equals 7 days.'
+        else title || ' automatic snapshots enabled with retention period less than 7 days.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -491,7 +488,7 @@ query "redshift_cluster_automatic_snapshots_min_7_days" {
 query "redshift_cluster_kms_enabled" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when encrypted and kms_key_id is not null then 'ok'
         else 'alarm'
@@ -510,7 +507,7 @@ query "redshift_cluster_kms_enabled" {
 query "redshift_cluster_maintenance_settings_check" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when allow_version_upgrade and automated_snapshot_retention_period >= 7 then 'ok'
         else 'alarm'
@@ -529,7 +526,7 @@ query "redshift_cluster_maintenance_settings_check" {
 query "redshift_cluster_enhanced_vpc_routing_enabled" {
   sql = <<-EOQ
     select
-      'arn:aws:redshift:' || region || ':' || account_id || ':' || 'cluster' || ':' || cluster_identifier as resource,
+      arn as resource,
       case
         when enhanced_vpc_routing then 'ok'
         else 'alarm'
