@@ -21,6 +21,7 @@ control "guardduty_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     soc_2                  = "true"
   })
 }
@@ -39,6 +40,7 @@ control "guardduty_finding_archived" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })

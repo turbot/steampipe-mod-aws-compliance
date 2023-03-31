@@ -9,7 +9,7 @@ control "codebuild_project_build_greater_then_90_days" {
   description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
   query       = query.codebuild_project_build_greater_then_90_days
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
     other_checks = "true"
   })
 }
@@ -20,6 +20,7 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -38,6 +39,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    pci_dss_v321           = "true"
     cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
@@ -55,13 +57,22 @@ control "codebuild_project_with_user_controlled_buildspec" {
   description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
   query       = query.codebuild_project_with_user_controlled_buildspec
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
     other_checks = "true"
   })
 }
 
+control "codebuild_project_environment_privileged_mode_disabled" {
+  title       = "CodeBuild project environments should not have privileged mode enabled"
+  description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
+  query       = query.codebuild_project_environment_privileged_mode_disabled
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    pci_dss_v321 = "true"
+  })
+}
+
 control "codebuild_project_logging_enabled" {
-  title       = "CodeBuild project logging should be enabled"
+  title       = "CodeBuild projects should have logging enabled"
   description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
 
