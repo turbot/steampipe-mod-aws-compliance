@@ -2,16 +2,16 @@
 
 _Breaking changes_
 
-- As part of its alignment with the AWS Audit Manager framework, the `PCI v3.2.1` benchmark has been updated to use the names `pci_dss_v321` and `PCI DSS v3.2.1` for its benchmark and title, respectively. Additionally, the benchmark has undergone a replacement of its old sub-benchmarks and controls with new ones, in compliance with [PCI DSS V3.2.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
-- The following controls have been removed as a part of the above update: ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
-  - `iam_root_user_virtual_mfa`
-  - `kms_cmk_rotation_enabled`
-  - `opensearch_domain_in_vpc`
-  - `vpc_security_group_associated`
-
-_What's new?_
-
-- Added more than 100 controls in `PCI DSS v3.2.1` benchmark (`steampipe check benchmark.pci_dss_v321`). ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+- The PCI DSS v3.2.1 benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+  - The `pci_v321` benchmark has been removed and replaced by the `pci_dss_v321` benchmark (`steampipe check benchmark.pci_dss_v321`)
+  - The benchmark is now organized by **Requirements** instead of AWS services and all children benchmarks now start with `pci_dss_v321_` instead of `pci_v321`, e.g., `steampipe check benchmark.pci_dss_v321_requirement_2`
+  - 100+ new controls have been added
+  - The following controls are no longer included in the benchmark:
+    - `control.iam_root_user_virtual_mfa`
+    - `kms_cmk_rotation_enabled`
+    - `opensearch_domain_in_vpc`
+    - `vpc_security_group_associated`
+  - All documentation has been updated on the [Hub](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_dss_v321) to better match official PCI documentation.
 
 _Dependencies_
 
