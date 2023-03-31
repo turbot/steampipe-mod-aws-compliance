@@ -280,6 +280,16 @@ control "s3_bucket_object_logging_enabled" {
   })
 }
 
+control "s3_bucket_policy_restrict_public_access" {
+  title       = "S3 bucket policy should prohibit public access"
+  description = "This control checks that the access granted by the S3 bucket is restricted by any of the principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is compliant if a bucket policy is not present."
+  query       = query.s3_bucket_policy_restrict_public_access
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    hipaa_security_rule_2003 = "true"
+  })
+}
+
 query "s3_bucket_cross_region_replication_enabled" {
   sql = <<-EOQ
     with bucket_with_replication as (
@@ -805,6 +815,28 @@ query "s3_bucket_static_website_hosting_disabled" {
       ${local.common_dimensions_sql}
     from
       aws_s3_bucket;
+  EOQ
+}
+
+query "s3_bucket_policy_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when policy_std is null then 'ok'
+        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when policy_std is null then title || ' policy not publicly accessable.'
+        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then title || ' policy publicly accessable.'
+        else title || ' policy not publicly accessable.'
+      end reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket,
+      jsonb_array_elements(policy_std -> 'Statement') as s
   EOQ
 }
 
