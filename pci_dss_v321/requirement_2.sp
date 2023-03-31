@@ -139,7 +139,7 @@ benchmark "pci_dss_v321_requirement_2_2_5_b" {
 }
 
 benchmark "pci_dss_v321_requirement_2_2_a" {
-  title       = "2.2.a Examine the organization's system configuration standards for all types of system components and verify the system configuration standards are consistent with industry- accepted hardening standards"
+  title       = "2.2.a Examine the organization's system configuration standards for all types of system components and verify the system configuration standards are consistent with industry-accepted hardening standards"
   description = "There are known weaknesses with many operating systems, databases, and enterprise applications, and there are also known ways to configure these systems to fix security vulnerabilities. To help those that are not security experts, a number of security organizations have established system-hardening guidelines and recommendations, which advise how to correct these weaknesses. Examples of sources for guidance on configuration standards include, but are not limited to: www.nist.gov, www.sans.org, and www.cisecurity.org, www.iso.org, and product vendors. System configuration standards must be kept up to date to ensure that newly identified weaknesses are corrected prior to a system being installed on the network."
 
   children = [
