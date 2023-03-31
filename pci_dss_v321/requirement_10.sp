@@ -22,7 +22,7 @@ benchmark "pci_dss_v321_requirement_10" {
 
 benchmark "pci_dss_v321_requirement_10_1" {
   title       = "10.1 Implement audit trails to link all access to system components to each individual user"
-  description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: • Audit trails are enabled and active for system components. • Access to system components is linked to individual users."
+  description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: audit trails are enabled and active for system components, access to system components is linked to individual users."
 
   children = [
     control.apigateway_stage_logging_enabled,
@@ -48,7 +48,7 @@ benchmark "pci_dss_v321_requirement_10_1" {
 
 benchmark "pci_dss_v321_requirement_10_2" {
   title       = "10.2 Through interviews of responsible personnel, observation of audit logs, and examination of audit log settings"
-  description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: • Audit trails are enabled and active for system components. • Access to system components is linked to individual users."
+  description = "It is critical to have a process or system that links user access to system components accessed. This system generates audit logs and provides the ability to trace back suspicious activity to a specific user. This control verifies, through observation and interviewing the system administrator, that: audit trails are enabled and active for system components, access to system components is linked to individual users."
 
   children = [
     benchmark.pci_dss_v321_requirement_10_2_1,
@@ -167,7 +167,7 @@ benchmark "pci_dss_v321_requirement_10_2_5_a" {
 
 benchmark "pci_dss_v321_requirement_10_2_6" {
   title       = "10.2.6 Initialization, stopping, or pausing of the audit logs"
-  description = "Turning the audit logs off (or pausing them) prior to performing illicit activities is a common practice for malicious users wishing to avoid detection. Initialization of audit logs could indicate that the log function was disabled by a user to hide their actions. This control verifies the following are logged: • Initialization of audit logs • Stopping or pausing of audit logs."
+  description = "Turning the audit logs off (or pausing them) prior to performing illicit activities is a common practice for malicious users wishing to avoid detection. Initialization of audit logs could indicate that the log function was disabled by a user to hide their actions. This control verifies the following are logged: initialization of audit logs, stopping or pausing of audit logs."
   children = [
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
@@ -493,7 +493,7 @@ benchmark "pci_dss_v321_requirement_10_7_c" {
 }
 
 benchmark "pci_dss_v321_requirement_10_8" {
-  title       = "10.8 Additional requirement for service providers only to implement a process for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of firewalls, IDS/IPS, FIM, Anti-virus, Physical access controls, Logical access controls, audit logging mechanisms and segmentation controls"
+  title       = "10.8 Additional requirement for service providers only to implement a process for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of firewalls, IDS/IPS, FIM, anti-virus, physical access controls, logical access controls, audit logging mechanisms and segmentation controls"
   description = "Note: This requirement applies only when the entity being assessed is a service provider. Without formal processes to detect and alert when critical security controls fail, failures may go undetected for extended periods and provide attackers ample time to compromise systems and steal sensitive data from the cardholder data environment. The specific types of failures may vary depending on the function of the device and technology in use. Typical failures include a system ceasing to perform its security function or not functioning in its intended manner; for example, a firewall erasing all its rules or going offline."
 
   children = [

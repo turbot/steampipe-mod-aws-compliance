@@ -18,7 +18,7 @@ benchmark "pci_dss_v321_requirement_1" {
 }
 
 benchmark "pci_dss_v321_requirement_1_1" {
-  title       = "1.1 Establish and implement firewall and router configuration standards that include the following"
+  title       = "1.1 Establish and implement firewall and router configuration standards"
   description = "Firewalls and routers are key components of the architecture that controls entry to and exit from the network. These devices are software or hardware devices that block unwanted access and manage authorized access into and out of the network. Configuration standards and procedures will help to ensure that the organization's first line of defense in the protection of its data remains strong."
 
   children = [

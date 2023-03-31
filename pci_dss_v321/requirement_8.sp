@@ -63,8 +63,8 @@ benchmark "pci_dss_v321_requirement_8_1_4" {
 }
 
 benchmark "pci_dss_v321_requirement_8_1_5" {
-  title       = "8.1.5 Manage IDs used by third parties to access, support, or maintain system components via remote access as follows"
-  description = "Enabled only during the time period needed and disabled when not in use and monitored when in use. Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
+  title       = "8.1.5 Manage IDs used by third parties to access, support, or maintain system components via remote access by enabling only during the time period needed and disabled when not in use"
+  description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
     benchmark.pci_dss_v321_requirement_8_1_5_a
@@ -89,8 +89,8 @@ benchmark "pci_dss_v321_requirement_8_1_5_a" {
 }
 
 benchmark "pci_dss_v321_requirement_8_2" {
-  title       = "8.2 To verify that users are authenticated using unique ID and additional authentication (for example, a password/phrase) for access to the cardholder data environment, perform the following: • Examine documentation describing the authentication method(s) used"
-  description = "For each type of authentication method used and for each type of system component, observe an authentication to verify authentication is functioning consistent with documented authentication method(s). These authentication methods, when used in addition to unique IDs, help protect users' IDs from being compromised, since the one attempting the compromise needs to know both the unique ID and the password (or other authentication used). Note that a digital certificate is a valid option for “something you have” as long as it is unique for a particular user. Since one of the first steps a malicious individual will take to compromise a system is to exploit weak or nonexistent passwords, it is important to implement good processes for authentication management."
+  title       = "8.2 To verify that users are authenticated using unique ID and additional authentication (for example, a password/phrase) for access to the cardholder data environment perform the methods like examine documentation describing the authentication method(s) used etc"
+  description = "Verify users are authenticated using unique ID, perform the following: examine documentation describing the authentication method(s) used, for each type of authentication method used and for each type of system component, observe an authentication to verify authentication is functioning consistent with documented authentication method(s). These authentication methods, when used in addition to unique IDs, help protect users' IDs from being compromised, since the one attempting the compromise needs to know both the unique ID and the password (or other authentication used). Note that a digital certificate is a valid option for “something you have” as long as it is unique for a particular user. Since one of the first steps a malicious individual will take to compromise a system is to exploit weak or nonexistent passwords, it is important to implement good processes for authentication management."
 
   children = [
     benchmark.pci_dss_v321_requirement_8_2_1,
@@ -377,7 +377,7 @@ benchmark "pci_dss_v321_requirement_8_3_2" {
 }
 
 benchmark "pci_dss_v321_requirement_8_3_2_a" {
-  title       = "8.3.2.a Examine system configurations for remote access servers and systems to verify multi-factor authentication is required for: • All remote access by personnel, both user and administrator, and • All third-party/vendor remote access (including access to applications and system components for support or maintenance purposes)"
+  title       = "8.3.2.a Examine system configurations for remote access servers and systems to verify multi-factor authentication is required for all remote access by personnel, both user and administrator, and all third-party/vendor remote access (including access to applications and system components for support or maintenance purposes)"
   description = "This requirement is intended to apply to all personnel—including general users, administrators, and vendors (for support or maintenance) with remote access to the network—where that remote access could lead to access to the CDE. If remote access is to an entity's network that has appropriate segmentation, such that remote users cannot access or impact the cardholder data environment, multi-factor authentication for remote access to that network would not be required. However, multi- factor authentication is required for any remote access to networks with access to the cardholder data environment, and is recommended for all remote access to the entity's networks."
 
   children = [
@@ -405,7 +405,7 @@ benchmark "pci_dss_v321_requirement_8_5" {
 }
 
 benchmark "pci_dss_v321_requirement_8_5_a" {
-  title       = "8.5.a For a sample of system components, examine user ID lists to verify"
+  title       = "8.5.a For a sample of system components, examine user ID lists to verify that generic user IDs are disabled or removed, shared user IDs for system administration activities and other critical functions do not exist or are shared, and generic user IDs are not used to administer any system components"
   description = "Generic user IDs are disabled or removed.  Shared user IDs for system administration activities and other critical functions do not exist.  Shared and generic user IDs are not used to administer any system components. If multiple users share the same authentication credentials (for example, user account and password), it becomes impossible to trace system access and activities to an individual. This in turn prevents an entity from assigning accountability for, or having effective logging of, an individual's actions, since a given action could have been performed by anyone in the group that has knowledge of the authentication credentials."
 
   children = [
@@ -418,7 +418,7 @@ benchmark "pci_dss_v321_requirement_8_5_a" {
 }
 
 benchmark "pci_dss_v321_requirement_8_6" {
-  title       = "8.6 Where other authentication mechanisms are used (for example, physical or logical security tokens, smart cards, certificates, etc.), use of these mechanisms must be assigned as follows: • Authentication mechanisms must be assigned to an individual account and not shared among multiple accounts. • Physical and/or logical controls must be in place to ensure only the intended account can use that mechanism to gain access"
+  title       = "8.6 Where other authentication mechanisms are used (for example, physical or logical security tokens, smart cards, certificates, etc.), use of these mechanisms must be assigned authentication mechanisms must be assigned to an individual account and not shared among multiple accounts, physical and/or logical controls must be in place to ensure only the intended account can use that mechanism to gain access"
   description = "If user authentication mechanisms such as tokens, smart cards, and certificates can be used by multiple accounts, it may be impossible to identify the individual using the authentication mechanism. Having physical and/or logical controls (for example, a PIN, biometric data, or a password) to uniquely identify the user of the account will prevent unauthorized users from gaining access through use of a shared authentication mechanism."
 
   children = [
@@ -447,7 +447,7 @@ benchmark "pci_dss_v321_requirement_8_6_c" {
 
 benchmark "pci_dss_v321_requirement_8_7" {
   title       = "8.7 All access to any database containing cardholder data (including access by applications, administrators, and all other users) is restricted"
-  description = "All user access to, user queries of, and user actions on databases are through programmatic methods. Only database administrators have the ability to directly access or query databases. Application IDs for database applications can only be used by the applications (and not by individual users or other non-application processes). Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
+  description = "Access to any database containing cardholder data is restricted as follows: all user access to, user queries of, and user actions on databases are through programmatic methods. Only database administrators have the ability to directly access or query databases. Application IDs for database applications can only be used by the applications (and not by individual users or other non-application processes). Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
     benchmark.pci_dss_v321_requirement_8_7_a,
