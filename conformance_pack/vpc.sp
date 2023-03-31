@@ -962,7 +962,8 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
         type = 'ingress'
         and cidr_ipv4 = '0.0.0.0/0'
         and (from_port is null or from_port not in (80,443))
-      group by group_id
+      group by
+        group_id
     )
     select
       sg.arn as resource,

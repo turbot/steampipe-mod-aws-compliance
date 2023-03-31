@@ -27,16 +27,6 @@ control "wafv2_web_acl_logging_enabled" {
   })
 }
 
-control "waf_web_acl_logging_enabled" {
-  title       = "Logging should be enabled on AWS WAF regional and global web access control list (ACLs)"
-  description = "To help with logging and monitoring within your environment, enable AWS WAF logging on regional and global web ACLs."
-  query       = query.waf_web_acl_logging_enabled
-
-  tags = merge(local.conformance_pack_wafv2_common_tags, {
-    hipaa_security_rule_2003 = "true"
-  })
-}
-
 query "wafv2_web_acl_logging_enabled" {
   sql = <<-EOQ
     select
@@ -53,25 +43,6 @@ query "wafv2_web_acl_logging_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_wafv2_web_acl;
-  EOQ
-}
-
-query "waf_web_acl_logging_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when logging_configuration is null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when logging_configuration is null then title || ' logging disabled.'
-        else title || ' logging enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_waf_web_acl;
   EOQ
 }
 

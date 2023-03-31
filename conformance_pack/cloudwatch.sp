@@ -91,8 +91,8 @@ control "log_metric_filter_console_login_mfa" {
   query       = query.log_metric_filter_console_login_mfa
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr                     = "true"
-    nist_csf                 = "true"
+    gdpr     = "true"
+    nist_csf = "true"
   })
 }
 

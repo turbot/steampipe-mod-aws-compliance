@@ -2,9 +2,6 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_a" {
   title       = "164.308(a)(4)(ii)(A) Isolating health care clearinghouse functions"
   description = "If a health care clearinghouse is part of a larger organization, the clearinghouse must implement policies and procedures that protect the electronic protected health information of the clearinghouse from unauthorized access by the larger organization."
   children = [
-    control.elb_classic_lb_use_ssl_certificate,
-    control.redshift_cluster_encryption_in_transit_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
@@ -18,6 +15,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_a" {
     control.eks_cluster_secrets_encrypted,
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_encryption_at_rest_enabled,
     control.es_domain_node_to_node_encryption_enabled,
@@ -28,11 +26,14 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_a" {
     control.rds_db_instance_logging_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest,
+    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 

@@ -30,7 +30,7 @@ benchmark "hipaa_security_rule_2003_164_314_b_2" {
     control.vpc_endpoint_service_acceptance_required_enabled
   ]
 
-  tags = merge(local.hipaa_security_rule_2003_164_312_common_tags, {
+  tags = merge(local.hipaa_security_rule_2003_164_314_common_tags, {
     hipaa_security_rule_2003_item_id = "164_314_b_2"
   })
 }

@@ -25,10 +25,10 @@ control "secretsmanager_secret_rotated_as_scheduled" {
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
     gxp_21_cfr_part_11       = "true"
+    hipaa_security_rule_2003 = "true"
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    hipaa_security_rule_2003 = "true"
   })
 }
 
