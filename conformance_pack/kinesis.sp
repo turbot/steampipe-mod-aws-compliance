@@ -11,6 +11,7 @@ control "kinesis_stream_server_side_encryption_enabled" {
 
   tags = merge(local.conformance_pack_kinesis_common_tags, {
     other_checks = "true"
+    pci_dss_v321 = "true"
   })
 }
 
