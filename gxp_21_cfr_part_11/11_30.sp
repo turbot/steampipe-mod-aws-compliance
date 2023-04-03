@@ -28,7 +28,6 @@ benchmark "gxp_21_cfr_part_11_11_30" {
     control.opensearch_domain_encryption_at_rest_enabled,
     control.opensearch_domain_https_required,
     control.opensearch_domain_node_to_node_encryption_enabled,
-    control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_encryption_logging_enabled,
@@ -39,9 +38,7 @@ benchmark "gxp_21_cfr_part_11_11_30" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest,
-
+    control.sns_topic_encrypted_at_rest
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

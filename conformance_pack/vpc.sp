@@ -299,6 +299,16 @@ control "vpc_network_acl_unused" {
   })
 }
 
+control "vpc_security_group_allows_ingress_authorized_ports" {
+  title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description = "This control checks whether the vpc security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  query       = query.vpc_security_group_allows_ingress_authorized_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -963,6 +973,38 @@ query "vpc_security_group_restrict_ingress_kafka_port" {
   EOQ
 }
 
+query "vpc_security_group_allows_ingress_authorized_ports" {
+  sql = <<-EOQ
+    with ingress_unauthorized_ports as (
+      select
+        group_id,
+        count(*)
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (from_port is null or from_port not in (80,443))
+      group by group_id
+    )
+    select
+      sg.arn as resource,
+      case
+        when ingress_unauthorized_ports.count > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
+        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "vpc_configured_to_use_vpc_endpoints" {
@@ -1101,38 +1143,6 @@ query "vpc_network_acl_remote_administration" {
     from
       aws_vpc_network_acl as acl
       left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
-  EOQ
-}
-
-query "vpc_security_group_allows_ingress_authorized_ports" {
-  sql = <<-EOQ
-    with ingress_unauthorized_ports as (
-      select
-        group_id,
-        count(*)
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and cidr_ipv4 = '0.0.0.0/0'
-        and (from_port is null or from_port not in (80,443))
-      group by group_id
-    )
-    select
-      sg.arn as resource,
-      case
-        when ingress_unauthorized_ports.count > 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
-        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
   EOQ
 }
 
