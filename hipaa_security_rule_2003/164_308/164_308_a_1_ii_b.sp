@@ -47,6 +47,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
     control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_versioning_enabled,

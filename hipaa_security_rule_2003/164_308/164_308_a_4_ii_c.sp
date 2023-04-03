@@ -10,6 +10,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_c" {
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
+    control.s3_bucket_policy_restrict_public_access,
     control.secretsmanager_secret_automatic_rotation_enabled
   ]
 

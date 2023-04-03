@@ -5,7 +5,8 @@ benchmark "hipaa_security_rule_2003_164_308_a_4_ii_b" {
     control.iam_group_not_empty,
     control.iam_policy_no_star_star,
     control.iam_user_in_group,
-    control.iam_user_no_inline_attached_policies
+    control.iam_user_no_inline_attached_policies,
+    control.s3_bucket_policy_restrict_public_access
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {
