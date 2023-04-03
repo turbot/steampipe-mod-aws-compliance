@@ -10,9 +10,10 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr  = "true"
-    hipaa = "true"
-    soc_2 = "true"
+    gdpr         = "true"
+    hipaa        = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 
@@ -43,6 +44,26 @@ control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "cloudfront_distribution_no_deprecated_ssl_protocol" {
+  title       = "CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
+  description = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
+  query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    pci_dss_v321 = "true"
+  })
+}
+
+control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
+  title       = "CloudFront distributions should encrypt traffic to custom origins"
+  description = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
+  query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 

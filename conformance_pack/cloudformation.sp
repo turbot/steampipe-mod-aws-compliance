@@ -4,6 +4,16 @@ locals {
   })
 }
 
+control "cloudformation_stack_drift_detection_check" {
+  title       = "CloudFormation stacks differ from the expected configuration"
+  description = "Ensure if the actual configuration of a Cloud Formation stack differs, or has drifted, from the expected configuration, a stack is considered to have drifted if one or more of its resources differ from their expected configuration."
+  query       = query.cloudformation_stack_drift_detection_check
+
+  tags = merge(local.conformance_pack_cloudformation_common_tags, {
+    pci_dss_v321 = "true"
+  })
+}
+
 control "cloudformation_stack_output_no_secrets" {
   title       = "CloudFormation stacks outputs should not have any secrets"
   description = "Ensure CloudFormation stacks outputs do not contain secrets like user names, passwords, and tokens. It is recommended to remove secrets since outputs cannot be encrypted resulting in any entity with basic read-metadata-only and access to CloudFormation outputs having access to these secrets."
@@ -42,6 +52,27 @@ control "cloudformation_stack_termination_protection_enabled" {
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
     other_checks = "true"
   })
+}
+
+query "cloudformation_stack_drift_detection_check" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when stack_drift_status = 'IN_SYNC' then 'ok'
+        when stack_drift_status = 'DRIFTED' then 'alarm'
+        else 'skip'
+      end as status,
+      case
+        when stack_drift_status = 'IN_SYNC' then title || ' drift status is ' || stack_drift_status || '.'
+        when stack_drift_status = 'DRIFTED' then title || ' drift status is ' || stack_drift_status || '.'
+        else title || ' drift status is ' || stack_drift_status || '.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudformation_stack;
+  EOQ
 }
 
 query "cloudformation_stack_output_no_secrets" {

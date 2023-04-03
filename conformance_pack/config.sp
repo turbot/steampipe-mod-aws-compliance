@@ -14,6 +14,7 @@ control "config_enabled_all_regions" {
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
     nist_csf        = "true"
+    pci_dss_v321    = "true"
     soc_2           = "true"
   })
 }

@@ -19,6 +19,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -41,6 +42,7 @@ control "apigateway_stage_logging_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -73,6 +75,7 @@ control "apigateway_stage_use_waf_web_acl" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     nist_800_53_rev_5      = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -119,7 +122,8 @@ query "apigateway_stage_logging_enabled" {
         title,
         region,
         account_id,
-        tags
+        tags,
+        _ctx
       from
         aws_api_gateway_stage
       union
@@ -130,7 +134,8 @@ query "apigateway_stage_logging_enabled" {
         title,
         region,
         account_id,
-        tags
+        tags,
+        _ctx
       from
         aws_api_gatewayv2_stage
     )
@@ -201,7 +206,6 @@ query "apigateway_rest_api_authorizers_configured" {
         when jsonb_array_length(a.provider_arns) > 0 then p.name || ' authorizers configured.'
         else p.name || ' authorizers not configured.'
       end as reason
-
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from

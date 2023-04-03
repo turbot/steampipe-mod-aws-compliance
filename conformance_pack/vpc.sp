@@ -22,6 +22,7 @@ control "vpc_flow_logs_enabled" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -38,7 +39,18 @@ control "vpc_igw_attached_to_authorized_vpc" {
     nist_800_171_rev_2 = "true"
     nist_800_53_rev_4  = "true"
     nist_csf           = "true"
+    pci_dss_v321       = "true"
     rbi_cyber_security = "true"
+  })
+}
+
+control "vpc_network_acl_remote_administration" {
+  title       = "Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
+  description = "This control checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule fails if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
+  query       = query.vpc_network_acl_remote_administration
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 
@@ -58,6 +70,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -103,6 +116,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    pci_dss_v321                = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
   })
@@ -124,6 +138,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -156,6 +171,7 @@ control "vpc_eip_associated" {
     ffiec                 = "true"
     nist_800_171_rev_2    = "true"
     nist_csf              = "true"
+    pci_dss_v321          = "true"
     soc_2                 = "true"
   })
 }
@@ -206,6 +222,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -267,6 +284,7 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
+    pci_dss_v321 = "true"
   })
 }
 

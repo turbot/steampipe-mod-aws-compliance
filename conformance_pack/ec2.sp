@@ -18,6 +18,7 @@ control "ec2_ebs_default_encryption_enabled" {
     hipaa                 = "true"
     nist_800_171_rev_2    = "true"
     nist_800_53_rev_5     = "true"
+    pci_dss_v321          = "true"
     soc_2                 = "true"
   })
 }
@@ -54,6 +55,7 @@ control "ec2_instance_in_vpc" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -76,6 +78,7 @@ control "ec2_instance_not_publicly_accessible" {
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -127,6 +130,7 @@ control "ec2_instance_ebs_optimized" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    pci_dss_v321                = "true"
     soc_2                       = "true"
   })
 }
@@ -160,6 +164,7 @@ control "ec2_instance_protected_by_backup_plan" {
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_csf               = "true"
+    pci_dss_v321           = "true"
     soc_2                  = "true"
   })
 }
