@@ -7,7 +7,6 @@ locals {
 benchmark "hipaa_security_rule_2003_164_312" {
   title       = "164.312 Technical Safeguards"
   description = "The Security Rule defines technical safeguards in § 164.304 as `the technology and the policy and procedures for its use that protect electronic protected health information and control access to it.`"
-
   children = [
     benchmark.hipaa_security_rule_2003_164_312_a_1,
     benchmark.hipaa_security_rule_2003_164_312_a_2_i,

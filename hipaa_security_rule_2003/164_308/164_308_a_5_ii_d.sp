@@ -12,6 +12,5 @@ benchmark "hipaa_security_rule_2003_164_308_a_5_ii_d" {
 
   tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {
     hipaa_security_rule_2003_item_id = "164_308_a_5_ii_d"
-    service                          = "AWS/IAM"
   })
 }

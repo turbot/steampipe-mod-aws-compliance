@@ -1,7 +1,6 @@
 benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
-  title       = "164.308(a)(1)(ii)(B) Risk Management"
+  title       = "164.308(a)(1)(ii)(B) Risk management"
   description = "Implement security measures sufficient to reduce risks and vulnerabilities to a reasonable and appropriate level to comply with Section 164.306(a)."
-
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.autoscaling_group_with_lb_use_health_check,
