@@ -65,11 +65,10 @@ control "waf_web_acl_resource_associated" {
   })
 }
 
-
 query "waf_rule_condition_attached" {
   sql = <<-EOQ
     select
-      akas as resource,
+      rule_id as resource,
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
         else 'ok'
