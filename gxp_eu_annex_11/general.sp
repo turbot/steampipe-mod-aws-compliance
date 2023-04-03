@@ -13,6 +13,7 @@ benchmark "gxp_eu_annex_11_general_1" {
   description = "Risk management should be applied throughout the lifecycle of the computerised system taking into account patient safety, data integrity and product quality. As part of a risk management system, decisions on the extent of validation and data integrity controls should be based on a justified and documented risk assessment of the computerised system."
   children = [
     control.cloudtrail_trail_enabled,
+    control.config_enabled_all_regions,
     control.securityhub_enabled
   ]
 

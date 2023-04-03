@@ -51,6 +51,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
     nist_800_53_rev_5  = "true"
     pci_dss_v321       = "true"
   })

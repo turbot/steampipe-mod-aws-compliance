@@ -10,7 +10,8 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    pci_dss_v321 = "true"
+    gxp_eu_annex_11 = "true"
+    pci_dss_v321    = "true"
   })
 }
 
@@ -30,7 +31,8 @@ control "opensearch_domain_https_required" {
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    pci_dss_v321 = "true"
+    gxp_eu_annex_11 = "true"
+    pci_dss_v321    = "true"
   })
 }
 
@@ -54,6 +56,17 @@ control "opensearch_domain_logs_to_cloudwatch" {
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     pci_dss_v321 = "true"
     soc_2        = "true"
+  })
+}
+
+control "opensearch_domain_node_to_node_encryption_enabled" {
+  title       = "OpenSearch domain node-to-node encryption should be enabled"
+  description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  query       = query.opensearch_domain_node_to_node_encryption_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
   })
 }
 
@@ -185,6 +198,27 @@ query "opensearch_domain_logs_to_cloudwatch" {
             or (log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'Enabled' = 'true' and log_publishing_options -> 'ES_APPLICATION_LOGS' -> 'CloudWatchLogsLogGroupArn' is not null)
           ) then title || ' send logs to Amazon CloudWatch.'
         else title || ' does not send logs to Amazon CloudWatch.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_node_to_node_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
+        when node_to_node_encryption_options_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
+        when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
+        else title || ' node-to-node encryption disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
