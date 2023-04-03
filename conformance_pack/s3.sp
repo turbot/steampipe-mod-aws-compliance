@@ -953,23 +953,34 @@ query "s3_bucket_event_notifications_enabled" {
 
 query "s3_bucket_policy_restrict_public_access" {
   sql = <<-EOQ
+    with public_buckets as (
+      select
+        distinct arn as arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Allow'
+    )
     select
-      arn as resource,
+      b.arn as resource,
       case
-        when policy_std is null then 'ok'
-        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then 'alarm'
+        when b.policy_std is null then 'info'
+        when p.arn is not null then 'alarm'
         else 'ok'
       end as status,
       case
-        when policy_std is null then title || ' policy not publicly accessable.'
-        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then title || ' policy publicly accessable.'
-        else title || ' policy not publicly accessable.'
+        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
+        when p.arn is not null then title || ' publicly accessable.'
+        else title || ' not publicly accessable.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_s3_bucket,
-      jsonb_array_elements(policy_std -> 'Statement') as s
+      aws_s3_bucket as b
+      left join public_buckets as p on p.arn = b.arn;
   EOQ
 }
 
