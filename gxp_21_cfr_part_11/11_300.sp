@@ -14,7 +14,7 @@ benchmark "gxp_21_cfr_part_11_11_300_b" {
   description = "Persons who use electronic signatures based upon use of identification codes in combination with passwords shall employ controls to ensure their security and integrity. Such controls shall include: (b) Ensuring that identification code and password issuances are periodically checked, recalled, or revised (e.g., to cover such events as password aging)."
   children = [
     control.emr_cluster_kerberos_enabled,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_user_access_key_age_90,
     control.iam_user_unused_credentials_90,
     control.secretsmanager_secret_automatic_rotation_enabled,

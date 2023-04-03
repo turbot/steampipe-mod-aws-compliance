@@ -4,8 +4,13 @@ benchmark "gxp_21_cfr_part_11_11_30" {
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.backup_recovery_point_encryption_enabled,
+    control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
+    control.codebuild_project_artifact_encryption_enabled,
+    control.codebuild_project_s3_logs_encryption_enabled,
     control.dynamodb_table_encrypted_with_kms,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
@@ -16,9 +21,13 @@ benchmark "gxp_21_cfr_part_11_11_30" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_encryption_at_rest_enabled,
     control.es_domain_node_to_node_encryption_enabled,
+    control.kinesis_stream_server_side_encryption_enabled,
     control.kms_cmk_rotation_enabled,
     control.kms_key_not_pending_deletion,
     control.log_group_encryption_at_rest_enabled,
+    control.opensearch_domain_encryption_at_rest_enabled,
+    control.opensearch_domain_https_required,
+    control.opensearch_domain_node_to_node_encryption_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_in_transit_enabled,
@@ -30,7 +39,9 @@ benchmark "gxp_21_cfr_part_11_11_30" {
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
-    control.sns_topic_encrypted_at_rest
+    control.secretsmanager_secret_encrypted_with_kms_cmk,
+    control.sns_topic_encrypted_at_rest,
+
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags

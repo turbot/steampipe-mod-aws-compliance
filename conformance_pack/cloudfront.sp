@@ -56,6 +56,27 @@ control "cloudfront_distribution_logging_enabled" {
   })
 }
 
+control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
+  title       = "CloudFront distributions should encrypt traffic to custom origins"
+  description = "This control checks if CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
+  query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+  })
+}
+
+control "cloudfront_distribution_no_deprecated_ssl_protocol" {
+  title       = "CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
+  description = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
+  query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+  })
+}
+
+
 query "cloudfront_distribution_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with data as (
@@ -205,27 +226,6 @@ query "cloudfront_distribution_logging_enabled" {
   EOQ
 }
 
-# Non-Config rule query
-
-query "cloudfront_distribution_configured_with_origin_failover" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when origin_groups ->> 'Items' is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
-        else title || ' origin group not configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
 query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with viewer_protocol_policy_value as (
@@ -273,25 +273,6 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   EOQ
 }
 
-query "cloudfront_distribution_default_root_object_configured" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when default_root_object = '' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when default_root_object = '' then title || ' default root object not configured.'
-        else title || ' default root object configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
 query "cloudfront_distribution_no_deprecated_ssl_protocol" {
   sql = <<-EOQ
     with origin_ssl_protocols as (
@@ -319,6 +300,46 @@ query "cloudfront_distribution_no_deprecated_ssl_protocol" {
     from
       aws_cloudfront_distribution as b
       left join origin_ssl_protocols as o on b.arn = o.arn;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "cloudfront_distribution_configured_with_origin_failover" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when origin_groups ->> 'Items' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
+        else title || ' origin group not configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_default_root_object_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when default_root_object = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when default_root_object = '' then title || ' default root object not configured.'
+        else title || ' default root object configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
   EOQ
 }
 
