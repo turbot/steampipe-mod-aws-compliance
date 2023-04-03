@@ -16,6 +16,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }
@@ -34,6 +35,7 @@ control "backup_plan_min_retention_35_days" {
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }
@@ -42,6 +44,7 @@ control "backup_recovery_point_encryption_enabled" {
   title       = "Backup recovery points should be encrypted"
   description = "Ensure if a recovery point is encrypted. The rule is non compliant if the recovery point is not encrypted."
   query       = query.backup_recovery_point_encryption_enabled
+
   tags = merge(local.conformance_pack_backup_common_tags, {
     cisa_cyber_essentials    = "true"
     ffiec                    = "true"
@@ -49,6 +52,7 @@ control "backup_recovery_point_encryption_enabled" {
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }
@@ -64,6 +68,7 @@ control "backup_recovery_point_min_retention_35_days" {
     gxp_eu_annex_11          = "true"
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
+    pci_dss_v321             = "true"
   })
 }
 

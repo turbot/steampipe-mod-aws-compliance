@@ -19,6 +19,7 @@ control "kms_key_not_pending_deletion" {
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
     rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -48,6 +49,7 @@ control "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     hipaa_security_rule_2003 = "true"
+    pci_dss_v321             = "true"
   })
 }
 
@@ -58,6 +60,7 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     hipaa_security_rule_2003 = "true"
+    pci_dss_v321             = "true"
   })
 }
 

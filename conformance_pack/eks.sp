@@ -12,6 +12,7 @@ control "eks_cluster_secrets_encrypted" {
   tags = merge(local.conformance_pack_eks_common_tags, {
     gxp_eu_annex_11          = "true"
     hipaa_security_rule_2003 = "true"
+    pci_dss_v321             = "true"
   })
 }
 
@@ -24,6 +25,7 @@ control "eks_cluster_endpoint_restrict_public_access" {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
     nist_csf            = "true"
+    pci_dss_v321        = "true"
   })
 }
 
@@ -44,6 +46,16 @@ control "eks_cluster_no_default_vpc" {
 
   tags = merge(local.conformance_pack_eks_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "eks_cluster_with_latest_kubernetes_version" {
+  title       = "EKS clusters should run on a supported Kubernetes version"
+  description = "This control checks whether an Amazon EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
+  query       = query.eks_cluster_with_latest_kubernetes_version
+
+  tags = merge(local.conformance_pack_eks_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 

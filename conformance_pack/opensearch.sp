@@ -11,7 +11,6 @@ control "opensearch_domain_in_vpc" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     hipaa_security_rule_2003 = "true"
-    well_architected         = "true"
   })
 }
 
@@ -22,17 +21,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     hipaa_security_rule_2003 = "true"
-    well_architected         = "true"
-  })
-}
-
-control "opensearch_domain_data_node_fault_tolerance" {
-  title       = "OpenSearch domains data node should be fault tolerant"
-  description = "This control checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is non compliant for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'."
-  query       = query.opensearch_domain_data_node_fault_tolerance
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    well_architected = "true"
+    pci_dss_v321             = "true"
   })
 }
 
@@ -43,7 +32,6 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     hipaa_security_rule_2003 = "true"
-    well_architected         = "true"
   })
 }
 
@@ -53,8 +41,8 @@ control "opensearch_domain_audit_logging_enabled" {
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
-    well_architected       = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 
@@ -63,10 +51,9 @@ control "opensearch_domain_logs_to_cloudwatch" {
   description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 
-
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321 = "true"
-    well_architected       = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 
@@ -76,9 +63,19 @@ control "opensearch_domain_https_required" {
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    audit_manager_pci_v321   = "true"
     hipaa_security_rule_2003 = "true"
-    well_architected         = "true"
+    pci_dss_v321             = "true"
+
+  })
+}
+
+control "opensearch_domain_fine_grained_access_enabled" {
+  title       = "OpenSearch domains should have fine-grained access control enabled"
+  description = "This control checks whether OpenSearch domains have fine-grained access control enabled. The control fails if the fine-grained access control is not enabled. Fine-grained access control requires advanced-security-optionsin the OpenSearch parameter update-domain-config to be enabled."
+  query       = query.opensearch_domain_fine_grained_access_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 
@@ -142,25 +139,6 @@ query "opensearch_domain_encryption_at_rest_enabled" {
   EOQ
 }
 
-query "opensearch_domain_data_node_fault_tolerance" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and (cluster_config ->> 'InstanceCount') :: int >= 3 then title || ' data node is fault tolerant.'
-        else title || ' data node is fault intolerant.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_opensearch_domain;
-  EOQ
-}
-
 query "opensearch_domain_node_to_node_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -188,7 +166,7 @@ query "opensearch_domain_audit_logging_enabled" {
       arn as resource,
       case
         when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then 'ok'
-        else 'alarm'
+        else 'ok'
       end as status,
       case
         when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then title || ' audit logging enabled.'
@@ -268,10 +246,10 @@ query "opensearch_domain_https_required" {
       case
         when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
         else 'ok'
-      end as status,
+      end status,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' not using HTTPS.'
-        else title || ' using HTTPS.'
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' does not use HTTPS.'
+        else title || ' uses HTTPS.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -279,8 +257,6 @@ query "opensearch_domain_https_required" {
       aws_opensearch_domain;
   EOQ
 }
-
-# Non-Config rule query
 
 query "opensearch_domain_fine_grained_access_enabled" {
   sql = <<-EOQ

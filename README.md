@@ -29,7 +29,7 @@ Includes support for:
 * [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
 * [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
 * [Other Compliance Checks](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.other)
-* [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_v321)
+* [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_dss_v321)
 * [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security)
 * [SOC 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.soc_2)
 

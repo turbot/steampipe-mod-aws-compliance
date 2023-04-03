@@ -16,6 +16,7 @@ control "fsx_file_system_protected_by_backup_plan" {
     gxp_eu_annex_11          = "true"
     hipaa_security_rule_2003 = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }

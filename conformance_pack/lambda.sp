@@ -14,9 +14,9 @@ control "lambda_function_dead_letter_queue_configured" {
     fedramp_moderate_rev_4   = "true"
     ffiec                    = "true"
     hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    nist_800_171_rev_2       = "true"
     soc_2                    = "true"
   })
 }
@@ -38,7 +38,9 @@ control "lambda_function_in_vpc" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -59,7 +61,9 @@ control "lambda_function_restrict_public_access" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 

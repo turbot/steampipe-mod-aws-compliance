@@ -22,6 +22,7 @@ control "rds_db_instance_backup_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
     soc_2                    = "true"
   })
@@ -44,6 +45,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
   })
 }
@@ -85,6 +87,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    pci_dss_v321                = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
   })
@@ -106,7 +109,9 @@ control "rds_db_snapshot_encrypted_at_rest" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
+    pci_dss_v321                = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -128,7 +133,9 @@ control "rds_db_snapshot_prohibit_public_access" {
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    pci_dss_v321                = "true"
     rbi_cyber_security          = "true"
+    soc_2                       = "true"
   })
 }
 
@@ -149,6 +156,7 @@ control "rds_db_instance_logging_enabled" {
     nist_800_171_rev_2       = "true"
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
     soc_2                    = "true"
   })
@@ -170,6 +178,7 @@ control "rds_db_instance_in_backup_plan" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
     soc_2                    = "true"
   })
@@ -229,6 +238,7 @@ control "rds_db_cluster_iam_authentication_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
+    pci_dss_v321             = "true"
   })
 }
 
@@ -245,6 +255,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     gxp_eu_annex_11          = "true"
     hipaa_security_rule_2003 = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }
@@ -263,6 +274,7 @@ control "rds_db_instance_protected_by_backup_plan" {
     nist_800_171_rev_2       = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     soc_2                    = "true"
   })
 }
@@ -275,6 +287,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
+    pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
   })
 }
@@ -307,6 +320,26 @@ control "rds_db_instance_ca_certificate_expires_7_days" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "rds_db_instance_no_default_admin_name" {
+  title       = "RDS database instances should use a custom administrator username"
+  description = "This control checks whether you've changed the administrative username for Amazon Relational Database Service (Amazon RDS) database instances from the default value. The control fails if the administrative username is set to the default value."
+  query       = query.rds_db_instance_no_default_admin_name
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v321 = "true"
+  })
+}
+
+control "rds_db_cluster_no_default_admin_name" {
+  title       = "RDS database clusters should use a custom administrator username"
+  description = "This control checks whether an Amazon RDS database cluster has changed the admin username from its default value. This rule will fail if the admin username is set to the default value."
+  query       = query.rds_db_cluster_no_default_admin_name
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 
@@ -618,7 +651,6 @@ query "rds_db_instance_deletion_protection_enabled" {
         when deletion_protection then title || ' deletion protection enabled.'
         else title || ' deletion protection not enabled.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -677,7 +709,6 @@ query "rds_db_cluster_aurora_protected_by_backup_plan" {
         resource_type = 'Aurora'
     )
     select
-
       c.arn as resource,
       case
         when c.engine not like '%aurora%' then 'skip'
@@ -769,7 +800,6 @@ query "rds_db_cluster_deletion_protection_enabled" {
 query "rds_db_instance_cloudwatch_logs_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when enabled_cloudwatch_logs_exports is not null then 'ok'
@@ -790,7 +820,6 @@ query "rds_db_instance_cloudwatch_logs_enabled" {
 query "rds_db_instance_ca_certificate_expires_7_days" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when extract(day from (to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS')) - current_timestamp) <= '7' then 'alarm'
@@ -799,11 +828,48 @@ query "rds_db_instance_ca_certificate_expires_7_days" {
         title || ' expires ' || to_char(to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS'), 'DD-Mon-YYYY') ||
         ' (' || extract(day from (to_timestamp(certificate ->> 'ValidTill','YYYY-MM-DDTHH:MI:SS')) - current_timestamp) || ' days).'
       as reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when master_user_name in ('admin','postgres') then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when master_user_name in ('admin', 'postgres') then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when master_user_name in ('admin', 'postgres') then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when master_user_name in ('admin', 'postgres') then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
   EOQ
 }
 
@@ -881,26 +947,6 @@ query "rds_db_cluster_multiple_az_enabled" {
         when multi_az then title || ' Multi-AZ enabled.'
         else title || ' Multi-AZ disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_cluster;
-  EOQ
-}
-
-query "rds_db_cluster_no_default_admin_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when master_user_name in ('admin','postgres') then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
-        else title || ' not using default master user name.'
-      end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1009,25 +1055,6 @@ query "rds_db_instance_in_vpc" {
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_instance;
-  EOQ
-}
-
-query "rds_db_instance_no_default_admin_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when master_user_name in ('admin','postgres') then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when master_user_name in ('admin','postgres') then title || ' using default master user name.'
-        else title || ' not using default master user name.'
-      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

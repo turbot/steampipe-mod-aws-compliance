@@ -15,6 +15,7 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
     hipaa_security_rule_2003 = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -29,6 +30,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -51,6 +53,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
     gxp_21_cfr_part_11 = "true"
     nist_800_53_rev_5  = "true"
+    pci_dss_v321       = "true"
   })
 }
 

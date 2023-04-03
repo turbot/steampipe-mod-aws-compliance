@@ -33,7 +33,7 @@ control "foundational_security_ssm_1" {
 
 control "foundational_security_ssm_2" {
   title         = "2 All EC2 instances managed by Systems Manager should be compliant with patching requirements"
-  description   = "This control checks whether the compliance status of the Amazon EC2 Systems Manager patch compliance is COMPLIANT or NON_COMPLIANT after the patch installation on the instance. It only checks instances that are managed by Systems Manager Patch Manager."
+  description   = "This control checks whether the compliance status of the Amazon EC2 Systems Manager patch compliance is COMPLIANT or non compliant after the patch installation on the instance. It only checks instances that are managed by Systems Manager Patch Manager."
   severity      = "high"
   query         = query.ssm_managed_instance_compliance_patch_compliant
   documentation = file("./foundational_security/docs/foundational_security_ssm_2.md")
@@ -46,7 +46,7 @@ control "foundational_security_ssm_2" {
 
 control "foundational_security_ssm_3" {
   title         = "3 Instances managed by Systems Manager should have an association compliance status of COMPLIANT"
-  description   = "This control checks whether the status of the AWS Systems Manager association compliance is COMPLIANT or NON_COMPLIANT after the association is run on an instance. The control passes if the association compliance status is COMPLIANT."
+  description   = "This control checks whether the status of the AWS Systems Manager association compliance is COMPLIANT or non compliant after the association is run on an instance. The control passes if the association compliance status is COMPLIANT."
   severity      = "low"
   query         = query.ssm_managed_instance_compliance_association_compliant
   documentation = file("./foundational_security/docs/foundational_security_ssm_3.md")

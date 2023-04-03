@@ -10,6 +10,7 @@ control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    soc_2        = "true"
     other_checks = "true"
   })
 }
@@ -31,7 +32,9 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -51,6 +54,7 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
   })
 }
@@ -72,7 +76,9 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
