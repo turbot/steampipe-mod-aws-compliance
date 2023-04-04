@@ -154,6 +154,7 @@ control "cloudtrail_security_trail_enabled" {
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     cis_controls_v8_ig1 = "true"
     gdpr                = "true"
+    gxp_21_cfr_part_11  = "true"
     nist_800_171_rev_2  = "true"
     nist_800_53_rev_4   = "true"
     soc_2               = "true"

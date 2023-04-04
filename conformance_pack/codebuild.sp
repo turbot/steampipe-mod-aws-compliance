@@ -98,6 +98,7 @@ control "codebuild_project_artifact_encryption_enabled" {
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
   })
 }
 
@@ -107,7 +108,7 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   query       = query.codebuild_project_s3_logs_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    gxp_21_cfr_part_11  = "true"
+    gxp_21_cfr_part_11 = "true"
   })
 }
 

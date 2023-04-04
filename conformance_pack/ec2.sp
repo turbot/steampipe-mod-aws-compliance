@@ -160,6 +160,7 @@ control "ec2_instance_protected_by_backup_plan" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     gxp_eu_annex_11        = "true"
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
