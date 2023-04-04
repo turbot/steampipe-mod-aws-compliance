@@ -45,7 +45,7 @@ benchmark "gxp_eu_annex_11_operational_phase_5" {
     control.s3_bucket_versioning_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_7_1" {
@@ -94,7 +94,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.sns_topic_encrypted_at_rest
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_7_2" {
@@ -125,7 +125,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_2" {
     control.s3_bucket_versioning_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_8_2" {
@@ -135,7 +135,7 @@ benchmark "gxp_eu_annex_11_operational_phase_8_2" {
     control.cloudtrail_s3_data_events_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_9" {
