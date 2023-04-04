@@ -21,7 +21,7 @@ control "s3_bucket_cross_region_replication_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    pci_dss_v321           = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
     soc_2                    = "true"
   })
@@ -45,9 +45,9 @@ control "s3_bucket_default_encryption_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    pci_dss_v321             = "true"
+    rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -69,9 +69,9 @@ control "s3_bucket_enforces_ssl" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    pci_dss_v321             = "true"
+    rbi_cyber_security       = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -92,7 +92,7 @@ control "s3_bucket_logging_enabled" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    pci_dss_v321           = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
     soc_2                    = "true"
   })
@@ -214,7 +214,7 @@ control "s3_public_access_block_account" {
     nist_800_53_rev_4        = "true"
     nist_800_53_rev_5        = "true"
     nist_csf                 = "true"
-    soc_2                  = "true"
+    soc_2                    = "true"
   })
 }
 
@@ -251,7 +251,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
     nist_800_53_rev_5        = "true"
-     pci_dss_v321           = "true"
+    pci_dss_v321             = "true"
     rbi_cyber_security       = "true"
   })
 }

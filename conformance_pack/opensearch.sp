@@ -27,7 +27,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
 
 control "opensearch_domain_node_to_node_encryption_enabled" {
   title       = "OpenSearch domain node-to-node encryption should be enabled"
-  description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  description = "This control check if OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -36,7 +36,7 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
 }
 
 control "opensearch_domain_audit_logging_enabled" {
-  title       = "OpenSearch domains have audit logging enabled."
+  title       = "OpenSearch domains should have audit logging enabled."
   description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
   query       = query.opensearch_domain_audit_logging_enabled
 
@@ -47,7 +47,7 @@ control "opensearch_domain_audit_logging_enabled" {
 }
 
 control "opensearch_domain_logs_to_cloudwatch" {
-  title       = "OpenSearch domains logs to CloudWatch Logs."
+  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
   description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 

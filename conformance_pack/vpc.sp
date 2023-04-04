@@ -304,8 +304,6 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
   query       = query.vpc_security_group_allows_ingress_authorized_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    cisa_cyber_essentials    = "true"
     hipaa_security_rule_2003 = "true"
   })
 }
