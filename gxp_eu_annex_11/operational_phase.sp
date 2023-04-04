@@ -56,6 +56,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.codebuild_project_artifact_encryption_enabled
     control.codebuild_project_s3_logs_encryption_enabled,
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encrypted_with_kms,
