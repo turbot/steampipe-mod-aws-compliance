@@ -65,7 +65,6 @@ benchmark "gxp_21_cfr_part_11_11_10_a" {
     control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant,
     control.vpc_vpn_tunnel_up
-
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
