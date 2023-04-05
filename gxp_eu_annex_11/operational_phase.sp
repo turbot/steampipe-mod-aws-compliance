@@ -9,6 +9,7 @@ benchmark "gxp_eu_annex_11_operational_phase" {
     benchmark.gxp_eu_annex_11_operational_phase_9,
     benchmark.gxp_eu_annex_11_operational_phase_10,
     benchmark.gxp_eu_annex_11_operational_phase_12_4,
+    benchmark.gxp_eu_annex_11_operational_phase_13,
     benchmark.gxp_eu_annex_11_operational_phase_16,
     benchmark.gxp_eu_annex_11_operational_phase_17
   ]
@@ -44,7 +45,7 @@ benchmark "gxp_eu_annex_11_operational_phase_5" {
     control.s3_bucket_versioning_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_7_1" {
@@ -52,13 +53,17 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
   description = "Data should be secured by both physical and electronic means against damage. Stored data should be checked for accessibility, readability and accuracy. Access to data should be ensured throughout the retention period."
   children = [
     control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
+    control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.codebuild_project_artifact_encryption_enabled,
+    control.codebuild_project_s3_logs_encryption_enabled,
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
-    control.ebs_volume_encryption_at_rest_enabled,
+    control.ebs_attached_volume_encryption_enabled,
     control.ebs_volume_in_backup_plan,
     control.ec2_ebs_default_encryption_enabled,
     control.ec2_instance_ebs_optimized,
@@ -66,8 +71,13 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.efs_file_system_in_backup_plan,
     control.eks_cluster_secrets_encrypted,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.elb_application_network_lb_use_ssl_certificate,
     control.es_domain_encryption_at_rest_enabled,
+    control.kinesis_stream_server_side_encryption_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.opensearch_domain_encryption_at_rest_enabled,
+    control.opensearch_domain_https_required,
+    control.opensearch_domain_node_to_node_encryption_enabled,
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_instance_in_backup_plan,
@@ -75,22 +85,22 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_versioning_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
+    control.secretsmanager_secret_encrypted_with_kms_cmk,
     control.sns_topic_encrypted_at_rest
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_7_2" {
   title       = "7.2 Data Storage - Backups"
   description = "Regular back-ups of all relevant data should be done. Integrity and accuracy of backup data and the ability to restore the data should be checked during validation and monitored periodically."
   children = [
-    control.rds_db_instance_backup_enabled,
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
@@ -107,6 +117,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_2" {
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.fsx_file_system_protected_by_backup_plan,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
@@ -114,7 +125,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_2" {
     control.s3_bucket_versioning_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_8_2" {
@@ -124,7 +135,7 @@ benchmark "gxp_eu_annex_11_operational_phase_8_2" {
     control.cloudtrail_s3_data_events_enabled
   ]
 
-   tags = local.gxp_eu_annex_11_common_tags
+  tags = local.gxp_eu_annex_11_common_tags
 }
 
 benchmark "gxp_eu_annex_11_operational_phase_9" {
@@ -152,6 +163,20 @@ benchmark "gxp_eu_annex_11_operational_phase_12_4" {
   description = "Management systems for data and for documents should be designed to record the identity of operators entering, changing, confirming or deleting data including date and time."
   children = [
     control.cloudtrail_s3_data_events_enabled
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
+benchmark "gxp_eu_annex_11_operational_phase_13" {
+  title       = "13 Incident Management"
+  description = "All incidents, not only system failures and data errors, should be reported and assessed. The root cause of a critical incident should be identified and should form the basis of corrective and preventive actions."
+  children = [
+    control.cloudtrail_security_trail_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.securityhub_enabled
   ]
 
   tags = local.gxp_eu_annex_11_common_tags
