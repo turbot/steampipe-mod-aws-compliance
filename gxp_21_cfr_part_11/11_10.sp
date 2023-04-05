@@ -1,6 +1,6 @@
 benchmark "gxp_21_cfr_part_11_11_10" {
-  title       = "11.10"
-  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures shall include the following benchmarks and controls."
+  title       = "11.10 Controls for closed systems"
+  description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine."
   children = [
     benchmark.gxp_21_cfr_part_11_11_10_a,
     benchmark.gxp_21_cfr_part_11_11_10_c,
@@ -26,7 +26,7 @@ benchmark "gxp_21_cfr_part_11_11_10" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_a" {
-  title       = "11.10(a)"
+  title       = "11.10(a) Validation of systems to ensure accuracy, reliability, consistent intended performance, and the ability to discern invalid or altered records"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (a) Validation of systems to ensure accuracy, reliability, consistent intended performance, and the ability to discern invalid or altered records."
   children = [
     control.backup_plan_min_retention_35_days,
@@ -71,7 +71,7 @@ benchmark "gxp_21_cfr_part_11_11_10_a" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_c" {
-  title       = "11.10(c)"
+  title       = "11.10(c) Protection of records to enable their accurate and ready retrieval throughout the records retention period"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (c) Protection of records to enable their accurate and ready retrieval throughout the records retention period."
   children = [
     control.cloudtrail_trail_enabled,
@@ -111,7 +111,7 @@ benchmark "gxp_21_cfr_part_11_11_10_c" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_d" {
-  title       = "11.10(d)"
+  title       = "11.10(d) Limiting system access to authorized individuals"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (d) Limiting system access to authorized individuals."
   children = [
     control.account_part_of_organizations,
@@ -174,7 +174,7 @@ benchmark "gxp_21_cfr_part_11_11_10_d" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_e" {
-  title       = "11.10(e)"
+  title       = "11.10(e) Use of secure, computer-generated, time-stamped audit trails to independently record the date and time of operator entries and actions that create, modify, or delete electronic records"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (e) Use of secure, computer-generated, time-stamped audit trails to independently record the date and time of operator entries and actions that create, modify, or delete electronic records. Record changes shall not obscure previously recorded information. Such audit trail documentation shall be retained for a period at least as long as that required for the subject electronic records and shall be available for agency review and copying."
   children = [
     control.apigateway_stage_logging_enabled,
@@ -210,7 +210,7 @@ benchmark "gxp_21_cfr_part_11_11_10_e" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_g" {
-  title       = "11.10(g)"
+  title       = "11.10(g) Use of authority checks to ensure that only authorized individuals can use the system, electronically sign a record, access the operation or computer system input or output device, alter a record, or perform the operation at hand"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (g) Use of authority checks to ensure that only authorized individuals can use the system, electronically sign a record, access the operation or computer system input or output device, alter a record, or perform the operation at hand."
   children = [
     control.account_part_of_organizations,
@@ -274,7 +274,7 @@ benchmark "gxp_21_cfr_part_11_11_10_g" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_h" {
-  title       = "11.10(h)"
+  title       = "11.10(h) Use of device (e.g., terminal) checks to determine, as appropriate, the validity of the source of data input or operational instruction"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (h) Use of device (e.g., terminal) checks to determine, as appropriate, the validity of the source of data input or operational instruction."
   children = [
     control.ec2_instance_ssm_managed,
@@ -286,7 +286,7 @@ benchmark "gxp_21_cfr_part_11_11_10_h" {
 }
 
 benchmark "gxp_21_cfr_part_11_11_10_k" {
-  title       = "11.10(k)"
+  title       = "11.10(k) Use of appropriate controls over systems documentation that includes adequate controls over the distribution of, access to, and use of documentation for system operation and maintenance"
   description = "Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine. Such procedures and controls shall include the following: (k) Use of appropriate controls over systems documentation including: (1) Adequate controls over the distribution of, access to, and use of documentation for system operation and maintenance. (2) Revision and change control procedures to maintain an audit trail that documents time-sequenced development and modification of systems documentation."
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
