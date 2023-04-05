@@ -66,7 +66,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
 }
 
 control "opensearch_domain_node_to_node_encryption_enabled" {
-  title       = "OpenSearch domain node-to-node encryption should be enabled"
+  title       = "OpenSearch domains node-to-node encryption should be enabled"
   description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
