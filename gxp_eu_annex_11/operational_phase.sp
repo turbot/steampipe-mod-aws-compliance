@@ -3,12 +3,11 @@ benchmark "gxp_eu_annex_11_operational_phase" {
   description = "This section focuses on various operational phases of data, such as data accuracy, secure storage, authorized access and backup."
   children = [
     benchmark.gxp_eu_annex_11_operational_phase_5,
-    benchmark.gxp_eu_annex_11_operational_phase_7_1,
-    benchmark.gxp_eu_annex_11_operational_phase_7_2,
-    benchmark.gxp_eu_annex_11_operational_phase_8_2,
+    benchmark.gxp_eu_annex_11_operational_phase_7,
+    benchmark.gxp_eu_annex_11_operational_phase_8,
     benchmark.gxp_eu_annex_11_operational_phase_9,
     benchmark.gxp_eu_annex_11_operational_phase_10,
-    benchmark.gxp_eu_annex_11_operational_phase_12_4,
+    benchmark.gxp_eu_annex_11_operational_phase_12,
     benchmark.gxp_eu_annex_11_operational_phase_13,
     benchmark.gxp_eu_annex_11_operational_phase_16,
     benchmark.gxp_eu_annex_11_operational_phase_17
@@ -43,6 +42,17 @@ benchmark "gxp_eu_annex_11_operational_phase_5" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_versioning_enabled
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
+benchmark "gxp_eu_annex_11_operational_phase_7" {
+  title       = "7 Data Storage"
+  description = "Data must be secure against damage, yet remain accessible, readable, and accurate throughout the retention period. Regular backups are expected and should be verified and monitored."
+  children = [
+    benchmark.gxp_eu_annex_11_operational_phase_7_1,
+    benchmark.gxp_eu_annex_11_operational_phase_7_2
   ]
 
   tags = local.gxp_eu_annex_11_common_tags
@@ -128,6 +138,16 @@ benchmark "gxp_eu_annex_11_operational_phase_7_2" {
   tags = local.gxp_eu_annex_11_common_tags
 }
 
+benchmark "gxp_eu_annex_11_operational_phase_8" {
+  title       = "8 Printouts"
+  description = "Clear printed copies of electronically stored data should be easily available. Any changes to data should be indicated."
+  children = [
+    benchmark.gxp_eu_annex_11_operational_phase_8_2
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
 benchmark "gxp_eu_annex_11_operational_phase_8_2" {
   title       = "8.2 Printouts - Data Changes"
   description = "For records supporting batch release it should be possible to generate printouts indicating if any of the data has been changed since the original entry."
@@ -153,6 +173,16 @@ benchmark "gxp_eu_annex_11_operational_phase_10" {
   description = "Any changes to a computerised system including system configurations should only be made in a controlled manner in accordance with a defined procedure."
   children = [
     control.config_enabled_all_regions
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
+benchmark "gxp_eu_annex_11_operational_phase_12" {
+  title       = "12 Security"
+  description = "For enhanced security, access to physical and logical controls should be restricted to authorized individuals. Management systems should be created to record the identity of persons entering, changing, confirming, or deleting data by time and date."
+  children = [
+    benchmark.gxp_eu_annex_11_operational_phase_12_4
   ]
 
   tags = local.gxp_eu_annex_11_common_tags

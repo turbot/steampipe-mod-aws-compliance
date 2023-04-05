@@ -2,11 +2,20 @@ benchmark "gxp_eu_annex_11_project_phase" {
   title       = "Project Phase"
   description = "This section focuses combination of both human-oriented and automated process that leverages documentation validation and reports for good manufacturing practice (GMP) life cycle process, change control and deviations, systems inventory, user requirement specifications, quality management system, procedure for customized systems, evidence of appropriate test methods and data transfer validation (automated)."
   children = [
+    benchmark.gxp_eu_annex_11_project_phase_4
+  ]
+
+  tags = local.gxp_eu_annex_11_common_tags
+}
+
+benchmark "gxp_eu_annex_11_project_phase_4" {
+  title       = "4 Validation"
+  description = "The second principle of Annex 11 requires manufacturers to validate the application and qualify the system's IT infrastructure. Enhanced documentation and process evidence must be submitted, and computer system validations must be performed periodically and when migrating to another system."
+  children = [
     benchmark.gxp_eu_annex_11_project_phase_4_2,
-    benchmark.gxp_eu_annex_11_project_phase_4_3,
     benchmark.gxp_eu_annex_11_project_phase_4_5,
     benchmark.gxp_eu_annex_11_project_phase_4_6,
-    benchmark.gxp_eu_annex_11_project_phase_4_8,
+    benchmark.gxp_eu_annex_11_project_phase_4_8
   ]
 
   tags = local.gxp_eu_annex_11_common_tags
@@ -17,15 +26,6 @@ benchmark "gxp_eu_annex_11_project_phase_4_2" {
   description = "Validation documentation should include change control records (if applicable) and reports on any deviations observed during the validation process."
   children = [
     control.cloudtrail_trail_enabled
-  ]
-
-  tags = local.gxp_eu_annex_11_common_tags
-}
-
-benchmark "gxp_eu_annex_11_project_phase_4_3" {
-  title       = "4.3 Validation - Inventory"
-  description = "An up to date listing of all relevant systems and their GMP functionality (inventory) should be available. For critical systems an up to date system description detailing the physical and logical arrangements, data flows and interfaces with other systems or processes, any hardware and software pre-requisites, and security measures should be available."
-  children = [
   ]
 
   tags = local.gxp_eu_annex_11_common_tags
