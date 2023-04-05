@@ -328,6 +328,7 @@ control "iam_account_password_policy_strong" {
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     gdpr                  = "true"
+    pci_dss_v321          = "true"
   })
 }
 
