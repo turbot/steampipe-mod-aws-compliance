@@ -16,7 +16,6 @@ control "securityhub_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     gxp_eu_annex_11        = "true"
-    gxp_eu_annex_11        = "true"
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
