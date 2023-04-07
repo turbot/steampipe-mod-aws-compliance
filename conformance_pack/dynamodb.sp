@@ -110,6 +110,7 @@ control "dynamodb_table_protected_by_backup_plan" {
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
+    gxp_21_cfr_part_11     = "true"
     gxp_eu_annex_11        = "true"
     hipaa                  = "true"
     nist_800_171_rev_2     = "true"

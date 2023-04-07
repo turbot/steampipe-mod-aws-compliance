@@ -24,6 +24,16 @@ control "ecr_repository_prohibit_public_access" {
   })
 }
 
+control "ecr_repository_lifecycle_policy_configured" {
+  title       = "ECR repositories should have lifecycle policies configured"
+  description = "This control checks if ECR repositories have lifecycle policy configured. This rule fails if ECR repository lifecycle policy is not enabled."
+  query       = query.ecr_repository_lifecycle_policy_configured
+
+  tags = merge(local.conformance_pack_ecr_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+  })
+}
+
 query "ecr_repository_image_scan_on_push_enabled" {
   sql = <<-EOQ
     select
@@ -80,8 +90,6 @@ query "ecr_repository_prohibit_public_access" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "ecr_repository_lifecycle_policy_configured" {
   sql = <<-EOQ
     select
@@ -100,6 +108,8 @@ query "ecr_repository_lifecycle_policy_configured" {
       aws_ecr_repository;
   EOQ
 }
+
+# Non-Config rule query
 
 query "ecr_repository_tag_immutability_enabled" {
   sql = <<-EOQ
