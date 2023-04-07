@@ -300,8 +300,9 @@ control "s3_bucket_lifecycle_policy_enabled" {
   query       = query.s3_bucket_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
+    gxp_21_cfr_part_11 = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
   })
 }
 
@@ -311,8 +312,9 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
   query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
+    gxp_21_cfr_part_11 = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
   })
 }
 
@@ -324,6 +326,16 @@ control "s3_bucket_event_notifications_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     soc_2 = "true"
+  })
+}
+
+control "s3_bucket_policy_restrict_public_access" {
+  title       = "S3 bucket policy should prohibit public access"
+  description = "This control checks that the access granted by the S3 bucket is restricted by any of the principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is compliant if a bucket policy is not present."
+  query       = query.s3_bucket_policy_restrict_public_access
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    gxp_21_cfr_part_11 = "true"
   })
 }
 
@@ -939,6 +951,28 @@ query "s3_bucket_event_notifications_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_s3_bucket;
+  EOQ
+}
+
+query "s3_bucket_policy_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when policy_std is null then 'ok'
+        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when policy_std is null then title || ' policy not publicly accessible.'
+        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then title || ' policy publicly accessible.'
+        else title || ' policy not publicly accessible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket,
+      jsonb_array_elements(policy_std -> 'Statement') as s
   EOQ
 }
 
