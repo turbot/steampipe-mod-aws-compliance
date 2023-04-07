@@ -2,34 +2,6 @@
 
 _Breaking changes_
 
-- The following controls were removed from `GxP 21 CFR Part 11` benchmark:
-  - `apigateway_rest_api_stage_use_ssl_certificate`
-  - `ebs_volume_unused`
-  - `efs_file_system_encrypt_data_at_rest`
-  - `efs_file_system_encrypt_data_at_rest`
-  - `elb_application_lb_deletion_protection_enabled`
-  - `elb_application_network_lb_use_ssl_certificate`
-  - `iam_account_password_policy_strong`
-  - `iam_root_user_hardware_mfa_enabled`
-  - `iam_root_user_mfa_enabled`
-  - `iam_root_user_no_access_keys`
-  - `iam_user_access_key_age_90`
-  - `iam_user_console_access_mfa_enabled`
-  - `iam_user_mfa_enabled`
-  - `rds_db_instance_encryption_at_rest_enabled`
-  - `redshift_cluster_kms_enabled`
-  - `redshift_cluster_kms_enabled`
-  - `s3_public_access_block_account`
-  - `s3_public_access_block_account`
-  - `s3_public_access_block_bucket`
-  - `s3_public_access_block_bucket`
-  - `vpc_security_group_restrict_ingress_common_ports_all`
-  - `vpc_security_group_restrict_ingress_common_ports_all`
-  - `vpc_security_group_restrict_ingress_common_ports_all`
-  - `vpc_subnet_auto_assign_public_ip_disabled`
-
-_What's new?_
-
 - The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to follow a uniform structure of sub-benchmarks and controls. The following updates have been made: ([#600](https://github.com/turbot/steampipe-mod-aws-compliance/pull/600))
   - New benchmarks added:
     - `gxp_21_cfr_part_11_11_200_a`
@@ -39,6 +11,9 @@ _What's new?_
     - `gxp_eu_annex_11_operational_phase_12`
     - `gxp_eu_annex_11_operational_phase_13`
   - 35+ unique controls have been added across both the benchmarks
+  - The following controls are no longer included in the benchmark:
+    - `iam_account_password_policy_strong`
+    - `vpc_security_group_restrict_ingress_tcp_udp_all`
 
 ## v0.60 [2023-03-31]
 
