@@ -1,3 +1,21 @@
+## v0.61 [2023-04-07]
+
+_Breaking changes_
+
+- 
+
+_What's new?_
+
+- The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to follow a uniform structure of sub-benchmarks and controls. The following updates have been made: ([#600](https://github.com/turbot/steampipe-mod-aws-compliance/pull/600))
+  - New benchmarks added:
+    - `gxp_21_cfr_part_11_11_200_a`
+    - `gxp_eu_annex_11_project_phase_4`
+    - `gxp_eu_annex_11_operational_phase_7`
+    - `gxp_eu_annex_11_operational_phase_8`
+    - `gxp_eu_annex_11_operational_phase_12`
+    - `gxp_eu_annex_11_operational_phase_13`
+  - 35+ unique controls have been added across both the benchmarks
+
 ## v0.60 [2023-03-31]
 
 _Breaking changes_
