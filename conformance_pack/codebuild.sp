@@ -93,7 +93,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
 control "codebuild_project_artifact_encryption_enabled" {
   title       = "CodeBuild project artifact encryption should be enabled"
-  description = "This control checks if an CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  description = "This control checks if a CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {

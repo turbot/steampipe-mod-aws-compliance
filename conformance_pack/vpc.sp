@@ -300,7 +300,7 @@ control "vpc_network_acl_unused" {
 
 control "vpc_security_group_allows_ingress_authorized_ports" {
   title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
-  description = "This control checks whether the vpc security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
   query       = query.vpc_security_group_allows_ingress_authorized_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
