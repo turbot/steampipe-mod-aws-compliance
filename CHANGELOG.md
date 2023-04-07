@@ -2,11 +2,7 @@
 
 _Breaking changes_
 
-- 
-
-_What's new?_
-
-- The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to follow a uniform structure of sub-benchmarks and controls. The following updates have been made: ([#600](https://github.com/turbot/steampipe-mod-aws-compliance/pull/600))
+- The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to better align with [AWS Audit Manager GxP 21 CFR Part 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html) and [AWS Audit Manager GxP EU Annex 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP-EU-Annex-11.html) frameworks. The following updates have been made: ([#600](https://github.com/turbot/steampipe-mod-aws-compliance/pull/600))
   - New benchmarks added:
     - `gxp_21_cfr_part_11_11_200_a`
     - `gxp_eu_annex_11_project_phase_4`
@@ -14,7 +10,10 @@ _What's new?_
     - `gxp_eu_annex_11_operational_phase_8`
     - `gxp_eu_annex_11_operational_phase_12`
     - `gxp_eu_annex_11_operational_phase_13`
-  - 35+ unique controls have been added across both the benchmarks
+  - 45+ unique controls have been added across both the benchmarks
+  - The following controls are no longer included in the benchmark:
+    - `iam_account_password_policy_strong`
+    - `vpc_security_group_restrict_ingress_tcp_udp_all`
 
 ## v0.60 [2023-03-31]
 
