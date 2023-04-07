@@ -2,7 +2,31 @@
 
 _Breaking changes_
 
-- 
+- The following controls were removed from `GxP 21 CFR Part 11` benchmark:
+  - `ebs_volume_unused`
+  - `elb_application_lb_deletion_protection_enabled`
+  - `redshift_cluster_kms_enabled`
+  - `s3_public_access_block_account`
+  - `s3_public_access_block_bucket`
+  - `vpc_security_group_restrict_ingress_common_ports_all`
+  - `vpc_subnet_auto_assign_public_ip_disabled`
+  - `redshift_cluster_kms_enabled`
+  - `efs_file_system_encrypt_data_at_rest`
+  - `s3_public_access_block_account`
+  - `s3_public_access_block_bucket`
+  - `vpc_security_group_restrict_ingress_common_ports_all`
+  - `vpc_security_group_restrict_ingress_common_ports_all`
+  - `iam_account_password_policy_strong`
+  - `iam_root_user_hardware_mfa_enabled`
+  - `iam_root_user_mfa_enabled`
+  - `iam_root_user_no_access_keys`
+  - `iam_user_access_key_age_90`
+  - `iam_user_console_access_mfa_enabled`
+  - `iam_user_mfa_enabled`
+  - `apigateway_rest_api_stage_use_ssl_certificate`
+  - `efs_file_system_encrypt_data_at_rest`
+  - `elb_application_network_lb_use_ssl_certificate`
+  - `rds_db_instance_encryption_at_rest_enabled`
 
 _What's new?_
 
