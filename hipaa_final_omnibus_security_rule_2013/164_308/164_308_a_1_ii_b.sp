@@ -1,4 +1,4 @@
-benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
+benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_1_ii_b" {
   title       = "164.308(a)(1)(ii)(B) Risk management"
   description = "Implement security measures sufficient to reduce risks and vulnerabilities to a reasonable and appropriate level to comply with Section 164.306(a)."
   children = [
@@ -58,14 +58,13 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
     control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant,
     control.vpc_igw_attached_to_authorized_vpc,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restricted_common_ports,
-    control.vpc_vpn_tunnel_up,
-    control.waf_web_acl_logging_enabled
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_vpn_tunnel_up
   ]
 
-  tags = merge(local.hipaa_security_rule_2003_164_308_common_tags, {
-    hipaa_security_rule_2003_item_id = "164_308_a_1_ii_b"
+  tags = merge(local.hipaa_final_omnibus_security_rule_2013_164_308_common_tags, {
+    hipaa_final_omnibus_security_rule_2013_item_id = "164_308_a_1_ii_b"
   })
 }
