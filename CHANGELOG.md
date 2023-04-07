@@ -10,7 +10,7 @@ _Breaking changes_
     - `gxp_eu_annex_11_operational_phase_8`
     - `gxp_eu_annex_11_operational_phase_12`
     - `gxp_eu_annex_11_operational_phase_13`
-  - 35+ unique controls have been added across both the benchmarks
+  - 45+ unique controls have been added across both the benchmarks
   - The following controls are no longer included in the benchmark:
     - `iam_account_password_policy_strong`
     - `vpc_security_group_restrict_ingress_tcp_udp_all`
