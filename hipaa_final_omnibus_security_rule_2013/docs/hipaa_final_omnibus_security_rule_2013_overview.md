@@ -2,8 +2,12 @@ To obtain the latest version of the official guide, please visit https://www.hhs
 
 ## Overview
 
-The HIPAA Security Rule establishes national standards to protect individuals electronic personal health information that is created, received, used, or maintained by a business associate and covered entity. The Final Omnibus Rule provides additional guidance to the 2003 Security Rule and implements a number of provisions of the HITECH Act to strengthen the privacy and security protections for health information established under HIPAA.
+The Health Insurance Portability and Accountability Act of 1996 (HIPAA) is legislation that helps US workers to retain health insurance coverage when they change or lose jobs. The legislation also seeks to encourage electronic health records to improve the efficiency and quality of the US healthcare system through improved information sharing.
 
-The Security Rule is located at 45 CFR [Part 160](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-160?toc=1) and Subparts A and C of [Part 164](https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164).
+Along with increasing the use of electronic medical records, HIPAA includes provisions to protect the security and privacy of protected health information (PHI). PHI includes a very wide set of personally identifiable health and health-related data. This includes insurance and billing information, diagnosis data, clinical care data, and lab results such as images and test results.
 
-[View the combined regulation text](https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/combined-regulation-text/index.html?language=es) of all HIPAA Administrative Simplification Regulations found at 45 CFR 160, 162, and 164.
+The HIPAA Final Omnibus Security Rule, which became effective in 2013, implements a number of updates to all of the previously passed rules. The modifications to the Security, Privacy, Breach Notification, and Enforcement Rules were intended to enhance confidentiality and security in data sharing.
+
+HIPAA rules apply to covered entities. These include hospitals, medical services providers, employer-sponsored health plans, research facilities, and insurance companies that deal directly with patients and patient data. As part of the omnibus updates, many of the HIPAA rules that apply to covered entities also now apply to business associates.
+
+For more information about how HIPAA and HITECH protect health information, see the [Health Information Privacy](https://www.hhs.gov/hipaa/index.html) webpage from the U.S. Department of Health and Human Service
