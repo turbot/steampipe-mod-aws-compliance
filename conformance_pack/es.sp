@@ -84,6 +84,7 @@ control "es_domain_logs_to_cloudwatch" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
+    nist_csf               = "true"
     nist_800_53_rev_5      = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"

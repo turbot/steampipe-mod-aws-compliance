@@ -11,6 +11,7 @@ control "eks_cluster_secrets_encrypted" {
 
   tags = merge(local.conformance_pack_eks_common_tags, {
     gxp_eu_annex_11 = "true"
+    nist_csf        = "true"
     hipaa           = "true"
     pci_dss_v321    = "true"
   })
@@ -55,6 +56,7 @@ control "eks_cluster_with_latest_kubernetes_version" {
   query       = query.eks_cluster_with_latest_kubernetes_version
 
   tags = merge(local.conformance_pack_eks_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }

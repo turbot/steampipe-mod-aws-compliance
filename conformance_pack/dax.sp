@@ -13,6 +13,7 @@ control "dax_cluster_encryption_at_rest_enabled" {
     gdpr            = "true"
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
+    nist_csf        = "true"
     pci_dss_v321    = "true"
   })
 }

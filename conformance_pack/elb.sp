@@ -183,6 +183,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     gxp_eu_annex_11        = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -289,6 +290,25 @@ control "elb_classic_lb_desync_mitigation_mode" {
   })
 }
 
+control "elb_classic_lb_multiple_az_configured" {
+  title       = "Classic Load Balancers should span multiple Availability Zones"
+  description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
+  query       = query.elb_classic_lb_multiple_az_configured
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "elb_application_gateway_network_lb_multiple_az_configured" {
+  title       = "Application, Network, and Gateway Load Balancers should span multiple Availability Zones"
+  description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
+  query       = query.elb_application_gateway_network_lb_multiple_az_configured
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    nist_csf = "true"
+  })
+}
 
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ

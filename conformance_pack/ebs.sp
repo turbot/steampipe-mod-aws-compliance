@@ -139,6 +139,7 @@ control "ebs_volume_unused" {
     gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 

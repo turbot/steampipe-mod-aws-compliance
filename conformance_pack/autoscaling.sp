@@ -10,6 +10,7 @@ control "autoscaling_launch_config_requires_imdsv2" {
   query       = query.autoscaling_launch_config_requires_imdsv2
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -46,6 +47,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -58,6 +60,36 @@ control "autoscaling_group_no_suspended_process" {
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "autoscaling_group_multiple_az_configured" {
+  title       = "Amazon EC2 Auto Scaling group should cover multiple Availability Zones"
+  description = "This control checks whether an Auto Scaling group spans multiple Availability Zones. The control fails if an Auto Scaling group does not span multiple availability zones."
+  query       = query.autoscaling_group_multiple_az_configured
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "autoscaling_use_multiple_instance_types_in_multiple_az" {
+  title       = "Auto Scaling groups should use multiple instance types in multiple Availability Zones"
+  description = "This control checks whether an Amazon EC2 Auto Scaling group uses multiple instance types. The control fails if the Auto Scaling group has only one instance type defined."
+  query       = query.autoscaling_use_multiple_instance_types_in_multiple_az
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "autoscaling_launch_config_hop_limit" {
+  title       = "Auto Scaling group launch configuration should not have metadata response hop limit greater than 1"
+  description = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
+  query       = query.autoscaling_launch_config_hop_limit
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf = "true"
   })
 }
 

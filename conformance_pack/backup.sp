@@ -71,6 +71,7 @@ control "backup_recovery_point_min_retention_35_days" {
     gxp_21_cfr_part_11    = "true"
     gxp_eu_annex_11       = "true"
     nist_800_171_rev_2    = "true"
+    nist_csf              = "true"
     pci_dss_v321          = "true"
   })
 }

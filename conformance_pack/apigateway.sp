@@ -60,7 +60,18 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
     gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     rbi_cyber_security     = "true"
+  })
+}
+
+control "apigateway_rest_api_stage_xray_tracing_enabled" {
+  title       = "API Gateway REST API stages should have AWS X-Ray tracing enabled"
+  description = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  query       = query.apigateway_rest_api_stage_xray_tracing_enabled
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -75,6 +86,7 @@ control "apigateway_stage_use_waf_web_acl" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })

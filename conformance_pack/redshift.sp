@@ -109,6 +109,7 @@ control "redshift_cluster_kms_enabled" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
 }
@@ -123,6 +124,7 @@ control "redshift_cluster_maintenance_settings_check" {
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_800_53_rev_5     = "true"
+    nist_csf              = "true"
     rbi_cyber_security    = "true"
   })
 }
@@ -137,6 +139,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     gxp_21_cfr_part_11 = "true"
     nist_800_171_rev_2 = "true"
     nist_800_53_rev_5  = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -146,6 +149,7 @@ control "redshift_cluster_no_default_admin_name" {
   query       = query.redshift_cluster_no_default_admin_name
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -157,8 +161,19 @@ control "redshift_cluster_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
+  })
+}
+
+control "redshift_cluster_no_default_database_name" {
+  title       = "Redshift clusters should not use the default database name"
+  description = "This control checks whether an Amazon Redshift cluster has changed the database name from its default value. The control will fail if the database name for a Redshift cluster is set to dev."
+  query       = query.redshift_cluster_no_default_database_name
+
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    nist_csf = "true"
   })
 }
 

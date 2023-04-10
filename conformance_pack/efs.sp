@@ -92,7 +92,18 @@ control "efs_access_point_enforce_user_identity" {
   query       = query.efs_access_point_enforce_user_identity
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
+  })
+}
+
+control "efs_access_point_enforce_root_directory" {
+  title       = "EFS access points should enforce a root directory"
+  description = "This control checks if Amazon EFS access points are configured to enforce a root directory. The control fails if the value of Path is set to / (the default root directory of the file system)."
+  query       = query.efs_access_point_enforce_root_directory
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -232,8 +243,6 @@ query "efs_file_system_enforces_ssl" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "efs_access_point_enforce_root_directory" {
   sql = <<-EOQ
     select
@@ -252,6 +261,8 @@ query "efs_access_point_enforce_root_directory" {
       aws_efs_access_point;
   EOQ
 }
+
+# Non-Config rule query
 
 query "efs_access_point_enforce_user_identity" {
   sql = <<-EOQ

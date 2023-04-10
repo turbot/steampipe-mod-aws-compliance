@@ -67,6 +67,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
   description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
   query       = query.codebuild_project_environment_privileged_mode_disabled
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -78,6 +79,7 @@ control "codebuild_project_logging_enabled" {
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
   })
 }
 
@@ -98,8 +100,19 @@ control "codebuild_project_artifact_encryption_enabled" {
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
-    gxp_21_cfr_part_11  = "true"
-    gxp_eu_annex_11     = "true"
+    nist_csf            = "true"
+  })
+}
+
+control "codebuild_project_s3_logs_encryption_enabled" {
+  title       = "CodeBuild S3 logs should be encrypted"
+  description = "This control checks if Amazon S3 logs for an AWS CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
+  query       = query.codebuild_project_s3_logs_encryption_enabled
+
+  tags = merge(local.conformance_pack_codebuild_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
   })
 }
 

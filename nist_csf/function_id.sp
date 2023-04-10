@@ -43,7 +43,10 @@ benchmark "nist_csf_id_am_2" {
 
   children = [
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_association_compliant
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.ec2_stopped_instance_30_days,
+    control.vpc_eip_associated,
+    control.vpc_network_acl_unused
   ]
 
   tags = local.nist_csf_common_tags
@@ -106,13 +109,34 @@ benchmark "nist_csf_id_be_5" {
   description = "Resilience requirements to support delivery of critical services are established for all operating states (e.g. under duress/attack, during recovery, normal operations)"
 
   children = [
+    control.autoscaling_group_multiple_az_configured,
     control.autoscaling_group_with_lb_use_health_check,
+    control.autoscaling_use_multiple_instance_types_in_multiple_az,
+    control.cloudfront_distribution_configured_with_origin_failover,
     control.dynamodb_table_auto_scaling_enabled,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.ebs_volume_in_backup_plan,
+    control.ec2_instance_ebs_optimized,
+    control.efs_file_system_in_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.elb_application_gateway_network_lb_multiple_az_configured,
     control.elb_application_lb_deletion_protection_enabled,
+    control.elb_classic_lb_cross_zone_load_balancing_enabled,
+    control.elb_classic_lb_multiple_az_configured,
+    control.lambda_function_multiple_az_configured,
+    control.rds_db_cluster_aurora_backtracking_enabled,
+    control.rds_db_cluster_deletion_protection_enabled,
+    control.rds_db_cluster_multiple_az_enabled,
     control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_deletion_protection_enabled,
+    control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_multiple_az_enabled,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_lifecycle_policy_enabled,
+    control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
     control.s3_bucket_versioning_enabled,
     control.vpc_vpn_tunnel_up
   ]
@@ -139,9 +163,36 @@ benchmark "nist_csf_id_ra_1" {
   description = "Asset vulnerabilities are identified and documented."
 
   children = [
+    control.cloudtrail_bucket_not_public,
+    control.cloudtrail_multi_region_read_write_enabled,
+    control.cloudtrail_s3_logging_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.config_enabled_all_regions,
+    control.ec2_instance_detailed_monitoring_enabled,
+    control.ecr_repository_image_scan_on_push_enabled,
     control.guardduty_enabled,
+    control.kms_cmk_rotation_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
+    control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.securityhub_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant
+    control.ssm_managed_instance_compliance_patch_compliant,
+    control.vpc_flow_logs_enabled,
   ]
 
   tags = local.nist_csf_common_tags
@@ -176,11 +227,17 @@ benchmark "nist_csf_id_ra_5" {
   description = "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk."
 
   children = [
+    control.cloudtrail_bucket_not_public,
+    control.cloudtrail_multi_region_read_write_enabled,
+    control.cloudtrail_s3_logging_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.config_enabled_all_regions,
     control.ec2_instance_detailed_monitoring_enabled,
     control.guardduty_enabled,
+    control.kms_cmk_rotation_enabled,
     control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
     control.log_metric_filter_config_configuration,
@@ -197,6 +254,7 @@ benchmark "nist_csf_id_ra_5" {
     control.log_metric_filter_vpc,
     control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -218,10 +276,17 @@ benchmark "nist_csf_id_sc_4" {
   description = "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations."
 
   children = [
+    control.cloudtrail_bucket_not_public,
+    control.cloudtrail_multi_region_read_write_enabled,
+    control.cloudtrail_s3_logging_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.config_enabled_all_regions,
     control.ec2_instance_detailed_monitoring_enabled,
     control.guardduty_enabled,
+    control.kms_cmk_rotation_enabled,
     control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
     control.log_metric_filter_config_configuration,
@@ -237,7 +302,8 @@ benchmark "nist_csf_id_sc_4" {
     control.log_metric_filter_unauthorized_api,
     control.log_metric_filter_vpc,
     control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
-    control.securityhub_enabled
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags

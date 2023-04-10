@@ -38,6 +38,7 @@ control "kms_cmk_rotation_enabled" {
     hippa                  = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     rbi_cyber_security     = "true"
   })
 }

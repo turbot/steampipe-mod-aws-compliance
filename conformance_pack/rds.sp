@@ -109,6 +109,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_4           = "true"
     nist_800_53_rev_5           = "true"
+    nist_csf                    = "true"
     pci_dss_v321                = "true"
     rbi_cyber_security          = "true"
     soc_2                       = "true"
@@ -155,6 +156,7 @@ control "rds_db_instance_logging_enabled" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
@@ -213,6 +215,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     soc_2                  = "true"
   })
 }
@@ -224,6 +227,7 @@ control "rds_db_instance_iam_authentication_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
     soc_2              = "true"
   })
 }
@@ -235,6 +239,7 @@ control "rds_db_cluster_iam_authentication_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -286,6 +291,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
+    nist_csf              = "true"
     pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
   })
@@ -299,6 +305,7 @@ control "rds_db_cluster_deletion_protection_enabled" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -328,6 +335,7 @@ control "rds_db_instance_no_default_admin_name" {
   query       = query.rds_db_instance_no_default_admin_name
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -338,7 +346,28 @@ control "rds_db_cluster_no_default_admin_name" {
   query       = query.rds_db_cluster_no_default_admin_name
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
+  })
+}
+
+control "rds_db_cluster_aurora_backtracking_enabled" {
+  title       = "Amazon Aurora clusters should have backtracking enabled"
+  description = "This control checks whether Amazon Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthens the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
+  query       = query.rds_db_cluster_aurora_backtracking_enabled
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "rds_db_cluster_multiple_az_enabled" {
+  title       = "RDS DB clusters should be configured for multiple Availability Zones"
+  description = "This control checks whether high availability is enabled for your RDS DB clusters. RDS DB clusters should be configured for multiple Availability Zones to ensure availability of the data that is stored."
+  query       = query.rds_db_cluster_multiple_az_enabled
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_csf = "true"
   })
 }
 

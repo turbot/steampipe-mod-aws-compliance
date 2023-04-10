@@ -10,6 +10,7 @@ control "ecr_repository_image_scan_on_push_enabled" {
   query       = query.ecr_repository_image_scan_on_push_enabled
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
+    nist_csf     = "true"
     other_checks = "true"
   })
 }
@@ -24,13 +25,24 @@ control "ecr_repository_prohibit_public_access" {
   })
 }
 
+control "ecr_repository_tag_immutability_enabled" {
+  title       = "ECR private repositories should have tag immutability configured"
+  description = "This control checks whether a private ECR repository has tag immutability enabled. This control fails if a private ECR repository has tag immutability disabled. This rule passes if tag immutability is enabled and has the value IMMUTABLE."
+  query       = query.ecr_repository_tag_immutability_enabled
+
+  tags = merge(local.conformance_pack_ecr_common_tags, {
+    nist_csf = "true"
+  })
+}
+
 control "ecr_repository_lifecycle_policy_configured" {
-  title       = "ECR repositories should have lifecycle policies configured"
-  description = "This control checks if ECR repositories have lifecycle policy configured. This rule fails if ECR repository lifecycle policy is not enabled."
+  title       = "ECR repositories should have at least one lifecycle policy configured"
+  description = "This control checks whether an Amazon ECR repository has at least one lifecycle policy configured. This control fails if an ECR repository does not have any lifecycle policies configured."
   query       = query.ecr_repository_lifecycle_policy_configured
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
   })
 }
 

@@ -50,6 +50,7 @@ control "vpc_network_acl_remote_administration" {
   query       = query.vpc_network_acl_remote_administration
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -221,6 +222,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -295,6 +297,17 @@ control "vpc_network_acl_unused" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
+    nist_csf              = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_authorized_ports" {
+  title       = "Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description = "This control checks whether the security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  query       = query.vpc_security_group_allows_ingress_authorized_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_csf = "true"
   })
 }
 

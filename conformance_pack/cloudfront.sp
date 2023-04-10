@@ -12,6 +12,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gdpr         = "true"
     hipaa        = "true"
+    nist_csf     = "true"
     pci_dss_v321 = "true"
     soc_2        = "true"
   })
@@ -55,6 +56,7 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -67,6 +69,7 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -78,6 +81,78 @@ control "cloudfront_distribution_logging_enabled" {
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     cis_controls_v8_ig1 = "true"
+    cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
+  })
+}
+
+control "cloudfront_distribution_sni_enabled" {
+  title       = "CloudFront distributions should use SNI to serve HTTPS requests"
+  description = "This control checks if Amazon CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
+  query       = query.cloudfront_distribution_sni_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_waf_enabled" {
+  title       = "CloudFront distributions should have AWS WAF enabled"
+  description = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
+  query       = query.cloudfront_distribution_waf_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_waf_enabled" {
+  title       = "CloudFront distributions should have AWS WAF enabled"
+  description = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
+  query       = query.cloudfront_distribution_waf_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_configured_with_origin_failover" {
+  title       = "CloudFront distributions should have origin failover configured"
+  description = "This control checks whether an Amazon CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
+  query       = query.cloudfront_distribution_configured_with_origin_failover
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_default_root_object_configured" {
+  title       = "CloudFront distributions should have a default root object configured"
+  description = "This control checks whether an Amazon CloudFront distribution is configured to return a specific object that is the default root object. The control fails if the CloudFront distribution does not have a default root object configured."
+  query       = query.cloudfront_distribution_default_root_object_configured
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_use_custom_ssl_certificate" {
+  title       = "CloudFront distributions should use custom SSL/TLS certificates"
+  description = "This control checks whether CloudFront distributions are using the default SSL/TLS certificate CloudFront provides. This control passes if the CloudFront distribution uses a custom SSL/TLS certificate. This control fails if the CloudFront distribution uses the default SSL/TLS certificate."
+  query       = query.cloudfront_distribution_use_custom_ssl_certificate
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_origin_access_identity_enabled" {
+  title       = "CloudFront distributions should have origin access identity enabled"
+  description = "This control checks whether an Amazon CloudFront distribution with Amazon S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
+  query       = query.cloudfront_distribution_origin_access_identity_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
   })
 }
 

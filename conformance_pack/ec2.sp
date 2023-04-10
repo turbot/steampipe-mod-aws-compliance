@@ -18,6 +18,7 @@ control "ec2_ebs_default_encryption_enabled" {
     hipaa                 = "true"
     nist_800_171_rev_2    = "true"
     nist_800_53_rev_5     = "true"
+    nist_csf              = "true"
     pci_dss_v321          = "true"
     soc_2                 = "true"
   })
@@ -35,6 +36,26 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
     soc_2                  = "true"
+  })
+}
+
+control "ec2_instance_not_use_multiple_enis" {
+  title       = "EC2 instances should not use multiple ENIs"
+  description = "This control checks whether an EC2 instance uses multiple Elastic Network Interfaces (ENIs) or Elastic Fabric Adapters (EFAs). This control passes if a single network adapter is used. The control includes an optional parameter list to identify the allowed ENIs."
+  query       = query.ec2_instance_not_use_multiple_enis
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "ec2_instance_no_amazon_key_pair" {
+  title       = "27 Running EC2 Instances should not use key pairs"
+  description = "This control checks whether running EC2 instances are using key pairs. The control fails if a running EC2 instance uses a key pair."
+  query       = query.ec2_instance_no_amazon_key_pair
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -110,6 +131,7 @@ control "ec2_stopped_instance_30_days" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -147,6 +169,7 @@ control "ec2_instance_uses_imdsv2" {
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -181,6 +204,7 @@ control "ec2_instance_iam_profile_attached" {
     gxp_21_cfr_part_11  = "true"
     nist_800_171_rev_2  = "true"
     nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
   })
 }
 
@@ -210,6 +234,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   query       = query.ec2_transit_gateway_auto_cross_account_attachment_disabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf     = "true"
     other_checks = "true"
   })
 }
@@ -220,6 +245,17 @@ control "ec2_instance_no_launch_wizard_security_group" {
   query       = query.ec2_instance_no_launch_wizard_security_group
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "ec2_instance_virtualization_type_no_paravirtual" {
+  title       = "Paravirtual EC2 instance types should not be used"
+  description = "This control checks whether the virtualization type of an EC2 instance is paravirtual. The control fails if the virtualizationType of the EC2 instance is set to paravirtual."
+  query       = query.ec2_instance_virtualization_type_no_paravirtual
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+        nist_csf     = "true"
     other_checks = "true"
   })
 }

@@ -13,6 +13,7 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 

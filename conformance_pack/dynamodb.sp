@@ -61,6 +61,7 @@ control "dynamodb_table_encrypted_with_kms" {
     nist_800_171_rev_2    = "true"
     nist_800_53_rev_4     = "true"
     nist_800_53_rev_5     = "true"
+    nist_csf              = "true"
     pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
   })
@@ -97,6 +98,7 @@ control "dynamodb_table_encryption_enabled" {
     gdpr            = "true"
     gxp_eu_annex_11 = "true"
     hipaa           = "true"
+    nist_csf        = "true"
     pci_dss_v321    = "true"
   })
 }

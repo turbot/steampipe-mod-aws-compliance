@@ -13,6 +13,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     gxp_21_cfr_part_11 = "true"
     hipaa              = "true"
     nist_800_53_rev_4  = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
     rbi_cyber_security = "true"
   })
@@ -275,6 +276,7 @@ control "iam_group_user_role_no_inline_policies" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     rbi_cyber_security     = "true"
     soc_2                  = "true"
   })
@@ -404,6 +406,7 @@ control "iam_all_policy_no_service_wild_card" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -420,6 +423,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     ffiec                  = "true"
     gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
   })
 }
@@ -432,6 +436,7 @@ control "iam_policy_inline_no_blocked_kms_actions" {
   tags = merge(local.conformance_pack_iam_common_tags, {
     cisa_cyber_essentials = "true"
     gxp_21_cfr_part_11    = "true"
+    nist_csf              = "true"
     pci_dss_v321          = "true"
   })
 }
@@ -445,6 +450,7 @@ control "account_part_of_organizations" {
     cis_controls_v8_ig1 = "true"
     gxp_21_cfr_part_11  = "true"
     nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
   })
 }
 
@@ -486,6 +492,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
     soc_2               = "true"
   })
 }
@@ -497,6 +504,7 @@ control "iam_policy_unused" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
   })
 }
 
