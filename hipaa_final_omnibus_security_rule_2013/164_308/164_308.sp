@@ -6,7 +6,7 @@ locals {
 
 benchmark "hipaa_final_omnibus_security_rule_2013_164_308" {
   title       = "164.308 Administrative Safeguards"
-  description = "An important step in protecting electronic protected health information (EPHI) is to implement reasonable and appropriate administrative safeguards that establish the foundation for a covered entity's security program. The Administrative Safeguards standards in the Security Rule, at § 164.308, were developed to accomplish this purpose."
+  description = "An important step in strengthen the protection of protected health information, especially in electronic form, as well as give patients more access to their individual health information. The HIPAA Omnibus Rule is a set of final regulations that modifies the existing HIPAA rules and implements a variety of provisions of the Health Information Technology for Economic and Clinical Health (HITECH) Act."
   children = [
     benchmark.hipaa_final_omnibus_security_rule_2013_164_308_a_1_ii_a,
     benchmark.hipaa_final_omnibus_security_rule_2013_164_308_a_1_ii_b,
