@@ -494,7 +494,6 @@ benchmark "nist_csf_pr_ip_1" {
   description = "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)."
 
   children = [
-    control.waf_regional_web_acl_rule_attached,
     control.account_part_of_organizations,
     control.autoscaling_launch_config_hop_limit,
     control.autoscaling_launch_config_requires_imdsv2,
