@@ -299,6 +299,7 @@ control "s3_bucket_policy_restrict_public_access" {
   query       = query.s3_bucket_policy_restrict_public_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    gxp_21_cfr_part_11       = "true"
     hipaa_security_rule_2003 = "true"
   })
 }
@@ -309,8 +310,9 @@ control "s3_bucket_lifecycle_policy_enabled" {
   query       = query.s3_bucket_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
+    gxp_21_cfr_part_11 = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
   })
 }
 
@@ -320,8 +322,9 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
   query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
+    gxp_21_cfr_part_11 = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
   })
 }
 
@@ -973,8 +976,8 @@ query "s3_bucket_policy_restrict_public_access" {
       end as status,
       case
         when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
-        when p.arn is not null then title || ' publicly accessable.'
-        else title || ' not publicly accessable.'
+        when p.arn is not null then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

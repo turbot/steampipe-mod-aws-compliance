@@ -53,7 +53,9 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    pci_dss_v321 = "true"
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    pci_dss_v321       = "true"
   })
 }
 
@@ -63,7 +65,9 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    pci_dss_v321 = "true"
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    pci_dss_v321       = "true"
   })
 }
 
@@ -227,27 +231,6 @@ query "cloudfront_distribution_logging_enabled" {
   EOQ
 }
 
-# Non-Config rule query
-
-query "cloudfront_distribution_configured_with_origin_failover" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when origin_groups ->> 'Items' is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
-        else title || ' origin group not configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
 query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with viewer_protocol_policy_value as (
@@ -295,25 +278,6 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   EOQ
 }
 
-query "cloudfront_distribution_default_root_object_configured" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when default_root_object = '' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when default_root_object = '' then title || ' default root object not configured.'
-        else title || ' default root object configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
 query "cloudfront_distribution_no_deprecated_ssl_protocol" {
   sql = <<-EOQ
     with origin_ssl_protocols as (
@@ -341,6 +305,46 @@ query "cloudfront_distribution_no_deprecated_ssl_protocol" {
     from
       aws_cloudfront_distribution as b
       left join origin_ssl_protocols as o on b.arn = o.arn;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "cloudfront_distribution_configured_with_origin_failover" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when origin_groups ->> 'Items' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when origin_groups ->> 'Items' is not null then title || ' origin group is configured.'
+        else title || ' origin group not configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_default_root_object_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when default_root_object = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when default_root_object = '' then title || ' default root object not configured.'
+        else title || ' default root object configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
   EOQ
 }
 

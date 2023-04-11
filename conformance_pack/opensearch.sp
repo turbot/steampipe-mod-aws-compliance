@@ -4,68 +4,16 @@ locals {
   })
 }
 
-control "opensearch_domain_in_vpc" {
-  title       = "OpenSearch domains should be in a VPC"
-  description = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
-  query       = query.opensearch_domain_in_vpc
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    hipaa_security_rule_2003 = "true"
-  })
-}
-
 control "opensearch_domain_encryption_at_rest_enabled" {
   title       = "OpenSearch domains should have encryption at rest enabled"
   description = "This control checks whether Amazon OpenSearch domains have encryption-at-rest configuration enabled. The check fails if encryption at rest is not enabled."
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11       = "true"
+    gxp_eu_annex_11          = "true"
     hipaa_security_rule_2003 = "true"
     pci_dss_v321             = "true"
-  })
-}
-
-control "opensearch_domain_node_to_node_encryption_enabled" {
-  title       = "OpenSearch domain node-to-node encryption should be enabled"
-  description = "This control check if OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
-  query       = query.opensearch_domain_node_to_node_encryption_enabled
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    hipaa_security_rule_2003 = "true"
-  })
-}
-
-control "opensearch_domain_audit_logging_enabled" {
-  title       = "OpenSearch domains should have audit logging enabled."
-  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
-  query       = query.opensearch_domain_audit_logging_enabled
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
-  })
-}
-
-control "opensearch_domain_logs_to_cloudwatch" {
-  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
-  description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
-  query       = query.opensearch_domain_logs_to_cloudwatch
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
-  })
-}
-
-control "opensearch_domain_https_required" {
-  title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
-  query       = query.opensearch_domain_https_required
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    hipaa_security_rule_2003 = "true"
-    pci_dss_v321             = "true"
-
   })
 }
 
@@ -79,45 +27,65 @@ control "opensearch_domain_fine_grained_access_enabled" {
   })
 }
 
-query "opensearch_domain_in_vpc" {
-  sql = <<-EOQ
-    with public_subnets as (
-      select
-        distinct a -> 'SubnetId' as SubnetId
-      from
-        aws_vpc_route_table as t,
-        jsonb_array_elements(associations) as a,
-        jsonb_array_elements(routes) as r
-      where
-        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
-        and  r ->>  'GatewayId' like 'igw-%'
-    ), opensearch_domain_with_public_subnet as (
-      select
-        arn
-      from
-        aws_opensearch_domain ,
-        jsonb_array_elements(vpc_options -> 'SubnetIds') as s
-      where
-        s in (select SubnetId from public_subnets)
-    )
-    select
-      d.arn as resource,
-      case
-        when d.vpc_options ->> 'VPCId' is null then 'alarm'
-        when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when vpc_options ->> 'VPCId' is null then title || ' not in VPC.'
-        when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then title || ' attached to public subnet.'
-        else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
-      end reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
-    from
-      aws_opensearch_domain as d left join opensearch_domain_with_public_subnet as p
-      on d.arn = p.arn;
-  EOQ
+control "opensearch_domain_https_required" {
+  title       = "OpenSearch domains should use HTTPS"
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  query       = query.opensearch_domain_https_required
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11       = "true"
+    gxp_eu_annex_11          = "true"
+    hipaa_security_rule_2003 = "true"
+    pci_dss_v321             = "true"
+  })
+}
+
+control "opensearch_domain_audit_logging_enabled" {
+  title       = "OpenSearch domains should have audit logging enabled."
+  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
+  query       = query.opensearch_domain_audit_logging_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
+  })
+}
+
+control "opensearch_domain_logs_to_cloudwatch" {
+  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
+  description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
+  query       = query.opensearch_domain_logs_to_cloudwatch
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    pci_dss_v321       = "true"
+    soc_2              = "true"
+  })
+}
+
+control "opensearch_domain_node_to_node_encryption_enabled" {
+  title       = "OpenSearch domain node-to-node encryption should be enabled"
+  description = "This control check if OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  query       = query.opensearch_domain_node_to_node_encryption_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11       = "true"
+    gxp_eu_annex_11          = "true"
+    hipaa_security_rule_2003 = "true"
+  })
+}
+
+control "opensearch_domain_in_vpc" {
+  title       = "OpenSearch domains should be in a VPC"
+  description = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
+  query       = query.opensearch_domain_in_vpc
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    hipaa_security_rule_2003 = "true"
+  })
 }
 
 query "opensearch_domain_encryption_at_rest_enabled" {
@@ -139,19 +107,36 @@ query "opensearch_domain_encryption_at_rest_enabled" {
   EOQ
 }
 
-query "opensearch_domain_node_to_node_encryption_enabled" {
+query "opensearch_domain_fine_grained_access_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
-        when node_to_node_encryption_options_enabled then 'ok'
-        else 'alarm'
+        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then 'alarm'
+        else 'ok'
       end as status,
       case
-        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
-        when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
-        else title || ' node-to-node encryption disabled.'
+        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
+        else title || ' having fine-grained access control enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_https_required" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' does not use HTTPS.'
+        else title || ' uses HTTPS.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -239,17 +224,19 @@ query "opensearch_domain_logs_to_cloudwatch" {
   EOQ
 }
 
-query "opensearch_domain_https_required" {
+query "opensearch_domain_node_to_node_encryption_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
-        else 'ok'
-      end status,
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
+        when node_to_node_encryption_options_enabled then 'ok'
+        else 'alarm'
+      end as status,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' does not use HTTPS.'
-        else title || ' uses HTTPS.'
+        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
+        when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
+        else title || ' node-to-node encryption disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -258,21 +245,43 @@ query "opensearch_domain_https_required" {
   EOQ
 }
 
-query "opensearch_domain_fine_grained_access_enabled" {
+query "opensearch_domain_in_vpc" {
   sql = <<-EOQ
+    with public_subnets as (
+      select
+        distinct a -> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and  r ->>  'GatewayId' like 'igw-%'
+    ), opensearch_domain_with_public_subnet as (
+      select
+        arn
+      from
+        aws_opensearch_domain ,
+        jsonb_array_elements(vpc_options -> 'SubnetIds') as s
+      where
+        s in (select SubnetId from public_subnets)
+    )
     select
-      arn as resource,
+      d.arn as resource,
       case
-        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then 'alarm'
+        when d.vpc_options ->> 'VPCId' is null then 'alarm'
+        when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then 'alarm'
         else 'ok'
-      end as status,
+      end status,
       case
-        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
-        else title || ' having fine-grained access control enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+        when vpc_options ->> 'VPCId' is null then title || ' not in VPC.'
+        when d.vpc_options ->> 'VPCId' is not null and p.arn is not null then title || ' attached to public subnet.'
+        else title || ' in VPC ' || (vpc_options ->> 'VPCId') || '.'
+      end reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
-      aws_opensearch_domain;
+      aws_opensearch_domain as d left join opensearch_domain_with_public_subnet as p
+      on d.arn = p.arn;
   EOQ
 }
