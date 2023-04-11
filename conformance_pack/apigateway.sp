@@ -96,7 +96,7 @@ control "apigateway_rest_api_stage_xray_tracing_enabled" {
   query       = query.apigateway_rest_api_stage_xray_tracing_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    well_architected = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
   })
 }
 
