@@ -10,12 +10,13 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
   query       = query.secretsmanager_secret_automatic_rotation_enabled
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    cisa_cyber_essentials    = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    soc_2                    = "true"
+    cisa_cyber_essentials                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -25,12 +26,13 @@ control "secretsmanager_secret_rotated_as_scheduled" {
   query       = query.secretsmanager_secret_rotated_as_scheduled
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    soc_2                    = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -40,8 +42,9 @@ control "secretsmanager_secret_unused_90_day" {
   query       = query.secretsmanager_secret_unused_90_day
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    cisa_cyber_essentials = "true"
-    nist_800_53_rev_5     = "true"
+    cisa_cyber_essentials                  = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 
@@ -51,10 +54,11 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
   query       = query.secretsmanager_secret_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
-    nist_800_53_rev_5  = "true"
-    pci_dss_v321       = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_5                      = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
@@ -64,8 +68,10 @@ control "secretsmanager_secret_last_changed_90_day" {
   query       = query.secretsmanager_secret_last_changed_90_day
 
   tags = merge(local.conformance_pack_secretsmanager_common_tags, {
-    cisa_cyber_essentials    = "true"
-    hipaa_security_rule_2003 = "true"
+    cisa_cyber_essentials                  = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 

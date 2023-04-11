@@ -40,8 +40,9 @@ control "waf_web_acl_logging_enabled" {
   query       = query.waf_web_acl_logging_enabled
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
-    hipaa_security_rule_2003 = "true"
-    pci_dss_v321             = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 

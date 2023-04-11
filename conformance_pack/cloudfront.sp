@@ -10,10 +10,11 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr                     = "true"
-    hipaa_security_rule_2003 = "true"
-    pci_dss_v321             = "true"
-    soc_2                    = "true"
+    gdpr                                   = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -77,8 +78,9 @@ control "cloudfront_distribution_logging_enabled" {
   query       = query.cloudfront_distribution_logging_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    hipaa_security_rule_2003 = "true"
+    cis_controls_v8_ig1                    = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
   })
 }
 

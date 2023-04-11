@@ -10,10 +10,11 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    gxp_eu_annex_11          = "true"
-    hipaa_security_rule_2003 = "true"
-    pci_dss_v321             = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
@@ -33,10 +34,11 @@ control "opensearch_domain_https_required" {
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    gxp_eu_annex_11          = "true"
-    hipaa_security_rule_2003 = "true"
-    pci_dss_v321             = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
@@ -47,7 +49,6 @@ control "opensearch_domain_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
   })
@@ -60,7 +61,6 @@ control "opensearch_domain_logs_to_cloudwatch" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
   })
@@ -72,9 +72,10 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    gxp_eu_annex_11          = "true"
-    hipaa_security_rule_2003 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
   })
 }
 
@@ -84,7 +85,8 @@ control "opensearch_domain_in_vpc" {
   query       = query.opensearch_domain_in_vpc
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    hipaa_security_rule_2003 = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
   })
 }
 

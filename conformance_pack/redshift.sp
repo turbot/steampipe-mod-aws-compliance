@@ -10,20 +10,21 @@ control "redshift_cluster_encryption_in_transit_enabled" {
   query       = query.redshift_cluster_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    ffiec                    = "true"
-    gdpr                     = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_171_rev_2       = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    pci_dss_v321             = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -33,21 +34,22 @@ control "redshift_cluster_encryption_logging_enabled" {
   query       = query.redshift_cluster_encryption_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    ffiec                    = "true"
-    gdpr                     = "true"
-    gxp_21_cfr_part_11       = "true"
-    gxp_eu_annex_11          = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    pci_dss_v321             = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -57,20 +59,21 @@ control "redshift_cluster_prohibit_public_access" {
   query       = query.redshift_cluster_prohibit_public_access
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    ffiec                    = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_171_rev_2       = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    pci_dss_v321             = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -80,20 +83,21 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   query       = query.redshift_cluster_automatic_snapshots_min_7_days
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    ffiec                    = "true"
-    gdpr                     = "true"
-    gxp_21_cfr_part_11       = "true"
-    gxp_eu_annex_11          = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    pci_dss_v321             = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -103,14 +107,15 @@ control "redshift_cluster_kms_enabled" {
   query       = query.redshift_cluster_kms_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    ffiec                    = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_5        = "true"
-    rbi_cyber_security       = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_5                      = "true"
+    rbi_cyber_security                     = "true"
   })
 }
 
@@ -120,11 +125,12 @@ control "redshift_cluster_maintenance_settings_check" {
   query       = query.redshift_cluster_maintenance_settings_check
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    cis_controls_v8_ig1   = "true"
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    nist_800_53_rev_5     = "true"
-    rbi_cyber_security    = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_5                      = "true"
+    rbi_cyber_security                     = "true"
   })
 }
 
@@ -134,10 +140,11 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
   query       = query.redshift_cluster_enhanced_vpc_routing_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    ffiec              = "true"
-    gxp_21_cfr_part_11 = "true"
-    nist_800_171_rev_2 = "true"
-    nist_800_53_rev_5  = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 
