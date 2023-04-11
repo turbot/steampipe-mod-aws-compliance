@@ -118,8 +118,8 @@ query "opensearch_domain_fine_grained_access_enabled" {
         else 'ok'
       end as status,
       case
-        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' having fine-grained access control disabled.'
-        else title || ' having fine-grained access control enabled.'
+        when advanced_security_options is null or not (advanced_security_options -> 'Enabled')::boolean then title || ' has fine-grained access control disabled.'
+        else title || ' has fine-grained access control enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
