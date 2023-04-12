@@ -342,13 +342,8 @@ control "iam_account_password_policy_strong" {
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
     gdpr                                   = "true"
-    gxp_21_cfr_part_11                     = "true"
-    hipaa_final_omnibus_security_rule_2013 = "true"
-    hipaa_security_rule_2003               = "true"
     nist_800_53_rev_4                      = "true"
-    nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    rbi_cyber_security                     = "true"
   })
 }
 
