@@ -10,21 +10,22 @@ control "rds_db_instance_backup_enabled" {
   query       = query.rds_db_instance_backup_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -34,19 +35,21 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   query       = query.rds_db_instance_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -56,16 +59,17 @@ control "rds_db_instance_multiple_az_enabled" {
   query       = query.rds_db_instance_multiple_az_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -75,21 +79,22 @@ control "rds_db_instance_prohibit_public_access" {
   query       = query.rds_db_instance_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -99,19 +104,20 @@ control "rds_db_snapshot_encrypted_at_rest" {
   query       = query.rds_db_snapshot_encrypted_at_rest
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_moderate_rev_4      = "true"
-    gdpr                        = "true"
-    gxp_21_cfr_part_11          = "true"
-    gxp_eu_annex_11             = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -121,21 +127,22 @@ control "rds_db_snapshot_prohibit_public_access" {
   query       = query.rds_db_snapshot_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -145,19 +152,21 @@ control "rds_db_instance_logging_enabled" {
   query       = query.rds_db_instance_logging_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -167,19 +176,20 @@ control "rds_db_instance_in_backup_plan" {
   query       = query.rds_db_instance_in_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cis_controls_v8_ig1   = "true"
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    gdpr                  = "true"
-    gxp_21_cfr_part_11    = "true"
-    gxp_eu_annex_11       = "true"
-    hipaa                 = "true"
-    nist_800_53_rev_4     = "true"
-    nist_800_53_rev_5     = "true"
-    nist_csf              = "true"
-    pci_dss_v321          = "true"
-    rbi_cyber_security    = "true"
-    soc_2                 = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -189,13 +199,15 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   query       = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -205,15 +217,15 @@ control "rds_db_instance_deletion_protection_enabled" {
   query       = query.rds_db_instance_deletion_protection_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    soc_2                  = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -223,8 +235,10 @@ control "rds_db_instance_iam_authentication_enabled" {
   query       = query.rds_db_instance_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
-    soc_2              = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -245,16 +259,17 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   query       = query.rds_db_cluster_aurora_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    soc_2                  = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -264,17 +279,18 @@ control "rds_db_instance_protected_by_backup_plan" {
   query       = query.rds_db_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    soc_2                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 

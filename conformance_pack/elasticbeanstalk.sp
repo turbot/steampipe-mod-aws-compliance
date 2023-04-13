@@ -10,9 +10,10 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
   query       = query.elastic_beanstalk_enhanced_health_reporting_enabled
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    nist_800_53_rev_5      = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 

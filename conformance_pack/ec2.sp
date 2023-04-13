@@ -10,16 +10,17 @@ control "ec2_ebs_default_encryption_enabled" {
   query       = query.ec2_ebs_default_encryption_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1   = "true"
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    gxp_21_cfr_part_11    = "true"
-    gxp_eu_annex_11       = "true"
-    hipaa                 = "true"
-    nist_800_171_rev_2    = "true"
-    nist_800_53_rev_5     = "true"
-    pci_dss_v321          = "true"
-    soc_2                 = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -29,12 +30,13 @@ control "ec2_instance_detailed_monitoring_enabled" {
   query       = query.ec2_instance_detailed_monitoring_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -44,20 +46,21 @@ control "ec2_instance_in_vpc" {
   query       = query.ec2_instance_in_vpc
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -67,20 +70,21 @@ control "ec2_instance_not_publicly_accessible" {
   query       = query.ec2_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -100,16 +104,18 @@ control "ec2_stopped_instance_30_days" {
   query       = query.ec2_stopped_instance_30_days
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -119,19 +125,20 @@ control "ec2_instance_ebs_optimized" {
   query       = query.ec2_instance_ebs_optimized
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    gxp_21_cfr_part_11          = "true"
-    gxp_eu_annex_11             = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -141,12 +148,13 @@ control "ec2_instance_uses_imdsv2" {
   query       = query.ec2_instance_uses_imdsv2
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
+    cis_controls_v8_ig1                    = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 
@@ -156,17 +164,18 @@ control "ec2_instance_protected_by_backup_plan" {
   query       = query.ec2_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    soc_2                  = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -176,11 +185,12 @@ control "ec2_instance_iam_profile_attached" {
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    cis_controls_v8_ig1 = "true"
-    ffiec               = "true"
-    gxp_21_cfr_part_11  = "true"
-    nist_800_171_rev_2  = "true"
-    nist_800_53_rev_5   = "true"
+    cis_controls_v8_ig1                    = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 
