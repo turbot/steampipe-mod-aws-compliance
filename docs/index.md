@@ -33,9 +33,9 @@ Run individual configuration, compliance and security controls or full complianc
 
 [GxP EU Annex 11](https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf.) includes a prebuilt collection of controls with descriptions and testing procedures where controls are grouped into control sets according to GxP requirements.
 
-[HIPAA Security Rule 2003](https://www.hhs.gov/hipaa/for-professionals/security/index.html) establishes national standards to protect individuals' electronic personal health information that is created, received, used, or maintained by a covered entity.
-
 [HIPAA Final Omnibus Security Rule 2013](https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/combined-regulation-text/omnibus-hipaa-rulemaking/index.html) implements a number of provisions of the Health Information Technology for Economic and Clinical Health (HITECH) Act, enacted as part of the American Recovery and Reinvestment Act of 2009, to strengthen the privacy and security protections for health information established under the Health Insurance Portability and Accountability Act of 1996 (HIPAA).
+
+[HIPAA Security Rule 2003](https://www.hhs.gov/hipaa/for-professionals/security/index.html) establishes national standards to protect individuals' electronic personal health information that is created, received, used, or maintained by a covered entity.
 
 [NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
 
