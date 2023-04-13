@@ -50,14 +50,15 @@ control "ecs_task_definition_user_for_host_mode_check" {
   query       = query.ecs_task_definition_user_for_host_mode_check
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 

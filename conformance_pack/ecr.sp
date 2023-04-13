@@ -31,6 +31,7 @@ control "ecr_repository_lifecycle_policy_configured" {
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
   })
 }
 

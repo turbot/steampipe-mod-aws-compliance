@@ -10,20 +10,21 @@ control "s3_bucket_cross_region_replication_enabled" {
   query       = query.s3_bucket_cross_region_replication_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -33,21 +34,22 @@ control "s3_bucket_default_encryption_enabled" {
   query       = query.s3_bucket_default_encryption_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -57,21 +59,22 @@ control "s3_bucket_enforces_ssl" {
   query       = query.s3_bucket_enforces_ssl
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -81,20 +84,21 @@ control "s3_bucket_logging_enabled" {
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -104,13 +108,15 @@ control "s3_bucket_object_lock_enabled" {
   query       = query.s3_bucket_object_lock_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -120,21 +126,22 @@ control "s3_bucket_restrict_public_read_access" {
   query       = query.s3_bucket_restrict_public_read_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -144,21 +151,22 @@ control "s3_bucket_restrict_public_write_access" {
   query       = query.s3_bucket_restrict_public_write_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -168,22 +176,23 @@ control "s3_bucket_versioning_enabled" {
   query       = query.s3_bucket_versioning_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    audit_manager_control_tower = "true"
-    cis_controls_v8_ig1         = "true"
-    cisa_cyber_essentials       = "true"
-    fedramp_low_rev_4           = "true"
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
-    gxp_eu_annex_11             = "true"
-    hipaa                       = "true"
-    nist_800_171_rev_2          = "true"
-    nist_800_53_rev_4           = "true"
-    nist_800_53_rev_5           = "true"
-    nist_csf                    = "true"
-    pci_dss_v321                = "true"
-    rbi_cyber_security          = "true"
-    soc_2                       = "true"
+    audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -203,18 +212,19 @@ control "s3_public_access_block_account" {
   query       = query.s3_public_access_block_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -227,7 +237,6 @@ control "s3_public_access_block_bucket_account" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
-    hipaa                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     nist_csf               = "true"
@@ -242,18 +251,19 @@ control "s3_bucket_default_encryption_enabled_kms" {
   query       = query.s3_bucket_default_encryption_enabled_kms
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gdpr                   = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_5      = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_5                      = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
   })
 }
 
@@ -263,12 +273,13 @@ control "s3_public_access_block_bucket" {
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    gxp_21_cfr_part_11     = "true"
-    nist_800_53_rev_5      = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_53_rev_5                      = "true"
   })
 }
 
@@ -291,6 +302,18 @@ control "s3_bucket_object_logging_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "s3_bucket_policy_restrict_public_access" {
+  title       = "S3 bucket policy should prohibit public access"
+  description = "This control checks that the access granted by the S3 bucket is restricted by any of the principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is compliant if a bucket policy is not present."
+  query       = query.s3_bucket_policy_restrict_public_access
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
   })
 }
 
@@ -326,16 +349,6 @@ control "s3_bucket_event_notifications_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     soc_2 = "true"
-  })
-}
-
-control "s3_bucket_policy_restrict_public_access" {
-  title       = "S3 bucket policy should prohibit public access"
-  description = "This control checks that the access granted by the S3 bucket is restricted by any of the principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is compliant if a bucket policy is not present."
-  query       = query.s3_bucket_policy_restrict_public_access
-
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    gxp_21_cfr_part_11 = "true"
   })
 }
 
@@ -956,23 +969,34 @@ query "s3_bucket_event_notifications_enabled" {
 
 query "s3_bucket_policy_restrict_public_access" {
   sql = <<-EOQ
+    with public_buckets as (
+      select
+        distinct arn as arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Allow'
+    )
     select
-      arn as resource,
+      b.arn as resource,
       case
-        when policy_std is null then 'ok'
-        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then 'alarm'
+        when b.policy_std is null then 'info'
+        when p.arn is not null then 'alarm'
         else 'ok'
       end as status,
       case
-        when policy_std is null then title || ' policy not publicly accessible.'
-        when s ->> 'Effect' = 'Allow' and (s -> 'Principal' -> 'AWS' = '["*"]' or s ->> 'Principal' = '*') then title || ' policy publicly accessible.'
-        else title || ' policy not publicly accessible.'
+        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
+        when p.arn is not null then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_s3_bucket,
-      jsonb_array_elements(policy_std -> 'Statement') as s
+      aws_s3_bucket as b
+      left join public_buckets as p on p.arn = b.arn;
   EOQ
 }
 

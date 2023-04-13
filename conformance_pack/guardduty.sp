@@ -10,20 +10,21 @@ control "guardduty_enabled" {
   query       = query.guardduty_enabled
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    cis_controls_v8_ig1    = "true"
-    cisa_cyber_essentials  = "true"
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_21_cfr_part_11     = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    soc_2                  = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -33,18 +34,19 @@ control "guardduty_finding_archived" {
   query       = query.guardduty_finding_archived
 
   tags = merge(local.conformance_pack_guardduty_common_tags, {
-    fedramp_low_rev_4      = "true"
-    fedramp_moderate_rev_4 = "true"
-    ffiec                  = "true"
-    gxp_eu_annex_11        = "true"
-    hipaa                  = "true"
-    nist_800_171_rev_2     = "true"
-    nist_800_53_rev_4      = "true"
-    nist_800_53_rev_5      = "true"
-    nist_csf               = "true"
-    pci_dss_v321           = "true"
-    rbi_cyber_security     = "true"
-    soc_2                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
