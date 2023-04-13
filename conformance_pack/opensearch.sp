@@ -55,8 +55,8 @@ control "opensearch_domain_audit_logging_enabled" {
 }
 
 control "opensearch_domain_logs_to_cloudwatch" {
-  title       = "OpenSearch domains logs to Amazon CloudWatch Logs."
-  description = "This control checks whether OpenSearch service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
+  title       = "OpenSearch domains logs to Amazon CloudWatch Logs"
+  description = "This control checks whether Amazon OpenSearch Service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {

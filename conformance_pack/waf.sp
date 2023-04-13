@@ -150,7 +150,7 @@ query "waf_web_acl_resource_associated" {
         else 'alarm'
       end as status,
       case
-        when jsonb_array_length(resources) > 0 then title || ' assoicated with any AWS resource.'
+        when jsonb_array_length(resources) > 0 then title || ' associated with AWS resource(s).'
         else title || ' not assoicated with AWS resource.'
       end as reason
       ${local.tag_dimensions_sql}

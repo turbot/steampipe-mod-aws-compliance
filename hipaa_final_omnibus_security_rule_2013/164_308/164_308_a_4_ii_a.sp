@@ -1,5 +1,5 @@
 benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_4_ii_a" {
-  title       = "164.308(a)(4)(ii)(A) Isolating health care clearinghouse functions"
+  title       = "164.308(a)(4)(ii)(A) Isolating healthcare clearing house functions"
   description = "If a health care clearinghouse is part of a larger organization, the clearinghouse must implement policies and procedures that protect the electronic protected health information of the clearinghouse from unauthorized access by the larger organization."
   children = [
     control.acm_certificate_expires_30_days,
