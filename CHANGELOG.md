@@ -2,21 +2,21 @@
 
 _Breaking changes_
 
-- The HIPAA benchmark has been updated to better align with official [HIPAA document](https://www.hhs.gov/hipaa/index.html) and the matching [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Final Omnibus Security Rule 2013](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html) and [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Security Rule 2003](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html) frameworks. The following updates have been made to the benchmark: ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+- The HIPAA benchmark has been updated to better align with official [HIPAA document](https://www.hhs.gov/hipaa/index.html) and the matching [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Final Omnibus Security Rule 2013](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html) and [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Security Rule 2003](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html) frameworks. The following updates have been made to the benchmark: ([#605](https://github.com/turbot/steampipe-mod-aws-compliance/pull/605))
   - The `hipaa` benchmark has been removed and replaced by two new benchmarks - `hipaa_final_omnibus_security_rule_2013` (`steampipe check benchmark.hipaa_final_omnibus_security_rule_2013`) and `hipaa_security_rule_2003` (`steampipe check benchmark.hipaa_security_rule_2003`).
   - 30+ new unique controls have been added across the two new benchmarks
   - The following controls are no longer included in the benchmarks:
-    - ebs_volume_encryption_at_rest_enabled
-    - iam_account_password_policy_min_length_14
-    - iam_account_password_policy_one_lowercase_letter
-    - iam_account_password_policy_one_number
-    - iam_account_password_policy_one_symbol
-    - iam_account_password_policy_one_uppercase_letter
-    - iam_account_password_policy_reuse_24 
-    - iam_password_policy_expire_90
-    - log_metric_filter_console_login_mfa
-    - s3_public_access_block_bucket_account
-  - All documentation has been updated on the [Hub](https://hub.steampipe.io/mods/turbot/aws_compliance/controls) to better match official [HIPAA Final Omnibus Security Rule 2013](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_final_omnibus_security_rule_2013) and [HIPAA Security Rule 2003 documentations](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_security_rule_2003).
+    - `ebs_volume_encryption_at_rest_enabled`
+    - `iam_account_password_policy_min_length_14`
+    - `iam_account_password_policy_one_lowercase_letter`
+    - `iam_account_password_policy_one_number`
+    - `iam_account_password_policy_one_symbol`
+    - `iam_account_password_policy_one_uppercase_letter`
+    - `iam_account_password_policy_reuse_24`
+    - `iam_password_policy_expire_90`
+    - `log_metric_filter_console_login_mfa`
+    - `s3_public_access_block_bucket_account`
+  - All documentation has been updated on the [Hub](https://hub.steampipe.io/mods/turbot/aws_compliance/controls) to better match official [HIPAA Final Omnibus Security Rule 2013](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_final_omnibus_security_rule_2013) and [HIPAA Security Rule 2003](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_security_rule_2003) documentations.
 
 ## v0.61 [2023-04-07]
 
