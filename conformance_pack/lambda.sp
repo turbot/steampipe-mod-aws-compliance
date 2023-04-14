@@ -129,7 +129,6 @@ query "lambda_function_dead_letter_queue_configured" {
 query "lambda_function_in_vpc" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when vpc_id is null then 'alarm'
@@ -139,7 +138,6 @@ query "lambda_function_in_vpc" {
         when vpc_id is null then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -321,6 +319,7 @@ query "lambda_function_multiple_az_configured" {
       arn as resource,
       case
         when vpc_id is null then 'skip'
+        when vpc_id = ''  then 'skip'
         else case
           when
           (
@@ -337,6 +336,7 @@ query "lambda_function_multiple_az_configured" {
       end as status,
       case
         when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id = '' then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
       end as reason
       ${local.tag_dimensions_sql}
