@@ -107,7 +107,7 @@ control "lambda_function_tracing_enabled" {
 }
 
 control "lambda_function_multiple_az_configured" {
-  title       = "VPC Lambda functions should operate in more than one Availability Zone"
+  title       = "Lambda functions should operate in more than one availability zone"
   description = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
   query       = query.lambda_function_multiple_az_configured
 

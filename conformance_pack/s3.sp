@@ -367,18 +367,6 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   })
 }
 
-control "s3_bucket_policy_restrict_public_access" {
-  title       = "S3 bucket policy should prohibit public access"
-  description = "This control checks that the access granted by the S3 bucket is restricted by any of the principals, federated users, service principals, IP addresses, or VPCs that you provide. The rule is compliant if a bucket policy is not present."
-  query       = query.s3_bucket_policy_restrict_public_access
-
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_csf                 = "true"
-  })
-}
-
 query "s3_bucket_cross_region_replication_enabled" {
   sql = <<-EOQ
     with bucket_with_replication as (
@@ -907,6 +895,39 @@ query "s3_bucket_object_logging_enabled" {
   EOQ
 }
 
+query "s3_bucket_policy_restrict_public_access" {
+  sql = <<-EOQ
+    with public_buckets as (
+      select
+        distinct arn as arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Allow'
+    )
+    select
+      b.arn as resource,
+      case
+        when b.policy_std is null then 'info'
+        when p.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
+        when p.arn is not null then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket as b
+      left join public_buckets as p on p.arn = b.arn;
+  EOQ
+}
+
 query "s3_bucket_lifecycle_policy_enabled" {
   sql = <<-EOQ
     with lifecycle_rules_enabled as (
@@ -991,39 +1012,6 @@ query "s3_bucket_event_notifications_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_s3_bucket;
-  EOQ
-}
-
-query "s3_bucket_policy_restrict_public_access" {
-  sql = <<-EOQ
-    with public_buckets as (
-      select
-        distinct arn as arn
-      from
-        aws_s3_bucket,
-        jsonb_array_elements(policy_std -> 'Statement') as s,
-        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
-      where
-        p = '*'
-        and s ->> 'Effect' = 'Allow'
-    )
-    select
-      b.arn as resource,
-      case
-        when b.policy_std is null then 'info'
-        when p.arn is not null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
-        when p.arn is not null then title || ' publicly accessible.'
-        else title || ' not publicly accessible.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_s3_bucket as b
-      left join public_buckets as p on p.arn = b.arn;
   EOQ
 }
 

@@ -90,7 +90,6 @@ control "waf_regional_web_acl_rule_attached" {
   query       = query.waf_regional_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
     nist_csf               = "true"
   })
 }
@@ -111,24 +110,6 @@ query "waf_rule_condition_attached" {
       ${local.common_dimensions_sql}
     from
       aws_waf_rule;
-  EOQ
-}
-
-query "waf_regional_rule_condition_attached" {
-  sql = <<-EOQ
-    select
-      rule_id as resource,
-      case
-        when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
-        else title || ' has attached conditions.'
-      end as reason
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_rule;
   EOQ
 }
 
@@ -170,25 +151,6 @@ query "waf_web_acl_rule_attached" {
   EOQ
 }
 
-query "waf_web_acl_resource_associated" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(resources) > 0 then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when jsonb_array_length(resources) > 0 then title || ' associated with AWS resource(s).'
-        else title || ' not assoicated with AWS resource.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_web_acl;
-  EOQ
-}
-
 query "waf_web_acl_logging_enabled" {
   sql = <<-EOQ
     select
@@ -211,7 +173,7 @@ query "waf_web_acl_logging_enabled" {
 query "waf_regional_rule_condition_attached" {
   sql = <<-EOQ
     select
-      akas as resource,
+      rule_id as resource,
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
         else 'ok'
@@ -223,25 +185,6 @@ query "waf_regional_rule_condition_attached" {
       ${local.common_dimensions_sql}
     from
       aws_wafregional_rule;
-  EOQ
-}
-
-query "waf_web_acl_resource_associated" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(resources) > 0 then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when jsonb_array_length(resources) > 0 then title || ' associated with AWS resource(s).'
-        else title || ' not associated with AWS resource.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_web_acl;
   EOQ
 }
 
@@ -261,6 +204,25 @@ query "waf_regional_rule_group_rule_attached" {
       ${local.common_dimensions_sql}
     from
       aws_wafregional_rule_group;
+  EOQ
+}
+
+query "waf_web_acl_resource_associated" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(resources) > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when jsonb_array_length(resources) > 0 then title || ' associated with AWS resource(s).'
+        else title || ' not assoicated with AWS resource.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafregional_web_acl;
   EOQ
 }
 

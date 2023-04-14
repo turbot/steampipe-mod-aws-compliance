@@ -301,7 +301,7 @@ control "elb_classic_lb_desync_mitigation_mode" {
 }
 
 control "elb_classic_lb_multiple_az_configured" {
-  title       = "Classic Load Balancers should span multiple Availability Zones"
+  title       = "ELB classic load balancers should span multiple availability zones"
   description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
   query       = query.elb_classic_lb_multiple_az_configured
 
@@ -311,7 +311,7 @@ control "elb_classic_lb_multiple_az_configured" {
 }
 
 control "elb_application_gateway_network_lb_multiple_az_configured" {
-  title       = "Application, Network, and Gateway Load Balancers should span multiple Availability Zones"
+  title       = "ELB application, network, and gateway load balancers should span multiple availability zones"
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 

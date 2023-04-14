@@ -265,8 +265,7 @@ control "ec2_instance_virtualization_type_no_paravirtual" {
   query       = query.ec2_instance_virtualization_type_no_paravirtual
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf     = "true"
-    other_checks = "true"
+    nist_csf = "true"
   })
 }
 

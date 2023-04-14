@@ -74,7 +74,7 @@ control "ecs_task_definition_logging_enabled" {
 }
 
 control "ecs_cluster_container_insights_enabled" {
-  title       = "ECS clusters should have Container Insights enabled"
+  title       = "ECS clusters should have container insights enabled"
   description = "This control checks if ECS clusters use Container Insights. This control fails if Container Insights are not set up for a cluster."
   query       = query.ecs_cluster_container_insights_enabled
 
@@ -124,7 +124,7 @@ control "ecs_task_definition_no_host_pid_mode" {
 }
 
 control "ecs_service_fargate_using_latest_platform_version" {
-  title       = "Fargate services should run on the latest Fargate platform version"
+  title       = "ECS fargate services should run on the latest fargate platform version"
   description = "This control checks if Amazon ECS Fargate services are running the latest Fargate platform version. This control fails if the platform version is not the latest."
   query       = query.ecs_service_fargate_using_latest_platform_version
 
