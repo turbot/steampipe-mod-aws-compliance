@@ -10,11 +10,12 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gdpr         = "true"
-    hipaa        = "true"
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
-    soc_2        = "true"
+    gdpr                                   = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -81,7 +82,6 @@ control "cloudfront_distribution_logging_enabled" {
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     cis_controls_v8_ig1 = "true"
-    cis_controls_v8_ig1 = "true"
     nist_csf            = "true"
   })
 }
@@ -90,16 +90,6 @@ control "cloudfront_distribution_sni_enabled" {
   title       = "CloudFront distributions should use SNI to serve HTTPS requests"
   description = "This control checks if Amazon CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
   query       = query.cloudfront_distribution_sni_enabled
-
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
-  })
-}
-
-control "cloudfront_distribution_waf_enabled" {
-  title       = "CloudFront distributions should have AWS WAF enabled"
-  description = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
-  query       = query.cloudfront_distribution_waf_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     nist_csf = "true"
@@ -152,7 +142,10 @@ control "cloudfront_distribution_origin_access_identity_enabled" {
   query       = query.cloudfront_distribution_origin_access_identity_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
+    nist_csf                               = "true"
+    cis_controls_v8_ig1                    = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
   })
 }
 

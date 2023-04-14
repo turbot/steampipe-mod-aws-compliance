@@ -10,11 +10,12 @@ control "dax_cluster_encryption_at_rest_enabled" {
   query       = query.dax_cluster_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_dax_common_tags, {
-    gdpr            = "true"
-    gxp_eu_annex_11 = "true"
-    hipaa           = "true"
-    nist_csf        = "true"
-    pci_dss_v321    = "true"
+    gdpr                                   = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 

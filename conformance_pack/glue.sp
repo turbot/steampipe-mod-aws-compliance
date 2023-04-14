@@ -17,7 +17,7 @@ control "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
 control "glue_dev_endpoint_job_bookmarks_encryption_enabled" {
   title       = "Glue dev endpoints job bookmark encryption should be enabled"
   description = "Ensure Glue dev endpoints have job bookmark encryption enabled to protect sensitive information at rest."
-  query       = query.glue_dev_endpoint_job_bookmark_encryption_enabled
+  query       = query.glue_dev_endpoint_job_bookmarks_encryption_enabled
 
   tags = merge(local.conformance_pack_glue_common_tags, {
     other_checks = "true"
@@ -83,7 +83,7 @@ query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   EOQ
 }
 
-query "glue_dev_endpoint_job_bookmark_encryption_enabled" {
+query "glue_dev_endpoint_job_bookmarks_encryption_enabled" {
   sql = <<-EOQ
     select
       e.arn as resource,

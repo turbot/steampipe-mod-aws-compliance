@@ -10,10 +10,12 @@ control "opensearch_domain_encryption_at_rest_enabled" {
   query       = query.opensearch_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_csf           = "true"
-    pci_dss_v321       = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
@@ -54,20 +56,22 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
 
 control "opensearch_domain_https_required" {
   title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the Amazon OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_csf           = "true"
-    pci_dss_v321       = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
 control "opensearch_domain_audit_logging_enabled" {
-  title       = "OpenSearch domains should have audit logging enabled"
-  description = "This control checks whether Amazon OpenSearch Service domains have audit logging enabled. The rule is non compliant if an OpenSearch Service domain does not have audit logging enabled."
+  title       = "OpenSearch domains should have audit logging enabled."
+  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -81,9 +85,8 @@ control "opensearch_domain_audit_logging_enabled" {
 
 control "opensearch_domain_logs_to_cloudwatch" {
   title       = "OpenSearch domains logs to Amazon CloudWatch Logs"
-  description = "This control checks whether Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is non compliant if logging is not configured."
+  description = "This control checks whether Amazon OpenSearch Service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
-
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     gxp_21_cfr_part_11 = "true"
@@ -94,6 +97,30 @@ control "opensearch_domain_logs_to_cloudwatch" {
   })
 }
 
+control "opensearch_domain_node_to_node_encryption_enabled" {
+  title       = "OpenSearch domains node-to-node encryption should be enabled"
+  description = "This control checks if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  query       = query.opensearch_domain_node_to_node_encryption_enabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+  })
+}
+
+control "opensearch_domain_in_vpc" {
+  title       = "OpenSearch domains should be in a VPC"
+  description = "This control checks whether Amazon OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
+  query       = query.opensearch_domain_in_vpc
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+  })
+}
+
 query "opensearch_domain_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -101,11 +128,11 @@ query "opensearch_domain_encryption_at_rest_enabled" {
       case
         when encryption_at_rest_options ->> 'Enabled' = 'false' then 'alarm'
         else 'ok'
-      end as status,
+      end status,
       case
-        when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
+        when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest disabled.'
         else title || ' encryption at rest enabled.'
-      end as reason
+      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
