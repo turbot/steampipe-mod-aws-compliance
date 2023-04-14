@@ -75,10 +75,10 @@ benchmark "nist_csf_rs_rp_1" {
   description = "Response plan is executed during or after an incident."
 
   children = [
-    control.backup_recovery_point_min_retention_35_days,
     control.backup_plan_min_retention_35_days,
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_recovery_point_min_retention_35_days,
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,

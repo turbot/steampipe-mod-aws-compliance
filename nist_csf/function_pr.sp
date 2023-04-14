@@ -286,22 +286,22 @@ benchmark "nist_csf_pr_ds_1" {
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
-    control.eks_cluster_secrets_encrypted,
     control.ebs_attached_volume_encryption_enabled,
+    control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,
+    control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
-    control.kms_key_not_pending_deletion,
     control.kinesis_stream_server_side_encryption_enabled,
+    control.kms_key_not_pending_deletion,
     control.log_group_encryption_at_rest_enabled,
     control.opensearch_domain_encryption_at_rest_enabled,
-    control.rds_db_snapshot_encrypted_at_rest,
     control.rds_db_instance_encryption_at_rest_enabled,
+    control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
     control.redshift_cluster_kms_enabled,
     control.s3_bucket_default_encryption_enabled,
-    control.s3_bucket_object_lock_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_object_lock_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk
@@ -354,10 +354,9 @@ benchmark "nist_csf_pr_ds_4" {
   description = "Adequate capacity to ensure availability is maintained."
 
   children = [
-    control.autoscaling_group_with_lb_use_health_check,
     control.autoscaling_group_multiple_az_configured,
+    control.autoscaling_group_with_lb_use_health_check,
     control.autoscaling_use_multiple_instance_types_in_multiple_az,
-    control.elb_classic_lb_multiple_az_configured,
     control.cloudfront_distribution_configured_with_origin_failover,
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_in_backup_plan,
@@ -366,23 +365,24 @@ benchmark "nist_csf_pr_ds_4" {
     control.ec2_instance_ebs_optimized,
     control.efs_file_system_in_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
-    control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.elb_application_gateway_network_lb_multiple_az_configured,
     control.elb_application_lb_deletion_protection_enabled,
+    control.elb_classic_lb_cross_zone_load_balancing_enabled,
+    control.elb_classic_lb_multiple_az_configured,
     control.lambda_function_multiple_az_configured,
     control.rds_db_cluster_deletion_protection_enabled,
+    control.rds_db_cluster_multiple_az_enabled,
     control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.rds_db_instance_backup_enabled,
-    control.rds_db_cluster_multiple_az_enabled,
-    control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_deletion_protection_enabled,
+    control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_multiple_az_enabled,
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.redshift_cluster_maintenance_settings_check,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
     control.s3_bucket_lifecycle_policy_enabled,
     control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_enabled,
     control.vpc_vpn_tunnel_up
   ]
 
@@ -447,9 +447,9 @@ benchmark "nist_csf_pr_ds_7" {
 
   children = [
     control.cloudtrail_security_trail_enabled,
+    control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
-    control.ebs_volume_unused,
     control.elb_application_lb_deletion_protection_enabled,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_security_group_restrict_ingress_common_ports_all
@@ -523,10 +523,10 @@ benchmark "nist_csf_pr_ip_1" {
     control.redshift_cluster_no_default_database_name,
     control.s3_bucket_policy_restricts_cross_account_permission_changes,
     control.ssm_managed_instance_compliance_association_compliant,
+    control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_resource_associated,
-    control.waf_regional_web_acl_rule_attached
+    control.waf_web_acl_resource_associated
   ]
 
   tags = local.nist_csf_common_tags
@@ -565,21 +565,21 @@ benchmark "nist_csf_pr_ip_4" {
   description = "Backups of information are conducted, maintained, and tested periodically."
 
   children = [
-    control.rds_db_cluster_aurora_backtracking_enabled,
     control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_volume_in_backup_plan,
     control.ec2_instance_ebs_optimized,
     control.efs_file_system_in_backup_plan,
-    control.dynamodb_table_point_in_time_recovery_enabled,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.redshift_cluster_maintenance_settings_check,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_versioning_enabled,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = local.nist_csf_common_tags
@@ -827,7 +827,7 @@ benchmark "nist_csf_pr_pt_4" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.waf_regional_rule_condition_attached,
     control.waf_regional_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = local.nist_csf_common_tags

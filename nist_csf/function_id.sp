@@ -43,8 +43,8 @@ benchmark "nist_csf_id_am_2" {
 
   children = [
     control.ec2_instance_ssm_managed,
-    control.ssm_managed_instance_compliance_association_compliant,
     control.ec2_stopped_instance_30_days,
+    control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_eip_associated,
     control.vpc_network_acl_unused
   ]
@@ -192,7 +192,7 @@ benchmark "nist_csf_id_ra_1" {
     control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.securityhub_enabled,
     control.ssm_managed_instance_compliance_patch_compliant,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags

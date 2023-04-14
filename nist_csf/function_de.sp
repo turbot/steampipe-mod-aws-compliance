@@ -28,22 +28,22 @@ benchmark "nist_csf_de_ae_1" {
   title       = "DE.AE-1"
   description = "A baseline of network operations and expected data flows for users and systems is established and managed."
   children = [
-    control.apigateway_stage_use_waf_web_acl,
     control.apigateway_stage_logging_enabled,
+    control.apigateway_stage_use_waf_web_acl,
+    control.cloudfront_distribution_logging_enabled,
+    control.cloudfront_distribution_sni_enabled,
+    control.cloudfront_distribution_waf_enabled,
     control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.cloudfront_distribution_logging_enabled,
-    control.cloudfront_distribution_waf_enabled,
-    control.cloudfront_distribution_sni_enabled,
-    control.cloudtrail_s3_data_events_enabled,
     control.codebuild_project_logging_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.ec2_instance_not_use_multiple_enis,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
     control.ecs_cluster_container_insights_enabled,
-    control.es_domain_logs_to_cloudwatch,
     control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
     control.lambda_function_concurrent_execution_limit_configured,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,
@@ -51,21 +51,21 @@ benchmark "nist_csf_de_ae_1" {
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
     control.redshift_cluster_audit_logging_enabled,
-    control.s3_bucket_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_event_notifications_enabled,
+    control.s3_bucket_logging_enabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_flow_logs_enabled,
     control.vpc_network_acl_remote_administration,
     control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_security_group_allows_ingress_authorized_ports,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.waf_web_acl_logging_enabled,
-    control.waf_web_acl_rule_attached,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.waf_regional_rule_condition_attached,
     control.waf_regional_rule_group_rule_attached,
+    control.waf_web_acl_logging_enabled,
+    control.waf_web_acl_rule_attached,
     control.wafv2_web_acl_logging_enabled
   ]
 
@@ -89,15 +89,15 @@ benchmark "nist_csf_de_ae_3" {
   description = "Event data are collected and correlated from multiple sources and sensors."
   children = [
     control.apigateway_stage_logging_enabled,
+    control.cloudfront_distribution_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.cloudfront_distribution_logging_enabled,
-    control.codebuild_project_logging_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.es_domain_logs_to_cloudwatch,
+    control.codebuild_project_logging_enabled,
     control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
     control.guardduty_enabled,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,
@@ -170,8 +170,8 @@ benchmark "nist_csf_de_cm_1" {
     control.cloudtrail_trail_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
-    control.s3_bucket_logging_enabled,
     control.s3_bucket_event_notifications_enabled,
+    control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled
   ]
@@ -211,7 +211,7 @@ benchmark "nist_csf_de_cm_2" {
     control.log_metric_filter_vpc,
     control.rds_db_instance_and_cluster_enhanced_monitoring_enabled,
     control.securityhub_enabled,
-    control.vpc_flow_logs_enabled,
+    control.vpc_flow_logs_enabled
   ]
 
   tags = local.nist_csf_common_tags
