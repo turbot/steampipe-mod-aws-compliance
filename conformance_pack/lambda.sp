@@ -252,13 +252,13 @@ query "lambda_function_cloudtrail_logging_enabled" {
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:lambda' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then 'ok'
+          or a.cloudtrail_region = l.region then 'ok'
         else 'alarm'
       end as status,
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:s3' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then l.name || ' logging enabled.'
+          or a.cloudtrail_region = l.region then l.name || ' logging enabled.'
         else l.name || ' logging not enabled.'
       end as reason
       ${local.tag_dimensions_sql}
@@ -319,7 +319,7 @@ query "lambda_function_multiple_az_configured" {
       arn as resource,
       case
         when vpc_id is null then 'skip'
-        when vpc_id = ''  then 'skip'
+        when vpc_id = '' then 'skip'
         else case
           when
           (
