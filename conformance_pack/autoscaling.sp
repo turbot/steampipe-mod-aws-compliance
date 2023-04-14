@@ -66,8 +66,8 @@ control "autoscaling_group_no_suspended_process" {
 }
 
 control "autoscaling_group_multiple_az_configured" {
-  title       = "Amazon EC2 Auto Scaling group should cover multiple Availability Zones"
-  description = "This control checks whether an Auto Scaling group spans multiple Availability Zones. The control fails if an Auto Scaling group does not span multiple availability zones."
+  title       = "EC2 auto scaling group should cover multiple availability zones"
+  description = "This control checks whether an auto scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
   query       = query.autoscaling_group_multiple_az_configured
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -76,7 +76,7 @@ control "autoscaling_group_multiple_az_configured" {
 }
 
 control "autoscaling_use_multiple_instance_types_in_multiple_az" {
-  title       = "Auto Scaling groups should use multiple instance types in multiple Availability Zones"
+  title       = "EC2 auto scaling groups should use multiple instance types in multiple availability zones"
   description = "This control checks whether an Amazon EC2 Auto Scaling group uses multiple instance types. The control fails if the Auto Scaling group has only one instance type defined."
   query       = query.autoscaling_use_multiple_instance_types_in_multiple_az
 
@@ -86,7 +86,7 @@ control "autoscaling_use_multiple_instance_types_in_multiple_az" {
 }
 
 control "autoscaling_launch_config_hop_limit" {
-  title       = "Auto Scaling group launch configuration should not have metadata response hop limit greater than 1"
+  title       = "EC2 auto scaling group launch configuration should not have metadata response hop limit greater than 1"
   description = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
   query       = query.autoscaling_launch_config_hop_limit
 

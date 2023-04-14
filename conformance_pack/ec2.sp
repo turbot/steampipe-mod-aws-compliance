@@ -53,7 +53,7 @@ control "ec2_instance_not_use_multiple_enis" {
 }
 
 control "ec2_instance_no_amazon_key_pair" {
-  title       = "27 Running EC2 Instances should not use key pairs"
+  title       = "EC2 instances should not use key pairs in running state"
   description = "This control checks whether running EC2 instances are using key pairs. The control fails if a running EC2 instance uses a key pair."
   query       = query.ec2_instance_no_amazon_key_pair
 

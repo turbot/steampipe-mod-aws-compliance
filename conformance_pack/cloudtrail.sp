@@ -193,7 +193,7 @@ control "cloudtrail_bucket_not_public" {
 }
 
 control "cloudtrail_multi_region_read_write_enabled" {
-  title       = "Ensure CloudTrail is enabled in all regions"
+  title       = "CloudTrail trails should be enabled in all regions"
   description = "AWS CloudTrail is a web service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service. CloudTrail provides a history of AWS API calls for an account, including API calls made via the Management Console, SDKs, command line tools, and higher-level AWS services (such as CloudFormation)."
   query       = query.cloudtrail_multi_region_read_write_enabled
 
