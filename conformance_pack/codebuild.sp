@@ -120,17 +120,6 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   })
 }
 
-control "codebuild_project_s3_logs_encryption_enabled" {
-  title       = "CodeBuild project S3 logs should be encrypted"
-  description = "This control checks if S3 logs for a CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
-  query       = query.codebuild_project_s3_logs_encryption_enabled
-
-  tags = merge(local.conformance_pack_codebuild_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
-  })
-}
-
 query "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   sql = <<-EOQ
     with invalid_key_name as (
