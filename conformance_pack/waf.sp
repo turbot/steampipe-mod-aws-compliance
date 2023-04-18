@@ -67,9 +67,7 @@ control "waf_regional_rule_group_rule_attached" {
   query       = query.waf_regional_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    audit_manager_pci_v321 = "true"
     nist_csf               = "true"
-    well_architected       = "true"
   })
 }
 

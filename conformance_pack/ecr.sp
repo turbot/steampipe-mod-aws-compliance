@@ -36,8 +36,8 @@ control "ecr_repository_tag_immutability_enabled" {
 }
 
 control "ecr_repository_lifecycle_policy_configured" {
-  title       = "ECR repositories should have at least one lifecycle policy configured"
-  description = "This control checks whether an Amazon ECR repository has at least one lifecycle policy configured. This control fails if an ECR repository does not have any lifecycle policies configured."
+  title       = "ECR repositories should have lifecycle policies configured"
+  description = "This control checks if ECR repositories have lifecycle policy configured. This rule fails if ECR repository lifecycle policy is not enabled."
   query       = query.ecr_repository_lifecycle_policy_configured
 
   tags = merge(local.conformance_pack_ecr_common_tags, {

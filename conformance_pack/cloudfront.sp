@@ -81,8 +81,10 @@ control "cloudfront_distribution_logging_enabled" {
   query       = query.cloudfront_distribution_logging_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    cis_controls_v8_ig1 = "true"
-    nist_csf            = "true"
+    cis_controls_v8_ig1                    = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
   })
 }
 
