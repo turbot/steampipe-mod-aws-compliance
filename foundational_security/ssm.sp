@@ -10,7 +10,8 @@ benchmark "foundational_security_ssm" {
   children = [
     control.foundational_security_ssm_1,
     control.foundational_security_ssm_2,
-    control.foundational_security_ssm_3
+    control.foundational_security_ssm_3,
+    control.foundational_security_ssm_4
   ]
 
   tags = merge(local.foundational_security_ssm_common_tags, {
