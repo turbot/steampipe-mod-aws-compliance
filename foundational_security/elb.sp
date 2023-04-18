@@ -9,7 +9,7 @@ benchmark "foundational_security_elb" {
   documentation = file("./foundational_security/docs/foundational_security_elb.md")
   children = [
     control.foundational_security_elb_1,
-    control.foundational_security_elb_2
+    control.foundational_security_elb_2,
     control.foundational_security_elb_3,
     control.foundational_security_elb_4,
     control.foundational_security_elb_5,

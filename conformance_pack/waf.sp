@@ -242,3 +242,40 @@ query "waf_regional_web_acl_rule_attached" {
       aws_wafregional_web_acl;
   EOQ
 }
+query "waf_regional_web_acl_rule_attached" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when rules is null or jsonb_array_length(rules) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
+        else title || ' has attached rules.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafregional_web_acl;
+  EOQ
+}
+
+query "waf_regional_rule_group_rule_attached" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
+        else title || ' has attached rules.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafregional_rule_group;
+  EOQ
+}
