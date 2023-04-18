@@ -294,3 +294,22 @@ query "opensearch_domain_in_vpc" {
       on d.arn = p.arn;
   EOQ
 }
+
+query "opensearch_data_node_fault_tolerance" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then title || ' is configured with at least three data nodes.'
+        else title || ' is not configured with at least three data nodes.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}

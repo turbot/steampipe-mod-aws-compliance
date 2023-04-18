@@ -13,6 +13,7 @@ benchmark "foundational_security_opensearch" {
     control.foundational_security_opensearch_3,
     control.foundational_security_opensearch_4,
     control.foundational_security_opensearch_5,
+    control.foundational_security_opensearch_6,
     control.foundational_security_opensearch_7,
     control.foundational_security_opensearch_8
   ]
@@ -84,6 +85,19 @@ control "foundational_security_opensearch_5" {
   tags = merge(local.foundational_security_opensearch_common_tags, {
     foundational_security_item_id  = "opensearch_5"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_opensearch_6" {
+  title         = "6 OpenSearch domains should have at least three data nodes"
+  description   = "This control checks whether OpenSearch domains are configured with at least three data nodes and zoneAwarenessEnabled is true. This control fails for an OpenSearch domain if instanceCount is less than 3 or zoneAwarenessEnabled is false."
+  severity      = "medium"
+  query         = query.opensearch_data_node_fault_tolerance
+  documentation = file("./foundational_security/docs/foundational_security_opensearch_6.md")
+
+  tags = merge(local.foundational_security_opensearch_common_tags, {
+    foundational_security_item_id  = "opensearch_6"
+    foundational_security_category = "resilience"
   })
 }
 
