@@ -94,6 +94,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
   })
 }
 

@@ -239,7 +239,6 @@ control "s3_public_access_block_bucket_account" {
     ffiec                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
-    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -281,6 +280,7 @@ control "s3_public_access_block_bucket" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -316,6 +316,7 @@ control "s3_bucket_policy_restrict_public_access" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf = "true"
   })
 }
 

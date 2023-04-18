@@ -190,7 +190,6 @@ control "vpc_security_group_associated_to_eni" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
-    nist_csf            = "true"
     soc_2               = "true"
   })
 }

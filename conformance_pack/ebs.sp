@@ -104,7 +104,6 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     nist_800_53_rev_4           = "true"
-    nist_csf                    = "true"
   })
 }
 

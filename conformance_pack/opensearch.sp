@@ -14,7 +14,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
-    nist_csf           = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -40,7 +40,7 @@ control "opensearch_domain_https_required" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
-    nist_csf           = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }

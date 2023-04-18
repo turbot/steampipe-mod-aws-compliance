@@ -286,6 +286,7 @@ control "elb_application_lb_desync_mitigation_mode" {
   query       = query.elb_application_lb_desync_mitigation_mode
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
