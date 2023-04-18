@@ -237,10 +237,9 @@ query "waf_regional_web_acl_rule_attached" {
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
         else title || ' has attached rules.'
-      end as reason,
-      -- Additional Dimensions
-      region,
-      account_id
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_wafregional_web_acl;
   EOQ
