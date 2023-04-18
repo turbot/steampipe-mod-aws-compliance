@@ -56,3 +56,15 @@ control "foundational_security_ssm_3" {
     foundational_security_category = "detection_services"
   })
 }
+
+control "foundational_security_ssm_4" {
+  title         = "4 This control checks whether AWS Systems Manager documents that are owned by the account are public. This control fails if SSM documents with the owner Self are public."
+  severity      = "critical"
+  query         = query.ssm_document_not_public
+  documentation = file("./foundational_security/docs/foundational_security_ssm_4.md")
+
+  tags = merge(local.foundational_security_ssm_common_tags, {
+    foundational_security_item_id  = "ssm_4"
+    foundational_security_category = "secure_network_configuration"
+  })
+}

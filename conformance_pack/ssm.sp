@@ -142,3 +142,24 @@ query "ssm_managed_instance_compliance_patch_compliant" {
       and c.compliance_type = 'Patch';
   EOQ
 }
+
+query "ssm_document_not_public" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':::' || account_id as resource,
+      case
+        when account_ids :: jsonb ? 'all' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when account_ids :: jsonb ? 'all' then title || ' owned by the account is publicly accesible.'
+        else title || ' owned by the account is not publicly accesible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_document
+    where
+      owner_type = 'Self';
+  EOQ
+}
