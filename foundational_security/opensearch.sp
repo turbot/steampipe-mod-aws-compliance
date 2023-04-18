@@ -13,7 +13,8 @@ benchmark "foundational_security_opensearch" {
     control.foundational_security_opensearch_3,
     control.foundational_security_opensearch_4,
     control.foundational_security_opensearch_5,
-    control.foundational_security_opensearch_7
+    control.foundational_security_opensearch_7,
+    control.foundational_security_opensearch_8
   ]
 
   tags = merge(local.foundational_security_opensearch_common_tags, {
@@ -96,5 +97,18 @@ control "foundational_security_opensearch_7" {
   tags = merge(local.foundational_security_opensearch_common_tags, {
     foundational_security_item_id  = "opensearch_7"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_opensearch_8" {
+  title         = "8 Connections to OpenSearch domains should be encrypted using TLS 1.2"
+  description   = "This control checks whether connections to OpenSearch domains are required to use TLS 1.2. The check fails if the OpenSearch domain TLSSecurityPolicy is not Policy-Min-TLS-1-2-2019-07."
+  severity      = "medium"
+  query         = query.opensearch_domain_https_required
+  documentation = file("./foundational_security/docs/foundational_security_opensearch_8.md")
+
+  tags = merge(local.foundational_security_opensearch_common_tags, {
+    foundational_security_item_id  = "opensearch_8"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
