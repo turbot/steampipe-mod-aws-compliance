@@ -1,3 +1,3 @@
 ## Overview
 
-These controls are related to ElastiCache resources.
+This section contains recommendations for configuring AWS ElastiCache resources and options.
