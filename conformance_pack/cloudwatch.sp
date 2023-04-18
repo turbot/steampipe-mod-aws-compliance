@@ -1055,3 +1055,20 @@ query "log_metric_filter_organization" {
       left join filter_data as f on a.account_id = f.account_id;
   EOQ
 }
+
+query "cloudwatch_alarm_action_enabled_check" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when actions_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when actions_enabled then title || ' alarm actions are enabled.'
+        else title || ' alarm actions are disabled.'
+      end as reason
+    from
+      aws_cloudwatch_alarm;
+  EOQ
+}

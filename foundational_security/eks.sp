@@ -8,11 +8,25 @@ benchmark "foundational_security_eks" {
   title         = "EKS"
   documentation = file("./foundational_security/docs/foundational_security_eks.md")
   children = [
+    control.foundational_security_eks_1,
     control.foundational_security_eks_2
   ]
 
   tags = merge(local.foundational_security_eks_common_tags, {
     type = "Benchmark"
+  })
+}
+
+control "foundational_security_eks_1" {
+  title         = "1 EKS cluster endpoints should not be publicly accessible"
+  description   = "This control checks whether an Amazon EKS cluster endpoint is publicly accessible. The control fails if an EKS cluster has an endpoint that is publicly accessible."
+  severity      = "high"
+  query         = query.eks_cluster_with_latest_kubernetes_version
+  documentation = file("./foundational_security/docs/foundational_security_eks_1.md")
+
+  tags = merge(local.foundational_security_eks_common_tags, {
+    foundational_security_item_id  = "eks_1"
+    foundational_security_category = "resource_not_publicly_accessible"
   })
 }
 

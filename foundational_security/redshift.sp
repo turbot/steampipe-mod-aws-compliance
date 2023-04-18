@@ -15,7 +15,8 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_6,
     control.foundational_security_redshift_7,
     control.foundational_security_redshift_8,
-    control.foundational_security_redshift_9
+    control.foundational_security_redshift_9,
+    control.foundational_security_redshift_10
   ]
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -124,5 +125,18 @@ control "foundational_security_redshift_9" {
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_9"
     foundational_security_category = "resource_configuration"
+  })
+}
+
+control "foundational_security_redshift_10" {
+  title         = "10 Redshift clusters should be encrypted at rest"
+  description   = "This control checks if Amazon Redshift clusters are encrypted at rest. The control fails if a Redshift cluster isn't encrypted at rest or if the encryption key is different from the provided key in the rule parameter."
+  severity      = "medium"
+  query         = query.redshift_cluster_kms_enabled
+  documentation = file("./foundational_security/docs/foundational_security_redshift_10.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_10"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }

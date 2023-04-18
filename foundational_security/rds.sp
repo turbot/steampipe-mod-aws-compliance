@@ -18,6 +18,7 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_8,
     control.foundational_security_rds_9,
     control.foundational_security_rds_10,
+    control.foundational_security_rds_11,
     control.foundational_security_rds_12,
     control.foundational_security_rds_13,
     control.foundational_security_rds_14,
@@ -166,6 +167,19 @@ control "foundational_security_rds_10" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_10"
     foundational_security_category = "passwordless_aauthentication"
+  })
+}
+
+control "foundational_security_rds_11" {
+  title         = "11 RDS instances should have automatic backups enabled"
+  description   = "This control checks whether Amazon Relational Database Service instances have automated backups enabled and the backup retention period is greater than or equal to seven days. The control fails if backups are not enabled, and if the retention period is less than 7 days."
+  severity      = "medium"
+  query         = query.rds_db_instance_backup_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_11.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_11"
+    foundational_security_category = "resilience"
   })
 }
 
