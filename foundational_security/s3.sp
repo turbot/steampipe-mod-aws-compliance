@@ -18,7 +18,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_9,
     control.foundational_security_s3_10,
     control.foundational_security_s3_11,
-    control.foundational_security_s3_12
+    control.foundational_security_s3_12,
+    control.foundational_security_s3_13
   ]
 
   tags = merge(local.foundational_security_s3_common_tags, {
@@ -169,11 +170,11 @@ control "foundational_security_s3_12" {
   })
 }
 
-control "foundational_security_s3_12" {
+control "foundational_security_s3_13" {
   title         = "13 S3 buckets should have lifecycle policies configured"
   description   = "This control checks if a lifecycle policy is configured for an Amazon S3 bucket. This control fails if a lifecycle policy is not configured for an S3 bucket."
   severity      = "low"
-  query         = query.s3_bucket_acls_should_prohibit_user_access
+  query         = query.s3_bucket_lifecycle_policy_enabled
   documentation = file("./foundational_security/docs/foundational_security_s3_13.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {
