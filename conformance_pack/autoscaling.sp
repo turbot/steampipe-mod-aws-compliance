@@ -66,8 +66,8 @@ control "autoscaling_group_no_suspended_process" {
 }
 
 control "autoscaling_group_multiple_az_configured" {
-  title       = "EC2 auto scaling group should cover multiple availability zones"
-  description = "This control checks whether an auto scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
+  title       = "EC2 auto scaling groups should cover multiple availability zones"
+  description = "This control checks whether an Amazon EC2 Auto Scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
   query       = query.autoscaling_group_multiple_az_configured
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -86,7 +86,7 @@ control "autoscaling_use_multiple_instance_types_in_multiple_az" {
 }
 
 control "autoscaling_launch_config_hop_limit" {
-  title       = "EC2 auto scaling group launch configuration should not have metadata response hop limit greater than 1"
+  title       = "EC2 auto scaling group launch configurations should not have metadata response hop limit greater than 1"
   description = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
   query       = query.autoscaling_launch_config_hop_limit
 

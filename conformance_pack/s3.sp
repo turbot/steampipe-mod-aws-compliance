@@ -359,7 +359,7 @@ control "s3_bucket_event_notifications_enabled" {
 }
 
 control "s3_bucket_acls_should_prohibit_user_access" {
-  title       = "S3 access control lists (ACLs) should not be used to manage user access to buckets"
+  title       = "S3 buckets access control lists (ACLs) should not be used to manage user access to buckets"
   description = "This control checks whether Amazon S3 buckets provide user permissions via ACLs. The control fails if ACLs are configured for managing user access on S3 buckets."
   query       = query.s3_bucket_acls_should_prohibit_user_access
 

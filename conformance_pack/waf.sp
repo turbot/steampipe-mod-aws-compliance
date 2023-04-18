@@ -45,8 +45,8 @@ control "waf_web_acl_logging_enabled" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
@@ -67,7 +67,7 @@ control "waf_regional_rule_group_rule_attached" {
   query       = query.waf_regional_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    nist_csf               = "true"
+    nist_csf = "true"
   })
 }
 
@@ -88,7 +88,7 @@ control "waf_regional_web_acl_rule_attached" {
   query       = query.waf_regional_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    nist_csf               = "true"
+    nist_csf = "true"
   })
 }
 
