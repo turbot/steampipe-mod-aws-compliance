@@ -49,7 +49,7 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
 
 # Non Config Rules
 
-query "elasticache_subnet_group_check" {
+query "elasticache_cluster_no_default_subnet_group" {
   sql = <<-EOQ
     select
       arn as resource,

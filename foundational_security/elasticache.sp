@@ -104,7 +104,7 @@ control "foundational_security_elasticache_7" {
   title         = "7 ElastiCache clusters should not use the default subnet group"
   description   = "This control checks if ElastiCache clusters are configured with a custom subnet group. The control fails for an ElastiCache cluster if CacheSubnetGroupName has the value default."
   severity      = "high"
-  query         = query.elasticache_subnet_group_check
+  query         = query.elasticache_cluster_no_default_subnet_group
   documentation = file("./foundational_security/docs/foundational_security_elasticache_7.md")
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
