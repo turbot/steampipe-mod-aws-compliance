@@ -97,7 +97,7 @@ query "elasticache_replication_group_redis_auth_enabled" {
   EOQ
 }
 
-query "elasticache_replication_group_encrypted_at_rest" {
+query "elasticache_replication_group_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
       arn as resource,

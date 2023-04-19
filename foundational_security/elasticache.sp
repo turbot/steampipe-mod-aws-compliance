@@ -65,7 +65,7 @@ control "foundational_security_elasticache_4" {
   title         = "4 ElastiCache for Redis replication groups should be encrypted at rest"
   description   = "This control checks if ElastiCache for Redis replication groups are encrypted at rest. This control fails if an ElastiCache for Redis replication group isn't encrypted at rest."
   severity      = "medium"
-  query         = query.elasticache_replication_group_encrypted_at_rest
+  query         = query.elasticache_replication_group_encryption_at_rest_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_4.md")
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
