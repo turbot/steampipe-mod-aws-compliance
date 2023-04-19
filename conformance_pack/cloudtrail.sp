@@ -534,8 +534,6 @@ query "cloudtrail_bucket_not_public" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "cloudtrail_multi_region_read_write_enabled" {
   sql = <<-EOQ
     with event_selectors_trail_details as (
@@ -575,6 +573,8 @@ query "cloudtrail_multi_region_read_write_enabled" {
       left join advanced_event_selectors_trail_details as ad on ad.account_id = a.account_id;
   EOQ
 }
+
+# Non-Config rule query
 
 query "cloudtrail_s3_object_read_events_audit_enabled" {
   sql = <<-EOQ

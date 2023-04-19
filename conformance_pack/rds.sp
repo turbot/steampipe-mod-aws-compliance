@@ -917,8 +917,6 @@ query "rds_db_cluster_no_default_admin_name" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "rds_db_cluster_aurora_backtracking_enabled" {
   sql = <<-EOQ
     select
@@ -939,6 +937,27 @@ query "rds_db_cluster_aurora_backtracking_enabled" {
       aws_rds_db_cluster;
   EOQ
 }
+
+query "rds_db_cluster_multiple_az_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when multi_az then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when multi_az then title || ' Multi-AZ enabled.'
+        else title || ' Multi-AZ disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+# Non-Config rule query
 
 query "rds_db_cluster_copy_tags_to_snapshot_enabled" {
   sql = <<-EOQ
@@ -976,25 +995,6 @@ query "rds_db_cluster_events_subscription" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_event_subscription;
-  EOQ
-}
-
-query "rds_db_cluster_multiple_az_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when multi_az then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when multi_az then title || ' Multi-AZ enabled.'
-        else title || ' Multi-AZ disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_cluster;
   EOQ
 }
 

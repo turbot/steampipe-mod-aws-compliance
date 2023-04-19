@@ -10,16 +10,17 @@ control "kms_key_not_pending_deletion" {
   query       = query.kms_key_not_pending_deletion
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 

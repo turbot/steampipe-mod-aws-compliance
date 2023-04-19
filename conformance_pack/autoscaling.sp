@@ -95,6 +95,24 @@ control "autoscaling_launch_config_hop_limit" {
   })
 }
 
+query "autoscaling_launch_config_requires_imdsv2" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_http_tokens = 'required' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when metadata_options_http_tokens = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
 query "autoscaling_group_with_lb_use_health_check" {
   sql = <<-EOQ
     select
@@ -153,8 +171,6 @@ query "autoscaling_group_no_suspended_process" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "autoscaling_group_multiple_az_configured" {
   sql = <<-EOQ
     select
@@ -168,63 +184,6 @@ query "autoscaling_group_multiple_az_configured" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_autoscaling_group;
-  EOQ
-}
-
-query "autoscaling_group_uses_ec2_launch_template" {
-  sql = <<-EOQ
-    select
-      autoscaling_group_arn as resource,
-      case
-        when launch_template_id is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when launch_template_id is not null then title || ' using an EC2 launch template.'
-        else title || ' not using an EC2 launch template.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_autoscaling_group;
-  EOQ
-}
-
-query "autoscaling_launch_config_hop_limit" {
-  sql = <<-EOQ
-    select
-      launch_configuration_arn as resource,
-      case
-        when metadata_options_put_response_hop_limit is null then 'ok'
-        when metadata_options_put_response_hop_limit > 1 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        --If you do not specify a value, the hop limit default is 1.
-        when metadata_options_put_response_hop_limit is null then title || ' metadata response hop limit set to default.'
-        else title || ' has a metadata response hop limit of ' || metadata_options_put_response_hop_limit || '.'
-      end as reason
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_launch_configuration;
-  EOQ
-}
-
-query "autoscaling_launch_config_requires_imdsv2" {
-  sql = <<-EOQ
-    select
-      launch_configuration_arn as resource,
-      case
-        when metadata_options_http_tokens = 'required' then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when metadata_options_http_tokens = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
-        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
-      end as reason
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_launch_configuration;
   EOQ
 }
 
@@ -269,5 +228,46 @@ query "autoscaling_use_multiple_instance_types_in_multiple_az" {
     from
       autoscaling_groups as a
       left join distinct_instance_types_count as b on a.autoscaling_group_arn = b.autoscaling_group_arn;
+  EOQ
+}
+
+query "autoscaling_launch_config_hop_limit" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when metadata_options_put_response_hop_limit is null then 'ok'
+        when metadata_options_put_response_hop_limit > 1 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        --If you do not specify a value, the hop limit default is 1.
+        when metadata_options_put_response_hop_limit is null then title || ' metadata response hop limit set to default.'
+        else title || ' has a metadata response hop limit of ' || metadata_options_put_response_hop_limit || '.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "autoscaling_group_uses_ec2_launch_template" {
+  sql = <<-EOQ
+    select
+      autoscaling_group_arn as resource,
+      case
+        when launch_template_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when launch_template_id is not null then title || ' using an EC2 launch template.'
+        else title || ' not using an EC2 launch template.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group;
   EOQ
 }

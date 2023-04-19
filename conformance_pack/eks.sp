@@ -175,8 +175,6 @@ query "eks_cluster_no_default_vpc" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "eks_cluster_with_latest_kubernetes_version" {
   sql = <<-EOQ
     select

@@ -306,6 +306,44 @@ query "ec2_instance_detailed_monitoring_enabled" {
   EOQ
 }
 
+query "ec2_instance_not_use_multiple_enis" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(network_interfaces) = 1 then 'ok'
+        else 'alarm'
+      end status,
+      title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
+      as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_no_amazon_key_pair" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when instance_state <> 'running' then 'skip'
+        when key_name is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
+        when key_name is null then title || ' not launched using amazon key pairs.'
+        else title || ' launched using amazon key pairs.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
 query "ec2_instance_in_vpc" {
   sql = <<-EOQ
     select
@@ -341,6 +379,46 @@ query "ec2_instance_not_publicly_accessible" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_no_high_level_finding_in_inspector_scan" {
+  sql = <<-EOQ
+    with severity_list as (
+      select
+        distinct title ,
+        a ->> 'Value' as instance_id
+      from
+        aws_inspector_finding,
+        jsonb_array_elements(attributes) as a
+      where
+        severity = 'High'
+        and asset_type = 'ec2-instance'
+        and a ->> 'Key' = 'INSTANCE_ID'
+      group by
+        a ->> 'Value',
+        title
+    ), ec2_istance_list as (
+      select
+        distinct instance_id
+      from
+        severity_list
+    )
+    select
+      arn as resource,
+      case
+        when l.instance_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
+        else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join ec2_istance_list as l on i.instance_id = l.instance_id;
   EOQ
 }
 
@@ -539,43 +617,19 @@ query "ec2_instance_no_launch_wizard_security_group" {
   EOQ
 }
 
-query "ec2_instance_no_high_level_finding_in_inspector_scan" {
+query "ec2_instance_virtualization_type_no_paravirtual" {
   sql = <<-EOQ
-    with severity_list as (
-      select
-        distinct title ,
-        a ->> 'Value' as instance_id
-      from
-        aws_inspector_finding,
-        jsonb_array_elements(attributes) as a
-      where
-        severity = 'High'
-        and asset_type = 'ec2-instance'
-        and a ->> 'Key' = 'INSTANCE_ID'
-      group by
-        a ->> 'Value',
-        title
-    ), ec2_istance_list as (
-      select
-        distinct instance_id
-      from
-        severity_list
-    )
     select
       arn as resource,
       case
-        when l.instance_id is null then 'ok'
-        else 'alarm'
+        when virtualization_type = 'paravirtual' then 'alarm'
+        else 'ok'
       end as status,
-      case
-        when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
-        else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
-      end as reason
+      title || ' virtualization type is ' || virtualization_type || '.' as reason
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_sql}
     from
-      aws_ec2_instance as i
-      left join ec2_istance_list as l on i.instance_id = l.instance_id;
+      aws_ec2_instance;
   EOQ
 }
 
@@ -600,44 +654,6 @@ query "ec2_classic_lb_connection_draining_enabled" {
   EOQ
 }
 
-query "ec2_instance_no_amazon_key_pair" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when instance_state <> 'running' then 'skip'
-        when key_name is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
-        when key_name is null then title || ' not launched using amazon key pairs.'
-        else title || ' launched using amazon key pairs.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
-query "ec2_instance_not_use_multiple_enis" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(network_interfaces) = 1 then 'ok'
-        else 'alarm'
-      end status,
-      title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
-      as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
 query "ec2_instance_termination_protection_enabled" {
   sql = <<-EOQ
     select
@@ -650,22 +666,6 @@ query "ec2_instance_termination_protection_enabled" {
         when disable_api_termination then instance_id || ' termination protection enabled.'
         else instance_id || ' termination protection disabled.'
       end reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
-query "ec2_instance_virtualization_type_no_paravirtual" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when virtualization_type = 'paravirtual' then 'alarm'
-        else 'ok'
-      end as status,
-      title || ' virtualization type is ' || virtualization_type || '.' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

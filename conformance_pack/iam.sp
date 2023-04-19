@@ -191,6 +191,7 @@ control "iam_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -238,6 +239,7 @@ control "iam_user_unused_credentials_90" {
   query       = query.iam_user_unused_credentials_90
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -344,7 +346,6 @@ control "iam_account_password_policy_strong" {
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     gdpr                  = "true"
-    nist_800_53_rev_4     = "true"
     pci_dss_v321          = "true"
   })
 }

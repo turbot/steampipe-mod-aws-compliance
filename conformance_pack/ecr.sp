@@ -103,27 +103,6 @@ query "ecr_repository_prohibit_public_access" {
   EOQ
 }
 
-query "ecr_repository_lifecycle_policy_configured" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when lifecycle_policy -> 'rules' is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when lifecycle_policy -> 'rules' is not null then title || ' lifecycle policy configured.'
-        else title || ' lifecycle policy not configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ecr_repository;
-  EOQ
-}
-
-# Non-Config rule query
-
 query "ecr_repository_tag_immutability_enabled" {
   sql = <<-EOQ
     select
@@ -135,6 +114,25 @@ query "ecr_repository_tag_immutability_enabled" {
       case
         when image_tag_mutability = 'IMMUTABLE' then title || ' tag immutability enabled.'
         else title || ' tag immutability disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecr_repository;
+  EOQ
+}
+
+query "ecr_repository_lifecycle_policy_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when lifecycle_policy -> 'rules' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when lifecycle_policy -> 'rules' is not null then title || ' lifecycle policy configured.'
+        else title || ' lifecycle policy not configured.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
