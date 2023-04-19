@@ -47,6 +47,8 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   EOQ
 }
 
+# Non Config Rules
+
 query "elasticache_subnet_group_check" {
   sql = <<-EOQ
     select
@@ -84,9 +86,11 @@ query "elasticache_replication_group_redis_auth_enabled" {
       end as status,
       case
         when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled is false then eg.title || ' have Redis AUTH disabled.'
-        when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then eg.title || ' RBAC is supported since version of its nodes is higher than 6.0.'
+        when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then eg.title || ' node version is higher than 6.0.'
         else eg.title || ' have Redis AUTH enabled.'
       end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "eg.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "eg.")}
     from
       aws_elasticache_replication_group as eg
       left join elasticache_cluster_node_version as v on eg.replication_group_id = v.replication_group_id;
@@ -102,8 +106,8 @@ query "elasticache_replication_group_encrypted_at_rest" {
         else 'alarm'
       end as status,
       case
-        when at_rest_encryption_enabled then title || ' encrypted at rest.'
-        else title || ' not  encrypted at rest.'
+        when at_rest_encryption_enabled then title || ' encryption at rest enabled.'
+        else title || ' encryption at rest disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -121,8 +125,8 @@ query "elasticache_replication_group_encrypted_in_transit" {
         else 'alarm'
       end as status,
       case
-        when transit_encryption_enabled then title || ' transit encryption enabled.'
-        else title || ' transit encryption disabled.'
+        when transit_encryption_enabled then title || ' encryption in transit enabled.'
+        else title || ' encryption in transit disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

@@ -31,7 +31,7 @@ control "foundational_security_elasticache_1" {
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
     foundational_security_item_id  = "elasticache_1"
-    foundational_security_category = "backups_enabled"
+    foundational_security_category = "resilience"
   })
 }
 
@@ -57,7 +57,7 @@ control "foundational_security_elasticache_3" {
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
     foundational_security_item_id  = "elasticache_3"
-    foundational_security_category = "high_availability"
+    foundational_security_category = "resilience"
   })
 }
 
@@ -104,7 +104,7 @@ control "foundational_security_elasticache_7" {
   title         = "7 ElastiCache clusters should not use the default subnet group"
   description   = "This control checks if ElastiCache clusters are configured with a custom subnet group. The control fails for an ElastiCache cluster if CacheSubnetGroupName has the value default."
   severity      = "high"
-  query         = query.elastic_beanstalk_enhanced_health_reporting_enabled
+  query         = query.elasticache_subnet_group_check
   documentation = file("./foundational_security/docs/foundational_security_elasticache_7.md")
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {

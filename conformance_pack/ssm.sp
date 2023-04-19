@@ -143,6 +143,8 @@ query "ssm_managed_instance_compliance_patch_compliant" {
   EOQ
 }
 
+# Non Config Rules
+
 query "ssm_document_not_public" {
   sql = <<-EOQ
     select

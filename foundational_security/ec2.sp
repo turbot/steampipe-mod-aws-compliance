@@ -227,7 +227,7 @@ control "foundational_security_ec2_20" {
 
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_20"
-    foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "resilience"
   })
 }
 

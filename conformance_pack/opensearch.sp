@@ -295,6 +295,8 @@ query "opensearch_domain_in_vpc" {
   EOQ
 }
 
+# Non Config Rules
+
 query "opensearch_data_node_fault_tolerance" {
   sql = <<-EOQ
     select

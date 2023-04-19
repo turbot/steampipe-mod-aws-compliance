@@ -21,12 +21,12 @@ control "foundational_security_eks_1" {
   title         = "1 EKS cluster endpoints should not be publicly accessible"
   description   = "This control checks whether an Amazon EKS cluster endpoint is publicly accessible. The control fails if an EKS cluster has an endpoint that is publicly accessible."
   severity      = "high"
-  query         = query.eks_cluster_with_latest_kubernetes_version
+  query         = query.eks_cluster_endpoint_restrict_public_access
   documentation = file("./foundational_security/docs/foundational_security_eks_1.md")
 
   tags = merge(local.foundational_security_eks_common_tags, {
     foundational_security_item_id  = "eks_1"
-    foundational_security_category = "resource_not_publicly_accessible"
+    foundational_security_category = "secure_access_management"
   })
 }
 

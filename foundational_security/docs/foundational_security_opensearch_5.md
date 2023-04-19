@@ -1,6 +1,6 @@
 ## Description
 
-This rule is NON_COMPLIANT if the CloudWatch Logs log group of the OpenSearch domain is not specified in this parameter list.
+This rule is `NON_COMPLIANT` if the CloudWatch Logs log group of the OpenSearch domain is not specified in this parameter list.
 
 This control checks whether OpenSearch domains have audit logging enabled. This control fails if an OpenSearch domain does not have audit logging enabled.
 
