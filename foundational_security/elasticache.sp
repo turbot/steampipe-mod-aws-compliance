@@ -78,7 +78,7 @@ control "foundational_security_elasticache_5" {
   title         = "5 ElastiCache for Redis replication groups should be encrypted in transit"
   description   = "This control checks if ElastiCache for Redis replication groups are encrypted in transit. This control fails if an ElastiCache for Redis replication group isn't encrypted in transit."
   severity      = "medium"
-  query         = query.elasticache_replication_group_encrypted_in_transit
+  query         = query.elasticache_replication_group_encryption_in_transit_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_5.md")
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {

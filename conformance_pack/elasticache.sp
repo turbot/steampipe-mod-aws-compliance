@@ -116,7 +116,7 @@ query "elasticache_replication_group_encryption_at_rest_enabled" {
   EOQ
 }
 
-query "elasticache_replication_group_encrypted_in_transit" {
+query "elasticache_replication_group_encryption_in_transit_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
