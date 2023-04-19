@@ -148,14 +148,14 @@ query "ssm_managed_instance_compliance_patch_compliant" {
 query "ssm_document_prohibit_public_access" {
   sql = <<-EOQ
     select
-      'arn:' || partition || ':::' || account_id as resource,
+      'arn:' || partition || ':ssm:' || region || ':' || account_id ||  ':document/' ||  name as resource,
       case
         when account_ids :: jsonb ? 'all' then 'alarm'
         else 'ok'
       end as status,
       case
-        when account_ids :: jsonb ? 'all' then title || ' owned by the account is publicly accesible.'
-        else title || ' owned by the account is not publicly accesible.'
+        when account_ids :: jsonb ? 'all' then title || ' publicly accesible.'
+        else title || ' not publicly accesible.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
