@@ -297,7 +297,7 @@ query "opensearch_domain_in_vpc" {
 
 # Non Config Rules
 
-query "opensearch_data_node_fault_tolerance" {
+query "opensearch_domain_min_data_node_3" {
   sql = <<-EOQ
     select
       arn as resource,
