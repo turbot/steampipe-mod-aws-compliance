@@ -154,7 +154,7 @@ query "elasticache_replication_group_auto_failover_enabled" {
   EOQ
 }
 
-query "elasticache_auto_minor_version_upgrade_check" {
+query "elasticache_cluster_auto_minor_version_upgrade_check" {
   sql = <<-EOQ
     select
       arn as resource,
