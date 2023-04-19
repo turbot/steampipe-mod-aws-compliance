@@ -45,7 +45,7 @@ control "foundational_security_opensearch_2" {
 
   tags = merge(local.foundational_security_opensearch_common_tags, {
     foundational_security_item_id  = "opensearch_2"
-    foundational_security_category = "secure_network_configuration"
+    foundational_security_category = "resources_within_vpc"
   })
 }
 
@@ -97,7 +97,7 @@ control "foundational_security_opensearch_6" {
 
   tags = merge(local.foundational_security_opensearch_common_tags, {
     foundational_security_item_id  = "opensearch_6"
-    foundational_security_category = "resilience"
+    foundational_security_category = "high_availability"
   })
 }
 

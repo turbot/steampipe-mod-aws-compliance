@@ -145,7 +145,7 @@ query "ssm_managed_instance_compliance_patch_compliant" {
 
 # Non Config Rules
 
-query "ssm_document_not_public" {
+query "ssm_document_prohibit_public_access" {
   sql = <<-EOQ
     select
       'arn:' || partition || ':::' || account_id as resource,

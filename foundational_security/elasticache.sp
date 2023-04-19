@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "foundational_security_elasticache" {
-  title         = "Elastic Cache"
+  title         = "ElasticCache"
   documentation = file("./foundational_security/docs/foundational_security_elasticache.md")
   children = [
     control.foundational_security_elasticache_1,
@@ -17,7 +17,7 @@ benchmark "foundational_security_elasticache" {
     control.foundational_security_elasticache_7
   ]
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     type = "Benchmark"
   })
 }
@@ -29,9 +29,9 @@ control "foundational_security_elasticache_1" {
   query         = query.elasticache_redis_cluster_automatic_backup_retention_15_days
   documentation = file("./foundational_security/docs/foundational_security_elasticache_1.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_1"
-    foundational_security_category = "resilience"
+    foundational_security_category = "backups_enabled"
   })
 }
 
@@ -42,7 +42,7 @@ control "foundational_security_elasticache_2" {
   query         = query.elasticache_cluster_auto_minor_version_upgrade_check
   documentation = file("./foundational_security/docs/foundational_security_elasticache_2.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_2"
     foundational_security_category = "vulnerability_patch_and_version_management"
   })
@@ -55,9 +55,9 @@ control "foundational_security_elasticache_3" {
   query         = query.elasticache_replication_group_auto_failover_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_3.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_3"
-    foundational_security_category = "resilience"
+    foundational_security_category = "high_availability"
   })
 }
 
@@ -68,7 +68,7 @@ control "foundational_security_elasticache_4" {
   query         = query.elasticache_replication_group_encryption_at_rest_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_4.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_4"
     foundational_security_category = "encryption_of_data_at_rest"
   })
@@ -81,7 +81,7 @@ control "foundational_security_elasticache_5" {
   query         = query.elasticache_replication_group_encryption_in_transit_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_5.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_5"
     foundational_security_category = "encryption_of_data_in_transit"
   })
@@ -94,7 +94,7 @@ control "foundational_security_elasticache_6" {
   query         = query.elasticache_replication_group_redis_auth_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_6.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_6"
     foundational_security_category = "secure_access_management"
   })
@@ -107,7 +107,7 @@ control "foundational_security_elasticache_7" {
   query         = query.elasticache_cluster_no_default_subnet_group
   documentation = file("./foundational_security/docs/foundational_security_elasticache_7.md")
 
-  tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
+  tags = merge(local.foundational_security_elasticache_common_tags, {
     foundational_security_item_id  = "elasticache_7"
     foundational_security_category = "secure_network_configuration"
   })

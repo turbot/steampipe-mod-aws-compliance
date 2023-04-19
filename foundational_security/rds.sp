@@ -179,7 +179,7 @@ control "foundational_security_rds_11" {
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_11"
-    foundational_security_category = "resilience"
+    foundational_security_category = "backups_enabled"
   })
 }
 

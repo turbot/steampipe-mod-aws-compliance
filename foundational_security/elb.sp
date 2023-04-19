@@ -126,7 +126,7 @@ control "foundational_security_elb_9" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_9"
-    foundational_security_category = "resilience"
+    foundational_security_category = "high_availability"
   })
 }
 
