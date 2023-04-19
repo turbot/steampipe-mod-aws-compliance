@@ -78,7 +78,7 @@ query "elasticache_replication_group_redis_auth_enabled" {
         aws_elasticache_cluster
     )
     select
-      arn,
+      arn as resource,
       case 
         when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled is false then 'alarm'
         when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then 'skip'
@@ -100,7 +100,7 @@ query "elasticache_replication_group_redis_auth_enabled" {
 query "elasticache_replication_group_encrypted_at_rest" {
   sql = <<-EOQ
     select
-      arn,
+      arn as resource,
       case 
         when at_rest_encryption_enabled then 'ok'
         else 'alarm'
@@ -119,7 +119,7 @@ query "elasticache_replication_group_encrypted_at_rest" {
 query "elasticache_replication_group_encrypted_in_transit" {
   sql = <<-EOQ
     select
-      arn,
+      arn as resource,
       case 
         when transit_encryption_enabled then 'ok'
         else 'alarm'
@@ -138,7 +138,7 @@ query "elasticache_replication_group_encrypted_in_transit" {
 query "elasticache_replication_group_auto_failover_enabled" {
   sql = <<-EOQ
     select
-      arn,
+      arn as resource,
       case 
         when automatic_failover = 'enabled' then 'ok'
         else 'alarm'
@@ -157,7 +157,7 @@ query "elasticache_replication_group_auto_failover_enabled" {
 query "elasticache_auto_minor_version_upgrade_check" {
   sql = <<-EOQ
     select
-      arn,
+      arn as resource,
       case 
         when auto_minor_version_upgrade then 'ok'
         else 'alarm'
