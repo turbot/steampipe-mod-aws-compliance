@@ -10,16 +10,17 @@ control "kms_key_not_pending_deletion" {
   query       = query.kms_key_not_pending_deletion
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    nist_csf                 = "true"
-    rbi_cyber_security       = "true"
-    soc_2                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -29,15 +30,16 @@ control "kms_cmk_rotation_enabled" {
   query       = query.kms_cmk_rotation_enabled
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    cis_controls_v8_ig1      = "true"
-    cisa_cyber_essentials    = "true"
-    fedramp_low_rev_4        = "true"
-    fedramp_moderate_rev_4   = "true"
-    gdpr                     = "true"
-    gxp_21_cfr_part_11       = "true"
-    nist_800_53_rev_4        = "true"
-    nist_800_53_rev_5        = "true"
-    rbi_cyber_security       = "true"
+    cis_controls_v8_ig1    = "true"
+    cisa_cyber_essentials  = "true"
+    fedramp_low_rev_4      = "true"
+    fedramp_moderate_rev_4 = "true"
+    gdpr                   = "true"
+    gxp_21_cfr_part_11     = "true"
+    nist_800_53_rev_4      = "true"
+    nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
+    rbi_cyber_security     = "true"
   })
 }
 
@@ -76,7 +78,6 @@ control "kms_cmk_policy_prohibit_public_access" {
 query "kms_key_not_pending_deletion" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when key_state = 'PendingDeletion' then 'alarm'
@@ -98,7 +99,6 @@ query "kms_key_not_pending_deletion" {
 query "kms_cmk_rotation_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when origin = 'EXTERNAL' then 'skip'
@@ -138,7 +138,6 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:reencryptfrom', 'kms:reencrypt*']
     )
     select
-
       i.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -197,7 +196,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:deencrypt*', 'kms:reencryptfrom']
     )
     select
-
       i.arn as resource,
       case
         when d.arn is null then 'ok'

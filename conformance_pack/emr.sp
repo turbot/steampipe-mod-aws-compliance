@@ -56,6 +56,24 @@ control "emr_cluster_master_nodes_no_public_ip" {
   })
 }
 
+query "emr_account_public_access_blocked" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      case
+        when block_public_security_group_rules then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when block_public_security_group_rules then region || ' EMR block public access enabled.'
+        else region || ' EMR block public access disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_block_public_access_configuration;
+  EOQ
+}
+
 query "emr_cluster_kerberos_enabled" {
   sql = <<-EOQ
     select
@@ -97,20 +115,4 @@ query "emr_cluster_master_nodes_no_public_ip" {
   EOQ
 }
 
-query "emr_account_public_access_blocked" {
-  sql = <<-EOQ
-    select
-      'arn:' || partition || '::' || region || ':' || account_id as resource,
-      case
-        when block_public_security_group_rules then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when block_public_security_group_rules then region || ' EMR block public access enabled.'
-        else region || ' EMR block public access disabled.'
-      end as reason
-      ${local.common_dimensions_sql}
-    from
-      aws_emr_block_public_access_configuration;
-  EOQ
-}
+

@@ -38,7 +38,6 @@ control "efs_file_system_in_backup_plan" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
-    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -96,7 +95,18 @@ control "efs_access_point_enforce_user_identity" {
   query       = query.efs_access_point_enforce_user_identity
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
+  })
+}
+
+control "efs_access_point_enforce_root_directory" {
+  title       = "EFS access points should enforce a root directory"
+  description = "This control checks if Amazon EFS access points are configured to enforce a root directory. The control fails if the value of Path is set to / (the default root directory of the file system)."
+  query       = query.efs_access_point_enforce_root_directory
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -223,37 +233,16 @@ query "efs_file_system_enforces_ssl" {
       case
         when ok.status = 'ok' then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
         else f.title || ' policy does not enforce HTTPS.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from
       aws_efs_file_system as f
       left join ssl_ok as ok on ok.name = f.name;
-  EOQ
-}
-
-# Non-Config rule query
-
-query "efs_access_point_enforce_root_directory" {
-  sql = <<-EOQ
-    select
-      access_point_arn as resource,
-      case
-        when root_directory ->> 'Path'= '/' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
-        else title || ' configured to enforce a root directory.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_efs_access_point;
   EOQ
 }
 
@@ -268,6 +257,25 @@ query "efs_access_point_enforce_user_identity" {
       case
         when posix_user is null then title || ' does not enforce a user identity.'
         else title || ' enforces a user identity.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_efs_access_point;
+  EOQ
+}
+
+query "efs_access_point_enforce_root_directory" {
+  sql = <<-EOQ
+    select
+      access_point_arn as resource,
+      case
+        when root_directory ->> 'Path'= '/' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when root_directory ->> 'Path'= '/' then title || ' not configured to enforce a root directory.'
+        else title || ' configured to enforce a root directory.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

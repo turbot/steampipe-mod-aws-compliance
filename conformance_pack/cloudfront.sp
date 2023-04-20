@@ -13,6 +13,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
     gdpr                                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })
@@ -56,6 +57,7 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -68,6 +70,7 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -81,6 +84,67 @@ control "cloudfront_distribution_logging_enabled" {
     cis_controls_v8_ig1                    = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
+  })
+}
+
+control "cloudfront_distribution_sni_enabled" {
+  title       = "CloudFront distributions should use SNI to serve HTTPS requests"
+  description = "This control checks if Amazon CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
+  query       = query.cloudfront_distribution_sni_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_waf_enabled" {
+  title       = "CloudFront distributions should have AWS WAF enabled"
+  description = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
+  query       = query.cloudfront_distribution_waf_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_configured_with_origin_failover" {
+  title       = "CloudFront distributions should have origin failover configured"
+  description = "This control checks whether an Amazon CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
+  query       = query.cloudfront_distribution_configured_with_origin_failover
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_default_root_object_configured" {
+  title       = "CloudFront distributions should have a default root object configured"
+  description = "This control checks whether an Amazon CloudFront distribution is configured to return a specific object that is the default root object. The control fails if the CloudFront distribution does not have a default root object configured."
+  query       = query.cloudfront_distribution_default_root_object_configured
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_use_custom_ssl_certificate" {
+  title       = "CloudFront distributions should use custom SSL/TLS certificates"
+  description = "This control checks whether CloudFront distributions are using the default SSL/TLS certificate CloudFront provides. This control passes if the CloudFront distribution uses a custom SSL/TLS certificate. This control fails if the CloudFront distribution uses the default SSL/TLS certificate."
+  query       = query.cloudfront_distribution_use_custom_ssl_certificate
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "cloudfront_distribution_origin_access_identity_enabled" {
+  title       = "CloudFront distributions should have origin access identity enabled"
+  description = "This control checks whether an Amazon CloudFront distribution with Amazon S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
+  query       = query.cloudfront_distribution_origin_access_identity_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -214,22 +278,33 @@ query "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
   EOQ
 }
 
-query "cloudfront_distribution_logging_enabled" {
+query "cloudfront_distribution_no_deprecated_ssl_protocol" {
   sql = <<-EOQ
+    with origin_ssl_protocols as (
+      select
+        distinct arn,
+        o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' as origin_protocol_policy
+      from
+        aws_cloudfront_distribution,
+        jsonb_array_elements(origins) as o
+      where
+        o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["SSLv3"]'
+    )
     select
-      arn as resource,
+      b.arn as resource,
       case
-        when logging ->> 'Enabled' = 'true' then 'ok'
+        when o.arn is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when logging ->> 'Enabled' = 'true' then title || ' logging enabled.'
-        else title || ' logging disabled.'
+        when o.arn is null then title || ' does not have deprecated SSL protocols.'
+        else title || ' has deprecated SSL protocols.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_cloudfront_distribution;
+      aws_cloudfront_distribution as b
+      left join origin_ssl_protocols as o on b.arn = o.arn;
   EOQ
 }
 
@@ -280,37 +355,62 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   EOQ
 }
 
-query "cloudfront_distribution_no_deprecated_ssl_protocol" {
+query "cloudfront_distribution_logging_enabled" {
   sql = <<-EOQ
-    with origin_ssl_protocols as (
-      select
-        distinct arn,
-        o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' as origin_protocol_policy
-      from
-        aws_cloudfront_distribution,
-        jsonb_array_elements(origins) as o
-      where
-        o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["SSLv3"]'
-    )
     select
-      b.arn as resource,
+      arn as resource,
       case
-        when o.arn is null then 'ok'
+        when logging ->> 'Enabled' = 'true' then 'ok'
         else 'alarm'
       end as status,
       case
-        when o.arn is null then title || ' does not have deprecated SSL protocols.'
-        else title || ' has deprecated SSL protocols.'
+        when logging ->> 'Enabled' = 'true' then title || ' logging enabled.'
+        else title || ' logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_cloudfront_distribution as b
-      left join origin_ssl_protocols as o on b.arn = o.arn;
+      aws_cloudfront_distribution;
   EOQ
 }
 
-# Non-Config rule query
+query "cloudfront_distribution_sni_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then title || ' SNI enabled.'
+        else title || ' SNI disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_waf_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when web_acl_id <> '' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when web_acl_id <> '' then title || ' associated with WAF.'
+        else title || ' not associated with WAF.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
 
 query "cloudfront_distribution_configured_with_origin_failover" {
   sql = <<-EOQ
@@ -349,6 +449,51 @@ query "cloudfront_distribution_default_root_object_configured" {
       aws_cloudfront_distribution;
   EOQ
 }
+
+query "cloudfront_distribution_use_custom_ssl_certificate" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then title || ' uses custom SSL certificate.'
+        else title || ' does not use custom SSL certificate.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}
+
+query "cloudfront_distribution_origin_access_identity_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when o ->> 'DomainName' not like '%s3.amazonaws.com' then 'skip'
+        when o ->> 'DomainName' like '%s3.amazonaws.com'
+        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when o ->> 'DomainName' not like '%s3.amazonaws.com' then title || ' origin type is not s3.'
+        when o ->> 'DomainName' like '%s3.amazonaws.com'
+        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then title || ' origin access identity not configured.'
+        else title || ' origin access identity configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution,
+      jsonb_array_elements(origins) as o;
+  EOQ
+}
+
+# Non-Config rule query
 
 query "cloudfront_distribution_no_non_existent_s3_origin" {
   sql = <<-EOQ
@@ -389,86 +534,5 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
     from
       aws_cloudfront_distribution as d
       left join distribution_with_non_existent_bucket as b on b.arn = d.arn;
-  EOQ
-}
-
-query "cloudfront_distribution_origin_access_identity_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when o ->> 'DomainName' not like '%s3.amazonaws.com' then 'skip'
-        when o ->> 'DomainName' like '%s3.amazonaws.com'
-        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when o ->> 'DomainName' not like '%s3.amazonaws.com' then title || ' origin type is not s3.'
-        when o ->> 'DomainName' like '%s3.amazonaws.com'
-        and o -> 'S3OriginConfig' ->> 'OriginAccessIdentity' = '' then title || ' origin access identity not configured.'
-        else title || ' origin access identity configured.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution,
-      jsonb_array_elements(origins) as o;
-  EOQ
-}
-
-query "cloudfront_distribution_sni_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when viewer_certificate ->> 'SSLSupportMethod' = 'sni-only' then title || ' SNI enabled.'
-        else title || ' SNI disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
-query "cloudfront_distribution_use_custom_ssl_certificate" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when viewer_certificate ->> 'ACMCertificateArn' is not null and viewer_certificate ->> 'Certificate' is not null then title || ' uses custom SSL certificate.'
-        else title || ' does not use custom SSL certificate.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
-  EOQ
-}
-
-query "cloudfront_distribution_waf_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when web_acl_id <> '' then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when web_acl_id <> '' then title || ' associated with WAF.'
-        else title || ' not associated with WAF.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudfront_distribution;
   EOQ
 }

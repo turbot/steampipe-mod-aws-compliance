@@ -14,6 +14,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_53_rev_4                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -190,6 +191,7 @@ control "iam_user_mfa_enabled" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -237,6 +239,7 @@ control "iam_user_unused_credentials_90" {
   query       = query.iam_user_unused_credentials_90
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -291,6 +294,7 @@ control "iam_group_user_role_no_inline_policies" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -339,11 +343,10 @@ control "iam_account_password_policy_strong" {
   query       = query.iam_account_password_policy_strong
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cisa_cyber_essentials                  = "true"
-    ffiec                                  = "true"
-    gdpr                                   = "true"
-    nist_800_53_rev_4                      = "true"
-    pci_dss_v321                           = "true"
+    cisa_cyber_essentials = "true"
+    ffiec                 = "true"
+    gdpr                  = "true"
+    pci_dss_v321          = "true"
   })
 }
 
@@ -415,6 +418,7 @@ control "iam_all_policy_no_service_wild_card" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -432,6 +436,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -445,6 +450,7 @@ control "iam_policy_inline_no_blocked_kms_actions" {
     cisa_cyber_essentials                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -458,6 +464,7 @@ control "account_part_of_organizations" {
     cis_controls_v8_ig1 = "true"
     gxp_21_cfr_part_11  = "true"
     nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
   })
 }
 
@@ -499,6 +506,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_csf            = "true"
     soc_2               = "true"
   })
 }
@@ -510,7 +518,8 @@ control "iam_policy_unused" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
-    soc_2 = "true"
+    nist_csf            = "true"
+    soc_2               = "true"
   })
 }
 
@@ -679,7 +688,6 @@ query "iam_user_access_key_age_90" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
-
   EOQ
 }
 

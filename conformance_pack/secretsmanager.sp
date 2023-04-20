@@ -45,6 +45,7 @@ control "secretsmanager_secret_unused_90_day" {
     cisa_cyber_essentials                  = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -58,6 +59,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }

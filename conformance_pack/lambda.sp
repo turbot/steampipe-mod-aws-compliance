@@ -80,6 +80,7 @@ control "lambda_function_concurrent_execution_limit_configured" {
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     soc_2                                  = "true"
@@ -106,10 +107,29 @@ control "lambda_function_tracing_enabled" {
   })
 }
 
+control "lambda_function_multiple_az_configured" {
+  title       = "Lambda functions should operate in more than one availability zone"
+  description = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
+  query       = query.lambda_function_multiple_az_configured
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "lambda_function_use_latest_runtime" {
+  title       = "Lambda functions should use latest runtimes"
+  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs14.x, nodejs12.x, nodejs10.x, python3.8, python3.7, python3.6, ruby2.7, ruby2.5,java11, java8, go1.x, dotnetcore3.1, dotnetcore2.1."
+  query       = query.lambda_function_use_latest_runtime
+
+  tags = merge(local.conformance_pack_lambda_common_tags, {
+    nist_csf = "true"
+  })
+}
+
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when dead_letter_config_target_arn is null then 'alarm'
@@ -129,17 +149,15 @@ query "lambda_function_dead_letter_queue_configured" {
 query "lambda_function_in_vpc" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
-        when vpc_id is null then 'alarm'
+        when vpc_id is null or vpc_id = '' then 'alarm'
         else 'ok'
       end status,
       case
-        when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -166,7 +184,6 @@ query "lambda_function_restrict_public_access" {
         arn
     )
     select
-
       f.arn as resource,
       case
         when p.arn is null then 'ok'
@@ -188,7 +205,6 @@ query "lambda_function_restrict_public_access" {
 query "lambda_function_concurrent_execution_limit_configured" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when reserved_concurrent_executions is null then 'alarm'
@@ -254,13 +270,13 @@ query "lambda_function_cloudtrail_logging_enabled" {
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:lambda' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then 'ok'
+          or a.cloudtrail_region = l.region then 'ok'
         else 'alarm'
       end as status,
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:s3' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then l.name || ' logging enabled.'
+          or a.cloudtrail_region = l.region then l.name || ' logging enabled.'
         else l.name || ' logging not enabled.'
       end as reason
       ${local.tag_dimensions_sql}
@@ -292,35 +308,12 @@ query "lambda_function_tracing_enabled" {
   EOQ
 }
 
-# Non-Config rule query
-
-query "lambda_function_cors_configuration" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when url_config is null then 'info'
-        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when url_config is null then title || ' does not has a URL config.'
-        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allow all origins.'
-        else title || ' CORS configuration does not allow all origins.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_lambda_function;
-  EOQ
-}
-
 query "lambda_function_multiple_az_configured" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when vpc_id is null then 'skip'
+        when vpc_id is null or vpc_id = '' then 'skip'
         else case
           when
           (
@@ -336,7 +329,7 @@ query "lambda_function_multiple_az_configured" {
         end
       end as status,
       case
-        when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
       end as reason
       ${local.tag_dimensions_sql}
@@ -367,3 +360,25 @@ query "lambda_function_use_latest_runtime" {
   EOQ
 }
 
+# Non-Config rule query
+
+query "lambda_function_cors_configuration" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when url_config is null then 'info'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when url_config is null then title || ' does not has a URL config.'
+        when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allows all origins.'
+        else title || ' CORS configuration does not allow all origins.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}

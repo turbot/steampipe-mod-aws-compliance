@@ -68,25 +68,6 @@ query "acm_certificate_expires_30_days" {
   EOQ
 }
 
-query "acm_certificate_no_wildcard_domain_name" {
-  sql = <<-EOQ
-    select
-      certificate_arn as resource,
-      case
-        when domain_name like '*%' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when domain_name like '*%' then title || ' uses wildcard domain name.'
-        else title || ' does not use wildcard domain name.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_acm_certificate;
-  EOQ
-}
-
 query "acm_certificate_transparency_logging_enabled" {
   sql = <<-EOQ
     select
@@ -100,6 +81,25 @@ query "acm_certificate_transparency_logging_enabled" {
         when type = 'IMPORTED' then title || ' is imported.'
         when certificate_transparency_logging_preference = 'ENABLED' then title || ' transparency logging enabled.'
         else title || ' transparency logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_no_wildcard_domain_name" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when domain_name like '*%' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when domain_name like '*%' then title || ' uses wildcard domain name.'
+        else title || ' does not use wildcard domain name.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

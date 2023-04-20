@@ -37,7 +37,6 @@ control "vpc_igw_attached_to_authorized_vpc" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
-    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
@@ -53,6 +52,7 @@ control "vpc_network_acl_remote_administration" {
   query       = query.vpc_network_acl_remote_administration
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -68,6 +68,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -160,6 +161,7 @@ control "vpc_vpn_tunnel_up" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
   })
@@ -189,7 +191,6 @@ control "vpc_security_group_associated_to_eni" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
-    nist_csf            = "true"
     soc_2               = "true"
   })
 }
@@ -228,6 +229,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -305,6 +307,7 @@ control "vpc_network_acl_unused" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
+    nist_csf              = "true"
   })
 }
 
@@ -322,7 +325,6 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
-
       distinct arn as resource,
       case
         when v.account_id <> v.owner_id then 'skip'
@@ -362,6 +364,59 @@ query "vpc_igw_attached_to_authorized_vpc" {
       ${local.common_dimensions_sql}
     from
       aws_vpc_internet_gateway;
+  EOQ
+}
+
+query "vpc_network_acl_remote_administration" {
+  sql = <<-EOQ
+    with bad_rules as (
+      select
+        network_acl_id,
+        count(*) as num_bad_rules
+      from
+        aws_vpc_network_acl,
+        jsonb_array_elements(entries) as att
+      where
+        att ->> 'Egress' = 'false' -- as per aws egress = false indicates the ingress
+        and (
+          att ->> 'CidrBlock' = '0.0.0.0/0'
+          or att ->> 'Ipv6CidrBlock' =  '::/0'
+        )
+        and att ->> 'RuleAction' = 'allow'
+        and (
+          (
+            att ->> 'Protocol' = '-1' -- all traffic
+            and att ->> 'PortRange' is null
+          )
+          or (
+            (att -> 'PortRange' ->> 'From') :: int <= 22
+            and (att -> 'PortRange' ->> 'To') :: int >= 22
+            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
+          )
+          or (
+            (att -> 'PortRange' ->> 'From') :: int <= 3389
+            and (att -> 'PortRange' ->> 'To') :: int >= 3389
+            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
+        )
+      )
+      group by
+        network_acl_id
+    )
+    select
+      'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
+      case
+        when bad_rules.network_acl_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+        else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
+    from
+      aws_vpc_network_acl as acl
+      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
   EOQ
 }
 
@@ -822,6 +877,50 @@ query "vpc_security_group_restrict_ingress_redis_port" {
   EOQ
 }
 
+query "vpc_security_group_restrict_ingress_kafka_port" {
+  sql = <<-EOQ
+    with ingress_kafka_port as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (
+          cidr_ipv4 = '0.0.0.0/0'
+          or cidr_ipv6 = '::/0'
+        )
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+              from_port >= 9092
+              and to_port <= 9092
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when k.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when k.group_id is null then sg.group_id || ' ingress restricted for kafka port from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kafka port from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_kafka_port as k on k.group_id = sg.group_id;
+  EOQ
+}
+
 query "vpc_security_group_restrict_ingress_kibana_port" {
   sql = <<-EOQ
     with ingress_kibana_port as (
@@ -939,50 +1038,6 @@ query "vpc_network_acl_unused" {
   EOQ
 }
 
-query "vpc_security_group_restrict_ingress_kafka_port" {
-  sql = <<-EOQ
-    with ingress_kafka_port as (
-      select
-        group_id,
-        count(*) as num_ssh_rules
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and (
-          cidr_ipv4 = '0.0.0.0/0'
-          or cidr_ipv6 = '::/0'
-        )
-        and (
-            ( ip_protocol = '-1'
-            and from_port is null
-            )
-            or (
-              from_port >= 9092
-              and to_port <= 9092
-            )
-        )
-      group by
-        group_id
-    )
-    select
-      arn as resource,
-      case
-        when k.group_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when k.group_id is null then sg.group_id || ' ingress restricted for kafka port from 0.0.0.0/0.'
-        else sg.group_id || ' contains ' || k.num_ssh_rules || ' ingress rule(s) allowing kafka port from 0.0.0.0/0.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join ingress_kafka_port as k on k.group_id = sg.group_id;
-  EOQ
-}
-
 query "vpc_security_group_allows_ingress_authorized_ports" {
   sql = <<-EOQ
     with ingress_unauthorized_ports as (
@@ -1048,112 +1103,6 @@ query "vpc_configured_to_use_vpc_endpoints" {
       ${local.common_dimensions_sql}
     from
       aws_vpc;
-  EOQ
-}
-
-query "vpc_network_acl_remote_administration" {
-  sql = <<-EOQ
-    with bad_rules as (
-      select
-        network_acl_id,
-        count(*) as num_bad_rules
-      from
-        aws_vpc_network_acl,
-        jsonb_array_elements(entries) as att
-      where
-        att ->> 'Egress' = 'false' -- as per aws egress = false indicates the ingress
-        and (
-          att ->> 'CidrBlock' = '0.0.0.0/0'
-          or att ->> 'Ipv6CidrBlock' =  '::/0'
-        )
-        and att ->> 'RuleAction' = 'allow'
-        and (
-          (
-            att ->> 'Protocol' = '-1' -- all traffic
-            and att ->> 'PortRange' is null
-          )
-          or (
-            (att -> 'PortRange' ->> 'From') :: int <= 22
-            and (att -> 'PortRange' ->> 'To') :: int >= 22
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
-          )
-          or (
-            (att -> 'PortRange' ->> 'From') :: int <= 3389
-            and (att -> 'PortRange' ->> 'To') :: int >= 3389
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
-        )
-      )
-      group by
-        network_acl_id
-    )
-    select
-      'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
-      case
-        when bad_rules.network_acl_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-        else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
-    from
-      aws_vpc_network_acl as acl
-      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
-  EOQ
-}
-
-query "vpc_network_acl_remote_administration" {
-  sql = <<-EOQ
-    with bad_rules as (
-      select
-        network_acl_id,
-        count(*) as num_bad_rules
-      from
-        aws_vpc_network_acl,
-        jsonb_array_elements(entries) as att
-      where
-        att ->> 'Egress' = 'false' -- as per aws egress = false indicates the ingress
-        and (
-          att ->> 'CidrBlock' = '0.0.0.0/0'
-          or att ->> 'Ipv6CidrBlock' =  '::/0'
-        )
-        and att ->> 'RuleAction' = 'allow'
-        and (
-          (
-            att ->> 'Protocol' = '-1' -- all traffic
-            and att ->> 'PortRange' is null
-          )
-          or (
-            (att -> 'PortRange' ->> 'From') :: int <= 22
-            and (att -> 'PortRange' ->> 'To') :: int >= 22
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
-          )
-          or (
-            (att -> 'PortRange' ->> 'From') :: int <= 3389
-            and (att -> 'PortRange' ->> 'To') :: int >= 3389
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
-        )
-      )
-      group by
-        network_acl_id
-    )
-    select
-      'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
-      case
-        when bad_rules.network_acl_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-        else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
-    from
-      aws_vpc_network_acl as acl
-      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
   EOQ
 }
 
@@ -1384,7 +1333,6 @@ query "vpc_security_group_unsued" {
         aws_ec2_instance,
         jsonb_array_elements(security_groups) as sg
         group by sg ->> 'GroupId'
-
     )
     select
       distinct s.arn as resource,

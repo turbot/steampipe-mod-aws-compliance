@@ -59,7 +59,6 @@ control "ebs_attached_volume_encryption_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
-    hipaa                                  = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -99,12 +98,10 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower = "true"
-    fedramp_low_rev_4           = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
     gxp_21_cfr_part_11          = "true"
     nist_800_53_rev_4           = "true"
-    nist_csf                    = "true"
   })
 }
 
@@ -141,6 +138,7 @@ control "ebs_volume_unused" {
     ffiec                  = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
   })
 }
 
@@ -151,11 +149,11 @@ query "ebs_snapshot_not_publicly_restorable" {
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then 'alarm'
         else 'ok'
-      end status,
+      end as status,
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then title || ' is publicly restorable.'
         else title || ' is not publicly restorable.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -166,17 +164,15 @@ query "ebs_snapshot_not_publicly_restorable" {
 query "ebs_volume_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when encrypted then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
-      end reason
-
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

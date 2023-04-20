@@ -75,6 +75,7 @@ control "cloudwatch_log_group_retention_period_365" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
@@ -263,6 +264,36 @@ query "cloudwatch_alarm_action_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_cloudwatch_alarm;
+  EOQ
+}
+
+query "cloudwatch_cross_account_sharing" {
+  sql = <<-EOQ
+    with iam_role_cross_account_sharing_count as (
+      select
+        arn,
+        replace(replace(replace((a -> 'Principal' ->> 'AWS'), '[',''), ']', ''), '"', '') as cross_account_details,
+        account_id
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as a
+      where
+        name = 'CloudWatch-CrossAccountSharingRole'
+    )
+    select
+      a.arn as resource,
+      case
+        when c.arn is null then 'ok'
+        else 'info'
+      end as status,
+      case
+        when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
+        else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;
   EOQ
 }
 
@@ -590,7 +621,6 @@ query "log_metric_filter_route_table" {
         when f.trail_name is null then 'No log metric filter and alarm exist for route table changes.'
         else filter_name || ' forwards events for route table changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -639,7 +669,6 @@ query "log_metric_filter_network_gateway" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to network gateways.'
         else filter_name || ' forwards events for changes to network gateways.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -687,7 +716,6 @@ query "log_metric_filter_network_acl" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to NACLs.'
         else filter_name || ' forwards events for changes to NACLs.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -735,7 +763,6 @@ query "log_metric_filter_security_group" {
         when f.trail_name is null then 'No log metric filter and alarm exist for security group changes.'
         else filter_name || ' forwards events for security group changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -783,7 +810,6 @@ query "log_metric_filter_config_configuration" {
         when f.trail_name is null then 'No log metric filter and alarm exist for AWS Config configuration changes.'
         else filter_name || ' forwards events for AWS Config configuration changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -832,7 +858,6 @@ query "log_metric_filter_bucket_policy" {
         when f.trail_name is null then 'No log metric filter and alarm exist for S3 bucket policy changes.'
         else filter_name || ' forwards events for S3 bucket policy changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -978,36 +1003,6 @@ query "log_metric_filter_cloudtrail_configuration" {
     from
       aws_account as a
       left join filter_data as f on a.account_id = f.account_id;
-  EOQ
-}
-
-query "cloudwatch_cross_account_sharing" {
-  sql = <<-EOQ
-    with iam_role_cross_account_sharing_count as (
-      select
-        arn,
-        replace(replace(replace((a -> 'Principal' ->> 'AWS'), '[',''), ']', ''), '"', '') as cross_account_details,
-        account_id
-      from
-        aws_iam_role,
-        jsonb_array_elements(assume_role_policy_std -> 'Statement') as a
-      where
-        name = 'CloudWatch-CrossAccountSharingRole'
-    )
-    select
-      a.arn as resource,
-      case
-        when c.arn is null then 'ok'
-        else 'info'
-      end as status,
-      case
-        when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
-        else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
-      end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
-    from
-      aws_account as a
-      left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;
   EOQ
 }
 

@@ -21,7 +21,6 @@ control "sns_topic_encrypted_at_rest" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
-    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
@@ -44,6 +43,7 @@ control "sns_topic_notification_delivery_status_enabled" {
   query       = query.sns_topic_notification_delivery_status_enabled
 
   tags = merge(local.conformance_pack_sns_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -52,16 +52,16 @@ query "sns_topic_encrypted_at_rest" {
   sql = <<-EOQ
     select
       topic_arn as resource,
-    case
-      when kms_master_key_id is null then 'alarm'
-      else 'ok'
-    end as status,
-    case
-      when kms_master_key_id is null then title || ' encryption at rest disabled.'
-      else title || ' encryption at rest enabled.'
-    end as reason
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
+      case
+        when kms_master_key_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_master_key_id is null then title || ' encryption at rest disabled.'
+        else title || ' encryption at rest enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_sns_topic;
   EOQ
