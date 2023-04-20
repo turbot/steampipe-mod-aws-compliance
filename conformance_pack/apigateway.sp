@@ -17,6 +17,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -63,7 +64,19 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     rbi_cyber_security                     = "true"
+  })
+}
+
+control "apigateway_rest_api_stage_xray_tracing_enabled" {
+  title       = "API Gateway REST API stages should have AWS X-Ray tracing enabled"
+  description = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  query       = query.apigateway_rest_api_stage_xray_tracing_enabled
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -73,11 +86,13 @@ control "apigateway_stage_use_waf_web_acl" {
   query       = query.apigateway_stage_use_waf_web_acl
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
+    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     nist_800_53_rev_5      = "true"
+    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -90,16 +105,6 @@ control "apigateway_rest_api_authorizers_configured" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     other_checks = "true"
-  })
-}
-
-control "apigateway_rest_api_stage_xray_tracing_enabled" {
-  title       = "API Gateway REST API stages should have X-Ray tracing enabled"
-  description = "This control checks whether X-Ray active tracing is enabled for your API gateway REST API stages."
-  query       = query.apigateway_rest_api_stage_xray_tracing_enabled
-
-  tags = merge(local.conformance_pack_apigateway_common_tags, {
-    hipaa_final_omnibus_security_rule_2013 = "true"
   })
 }
 
@@ -188,6 +193,25 @@ query "apigateway_rest_api_stage_use_ssl_certificate" {
   EOQ
 }
 
+query "apigateway_rest_api_stage_xray_tracing_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when tracing_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when tracing_enabled then title || ' X-Ray tracing enabled.'
+        else title || ' X-Ray tracing disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_stage;
+  EOQ
+}
+
 query "apigateway_stage_use_waf_web_acl" {
   sql = <<-EOQ
     select
@@ -224,25 +248,6 @@ query "apigateway_rest_api_authorizers_configured" {
     from
       aws_api_gateway_rest_api as p
       left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
-  EOQ
-}
-
-query "apigateway_rest_api_stage_xray_tracing_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when tracing_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when tracing_enabled then title || ' X-Ray tracing enabled.'
-        else title || ' X-Ray tracing disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_api_gateway_stage;
   EOQ
 }
 

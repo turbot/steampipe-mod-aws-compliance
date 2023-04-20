@@ -41,6 +41,7 @@ control "elb_application_lb_deletion_protection_enabled" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -193,6 +194,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -285,6 +287,7 @@ control "elb_application_lb_desync_mitigation_mode" {
   query       = query.elb_application_lb_desync_mitigation_mode
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -299,6 +302,25 @@ control "elb_classic_lb_desync_mitigation_mode" {
   })
 }
 
+control "elb_classic_lb_multiple_az_configured" {
+  title       = "ELB classic load balancers should span multiple availability zones"
+  description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
+  query       = query.elb_classic_lb_multiple_az_configured
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "elb_application_gateway_network_lb_multiple_az_configured" {
+  title       = "ELB application, network, and gateway load balancers should span multiple availability zones"
+  description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
+  query       = query.elb_application_gateway_network_lb_multiple_az_configured
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    nist_csf = "true"
+  })
+}
 
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ
@@ -622,6 +644,40 @@ query "elb_application_classic_network_lb_prohibit_public_access" {
   EOQ
 }
 
+query "elb_application_lb_listener_certificate_expire_7_days" {
+  sql = <<-EOQ
+    select
+      load_balancer_arn as resource,
+      case
+        when date(not_after) - date(current_date) >= 7 then 'ok'
+        else 'alarm'
+      end as status,
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
+    from
+      aws_ec2_load_balancer_listener as l,
+      jsonb_array_elements(certificates) as c
+      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
+  EOQ
+}
+
+query "elb_application_lb_listener_certificate_expire_30_days" {
+  sql = <<-EOQ
+    select
+      load_balancer_arn as resource,
+      case
+        when date(not_after) - date(current_date) >= 30 then 'ok'
+        else 'alarm'
+      end as status,
+      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
+    from
+      aws_ec2_load_balancer_listener as l,
+      jsonb_array_elements(certificates) as c
+      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
+  EOQ
+}
+
 query "elb_application_lb_with_outbound_rule" {
   sql = <<-EOQ
     with sg_with_outbound as (
@@ -662,83 +718,6 @@ query "elb_application_lb_with_outbound_rule" {
     from
       aws_ec2_application_load_balancer as a
       left join application_lb_without_outbound as o on a.arn = o.arn;
-  EOQ
-}
-
-query "elb_classic_lb_with_outbound_rule" {
-  sql = <<-EOQ
-    with sg_with_outbound as (
-      select
-        arn,
-        sg
-      from
-        aws_ec2_classic_load_balancer,
-        jsonb_array_elements_text(security_groups) as sg
-        left join aws_vpc_security_group_rule as sgr on sg = sgr.group_id
-      where
-        sgr.type = 'egress'
-      group by
-        sg, arn
-    ), classic_lb_without_outbound as (
-      select
-        distinct arn
-      from
-        aws_ec2_classic_load_balancer,
-        jsonb_array_elements_text(security_groups) as s
-      where
-        s not in ( select sg from sg_with_outbound)
-    )
-    select
-      distinct c.arn as resource,
-      case
-        when c.security_groups is null then 'alarm'
-        when o.arn is not null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when c.security_groups is null then c.title || ' does not have security group attached.'
-        when o.arn is not null then c.title || ' all attached security groups does not have outbound rule(s).'
-        else c.title || ' all attached security groups have outbound rule(s).'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
-    from
-      aws_ec2_classic_load_balancer as c
-      left join classic_lb_without_outbound as o on c.arn = o.arn;
-  EOQ
-}
-
-query "elb_application_lb_listener_certificate_expire_7_days" {
-  sql = <<-EOQ
-    select
-      load_balancer_arn as resource,
-      case
-        when date(not_after) - date(current_date) >= 7 then 'ok'
-        else 'alarm'
-      end as status,
-      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
-    from
-      aws_ec2_load_balancer_listener as l,
-      jsonb_array_elements(certificates) as c
-      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
-  EOQ
-}
-
-query "elb_application_lb_listener_certificate_expire_30_days" {
-  sql = <<-EOQ
-    select
-      load_balancer_arn as resource,
-      case
-        when date(not_after) - date(current_date) >= 30 then 'ok'
-        else 'alarm'
-      end as status,
-      l.title || ' certificate set to expire in ' || extract(day from not_after - current_date) || ' days.' as reason
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "l.")}
-    from
-      aws_ec2_load_balancer_listener as l,
-      jsonb_array_elements(certificates) as c
-      left join aws_acm_certificate as a on c ->> 'CertificateArn' = a.certificate_arn;
   EOQ
 }
 
@@ -783,6 +762,49 @@ query "elb_application_network_lb_use_listeners" {
   EOQ
 }
 
+query "elb_classic_lb_with_outbound_rule" {
+  sql = <<-EOQ
+    with sg_with_outbound as (
+      select
+        arn,
+        sg
+      from
+        aws_ec2_classic_load_balancer,
+        jsonb_array_elements_text(security_groups) as sg
+        left join aws_vpc_security_group_rule as sgr on sg = sgr.group_id
+      where
+        sgr.type = 'egress'
+      group by
+        sg, arn
+    ), classic_lb_without_outbound as (
+      select
+        distinct arn
+      from
+        aws_ec2_classic_load_balancer,
+        jsonb_array_elements_text(security_groups) as s
+      where
+        s not in ( select sg from sg_with_outbound)
+    )
+    select
+      distinct c.arn as resource,
+      case
+        when c.security_groups is null then 'alarm'
+        when o.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when c.security_groups is null then c.title || ' does not have security group attached.'
+        when o.arn is not null then c.title || ' all attached security groups do not have outbound rule(s).'
+        else c.title || ' all attached security groups have outbound rule(s).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ec2_classic_load_balancer as c
+      left join classic_lb_without_outbound as o on c.arn = o.arn;
+  EOQ
+}
+
 query "elb_tls_listener_protocol_version" {
   sql = <<-EOQ
     select
@@ -800,51 +822,6 @@ query "elb_tls_listener_protocol_version" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_load_balancer_listener;
-  EOQ
-}
-
-# Non-Config rule query
-
-query "elb_application_gateway_network_lb_multiple_az_configured" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(availability_zones) < 2 then 'alarm'
-        else 'ok'
-      end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_application_load_balancer
-    union
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(availability_zones) < 2 then 'alarm'
-        else 'ok'
-      end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_network_load_balancer
-    union
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(availability_zones) < 2 then 'alarm'
-        else 'ok'
-      end as status,
-      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_gateway_load_balancer;
   EOQ
 }
 
@@ -919,6 +896,49 @@ query "elb_classic_lb_multiple_az_configured" {
       aws_ec2_classic_load_balancer;
   EOQ
 }
+
+query "elb_application_gateway_network_lb_multiple_az_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_application_load_balancer
+    union
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_load_balancer
+    union
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(availability_zones) < 2 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
+
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_gateway_load_balancer;
+  EOQ
+}
+
+# Non-Config rule query
 
 query "elb_network_lb_tls_listener_security_policy_configured" {
   sql = <<-EOQ

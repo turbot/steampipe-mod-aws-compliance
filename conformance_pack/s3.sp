@@ -19,6 +19,7 @@ control "s3_bucket_cross_region_replication_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -36,7 +37,6 @@ control "s3_bucket_default_encryption_enabled" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
-    fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     gdpr                                   = "true"
     gxp_21_cfr_part_11                     = "true"
@@ -234,12 +234,9 @@ control "s3_public_access_block_bucket_account" {
   query       = query.s3_public_access_block_bucket_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
-    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
-    nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
@@ -262,6 +259,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -280,6 +278,7 @@ control "s3_public_access_block_bucket" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -291,6 +290,7 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
+    nist_csf            = "true"
     soc_2               = "true"
   })
 }
@@ -314,6 +314,7 @@ control "s3_bucket_policy_restrict_public_access" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -324,6 +325,7 @@ control "s3_bucket_lifecycle_policy_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
   })
@@ -336,6 +338,7 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
   })
@@ -348,7 +351,18 @@ control "s3_bucket_event_notifications_enabled" {
   query       = query.s3_bucket_event_notifications_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    soc_2 = "true"
+    nist_csf = "true"
+    soc_2    = "true"
+  })
+}
+
+control "s3_bucket_acls_should_prohibit_user_access" {
+  title       = "S3 buckets access control lists (ACLs) should not be used to manage user access to buckets"
+  description = "This control checks whether Amazon S3 buckets provide user permissions via ACLs. The control fails if ACLs are configured for managing user access on S3 buckets."
+  query       = query.s3_bucket_acls_should_prohibit_user_access
+
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -880,6 +894,39 @@ query "s3_bucket_object_logging_enabled" {
   EOQ
 }
 
+query "s3_bucket_policy_restrict_public_access" {
+  sql = <<-EOQ
+    with public_buckets as (
+      select
+        distinct arn as arn
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
+      where
+        p = '*'
+        and s ->> 'Effect' = 'Allow'
+    )
+    select
+      b.arn as resource,
+      case
+        when b.policy_std is null then 'info'
+        when p.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
+        when p.arn is not null then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_bucket as b
+      left join public_buckets as p on p.arn = b.arn;
+  EOQ
+}
+
 query "s3_bucket_lifecycle_policy_enabled" {
   sql = <<-EOQ
     with lifecycle_rules_enabled as (
@@ -967,41 +1014,6 @@ query "s3_bucket_event_notifications_enabled" {
   EOQ
 }
 
-query "s3_bucket_policy_restrict_public_access" {
-  sql = <<-EOQ
-    with public_buckets as (
-      select
-        distinct arn as arn
-      from
-        aws_s3_bucket,
-        jsonb_array_elements(policy_std -> 'Statement') as s,
-        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
-      where
-        p = '*'
-        and s ->> 'Effect' = 'Allow'
-    )
-    select
-      b.arn as resource,
-      case
-        when b.policy_std is null then 'info'
-        when p.arn is not null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
-        when p.arn is not null then title || ' publicly accessible.'
-        else title || ' not publicly accessible.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_s3_bucket as b
-      left join public_buckets as p on p.arn = b.arn;
-  EOQ
-}
-
-# Non-Config rule query
-
 query "s3_bucket_acls_should_prohibit_user_access" {
   sql = <<-EOQ
     with bucket_acl_details as (
@@ -1059,6 +1071,8 @@ query "s3_bucket_acls_should_prohibit_user_access" {
       bucket_acl_checks;
   EOQ
 }
+
+# Non-Config rule query
 
 query "s3_bucket_mfa_delete_enabled" {
   sql = <<-EOQ

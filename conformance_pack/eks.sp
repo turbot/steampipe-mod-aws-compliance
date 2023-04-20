@@ -13,6 +13,7 @@ control "eks_cluster_secrets_encrypted" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -56,6 +57,7 @@ control "eks_cluster_with_latest_kubernetes_version" {
   query       = query.eks_cluster_with_latest_kubernetes_version
 
   tags = merge(local.conformance_pack_eks_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -172,8 +174,6 @@ query "eks_cluster_no_default_vpc" {
       left join default_vpc_cluster as v on v.arn = c.arn;
   EOQ
 }
-
-# Non-Config rule query
 
 query "eks_cluster_with_latest_kubernetes_version" {
   sql = <<-EOQ

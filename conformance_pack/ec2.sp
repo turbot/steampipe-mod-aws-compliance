@@ -19,6 +19,7 @@ control "ec2_ebs_default_encryption_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })
@@ -37,6 +38,26 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     soc_2                                  = "true"
+  })
+}
+
+control "ec2_instance_not_use_multiple_enis" {
+  title       = "EC2 instances should not use multiple ENIs"
+  description = "This control checks whether an EC2 instance uses multiple Elastic Network Interfaces (ENIs) or Elastic Fabric Adapters (EFAs). This control passes if a single network adapter is used. The control includes an optional parameter list to identify the allowed ENIs."
+  query       = query.ec2_instance_not_use_multiple_enis
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
+  })
+}
+
+control "ec2_instance_no_amazon_key_pair" {
+  title       = "EC2 instances should not use key pairs in running state"
+  description = "This control checks whether running EC2 instances are using key pairs. The control fails if a running EC2 instance uses a key pair."
+  query       = query.ec2_instance_no_amazon_key_pair
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -155,6 +176,7 @@ control "ec2_instance_uses_imdsv2" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -191,6 +213,7 @@ control "ec2_instance_iam_profile_attached" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -220,6 +243,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   query       = query.ec2_transit_gateway_auto_cross_account_attachment_disabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf     = "true"
     other_checks = "true"
   })
 }
@@ -231,6 +255,16 @@ control "ec2_instance_no_launch_wizard_security_group" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     other_checks = "true"
+  })
+}
+
+control "ec2_instance_virtualization_type_no_paravirtual" {
+  title       = "Paravirtual EC2 instance types should not be used"
+  description = "This control checks whether the virtualization type of an EC2 instance is paravirtual. The control fails if the virtualizationType of the EC2 instance is set to paravirtual."
+  query       = query.ec2_instance_virtualization_type_no_paravirtual
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -265,6 +299,44 @@ query "ec2_instance_detailed_monitoring_enabled" {
         else instance_id || ' detailed monitoring disabled.'
       end reason
 
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_not_use_multiple_enis" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(network_interfaces) = 1 then 'ok'
+        else 'alarm'
+      end status,
+      title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
+      as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_no_amazon_key_pair" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when instance_state <> 'running' then 'skip'
+        when key_name is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
+        when key_name is null then title || ' not launched using amazon key pairs.'
+        else title || ' launched using amazon key pairs.'
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -307,6 +379,46 @@ query "ec2_instance_not_publicly_accessible" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_no_high_level_finding_in_inspector_scan" {
+  sql = <<-EOQ
+    with severity_list as (
+      select
+        distinct title ,
+        a ->> 'Value' as instance_id
+      from
+        aws_inspector_finding,
+        jsonb_array_elements(attributes) as a
+      where
+        severity = 'High'
+        and asset_type = 'ec2-instance'
+        and a ->> 'Key' = 'INSTANCE_ID'
+      group by
+        a ->> 'Value',
+        title
+    ), ec2_istance_list as (
+      select
+        distinct instance_id
+      from
+        severity_list
+    )
+    select
+      arn as resource,
+      case
+        when l.instance_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
+        else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join ec2_istance_list as l on i.instance_id = l.instance_id;
   EOQ
 }
 
@@ -505,43 +617,19 @@ query "ec2_instance_no_launch_wizard_security_group" {
   EOQ
 }
 
-query "ec2_instance_no_high_level_finding_in_inspector_scan" {
+query "ec2_instance_virtualization_type_no_paravirtual" {
   sql = <<-EOQ
-    with severity_list as (
-      select
-        distinct title ,
-        a ->> 'Value' as instance_id
-      from
-        aws_inspector_finding,
-        jsonb_array_elements(attributes) as a
-      where
-        severity = 'High'
-        and asset_type = 'ec2-instance'
-        and a ->> 'Key' = 'INSTANCE_ID'
-      group by
-        a ->> 'Value',
-        title
-    ), ec2_istance_list as (
-      select
-        distinct instance_id
-      from
-        severity_list
-    )
     select
       arn as resource,
       case
-        when l.instance_id is null then 'ok'
-        else 'alarm'
+        when virtualization_type = 'paravirtual' then 'alarm'
+        else 'ok'
       end as status,
-      case
-        when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
-        else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
-      end as reason
+      title || ' virtualization type is ' || virtualization_type || '.' as reason
       ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${local.common_dimensions_sql}
     from
-      aws_ec2_instance as i
-      left join ec2_istance_list as l on i.instance_id = l.instance_id;
+      aws_ec2_instance;
   EOQ
 }
 
@@ -566,44 +654,6 @@ query "ec2_classic_lb_connection_draining_enabled" {
   EOQ
 }
 
-query "ec2_instance_no_amazon_key_pair" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when instance_state <> 'running' then 'skip'
-        when key_name is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when instance_state <> 'running' then title || ' is in ' || instance_state || ' state.'
-        when key_name is null then title || ' not launched using amazon key pairs.'
-        else title || ' launched using amazon key pairs.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
-query "ec2_instance_not_use_multiple_enis" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when jsonb_array_length(network_interfaces) = 1 then 'ok'
-        else 'alarm'
-      end status,
-      title || ' has ' || jsonb_array_length(network_interfaces) || ' ENI(s) attached.'
-      as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
 query "ec2_instance_termination_protection_enabled" {
   sql = <<-EOQ
     select
@@ -616,22 +666,6 @@ query "ec2_instance_termination_protection_enabled" {
         when disable_api_termination then instance_id || ' termination protection enabled.'
         else instance_id || ' termination protection disabled.'
       end reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance;
-  EOQ
-}
-
-query "ec2_instance_virtualization_type_no_paravirtual" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when virtualization_type = 'paravirtual' then 'alarm'
-        else 'ok'
-      end as status,
-      title || ' virtualization type is ' || virtualization_type || '.' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

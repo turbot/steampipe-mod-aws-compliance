@@ -10,6 +10,7 @@ control "waf_rule_condition_attached" {
   query       = query.waf_rule_condition_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -20,6 +21,7 @@ control "waf_rule_group_rule_attached" {
   query       = query.waf_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -30,6 +32,7 @@ control "waf_web_acl_rule_attached" {
   query       = query.waf_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -39,9 +42,10 @@ control "waf_web_acl_logging_enabled" {
   description = "To help with logging and monitoring within your environment, enable AWS WAF logging on regional and global web ACLs."
   query       = query.waf_web_acl_logging_enabled
 
-  tags = merge(local.conformance_pack_wafv2_common_tags, {
+  tags = merge(local.conformance_pack_waf_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -52,7 +56,18 @@ control "waf_regional_rule_condition_attached" {
   query       = query.waf_regional_rule_condition_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
+  })
+}
+
+control "waf_regional_rule_group_rule_attached" {
+  title       = "WAF regional rule group should have at least one rule attached"
+  description = "This control checks if WAF regional rule groups contain any rules. The rule is non compliant if there are no rules present within a WAF regional rule group."
+  query       = query.waf_regional_rule_group_rule_attached
+
+  tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -62,7 +77,18 @@ control "waf_web_acl_resource_associated" {
   query       = query.waf_web_acl_resource_associated
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
+  })
+}
+
+control "waf_regional_web_acl_rule_attached" {
+  title       = "WAF regional web ACL should have at least one rule or rule group attached"
+  description = "This control checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is non compliant if there are no WAF rules or rule groups present within a Web ACL."
+  query       = query.waf_regional_web_acl_rule_attached
+
+  tags = merge(local.conformance_pack_waf_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -82,24 +108,6 @@ query "waf_rule_condition_attached" {
       ${local.common_dimensions_sql}
     from
       aws_waf_rule;
-  EOQ
-}
-
-query "waf_regional_rule_condition_attached" {
-  sql = <<-EOQ
-    select
-      rule_id as resource,
-      case
-        when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
-        else title || ' has attached conditions.'
-      end as reason
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_rule;
   EOQ
 }
 
@@ -141,6 +149,62 @@ query "waf_web_acl_rule_attached" {
   EOQ
 }
 
+query "waf_web_acl_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when logging_configuration is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when logging_configuration is null then title || ' logging disabled.'
+        else title || ' logging enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_waf_web_acl;
+  EOQ
+}
+
+query "waf_regional_rule_condition_attached" {
+  sql = <<-EOQ
+    select
+      rule_id as resource,
+      case
+        when predicates is null or jsonb_array_length(predicates) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
+        else title || ' has attached conditions.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_wafregional_rule;
+  EOQ
+}
+
+query "waf_regional_rule_group_rule_attached" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
+        else title || ' has attached rules.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafregional_rule_group;
+  EOQ
+}
+
 query "waf_web_acl_resource_associated" {
   sql = <<-EOQ
     select
@@ -160,21 +224,21 @@ query "waf_web_acl_resource_associated" {
   EOQ
 }
 
-query "waf_web_acl_logging_enabled" {
+query "waf_regional_web_acl_rule_attached" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when logging_configuration is null then 'alarm'
+        when rules is null or jsonb_array_length(rules) = 0 then 'alarm'
         else 'ok'
       end as status,
       case
-        when logging_configuration is null then title || ' logging disabled.'
-        else title || ' logging enabled.'
+        when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
+        else title || ' has attached rules.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_waf_web_acl;
+      aws_wafregional_web_acl;
   EOQ
 }

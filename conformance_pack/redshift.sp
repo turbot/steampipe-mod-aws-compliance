@@ -115,6 +115,7 @@ control "redshift_cluster_kms_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     rbi_cyber_security                     = "true"
   })
 }
@@ -130,6 +131,7 @@ control "redshift_cluster_maintenance_settings_check" {
     ffiec                                  = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     rbi_cyber_security                     = "true"
   })
 }
@@ -145,6 +147,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
@@ -154,6 +157,7 @@ control "redshift_cluster_no_default_admin_name" {
   query       = query.redshift_cluster_no_default_admin_name
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
@@ -165,86 +169,20 @@ control "redshift_cluster_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
     gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
     pci_dss_v321       = "true"
     soc_2              = "true"
   })
 }
 
-query "redshift_cluster_no_default_admin_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when master_username = 'awsuser' then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when master_username = 'awsuser' then title || ' using default master user name.'
-        else title || ' not using default master user name.'
-      end reason
+control "redshift_cluster_no_default_database_name" {
+  title       = "Redshift clusters should not use the default database name"
+  description = "This control checks whether an Amazon Redshift cluster has changed the database name from its default value. The control will fail if the database name for a Redshift cluster is set to dev."
+  query       = query.redshift_cluster_no_default_database_name
 
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_redshift_cluster;
-  EOQ
-}
-
-query "redshift_cluster_audit_logging_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when logging_status ->> 'LoggingEnabled' = 'true' then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when logging_status ->> 'LoggingEnabled' = 'true' then title || ' logging enabled.'
-        else title || ' logging disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_redshift_cluster;
-  EOQ
-}
-
-query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when allow_version_upgrade then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when allow_version_upgrade then title || ' automatic upgrades to major versions enabled.'
-        else title || ' automatic upgrades to major versions disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_redshift_cluster;
-  EOQ
-}
-
-query "redshift_cluster_no_default_database_name" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when db_name = 'dev' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when db_name = 'dev' then title || ' using default database name.'
-        else title || ' not using default database name.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_redshift_cluster;
-  EOQ
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    nist_csf = "true"
+  })
 }
 
 query "redshift_cluster_encryption_in_transit_enabled" {
@@ -388,6 +326,84 @@ query "redshift_cluster_enhanced_vpc_routing_enabled" {
       case
         when enhanced_vpc_routing then title || ' enhanced VPC routing enabled.'
         else title || ' enhanced VPC routing disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_no_default_admin_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when master_username = 'awsuser' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when master_username = 'awsuser' then title || ' using default master user name.'
+        else title || ' not using default master user name.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_audit_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when logging_status ->> 'LoggingEnabled' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when logging_status ->> 'LoggingEnabled' = 'true' then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_no_default_database_name" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when db_name = 'dev' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when db_name = 'dev' then title || ' using default database name.'
+        else title || ' not using default database name.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when allow_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when allow_version_upgrade then title || ' automatic upgrades to major versions enabled.'
+        else title || ' automatic upgrades to major versions disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

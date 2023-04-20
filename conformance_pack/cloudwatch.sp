@@ -75,6 +75,7 @@ control "cloudwatch_log_group_retention_period_365" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
@@ -263,6 +264,36 @@ query "cloudwatch_alarm_action_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_cloudwatch_alarm;
+  EOQ
+}
+
+query "cloudwatch_cross_account_sharing" {
+  sql = <<-EOQ
+    with iam_role_cross_account_sharing_count as (
+      select
+        arn,
+        replace(replace(replace((a -> 'Principal' ->> 'AWS'), '[',''), ']', ''), '"', '') as cross_account_details,
+        account_id
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as a
+      where
+        name = 'CloudWatch-CrossAccountSharingRole'
+    )
+    select
+      a.arn as resource,
+      case
+        when c.arn is null then 'ok'
+        else 'info'
+      end as status,
+      case
+        when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
+        else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;
   EOQ
 }
 
@@ -978,36 +1009,6 @@ query "log_metric_filter_cloudtrail_configuration" {
     from
       aws_account as a
       left join filter_data as f on a.account_id = f.account_id;
-  EOQ
-}
-
-query "cloudwatch_cross_account_sharing" {
-  sql = <<-EOQ
-    with iam_role_cross_account_sharing_count as (
-      select
-        arn,
-        replace(replace(replace((a -> 'Principal' ->> 'AWS'), '[',''), ']', ''), '"', '') as cross_account_details,
-        account_id
-      from
-        aws_iam_role,
-        jsonb_array_elements(assume_role_policy_std -> 'Statement') as a
-      where
-        name = 'CloudWatch-CrossAccountSharingRole'
-    )
-    select
-      a.arn as resource,
-      case
-        when c.arn is null then 'ok'
-        else 'info'
-      end as status,
-      case
-        when c.arn is null then 'CloudWatch does not allow cross-account sharing.'
-        else 'CloudWatch allow cross-account sharing with '|| cross_account_details || '.'
-      end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
-    from
-      aws_account as a
-      left join iam_role_cross_account_sharing_count as c on c.account_id = a.account_id;
   EOQ
 }
 

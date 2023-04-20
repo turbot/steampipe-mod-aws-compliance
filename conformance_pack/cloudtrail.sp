@@ -122,6 +122,7 @@ control "cloudtrail_trail_validation_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })
@@ -164,6 +165,7 @@ control "cloudtrail_security_trail_enabled" {
     gxp_eu_annex_11     = "true"
     nist_800_171_rev_2  = "true"
     nist_800_53_rev_4   = "true"
+    nist_csf            = "true"
     soc_2               = "true"
   })
 }
@@ -174,7 +176,8 @@ control "cloudtrail_s3_logging_enabled" {
   query       = query.cloudtrail_s3_logging_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr = "true"
+    gdpr     = "true"
+    nist_csf = "true"
   })
 }
 
@@ -184,7 +187,18 @@ control "cloudtrail_bucket_not_public" {
   query       = query.cloudtrail_bucket_not_public
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr = "true"
+    gdpr     = "true"
+    nist_csf = "true"
+  })
+}
+
+control "cloudtrail_multi_region_read_write_enabled" {
+  title       = "CloudTrail trails should be enabled in all regions"
+  description = "AWS CloudTrail is a web service that records AWS API calls for your account and delivers log files to you. The recorded information includes the identity of the API caller, the time of the API call, the source IP address of the API caller, the request parameters, and the response elements returned by the AWS service. CloudTrail provides a history of AWS API calls for an account, including API calls made via the Management Console, SDKs, command line tools, and higher-level AWS services (such as CloudFormation)."
+  query       = query.cloudtrail_multi_region_read_write_enabled
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    nist_csf = "true"
   })
 }
 
@@ -520,8 +534,6 @@ query "cloudtrail_bucket_not_public" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "cloudtrail_multi_region_read_write_enabled" {
   sql = <<-EOQ
     with event_selectors_trail_details as (
@@ -561,6 +573,8 @@ query "cloudtrail_multi_region_read_write_enabled" {
       left join advanced_event_selectors_trail_details as ad on ad.account_id = a.account_id;
   EOQ
 }
+
+# Non-Config rule query
 
 query "cloudtrail_s3_object_read_events_audit_enabled" {
   sql = <<-EOQ

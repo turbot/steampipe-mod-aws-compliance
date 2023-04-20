@@ -74,6 +74,25 @@ control "route53_domain_transfer_lock_enabled" {
   })
 }
 
+query "route53_domain_auto_renew_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_renew then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_renew then title || ' auto renew enabled.'
+        else title || ' auto renew disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_route53_domain;
+  EOQ
+}
+
 query "route53_zone_query_logging_enabled" {
   sql = <<-EOQ
     select
@@ -92,26 +111,6 @@ query "route53_zone_query_logging_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_route53_zone;
-  EOQ
-}
-
-query "route53_domain_transfer_lock_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when transfer_lock then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when transfer_lock then title || ' transfer lock enabled.'
-        else title || ' transfer lock disabled.'
-        end reason
-
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_route53_domain;
   EOQ
 }
 
@@ -186,20 +185,19 @@ query "route53_domain_privacy_protection_enabled" {
   EOQ
 }
 
-# Non-Config rule query
-
-query "route53_domain_auto_renew_enabled" {
+query "route53_domain_transfer_lock_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
       case
-        when auto_renew then 'ok'
+        when transfer_lock then 'ok'
         else 'alarm'
       end as status,
       case
-        when auto_renew then title || ' auto renew enabled.'
-        else title || ' auto renew disabled.'
-      end as reason
+        when transfer_lock then title || ' transfer lock enabled.'
+        else title || ' transfer lock disabled.'
+        end reason
+
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

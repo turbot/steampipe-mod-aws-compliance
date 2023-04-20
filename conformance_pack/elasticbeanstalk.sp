@@ -14,6 +14,7 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
     fedramp_moderate_rev_4                 = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
   })
 }
 
