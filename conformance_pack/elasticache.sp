@@ -89,6 +89,7 @@ query "elasticache_replication_group_redis_auth_enabled" {
         when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled then eg.title || ' have Redis AUTH enabled.'
         else eg.title || ' have Redis AUTH disabled.'
       end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "eg.")}
     from
       aws_elasticache_replication_group as eg
       left join elasticache_cluster_node_version as v on eg.replication_group_id = v.replication_group_id;
@@ -107,7 +108,6 @@ query "elasticache_replication_group_encryption_at_rest_enabled" {
         when at_rest_encryption_enabled then title || ' encryption at rest enabled.'
         else title || ' encryption at rest disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;
@@ -126,7 +126,6 @@ query "elasticache_replication_group_encryption_in_transit_enabled" {
         when transit_encryption_enabled then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;
@@ -145,7 +144,6 @@ query "elasticache_replication_group_auto_failover_enabled" {
         when automatic_failover = 'enabled' then title || ' automatic failover enabled.'
         else title || ' automatic failover disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_elasticache_replication_group;
