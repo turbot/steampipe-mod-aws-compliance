@@ -1,3 +1,19 @@
+## v0.63 [2023-04-20]
+
+_Breaking changes_
+
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmarks has been updated to better align with [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
+  - 100+ new controls have been added
+  - The following controls are no longer included in the benchmarks:
+    - `ebs_attached_volume_delete_on_termination_enabled`
+    - `s3_public_access_block_bucket_account`
+    - `sns_topic_encrypted_at_rest`
+    - `vpc_security_group_associated_to_eni`
+
+_Bug fixes_
+
+- Fixed `lambda functions` should operate in more than one availability zone false positives. ([#609](https://github.com/turbot/steampipe-mod-aws-compliance/pull/609))
+
 ## v0.62 [2023-04-13]
 
 _Breaking changes_
