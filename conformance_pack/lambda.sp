@@ -151,11 +151,11 @@ query "lambda_function_in_vpc" {
     select
       arn as resource,
       case
-        when vpc_id is null then 'alarm'
+        when vpc_id is null or vpc_id = '' then 'alarm'
         else 'ok'
       end status,
       case
-        when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end reason
 
@@ -271,7 +271,7 @@ query "lambda_function_cloudtrail_logging_enabled" {
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:lambda' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then 'ok'
+          or a.cloudtrail_region = l.region then 'ok'
         else 'alarm'
       end as status,
       case
@@ -314,7 +314,7 @@ query "lambda_function_multiple_az_configured" {
     select
       arn as resource,
       case
-        when vpc_id is null then 'skip'
+        when vpc_id is null or vpc_id = '' then 'skip'
         else case
           when
           (
@@ -330,7 +330,7 @@ query "lambda_function_multiple_az_configured" {
         end
       end as status,
       case
-        when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
       end as reason
       ${local.tag_dimensions_sql}
