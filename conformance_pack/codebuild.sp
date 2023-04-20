@@ -136,7 +136,7 @@ query "codebuild_project_build_greater_then_90_days" {
         else 'alarm'
       end as status,
       case
-        when b.build_time is null then p.title || ' was never build.'
+        when b.build_time is null then p.title || ' has no builds.'
         else p.title || ' was build ' || build_time || ' day(s) before.'
       end as reason
       ${local.tag_dimensions_sql}

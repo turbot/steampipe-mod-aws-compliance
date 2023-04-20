@@ -341,12 +341,11 @@ query "redshift_cluster_no_default_admin_name" {
       case
         when master_username = 'awsuser' then 'alarm'
         else 'ok'
-      end status,
+      end as status,
       case
         when master_username = 'awsuser' then title || ' using default master user name.'
         else title || ' not using default master user name.'
-      end reason
-
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

@@ -794,7 +794,7 @@ query "elb_classic_lb_with_outbound_rule" {
       end as status,
       case
         when c.security_groups is null then c.title || ' does not have security group attached.'
-        when o.arn is not null then c.title || ' all attached security groups does not have outbound rule(s).'
+        when o.arn is not null then c.title || ' all attached security groups do not have outbound rule(s).'
         else c.title || ' all attached security groups have outbound rule(s).'
       end as reason
       ${local.tag_dimensions_sql}
@@ -906,7 +906,6 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         else 'ok'
       end as status,
       title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -919,7 +918,6 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         else 'ok'
       end as status,
       title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
