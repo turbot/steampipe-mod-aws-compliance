@@ -149,11 +149,11 @@ query "ebs_snapshot_not_publicly_restorable" {
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then 'alarm'
         else 'ok'
-      end status,
+      end as status,
       case
         when create_volume_permissions @> '[{"Group": "all", "UserId": null}]' then title || ' is publicly restorable.'
         else title || ' is not publicly restorable.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -164,17 +164,15 @@ query "ebs_snapshot_not_publicly_restorable" {
 query "ebs_volume_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when encrypted then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
-      end reason
-
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

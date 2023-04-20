@@ -52,16 +52,16 @@ query "sns_topic_encrypted_at_rest" {
   sql = <<-EOQ
     select
       topic_arn as resource,
-    case
-      when kms_master_key_id is null then 'alarm'
-      else 'ok'
-    end as status,
-    case
-      when kms_master_key_id is null then title || ' encryption at rest disabled.'
-      else title || ' encryption at rest enabled.'
-    end as reason
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
+      case
+        when kms_master_key_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_master_key_id is null then title || ' encryption at rest disabled.'
+        else title || ' encryption at rest enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_sns_topic;
   EOQ

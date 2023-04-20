@@ -233,11 +233,11 @@ query "efs_file_system_enforces_ssl" {
       case
         when ok.status = 'ok' then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when ok.status = 'ok' then f.title || ' policy enforces HTTPS.'
         else f.title || ' policy does not enforce HTTPS.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from

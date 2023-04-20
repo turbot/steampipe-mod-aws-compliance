@@ -621,7 +621,6 @@ query "log_metric_filter_route_table" {
         when f.trail_name is null then 'No log metric filter and alarm exist for route table changes.'
         else filter_name || ' forwards events for route table changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -670,7 +669,6 @@ query "log_metric_filter_network_gateway" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to network gateways.'
         else filter_name || ' forwards events for changes to network gateways.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -718,7 +716,6 @@ query "log_metric_filter_network_acl" {
         when f.trail_name is null then 'No log metric filter and alarm exist for changes to NACLs.'
         else filter_name || ' forwards events for changes to NACLs.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -766,7 +763,6 @@ query "log_metric_filter_security_group" {
         when f.trail_name is null then 'No log metric filter and alarm exist for security group changes.'
         else filter_name || ' forwards events for security group changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -814,7 +810,6 @@ query "log_metric_filter_config_configuration" {
         when f.trail_name is null then 'No log metric filter and alarm exist for AWS Config configuration changes.'
         else filter_name || ' forwards events for AWS Config configuration changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -863,7 +858,6 @@ query "log_metric_filter_bucket_policy" {
         when f.trail_name is null then 'No log metric filter and alarm exist for S3 bucket policy changes.'
         else filter_name || ' forwards events for S3 bucket policy changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a

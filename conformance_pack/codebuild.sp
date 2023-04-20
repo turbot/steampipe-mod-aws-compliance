@@ -193,7 +193,6 @@ query "codebuild_project_source_repo_oauth_configured" {
         when c.auth_type = 'OAUTH' then p.title || ' using OAuth to connect source repository.'
         else p.title || ' not using OAuth to connect source repository.'
       end as reason
-
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from

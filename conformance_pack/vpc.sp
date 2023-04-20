@@ -325,7 +325,6 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
-
       distinct arn as resource,
       case
         when v.account_id <> v.owner_id then 'skip'
@@ -1334,7 +1333,6 @@ query "vpc_security_group_unsued" {
         aws_ec2_instance,
         jsonb_array_elements(security_groups) as sg
         group by sg ->> 'GroupId'
-
     )
     select
       distinct s.arn as resource,

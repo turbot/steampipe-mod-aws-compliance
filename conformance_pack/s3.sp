@@ -534,13 +534,13 @@ query "s3_bucket_restrict_public_read_access" {
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then 'ok'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when (block_public_acls or a.name is null) and not bucket_policy_is_public then b.title || ' not publicly readable.'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and block_public_policy) then b.title || ' not publicly readable.'
         when (block_public_acls or a.name is null) and (bucket_policy_is_public and p.name is null) then  b.title || ' not publicly readable.'
         else b.title || ' publicly readable.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -717,7 +717,6 @@ query "s3_public_access_block_bucket_account" {
       aws_s3_account_settings as s3account
     where
       s3account.account_id = bucket.account_id;
-
   EOQ
 }
 
@@ -747,7 +746,6 @@ query "s3_bucket_default_encryption_enabled_kms" {
     from
       aws_s3_bucket as b
       left join data as d on b.name = d.name;
-
   EOQ
 }
 
@@ -973,12 +971,12 @@ query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
         when not versioning_enabled then 'alarm'
         when versioning_enabled and r.arn is not null then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when not versioning_enabled then name || ' versioning diabled.'
         when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
-      end reason
+      end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -1059,12 +1057,12 @@ query "s3_bucket_acls_should_prohibit_user_access" {
           when object_ownership_controls -> 'Rules' @> '[{"ObjectOwnership": "BucketOwnerEnforced"} ]' then 'ok'
           when jsonb_array_length(additional_permissions) = 0 then 'ok'
           else 'alarm'
-      end status,
+      end as status,
       case
           when object_ownership_controls -> 'Rules' @> '[{"ObjectOwnership": "BucketOwnerEnforced"} ]' then title || ' ACLs are disabled.'
           when jsonb_array_length(additional_permissions) = 0 then title || ' does not have ACLs for user access.'
           else title || ' has ACLs for user access.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1081,11 +1079,11 @@ query "s3_bucket_mfa_delete_enabled" {
       case
         when versioning_mfa_delete then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when versioning_mfa_delete then name || ' MFA delete enabled.'
         else name || ' MFA delete disabled.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1109,12 +1107,12 @@ query "s3_bucket_protected_by_macie" {
         when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then 'skip'
         when l.bucket_name is not null then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when b.region = any(array['us-gov-east-1', 'us-gov-west-1']) then b.title || ' not protected by Macie as Macie is not supported in ' || b.region || '.'
         when l.bucket_name is not null then b.title || ' protected by Macie.'
         else b.title || ' not protected by Macie.'
-      end reason
+      end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
     from
@@ -1137,7 +1135,7 @@ query "s3_bucket_public_access_blocked" {
           'ok'
         else
           'alarm'
-      end status,
+      end as status,
       case
         when
           block_public_acls
@@ -1146,7 +1144,7 @@ query "s3_bucket_public_access_blocked" {
           and restrict_public_buckets
         then name || ' blocks public access.'
         else name || ' does not block public access.'
-      end reason
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

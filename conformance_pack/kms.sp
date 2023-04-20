@@ -78,7 +78,6 @@ control "kms_cmk_policy_prohibit_public_access" {
 query "kms_key_not_pending_deletion" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when key_state = 'PendingDeletion' then 'alarm'
@@ -100,7 +99,6 @@ query "kms_key_not_pending_deletion" {
 query "kms_cmk_rotation_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when origin = 'EXTERNAL' then 'skip'
@@ -140,7 +138,6 @@ query "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:reencryptfrom', 'kms:reencrypt*']
     )
     select
-
       i.arn as resource,
       case
         when d.arn is null then 'ok'
@@ -199,7 +196,6 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
         and statement -> 'Action' ?| array['*', 'kms:*', 'kms:decrypt', 'kms:deencrypt*', 'kms:reencryptfrom']
     )
     select
-
       i.arn as resource,
       case
         when d.arn is null then 'ok'

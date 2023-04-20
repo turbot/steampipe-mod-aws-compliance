@@ -390,7 +390,6 @@ control "rds_db_cluster_multiple_az_enabled" {
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when backup_retention_period < 1 then 'alarm'
@@ -410,7 +409,6 @@ query "rds_db_instance_backup_enabled" {
 query "rds_db_instance_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when storage_encrypted then 'ok'
@@ -430,7 +428,6 @@ query "rds_db_instance_encryption_at_rest_enabled" {
 query "rds_db_instance_multiple_az_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when engine ilike any (array ['%aurora-mysql%', '%aurora-postgres%']) then 'skip'
@@ -452,7 +449,6 @@ query "rds_db_instance_multiple_az_enabled" {
 query "rds_db_instance_prohibit_public_access" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when publicly_accessible then 'alarm'
@@ -462,7 +458,6 @@ query "rds_db_instance_prohibit_public_access" {
         when publicly_accessible then title || ' publicly accessible.'
         else title || ' not publicly accessible.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -474,7 +469,6 @@ query "rds_db_snapshot_encrypted_at_rest" {
   sql = <<-EOQ
     (
     select
-
       arn as resource,
       case
         when storage_encrypted then 'ok'
@@ -492,7 +486,6 @@ query "rds_db_snapshot_encrypted_at_rest" {
     union
     (
     select
-
       arn as resource,
       case
         when encrypted then 'ok'
@@ -514,7 +507,6 @@ query "rds_db_snapshot_prohibit_public_access" {
   sql = <<-EOQ
     (
     select
-
       arn as resource,
       case
         when cluster_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
@@ -524,7 +516,6 @@ query "rds_db_snapshot_prohibit_public_access" {
         when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
         else title || ' not publicly restorable.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -534,7 +525,6 @@ query "rds_db_snapshot_prohibit_public_access" {
     union
     (
     select
-
       arn as resource,
       case
         when database_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
@@ -544,7 +534,6 @@ query "rds_db_snapshot_prohibit_public_access" {
         when database_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly restorable.'
         else title || ' not publicly restorable.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -557,7 +546,6 @@ query "rds_db_snapshot_prohibit_public_access" {
 query "rds_db_instance_logging_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       engine,
       case
@@ -620,7 +608,6 @@ query "rds_db_instance_in_backup_plan" {
         join mapped_with_tags as t on t.mapped_tags ?| array(select jsonb_object_keys(tags))
     )
     select
-
       i.arn as resource,
       case
         when b.db_instance_identifier is null then 'alarm'
@@ -642,7 +629,6 @@ query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   sql = <<-EOQ
     (
     select
-
       arn as resource,
       case
         when enabled_cloudwatch_logs_exports is not null then 'ok'
@@ -660,7 +646,6 @@ query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
     union
     (
     select
-
       arn as resource,
       case
         when class = 'db.m1.small' then 'skip'
@@ -683,7 +668,6 @@ query "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
 query "rds_db_instance_deletion_protection_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when engine like any(array['aurora%', 'docdb', 'neptune']) then 'skip'
@@ -705,7 +689,6 @@ query "rds_db_instance_deletion_protection_enabled" {
 query "rds_db_instance_iam_authentication_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when iam_database_authentication_enabled then 'ok'
@@ -725,7 +708,6 @@ query "rds_db_instance_iam_authentication_enabled" {
 query "rds_db_cluster_iam_authentication_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when iam_database_authentication_enabled then 'ok'
@@ -783,7 +765,6 @@ query "rds_db_instance_protected_by_backup_plan" {
         resource_type = 'RDS'
     )
     select
-
       r.arn as resource,
       case
         when b.arn is not null then 'ok'
@@ -804,7 +785,6 @@ query "rds_db_instance_protected_by_backup_plan" {
 query "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when auto_minor_version_upgrade then 'ok'
@@ -824,7 +804,6 @@ query "rds_db_instance_automatic_minor_version_upgrade_enabled" {
 query "rds_db_cluster_deletion_protection_enabled" {
   sql = <<-EOQ
     select
-
       db_cluster_identifier as resource,
       case
         when deletion_protection then 'ok'
@@ -852,8 +831,7 @@ query "rds_db_instance_cloudwatch_logs_enabled" {
       case
         when enabled_cloudwatch_logs_exports is not null then title || ' integrated with CloudWatch logs.'
         else title || ' not integrated with CloudWatch logs.'
-      end reason
-
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

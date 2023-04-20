@@ -265,7 +265,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
         when authorization_type is null then route_id || ' authorization type not configured.'
         else route_id || ' authorization type ' || authorization_type || ' configured.'
       end as reason
-
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_route;

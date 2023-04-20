@@ -130,7 +130,6 @@ control "lambda_function_use_latest_runtime" {
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when dead_letter_config_target_arn is null then 'alarm'
@@ -185,7 +184,6 @@ query "lambda_function_restrict_public_access" {
         arn
     )
     select
-
       f.arn as resource,
       case
         when p.arn is null then 'ok'
@@ -207,7 +205,6 @@ query "lambda_function_restrict_public_access" {
 query "lambda_function_concurrent_execution_limit_configured" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when reserved_concurrent_executions is null then 'alarm'
