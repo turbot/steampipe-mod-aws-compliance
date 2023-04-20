@@ -104,7 +104,7 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
 }
 
 control "ecs_task_definition_container_environment_no_secret" {
-  title       = "Secrets should not be passed as container environment variables"
+  title       = "ECS task definition containers should not have secrets passed as environment variables"
   description = "This control checks if the key value of any variables in the environment parameter of container definitions includes AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, or ECS_ENGINE_AUTH_DATA. This control fails if a single environment variable in any container definition equals AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, or ECS_ENGINE_AUTH_DATA. This control does not cover environmental variables passed in from other locations such as Amazon S3."
   query       = query.ecs_task_definition_container_environment_no_secret
 
