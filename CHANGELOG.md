@@ -2,7 +2,7 @@
 
 _Breaking changes_
 
-- The `NIST Cybersecurity Framework (CSF) v1.1` benchmarks has been updated to better align with [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmarks has been updated to better align with official [NIST document](https://www.nist.gov/cyberframework) and the matchig [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
   - 100+ new controls have been added
   - The following controls are no longer included in the benchmarks:
     - `ebs_attached_volume_delete_on_termination_enabled`
@@ -12,7 +12,7 @@ _Breaking changes_
 
 _Bug fixes_
 
-- Fixed `lambda functions` should operate in more than one availability zone false positives. ([#609](https://github.com/turbot/steampipe-mod-aws-compliance/pull/609))
+- Fixed the `lambda_function_in_vpc` and the `lambda_function_multiple_az_configured` queries to correctly check if a function is present in a VPC or not. ([#610](https://github.com/turbot/steampipe-mod-aws-compliance/pull/610))
 
 ## v0.62 [2023-04-13]
 
