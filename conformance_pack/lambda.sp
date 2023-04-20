@@ -158,7 +158,6 @@ query "lambda_function_in_vpc" {
         when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -277,7 +276,7 @@ query "lambda_function_cloudtrail_logging_enabled" {
       case
         when (l.arn = c.lambda_arn)
           or (r.lambda_arn = 'arn:aws:s3' and r.cloudtrail_region = l.region )
-          or a.cloudtrail_region =  l.region then l.name || ' logging enabled.'
+          or a.cloudtrail_region = l.region then l.name || ' logging enabled.'
         else l.name || ' logging not enabled.'
       end as reason
       ${local.tag_dimensions_sql}
