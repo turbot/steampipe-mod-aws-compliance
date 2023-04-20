@@ -39,7 +39,7 @@ control "foundational_security_elasticache_2" {
   title         = "2 Minor version upgrades should be automatically applied to ElastiCache for Redis cache clusters"
   description   = "This control evaluates whether ElastiCache for Redis automatically applies minor version upgrades to cache clusters. This control fails if ElastiCache for Redis cache clusters do not have minor version upgrades automatically applied."
   severity      = "high"
-  query         = query.elasticache_cluster_auto_minor_version_upgrade_check
+  query         = query.elasticache_cluster_auto_minor_version_upgrade_enabled
   documentation = file("./foundational_security/docs/foundational_security_elasticache_2.md")
 
   tags = merge(local.foundational_security_elasticache_common_tags, {

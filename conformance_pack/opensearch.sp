@@ -297,7 +297,7 @@ query "opensearch_domain_in_vpc" {
 
 # Non Config Rules
 
-query "opensearch_domain_min_data_node_3" {
+query "opensearch_domain_data_node_fault_tolerance" {
   sql = <<-EOQ
     select
       arn as resource,
@@ -306,8 +306,9 @@ query "opensearch_domain_min_data_node_3" {
         else 'alarm'
       end as status,
       case
-        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then title || ' is configured with at least three data nodes.'
-        else title || ' is not configured with at least three data nodes.'
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then title || ' zone awareness is '
+        || case when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' then 'enabled' else 'disabled' end || ' with ' || (cluster_config ->> 'InstanceCount' ) || ' data node(s) configued.'
+        else title || ' zone awareness is ' || case when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' then 'enabled' else 'disabled' end || ' with ' || (cluster_config ->> 'InstanceCount') || ' data node(s) configued.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

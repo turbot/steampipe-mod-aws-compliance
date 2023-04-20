@@ -92,7 +92,7 @@ control "foundational_security_opensearch_6" {
   title         = "6 OpenSearch domains should have at least three data nodes"
   description   = "This control checks whether OpenSearch domains are configured with at least three data nodes and zoneAwarenessEnabled is true. This control fails for an OpenSearch domain if instanceCount is less than 3 or zoneAwarenessEnabled is false."
   severity      = "medium"
-  query         = query.opensearch_domain_min_data_node_3
+  query         = query.opensearch_domain_data_node_fault_tolerance
   documentation = file("./foundational_security/docs/foundational_security_opensearch_6.md")
 
   tags = merge(local.foundational_security_opensearch_common_tags, {
