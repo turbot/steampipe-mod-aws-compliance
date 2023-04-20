@@ -2,7 +2,7 @@
 
 _Breaking changes_
 
-- The `NIST Cybersecurity Framework (CSF) v1.1` benchmarks has been updated to better align with official [NIST document](https://www.nist.gov/cyberframework) and the matchig [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the official [NIST document](https://www.nist.gov/cyberframework) and the matching [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
   - 100+ new controls have been added
   - The following controls are no longer included in the benchmarks:
     - `ebs_attached_volume_delete_on_termination_enabled`
