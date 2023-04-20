@@ -164,7 +164,6 @@ query "ebs_snapshot_not_publicly_restorable" {
 query "ebs_volume_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
-
       arn as resource,
       case
         when encrypted then 'ok'
@@ -174,7 +173,6 @@ query "ebs_volume_encryption_at_rest_enabled" {
         when encrypted then volume_id || ' encrypted.'
         else volume_id || ' not encrypted.'
       end reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

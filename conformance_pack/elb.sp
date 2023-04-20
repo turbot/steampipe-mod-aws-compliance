@@ -565,7 +565,6 @@ query "elb_application_network_lb_use_ssl_certificate" {
         when b.load_balancer_arn is null then a.title || ' uses certificates provided by ACM.'
         else a.title || ' has ' || b.count || ' listeners which do not use certificates provided by ACM.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       all_application_network_load_balacer as a
@@ -930,7 +929,6 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
         else 'ok'
       end as status,
       title || ' has ' || jsonb_array_length(availability_zones) || ' availability zone(s).' as reason
-
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

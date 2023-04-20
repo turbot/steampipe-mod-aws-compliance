@@ -293,12 +293,11 @@ query "ec2_instance_detailed_monitoring_enabled" {
       case
         when monitoring_state = 'enabled' then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       case
         when monitoring_state = 'enabled' then instance_id || ' detailed monitoring enabled.'
         else instance_id || ' detailed monitoring disabled.'
-      end reason
-
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
