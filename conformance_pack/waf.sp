@@ -251,8 +251,8 @@ query "waf_regional_web_acl_rule_attached" {
         else 'ok'
       end as status,
       case
-        when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
+        when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules or rule groups.'
+        else title || ' has attached rules or rule groups.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
