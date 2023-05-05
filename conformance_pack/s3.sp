@@ -974,7 +974,7 @@ query "s3_bucket_versioning_and_lifecycle_policy_enabled" {
       end as status,
       case
         when not versioning_enabled then name || ' versioning diabled.'
-        when versioning_enabled and r.arn is not null then ' lifecycle policy configured.'
+        when versioning_enabled and r.arn is not null then name || ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}

@@ -22,6 +22,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_17,
     control.foundational_security_ec2_18,
     control.foundational_security_ec2_19,
+    control.foundational_security_ec2_20,
     control.foundational_security_ec2_21,
     control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
@@ -214,6 +215,19 @@ control "foundational_security_ec2_19" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_19"
     foundational_security_category = "security_group_configuration"
+  })
+}
+
+control "foundational_security_ec2_20" {
+  title         = "20 Both VPN tunnels for an AWS Site-to-Site VPN connection should be up"
+  description   = "This control checks that both VPN tunnels provided by AWS Site-to-Site VPN are in UP status. The control fails if one or both tunnels are in DOWN status."
+  severity      = "medium"
+  query         = query.vpc_vpn_tunnel_up
+  documentation = file("./foundational_security/docs/foundational_security_ec2_20.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_20"
+    foundational_security_category = "resilience"
   })
 }
 

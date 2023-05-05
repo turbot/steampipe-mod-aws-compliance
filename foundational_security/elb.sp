@@ -8,11 +8,14 @@ benchmark "foundational_security_elb" {
   title         = "ELB"
   documentation = file("./foundational_security/docs/foundational_security_elb.md")
   children = [
+    control.foundational_security_elb_1,
+    control.foundational_security_elb_2,
     control.foundational_security_elb_3,
     control.foundational_security_elb_4,
     control.foundational_security_elb_5,
     control.foundational_security_elb_6,
     control.foundational_security_elb_7,
+    control.foundational_security_elb_9,
     control.foundational_security_elb_10,
     control.foundational_security_elb_12,
     control.foundational_security_elb_13,
@@ -21,6 +24,31 @@ benchmark "foundational_security_elb" {
 
   tags = merge(local.foundational_security_elb_common_tags, {
     type = "Benchmark"
+  })
+}
+
+control "foundational_security_elb_1" {
+  title         = "1 Application Load Balancer should be configured to redirect all HTTP requests to HTTPS"
+  description   = "This control checks whether HTTP to HTTPS redirection is configured on all HTTP listeners of Application Load Balancers. The control fails if any of the HTTP listeners of Application Load Balancers do not have HTTP to HTTPS redirection configured."
+  severity      = "medium"
+  query         = query.elb_application_lb_redirect_http_request_to_https
+  documentation = file("./foundational_security/docs/foundational_security_elb_1.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_1"
+  })
+}
+
+control "foundational_security_elb_2" {
+  title         = "2 Classic Load Balancers with SSL/HTTPS listeners should use a certificate provided by AWS Certificate Manager"
+  description   = "This control checks whether the Classic Load Balancer uses HTTPS/SSL certificates provided by AWS Certificate Manager (ACM). The control fails if the Classic Load Balancer configured with HTTPS/SSL listener does not use a certificate provided by ACM."
+  severity      = "medium"
+  query         = query.elb_classic_lb_use_ssl_certificate
+  documentation = file("./foundational_security/docs/foundational_security_elb_2.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_2"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
 
@@ -86,6 +114,19 @@ control "foundational_security_elb_7" {
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_7"
     foundational_security_category = "resilience"
+  })
+}
+
+control "foundational_security_elb_9" {
+  title         = "9 Classic Load Balancers should have cross-zone load balancing enabled"
+  description   = "This control checks if cross-zone load balancing is enabled for the Classic Load Balancers (CLBs). This control fails if cross-zone load balancing is not enabled for a CLB."
+  severity      = "medium"
+  query         = query.elb_classic_lb_cross_zone_load_balancing_enabled
+  documentation = file("./foundational_security/docs/foundational_security_elb_9.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_9"
+    foundational_security_category = "high_availability"
   })
 }
 

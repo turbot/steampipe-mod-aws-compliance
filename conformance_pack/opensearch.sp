@@ -290,7 +290,29 @@ query "opensearch_domain_in_vpc" {
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
-      aws_opensearch_domain as d left join opensearch_domain_with_public_subnet as p
-      on d.arn = p.arn;
+      aws_opensearch_domain as d 
+      left join opensearch_domain_with_public_subnet as p on d.arn = p.arn;
+  EOQ
+}
+
+# Non-Config rule query
+
+query "opensearch_domain_data_node_fault_tolerance" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' and cluster_config ->> 'InstanceCount' > '2' then title || ' zone awareness is '
+        || case when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' then 'enabled' else 'disabled' end || ' with ' || (cluster_config ->> 'InstanceCount') || ' data node(s) configued.'
+        else title || ' zone awareness is ' || case when cluster_config ->> 'ZoneAwarenessEnabled' = 'true' then 'enabled' else 'disabled' end || ' with ' || (cluster_config ->> 'InstanceCount') || ' data node(s) configued.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
   EOQ
 }
