@@ -46,3 +46,125 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
       aws_elasticache_replication_group;
   EOQ
 }
+
+# Non-Config rule query
+
+query "elasticache_cluster_no_default_subnet_group" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cache_subnet_group_name = 'default' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when cache_subnet_group_name = 'default' then title || ' not configured with a custom subnet group.'
+        else title || ' configured with a custom subnet group.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_cluster;
+  EOQ
+}
+
+query "elasticache_replication_group_redis_auth_enabled" {
+  sql = <<-EOQ
+    with elasticache_cluster_node_version as (
+      select
+        distinct replication_group_id,
+        engine_version
+      from
+        aws_elasticache_cluster
+    )
+    select
+      arn as resource,
+      case
+        when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then 'skip'
+        when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then eg.title || ' node version is ' || engine_version || '.'
+        when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled then eg.title || ' has Redis AUTH enabled.'
+        else eg.title || ' has Redis AUTH disabled.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "eg.")}
+    from
+      aws_elasticache_replication_group as eg
+      left join elasticache_cluster_node_version as v on eg.replication_group_id = v.replication_group_id;
+  EOQ
+}
+
+query "elasticache_replication_group_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when at_rest_encryption_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when at_rest_encryption_enabled then title || ' encryption at rest enabled.'
+        else title || ' encryption at rest disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_replication_group;
+  EOQ
+}
+
+query "elasticache_replication_group_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when transit_encryption_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when transit_encryption_enabled then title || ' encryption in transit enabled.'
+        else title || ' encryption in transit disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_replication_group;
+  EOQ
+}
+
+query "elasticache_replication_group_auto_failover_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when automatic_failover = 'enabled' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when automatic_failover = 'enabled' then title || ' automatic failover enabled.'
+        else title || ' automatic failover disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_replication_group;
+  EOQ
+}
+
+query "elasticache_cluster_auto_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
+        else title || ' automatic minor version upgrades disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_cluster;
+  EOQ
+}
