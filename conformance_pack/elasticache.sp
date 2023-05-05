@@ -47,7 +47,7 @@ query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   EOQ
 }
 
-# Non Config Rules
+# Non-Config rule query
 
 query "elasticache_cluster_no_default_subnet_group" {
   sql = <<-EOQ

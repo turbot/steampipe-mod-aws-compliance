@@ -143,12 +143,12 @@ query "ssm_managed_instance_compliance_patch_compliant" {
   EOQ
 }
 
-# Non Config Rules
+# Non-Config rule query
 
 query "ssm_document_prohibit_public_access" {
   sql = <<-EOQ
     select
-      'arn:' || partition || ':ssm:' || region || ':' || account_id ||  ':document/' ||  name as resource,
+      'arn:' || partition || ':ssm:' || region || ':' || account_id || ':document/' || name as resource,
       case
         when account_ids :: jsonb ? 'all' then 'alarm'
         else 'ok'
