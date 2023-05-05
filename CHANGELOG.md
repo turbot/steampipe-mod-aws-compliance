@@ -1,3 +1,37 @@
+## v0.64 [2023-05-05]
+
+_What's new?_
+
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#614](https://github.com/turbot/steampipe-mod-aws-compliance/pull/614))
+  - EC2.20
+  - EKS.1
+  - ElastiCache.1
+  - ElastiCache.2
+  - ElastiCache.3
+  - ElastiCache.4
+  - ElastiCache.5
+  - ElastiCache.6
+  - ElastiCache.7
+  - ELB.1
+  - ELB.2
+  - ELB.9
+  - Opensearch.1
+  - Opensearch.2
+  - Opensearch.3
+  - Opensearch.4
+  - Opensearch.5
+  - Opensearch.6
+  - Opensearch.7
+  - Opensearch.8
+  - RDS.11
+  - Redshift.10
+  - S3.13
+  - SSM.4
+  - WAF.1
+  - WAF.2
+  - WAF.3
+  - WAF.4
+
 ## v0.63 [2023-04-20]
 
 _Breaking changes_
