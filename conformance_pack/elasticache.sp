@@ -86,8 +86,8 @@ query "elasticache_replication_group_redis_auth_enabled" {
       end as status,
       case
         when regexp_split_to_array(v.engine_version, '\.')::int[] >= regexp_split_to_array('6.0', '\.')::int[] then eg.title || ' node version is ' || engine_version || '.'
-        when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled then eg.title || ' have Redis AUTH enabled.'
-        else eg.title || ' have Redis AUTH disabled.'
+        when regexp_split_to_array(v.engine_version, '\.')::int[] < regexp_split_to_array('6.0', '\.')::int[] and eg.auth_token_enabled then eg.title || ' has Redis AUTH enabled.'
+        else eg.title || ' has Redis AUTH disabled.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "eg.")}
     from

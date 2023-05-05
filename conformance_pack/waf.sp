@@ -102,7 +102,7 @@ query "waf_rule_condition_attached" {
       end as status,
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
-        else title || ' has attached conditions.'
+        else title || ' has ' || jsonb_array_length(predicates) || ' attached conditions.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -121,7 +121,7 @@ query "waf_rule_group_rule_attached" {
       end as status,
       case
         when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
+        else title || ' has ' || jsonb_array_length(activated_rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -140,7 +140,7 @@ query "waf_web_acl_rule_attached" {
       end as status,
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
+        else title || ' has ' || jsonb_array_length(rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -178,30 +178,11 @@ query "waf_regional_rule_condition_attached" {
       end as status,
       case
         when predicates is null or jsonb_array_length(predicates) = 0 then title || ' has no attached conditions.'
-        else title || ' has attached conditions.'
+        else title || ' has ' || jsonb_array_length(predicates) || ' condition(s) attached.'
       end as reason
       ${local.common_dimensions_sql}
     from
       aws_wafregional_rule;
-  EOQ
-}
-
-query "waf_regional_rule_group_rule_attached" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_rule_group;
   EOQ
 }
 
@@ -214,7 +195,7 @@ query "waf_web_acl_resource_associated" {
         else 'alarm'
       end as status,
       case
-        when jsonb_array_length(resources) > 0 then title || ' associated with AWS resource(s).'
+        when jsonb_array_length(resources) > 0 then title || ' associated with ' || jsonb_array_length(resources) || ' AWS resource(s).'
         else title || ' not assoicated with AWS resource.'
       end as reason
       ${local.tag_dimensions_sql}
@@ -234,25 +215,7 @@ query "waf_regional_web_acl_rule_attached" {
       end as status,
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_wafregional_web_acl;
-  EOQ
-}
-query "waf_regional_web_acl_rule_attached" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when rules is null or jsonb_array_length(rules) = 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules or rule groups.'
-        else title || ' has attached rules or rule groups.'
+        else title || ' has ' || jsonb_array_length(rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -271,7 +234,7 @@ query "waf_regional_rule_group_rule_attached" {
       end as status,
       case
         when activated_rules is null or jsonb_array_length(activated_rules) = 0 then title || ' has no attached rules.'
-        else title || ' has attached rules.'
+        else title || ' has ' || jsonb_array_length(activated_rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
