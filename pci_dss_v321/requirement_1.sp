@@ -230,7 +230,8 @@ benchmark "pci_dss_v321_requirement_1_2_3_b" {
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
-    control.vpc_route_table_restrict_public_access_to_igw
+    control.vpc_route_table_restrict_public_access_to_igw,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.pci_dss_v321_requirement_1_common_tags, {

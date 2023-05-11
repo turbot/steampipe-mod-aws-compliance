@@ -391,6 +391,7 @@ benchmark "pci_dss_v321_requirement_10_5_3" {
 
   children = [
     control.cloudtrail_trail_integrated_with_logs,
+    control.s3_bucket_versioning_enabled,
     control.s3_bucket_cross_region_replication_enabled
   ]
 
