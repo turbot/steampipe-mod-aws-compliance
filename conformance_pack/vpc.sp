@@ -295,7 +295,6 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     other_checks                           = "true"
-    pci_dss_v321                           = "true"
   })
 }
 

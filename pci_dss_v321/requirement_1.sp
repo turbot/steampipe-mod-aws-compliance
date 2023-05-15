@@ -104,7 +104,6 @@ benchmark "pci_dss_v321_requirement_1_2_1_a" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
@@ -135,7 +134,6 @@ benchmark "pci_dss_v321_requirement_1_2_1_b" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
@@ -166,7 +164,6 @@ benchmark "pci_dss_v321_requirement_1_2_1_c" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
@@ -227,7 +224,6 @@ benchmark "pci_dss_v321_requirement_1_2_3_b" {
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
     control.vpc_route_table_restrict_public_access_to_igw,
@@ -263,9 +259,8 @@ benchmark "pci_dss_v321_requirement_1_3" {
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
-    control.s3_public_access_block_bucket_account,
+    control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.vpc_endpoint_service_acceptance_required_enabled,
     control.vpc_igw_attached_to_authorized_vpc
   ]
 
@@ -290,7 +285,6 @@ benchmark "pci_dss_v321_requirement_1_3_1" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_security_group_restrict_ingress_ssh_all
   ]
@@ -314,7 +308,6 @@ benchmark "pci_dss_v321_requirement_1_3_2" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
@@ -354,7 +347,6 @@ benchmark "pci_dss_v321_requirement_1_3_4" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]
 
@@ -389,7 +381,6 @@ benchmark "pci_dss_v321_requirement_1_3_6" {
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]
 

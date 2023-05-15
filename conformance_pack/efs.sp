@@ -76,7 +76,6 @@ control "efs_file_system_encrypted_with_cmk" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     cisa_cyber_essentials = "true"
     other_checks          = "true"
-    pci_dss_v321          = "true"
   })
 }
 

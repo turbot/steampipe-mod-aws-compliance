@@ -114,6 +114,7 @@ control "log_metric_filter_root_login" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    pci_dss_v321                           = "true"
   })
 }
 
