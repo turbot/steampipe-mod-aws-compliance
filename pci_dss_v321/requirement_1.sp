@@ -261,6 +261,7 @@ benchmark "pci_dss_v321_requirement_1_3" {
     control.s3_bucket_restrict_public_read_access,
     control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_igw_attached_to_authorized_vpc
   ]
 
