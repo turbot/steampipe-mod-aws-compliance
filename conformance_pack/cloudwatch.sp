@@ -4,6 +4,17 @@ locals {
   })
 }
 
+control "cloudwatch_action_enabled" {
+  title       = "CloudWatch alarm action should be enabled"
+  description = "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is non compliant if the CloudWatch alarms actions are not in enabled state."
+  query       = query.cloudwatch_action_enabled
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    pci_dss_v321 = "true"
+    soc_2        = "true"
+  })
+}
+
 control "cloudwatch_alarm_action_enabled" {
   title       = "CloudWatch alarm action should be enabled"
   description = "Amazon CloudWatch alarms alert when a metric breaches the threshold for a specified number of evaluation periods. The alarm performs one or more actions based on the value of the metric or expression relative to a threshold over a number of time periods."
@@ -239,6 +250,25 @@ control "log_metric_filter_cloudtrail_configuration" {
     gdpr     = "true"
     nist_csf = "true"
   })
+}
+
+query "cloudwatch_action_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when actions_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when actions_enabled then title || ' alarm actions enabled.'
+        else title || ' alarm actions disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudwatch_alarm;
+  EOQ
 }
 
 query "cloudwatch_alarm_action_enabled" {

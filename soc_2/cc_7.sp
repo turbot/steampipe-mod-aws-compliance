@@ -60,6 +60,7 @@ benchmark "soc_2_cc_7_2" {
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
     control.vpc_security_group_restrict_ingress_ssh_all,
+    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 
@@ -92,7 +93,8 @@ benchmark "soc_2_cc_7_3" {
     control.s3_bucket_event_notifications_enabled,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
-    control.vpc_flow_logs_enabled
+    control.vpc_flow_logs_enabled,
+    control.waf_web_acl_logging_enabled
   ]
 
   tags = merge(local.soc_2_cc_7_common_tags, {

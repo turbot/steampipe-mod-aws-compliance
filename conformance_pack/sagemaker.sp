@@ -11,7 +11,6 @@ control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     other_checks = "true"
-    soc_2        = "true"
   })
 }
 
@@ -59,6 +58,7 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
