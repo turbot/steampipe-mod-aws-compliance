@@ -20,7 +20,7 @@ benchmark "soc_2_cc_4_2" {
   documentation = file("./soc_2/docs/cc_4_2.md")
 
   children = [
-    control.cloudwatch_action_enabled,
+    control.cloudwatch_alarm_action_enabled_check,
     control.guardduty_enabled,
     control.guardduty_finding_archived
   ]
