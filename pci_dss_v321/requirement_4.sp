@@ -29,7 +29,7 @@ benchmark "pci_dss_v321_requirement_4_1" {
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
-    control.elb_listener_use_secure_ssl_cipher,
+    control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl

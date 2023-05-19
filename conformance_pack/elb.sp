@@ -207,7 +207,6 @@ control "elb_listener_use_secure_ssl_cipher" {
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     other_checks = "true"
-    pci_dss_v321 = "true"
   })
 }
 
