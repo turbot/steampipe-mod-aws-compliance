@@ -143,15 +143,15 @@ benchmark "pci_dss_v321_requirement_3_4" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -176,15 +176,15 @@ benchmark "pci_dss_v321_requirement_3_4_1" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -207,15 +207,15 @@ benchmark "pci_dss_v321_requirement_3_4_1_a" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -238,15 +238,15 @@ benchmark "pci_dss_v321_requirement_3_4_1_c" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -270,7 +270,7 @@ benchmark "pci_dss_v321_requirement_3_4_a" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
@@ -278,8 +278,8 @@ benchmark "pci_dss_v321_requirement_3_4_a" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -303,7 +303,7 @@ benchmark "pci_dss_v321_requirement_3_4_b" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
@@ -311,8 +311,8 @@ benchmark "pci_dss_v321_requirement_3_4_b" {
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
@@ -328,7 +328,7 @@ benchmark "pci_dss_v321_requirement_3_4_d" {
   description = "PANs stored in primary storage (databases, or flat files such as text files spreadsheets) as well as non-primary storage (backup, audit logs, exception or troubleshooting logs) must all be protected. One-way hash functions based on strong cryptography can be used to render cardholder data unreadable. Hash functions are appropriate when there is no need to retrieve the original number (one-way hashes are irreversible). It is recommended, but not currently a requirement, that an additional, random input value be added to the cardholder data prior to hashing to reduce the feasibility of an attacker comparing the data against (and deriving the PAN from) tables of pre- computed hash values. The intent of truncation is to permanently remove a segment of PAN data so that only a portion (generally not to exceed the first six and last four digits) of the PAN is stored. An index token is a cryptographic token that replaces the PAN based on a given index for an unpredictable value. A one-time pad is a system in which a randomly generated private key is used only once to encrypt a message that is then decrypted using a matching one-time pad and key. The intent of strong cryptography (as defined in the PCI DSS and PA-DSS Glossary of Terms, Abbreviations, and Acronyms) is that the encryption be based on an industry-tested and accepted algorithm (not a proprietary or 'home-grown` algorithm) with strong cryptographic keys. By correlating hashed and truncated versions of a given PAN, a malicious individual may easily derive the original PAN value. Controls that prevent the correlation of this data will help ensure that the original PAN remains unreadable."
 
   children = [
-    control.apigateway_stage_cache_encryption_at_rest_enabled,
+    control.apigateway_stage_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -336,8 +336,8 @@ benchmark "pci_dss_v321_requirement_3_4_d" {
     control.elb_application_classic_lb_logging_enabled,
     control.log_group_encryption_at_rest_enabled,
     control.rds_db_instance_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
@@ -393,8 +393,8 @@ benchmark "pci_dss_v321_requirement_3_6_4" {
 
   children = [
     benchmark.pci_dss_v321_requirement_3_6_4_a,
-    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
-    control.kms_key_decryption_restricted_in_iam_inline_policy
+    control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions
   ]
 
   tags = merge(local.pci_dss_v321_requirement_3_common_tags, {
@@ -406,8 +406,8 @@ benchmark "pci_dss_v321_requirement_3_6_4_a" {
   title       = "3.6.4.a Verify that key-management procedures include a defined cryptoperiod for each key type in use and define a process for key changes at the end of the defined cryptoperiod(s)"
   description = "A cryptoperiod is the time span during which a particular cryptographic key can be used for its defined purpose. Considerations for defining the cryptoperiod include, but are not limited to, the strength of the underlying algorithm, size or length of the key, risk of key compromise, and the sensitivity of the data being encrypted. Periodic changing of encryption keys when the keys have reached the end of their cryptoperiod is imperative to minimize the risk of someone’s obtaining the encryption keys, and using them to decrypt data."
   children = [
-    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
-    control.kms_key_decryption_restricted_in_iam_inline_policy
+    control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions
   ]
 
   tags = merge(local.pci_dss_v321_requirement_3_common_tags, {

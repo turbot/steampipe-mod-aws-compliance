@@ -295,7 +295,6 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     other_checks                           = "true"
-    pci_dss_v321                           = "true"
   })
 }
 
@@ -319,6 +318,16 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11       = "true"
     hipaa_security_rule_2003 = "true"
+  })
+}
+
+control "vpc_configured_to_use_vpc_endpoints" {
+  title       = "VPC should be configured to use VPC endpoints"
+  description = "Checks if Service Endpoint for the service provided in rule parameter is created for each Amazon Virtual Private Cloud (Amazon VPC). The rule is non compliant if an Amazon VPC doesn't have an Amazon VPC endpoint created for the service."
+  query       = query.vpc_configured_to_use_vpc_endpoints
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    pci_dss_v321 = "true"
   })
 }
 
@@ -1071,8 +1080,6 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "vpc_configured_to_use_vpc_endpoints" {
   sql = <<-EOQ
     select
@@ -1105,6 +1112,8 @@ query "vpc_configured_to_use_vpc_endpoints" {
       aws_vpc;
   EOQ
 }
+
+# Non-Config rule query
 
 query "vpc_security_group_associated" {
   sql = <<-EOQ

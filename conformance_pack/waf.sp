@@ -67,7 +67,8 @@ control "waf_regional_rule_group_rule_attached" {
   query       = query.waf_regional_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v321 = "true"
   })
 }
 
@@ -88,7 +89,8 @@ control "waf_regional_web_acl_rule_attached" {
   query       = query.waf_regional_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v321 = "true"
   })
 }
 

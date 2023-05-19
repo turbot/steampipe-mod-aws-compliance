@@ -80,7 +80,7 @@ benchmark "pci_dss_v321_requirement_8_1_5_a" {
   description = "Allowing vendors to have 24/7 access into your network in case they need to support your systems increases the chances of unauthorized access, either from a user in the vendor's environment or from a malicious individual who finds and uses this always-available external entry point into your network. Enabling access only for the time periods needed, and disabling it as soon as it is no longer needed, helps prevent misuse of these connections. Monitoring of vendor access provides assurance that vendors are accessing only the systems necessary and only during approved time frames."
 
   children = [
-    control.cloudtrail_multi_region_trail_enabled
+    control.cloudtrail_trail_enabled,
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -97,7 +97,7 @@ benchmark "pci_dss_v321_requirement_8_2" {
     benchmark.pci_dss_v321_requirement_8_2_3,
     benchmark.pci_dss_v321_requirement_8_2_4,
     benchmark.pci_dss_v321_requirement_8_2_5,
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -142,7 +142,7 @@ benchmark "pci_dss_v321_requirement_8_2_1_a" {
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ec2_ebs_default_encryption_enabled,
-    control.efs_file_system_encrypted_with_cmk,
+    control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
@@ -155,8 +155,8 @@ benchmark "pci_dss_v321_requirement_8_2_1_a" {
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_encryption_logging_enabled,
-    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_default_encryption_enabled,
+    control.s3_bucket_default_encryption_enabled_kms,
     control.s3_bucket_enforces_ssl,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
@@ -201,7 +201,7 @@ benchmark "pci_dss_v321_requirement_8_2_3" {
   children = [
     benchmark.pci_dss_v321_requirement_8_2_3_a,
     benchmark.pci_dss_v321_requirement_8_2_3_b,
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -214,7 +214,7 @@ benchmark "pci_dss_v321_requirement_8_2_3_a" {
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -227,7 +227,7 @@ benchmark "pci_dss_v321_requirement_8_2_3_b" {
   description = "Strong passwords/passphrases are the first line of defense into a network since a malicious individual will often first try to find accounts with weak or non- existent passwords. If passwords are short or simple to guess, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID. This requirement specifies that a minimum of seven characters and both numeric and alphabetic characters should be used for passwords/ passphrases. For cases where this minimum cannot be met due to technical limitations, entities can use “equivalent strength” to evaluate their alternative. For information on variability and equivalency of password strength (also referred to as entropy) for passwords/passphrases of different formats, refer to industry standards (e.g., the current version of NIST SP 800-63.) Note: Testing Procedure 8.2.3.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -242,7 +242,7 @@ benchmark "pci_dss_v321_requirement_8_2_4" {
   children = [
     benchmark.pci_dss_v321_requirement_8_2_4_a,
     benchmark.pci_dss_v321_requirement_8_2_4_b,
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -255,7 +255,7 @@ benchmark "pci_dss_v321_requirement_8_2_4_a" {
   description = "Passwords/passphrases that are valid for a long time without a change provide malicious individuals with more time to work on breaking the password/phrase. Note: Testing Procedure 8.2.4.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.secretsmanager_secret_last_changed_90_day
   ]
 
@@ -269,7 +269,7 @@ benchmark "pci_dss_v321_requirement_8_2_4_b" {
   description = "Passwords/passphrases that are valid for a long time without a change provide malicious individuals with more time to work on breaking the password/phrase. Note: Testing Procedure 8.2.4.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -284,7 +284,7 @@ benchmark "pci_dss_v321_requirement_8_2_5" {
   children = [
     benchmark.pci_dss_v321_requirement_8_2_5_a,
     benchmark.pci_dss_v321_requirement_8_2_5_b,
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -297,7 +297,7 @@ benchmark "pci_dss_v321_requirement_8_2_5_a" {
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -310,7 +310,7 @@ benchmark "pci_dss_v321_requirement_8_2_5_b" {
   description = "If password history isn't maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period of time reduces the likelihood that passwords that have been guessed or brute-forced will be used in the future. Note: Testing Procedure 8.2.5.b is an additional procedure that only applies if the entity being assessed is a service provider."
 
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
