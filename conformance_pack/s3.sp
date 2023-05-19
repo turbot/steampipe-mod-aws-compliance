@@ -291,7 +291,6 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
     cis_controls_v8_ig1 = "true"
     nist_800_171_rev_2  = "true"
     nist_csf            = "true"
-    soc_2               = "true"
   })
 }
 
@@ -315,6 +314,7 @@ control "s3_bucket_policy_restrict_public_access" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    soc_2                                  = "true"
   })
 }
 

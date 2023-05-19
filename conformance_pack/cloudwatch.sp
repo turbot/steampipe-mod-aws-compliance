@@ -11,6 +11,7 @@ control "cloudwatch_alarm_action_enabled_check" {
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 

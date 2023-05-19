@@ -40,7 +40,6 @@ control "ebs_volume_encryption_at_rest_enabled" {
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
-    soc_2                  = "true"
   })
 }
 
@@ -65,6 +64,7 @@ control "ebs_attached_volume_encryption_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
