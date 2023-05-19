@@ -84,12 +84,13 @@ benchmark "pci_dss_v321_requirement_7_2_1" {
     control.iam_root_user_no_access_keys,
     control.iam_user_no_inline_attached_policies,
     control.lambda_function_restrict_public_access,
+    control.log_metric_filter_root_login,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket_account,
+    control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_igw_attached_to_authorized_vpc
   ]

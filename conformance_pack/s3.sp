@@ -224,6 +224,7 @@ control "s3_public_access_block_account" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -237,7 +238,6 @@ control "s3_public_access_block_bucket_account" {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
     nist_800_53_rev_4      = "true"
-    pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
   })
 }

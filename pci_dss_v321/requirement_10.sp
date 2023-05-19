@@ -30,7 +30,7 @@ benchmark "pci_dss_v321_requirement_10_1" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_alarm_action_enabled_check,
     control.cloudwatch_log_group_retention_period_365,
     control.elb_application_classic_lb_logging_enabled,
     control.rds_db_instance_logging_enabled,
@@ -235,7 +235,6 @@ benchmark "pci_dss_v321_requirement_10_3_1" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -255,7 +254,6 @@ benchmark "pci_dss_v321_requirement_10_3_2" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -275,7 +273,6 @@ benchmark "pci_dss_v321_requirement_10_3_3" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -295,7 +292,6 @@ benchmark "pci_dss_v321_requirement_10_3_4" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -315,7 +311,6 @@ benchmark "pci_dss_v321_requirement_10_3_5" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -335,7 +330,6 @@ benchmark "pci_dss_v321_requirement_10_3_6" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -359,7 +353,6 @@ benchmark "pci_dss_v321_requirement_10_5" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -391,7 +384,8 @@ benchmark "pci_dss_v321_requirement_10_5_3" {
 
   children = [
     control.cloudtrail_trail_integrated_with_logs,
-    control.s3_bucket_cross_region_replication_enabled
+    control.s3_bucket_cross_region_replication_enabled,
+    control.s3_bucket_versioning_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_10_common_tags, {
@@ -408,7 +402,6 @@ benchmark "pci_dss_v321_requirement_10_5_4" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
-    control.es_domain_logs_to_cloudwatch,
     control.rds_db_instance_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
@@ -424,7 +417,6 @@ benchmark "pci_dss_v321_requirement_10_5_5" {
   description = "File-integrity monitoring or change-detection systems check for changes to critical files, and notify when such changes are noted. For file- integrity monitoring purposes, an entity usually monitors files that don't regularly change, but when changed indicate a possible compromise."
 
   children = [
-    control.cloudtrail_trail_validation_enabled,
     control.s3_bucket_versioning_enabled
   ]
 
@@ -524,7 +516,7 @@ benchmark "pci_dss_v321_requirement_10_8_1_a" {
   description = "This include restoring security functions, identifying and documenting the duration (date and time start to end) of the security failure, identifying and documenting cause(s) of failure, including root cause, and documenting remediation required to address root cause, identifying and addressing any security issues that arose during the failure, performing a risk assessment to determine whether further actions are required as a result of the security failure, implementing controls to prevent cause of failure from reoccurring and resuming monitoring of security controls. Note: This requirement applies only when the entity being assessed is a service provider. If critical security control failures alerts are not quickly and effectively responded to, attackers may use this time to insert malicious software, gain control of a system, or steal data from the entity's environment. Documented evidence (e.g., records within a problem management system) should support that processes and procedures are in place to respond to security failures. In addition, personnel should be aware of their responsibilities in the event of a failure. Actions and responses to the failure should be captured in the documented evidence."
 
   children = [
-    control.cloudwatch_alarm_action_enabled
+    control.cloudwatch_alarm_action_enabled_check
   ]
 
   tags = merge(local.pci_dss_v321_requirement_10_common_tags, {
@@ -538,7 +530,7 @@ benchmark "pci_dss_v321_requirement_10_8_b" {
 
   children = [
     control.cloudtrail_trail_enabled,
-    control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_alarm_action_enabled_check,
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch,

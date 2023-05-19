@@ -54,7 +54,7 @@ steampipe plugin install aws
 Clone:
 
 ```sh
-git clone https://github.com/turbot/steampipe-mod-aws-compliance.git
+git clone http://github.com/turbot/steampipe-mod-aws-compliance.git
 cd steampipe-mod-aws-compliance
 ```
 
