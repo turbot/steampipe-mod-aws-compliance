@@ -3,12 +3,12 @@
 _Enhancements_
 
 - The `PCI DSS v3.2.1` benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
-  - The following controls are added to the benchmarks:
+  - The following controls have been added to the benchmarks:
     - `log_metric_filter_root_login`
     - `vpc_configured_to_use_vpc_endpoints`
     - `waf_regional_rule_group_rule_attached`
     - `waf_regional_web_acl_rule_attached`
-  - The following controls are replaced in the benchmarks:
+  - The following controls have been replaced in the benchmarks:
     - `cloudwatch_alarm_action_enabled` replaced by `cloudwatch_alarm_action_enabled_check`
     - `efs_file_system_encrypted_with_cmk` replaced by `efs_file_system_encrypt_data_at_rest`
     - `s3_public_access_block_bucket_account` replaced by `s3_public_access_block_account`
@@ -18,10 +18,10 @@ _Enhancements_
     - `kms_key_decryption_restricted_in_iam_inline_policy`
     - `vpc_endpoint_service_acceptance_required_enabled`
 - The `S0C 2` benchmark has been updated to better align with official [SOC 2 document](https://secureframe.com/hub/soc-2/compliance-documentation) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/steampipe-mod-aws-compliance/pull/628))
-  - The following controls are added to the benchmarks:
+  - The following controls have been added to the benchmarks:
     - `waf_web_acl_logging_enabled`
     - `cloudwatch_alarm_action_enabled_check`
-  - The following controls are replaced in the benchmarks:
+  - The following controls have been replaced in the benchmarks:
     - `ebs_volume_encryption_at_rest_enabled` replaced by `ebs_attached_volume_encryption_enabled`
     - `s3_bucket_policy_restricts_cross_account_permission_changes` replaced by `s3_bucket_policy_restrict_public_access`
     - `sagemaker_notebook_instance_encrypted_with_kms_cmk` replaced by `sagemaker_notebook_instance_encryption_at_rest_enabled`
