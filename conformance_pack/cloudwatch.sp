@@ -25,6 +25,18 @@ control "cloudwatch_alarm_action_enabled" {
   })
 }
 
+control "cloudwatch_alarm_action_enabled_check" {
+  title       = "CloudWatch alarm action should be enabled"
+  description = "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is non compliant if the CloudWatch alarms actions are not in enabled state."
+  query       = query.cloudwatch_alarm_action_enabled_check
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    nist_csf     = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
+  })
+}
+
 control "cloudwatch_cross_account_sharing" {
   title       = "CloudWatch should not allow cross-account sharing"
   description = "Ensure that your Amazon CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."

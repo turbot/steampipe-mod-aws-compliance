@@ -318,6 +318,7 @@ benchmark "nist_csf_de_dp_4" {
     control.cloudformation_stack_notifications_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
+    control.cloudwatch_alarm_action_enabled_check,
     control.ec2_instance_detailed_monitoring_enabled,
     control.elb_application_lb_waf_enabled,
     control.guardduty_enabled,

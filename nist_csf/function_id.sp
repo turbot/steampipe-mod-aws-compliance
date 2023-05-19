@@ -96,7 +96,7 @@ benchmark "nist_csf_id_am_6" {
 
 benchmark "nist_csf_id_be" {
   title       = "Business Environment (ID.BE)"
-  description = "The organization’s mission, objectives, stakeholders, and activities are understood and prioritized; this information is used to inform cybersecurity roles, responsibilities, and risk management decisions."
+  description = "The organization's mission, objectives, stakeholders, and activities are understood and prioritized; this information is used to inform cybersecurity roles, responsibilities, and risk management decisions."
   children = [
     benchmark.nist_csf_id_be_5
   ]
