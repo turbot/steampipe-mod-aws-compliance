@@ -213,6 +213,8 @@ benchmark "pci_dss_v321_requirement_6_6" {
     control.elb_application_lb_waf_enabled,
     control.elb_classic_lb_desync_mitigation_mode,
     control.waf_regional_rule_condition_attached,
+    control.waf_regional_rule_group_rule_attached,
+    control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
     control.waf_web_acl_resource_associated,
