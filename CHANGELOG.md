@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- The `PCI DSS v3.2.1` benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
+- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
   - The following controls have been added to the benchmarks:
     - `log_metric_filter_root_login`
     - `vpc_configured_to_use_vpc_endpoints`
@@ -17,7 +17,7 @@ _Enhancements_
     - `kms_key_decryption_restricted_in_iam_customer_managed_policy`
     - `kms_key_decryption_restricted_in_iam_inline_policy`
     - `vpc_endpoint_service_acceptance_required_enabled`
-- The `S0C 2` benchmark has been updated to better align with official [SOC 2 document](https://secureframe.com/hub/soc-2/compliance-documentation) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/steampipe-mod-aws-compliance/pull/628))
+- The `S0C 2` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/steampipe-mod-aws-compliance/pull/628))
   - The following controls have been added to the benchmarks:
     - `waf_web_acl_logging_enabled`
     - `cloudwatch_alarm_action_enabled_check`
