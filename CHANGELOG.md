@@ -1,6 +1,6 @@
 ## v0.65 [2023-05-19]
 
-_Breaking changes_
+_Enhancements_
 
 - The `PCI DSS v3.2.1` benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
   - The following controls are added to the benchmarks:
