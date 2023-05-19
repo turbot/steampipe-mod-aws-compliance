@@ -1,5 +1,5 @@
 locals {
-  soc_2_cc_c_1_common_tags = merge(local.soc_2_common_tags, {
+  soc_2_c_1_common_tags = merge(local.soc_2_common_tags, {
     soc_2_section_id = "c1"
   })
 }
@@ -13,7 +13,7 @@ benchmark "soc_2_c_1" {
     benchmark.soc_2_c_1_2
   ]
 
-  tags = local.soc_2_cc_c_1_common_tags
+  tags = local.soc_2_c_1_common_tags
 }
 
 benchmark "soc_2_c_1_1" {
@@ -26,7 +26,7 @@ benchmark "soc_2_c_1_1" {
     control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
-  tags = merge(local.soc_2_cc_c_1_common_tags, {
+  tags = merge(local.soc_2_c_1_common_tags, {
     soc_2_item_id = "c1.1"
     soc_2_type    = "automated"
   })
@@ -41,7 +41,7 @@ benchmark "soc_2_c_1_2" {
     control.s3_bucket_versioning_enabled
   ]
 
-  tags = merge(local.soc_2_cc_c_1_common_tags, {
+  tags = merge(local.soc_2_c_1_common_tags, {
     service       = "AWS/S3"
     soc_2_item_id = "c1.2"
     soc_2_type    = "automated"
