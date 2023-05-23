@@ -81,7 +81,7 @@ control "ssm_document_prohibit_public_access" {
   description = "This control checks whether AWS Systems Manager documents that are owned by the account are public. This control fails if SSM documents with the owner Self are public."
   query       = query.ssm_document_prohibit_public_access
 
-  tags = merge(local.foundational_security_ssm_common_tags, {
+  tags = merge(local.conformance_pack_ssm_common_tags, {
     nist_csf = "true"
   })
 }
