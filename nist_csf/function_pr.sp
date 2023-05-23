@@ -106,6 +106,8 @@ benchmark "nist_csf_pr_ac_3" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
@@ -170,6 +172,8 @@ benchmark "nist_csf_pr_ac_4" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
@@ -209,6 +213,8 @@ benchmark "nist_csf_pr_ac_5" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
@@ -421,6 +427,8 @@ benchmark "nist_csf_pr_ds_5" {
     control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.securityhub_enabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_flow_logs_enabled
   ]
 
@@ -781,6 +789,8 @@ benchmark "nist_csf_pr_pt_3" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
@@ -818,6 +828,8 @@ benchmark "nist_csf_pr_pt_4" {
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
+    control.vpc_configured_to_use_vpc_endpoints,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_network_acl_remote_administration,
@@ -863,6 +875,7 @@ benchmark "nist_csf_pr_pt_5" {
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_lifecycle_policy_enabled,
+    control.s3_bucket_object_lock_enabled,
     control.s3_bucket_versioning_and_lifecycle_policy_enabled,
     control.s3_bucket_versioning_enabled,
     control.vpc_vpn_tunnel_up
