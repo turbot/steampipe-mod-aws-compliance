@@ -2,7 +2,6 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_b" {
   title       = "164.312(b) Audit controls"
   description = "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use electronic protected health information."
   children = [
-    control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.apigateway_stage_logging_enabled,
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudtrail_multi_region_trail_enabled,

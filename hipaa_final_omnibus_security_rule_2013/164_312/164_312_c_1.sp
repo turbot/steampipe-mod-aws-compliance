@@ -14,7 +14,6 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_c_1" {
     control.es_domain_node_to_node_encryption_enabled,
     control.opensearch_domain_encryption_at_rest_enabled,
     control.opensearch_domain_https_required,
-    control.opensearch_domain_node_to_node_encryption_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
     control.redshift_cluster_encryption_in_transit_enabled,
