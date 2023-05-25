@@ -26,7 +26,7 @@ control "cloudwatch_alarm_action_enabled" {
 
 control "cloudwatch_alarm_action_enabled_check" {
   title       = "CloudWatch alarm action should be enabled"
-  description = "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is non compliant if the CloudWatch alarms actions are not in enabled state."
+  description = "Checks if Amazon CloudWatch alarm actions are in enabled state. The rule is non compliant if the CloudWatch alarm actions are not in enabled state."
   query       = query.cloudwatch_alarm_action_enabled_check
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
