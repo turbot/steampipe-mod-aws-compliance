@@ -76,6 +76,16 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   })
 }
 
+control "ssm_document_prohibit_public_access" {
+  title       = "SSM documents should not be public"
+  description = "This control checks whether AWS Systems Manager documents that are owned by the account are public. This control fails if SSM documents with the owner Self are public."
+  query       = query.ssm_document_prohibit_public_access
+
+  tags = merge(local.conformance_pack_ssm_common_tags, {
+    nist_csf = "true"
+  })
+}
+
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select
@@ -142,8 +152,6 @@ query "ssm_managed_instance_compliance_patch_compliant" {
       and c.compliance_type = 'Patch';
   EOQ
 }
-
-# Non-Config rule query
 
 query "ssm_document_prohibit_public_access" {
   sql = <<-EOQ

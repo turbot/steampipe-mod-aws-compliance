@@ -327,6 +327,7 @@ control "vpc_configured_to_use_vpc_endpoints" {
   query       = query.vpc_configured_to_use_vpc_endpoints
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    nist_csf     = "true"
     pci_dss_v321 = "true"
   })
 }
