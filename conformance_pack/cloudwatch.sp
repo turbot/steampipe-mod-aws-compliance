@@ -253,25 +253,6 @@ control "log_metric_filter_cloudtrail_configuration" {
   })
 }
 
-query "cloudwatch_alarm_action_enabled_check" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when actions_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when actions_enabled then title || ' alarm actions enabled.'
-        else title || ' alarm actions disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudwatch_alarm;
-  EOQ
-}
-
 query "cloudwatch_alarm_action_enabled" {
   sql = <<-EOQ
     select
@@ -290,6 +271,25 @@ query "cloudwatch_alarm_action_enabled" {
         when jsonb_array_length(insufficient_data_actions) != 0 then title || ' insufficient data action enabled.'
         when jsonb_array_length(ok_actions) != 0 then title || ' ok action enabled.'
         else 'ok'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudwatch_alarm;
+  EOQ
+}
+
+query "cloudwatch_alarm_action_enabled_check" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when actions_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when actions_enabled then title || ' alarm actions enabled.'
+        else title || ' alarm actions disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
