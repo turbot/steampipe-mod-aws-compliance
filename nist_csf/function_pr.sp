@@ -247,7 +247,7 @@ benchmark "nist_csf_pr_ac_6" {
 
 benchmark "nist_csf_pr_ac_7" {
   title       = "PR.AC-7"
-  description = "Users, devices, and other assets are authenticated (e.g., single-factor, multi-factor) commensurate with the risk of the transaction (e.g., individuals’ security and privacy risks and other organizational risks)."
+  description = "Users, devices, and other assets are authenticated (e.g., single-factor, multi-factor) commensurate with the risk of the transaction (e.g., individuals' security and privacy risks and other organizational risks)."
 
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
@@ -264,7 +264,7 @@ benchmark "nist_csf_pr_ac_7" {
 
 benchmark "nist_csf_pr_ds" {
   title       = "Data Security (PR.DS)"
-  description = "Information and records (data) are managed consistent with the organization’s risk strategy to protect the confidentiality, integrity, and availability of information."
+  description = "Information and records (data) are managed consistent with the organization's risk strategy to protect the confidentiality, integrity, and availability of information."
 
   children = [
     benchmark.nist_csf_pr_ds_1,

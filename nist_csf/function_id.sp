@@ -13,7 +13,7 @@ benchmark "nist_csf_id" {
 
 benchmark "nist_csf_id_am" {
   title       = "Asset Management (ID.AM)"
-  description = "The data, personnel, devices, systems, and facilities that enable the organization to achieve business purposes are identified and managed consistent with their relative importance to organizational objectives and the organization’s risk strategy."
+  description = "The data, personnel, devices, systems, and facilities that enable the organization to achieve business purposes are identified and managed consistent with their relative importance to organizational objectives and the organization's risk strategy."
   children = [
     benchmark.nist_csf_id_am_1,
     benchmark.nist_csf_id_am_2,
@@ -262,7 +262,7 @@ benchmark "nist_csf_id_ra_5" {
 
 benchmark "nist_csf_id_sc" {
   title       = "Supply Chain Risk Management (ID.SC)"
-  description = "The organization’s priorities, constraints, risk tolerances, and assumptions are established and used to support risk decisions associated with managing supply chain risk. The organization has established and implemented the processes to identify, assess and manage supply chain risks."
+  description = "The organization's priorities, constraints, risk tolerances, and assumptions are established and used to support risk decisions associated with managing supply chain risk. The organization has established and implemented the processes to identify, assess and manage supply chain risks."
 
   children = [
     benchmark.nist_csf_id_sc_4
