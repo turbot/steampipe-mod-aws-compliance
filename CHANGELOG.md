@@ -1,3 +1,36 @@
+## v0.65 [2023-05-19]
+
+_Enhancements_
+
+- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
+  - The following controls have been added to the benchmarks:
+    - `log_metric_filter_root_login`
+    - `vpc_configured_to_use_vpc_endpoints`
+    - `waf_regional_rule_group_rule_attached`
+    - `waf_regional_web_acl_rule_attached`
+  - The following controls have been replaced in the benchmarks:
+    - `cloudwatch_alarm_action_enabled` replaced by `cloudwatch_alarm_action_enabled_check`
+    - `efs_file_system_encrypted_with_cmk` replaced by `efs_file_system_encrypt_data_at_rest`
+    - `s3_public_access_block_bucket_account` replaced by `s3_public_access_block_account`
+  - The following controls are no longer included in the benchmark:
+    - `elb_listener_use_secure_ssl_cipher`
+    - `kms_key_decryption_restricted_in_iam_customer_managed_policy`
+    - `kms_key_decryption_restricted_in_iam_inline_policy`
+    - `vpc_endpoint_service_acceptance_required_enabled`
+- The `S0C 2` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/steampipe-mod-aws-compliance/pull/628))
+  - The following controls have been added to the benchmarks:
+    - `waf_web_acl_logging_enabled`
+    - `cloudwatch_alarm_action_enabled_check`
+  - The following controls have been replaced in the benchmarks:
+    - `ebs_volume_encryption_at_rest_enabled` replaced by `ebs_attached_volume_encryption_enabled`
+    - `s3_bucket_policy_restricts_cross_account_permission_changes` replaced by `s3_bucket_policy_restrict_public_access`
+    - `sagemaker_notebook_instance_encrypted_with_kms_cmk` replaced by `sagemaker_notebook_instance_encryption_at_rest_enabled`
+    - `iam_account_password_policy_min_length_14` replaced by `iam_account_password_policy_strong_min_reuse_24`
+
+_Bug fixes_
+
+- Fixed dashboard localhost URLs in README and index doc. ([#627](https://github.com/turbot/steampipe-mod-aws-compliance/pull/627))
+
 ## v0.64 [2023-05-05]
 
 _What's new?_

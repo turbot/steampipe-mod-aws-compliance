@@ -17,6 +17,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -322,7 +323,6 @@ control "iam_account_password_policy_min_length_14" {
     gdpr                   = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
-    soc_2                  = "true"
   })
 }
 
