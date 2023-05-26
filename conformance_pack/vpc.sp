@@ -292,7 +292,6 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
   query       = query.vpc_endpoint_service_acceptance_required_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     other_checks                           = "true"
   })

@@ -20,6 +20,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_e_1" {
     control.es_domain_node_to_node_encryption_enabled,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
+    control.opensearch_domain_node_to_node_encryption_enabled,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_encryption_in_transit_enabled,
