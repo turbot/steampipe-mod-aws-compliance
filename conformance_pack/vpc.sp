@@ -37,6 +37,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
@@ -92,6 +93,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -327,8 +329,9 @@ control "vpc_configured_to_use_vpc_endpoints" {
   query       = query.vpc_configured_to_use_vpc_endpoints
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_csf                 = "true"
+    pci_dss_v321             = "true"
   })
 }
 
