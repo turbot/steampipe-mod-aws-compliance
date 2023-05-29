@@ -2,8 +2,6 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_6_i" {
   title       = "164.308(a)(6)(i) Security incident procedures"
   description = "Implement policies and procedures to address security incidents."
   children = [
-    control.cloudtrail_bucket_not_public,
-    control.cloudtrail_s3_logging_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
     control.lambda_function_dead_letter_queue_configured,
