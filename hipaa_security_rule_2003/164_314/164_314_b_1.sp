@@ -27,8 +27,7 @@ benchmark "hipaa_security_rule_2003_164_314_b_1" {
     control.s3_public_access_block_account,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
-    control.vpc_configured_to_use_vpc_endpoints,
-    control.vpc_endpoint_service_acceptance_required_enabled
+    control.vpc_configured_to_use_vpc_endpoints
   ]
 
   tags = merge(local.hipaa_security_rule_2003_164_314_common_tags, {

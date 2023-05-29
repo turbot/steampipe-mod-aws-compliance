@@ -243,7 +243,6 @@ control "vpc_security_group_restricted_common_ports" {
   query       = query.vpc_security_group_restricted_common_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa_security_rule_2003 = "true"
     nist_800_171_rev_2       = "true"
   })
 }
@@ -295,7 +294,6 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
-    hipaa_security_rule_2003               = "true"
     other_checks                           = "true"
   })
 }
@@ -319,7 +317,6 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
   })
 }
 
