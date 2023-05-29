@@ -18,7 +18,6 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_d" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
-    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 
