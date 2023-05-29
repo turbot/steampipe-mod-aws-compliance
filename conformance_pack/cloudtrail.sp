@@ -177,7 +177,6 @@ control "cloudtrail_s3_logging_enabled" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     gdpr                                   = "true"
-    hipaa_final_omnibus_security_rule_2013 = "true"
     nist_csf                               = "true"
   })
 }
@@ -189,7 +188,6 @@ control "cloudtrail_bucket_not_public" {
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     gdpr                                   = "true"
-    hipaa_final_omnibus_security_rule_2013 = "true"
     nist_csf                               = "true"
   })
 }
