@@ -84,8 +84,7 @@ control "ssm_document_prohibit_public_access" {
   tags = merge(local.conformance_pack_ssm_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
-    hipaa_final_omnibus_security_rule_2013 = "true"
-    nist_csf                                                             = "true"
+    nist_csf                               = "true"
   })
 }
 
