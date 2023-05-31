@@ -164,8 +164,8 @@ benchmark "nist_800_171_rev_2_3_1_4" {
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
     control.rds_db_cluster_iam_authentication_enabled,
-    control.rds_db_instance_iam_authentication_enabled
-    control.s3_bucket_policy_restrict_public_access,
+    control.rds_db_instance_iam_authentication_enabled,
+    control.s3_bucket_policy_restrict_public_access
   ]
 
   tags = local.nist_800_171_rev_2_common_tags

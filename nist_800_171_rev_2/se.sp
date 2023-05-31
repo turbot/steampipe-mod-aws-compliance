@@ -8,7 +8,7 @@ benchmark "nist_800_171_rev_2_2" {
   tags = local.nist_800_171_rev_2_common_tags
 }
 
-benchmark "nist_800_171_rev_2_3_12_4" {
+benchmark "nist_800_171_rev_2_2_2" {
   title       = "2.2. List all software components installed on the system"
   description = "List all software components installed on the system."
   children = [
