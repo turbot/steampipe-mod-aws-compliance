@@ -13,6 +13,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -332,7 +333,6 @@ control "iam_account_password_policy_reuse_24" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     gdpr               = "true"
-    nist_800_171_rev_2 = "true"
   })
 }
 
