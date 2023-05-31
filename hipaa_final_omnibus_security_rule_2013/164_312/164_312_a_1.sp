@@ -24,7 +24,6 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_a_1" {
     control.iam_user_unused_credentials_90,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
-    control.opensearch_domain_in_vpc,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
@@ -34,6 +33,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_a_1" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_subnet_auto_assign_public_ip_disabled

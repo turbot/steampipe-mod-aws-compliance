@@ -13,6 +13,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_3_ii_b" {
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
     control.s3_bucket_policy_restrict_public_access,
+    control.ssm_document_prohibit_public_access,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all
   ]

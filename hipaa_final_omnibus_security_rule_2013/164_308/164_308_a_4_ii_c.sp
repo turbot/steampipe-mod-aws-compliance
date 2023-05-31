@@ -33,11 +33,11 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_4_ii_c" {
     control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_unused_90_day,
+    control.ssm_document_prohibit_public_access,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_subnet_auto_assign_public_ip_disabled
