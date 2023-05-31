@@ -237,6 +237,7 @@ control "s3_public_access_block_bucket_account" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    nist_800_171_rev_2     = "true"
     nist_800_53_rev_4      = "true"
     rbi_cyber_security     = "true"
   })
@@ -289,7 +290,6 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1 = "true"
-    nist_800_171_rev_2  = "true"
     nist_csf            = "true"
   })
 }
@@ -313,6 +313,7 @@ control "s3_bucket_policy_restrict_public_access" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     soc_2                                  = "true"
   })

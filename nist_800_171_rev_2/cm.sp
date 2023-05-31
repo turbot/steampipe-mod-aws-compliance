@@ -4,6 +4,9 @@ benchmark "nist_800_171_rev_2_3_4" {
   children = [
     benchmark.nist_800_171_rev_2_3_4_1,
     benchmark.nist_800_171_rev_2_3_4_2,
+    benchmark.nist_800_171_rev_2_3_4_3,
+    benchmark.nist_800_171_rev_2_3_4_4,
+    benchmark.nist_800_171_rev_2_3_4_5,
     benchmark.nist_800_171_rev_2_3_4_6,
     benchmark.nist_800_171_rev_2_3_4_7,
     benchmark.nist_800_171_rev_2_3_4_9
@@ -24,7 +27,7 @@ benchmark "nist_800_171_rev_2_3_4_1" {
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_eip_associated,
     control.vpc_security_group_associated_to_eni,
-    control.vpc_security_group_restricted_common_ports
+    control.vpc_security_group_restrict_ingress_common_ports_all
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -34,11 +37,42 @@ benchmark "nist_800_171_rev_2_3_4_2" {
   title       = "3.4.2 Establish and enforce security configuration settings for information technology products employed in organizational systems"
   description = "Configuration settings are the set of parameters that can be changed in hardware, software, or firmware components of the system that affect the security posture or functionality of the system. Information technology products for which security-related configuration settings can be defined include mainframe computers, servers, workstations, input and output devices (e.g., scanners, copiers, and printers), network components (e.g., firewalls, routers, gateways, voice and data switches, wireless access points, network appliances, sensors), operating systems, middleware, and applications. Security parameters are those parameters impacting the security state of systems including the parameters required to satisfy other security requirements. Security parameters include: registry settings; account, file, directory permission settings; and settings for functions, ports, protocols, and remote connections. Organizations establish organization-wide configuration settings and subsequently derive specific configuration settings for systems. The established settings become part of the systems configuration baseline. Common secure configurations (also referred to as security configuration checklists, lockdown and hardening guides, security reference guides, security technical implementation guides) provide recognized, standardized, and established benchmarks that stipulate secure configuration settings for specific information technology platforms/products and instructions for configuring those system components to meet operational requirements. Common secure configurations can be developed by a variety of organizations including information technology product developers, manufacturers, vendors, consortia, academia, industry, federal agencies, and other organizations in the public and private sectors."
   children = [
+    control.config_enabled_all_regions,
     control.ebs_volume_unused,
     control.ec2_instance_ssm_managed,
     control.ec2_stopped_instance_30_days,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_security_group_associated_to_eni
+  ]
+
+  tags = local.nist_800_171_rev_2_common_tags
+}
+
+benchmark "nist_800_171_rev_2_3_4_3" {
+  title       = "3.4.3 Track, review, approve or disapprove, and log changes to organizational systems"
+  description = "Tracking, reviewing, approving/disapproving, and logging changes is called configuration change control. Configuration change control for organizational systems involves the systematic proposal, justification, implementation, testing, review, and disposition of changes to the systems, including system upgrades and modifications. Configuration change control includes changes to baseline configurations for components and configuration items of systems, changes to configuration settings for information technology products (e.g., operating systems, applications, firewalls, routers, and mobile devices), unscheduled and unauthorized changes, and changes to remediate vulnerabilities."
+  children = [
+    control.config_enabled_all_regions
+  ]
+
+  tags = local.nist_800_171_rev_2_common_tags
+}
+
+benchmark "nist_800_171_rev_2_3_4_4" {
+  title       = "3.4.4 Analyze the security impact of changes prior to implementation"
+  description = "Organizational personnel with information security responsibilities (e.g., system administrators, system security officers, system security managers, and systems security engineers) conduct security impact analyses. Individuals conducting security impact analyses possess the necessary skills and technical expertise to analyze the changes to systems and the associated security ramifications. Security impact analysis may include reviewing security plans to understand security requirements and reviewing system design documentation to understand the implementation of controls and how specific changes might affect the controls. Security impact analyses may also include risk assessments to better understand the impact of the changes and to determine if additional controls are required."
+  children = [
+    control.config_enabled_all_regions
+  ]
+
+  tags = local.nist_800_171_rev_2_common_tags
+}
+
+benchmark "nist_800_171_rev_2_3_4_5" {
+  title       = "3.4.5 Define, document, approve, and enforce physical and logical access restrictions associated with changes to organizational systems"
+  description = "Any changes to the hardware, software, or firmware components of systems can potentially have significant effects on the overall security of the systems. Therefore, organizations permit only qualified and authorized individuals to access systems for purposes of initiating changes, including upgrades and modifications. Access restrictions for change also include software libraries."
+  children = [
+    control.config_enabled_all_regions
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -63,7 +97,7 @@ benchmark "nist_800_171_rev_2_3_4_6" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
     control.ssm_managed_instance_compliance_association_compliant,
-    control.vpc_default_security_group_restricts_all_traffic
+    control.vpc_security_group_restrict_ingress_common_ports_all
   ]
 
   tags = local.nist_800_171_rev_2_common_tags

@@ -37,7 +37,6 @@ control "ebs_volume_encryption_at_rest_enabled" {
     cis_controls_v8_ig1    = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
-    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })

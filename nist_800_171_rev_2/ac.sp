@@ -24,14 +24,14 @@ benchmark "nist_800_171_rev_2_3_1_1" {
   children = [
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
-    control.ec2_instance_iam_profile_attached,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.ecs_task_definition_user_for_host_mode_check,
     control.eks_cluster_endpoint_restrict_public_access,
     control.emr_cluster_kerberos_enabled,
     control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
@@ -43,10 +43,11 @@ benchmark "nist_800_171_rev_2_3_1_1" {
     control.iam_user_unused_credentials_90,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
+    control.opensearch_domain_in_vpc,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
-    control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
@@ -55,8 +56,7 @@ benchmark "nist_800_171_rev_2_3_1_1" {
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
-    control.vpc_subnet_auto_assign_public_ip_disabled
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -66,6 +66,7 @@ benchmark "nist_800_171_rev_2_3_1_2" {
   title       = "3.1.2 Limit system access to the types of transactions and functions that authorized users are permitted to execute"
   description = "Organizations may choose to define access privileges or other attributes by account, by type of account, or a combination of both. System account types include individual, shared, group, system, anonymous, guest, emergency, developer, manufacturer, vendor, and temporary. Other attributes required for authorizing access include restrictions on time-of-day, day-of-week, and point-oforigin. In defining other account attributes, organizations consider system-related requirements (e.g., system upgrades scheduled maintenance,) and mission or business requirements, (e.g., time zone differences, customer requirements, remote access to support travel requirements)."
   children = [
+    control.autoscaling_launch_config_public_ip_disabled,
     control.dms_replication_instance_not_publicly_accessible,
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_iam_profile_attached,
@@ -76,6 +77,9 @@ benchmark "nist_800_171_rev_2_3_1_2" {
     control.emr_cluster_kerberos_enabled,
     control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
+    control.iam_all_policy_no_service_wild_card,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_no_star_star,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
@@ -89,14 +93,17 @@ benchmark "nist_800_171_rev_2_3_1_2" {
     control.lambda_function_restrict_public_access,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
-    control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
+    control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
@@ -119,12 +126,14 @@ benchmark "nist_800_171_rev_2_3_1_3" {
     control.es_domain_in_vpc,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
+    control.opensearch_domain_in_vpc,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_route_table_restrict_public_access_to_igw,
@@ -140,16 +149,23 @@ benchmark "nist_800_171_rev_2_3_1_4" {
   title       = "3.1.4 Separate the duties of individuals to reduce the risk of malevolent activity without collusion"
   description = "Separation of duties addresses the potential for abuse of authorized privileges and helps to reduce the risk of malevolent activity without collusion. Separation of duties includes dividing mission functions and system support functions among different individuals or roles; conducting system support functions with different individuals (e.g., configuration management, quality assurance and testing, system management, programming, and network security); and ensuring that security personnel administering access control functions do not also administer audit functions. Because separation of duty violations can span systems and application domains, organizations consider the entirety of organizational systems and system components when developing policy on separation of duties."
   children = [
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_user_for_host_mode_check,
     control.emr_cluster_kerberos_enabled,
+    control.iam_all_policy_no_service_wild_card,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
+    control.iam_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
     control.rds_db_cluster_iam_authentication_enabled,
     control.rds_db_instance_iam_authentication_enabled
+    control.s3_bucket_policy_restrict_public_access,
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -159,17 +175,21 @@ benchmark "nist_800_171_rev_2_3_1_5" {
   title       = "3.1.5 Employ the principle of least privilege, including for specific security functions and privileged accounts"
   description = "Organizations employ the principle of least privilege for specific duties and authorized accesses for users and processes. The principle of least privilege is applied with the goal of authorized privileges no higher than necessary to accomplish required organizational missions or business functions. Organizations consider the creation of additional processes, roles, and system accounts as necessary, to achieve least privilege. Organizations also apply least privilege to the development, implementation, and operation of organizational systems. Security functions include establishing system accounts, setting events to be logged, setting intrusion detection parameters, and configuring access authorizations (i.e., permissions, privileges). Privileged accounts, including super user accounts, are typically described as system administrator for various types of commercial off-the-shelf operating systems. Restricting privileged accounts to specific personnel or roles prevents day-to-day users from having access to privileged information or functions. Organizations may differentiate in the application of this requirement between allowed privileges for local accounts and for domain accounts provided organizations retain the ability to control system configurations for key security parameters and as otherwise necessary to sufficiently mitigate risk."
   children = [
-    control.ecs_task_definition_user_for_host_mode_check,
+    control.ec2_instance_iam_profile_attached,
     control.emr_cluster_kerberos_enabled,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
     control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
+    control.iam_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90,
     control.rds_db_cluster_iam_authentication_enabled,
     control.rds_db_instance_iam_authentication_enabled,
-    control.s3_bucket_policy_restricts_cross_account_permission_changes
+    control.s3_bucket_policy_restrict_public_access
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -194,7 +214,8 @@ benchmark "nist_800_171_rev_2_3_1_7" {
     control.iam_group_not_empty,
     control.iam_policy_no_star_star,
     control.iam_root_user_no_access_keys,
-    control.iam_user_in_group
+    control.iam_user_in_group,
+    control.s3_bucket_policy_restrict_public_access
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -209,10 +230,13 @@ benchmark "nist_800_171_rev_2_3_1_12" {
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_enabled,
     control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
     control.guardduty_enabled,
     control.rds_db_instance_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
+    control.vpc_flow_logs_enabled,
+    control.vpc_igw_attached_to_authorized_vpc,
     control.wafv2_web_acl_logging_enabled
   ]
 
@@ -241,11 +265,12 @@ benchmark "nist_800_171_rev_2_3_1_14" {
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.emr_cluster_kerberos_enabled,
+    control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
     control.iam_user_console_access_mfa_enabled,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
+    control.opensearch_domain_in_vpc,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
@@ -265,6 +290,7 @@ benchmark "nist_800_171_rev_2_3_1_20" {
   title       = "3.1.20 Verify and control/limit connections to and use of external systems"
   description = "External systems are systems or components of systems for which organizations typically have no direct supervision and authority over the application of security requirements and controls or the determination of the effectiveness of implemented controls on those systems. External systems include personally owned systems, components, or devices and privately-owned computing and communications devices resident in commercial or public facilities. This requirement also addresses the use of external systems for the processing, storage, or transmission of CUI, including accessing cloud services (e.g., infrastructure as a service, platform as a service, or software as a service) from organizational systems. Organizations establish terms and conditions for the use of external systems in accordance with organizational security policies and procedures. Terms and conditions address as a minimum, the types of applications that can be accessed on organizational systems from external systems. If terms and conditions with the owners of external systems cannot be established, organizations may impose restrictions on organizational personnel using those external systems. This requirement recognizes that there are circumstances where individuals using external systems (e.g., contractors, coalition partners) need to access organizational systems. In those situations, organizations need confidence that the external systems contain the necessary controls so as not to compromise, damage, or otherwise harm organizational systems. Verification that the required controls have been effectively implemented can be achieved by third-party, independent assessments, attestations, or other means, depending on the assurance or confidence level required by organizations. Note that while “external” typically refers to outside of the organization's direct supervision and authority, that is not always the case. Regarding the protection of CUI across an organization, the organization may have systems that process CUI and others that do not. And among the systems that process CUI there are likely access restrictions for CUI that apply between systems. Therefore, from the perspective of a given system, other systems within the organization may be considered 'external' to that system."
   children = [
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_public_access_block_account,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
