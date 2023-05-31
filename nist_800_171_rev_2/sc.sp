@@ -9,8 +9,8 @@ benchmark "nist_800_171_rev_2_3_13" {
     benchmark.nist_800_171_rev_2_3_13_5,
     benchmark.nist_800_171_rev_2_3_13_6,
     benchmark.nist_800_171_rev_2_3_13_8,
-    benchmark.nist_800_171_rev_2_3_13_11,
     benchmark.nist_800_171_rev_2_3_13_10,
+    benchmark.nist_800_171_rev_2_3_13_11,
     benchmark.nist_800_171_rev_2_3_13_15,
     benchmark.nist_800_171_rev_2_3_13_16
   ]

@@ -20,9 +20,9 @@ benchmark "nist_800_171_rev_2_3_5_1" {
   title       = "3.5.1 Identify system users, processes acting on behalf of users, and devices"
   description = "Common device identifiers include Media Access Control (MAC), Internet Protocol (IP) addresses, or device-unique token identifiers. Management of individual identifiers is not applicable to shared system accounts. Typically, individual identifiers are the user names associated with the system accounts assigned to those individuals. Organizations may require unique identification of individuals in group accounts or for detailed accountability of individual activity. In addition, this requirement addresses individual identifiers that are not necessarily associated with system accounts. Organizational devices requiring identification may be defined by type, by device, or by a combination of type/device."
   children = [
+    control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_mfa_enabled
   ]
 
@@ -58,9 +58,9 @@ benchmark "nist_800_171_rev_2_3_5_4" {
   title       = "3.5.4 Employ replay-resistant authentication mechanisms for network access to privileged and non-privileged accounts"
   description = "Authentication processes resist replay attacks if it is impractical to successfully authenticate by recording or replaying previous authentication messages. Replay-resistant techniques include protocols that use nonces or challenges such as time synchronous or challenge-response one-time authenticators."
   children = [
+    control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_root_user_hardware_mfa_enabled,
     control.iam_user_mfa_enabled
   ]
 
