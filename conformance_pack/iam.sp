@@ -332,7 +332,7 @@ control "iam_account_password_policy_reuse_24" {
   query       = query.iam_account_password_policy_reuse_24
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
+    gdpr = "true"
   })
 }
 
