@@ -1,6 +1,6 @@
 benchmark "nist_800_171_rev_2_3_8" {
-  title       = "3.8 Media Protectiont"
-  description = ""
+  title       = "3.8 Media Protection"
+  description = "This control family help organizations control access to sensitive media. Requirements cover best practice storage or destruction of sensitive information and media in both physical and digital formats."
   children = [
     benchmark.nist_800_171_rev_2_3_8_9
   ]
