@@ -82,7 +82,8 @@ control "ssm_document_prohibit_public_access" {
   query       = query.ssm_document_prohibit_public_access
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
-    nist_csf = "true"
+    gxp_21_cfr_part_11 = "true"
+    nist_csf           = "true"
   })
 }
 

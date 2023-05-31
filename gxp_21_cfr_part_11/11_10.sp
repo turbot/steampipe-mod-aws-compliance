@@ -39,9 +39,9 @@ benchmark "gxp_21_cfr_part_11_11_10_a" {
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.dynamodb_table_protected_by_backup_plan,
-    control.ebs_attached_volume_delete_on_termination_enabled,
     control.ebs_volume_in_backup_plan,
     control.ebs_volume_protected_by_backup_plan,
+    control.ebs_volume_unused,
     control.ec2_instance_ebs_optimized,
     control.ec2_instance_protected_by_backup_plan,
     control.ec2_instance_ssm_managed,
@@ -135,7 +135,7 @@ benchmark "gxp_21_cfr_part_11_11_10_d" {
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_not_empty,
     control.iam_group_user_role_no_inline_policies,
-    control.iam_policy_custom_no_assume_role,
+    control.iam_managed_policy_attached_to_role,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -161,12 +161,13 @@ benchmark "gxp_21_cfr_part_11_11_10_d" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_security_group_allows_ingress_authorized_ports,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
@@ -261,12 +262,13 @@ benchmark "gxp_21_cfr_part_11_11_10_g" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_rotated_as_scheduled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_security_group_allows_ingress_authorized_ports,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all,
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 
@@ -301,15 +303,15 @@ benchmark "gxp_21_cfr_part_11_11_10_k" {
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.s3_public_access_block_account,
     control.s3_bucket_logging_enabled,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_igw_attached_to_authorized_vpc,
-    control.vpc_security_group_allows_ingress_authorized_ports,
-    control.vpc_security_group_restrict_ingress_common_ports_all
+    control.vpc_security_group_restrict_ingress_common_ports_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.gxp_21_cfr_part_11_common_tags
