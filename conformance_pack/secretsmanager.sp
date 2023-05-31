@@ -65,7 +65,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
 }
 
 control "secretsmanager_secret_last_changed_90_day" {
-  title       = "Secrets Manager secrets should be rotated within specific number of days."
+  title       = "Secrets Manager secrets should be rotated within specific number of days"
   description = "Ensure if AWS Secrets Manager secrets have been rotated in the past specified number of days. The rule is non compliant if a secret has not been rotated for more than 'maxDaysSinceRotation' number of days. The default value is 90 days."
   query       = query.secretsmanager_secret_last_changed_90_day
 

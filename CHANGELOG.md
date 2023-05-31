@@ -1,3 +1,13 @@
+## v0.66 [2023-05-25]
+
+_Enhancements_
+
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html). The following updates have been made to the benchmark: ([#631](https://github.com/turbot/steampipe-mod-aws-compliance/pull/631))
+  - The following controls have been added to the benchmarks:
+    - `cloudwatch_alarm_action_enabled_check`
+    - `ssm_document_prohibit_public_access`
+    - `vpc_configured_to_use_vpc_endpoints`
+
 ## v0.65 [2023-05-19]
 
 _Enhancements_

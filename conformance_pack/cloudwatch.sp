@@ -4,17 +4,6 @@ locals {
   })
 }
 
-control "cloudwatch_alarm_action_enabled_check" {
-  title       = "CloudWatch alarm action should be enabled"
-  description = "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is non compliant if the CloudWatch alarms actions are not in enabled state."
-  query       = query.cloudwatch_alarm_action_enabled_check
-
-  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    pci_dss_v321 = "true"
-    soc_2        = "true"
-  })
-}
-
 control "cloudwatch_alarm_action_enabled" {
   title       = "CloudWatch alarm should have an action configured"
   description = "Checks if CloudWatch alarms have an action configured for the ALARM, INSUFFICIENT_DATA, or OK state. Optionally checks if any actions match a named ARN. The rule is non compliant if there is no action specified for the alarm or optional parameter."
@@ -32,6 +21,18 @@ control "cloudwatch_alarm_action_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     soc_2                                  = "true"
+  })
+}
+
+control "cloudwatch_alarm_action_enabled_check" {
+  title       = "CloudWatch alarm action should be enabled"
+  description = "Checks if Amazon CloudWatch alarm actions are in enabled state. The rule is non compliant if the CloudWatch alarm actions are not in enabled state."
+  query       = query.cloudwatch_alarm_action_enabled_check
+
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    nist_csf     = "true"
+    pci_dss_v321 = "true"
+    soc_2        = "true"
   })
 }
 
@@ -252,25 +253,6 @@ control "log_metric_filter_cloudtrail_configuration" {
   })
 }
 
-query "cloudwatch_alarm_action_enabled_check" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when actions_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when actions_enabled then title || ' alarm actions enabled.'
-        else title || ' alarm actions disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudwatch_alarm;
-  EOQ
-}
-
 query "cloudwatch_alarm_action_enabled" {
   sql = <<-EOQ
     select
@@ -289,6 +271,25 @@ query "cloudwatch_alarm_action_enabled" {
         when jsonb_array_length(insufficient_data_actions) != 0 then title || ' insufficient data action enabled.'
         when jsonb_array_length(ok_actions) != 0 then title || ' ok action enabled.'
         else 'ok'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudwatch_alarm;
+  EOQ
+}
+
+query "cloudwatch_alarm_action_enabled_check" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when actions_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when actions_enabled then title || ' alarm actions enabled.'
+        else title || ' alarm actions disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
