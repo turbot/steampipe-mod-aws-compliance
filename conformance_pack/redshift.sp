@@ -132,6 +132,7 @@ control "redshift_cluster_maintenance_settings_check" {
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_cyber_security                     = "true"
