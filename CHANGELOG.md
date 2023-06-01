@@ -1,6 +1,6 @@
 ## v0.67 [2023-06-01]
 
-_Enhancements_
+_Breaking changes_
 
 - The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/steampipe-mod-aws-compliance/pull/636))
   - The following benchmarks have been added:
@@ -38,6 +38,9 @@ _Enhancements_
     - `iam_password_policy_expire_90`
     - `rds_db_cluster_deletion_protection_enabled`
     - `vpc_security_group_restricted_common_ports`
+
+_Enhancements_
+
 - The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#635](https://github.com/turbot/steampipe-mod-aws-compliance/pull/635))
   - The following controls have been added to the benchmarks:
     - `iam_policy_custom_no_blocked_kms_actions`
