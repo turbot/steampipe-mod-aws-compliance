@@ -37,6 +37,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
   tags = merge(local.conformance_pack_vpc_common_tags, {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
@@ -67,6 +68,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
@@ -92,6 +94,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -242,6 +245,7 @@ control "vpc_security_group_restricted_common_ports" {
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2 = "true"
   })
 }
 
@@ -291,8 +295,7 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
   query       = query.vpc_endpoint_service_acceptance_required_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa_security_rule_2003               = "true"
-    other_checks                           = "true"
+    other_checks = "true"
   })
 }
 
@@ -325,7 +328,8 @@ control "vpc_configured_to_use_vpc_endpoints" {
   query       = query.vpc_configured_to_use_vpc_endpoints
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa_final_omnibus_security_rule_2013 = "true" 
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })

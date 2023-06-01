@@ -430,6 +430,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -445,6 +446,7 @@ control "iam_policy_inline_no_blocked_kms_actions" {
     cisa_cyber_essentials                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -470,8 +472,7 @@ control "iam_policy_custom_no_assume_role" {
   query       = query.iam_policy_custom_no_assume_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    other_checks       = "true"
+    other_checks = "true"
   })
 }
 
@@ -502,6 +503,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
     nist_csf            = "true"
     soc_2               = "true"
   })
