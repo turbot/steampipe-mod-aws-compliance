@@ -1,3 +1,52 @@
+## v0.67 [2023-06-01]
+
+_Enhancements_
+
+- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/steampipe-mod-aws-compliance/pull/636))
+  - The following benchmarks have been added:
+    - Benchmark `nist_800_171_rev_2_2` has been added
+    - Sub-benchmarks `nist_800_171_rev_2_3_4_3`, `nist_800_171_rev_2_3_4_4`, and `nist_800_171_rev_2_3_4_5` have been added to benchmark `nist_800_171_rev_2_3_4`
+    - Sub-benchmarks `nist_800_171_rev_2_3_5_1`, `nist_800_171_rev_2_3_5_4`, and `nist_800_171_rev_2_3_5_9` have been added to benchmark `nist_800_171_rev_2_3_5`
+    - Sub-benchmarks `nist_800_171_rev_2_3_8` has been added to benchmark `nist_800_171_rev_2_3`
+    - Sub-benchmarks `nist_800_171_rev_2_3_12_1`, and `nist_800_171_rev_2_3_12_3` have been added to benchmark `nist_800_171_rev_2_3_12`
+    - Sub-benchmarks `nist_800_171_rev_2_3_13_10` has been added to benchmark `nist_800_171_rev_2_3_13`
+    - Sub-benchmarks `nist_800_171_rev_2_3_5_10` has been removed from benchmark `nist_800_171_rev_2_3_5`
+  - 40 new unique controls have been added across the benchmarks
+  - The following controls have been replaced in the benchmarks:
+    - `iam_account_password_policy_reuse_24` replaced by `iam_account_password_policy_strong_min_reuse_24`
+    - `s3_bucket_policy_restricts_cross_account_permission_changes` replaced by `s3_bucket_policy_restrict_public_access`
+  - The following controls are no longer included in the benchmarks:
+    - `dynamodb_table_encryption_enabled`
+    - `ebs_volume_encryption_at_rest_enabled`
+    - `elb_application_network_lb_use_ssl_certificate`
+    - `iam_account_password_policy_min_length_14`
+    - `iam_account_password_policy_one_lowercase_letter`
+    - `iam_account_password_policy_one_number`
+    - `iam_account_password_policy_one_symbol`
+    - `iam_account_password_policy_one_uppercase_letter`
+    - `iam_password_policy_expire_90`
+    - `rds_db_cluster_deletion_protection_enabled`
+    - `vpc_security_group_restricted_common_ports`
+- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#635](https://github.com/turbot/steampipe-mod-aws-compliance/pull/635))
+  - The following controls have been added to the benchmarks:
+    - `iam_policy_custom_no_blocked_kms_actions`
+    - `iam_policy_inline_no_blocked_kms_actions`
+  - The following controls have been replaced in the benchmarks:
+    - `vpc_endpoint_service_acceptance_required_enabled` replaced by `vpc_configured_to_use_vpc_endpoints`
+    - `vpc_security_group_restricted_common_ports` replaced by `vpc_security_group_restrict_ingress_common_ports_all`
+    - `vpc_security_group_allows_ingress_authorized_ports` replaced by `vpc_igw_attached_to_authorized_vpc`
+- The `HIPAA Final Omnibus Security Rule 2013` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html). The following updates have been made to the benchmark: ([#632](https://github.com/turbot/steampipe-mod-aws-compliance/pull/632))
+  - Control `ssm_document_prohibit_public_access` has been added to the benchmark.
+  - Control `vpc_endpoint_service_acceptance_required_enabled` is no longer included in the benchmark.
+- The `GxP 21 CFR Part 11` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html). The following updates have been made to the benchmark: ([#638](https://github.com/turbot/steampipe-mod-aws-compliance/pull/638))
+  - The following controls have been added to the benchmarks:
+    - `ebs_volume_unused`
+    - `ssm_document_prohibit_public_access`
+  - The following controls have been replaced in the benchmarks:
+    - `vpc_security_group_allows_ingress_authorized_ports` replaced by `vpc_security_group_restrict_ingress_tcp_udp_all`
+    - `iam_policy_custom_no_assume_role` replaced by `iam_managed_policy_attached_to_role`
+  - Control `ebs_attached_volume_delete_on_termination_enabled` is no longer included in the benchmark.
+
 ## v0.66 [2023-05-25]
 
 _Enhancements_
