@@ -7,10 +7,10 @@ _Enhancements_
     - Benchmark `nist_800_171_rev_2_2` has been added
     - Sub-benchmarks `nist_800_171_rev_2_3_4_3`, `nist_800_171_rev_2_3_4_4`, and `nist_800_171_rev_2_3_4_5` have been added to benchmark `nist_800_171_rev_2_3_4`
     - Sub-benchmarks `nist_800_171_rev_2_3_5_1`, `nist_800_171_rev_2_3_5_4`, and `nist_800_171_rev_2_3_5_9` have been added to benchmark `nist_800_171_rev_2_3_5`
-    - Sub-benchmarks `nist_800_171_rev_2_3_8` has been added to benchmark `nist_800_171_rev_2_3`
+    - Sub-benchmark `nist_800_171_rev_2_3_8` has been added to benchmark `nist_800_171_rev_2_3`
     - Sub-benchmarks `nist_800_171_rev_2_3_12_1`, and `nist_800_171_rev_2_3_12_3` have been added to benchmark `nist_800_171_rev_2_3_12`
-    - Sub-benchmarks `nist_800_171_rev_2_3_13_10` has been added to benchmark `nist_800_171_rev_2_3_13`
-    - Sub-benchmarks `nist_800_171_rev_2_3_5_10` has been removed from benchmark `nist_800_171_rev_2_3_5`
+    - Sub-benchmark `nist_800_171_rev_2_3_13_10` has been added to benchmark `nist_800_171_rev_2_3_13`
+    - Sub-benchmark `nist_800_171_rev_2_3_5_10` has been removed from benchmark `nist_800_171_rev_2_3_5`
   - 40 new unique controls have been added across the benchmarks
   - The following controls have been replaced in the benchmarks:
     - `iam_account_password_policy_reuse_24` replaced by `iam_account_password_policy_strong_min_reuse_24`
