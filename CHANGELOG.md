@@ -4,13 +4,24 @@ _Enhancements_
 
 - The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/steampipe-mod-aws-compliance/pull/636))
   - The following benchmarks have been added:
-    - Benchmark `nist_800_171_rev_2_2` has been added
-    - Sub-benchmarks `nist_800_171_rev_2_3_4_3`, `nist_800_171_rev_2_3_4_4`, and `nist_800_171_rev_2_3_4_5` have been added to benchmark `nist_800_171_rev_2_3_4`
-    - Sub-benchmarks `nist_800_171_rev_2_3_5_1`, `nist_800_171_rev_2_3_5_4`, and `nist_800_171_rev_2_3_5_9` have been added to benchmark `nist_800_171_rev_2_3_5`
-    - Sub-benchmark `nist_800_171_rev_2_3_8` has been added to benchmark `nist_800_171_rev_2_3`
-    - Sub-benchmarks `nist_800_171_rev_2_3_12_1`, and `nist_800_171_rev_2_3_12_3` have been added to benchmark `nist_800_171_rev_2_3_12`
-    - Sub-benchmark `nist_800_171_rev_2_3_13_10` has been added to benchmark `nist_800_171_rev_2_3_13`
-    - Sub-benchmark `nist_800_171_rev_2_3_5_10` has been removed from benchmark `nist_800_171_rev_2_3_5`
+    - `nist_800_171_rev_2_2`
+    -  Added the following sub-benchmarks to `nist_800_171_rev_2_3_4` benchmark: 
+       - `nist_800_171_rev_2_3_4_3` 
+       - `nist_800_171_rev_2_3_4_4` 
+       - `nist_800_171_rev_2_3_4_5`
+    - Added the following sub-benchmarks to `nist_800_171_rev_2_3_5` benchmark:
+      - `nist_800_171_rev_2_3_5_1`
+      - `nist_800_171_rev_2_3_5_4`
+      - `nist_800_171_rev_2_3_5_9`
+    - Added the following sub-benchmark to `nist_800_171_rev_2_3` benchmark:
+      - `nist_800_171_rev_2_3_8`
+    - Added the following sub-benchmarks to `nist_800_171_rev_2_3_12` benchmark:
+      - `nist_800_171_rev_2_3_12_1` 
+      - `nist_800_171_rev_2_3_12_3`
+    - Added the following sub-benchmark to `nist_800_171_rev_2_3_13` benchmark:
+      - `nist_800_171_rev_2_3_13_10`
+  - Removed the following sub-benchmark from `nist_800_171_rev_2_3_5` benchmark:
+      - `nist_800_171_rev_2_3_5_10`
   - 40 new unique controls have been added across the benchmarks
   - The following controls have been replaced in the benchmarks:
     - `iam_account_password_policy_reuse_24` replaced by `iam_account_password_policy_strong_min_reuse_24`
@@ -36,8 +47,9 @@ _Enhancements_
     - `vpc_security_group_restricted_common_ports` replaced by `vpc_security_group_restrict_ingress_common_ports_all`
     - `vpc_security_group_allows_ingress_authorized_ports` replaced by `vpc_igw_attached_to_authorized_vpc`
 - The `HIPAA Final Omnibus Security Rule 2013` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html). The following updates have been made to the benchmark: ([#632](https://github.com/turbot/steampipe-mod-aws-compliance/pull/632))
-  - Control `ssm_document_prohibit_public_access` has been added to the benchmark.
-  - Control `vpc_endpoint_service_acceptance_required_enabled` is no longer included in the benchmark.
+  - Added `ssm_document_prohibit_public_access` control to the benchmarks
+  - The following controls are no longer included in the benchmarks:
+    - `vpc_endpoint_service_acceptance_required_enabled`
 - The `GxP 21 CFR Part 11` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html). The following updates have been made to the benchmark: ([#638](https://github.com/turbot/steampipe-mod-aws-compliance/pull/638))
   - The following controls have been added to the benchmarks:
     - `ebs_volume_unused`
@@ -45,7 +57,8 @@ _Enhancements_
   - The following controls have been replaced in the benchmarks:
     - `vpc_security_group_allows_ingress_authorized_ports` replaced by `vpc_security_group_restrict_ingress_tcp_udp_all`
     - `iam_policy_custom_no_assume_role` replaced by `iam_managed_policy_attached_to_role`
-  - Control `ebs_attached_volume_delete_on_termination_enabled` is no longer included in the benchmark.
+  - The following controls are no longer included in the benchmarks:
+    - `ebs_attached_volume_delete_on_termination_enabled`
 
 ## v0.66 [2023-05-25]
 
