@@ -1182,7 +1182,7 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
   EOQ
 }
 
-query "vpc_security_group_unsued" {
+query "vpc_security_group_unused" {
   sql = <<-EOQ
     with associated_sg as (
       select
