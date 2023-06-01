@@ -474,8 +474,7 @@ control "iam_policy_custom_no_assume_role" {
   query       = query.iam_policy_custom_no_assume_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    other_checks       = "true"
+    other_checks = "true"
   })
 }
 
@@ -506,6 +505,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
     nist_csf            = "true"
     soc_2               = "true"
   })
