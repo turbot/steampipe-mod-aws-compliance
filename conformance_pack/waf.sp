@@ -45,6 +45,7 @@ control "waf_web_acl_logging_enabled" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"

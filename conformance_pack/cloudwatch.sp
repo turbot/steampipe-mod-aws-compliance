@@ -99,8 +99,9 @@ control "log_metric_filter_unauthorized_api" {
   query       = query.log_metric_filter_unauthorized_api
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -110,8 +111,9 @@ control "log_metric_filter_console_login_mfa" {
   query       = query.log_metric_filter_console_login_mfa
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -124,6 +126,7 @@ control "log_metric_filter_root_login" {
     gdpr                                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
@@ -135,9 +138,10 @@ control "log_metric_filter_iam_policy" {
   query       = query.log_metric_filter_iam_policy
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr         = "true"
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
+    pci_dss_v321       = "true"
   })
 }
 
@@ -147,8 +151,9 @@ control "log_metric_filter_vpc" {
   query       = query.log_metric_filter_vpc
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -158,8 +163,9 @@ control "log_metric_filter_route_table" {
   query       = query.log_metric_filter_route_table
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -169,8 +175,9 @@ control "log_metric_filter_network_gateway" {
   query       = query.log_metric_filter_network_gateway
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -180,8 +187,9 @@ control "log_metric_filter_network_acl" {
   query       = query.log_metric_filter_network_acl
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -191,8 +199,9 @@ control "log_metric_filter_security_group" {
   query       = query.log_metric_filter_security_group
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -202,8 +211,9 @@ control "log_metric_filter_config_configuration" {
   query       = query.log_metric_filter_config_configuration
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -213,8 +223,9 @@ control "log_metric_filter_bucket_policy" {
   query       = query.log_metric_filter_bucket_policy
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -238,6 +249,7 @@ control "log_metric_filter_console_authentication_failure" {
     gdpr                                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
   })
 }
@@ -248,8 +260,9 @@ control "log_metric_filter_cloudtrail_configuration" {
   query       = query.log_metric_filter_cloudtrail_configuration
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 

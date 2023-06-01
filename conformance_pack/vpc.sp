@@ -244,7 +244,8 @@ control "vpc_security_group_restricted_common_ports" {
   query       = query.vpc_security_group_restricted_common_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
-    nist_800_171_rev_2 = "true"
+    hipaa_security_rule_2003 = "true"
+    nist_800_171_rev_2       = "true"
   })
 }
 
