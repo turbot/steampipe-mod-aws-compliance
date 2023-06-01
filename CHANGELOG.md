@@ -5,9 +5,9 @@ _Enhancements_
 - The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/steampipe-mod-aws-compliance/pull/636))
   - The following benchmarks have been added:
     - `nist_800_171_rev_2_2`
-    -  Added the following sub-benchmarks to `nist_800_171_rev_2_3_4` benchmark: 
-       - `nist_800_171_rev_2_3_4_3` 
-       - `nist_800_171_rev_2_3_4_4` 
+    -  Added the following sub-benchmarks to `nist_800_171_rev_2_3_4` benchmark:
+       - `nist_800_171_rev_2_3_4_3`
+       - `nist_800_171_rev_2_3_4_4`
        - `nist_800_171_rev_2_3_4_5`
     - Added the following sub-benchmarks to `nist_800_171_rev_2_3_5` benchmark:
       - `nist_800_171_rev_2_3_5_1`
@@ -16,7 +16,7 @@ _Enhancements_
     - Added the following sub-benchmark to `nist_800_171_rev_2_3` benchmark:
       - `nist_800_171_rev_2_3_8`
     - Added the following sub-benchmarks to `nist_800_171_rev_2_3_12` benchmark:
-      - `nist_800_171_rev_2_3_12_1` 
+      - `nist_800_171_rev_2_3_12_1`
       - `nist_800_171_rev_2_3_12_3`
     - Added the following sub-benchmark to `nist_800_171_rev_2_3_13` benchmark:
       - `nist_800_171_rev_2_3_13_10`
@@ -59,6 +59,10 @@ _Enhancements_
     - `iam_policy_custom_no_assume_role` replaced by `iam_managed_policy_attached_to_role`
   - The following controls are no longer included in the benchmarks:
     - `ebs_attached_volume_delete_on_termination_enabled`
+
+_Bug fixes_
+
+- Fixed the typo in the control and query name to use `vpc_security_group_restrict_common_ports` instead of `vpc_security_group_restricted_common_ports`. ([#640](https://github.com/turbot/steampipe-mod-aws-compliance/pull/640))
 
 ## v0.66 [2023-05-25]
 
