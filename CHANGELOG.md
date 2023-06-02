@@ -65,7 +65,7 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed the typo in the control and query name to use `vpc_security_group_restrict_common_ports` instead of `vpc_security_group_restricted_common_ports`. ([#640](https://github.com/turbot/steampipe-mod-aws-compliance/pull/640))
+- Fixed the typo in the query name to use `vpc_security_group_unused` instead of `vpc_security_group_unsued`. ([#640](https://github.com/turbot/steampipe-mod-aws-compliance/pull/640))
 
 ## v0.66 [2023-05-25]
 
