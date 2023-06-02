@@ -313,6 +313,26 @@ control "vpc_configured_to_use_vpc_endpoints" {
   })
 }
 
+control "vpc_security_group_restricted_common_ports" {
+  title       = "Security groups should not allow unrestricted access to ports with high risk"
+  description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
+  query       = query.vpc_security_group_restricted_common_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_authorized_ports" {
+  title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  query       = query.vpc_security_group_allows_ingress_authorized_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1162,7 +1182,7 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
   EOQ
 }
 
-query "vpc_security_group_unsued" {
+query "vpc_security_group_unused" {
   sql = <<-EOQ
     with associated_sg as (
       select
