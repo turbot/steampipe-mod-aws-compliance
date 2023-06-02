@@ -606,7 +606,7 @@ _Enhancements_
   - vpc_security_group_restrict_ingress_common_ports_all
   - vpc_security_group_restrict_ingress_ssh_all
   - vpc_security_group_restrict_ingress_tcp_udp_all
-  - vpc_security_group_restricted_common_ports
+  - vpc_security_group_restrict_common_ports
 
 ## v0.22 [2021-12-08]
 

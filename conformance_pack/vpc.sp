@@ -238,17 +238,6 @@ control "vpc_route_table_restrict_public_access_to_igw" {
   })
 }
 
-control "vpc_security_group_restricted_common_ports" {
-  title       = "Security groups should not allow unrestricted access to ports with high risk"
-  description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
-  query       = query.vpc_security_group_restricted_common_ports
-
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    hipaa_security_rule_2003 = "true"
-    nist_800_171_rev_2       = "true"
-  })
-}
-
 control "vpc_security_group_restrict_ingress_redis_port" {
   title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0"
   description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
@@ -311,17 +300,6 @@ control "vpc_network_acl_unused" {
   })
 }
 
-control "vpc_security_group_allows_ingress_authorized_ports" {
-  title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
-  description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
-  query       = query.vpc_security_group_allows_ingress_authorized_ports
-
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    gxp_21_cfr_part_11       = "true"
-    hipaa_security_rule_2003 = "true"
-  })
-}
-
 control "vpc_configured_to_use_vpc_endpoints" {
   title       = "VPC should be configured to use VPC endpoints"
   description = "Checks if Service Endpoint for the service provided in rule parameter is created for each Amazon Virtual Private Cloud (Amazon VPC). The rule is non compliant if an Amazon VPC doesn't have an Amazon VPC endpoint created for the service."
@@ -332,6 +310,26 @@ control "vpc_configured_to_use_vpc_endpoints" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+  })
+}
+
+control "vpc_security_group_restricted_common_ports" {
+  title       = "Security groups should not allow unrestricted access to ports with high risk"
+  description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
+  query       = query.vpc_security_group_restricted_common_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_authorized_ports" {
+  title       = "VPC Security groups should only allow unrestricted incoming traffic for authorized ports"
+  description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
+  query       = query.vpc_security_group_allows_ingress_authorized_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
   })
 }
 
@@ -733,119 +731,6 @@ query "vpc_route_table_restrict_public_access_to_igw" {
   EOQ
 }
 
-query "vpc_security_group_restricted_common_ports" {
-  sql = <<-EOQ
-    with ingress_ssh_rules as (
-      select
-        group_id,
-        count(*) as num_ssh_rules
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and cidr_ipv4 = '0.0.0.0/0'
-        and (
-            ( ip_protocol = '-1'
-            and from_port is null
-            )
-            or (
-                from_port >= 22
-                and to_port <= 22
-            )
-            or (
-                from_port >= 3389
-                and to_port <= 3389
-            )
-            or (
-                from_port >= 21
-                and to_port <= 21
-            )
-            or (
-                from_port >= 20
-                and to_port <= 20
-            )
-            or (
-                from_port >= 3306
-                and to_port <= 3306
-            )
-            or (
-                from_port >= 4333
-                and to_port <= 4333
-            )
-            or (
-                from_port >= 23
-                and to_port <= 23
-            )
-            or (
-                from_port >= 25
-                and to_port <= 25
-            )
-            or (
-                from_port >= 445
-                and to_port <= 445
-            )
-            or (
-                from_port >= 110
-                and to_port <= 110
-            )
-            or (
-                from_port >= 135
-                and to_port <= 135
-            )
-            or (
-                from_port >= 143
-                and to_port <= 143
-            )
-            or (
-                from_port >= 1433
-                and to_port <= 3389
-            )
-            or (
-                from_port >= 3389
-                and to_port <= 1434
-            )
-            or (
-                from_port >= 5432
-                and to_port <= 5432
-            )
-            or (
-                from_port >= 5500
-                and to_port <= 5500
-            )
-            or (
-                from_port >= 5601
-                and to_port <= 5601
-            )
-            or (
-                from_port >= 9200
-                and to_port <= 9300
-            )
-            or (
-                from_port >= 8080
-                and to_port <= 8080
-            )
-        )
-      group by
-        group_id
-    )
-    select
-      arn as resource,
-      case
-        when ingress_ssh_rules.group_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0..'
-        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
-  EOQ
-}
-
 query "vpc_security_group_restrict_ingress_redis_port" {
   sql = <<-EOQ
     with ingress_redis_port as (
@@ -1048,39 +933,6 @@ query "vpc_network_acl_unused" {
       ${local.common_dimensions_sql}
     from
       aws_vpc_network_acl;
-  EOQ
-}
-
-query "vpc_security_group_allows_ingress_authorized_ports" {
-  sql = <<-EOQ
-    with ingress_unauthorized_ports as (
-      select
-        group_id,
-        count(*)
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and cidr_ipv4 = '0.0.0.0/0'
-        and (from_port is null or from_port not in (80,443))
-      group by
-        group_id
-    )
-    select
-      sg.arn as resource,
-      case
-        when ingress_unauthorized_ports.count > 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
-        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
   EOQ
 }
 
@@ -1330,7 +1182,7 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
   EOQ
 }
 
-query "vpc_security_group_unsued" {
+query "vpc_security_group_unused" {
   sql = <<-EOQ
     with associated_sg as (
       select
@@ -1362,5 +1214,151 @@ query "vpc_security_group_unsued" {
     from
       aws_vpc_security_group as s
       left join associated_sg as a on s.group_id = a.secgrp_id;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_authorized_ports" {
+  sql = <<-EOQ
+    with ingress_unauthorized_ports as (
+      select
+        group_id,
+        count(*)
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (from_port is null or from_port not in (80,443))
+      group by
+        group_id
+    )
+    select
+      sg.arn as resource,
+      case
+        when ingress_unauthorized_ports.count > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ingress_unauthorized_ports.count > 0 then sg.title || ' having unrestricted incoming traffic other than default ports from 0.0.0.0/0 '
+        else sg.title || ' allows unrestricted incoming traffic for authorized default ports (80,443).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
+  EOQ
+}
+
+query "vpc_security_group_restricted_common_ports" {
+  sql = <<-EOQ
+    with ingress_ssh_rules as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+                from_port >= 22
+                and to_port <= 22
+            )
+            or (
+                from_port >= 3389
+                and to_port <= 3389
+            )
+            or (
+                from_port >= 21
+                and to_port <= 21
+            )
+            or (
+                from_port >= 20
+                and to_port <= 20
+            )
+            or (
+                from_port >= 3306
+                and to_port <= 3306
+            )
+            or (
+                from_port >= 4333
+                and to_port <= 4333
+            )
+            or (
+                from_port >= 23
+                and to_port <= 23
+            )
+            or (
+                from_port >= 25
+                and to_port <= 25
+            )
+            or (
+                from_port >= 445
+                and to_port <= 445
+            )
+            or (
+                from_port >= 110
+                and to_port <= 110
+            )
+            or (
+                from_port >= 135
+                and to_port <= 135
+            )
+            or (
+                from_port >= 143
+                and to_port <= 143
+            )
+            or (
+                from_port >= 1433
+                and to_port <= 3389
+            )
+            or (
+                from_port >= 3389
+                and to_port <= 1434
+            )
+            or (
+                from_port >= 5432
+                and to_port <= 5432
+            )
+            or (
+                from_port >= 5500
+                and to_port <= 5500
+            )
+            or (
+                from_port >= 5601
+                and to_port <= 5601
+            )
+            or (
+                from_port >= 9200
+                and to_port <= 9300
+            )
+            or (
+                from_port >= 8080
+                and to_port <= 8080
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_ssh_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0..'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
   EOQ
 }
