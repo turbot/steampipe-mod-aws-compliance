@@ -14,6 +14,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
@@ -81,6 +82,7 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
   })
 }
@@ -93,6 +95,7 @@ control "opensearch_domain_in_vpc" {
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
   })
 }

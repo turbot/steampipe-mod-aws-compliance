@@ -44,6 +44,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -186,6 +187,7 @@ control "rds_db_instance_in_backup_plan" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -225,6 +227,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
@@ -272,6 +275,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
@@ -320,8 +324,7 @@ control "rds_db_cluster_deletion_protection_enabled" {
   query       = query.rds_db_cluster_deletion_protection_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    nist_csf = "true"
   })
 }
 

@@ -27,7 +27,7 @@ benchmark "nist_800_171_rev_2_3_3_1" {
     control.elb_application_classic_lb_logging_enabled,
     control.guardduty_enabled,
     control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
@@ -48,7 +48,7 @@ benchmark "nist_800_171_rev_2_3_3_2" {
     control.cloudtrail_trail_integrated_with_logs,
     control.guardduty_enabled,
     control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled
   ]
 
@@ -65,7 +65,7 @@ benchmark "nist_800_171_rev_2_3_3_3" {
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.rds_db_instance_logging_enabled,
-    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
     control.wafv2_web_acl_logging_enabled
@@ -106,6 +106,7 @@ benchmark "nist_800_171_rev_2_3_3_8" {
     control.log_group_encryption_at_rest_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_object_lock_enabled,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_versioning_enabled,

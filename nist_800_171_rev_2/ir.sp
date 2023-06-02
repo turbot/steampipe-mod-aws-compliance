@@ -26,6 +26,7 @@ benchmark "nist_800_171_rev_2_3_6_1" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
+    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 
@@ -48,6 +49,7 @@ benchmark "nist_800_171_rev_2_3_6_2" {
     control.s3_bucket_logging_enabled,
     control.securityhub_enabled,
     control.vpc_flow_logs_enabled,
+    control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
   ]
 

@@ -11,11 +11,13 @@ benchmark "nist_800_171_rev_2" {
   documentation = file("./nist_800_171_rev_2/docs/nist_800_171_rev_2_overview.md")
 
   children = [
+    benchmark.nist_800_171_rev_2_2,
     benchmark.nist_800_171_rev_2_3_1,
     benchmark.nist_800_171_rev_2_3_3,
     benchmark.nist_800_171_rev_2_3_4,
     benchmark.nist_800_171_rev_2_3_5,
     benchmark.nist_800_171_rev_2_3_6,
+    benchmark.nist_800_171_rev_2_3_8,
     benchmark.nist_800_171_rev_2_3_11,
     benchmark.nist_800_171_rev_2_3_12,
     benchmark.nist_800_171_rev_2_3_13,

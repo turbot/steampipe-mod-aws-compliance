@@ -37,7 +37,6 @@ control "ebs_volume_encryption_at_rest_enabled" {
     cis_controls_v8_ig1    = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
-    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -100,7 +99,6 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
     audit_manager_control_tower = "true"
     fedramp_moderate_rev_4      = "true"
     ffiec                       = "true"
-    gxp_21_cfr_part_11          = "true"
     nist_800_53_rev_4           = "true"
   })
 }
@@ -136,6 +134,7 @@ control "ebs_volume_unused" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    gxp_21_cfr_part_11     = "true"
     nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
     nist_csf               = "true"

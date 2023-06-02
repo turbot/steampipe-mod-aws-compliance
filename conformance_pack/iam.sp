@@ -13,6 +13,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -321,7 +322,6 @@ control "iam_account_password_policy_min_length_14" {
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
-    nist_800_171_rev_2     = "true"
     nist_800_53_rev_5      = "true"
   })
 }
@@ -332,8 +332,7 @@ control "iam_account_password_policy_reuse_24" {
   query       = query.iam_account_password_policy_reuse_24
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -356,8 +355,7 @@ control "iam_account_password_policy_one_lowercase_letter" {
   query       = query.iam_account_password_policy_one_lowercase_letter
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -367,8 +365,7 @@ control "iam_account_password_policy_one_uppercase_letter" {
   query       = query.iam_account_password_policy_one_uppercase_letter
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -378,8 +375,7 @@ control "iam_account_password_policy_one_number" {
   query       = query.iam_account_password_policy_one_number
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -389,8 +385,7 @@ control "iam_password_policy_expire_90" {
   query       = query.iam_account_password_policy_expire_90
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -400,8 +395,7 @@ control "iam_account_password_policy_one_symbol" {
   query       = query.iam_account_password_policy_one_symbol
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
+    gdpr = "true"
   })
 }
 
@@ -417,6 +411,7 @@ control "iam_all_policy_no_service_wild_card" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -435,6 +430,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
@@ -450,6 +446,8 @@ control "iam_policy_inline_no_blocked_kms_actions" {
     cisa_cyber_essentials                  = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
   })
@@ -474,8 +472,7 @@ control "iam_policy_custom_no_assume_role" {
   query       = query.iam_policy_custom_no_assume_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    other_checks       = "true"
+    other_checks = "true"
   })
 }
 
@@ -506,6 +503,7 @@ control "iam_managed_policy_attached_to_role" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
     nist_csf            = "true"
     soc_2               = "true"
   })
@@ -518,6 +516,7 @@ control "iam_policy_unused" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1 = "true"
+    nist_800_171_rev_2  = "true"
     nist_csf            = "true"
     soc_2               = "true"
   })

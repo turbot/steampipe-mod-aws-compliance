@@ -176,8 +176,9 @@ control "cloudtrail_s3_logging_enabled" {
   query       = query.cloudtrail_s3_logging_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -187,8 +188,9 @@ control "cloudtrail_bucket_not_public" {
   query       = query.cloudtrail_bucket_not_public
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr     = "true"
-    nist_csf = "true"
+    gdpr               = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 
@@ -198,7 +200,8 @@ control "cloudtrail_multi_region_read_write_enabled" {
   query       = query.cloudtrail_multi_region_read_write_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    nist_csf = "true"
+    nist_800_171_rev_2 = "true"
+    nist_csf           = "true"
   })
 }
 

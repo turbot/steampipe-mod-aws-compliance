@@ -9,6 +9,7 @@ benchmark "nist_800_171_rev_2_3_13" {
     benchmark.nist_800_171_rev_2_3_13_5,
     benchmark.nist_800_171_rev_2_3_13_6,
     benchmark.nist_800_171_rev_2_3_13_8,
+    benchmark.nist_800_171_rev_2_3_13_10,
     benchmark.nist_800_171_rev_2_3_13_11,
     benchmark.nist_800_171_rev_2_3_13_15,
     benchmark.nist_800_171_rev_2_3_13_16
@@ -37,14 +38,19 @@ benchmark "nist_800_171_rev_2_3_13_1" {
     control.es_domain_in_vpc,
     control.guardduty_enabled,
     control.lambda_function_in_vpc,
+    control.opensearch_domain_in_vpc,
     control.rds_db_instance_logging_enabled,
     control.rds_db_instance_prohibit_public_access,
     control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_enforces_ssl,
     control.s3_bucket_logging_enabled,
+    control.s3_public_access_block_bucket,
     control.securityhub_enabled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_flow_logs_enabled,
+    control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.vpc_security_group_restrict_ingress_tcp_udp_all,
@@ -69,6 +75,7 @@ benchmark "nist_800_171_rev_2_3_13_2" {
     control.dynamodb_table_auto_scaling_enabled,
     control.dynamodb_table_in_backup_plan,
     control.dynamodb_table_point_in_time_recovery_enabled,
+    control.dynamodb_table_protected_by_backup_plan,
     control.ebs_snapshot_not_publicly_restorable,
     control.ebs_volume_in_backup_plan,
     control.ebs_volume_protected_by_backup_plan,
@@ -76,6 +83,7 @@ benchmark "nist_800_171_rev_2_3_13_2" {
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_in_backup_plan,
     control.efs_file_system_protected_by_backup_plan,
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
@@ -85,12 +93,14 @@ benchmark "nist_800_171_rev_2_3_13_2" {
     control.lambda_function_concurrent_execution_limit_configured,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
-    control.rds_db_cluster_deletion_protection_enabled,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_instance_backup_enabled,
-    control.rds_db_instance_logging_enabled,
+    control.rds_db_instance_deletion_protection_enabled,
+    control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_multiple_az_enabled,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_instance_protected_by_backup_plan,
+    control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_restrict_public_read_access,
@@ -99,7 +109,8 @@ benchmark "nist_800_171_rev_2_3_13_2" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.vpc_security_group_restrict_ingress_ssh_all
+    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -109,8 +120,8 @@ benchmark "nist_800_171_rev_2_3_13_3" {
   title       = "3.13.3 Separate user functionality from system management functionality"
   description = "System management functionality includes functions necessary to administer databases, network components, workstations, or servers, and typically requires privileged user access. The separation of user functionality from system management functionality is physical or logical. Organizations can implement separation of system management functionality from user functionality by using different computers, different central processing units, different instances of operating systems, or different network addresses; virtualization techniques; or combinations of these or other methods, as appropriate. This type of separation includes web administrative interfaces that use separate authentication methods for users of any other system resources. Separation of system and user functionality may include isolating administrative interfaces on different domains and with additional access controls."
   children = [
-    control.iam_policy_no_star_star,
-    control.iam_user_in_group
+    control.iam_group_not_empty,
+    control.iam_policy_no_star_star
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -149,6 +160,7 @@ benchmark "nist_800_171_rev_2_3_13_5" {
     control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_prohibit_public_access,
     control.s3_bucket_enforces_ssl,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
@@ -181,13 +193,27 @@ benchmark "nist_800_171_rev_2_3_13_8" {
   description = "This requirement applies to internal and external networks and any system components that can transmit information including servers, notebook computers, desktop computers, mobile devices, printers, copiers, scanners, and facsimile machines. Communication paths outside the physical protection of controlled boundaries are susceptible to both interception and modification. Organizations relying on commercial providers offering transmission services as commodity services rather than as fully dedicated services (i.e., services which can be highly specialized to individual customer needs), may find it difficult to obtain the necessary assurances regarding the implementation of the controls for transmission confidentiality. In such situations, organizations determine what types of confidentiality services are available in commercial telecommunication service packages. If it is infeasible or impractical to obtain the necessary safeguards and assurances of the effectiveness of the safeguards through appropriate contracting vehicles, organizations implement compensating safeguards or explicitly accept the additional risk. An example of an alternative physical safeguard is a protected distribution system (PDS) where the distribution medium is protected against electronic or physical intercept, thereby ensuring the confidentiality of the information being transmitted."
   children = [
     control.acm_certificate_expires_30_days,
+    control.apigateway_rest_api_stage_use_ssl_certificate,
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_node_to_node_encryption_enabled,
+    control.opensearch_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl
+  ]
+
+  tags = local.nist_800_171_rev_2_common_tags
+}
+
+benchmark "nist_800_171_rev_2_3_13_10" {
+  title       = "3.13.10 Establish and manage cryptographic keys for cryptography employed in organizational systems"
+  description = "Cryptographic key management and establishment can be performed using manual procedures or mechanisms supported by manual procedures. Organizations define key management requirements in accordance with applicable federal laws, Executive Orders, policies, directives, regulations, and standards specifying appropriate options, levels, and parameters."
+  children = [
+    control.acm_certificate_expires_30_days,
+    control.kms_cmk_rotation_enabled,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
@@ -197,17 +223,19 @@ benchmark "nist_800_171_rev_2_3_13_11" {
   title       = "3.13.11 Employ FIPS-validated cryptography when used to protect the confidentiality of CUI"
   description = "Cryptography can be employed to support many security solutions including the protection of controlled unclassified information, the provision of digital signatures, and the enforcement of information separation when authorized individuals have the necessary clearances for such information but lack the necessary formal access approvals. Cryptography can also be used to support random number generation and hash generation. Cryptographic standards include FIPSvalidated cryptography and/or NSA-approved cryptography."
   children = [
-    control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
-    control.dynamodb_table_encryption_enabled,
-    control.ebs_volume_encryption_at_rest_enabled,
+    control.dynamodb_table_encrypted_with_kms,
+    control.ebs_attached_volume_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_classic_lb_use_ssl_certificate,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
-    control.rds_db_snapshot_encrypted_at_rest,
+    control.opensearch_domain_encryption_at_rest_enabled,
+    control.rds_db_instance_encryption_at_rest_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
@@ -224,7 +252,6 @@ benchmark "nist_800_171_rev_2_3_13_15" {
   children = [
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
-    control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners
   ]
 
@@ -238,15 +265,18 @@ benchmark "nist_800_171_rev_2_3_13_16" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dynamodb_table_encrypted_with_kms,
-    control.dynamodb_table_encryption_enabled,
-    control.ebs_volume_encryption_at_rest_enabled,
+    control.ebs_attached_volume_encryption_enabled,
+    control.ec2_ebs_default_encryption_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.es_domain_encryption_at_rest_enabled,
+    control.kms_key_not_pending_deletion,
     control.log_group_encryption_at_rest_enabled,
+    control.opensearch_domain_encryption_at_rest_enabled,
+    control.rds_db_instance_encryption_at_rest_enabled,
     control.rds_db_snapshot_encrypted_at_rest,
-    control.redshift_cluster_encryption_in_transit_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_default_encryption_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_object_lock_enabled,
     control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     control.sns_topic_encrypted_at_rest
