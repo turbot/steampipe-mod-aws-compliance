@@ -313,10 +313,10 @@ control "vpc_configured_to_use_vpc_endpoints" {
   })
 }
 
-control "vpc_security_group_restrict_common_ports" {
+control "vpc_security_group_restricted_common_ports" {
   title       = "Security groups should not allow unrestricted access to ports with high risk"
   description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
-  query       = query.vpc_security_group_restrict_common_ports
+  query       = query.vpc_security_group_restricted_common_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     other_checks = "true"
@@ -1250,7 +1250,7 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
   EOQ
 }
 
-query "vpc_security_group_restrict_common_ports" {
+query "vpc_security_group_restricted_common_ports" {
   sql = <<-EOQ
     with ingress_ssh_rules as (
       select

@@ -92,7 +92,7 @@ benchmark "other" {
     control.vpc_security_group_restrict_ingress_kafka_port,
     control.vpc_security_group_restrict_ingress_kibana_port,
     control.vpc_security_group_restrict_ingress_redis_port,
-    control.vpc_security_group_restrict_common_ports
+    control.vpc_security_group_restricted_common_ports
   ]
 
   tags = merge(local.other_common_tags, {
