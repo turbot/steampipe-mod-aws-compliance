@@ -306,6 +306,7 @@ benchmark "gxp_21_cfr_part_11_11_10_k" {
     control.s3_bucket_logging_enabled,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.ssm_document_prohibit_public_access,
     control.vpc_default_security_group_restricts_all_traffic,
