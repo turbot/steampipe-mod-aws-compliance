@@ -254,6 +254,43 @@ query "apigateway_rest_api_authorizers_configured" {
 
 # Non-Config rule query
 
+query "apigateway_rest_api_endpoint_configured_to_public" {
+  sql = <<-EOQ
+    select
+      name as resource,
+      case
+        when endpoint_configuration_types ? 'PRIVATE' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when endpoint_configuration_types ? 'PRIVATE' then name || ' configured to private endpoint.'
+        else name || ' configured to public endpoint.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_rest_api;
+  EOQ
+}
+
+query "api_gatewayv2_route_authorizer_enabled" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
+      case
+        when authorizer_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when authorizer_id is null then route_id || ' authorizer disabled.'
+        else route_id || ' authorizer enabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gatewayv2_route;
+  EOQ
+}
+
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
     select

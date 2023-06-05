@@ -536,3 +536,22 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
       left join distribution_with_non_existent_bucket as b on b.arn = d.arn;
   EOQ
 }
+
+query "cloudfront_distributions_field_level_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when default_cache_behavior ->> 'FieldLevelEncryptionId' = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when default_cache_behavior ->> 'FieldLevelEncryptionId' = '' then title || ' field level encryption disabled.'
+        else title || ' field level encryption enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}

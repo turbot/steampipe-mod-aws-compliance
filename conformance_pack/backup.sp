@@ -186,3 +186,63 @@ query "backup_recovery_point_min_retention_35_days" {
       aws_backup_recovery_point;
   EOQ
 }
+
+query "backup_plan_exists" {
+  sql = <<-EOQ
+    with count_plans as (
+      select
+        region,
+        account_id,
+        count(*) as count
+      from
+        aws_backup_plan
+      group by
+        region,
+        account_id
+    )  
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when cp.count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cp.count > 0 then cp.count || ' backup plan(s) exist in ' || r.region || '.'
+        else 'No backup plans exist in ' || r.region || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join count_plans as cp on r.account_id = cp.account_id and r.region = cp.region;
+  EOQ
+}
+
+query "backup_vault_exists" {
+  sql = <<-EOQ
+    with count_vaults as (
+      select
+        region,
+        account_id,
+        count(*) as count
+      from
+        aws_backup_vault
+      group by
+        region,
+        account_id
+    )  
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when v.count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when v.count > 0 then v.count || ' backup vault(s) exist in ' || r.region || '.'
+        else 'No backup vault exists in ' || r.region || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join count_vaults as v on r.account_id = v.account_id and r.region = v.region;
+  EOQ
+}
