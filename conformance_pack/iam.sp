@@ -1453,7 +1453,9 @@ query "iam_policy_all_attached_no_star_star" {
           )
         )
         and is_attached
-      group by arn, is_aws_managed
+      group by
+        arn,
+        is_aws_managed
     )
     select
       p.arn as resource,
@@ -1463,8 +1465,8 @@ query "iam_policy_all_attached_no_star_star" {
         else 'alarm'
       end status,
       case
-        when s.arn is not null and s.is_aws_managed then p.name || ' is AWS managed policy with ' || coalesce(s.num_bad_statements,0)  || ' statements that allow action "*" on resource "*".'
-        else p.name || ' contains ' || coalesce(s.num_bad_statements,0)  || ' statements that allow action "*" on resource "*".'
+        when s.arn is not null and s.is_aws_managed then p.name || ' is AWS managed policy with ' || coalesce(s.num_bad_statements,0) || ' statements that allow action "*" on resource "*".'
+        else p.name || ' contains ' || coalesce(s.num_bad_statements,0) || ' statements that allow action "*" on resource "*".'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
