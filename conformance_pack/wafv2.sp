@@ -54,6 +54,7 @@ query "wafv2_web_acl_rule_attached" {
   sql = <<-EOQ
     with rule_group_count as (
       select
+        arn,
         count(*) as rule_group_count
       from
         aws_wafv2_web_acl,
@@ -64,18 +65,19 @@ query "wafv2_web_acl_rule_attached" {
         arn
     )
     select
-      arn as resource,
+      a.arn as resource,
       case
         when rules is null or jsonb_array_length(rules) = 0 then 'alarm'
         else 'ok'
       end as status,
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
-        else title || ' has ' || (select rule_group_count from rule_group_count ) || ' rule group(s) and ' || (jsonb_array_length(rules) - (select rule_group_count from rule_group_count )) || ' rule(s) attached.'
+        else title || ' has ' || c.rule_group_count || ' rule group(s) and ' || (jsonb_array_length(rules) - c.rule_group_count) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_wafv2_web_acl;
+      aws_wafv2_web_acl as a
+      left join rule_group_count as c on c.arn = a.arn;
   EOQ
 }
