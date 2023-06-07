@@ -668,3 +668,26 @@ query "cloudtrail_s3_object_write_events_audit_enabled" {
       b.account_id, b.region, b.arn, b.name, b.tags, b._ctx;
   EOQ
 }
+
+query "cloudtrail_insights_exist" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not is_logging  then 'skip'
+        when is_logging and has_insight_selectors then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not is_logging  then title || ' logging is disabled.'
+        when is_logging and has_insight_selectors then title || ' has insight selectors and logging is enabled.'
+        else title || ' does not has insight selectors and logging is enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudtrail_trail
+    where
+      region = home_region;
+  EOQ
+}

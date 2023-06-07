@@ -317,3 +317,22 @@ query "ebs_volume_unused" {
       aws_ebs_volume;
   EOQ
 }
+
+query "ebs_snapshot_encrypted" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encrypted then title || ' is encrypted.'
+        else title || ' is unencrypted.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_snapshot;
+  EOQ
+}

@@ -709,3 +709,22 @@ query "ec2_launch_template_not_publicly_accessible" {
       left join launch_templates_associated_instance as i on i.launch_template_id = t.launch_template_id;
   EOQ
 }
+
+query "ec2_ami_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when public then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when public then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_ami;
+  EOQ
+}
