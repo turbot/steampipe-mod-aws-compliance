@@ -1,6 +1,6 @@
 ## Description
 
-his control checks that there is at least one multi-Region CloudTrail trail.
+This control checks that there is at least one multi-Region CloudTrail trail.
 
 AWS CloudTrail records AWS API calls for your account and delivers log files to you. The recorded information includes the following information.
 
