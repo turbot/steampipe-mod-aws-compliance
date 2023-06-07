@@ -4,6 +4,7 @@ _Bug fixes_
 
 - Fixed the `wafv2_web_acl_rule_attached` query to correctly evaluate the number of rule(s) attached to the web ACL. ([#655](https://github.com/turbot/steampipe-mod-aws-compliance/pull/655))
 - Fixed typos in `foundational_security_cloudtrail_1` control documentation and documentation link. ([#650](https://github.com/turbot/steampipe-mod-aws-compliance/pull/650))
+- Fixed `iam_policy_all_attached_no_star_star` query to skip AWS managed policies. ([#643](https://github.com/turbot/steampipe-mod-aws-compliance/pull/643))
 
 ## v0.67 [2023-06-01]
 
