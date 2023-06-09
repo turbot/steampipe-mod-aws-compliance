@@ -333,6 +333,46 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
   })
 }
 
+control "vpc_security_group_allows_ingress_to_cassandra_ports" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888"
+  description = "This control checks whether the VPC security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 7199 or 9160 or 8888."
+  query       = query.vpc_security_group_allows_ingress_to_cassandra_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_to_memcached_port" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Memcached port 11211"
+  description = "This control checks whether the VPC security groups that are in use allow allow ingress from 0.0.0.0/0 or ::/0 to Memcached port 11211. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from port 11211."
+  query       = query.vpc_security_group_allows_ingress_to_memcached_port
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_to_mongodb_ports" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to MongoDB ports 27017 and 27018"
+  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to MongoDB ports 27017 and 27018. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 27017 and 27018."
+  query       = query.vpc_security_group_allows_ingress_to_mongodb_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_security_group_allows_ingress_to_oracle_ports" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Oracle ports 1521 or 2483"
+  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to Oracle ports 1521 or 2483. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 1521 or 2483."
+  query       = query.vpc_security_group_allows_ingress_to_oracle_ports
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -966,6 +1006,179 @@ query "vpc_configured_to_use_vpc_endpoints" {
       ${local.common_dimensions_sql}
     from
       aws_vpc;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_to_mongodb_ports" {
+  sql = <<-EOQ
+    with ingress_ssh_rules as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+                from_port >= 27017
+                and to_port <= 27018
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_ssh_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for mongodb ports from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for mongodb ports from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_to_cassandra_ports" {
+  sql = <<-EOQ
+    with ingress_ssh_rules as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+                from_port >= 7199
+                and to_port <= 7199
+            ) or (
+                from_port >= 9160
+                and to_port <= 9160
+            ) or (
+                from_port >= 8888
+                and to_port <= 8888
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_ssh_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for cassandra ports from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for cassandra ports from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_to_oracle_ports" {
+  sql = <<-EOQ
+    with ingress_ssh_rules as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+                from_port >= 1521
+                and to_port <= 1521
+            ) or (
+                from_port >= 2483
+                and to_port <= 2483
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_ssh_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for oracle ports from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for oracle ports from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_to_memcached_port" {
+  sql = <<-EOQ
+    with ingress_ssh_rules as (
+      select
+        group_id,
+        count(*) as num_ssh_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and cidr_ipv4 = '0.0.0.0/0'
+        and (
+            ( ip_protocol = '-1'
+            and from_port is null
+            )
+            or (
+                from_port >= 11211
+                and to_port <= 11211
+            )
+        )
+      group by
+        group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_ssh_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for memcached ports from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for memcached ports from 0.0.0.0/0.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
   EOQ
 }
 

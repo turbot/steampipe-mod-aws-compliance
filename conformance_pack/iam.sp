@@ -522,6 +522,16 @@ control "iam_policy_unused" {
   })
 }
 
+control "iam_access_analyzer_enabled_without_findings" {
+  title         = "Ensure that IAM Access analyzer is enabled without findings"
+  description   = "This control checks whether the IAM Access analyzer is enabled without findings. If you grant permissions to an S3 bucket in one of your organization member accounts to a principal in another organization member account, IAM Access Analyzer does not generate a finding. But if you grant permission to a principal in an account that is not a member of the organization, IAM Access Analyzer generates a finding."
+  query         = query.iam_access_analyzer_enabled_without_findings
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -1376,6 +1386,29 @@ query "iam_policy_unused" {
   EOQ
 }
 
+query "iam_access_analyzer_enabled_without_findings" {
+  sql = <<-EOQ
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when aa.status = 'ACTIVE' and aa.findings is null then 'ok'
+        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'alarm'
+        when aa.status = 'NOT_AVAILABLE' then 'alarm'
+        else 'alarm'
+      end as status,
+      case
+        when aa.status = 'ACTIVE' and aa.findings is null then 'IAM Access Analyzer does not have active findings'
+        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'IAM Access Analyzer has active findings'
+        when aa.status = 'NOT_AVAILABLE' then 'IAM Access Analyzer is not enabled'
+        else 'IAM Access Analyzer is not active'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "iam_access_analyzer_enabled" {
@@ -1392,29 +1425,6 @@ query "iam_access_analyzer_enabled" {
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when aa.arn is not null then aa.name ||  ' enabled in ' || r.region || '.'
         else 'Access Analyzer not enabled in ' || r.region || '.'
-      end as reason
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
-    from
-      aws_region as r
-      left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
-  EOQ
-}
-
-query "iam_access_analyzer_enabled_without_findings" {
-  sql = <<-EOQ
-    select
-      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
-      case
-        when aa.status = 'ACTIVE' and aa.findings is null then 'ok'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'alarm'
-        when aa.status = 'NOT_AVAILABLE' then 'alarm'
-        else 'alarm'
-      end as status,
-      case
-        when aa.status = 'ACTIVE' and aa.findings is null then 'IAM Access Analyzer does not have active findings'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'IAM Access Analyzer has active findings'
-        when aa.status = 'NOT_AVAILABLE' then 'IAM Access Analyzer is not enabled'
-        else 'IAM Access Analyzer is not active'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from

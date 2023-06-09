@@ -82,6 +82,26 @@ control "backup_recovery_point_min_retention_35_days" {
   })
 }
 
+control "backup_plan_exists" {
+  title       = "Backup plan should exist in a region"
+  description = "Ensures that there exist at least one backup plan in a region. The rule is non-compliant if there exist no backup plan in a region."
+  query       = query.backup_plan_exists
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "backup_vault_exists" {
+  title       = "Backup vaults should exist in a region"
+  description = "Ensures that there exist at least one backup vault in a region. The rule is non-compliant if there exist no backup vault in a region."
+  query       = query.backup_vault_exists
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "backup_recovery_point_manual_deletion_disabled" {
   sql = <<-EOQ
     with recovery_point_manual_deletion_disabled as (

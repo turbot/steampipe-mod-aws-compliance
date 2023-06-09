@@ -205,6 +205,16 @@ control "cloudtrail_multi_region_read_write_enabled" {
   })
 }
 
+control "cloudtrail_insights_exist" {
+  title       = "Ensure that CloudTrail trails should have insight selectors and logging enabled"
+  description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
+  query       = query.cloudtrail_insights_exist
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "cloudtrail_trail_integrated_with_logs" {
   sql = <<-EOQ
     select
@@ -577,6 +587,29 @@ query "cloudtrail_multi_region_read_write_enabled" {
   EOQ
 }
 
+query "cloudtrail_insights_exist" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not is_logging  then 'skip'
+        when is_logging and has_insight_selectors then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not is_logging  then title || ' logging is disabled.'
+        when is_logging and has_insight_selectors then title || ' has insight selectors and logging is enabled.'
+        else title || ' does not has insight selectors and logging is enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudtrail_trail
+    where
+      region = home_region;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "cloudtrail_s3_object_read_events_audit_enabled" {
@@ -666,28 +699,5 @@ query "cloudtrail_s3_object_write_events_audit_enabled" {
         or bucket_selector = 'arn:aws:s3'
     group by
       b.account_id, b.region, b.arn, b.name, b.tags, b._ctx;
-  EOQ
-}
-
-query "cloudtrail_insights_exist" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when not is_logging  then 'skip'
-        when is_logging and has_insight_selectors then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when not is_logging  then title || ' logging is disabled.'
-        when is_logging and has_insight_selectors then title || ' has insight selectors and logging is enabled.'
-        else title || ' does not has insight selectors and logging is enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_cloudtrail_trail
-    where
-      region = home_region;
   EOQ
 }

@@ -269,6 +269,16 @@ control "ec2_instance_virtualization_type_no_paravirtual" {
   })
 }
 
+control "ec2_ami_publicly_accessible" {
+  title       = "Ensure there are no EC2 AMIs set as Public."
+  description = "This control checks whether EC2 AMIs are set as Private or not. The control fails if the EC2 AMIs are set as Public."
+  query       = query.ec2_ami_publicly_accessible
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -633,6 +643,25 @@ query "ec2_instance_virtualization_type_no_paravirtual" {
   EOQ
 }
 
+query "ec2_ami_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when public then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when public then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_ami;
+  EOQ
+}
+
 # Non-Config rule query
 
 query "ec2_classic_lb_connection_draining_enabled" {
@@ -707,24 +736,5 @@ query "ec2_launch_template_not_publicly_accessible" {
     from
       aws_ec2_launch_template as t
       left join launch_templates_associated_instance as i on i.launch_template_id = t.launch_template_id;
-  EOQ
-}
-
-query "ec2_ami_publicly_accessible" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when public then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when public then title || ' publicly accessible.'
-        else title || ' not publicly accessible.'
-      end reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_ami;
   EOQ
 }

@@ -109,6 +109,26 @@ control "apigateway_rest_api_authorizers_configured" {
   })
 }
 
+control "apigateway_rest_api_endpoint_configured_to_public" {
+  title         = "Ensure that API endpoint type in API Gateway is configured to private"
+  description   = "This control checks whether API Gateway endpoint is public or private. This rule is non compliant if API Gateway endpoint is public."
+  query         = query.apigateway_rest_api_endpoint_configured_to_public
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "api_gatewayv2_route_authorizer_enabled" {
+  title         = "Ensure that API Gateway V2  has authorizer configured"
+  description   = "This control checks whether API Gateway V2  has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
+  query         = query.api_gatewayv2_route_authorizer_enabled
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -252,8 +272,6 @@ query "apigateway_rest_api_authorizers_configured" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "apigateway_rest_api_endpoint_configured_to_public" {
   sql = <<-EOQ
     select
@@ -290,6 +308,8 @@ query "api_gatewayv2_route_authorizer_enabled" {
       aws_api_gatewayv2_route;
   EOQ
 }
+
+# Non-Config rule query
 
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
