@@ -1397,10 +1397,10 @@ query "iam_access_analyzer_enabled_without_findings" {
         else 'alarm'
       end as status,
       case
-        when aa.status = 'ACTIVE' and aa.findings is null then 'IAM Access Analyzer does not have active findings'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'IAM Access Analyzer has active findings'
-        when aa.status = 'NOT_AVAILABLE' then 'IAM Access Analyzer is not enabled'
-        else 'IAM Access Analyzer is not active'
+        when aa.status = 'ACTIVE' and aa.findings is null then 'IAM Access Analyzer does not have active findings.'
+        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'IAM Access Analyzer has active findings.'
+        when aa.status = 'NOT_AVAILABLE' then 'IAM Access Analyzer is not enabled.'
+        else 'IAM Access Analyzer is not active.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from

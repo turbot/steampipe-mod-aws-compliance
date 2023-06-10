@@ -55,7 +55,7 @@ control "guardduty_no_high_severity_findings" {
   description = "GuardDuty generates a finding whenever it detects unexpected and potentially malicious activity in your AWS environment.If critical findings are not addressed threats can spread in the environment. This rule is non-compliant if there are any high severity findings."
   query       = query.guardduty_no_high_severity_findings
 
-  tags = merge(local.conformance_pack_drs_common_tags, {
+  tags = merge(local.conformance_pack_guardduty_common_tags, {
     other_checks = "true"
   })
 }
@@ -105,14 +105,16 @@ query "guardduty_no_high_severity_findings" {
         else 'alarm'
       end as status,
       case
-        when fc.count = 0  or fc.count is NULL then d.detector_id || ' does not have high severity findings.'
-        else d.detector_id || ' has ' || fc.count ||' high severity findings.'
+        when fc.count = 0  or fc.count is NULL then d.detector_id || ' is enabled and does not have high severity findings.'
+        else d.detector_id || ' is enabled and has ' || fc.count ||' high severity findings.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       aws_guardduty_detector as d
-      left join finding_count as fc on fc.detector_id = d.detector_id;
+      left join finding_count as fc on fc.detector_id = d.detector_id
+    where 
+      status = 'ENABLED';
   EOQ
 }
 

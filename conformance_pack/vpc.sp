@@ -1171,8 +1171,8 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
         else 'alarm'
       end as status,
       case
-        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for memcached ports from 0.0.0.0/0.'
-        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for memcached ports from 0.0.0.0/0.'
+        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for memcached port from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for memcached port from 0.0.0.0/0.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}

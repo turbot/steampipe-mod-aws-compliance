@@ -5,7 +5,7 @@ locals {
 }
 
 control "drs_job_exists" {
-  title       = "Ensure DRS is enabled with jobs."
+  title       = "Ensure DRS is enabled with jobs"
   description = "Check if DRS is enabled with jobs. This rule is non-compliant if DRS is not enabled with jobs for a particular region."
   query       = query.drs_job_exists
 
@@ -44,6 +44,6 @@ query "drs_job_exists" {
       aws_region as r
     left join drs_job_count
     on
-      r.region = drs_job_count.region
+      r.region = drs_job_count.region;
   EOQ
 }
