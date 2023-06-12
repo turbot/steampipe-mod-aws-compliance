@@ -1391,21 +1391,25 @@ query "iam_access_analyzer_enabled_without_findings" {
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
+        -- Skip any regions that are disabled in the account.
+        when r.opt_in_status = 'not-opted-in' then 'skip'
         when aa.status = 'ACTIVE' and aa.findings is null then 'ok'
         when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'alarm'
         when aa.status = 'NOT_AVAILABLE' then 'alarm'
         else 'alarm'
       end as status,
       case
-        when aa.status = 'ACTIVE' and aa.findings is null then 'IAM Access Analyzer does not have active findings.'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'IAM Access Analyzer has active findings.'
-        when aa.status = 'NOT_AVAILABLE' then 'IAM Access Analyzer is not enabled.'
-        else 'IAM Access Analyzer is not active.'
+        when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
+        when aa.status = 'ACTIVE' and aa.findings is null then aa.name || ' does not have active findings in region ' || r.region || '.'
+        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then aa.name || ' has active findings in region ' || r.region || '.'
+        when aa.status = 'NOT_AVAILABLE' then aa.name || ' is not enabled in region ' || r.region || '.'
+        else 'IAM Access Analyzer is not active in region ' || r.region || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
       left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
+      ```
   EOQ
 }
 

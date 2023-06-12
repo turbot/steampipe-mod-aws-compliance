@@ -141,10 +141,10 @@ control "ebs_volume_unused" {
   })
 }
 
-control "ebs_snapshot_encrypted" {
+control "ebs_snapshot_encryption_enabled" {
   title       = "EBS snapshots should be encrypted"
   description = "Check if EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
-  query       = query.ebs_snapshot_encrypted
+  query       = query.ebs_snapshot_encryption_enabled
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     other_checks = "true"
@@ -328,7 +328,7 @@ query "ebs_volume_unused" {
   EOQ
 }
 
-query "ebs_snapshot_encrypted" {
+query "ebs_snapshot_encryption_enabled" {
   sql = <<-EOQ
     select
       arn as resource,

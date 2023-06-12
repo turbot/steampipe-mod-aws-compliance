@@ -269,10 +269,10 @@ control "ec2_instance_virtualization_type_no_paravirtual" {
   })
 }
 
-control "ec2_ami_publicly_accessible" {
+control "ec2_ami_restrict_public_access" {
   title       = "Ensure there are no EC2 AMIs set as Public"
   description = "This control checks whether EC2 AMIs are set as Private or not. The control fails if the EC2 AMIs are set as Public."
-  query       = query.ec2_ami_publicly_accessible
+  query       = query.ec2_ami_restrict_public_access
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     other_checks = "true"
@@ -643,7 +643,7 @@ query "ec2_instance_virtualization_type_no_paravirtual" {
   EOQ
 }
 
-query "ec2_ami_publicly_accessible" {
+query "ec2_ami_restrict_public_access" {
   sql = <<-EOQ
     select
       arn as resource,

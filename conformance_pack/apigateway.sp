@@ -109,10 +109,10 @@ control "apigateway_rest_api_authorizers_configured" {
   })
 }
 
-control "apigateway_rest_api_endpoint_configured_to_public" {
-  title         = "Ensure that API endpoint type in API Gateway is configured to private"
-  description   = "This control checks whether API Gateway endpoint is public or private. This rule is non compliant if API Gateway endpoint is public."
-  query         = query.apigateway_rest_api_endpoint_configured_to_public
+control "apigateway_rest_api_endpoint_restrict_public_access" {
+  title       = "Ensure that API endpoint type in API Gateway is configured to private"
+  description = "This control checks whether API Gateway endpoint is public or private. This rule is non compliant if API Gateway endpoint is public."
+  query       = query.apigateway_rest_api_endpoint_restrict_public_access
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     other_checks = "true"
@@ -120,9 +120,9 @@ control "apigateway_rest_api_endpoint_configured_to_public" {
 }
 
 control "api_gatewayv2_route_authorizer_enabled" {
-  title         = "Ensure that API Gateway V2  has authorizer configured"
-  description   = "This control checks whether API Gateway V2  has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
-  query         = query.api_gatewayv2_route_authorizer_enabled
+  title       = "Ensure that API Gateway V2  has authorizer configured"
+  description = "This control checks whether API Gateway V2  has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
+  query       = query.api_gatewayv2_route_authorizer_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     other_checks = "true"
@@ -272,10 +272,10 @@ query "apigateway_rest_api_authorizers_configured" {
   EOQ
 }
 
-query "apigateway_rest_api_endpoint_configured_to_public" {
+query "apigateway_rest_api_endpoint_restrict_public_access" {
   sql = <<-EOQ
     select
-      name as resource,
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id as resource,
       case
         when endpoint_configuration_types ? 'PRIVATE' then 'ok'
         else 'alarm'
