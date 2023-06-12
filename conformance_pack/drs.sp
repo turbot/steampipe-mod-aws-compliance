@@ -36,10 +36,9 @@ query "drs_job_exists" {
         else 'ok'
       end as status,
       case
-        when drs_job_count.count = 0 or drs_job_count.count is null then 'DRS is not enabled for ' || r.region || '.'
-        else 'DRS is enabled for ' || r.region || '.'
+        when drs_job_count.count = 0 or drs_job_count.count is null then 'DRS job does not exist for ' || r.region || '.'
+        else 'DRS job exist for ' || r.region || '.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "drs_job_count.")}
     from
       aws_region as r
     left join drs_job_count
