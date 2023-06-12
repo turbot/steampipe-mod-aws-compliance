@@ -120,8 +120,8 @@ control "apigateway_rest_api_endpoint_restrict_public_access" {
 }
 
 control "api_gatewayv2_route_authorizer_enabled" {
-  title       = "Ensure that API Gateway V2  has authorizer configured"
-  description = "This control checks whether API Gateway V2  has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
+  title       = "Ensure that API Gateway V2 has authorizer configured"
+  description = "This control checks whether API Gateway V2 has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
   query       = query.api_gatewayv2_route_authorizer_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
