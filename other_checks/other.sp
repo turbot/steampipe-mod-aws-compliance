@@ -24,7 +24,7 @@ benchmark "other" {
     control.cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_use_secure_cipher,
     control.cloudfront_distribution_field_level_encryption_enabled,
-    control.cloudtrail_insights_exist,
+    control.cloudtrail_trail_insight_selectors_and_logging_enabled,
     control.cloudwatch_cross_account_sharing,
     control.codebuild_project_build_greater_then_90_days,
     control.codebuild_project_with_user_controlled_buildspec,

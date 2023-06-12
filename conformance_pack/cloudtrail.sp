@@ -205,10 +205,10 @@ control "cloudtrail_multi_region_read_write_enabled" {
   })
 }
 
-control "cloudtrail_insights_exist" {
+control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   title       = "Ensure that CloudTrail trails should have insight selectors and logging enabled"
   description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
-  query       = query.cloudtrail_insights_exist
+  query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     other_checks = "true"
@@ -587,7 +587,7 @@ query "cloudtrail_multi_region_read_write_enabled" {
   EOQ
 }
 
-query "cloudtrail_insights_exist" {
+query "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
