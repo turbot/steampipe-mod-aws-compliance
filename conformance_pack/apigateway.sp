@@ -281,8 +281,8 @@ query "apigateway_rest_api_endpoint_restrict_public_access" {
         else 'alarm'
       end as status,
       case
-        when endpoint_configuration_types ? 'PRIVATE' then name || ' configured to private endpoint.'
-        else name || ' configured to public endpoint.'
+        when endpoint_configuration_types ? 'PRIVATE' then name || ' not publicly accessible.'
+        else name || ' publicly accessible.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

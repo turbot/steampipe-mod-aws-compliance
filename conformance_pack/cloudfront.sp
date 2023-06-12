@@ -149,7 +149,7 @@ control "cloudfront_distribution_origin_access_identity_enabled" {
 }
 
 control "cloudfront_distribution_field_level_encryption_enabled" {
-  title       = "CloudFront distributions have Field Level Encryption enabled"
+  title       = "CloudFront distributions should have field level encryption enabled"
   description = "This control checks whether an Amazon CloudFront distribution have Field Level Encryption enabled. The control fails if CloudFront distribution Field Level Encryption is not enabled."
   query       = query.cloudfront_distribution_field_level_encryption_enabled
 
