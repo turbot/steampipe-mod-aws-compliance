@@ -1405,6 +1405,7 @@ query "iam_access_analyzer_enabled_without_findings" {
         when aa.status = 'NOT_AVAILABLE' then aa.name || ' is not enabled in region ' || r.region || '.'
         else 'IAM Access Analyzer is not active in region ' || r.region || '.'
       end as reason
+      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
