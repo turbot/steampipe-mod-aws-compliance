@@ -257,7 +257,7 @@ query "backup_vault_exists" {
         else 'alarm'
       end as status,
       case
-        when v.count > 0 then v.count || ' backup vault(s) exist in ' || r.region || '.'
+        when v.count > 0 then v.count || ' backup vault(s) exist in region ' || r.region || '.'
         else 'No backup vault exists in ' || r.region || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
