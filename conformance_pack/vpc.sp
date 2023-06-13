@@ -335,7 +335,7 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
 
 control "vpc_security_group_allows_ingress_to_cassandra_ports" {
   title       = "VPC security groups should restrict ingress from 0.0.0.0/0 or ::/0 to cassandra ports 7199 or 9160 or 8888"
-  description = "This control checks whether the VPC security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 7199 or 9160 or 8888."
+  description = "This control checks whether the VPC security groups allow ingress from 0.0.0.0/0 or ::/0 to cassandra ports 7199 or 9160 or 8888. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 7199 or 9160 or 8888."
   query       = query.vpc_security_group_allows_ingress_to_cassandra_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -345,7 +345,7 @@ control "vpc_security_group_allows_ingress_to_cassandra_ports" {
 
 control "vpc_security_group_allows_ingress_to_memcached_port" {
   title       = "VPC security groups should restrict ingress from 0.0.0.0/0 or ::/0 to memcached port 11211"
-  description = "This control checks whether the VPC security groups that are in use allow allow ingress from 0.0.0.0/0 or ::/0 to Memcached port 11211. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from port 11211."
+  description = "This control checks whether the VPC security groups that are in use allow allow ingress from 0.0.0.0/0 or ::/0 to memcached port 11211. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from port 11211."
   query       = query.vpc_security_group_allows_ingress_to_memcached_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -355,7 +355,7 @@ control "vpc_security_group_allows_ingress_to_memcached_port" {
 
 control "vpc_security_group_allows_ingress_to_mongodb_ports" {
   title       = "VPC security groups should restrict ingress from 0.0.0.0/0 or ::/0 to mongoDB ports 27017 and 27018"
-  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to MongoDB ports 27017 and 27018. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 27017 and 27018."
+  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to mongoDB ports 27017 and 27018. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 27017 and 27018."
   query       = query.vpc_security_group_allows_ingress_to_mongodb_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -365,7 +365,7 @@ control "vpc_security_group_allows_ingress_to_mongodb_ports" {
 
 control "vpc_security_group_allows_ingress_to_oracle_ports" {
   title       = "VPC security groups should restrict ingress from 0.0.0.0/0 or ::/0 to oracle ports 1521 or 2483"
-  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to Oracle ports 1521 or 2483. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 1521 or 2483."
+  description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to oracle ports 1521 or 2483. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 1521 or 2483."
   query       = query.vpc_security_group_allows_ingress_to_oracle_ports
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
