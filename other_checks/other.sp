@@ -10,7 +10,7 @@ benchmark "other" {
   children = [
     control.acm_certificate_no_wildcard_domain_name,
     control.acm_certificate_transparency_logging_enabled,
-    control.api_gatewayv2_route_authorizer_enabled,
+    control.api_gatewayv2_route_authorizer_configured,
     control.apigateway_rest_api_authorizers_configured,
     control.apigateway_rest_api_endpoint_restrict_public_access,
     control.autoscaling_group_no_suspended_process,

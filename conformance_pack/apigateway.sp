@@ -119,10 +119,10 @@ control "apigateway_rest_api_endpoint_restrict_public_access" {
   })
 }
 
-control "api_gatewayv2_route_authorizer_enabled" {
+control "api_gatewayv2_route_authorizer_configured" {
   title       = "API Gateway V2 authorizer should be configured"
   description = "This control checks whether API Gateway V2 has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
-  query       = query.api_gatewayv2_route_authorizer_enabled
+  query       = query.api_gatewayv2_route_authorizer_configured
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     other_checks = "true"
@@ -291,7 +291,7 @@ query "apigateway_rest_api_endpoint_restrict_public_access" {
   EOQ
 }
 
-query "api_gatewayv2_route_authorizer_enabled" {
+query "api_gatewayv2_route_authorizer_configured" {
   sql = <<-EOQ
     select
       'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
@@ -300,16 +300,14 @@ query "api_gatewayv2_route_authorizer_enabled" {
         else 'ok'
       end as status,
       case
-        when authorizer_id is null then route_id || ' authorizer disabled.'
-        else route_id || ' authorizer enabled.'
+        when authorizer_id is null then route_id || ' authorizer not configured.'
+        else route_id || ' authorizer configured.'
       end as reason
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_route;
   EOQ
 }
-
-# Non-Config rule query
 
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
@@ -328,6 +326,8 @@ query "api_gatewayv2_route_authorization_type_configured" {
       aws_api_gatewayv2_route;
   EOQ
 }
+
+# Non-Config rule query
 
 query "gatewayv2_stage_access_logging_enabled" {
   sql = <<-EOQ
