@@ -111,7 +111,7 @@ control "apigateway_rest_api_authorizers_configured" {
 
 control "apigateway_rest_api_endpoint_restrict_public_access" {
   title       = "API Gateway REST API endpoint type should be configured to private"
-  description = "This control checks whether API Gateway endpoint is public or private. This rule is non compliant if API Gateway endpoint is public."
+  description = "This control checks whether API Gateway endpoint is public or private. This rule is non-compliant if API Gateway endpoint is public."
   query       = query.apigateway_rest_api_endpoint_restrict_public_access
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
