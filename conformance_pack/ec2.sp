@@ -270,7 +270,7 @@ control "ec2_instance_virtualization_type_no_paravirtual" {
 }
 
 control "ec2_ami_restrict_public_access" {
-  title       = "Ensure there are no EC2 AMIs set as public"
+  title       = "EC2 AMIs should restrict public access"
   description = "This control checks whether EC2 AMIs are set as private or not. The control fails if the EC2 AMIs are set as public."
   query       = query.ec2_ami_restrict_public_access
 

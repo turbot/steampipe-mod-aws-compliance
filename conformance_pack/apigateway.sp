@@ -110,7 +110,7 @@ control "apigateway_rest_api_authorizers_configured" {
 }
 
 control "apigateway_rest_api_endpoint_restrict_public_access" {
-  title       = "Ensure that API endpoint type in API Gateway is configured to private"
+  title       = "API Gateway REST API endpoint type should be configured to private"
   description = "This control checks whether API Gateway endpoint is public or private. This rule is non compliant if API Gateway endpoint is public."
   query       = query.apigateway_rest_api_endpoint_restrict_public_access
 
@@ -120,7 +120,7 @@ control "apigateway_rest_api_endpoint_restrict_public_access" {
 }
 
 control "api_gatewayv2_route_authorizer_enabled" {
-  title       = "Ensure that API Gateway V2 has authorizer configured"
+  title       = "API Gateway V2 authorizer should be configured"
   description = "This control checks whether API Gateway V2 has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
   query       = query.api_gatewayv2_route_authorizer_enabled
 

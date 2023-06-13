@@ -206,7 +206,7 @@ control "cloudtrail_multi_region_read_write_enabled" {
 }
 
 control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
-  title       = "Ensure that CloudTrail trails should have insight selectors and logging enabled"
+  title       = "CloudTrail trails should have insight selectors and logging enabled"
   description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
   query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
 
@@ -598,8 +598,8 @@ query "cloudtrail_trail_insight_selectors_and_logging_enabled" {
       end as status,
       case
         when not is_logging  then title || ' logging is disabled.'
-        when is_logging and has_insight_selectors then title || ' has insight selectors and logging is enabled.'
-        else title || ' does not has insight selectors and logging is enabled.'
+        when is_logging and has_insight_selectors then title || ' has insight selectors and logging enabled.'
+        else title || ' does not has insight selectors enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

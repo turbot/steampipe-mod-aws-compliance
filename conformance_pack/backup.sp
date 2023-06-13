@@ -227,8 +227,8 @@ query "backup_plan_exists" {
         else 'alarm'
       end as status,
       case
-        when cp.count > 0 then cp.count || ' backup plan(s) exist in ' || r.region || '.'
-        else 'No backup plans exist in ' || r.region || '.'
+        when cp.count > 0 then cp.count || ' backup plan(s) exist in region ' || r.region || '.'
+        else 'No backup plans exist in region ' || r.region || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from

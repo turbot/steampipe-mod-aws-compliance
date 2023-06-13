@@ -523,7 +523,7 @@ control "iam_policy_unused" {
 }
 
 control "iam_access_analyzer_enabled_without_findings" {
-  title         = "Ensure that IAM Access analyzer is enabled without findings"
+  title         = "IAM Access analyzer should be enabled without findings"
   description   = "This control checks whether the IAM Access analyzer is enabled without findings. If you grant permissions to an S3 bucket in one of your organization member accounts to a principal in another organization member account, IAM Access Analyzer does not generate a finding. But if you grant permission to a principal in an account that is not a member of the organization, IAM Access Analyzer generates a finding."
   query         = query.iam_access_analyzer_enabled_without_findings
 
@@ -1409,7 +1409,6 @@ query "iam_access_analyzer_enabled_without_findings" {
     from
       aws_region as r
       left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
-      ```
   EOQ
 }
 

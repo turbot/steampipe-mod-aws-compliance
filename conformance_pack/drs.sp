@@ -5,8 +5,8 @@ locals {
 }
 
 control "drs_job_exists" {
-  title       = "Ensure DRS is enabled with jobs"
-  description = "Check if DRS is enabled with jobs. This rule is non-compliant if DRS is not enabled with jobs for a particular region."
+  title       = "DRS jobs should be enabled"
+  description = "Ensure if DRS is enabled with jobs. This rule is non-compliant if DRS is not enabled with jobs for a particular region."
   query       = query.drs_job_exists
 
   tags = merge(local.conformance_pack_drs_common_tags, {
@@ -36,13 +36,11 @@ query "drs_job_exists" {
         else 'ok'
       end as status,
       case
-        when drs_job_count.count = 0 or drs_job_count.count is null then 'DRS job does not exist for ' || r.region || '.'
-        else 'DRS job exist for ' || r.region || '.'
+        when drs_job_count.count = 0 or drs_job_count.count is null then 'DRS job not enabled for region ' || r.region || '.'
+        else 'DRS job enabled for region ' || r.region || '.'
       end as reason
     from
       aws_region as r
-    left join drs_job_count
-    on
-      r.region = drs_job_count.region;
+      left join drs_job_count on r.region = drs_job_count.region;
   EOQ
 }

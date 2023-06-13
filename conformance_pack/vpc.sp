@@ -334,7 +334,7 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
 }
 
 control "vpc_security_group_allows_ingress_to_cassandra_ports" {
-  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888"
+  title       = VPC security groups should restrict ingress from 0.0.0.0/0 or ::/0 to cassandra ports 7199 or 9160 or 8888"
   description = "This control checks whether the VPC security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 7199 or 9160 or 8888."
   query       = query.vpc_security_group_allows_ingress_to_cassandra_ports
 
@@ -1026,6 +1026,10 @@ query "vpc_security_group_allows_ingress_to_mongodb_ports" {
             )
             or (
                 from_port >= 27017
+                and to_port <= 27017
+            )
+            or (
+                from_port >= 27018
                 and to_port <= 27018
             )
         )

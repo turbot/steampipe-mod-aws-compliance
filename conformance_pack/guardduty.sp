@@ -51,7 +51,7 @@ control "guardduty_finding_archived" {
 }
 
 control "guardduty_no_high_severity_findings" {
-  title       = "GuardDuty Detector should not have high severity finding."
+  title       = "GuardDuty Detector should not have high severity finding"
   description = "GuardDuty generates a finding whenever it detects unexpected and potentially malicious activity in your AWS environment.If critical findings are not addressed threats can spread in the environment. This rule is non-compliant if there are any high severity findings."
   query       = query.guardduty_no_high_severity_findings
 
