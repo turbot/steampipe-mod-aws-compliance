@@ -646,7 +646,7 @@ query "ec2_instance_virtualization_type_no_paravirtual" {
 query "ec2_ami_restrict_public_access" {
   sql = <<-EOQ
     select
-      arn as resource,
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
         when public then 'alarm'
         else 'ok'

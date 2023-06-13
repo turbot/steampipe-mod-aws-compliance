@@ -28,7 +28,7 @@ benchmark "other" {
     control.cloudwatch_cross_account_sharing,
     control.codebuild_project_build_greater_then_90_days,
     control.codebuild_project_with_user_controlled_buildspec,
-    control.drs_job_exists,
+    control.drs_job_enabled,
     control.ebs_snapshot_encryption_enabled,
     control.ec2_ami_restrict_public_access,
     control.ec2_instance_no_high_level_finding_in_inspector_scan,

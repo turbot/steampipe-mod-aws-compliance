@@ -101,10 +101,12 @@ query "guardduty_no_high_severity_findings" {
     select
       arn as resource,
       case
+        when status <> 'ENABLED' then 'skip'
         when fc.count = 0 or fc.count is NULL then 'ok'
         else 'alarm'
       end as status,
       case
+        when status <> 'ENABLED' then d.detector_id || ' is disabled.'
         when fc.count = 0  or fc.count is NULL then d.detector_id || ' is enabled and does not have high severity findings.'
         else d.detector_id || ' is enabled and has ' || fc.count ||' high severity findings.'
       end as reason
@@ -112,9 +114,7 @@ query "guardduty_no_high_severity_findings" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       aws_guardduty_detector as d
-      left join finding_count as fc on fc.detector_id = d.detector_id
-    where 
-      status = 'ENABLED';
+      left join finding_count as fc on fc.detector_id = d.detector_id;
   EOQ
 }
 
