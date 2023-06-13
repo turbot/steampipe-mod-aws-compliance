@@ -309,6 +309,8 @@ query "api_gatewayv2_route_authorizer_configured" {
   EOQ
 }
 
+# Non-Config rule query
+
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ
     select
@@ -326,8 +328,6 @@ query "api_gatewayv2_route_authorization_type_configured" {
       aws_api_gatewayv2_route;
   EOQ
 }
-
-# Non-Config rule query
 
 query "gatewayv2_stage_access_logging_enabled" {
   sql = <<-EOQ
