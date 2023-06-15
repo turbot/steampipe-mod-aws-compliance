@@ -141,6 +141,16 @@ control "ebs_volume_unused" {
   })
 }
 
+control "ebs_snapshot_encryption_enabled" {
+  title       = "EBS snapshots should be encrypted"
+  description = "Ensure that EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
+  query       = query.ebs_snapshot_encryption_enabled
+
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "ebs_snapshot_not_publicly_restorable" {
   sql = <<-EOQ
     select
@@ -315,5 +325,24 @@ query "ebs_volume_unused" {
       ${local.common_dimensions_sql}
     from
       aws_ebs_volume;
+  EOQ
+}
+
+query "ebs_snapshot_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when encrypted then title || ' encryption enabled.'
+        else title || ' encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_snapshot;
   EOQ
 }

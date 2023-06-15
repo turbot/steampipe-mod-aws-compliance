@@ -269,6 +269,16 @@ control "ec2_instance_virtualization_type_no_paravirtual" {
   })
 }
 
+control "ec2_ami_restrict_public_access" {
+  title       = "EC2 AMIs should restrict public access"
+  description = "This control checks whether EC2 AMIs are set as private or not. The control fails if the EC2 AMIs are set as public."
+  query       = query.ec2_ami_restrict_public_access
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -630,6 +640,25 @@ query "ec2_instance_virtualization_type_no_paravirtual" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_ami_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':ec2:' || region || ':' || account_id || ':image/' || image_id as resource,
+      case
+        when public then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when public then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_ami;
   EOQ
 }
 

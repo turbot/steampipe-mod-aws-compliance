@@ -148,6 +148,16 @@ control "cloudfront_distribution_origin_access_identity_enabled" {
   })
 }
 
+control "cloudfront_distribution_field_level_encryption_enabled" {
+  title       = "CloudFront distributions should have field level encryption enabled"
+  description = "This control checks whether an Amazon CloudFront distribution has field-level encryption enabled. The control fails if CloudFront distribution field-level encryption is not enabled."
+  query       = query.cloudfront_distribution_field_level_encryption_enabled
+
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "cloudfront_distribution_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with data as (
@@ -490,6 +500,25 @@ query "cloudfront_distribution_origin_access_identity_enabled" {
     from
       aws_cloudfront_distribution,
       jsonb_array_elements(origins) as o;
+  EOQ
+}
+
+query "cloudfront_distribution_field_level_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when default_cache_behavior ->> 'FieldLevelEncryptionId' = '' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when default_cache_behavior ->> 'FieldLevelEncryptionId' = '' then title || ' field level encryption disabled.'
+        else title || ' field level encryption enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
   EOQ
 }
 

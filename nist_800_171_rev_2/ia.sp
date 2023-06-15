@@ -81,6 +81,7 @@ benchmark "nist_800_171_rev_2_3_5_6" {
   title       = "3.5.6 Disable identifiers after a defined period of inactivity"
   description = "Inactive identifiers pose a risk to organizational information because attackers may exploit an inactive identifier to gain undetected access to organizational devices. The owners of the inactive accounts may not notice if unauthorized access to the account has been obtained."
   children = [
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_user_unused_credentials_90
   ]
 
@@ -101,7 +102,6 @@ benchmark "nist_800_171_rev_2_3_5_8" {
   title       = "3.5.8 Prohibit password reuse for a specified number of generations"
   description = "Password lifetime restrictions do not apply to temporary passwords."
   children = [
-    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_user_unused_credentials_90
   ]
 
