@@ -68,6 +68,7 @@ benchmark "other" {
     control.guardduty_no_high_severity_findings,
     control.iam_access_analyzer_enabled_without_findings,
     control.iam_policy_custom_no_assume_role,
+    control.iam_role_unused_60,
     control.iam_user_hardware_mfa_enabled,
     control.iam_user_with_administrator_access_mfa_enabled,
     control.kinesis_stream_encrypted_with_kms_cmk,
