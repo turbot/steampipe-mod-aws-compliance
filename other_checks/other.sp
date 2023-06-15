@@ -22,6 +22,7 @@ benchmark "other" {
     control.cloudwatch_cross_account_sharing,
     control.codebuild_project_build_greater_then_90_days,
     control.codebuild_project_with_user_controlled_buildspec,
+    control.docdb_cluster_instance_logging_enabled,
     control.ec2_instance_no_high_level_finding_in_inspector_scan,
     control.ec2_instance_no_launch_wizard_security_group,
     control.ec2_instance_publicly_accessible_iam_profile_attached,

@@ -572,26 +572,7 @@ query "rds_db_instance_logging_enabled" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_rds_db_instance
-
-    union
-    
-    select
-      db_instance_arn as resource,
-      engine,
-      case
-        when engine like 'docdb' and enabled_cloudwatch_logs_exports ?& array ['error', 'slowquery'] then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when engine like 'docdb' and enabled_cloudwatch_logs_exports ?& array ['error', 'slowquery']
-        then title || ' ' || engine || ' logging enabled.'
-        else title || ' logging not enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_docdb_cluster_instance;
+      aws_rds_db_instance;
   EOQ
 }
 
