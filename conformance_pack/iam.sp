@@ -532,6 +532,16 @@ control "iam_access_analyzer_enabled_without_findings" {
   })
 }
 
+control "iam_role_unused_60" {
+  title       = "IAM roles that have not been used in 60 days should be removed"
+  description = "This control checks whether the IAM role has been used in 60 days. Unused accounts and roles increase the attack surface area."
+  query       = query.iam_role_unused_60
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -1739,5 +1749,26 @@ query "iam_user_unused_credentials_45" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_credential_report;
+  EOQ
+}
+
+query "iam_role_unused_60" {
+  sql = <<-EOQ
+    select
+      name,
+      role_last_used_date,
+      case
+        when role_last_used_date <= (current_date - interval '60' day) or role_last_used_date is null
+          then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when role_last_used_date is null
+          then name || ' was never used.'
+        else 
+          name || ' was last used ' || to_char(role_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_date - role_last_used_date) || ' days ago).'
+      end as reason
+    from
+      aws_iam_role;
   EOQ
 }
