@@ -109,6 +109,26 @@ control "apigateway_rest_api_authorizers_configured" {
   })
 }
 
+control "apigateway_rest_api_endpoint_restrict_public_access" {
+  title       = "API Gateway REST API endpoint type should be configured to private"
+  description = "This control checks whether API Gateway endpoint is public or private. This rule is non-compliant if API Gateway endpoint is public."
+  query       = query.apigateway_rest_api_endpoint_restrict_public_access
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "api_gatewayv2_route_authorizer_configured" {
+  title       = "API Gateway V2 authorizer should be configured"
+  description = "This control checks whether API Gateway V2 has an authorizer configured. This rule is non-compliant if API Gateway V2 has no authorizers configured."
+  query       = query.api_gatewayv2_route_authorizer_configured
+
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -249,6 +269,43 @@ query "apigateway_rest_api_authorizers_configured" {
     from
       aws_api_gateway_rest_api as p
       left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
+  EOQ
+}
+
+query "apigateway_rest_api_endpoint_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id as resource,
+      case
+        when endpoint_configuration_types ? 'PRIVATE' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when endpoint_configuration_types ? 'PRIVATE' then name || ' not publicly accessible.'
+        else name || ' publicly accessible.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_rest_api;
+  EOQ
+}
+
+query "api_gatewayv2_route_authorizer_configured" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
+      case
+        when authorizer_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when authorizer_id is null then route_id || ' authorizer not configured.'
+        else route_id || ' authorizer ' || authorizer_id || ' configured.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gatewayv2_route;
   EOQ
 }
 

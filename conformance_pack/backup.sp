@@ -82,6 +82,26 @@ control "backup_recovery_point_min_retention_35_days" {
   })
 }
 
+control "backup_plan_region_configured" {
+  title       = "Backup plan should exist in a region"
+  description = "Ensure that there exists at least one backup plan in a region. The rule is non-compliant if there are no backup plans in a region."
+  query       = query.backup_plan_region_configured
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "backup_vault_region_configured" {
+  title       = "Backup vaults should exist in a region"
+  description = "Ensure that there exists at least one backup vault in a region. The rule is non-compliant if there are no backup vaults in a region."
+  query       = query.backup_vault_region_configured
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "backup_recovery_point_manual_deletion_disabled" {
   sql = <<-EOQ
     with recovery_point_manual_deletion_disabled as (
@@ -184,5 +204,65 @@ query "backup_recovery_point_min_retention_35_days" {
       ${local.common_dimensions_sql}
     from
       aws_backup_recovery_point;
+  EOQ
+}
+
+query "backup_plan_region_configured" {
+  sql = <<-EOQ
+    with count_plans as (
+      select
+        region,
+        account_id,
+        count(*) as count
+      from
+        aws_backup_plan
+      group by
+        region,
+        account_id
+    )
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when cp.count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cp.count > 0 then cp.count || ' backup plan(s) exist in region ' || r.region || '.'
+        else 'No backup plans exist in region ' || r.region || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join count_plans as cp on r.account_id = cp.account_id and r.region = cp.region;
+  EOQ
+}
+
+query "backup_vault_region_configured" {
+  sql = <<-EOQ
+    with count_vaults as (
+      select
+        region,
+        account_id,
+        count(*) as count
+      from
+        aws_backup_vault
+      group by
+        region,
+        account_id
+    )
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when v.count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when v.count > 0 then v.count || ' backup vault(s) exist in region ' || r.region || '.'
+        else 'No backup vault exists in region ' || r.region || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join count_vaults as v on r.account_id = v.account_id and r.region = v.region;
   EOQ
 }

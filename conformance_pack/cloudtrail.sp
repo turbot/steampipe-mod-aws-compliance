@@ -205,6 +205,16 @@ control "cloudtrail_multi_region_read_write_enabled" {
   })
 }
 
+control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
+  title       = "CloudTrail trails should have insight selectors and logging enabled"
+  description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
+  query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "cloudtrail_trail_integrated_with_logs" {
   sql = <<-EOQ
     select
@@ -574,6 +584,29 @@ query "cloudtrail_multi_region_read_write_enabled" {
       aws_account as a
       left join event_selectors_trail_details as d on d.account_id = a.account_id
       left join advanced_event_selectors_trail_details as ad on ad.account_id = a.account_id;
+  EOQ
+}
+
+query "cloudtrail_trail_insight_selectors_and_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not is_logging then 'alarm'
+        when is_logging and has_insight_selectors then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not is_logging then title || ' logging is disabled.'
+        when is_logging and has_insight_selectors then title || ' has insight selectors and logging enabled.'
+        else title || ' does not has insight selectors enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudtrail_trail
+    where
+      region = home_region;
   EOQ
 }
 
