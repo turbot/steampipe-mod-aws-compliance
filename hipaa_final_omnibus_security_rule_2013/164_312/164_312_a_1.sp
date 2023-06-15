@@ -24,6 +24,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_312_a_1" {
     control.iam_user_unused_credentials_90,
     control.lambda_function_in_vpc,
     control.lambda_function_restrict_public_access,
+    control.opensearch_domain_in_vpc,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
