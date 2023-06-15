@@ -550,8 +550,8 @@ query "rds_db_instance_logging_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
-      engine,
       case
+        when engine = 'docdb' then 'skip'
         when engine like any (array ['mariadb', '%mysql']) and enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery'] then 'ok'
         when engine like any (array['%postgres%']) and enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then 'ok'
         when engine like 'oracle%' and enabled_cloudwatch_logs_exports ?& array ['alert','audit', 'trace','listener'] then 'ok'
@@ -560,6 +560,7 @@ query "rds_db_instance_logging_enabled" {
         else 'alarm'
       end as status,
       case
+        when engine = 'docdb' then title || ' is docdb instance.'
         when engine like any (array ['mariadb', '%mysql']) and enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery']
         then title || ' ' || engine || ' logging enabled.'
         when engine like any (array['%postgres%']) and enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade']
