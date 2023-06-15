@@ -61,6 +61,8 @@ benchmark "other" {
     control.kinesis_stream_encrypted_with_kms_cmk,
     control.kinesis_stream_server_side_encryption_enabled,
     control.kms_cmk_policy_prohibit_public_access,
+    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
+    control.kms_key_decryption_restricted_in_iam_inline_policy,
     control.lambda_function_cloudtrail_logging_enabled,
     control.lambda_function_tracing_enabled,
     control.rds_db_instance_ca_certificate_expires_7_days,
