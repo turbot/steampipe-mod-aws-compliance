@@ -24,7 +24,7 @@ control "foundational_security_cloudtrail_1" {
   description   = "This control checks that there is at least one multi-Region CloudTrail trail."
   severity      = "high"
   query         = query.cloudtrail_multi_region_trail_enabled
-  documentation = file("./foundational_security/docs/foundational_security_cloudtrail_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_cloudtrail_1.md")
 
   tags = merge(local.foundational_security_cloudtrail_common_tags, {
     foundational_security_item_id  = "cloudtrail_1"

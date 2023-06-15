@@ -45,13 +45,23 @@ control "kms_cmk_rotation_enabled" {
   })
 }
 
+control "kms_cmk_policy_prohibit_public_access" {
+  title       = "KMS CMK policies should prohibit public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring AWS KMS CMK cannot be publicly accessed."
+  query       = query.kms_cmk_policy_prohibit_public_access
+
+  tags = merge(local.conformance_pack_kms_common_tags, {
+    other_checks = "true"
+  })
+}
+
 control "kms_key_decryption_restricted_in_iam_customer_managed_policy" {
   title       = "KMS key decryption should be restricted in IAM customer managed policy"
   description = "Checks whether the default version of IAM customer managed policies allow principals to use the AWS KMS decryption actions on all resources. This control uses Zelkova, an automated reasoning engine, to validate and warn you about policies that may grant broad access to your secrets across AWS accounts. This control fails if the kms:Decrypt or kms:ReEncryptFrom actions are allowed on all KMS keys. The control evaluates both attached and unattached customer managed policies. It does not check inline policies or AWS managed policies."
   query       = query.kms_key_decryption_restricted_in_iam_customer_managed_policy
 
   tags = merge(local.conformance_pack_kms_common_tags, {
-    hipaa_security_rule_2003 = "true"
+    other_checks = "true"
   })
 }
 
@@ -59,16 +69,6 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
   title       = "KMS key decryption should be restricted in IAM inline policy"
   description = "Checks whether the inline policies that are embedded in your IAM identities (role, user, or group) allow the AWS KMS decryption actions on all KMS keys. This control uses Zelkova, an automated reasoning engine, to validate and warn you about policies that may grant broad access to your secrets across AWS accounts. This control fails if kms:Decrypt or kms:ReEncryptFrom actions are allowed on all KMS keys in an inline policy."
   query       = query.kms_key_decryption_restricted_in_iam_inline_policy
-
-  tags = merge(local.conformance_pack_kms_common_tags, {
-    hipaa_security_rule_2003 = "true"
-  })
-}
-
-control "kms_cmk_policy_prohibit_public_access" {
-  title       = "KMS CMK policies should prohibit public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring AWS KMS CMK cannot be publicly accessed."
-  query       = query.kms_cmk_policy_prohibit_public_access
 
   tags = merge(local.conformance_pack_kms_common_tags, {
     other_checks = "true"
@@ -118,6 +118,46 @@ query "kms_cmk_rotation_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_kms_key
+    where
+      key_manager = 'CUSTOMER';
+  EOQ
+}
+
+query "kms_cmk_policy_prohibit_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        arn,
+        count(*) as statements_num
+      from
+        aws_kms_key,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or  s ->> 'Principal' = '*'
+        )
+        and key_manager = 'CUSTOMER'
+      group by
+        arn
+    )
+    select
+      k.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num, 0) ||
+        ' statements that allow public access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "k.")}
+    from
+      aws_kms_key as k
+      left join wildcard_action_policies as p on p.arn = k.arn
     where
       key_manager = 'CUSTOMER';
   EOQ
@@ -243,45 +283,5 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
     from
       aws_iam_group g
       left join group_with_decrypt_grant d on g.arn = d.arn;
-  EOQ
-}
-
-query "kms_cmk_policy_prohibit_public_access" {
-  sql = <<-EOQ
-    with wildcard_action_policies as (
-      select
-        arn,
-        count(*) as statements_num
-      from
-        aws_kms_key,
-        jsonb_array_elements(policy_std -> 'Statement') as s
-      where
-        s ->> 'Effect' = 'Allow'
-        and (
-          ( s -> 'Principal' -> 'AWS') = '["*"]'
-          or  s ->> 'Principal' = '*'
-        )
-        and key_manager = 'CUSTOMER'
-      group by
-        arn
-    )
-    select
-      k.arn as resource,
-      case
-        when p.arn is null then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when p.arn is null then title || ' does not allow public access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
-        ' statements that allows public access.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "k.")}
-    from
-      aws_kms_key as k
-      left join wildcard_action_policies as p on p.arn = k.arn
-    where
-      key_manager = 'CUSTOMER';
   EOQ
 }

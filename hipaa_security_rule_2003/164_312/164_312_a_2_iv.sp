@@ -14,8 +14,6 @@ benchmark "hipaa_security_rule_2003_164_312_a_2_iv" {
     control.es_domain_encryption_at_rest_enabled,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_decryption_restricted_in_iam_customer_managed_policy,
-    control.kms_key_decryption_restricted_in_iam_inline_policy,
     control.log_group_encryption_at_rest_enabled,
     control.opensearch_domain_encryption_at_rest_enabled,
     control.rds_db_instance_encryption_at_rest_enabled,
