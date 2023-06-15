@@ -121,7 +121,7 @@ control "apigateway_rest_api_endpoint_restrict_public_access" {
 
 control "api_gatewayv2_route_authorizer_configured" {
   title       = "API Gateway V2 authorizer should be configured"
-  description = "This control checks whether API Gateway V2 has authorizer configured. This rule is non compliant if API Gateway V2 have no authorizers configured."
+  description = "This control checks whether API Gateway V2 has an authorizer configured. This rule is non-compliant if API Gateway V2 has no authorizers configured."
   query       = query.api_gatewayv2_route_authorizer_configured
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
@@ -301,7 +301,7 @@ query "api_gatewayv2_route_authorizer_configured" {
       end as status,
       case
         when authorizer_id is null then route_id || ' authorizer not configured.'
-        else route_id || ' authorizer configured.'
+        else route_id || ' authorizer ' || authorizer_id || ' configured.'
       end as reason
       ${local.common_dimensions_sql}
     from

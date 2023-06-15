@@ -84,7 +84,7 @@ control "backup_recovery_point_min_retention_35_days" {
 
 control "backup_plan_region_configured" {
   title       = "Backup plan should exist in a region"
-  description = "Ensures that there exist at least one backup plan in a region. The rule is non-compliant if there exist no backup plan in a region."
+  description = "Ensure that there exists at least one backup plan in a region. The rule is non-compliant if there are no backup plans in a region."
   query       = query.backup_plan_region_configured
 
   tags = merge(local.conformance_pack_backup_common_tags, {
@@ -94,7 +94,7 @@ control "backup_plan_region_configured" {
 
 control "backup_vault_region_configured" {
   title       = "Backup vaults should exist in a region"
-  description = "Ensures that there exist at least one backup vault in a region. The rule is non-compliant if there exist no backup vault in a region."
+  description = "Ensure that there exists at least one backup vault in a region. The rule is non-compliant if there are no backup vaults in a region."
   query       = query.backup_vault_region_configured
 
   tags = merge(local.conformance_pack_backup_common_tags, {
@@ -219,7 +219,7 @@ query "backup_plan_region_configured" {
       group by
         region,
         account_id
-    )  
+    )
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
@@ -249,7 +249,7 @@ query "backup_vault_region_configured" {
       group by
         region,
         account_id
-    )  
+    )
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case

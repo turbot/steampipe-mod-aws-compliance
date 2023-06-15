@@ -143,7 +143,7 @@ control "ebs_volume_unused" {
 
 control "ebs_snapshot_encryption_enabled" {
   title       = "EBS snapshots should be encrypted"
-  description = "Ensure if EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
+  description = "Ensure that EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
   query       = query.ebs_snapshot_encryption_enabled
 
   tags = merge(local.conformance_pack_ebs_common_tags, {

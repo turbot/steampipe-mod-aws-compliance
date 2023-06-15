@@ -592,12 +592,12 @@ query "cloudtrail_trail_insight_selectors_and_logging_enabled" {
     select
       arn as resource,
       case
-        when not is_logging  then 'skip'
+        when not is_logging then 'alarm'
         when is_logging and has_insight_selectors then 'ok'
         else 'alarm'
       end as status,
       case
-        when not is_logging  then title || ' logging is disabled.'
+        when not is_logging then title || ' logging is disabled.'
         when is_logging and has_insight_selectors then title || ' has insight selectors and logging enabled.'
         else title || ' does not has insight selectors enabled.'
       end as reason
