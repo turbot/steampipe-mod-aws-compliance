@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- Added the following controls to Other Compliance Checks benchmark. ([#663](https://github.com/turbot/steampipe-mod-aws-compliance/pull/663))
+- Added the following control to `Other Compliance Checks` benchmark: ([#663](https://github.com/turbot/steampipe-mod-aws-compliance/pull/663))
   - `iam_role_unused_60`
 
 _Bug fixes_
@@ -13,7 +13,7 @@ _Bug fixes_
 
 _Enhancements_
 
-- Added the following controls to Other Compliance Checks benchmark. ([#641](https://github.com/turbot/steampipe-mod-aws-compliance/pull/641)) ([#645](https://github.com/turbot/steampipe-mod-aws-compliance/pull/645))
+- Added the following controls to `Other Compliance Checks` benchmark: ([#641](https://github.com/turbot/steampipe-mod-aws-compliance/pull/641)) ([#645](https://github.com/turbot/steampipe-mod-aws-compliance/pull/645))
   - `api_gatewayv2_route_authorizer_configured`
   - `apigateway_rest_api_endpoint_restrict_public_access`
   - `backup_plan_region_configured`
