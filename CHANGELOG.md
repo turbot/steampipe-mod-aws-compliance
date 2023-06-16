@@ -1,3 +1,14 @@
+## v0.70 [2023-06-16]
+
+_Enhancements_
+
+- Added the following controls to Other Compliance Checks benchmark. ([#663](https://github.com/turbot/steampipe-mod-aws-compliance/pull/663))
+  - `iam_role_unused_60`
+
+_Bug fixes_
+
+- Fixed the filter pattern in `log_metric_filter_organization` query to correctly match the log event. ([#664](https://github.com/turbot/steampipe-mod-aws-compliance/pull/664))
+
 ## v0.69 [2023-06-15]
 
 _Enhancements_
