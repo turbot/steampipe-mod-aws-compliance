@@ -44,19 +44,6 @@ control "foundational_security_lambda_2" {
   })
 }
 
-# control "foundational_security_lambda_4" {
-#   title         = "4 Lambda functions should have a dead-letter queue configured"
-#   description   = "This control checks whether a Lambda function is configured with a dead-letter queue. The control fails if the Lambda function is not configured with a dead-letter queue."
-#   severity      = "medium"
-#   query         = query.lambda_function_dead_letter_queue_configured
-#   documentation = file("./foundational_security/docs/foundational_security_lambda_4.md")
-
-#   tags = merge(local.foundational_security_lambda_common_tags, {
-#     foundational_security_item_id  = "lambda_4"
-#     foundational_security_category = "logging"
-#   })
-# }
-
 control "foundational_security_lambda_5" {
   title         = "5 VPC Lambda functions should operate in more than one Availability Zone"
   description   = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
