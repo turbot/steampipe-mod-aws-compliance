@@ -1,10 +1,11 @@
 ## v0.71 [2023-06-21]
 
-_Enhancements_
+_Breaking changes_
 
-- Removed the following controls from `foundational_security` benchmark to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html):
-  - `foundational_security_ec2_27`
-  - `foundational_security_lambda_4`
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#669](https://github.com/turbot/steampipe-mod-aws-compliance/pull/669))
+  - The following controls are no longer included in the benchmarks:
+    - `foundational_security_ec2_27`
+    - `foundational_security_lambda_4`
 
 ## v0.70 [2023-06-16]
 
