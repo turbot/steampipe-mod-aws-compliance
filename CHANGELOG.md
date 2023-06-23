@@ -1,3 +1,9 @@
+## v0.72 [2023-06-23]
+
+_Bug fixes_
+
+- Fixed the `iam_role_unused_60` query to use the correct resource and common dimensions. ([#672](https://github.com/turbot/steampipe-mod-aws-compliance/pull/672))
+
 ## v0.71 [2023-06-21]
 
 _Breaking changes_

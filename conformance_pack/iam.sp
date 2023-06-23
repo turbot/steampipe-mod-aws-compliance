@@ -1755,8 +1755,7 @@ query "iam_user_unused_credentials_45" {
 query "iam_role_unused_60" {
   sql = <<-EOQ
     select
-      name,
-      role_last_used_date,
+      arn as resource,
       case
         when role_last_used_date <= (current_date - interval '60' day) or role_last_used_date is null
           then 'alarm'
@@ -1765,9 +1764,10 @@ query "iam_role_unused_60" {
       case
         when role_last_used_date is null
           then name || ' was never used.'
-        else 
+        else
           name || ' was last used ' || to_char(role_last_used_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_date - role_last_used_date) || ' days ago).'
       end as reason
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_role;
   EOQ
