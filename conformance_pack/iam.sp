@@ -1483,7 +1483,7 @@ query "iam_custom_policy_unattached_no_star_star" {
         when bad.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
+      p.name || ' contains ' || coalesce(bad.num_bad_statements,0) ||
         ' statements that allow action "*" on resource "*".' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
@@ -1521,7 +1521,7 @@ query "iam_policy_no_full_access_to_cloudtrail" {
         when w.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(w.statements_num,0)  ||
+      p.name || ' contains ' || coalesce(w.statements_num,0) ||
         ' statements that allow action "*" on at cloudtrail service on resource "*".' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
@@ -1558,7 +1558,7 @@ query "iam_policy_no_full_access_to_kms" {
       when w.arn is null then 'ok'
       else 'alarm'
     end status,
-    p.name || ' contains ' || coalesce(w.statements_num,0)  ||
+    p.name || ' contains ' || coalesce(w.statements_num,0) ||
       ' statements that allow action "*" on at cloudtrail service on resource "*".' as reason
     ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}

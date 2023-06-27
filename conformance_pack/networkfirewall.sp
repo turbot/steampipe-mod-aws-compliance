@@ -46,7 +46,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
 
 control "networkfirewall_firewall_in_vpc" {
   title       = "Networkfirewall firewall should be in a VPC"
-  description = "Deploy AWS Lambda functions within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
+  description = "Deploy AWS Networkfirewall firewall within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
   query       = query.networkfirewall_firewall_in_vpc
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {

@@ -216,7 +216,7 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
 }
 
 control "cloudtrail_trail_bucket_mfa_enabled" {
-  title       = "CloudTrail trails S3 buckets MFA delete should be enabled"
+  title       = "CloudTrail trail S3 buckets MFA delete should be enabled"
   description = "Ensure that CloudTrail trail S3 buckets MFA delete is enabled. MFA delete help prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
   query       = query.cloudtrail_trail_bucket_mfa_enabled
 
@@ -631,7 +631,7 @@ query "cloudtrail_trail_bucket_mfa_enabled" {
       end as status,
       case
         when t.s3_bucket_name is null then t.title || ' logging disabled.'
-        when b.versioning_mfa_delete then  t.title || t.s3_bucket_name || ' MFA enabled.'
+        when b.versioning_mfa_delete then t.title || t.s3_bucket_name || ' MFA enabled.'
         else t.title || t.s3_bucket_name || ' MFA disabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
