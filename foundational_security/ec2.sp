@@ -27,8 +27,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
-    control.foundational_security_ec2_25,
-    control.foundational_security_ec2_27
+    control.foundational_security_ec2_25
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -296,15 +295,3 @@ control "foundational_security_ec2_25" {
   })
 }
 
-control "foundational_security_ec2_27" {
-  title         = "27 Running EC2 Instances should not use key pairs"
-  description   = "This control checks whether running EC2 instances are using key pairs. The control fails if a running EC2 instance uses a key pair."
-  severity      = "high"
-  query         = query.ec2_instance_no_amazon_key_pair
-  documentation = file("./foundational_security/docs/foundational_security_ec2_27.md")
-
-  tags = merge(local.foundational_security_ec2_common_tags, {
-    foundational_security_item_id  = "ec2_27"
-    foundational_security_category = "resource_configuration"
-  })
-}

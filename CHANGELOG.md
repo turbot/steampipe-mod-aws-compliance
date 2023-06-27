@@ -1,3 +1,59 @@
+## v0.72 [2023-06-23]
+
+_Bug fixes_
+
+- Fixed the `iam_role_unused_60` query to use the correct resource and common dimensions. ([#672](https://github.com/turbot/steampipe-mod-aws-compliance/pull/672))
+
+## v0.71 [2023-06-21]
+
+_Breaking changes_
+
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#669](https://github.com/turbot/steampipe-mod-aws-compliance/pull/669))
+  - The following controls are no longer included in the benchmarks:
+    - `foundational_security_ec2_27`
+    - `foundational_security_lambda_4`
+
+## v0.70 [2023-06-16]
+
+_Enhancements_
+
+- Added the following control to `Other Compliance Checks` benchmark: ([#663](https://github.com/turbot/steampipe-mod-aws-compliance/pull/663))
+  - `iam_role_unused_60`
+
+_Bug fixes_
+
+- Fixed the filter pattern in `log_metric_filter_organization` query to correctly match the log event. ([#664](https://github.com/turbot/steampipe-mod-aws-compliance/pull/664))
+
+## v0.69 [2023-06-15]
+
+_Enhancements_
+
+- Added the following controls to `Other Compliance Checks` benchmark: ([#641](https://github.com/turbot/steampipe-mod-aws-compliance/pull/641)) ([#645](https://github.com/turbot/steampipe-mod-aws-compliance/pull/645))
+  - `api_gatewayv2_route_authorizer_configured`
+  - `apigateway_rest_api_endpoint_restrict_public_access`
+  - `backup_plan_region_configured`
+  - `backup_vault_region_configured`
+  - `cloudfront_distribution_field_level_encryption_enabled`
+  - `cloudtrail_trail_insight_selectors_and_logging_enabled`
+  - `docdb_cluster_instance_logging_enabled`
+  - `drs_job_enabled`
+  - `ebs_snapshot_encryption_enabled`
+  - `ec2_ami_restrict_public_access`
+  - `guardduty_no_high_severity_findings`
+  - `iam_access_analyzer_enabled_without_findings`
+  - `vpc_security_group_allows_ingress_to_cassandra_ports`
+  - `vpc_security_group_allows_ingress_to_memcached_port`
+  - `vpc_security_group_allows_ingress_to_mongodb_ports`
+  - `vpc_security_group_allows_ingress_to_oracle_ports`
+- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#654](https://github.com/turbot/steampipe-mod-aws-compliance/pull/654))
+  - The following controls are no longer included in the benchmarks:
+    - `kms_key_decryption_restricted_in_iam_customer_managed_policy`
+    - `kms_key_decryption_restricted_in_iam_inline_policy`
+
+_Bug fixes_
+
+- Fixed the `rds_db_instance_logging_enabled` query to filter out `docdb` instances. ([#660](https://github.com/turbot/steampipe-mod-aws-compliance/pull/660))
+
 ## v0.68 [2023-06-07]
 
 _Bug fixes_
