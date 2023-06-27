@@ -184,7 +184,7 @@ control "cloudtrail_s3_logging_enabled" {
 
 control "cloudtrail_bucket_not_public" {
   title       = "Ensure the S3 bucket CloudTrail logs to is not publicly accessible"
-  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs.."
+  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs."
   query       = query.cloudtrail_bucket_not_public
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
@@ -209,6 +209,16 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   title       = "CloudTrail trails should have insight selectors and logging enabled"
   description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
   query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
+
+  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "cloudtrail_trail_bucket_mfa_enabled" {
+  title       = "CloudTrail trails S3 buckets MFA delete should be enabled"
+  description = "Ensure that CloudTrail trail S3 buckets MFA delete is enabled. MFA delete help prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
+  query       = query.cloudtrail_trail_bucket_mfa_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     other_checks = "true"
@@ -610,6 +620,29 @@ query "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   EOQ
 }
 
+query "cloudtrail_trail_bucket_mfa_enabled" {
+  sql = <<-EOQ
+    select
+      t.arn as resource,
+      case
+        when t.s3_bucket_name is null then 'alarm'
+        when b.versioning_mfa_delete then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when t.s3_bucket_name is null then t.title || ' logging disabled.'
+        when b.versioning_mfa_delete then  t.title || t.s3_bucket_name || ' MFA enabled.'
+        else t.title || t.s3_bucket_name || ' MFA disabled.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_cloudtrail_trail t
+      left join aws_s3_bucket b on t.s3_bucket_name = b.name
+    where
+      t.region = t.home_region;
+  EOQ
+}
 # Non-Config rule query
 
 query "cloudtrail_s3_object_read_events_audit_enabled" {

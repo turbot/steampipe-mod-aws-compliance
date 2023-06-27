@@ -111,6 +111,16 @@ control "efs_access_point_enforce_root_directory" {
   })
 }
 
+control "efs_file_system_restrict_public_access" {
+  title       = "EFS file systems should restrict public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring AWS EFS file systems cannot be publicly accessed."
+  query       = query.efs_file_system_restrict_public_access
+
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "efs_file_system_encrypt_data_at_rest" {
   sql = <<-EOQ
     select
@@ -282,5 +292,42 @@ query "efs_access_point_enforce_root_directory" {
       ${local.common_dimensions_sql}
     from
       aws_efs_access_point;
+  EOQ
+}
+
+query "efs_file_system_restrict_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        arn,
+        count(*) as statements_num
+      from
+        aws_efs_file_system,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+      group by
+        arn
+    )
+    select
+      f.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.arn is null then title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows public access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+    from
+      aws_efs_file_system as f
+      left join wildcard_action_policies as p on p.arn = f.arn;
   EOQ
 }

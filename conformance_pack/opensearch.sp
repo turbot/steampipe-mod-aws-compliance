@@ -100,6 +100,36 @@ control "opensearch_domain_in_vpc" {
   })
 }
 
+control "opensearch_domain_cognito_authentication_enabled_for_kibana" {
+  title       = "OpenSearch domains cognito authentication should be enabled for kibana"
+  description = "This control checks whether Amazon OpenSearch domain has Amazon Cognito authentication for Kibana enabled. Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps."
+  query       = query.opensearch_domain_cognito_authentication_enabled_for_kibana
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "opensearch_domain_internal_user_database_disabled" {
+  title       = "OpenSearch domains internal user database should be disabled"
+  description = "Ensure that Amazon OpenSearch domain has internal user database disabled. This control is non compliant if the OpenSearch domain internal user database is enabled."
+  query       = query.opensearch_domain_internal_user_database_disabled
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "opensearch_domain_updated_with_latest_service_software_version" {
+  title       = "OpenSearch domains should be updated to the latest service software version"
+  description = "This control checks whether Amazon OpenSearch domain have any updates available. This control is non compliant if the OpenSearch domain have any updated available."
+  query       = query.opensearch_domain_updated_with_latest_service_software_version
+
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "opensearch_domain_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -293,8 +323,65 @@ query "opensearch_domain_in_vpc" {
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
-      aws_opensearch_domain as d 
+      aws_opensearch_domain as d
       left join opensearch_domain_with_public_subnet as p on d.arn = p.arn;
+  EOQ
+}
+
+query "opensearch_domain_cognito_authentication_enabled_for_kibana" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cognito_options ->> 'Enabled' = 'true' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when cognito_options ->> 'Enabled' = 'true' then title || ' cognito authentication enabled for kibana.'
+        else title || ' cognito authentication disabled for kibana.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_updated_with_latest_service_software_version" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when advanced_security_options ->> 'InternalUserDatabaseEnabled' = 'true' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when advanced_security_options ->> 'InternalUserDatabaseEnabled' = 'true' then title || ' internal user database enabled.'
+        else title || ' internal user database disabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+}
+
+query "opensearch_domain_updated_with_latest_service_software_version" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when service_software_options ->> 'UpdateAvailable' = 'false' then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when service_software_options ->> 'UpdateAvailable' = 'false' then title || ' updated with latest service software version.'
+        else title || ' not updated with latest service software version.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
   EOQ
 }
 
@@ -319,3 +406,4 @@ query "opensearch_domain_data_node_fault_tolerance" {
       aws_opensearch_domain;
   EOQ
 }
+

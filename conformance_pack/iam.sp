@@ -532,6 +532,36 @@ control "iam_access_analyzer_enabled_without_findings" {
   })
 }
 
+control "iam_custom_policy_unattached_no_star_star" {
+  title       = "IAM unattached custom policy should not have statements with admin access"
+  description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, restricting policies from containing 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
+  query       = query.iam_custom_policy_unattached_no_star_star
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_policy_no_full_access_to_cloudtrail" {
+  title       = "IAM policy should not grant full access to cloudtrail service"
+  description = "CloudTrail is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to cloudtrail service."
+  query       = query.iam_policy_no_full_access_to_cloudtrail
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_policy_no_full_access_to_kms" {
+  title       = "IAM policy should not grant full access to KMS service"
+  description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to KMS service."
+  query       = query.iam_policy_no_full_access_to_cloudtrail
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -1410,6 +1440,123 @@ query "iam_access_analyzer_enabled_without_findings" {
     from
       aws_region as r
       left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
+  EOQ
+}
+
+query "iam_custom_policy_unattached_no_star_star" {
+  sql = <<-EOQ
+    with bad_policies as (
+      select
+        arn,
+        count(*) as num_bad_statements
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        not is_aws_managed
+        and not is_attached
+        and s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          (action = '*'
+          or action = '*:*'
+          )
+        )
+      group by
+        arn
+    )
+    select
+      p.arn as resource,
+      case
+        when bad.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
+        ' statements that allow action "*" on resource "*".' as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join bad_policies as bad on p.arn = bad.arn
+    where
+      not p.is_aws_managed
+      and not is_attached
+  EOQ
+}
+
+query "iam_policy_no_full_access_to_cloudtrail" {
+  sql = <<-EOQ
+    with cloudtrail_full_access_policies as (
+      select
+        arn,
+        count(*) as statements_num
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        not is_aws_managed
+        and s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and action = 'cloudtrail:*'
+      group by
+        arn
+    )
+    select
+      p.arn as resource,
+      case
+        when w.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      p.name || ' contains ' || coalesce(w.statements_num,0)  ||
+        ' statements that allow action "*" on at cloudtrail service on resource "*".' as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join cloudtrail_full_access_policies as w on p.arn = w.arn
+    where
+      not p.is_aws_managed;
+  EOQ
+}
+
+query "iam_policy_no_full_access_to_kms" {
+  sql = <<-EOQ
+   with kms_full_access_policies as (
+    select
+      arn,
+      count(*) as statements_num
+    from
+      aws_iam_policy,
+      jsonb_array_elements(policy_std -> 'Statement') as s,
+      jsonb_array_elements_text(s -> 'Resource') as resource,
+      jsonb_array_elements_text(s -> 'Action') as action
+    where
+      not is_aws_managed
+      and s ->> 'Effect' = 'Allow'
+      and resource = '*'
+      and action = 'kms:*'
+    group by
+      arn
+  )
+  select
+    p.arn as resource,
+    case
+      when w.arn is null then 'ok'
+      else 'alarm'
+    end status,
+    p.name || ' contains ' || coalesce(w.statements_num,0)  ||
+      ' statements that allow action "*" on at cloudtrail service on resource "*".' as reason
+    ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+  from
+    aws_iam_policy as p
+    left join kms_full_access_policies as w on p.arn = w.arn
+  where
+    not p.is_aws_managed;
   EOQ
 }
 
