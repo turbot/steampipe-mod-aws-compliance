@@ -217,7 +217,7 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
 
 control "cloudtrail_trail_bucket_mfa_enabled" {
   title       = "CloudTrail trail S3 buckets MFA delete should be enabled"
-  description = "Ensure that CloudTrail trail S3 buckets MFA delete is enabled. MFA delete help prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
+  description = "Ensure that CloudTrail trail S3 buckets MFA delete is enabled. MFA delete helps prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
   query       = query.cloudtrail_trail_bucket_mfa_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {

@@ -1492,7 +1492,7 @@ query "iam_custom_policy_unattached_no_star_star" {
       left join bad_policies as bad on p.arn = bad.arn
     where
       not p.is_aws_managed
-      and not is_attached
+      and not is_attached;
   EOQ
 }
 
