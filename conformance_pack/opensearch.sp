@@ -347,7 +347,7 @@ query "opensearch_domain_cognito_authentication_enabled_for_kibana" {
   EOQ
 }
 
-query "opensearch_domain_updated_with_latest_service_software_version" {
+query "opensearch_domain_internal_user_database_disabled" {
   sql = <<-EOQ
     select
       arn as resource,
