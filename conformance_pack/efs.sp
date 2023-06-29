@@ -321,7 +321,7 @@ query "efs_file_system_restrict_public_access" {
       end as status,
       case
         when p.arn is null then title || ' does not allow public access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        else title || ' contains ' || coalesce(p.statements_num, 0) ||
         ' statements that allows public access.'
       end as reason
       ${local.tag_dimensions_sql}

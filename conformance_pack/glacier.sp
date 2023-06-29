@@ -40,8 +40,8 @@ query "glacier_vault_restrict_public_access" {
       end as status,
       case
         when p.vault_arn is null then title || ' does not allow public access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
-        ' statements that allows public access.'
+        else title || ' contains ' || coalesce(p.statements_num, 0) ||
+        ' statements that allow public access.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "g.")}

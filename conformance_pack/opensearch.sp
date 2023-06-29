@@ -122,7 +122,7 @@ control "opensearch_domain_internal_user_database_disabled" {
 
 control "opensearch_domain_updated_with_latest_service_software_version" {
   title       = "OpenSearch domains should be updated to the latest service software version"
-  description = "This control checks whether Amazon OpenSearch domain have any updates available. This control is non compliant if the OpenSearch domain have any updated available."
+  description = "This control checks whether Amazon OpenSearch domain has any updates available. This control is non compliant if the OpenSearch domain has any updates available."
   query       = query.opensearch_domain_updated_with_latest_service_software_version
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {

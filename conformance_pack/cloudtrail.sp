@@ -184,7 +184,7 @@ control "cloudtrail_s3_logging_enabled" {
 
 control "cloudtrail_bucket_not_public" {
   title       = "Ensure the S3 bucket CloudTrail logs to is not publicly accessible"
-  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy,or access control list (ACL), applied to the S3 bucket that CloudTrail logs to prevents public access to the CloudTrail logs."
+  description = "CloudTrail logs a record of every API call made in your account. These log files are stored in an S3 bucket. Security Hub recommends that the S3 bucket policy, or access control list (ACL), be applied to the S3 bucket that CloudTrail logs to prevent public access to the CloudTrail logs."
   query       = query.cloudtrail_bucket_not_public
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
@@ -217,7 +217,7 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
 
 control "cloudtrail_trail_bucket_mfa_enabled" {
   title       = "CloudTrail trail S3 buckets MFA delete should be enabled"
-  description = "Ensure that CloudTrail trail S3 buckets MFA delete is enabled. MFA delete helps prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
+  description = "Ensure that CloudTrail trail S3 buckets should have MFA delete enabled. MFA delete helps prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
   query       = query.cloudtrail_trail_bucket_mfa_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
