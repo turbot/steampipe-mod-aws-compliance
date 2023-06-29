@@ -44,6 +44,16 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
   })
 }
 
+control "networkfirewall_firewall_in_vpc" {
+  title       = "Networkfirewall firewall should be in a VPC"
+  description = "Deploy AWS Networkfirewall firewall within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
+  query       = query.networkfirewall_firewall_in_vpc
+
+  tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "networkfirewall_stateless_rule_group_not_empty" {
   sql = <<-EOQ
     select
@@ -124,5 +134,24 @@ query "networkfirewall_firewall_policy_default_stateless_action_check_fragmented
       ${local.common_dimensions_sql}
     from
       aws_networkfirewall_firewall_policy;
+  EOQ
+}
+
+query "networkfirewall_firewall_in_vpc" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when vpc_id is null or vpc_id = '' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
+        else title || ' is in VPC ' || vpc_id || '.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_networkfirewall_firewall;
   EOQ
 }
