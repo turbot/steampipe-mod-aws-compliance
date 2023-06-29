@@ -39,7 +39,6 @@ query "drs_job_enabled" {
         when drs_job_count.count = 0 or drs_job_count.count is null then 'DRS job not enabled for region ' || r.region || '.'
         else 'DRS job enabled for region ' || r.region || '.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "drs_job_count.")}
     from
       aws_region as r
