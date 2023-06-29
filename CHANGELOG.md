@@ -1,3 +1,19 @@
+## v0.73 [2023-06-29]
+
+_Enhancements_
+
+- Added the following controls to `Other Compliance Checks` benchmark: ([#675](https://github.com/turbot/steampipe-mod-aws-compliance/pull/675))
+  - `cloudtrail_trail_bucket_mfa_enabled`
+  - `efs_file_system_restrict_public_access`
+  - `glacier_vault_restrict_public_access`
+  - `iam_custom_policy_unattached_no_star_star`
+  - `iam_policy_no_full_access_to_cloudtrail`
+  - `iam_policy_no_full_access_to_kms`
+  - `networkfirewall_firewall_in_vpc`
+  - `opensearch_domain_cognito_authentication_enabled_for_kibana`
+  - `opensearch_domain_internal_user_database_disabled`
+  - `opensearch_domain_updated_with_latest_service_software_version`
+
 ## v0.72 [2023-06-23]
 
 _Bug fixes_
