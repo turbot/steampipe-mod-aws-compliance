@@ -1176,12 +1176,12 @@ query "rds_db_instance_connections_encryption_enabled" {
         else 'alarm'
       end status,
       case
-        when i.engine not in ('sqlserver', 'postgres') then title || ' has ' || engine || 'engine type.'
+        when i.engine not in ('sqlserver', 'postgres') then title || ' has ' || engine || ' engine type.'
         when p.name is not null then title || ' connections are SSL encrypted.'
         else title || ' connections are not SSL encrypted.'
       end reason
       ${local.tag_dimensions_sql}
-       ${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       instance_pg as i
       left join pg_with_ssl_enabled as p on p.name = i.pg_name
