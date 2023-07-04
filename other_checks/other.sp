@@ -64,7 +64,7 @@ benchmark "other" {
     control.iam_role_cross_account_readonlyaccess_policy,
     control.workspaces_workspace_volume_encryption_enabled,
     control.lambda_function_variables_no_sensitive_data,
-    control.autoscaling_ec2_launch_configuration_no_sensitive_data
+    control.autoscaling_ec2_launch_configuration_no_sensitive_data,
     control.vpc_subnet_multi_az_enabled,
     control.vpc_in_more_than_one_region,
     control.guardduty_centrally_configured,

@@ -573,7 +573,7 @@ control "iam_policy_no_full_access_to_kms" {
 }
 
 control "iam_role_cross_account_readonlyaccess_policy" {
-  title       = "IAM roles should neot have read only access for external AWS accounts"
+  title       = "IAM roles should not have read only access for external AWS accounts"
   description = "Ensure IAM Roles do not have ReadOnlyAccess access for external AWS account. The AWS-managed ReadOnlyAccess policy carries a high risk of potential data leakage, posing a significant threat to customer security and privacy."
   query       = query.iam_role_cross_account_readonlyaccess_policy
 
@@ -1972,9 +1972,9 @@ query "iam_role_cross_account_readonlyaccess_policy" {
         else 'ok'
       end as status,
       case
-        when ar.arn is null then r.title || ' does have ReadOnlyAccess policy attached.'
-        when c.arn is not null then r.title || ' have ReadOnlyAccess with cross account access.'
-        else r.title || ' does not have ReadOnlyAccess with cross account access.'
+        when ar.arn is null then r.title || ' not associated with ReadOnlyAccess policy.'
+        when c.arn is not null then r.title || ' associated with ReadOnlyAccess cross account access.'
+        else r.title || ' associated ReadOnlyAccess without cross account access.''
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
