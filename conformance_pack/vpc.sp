@@ -1667,7 +1667,7 @@ query "vpc_subnet_multi_az_enabled" {
       case
         when l.num is null then v.title || ' no subnet exists.'
         when l.num > 1 then v.title || ' subnets exist in ' || num || ' availability zones.'
-        else v.title || ' subnet exist in only one availability zone.'
+        else v.title || ' subnet(s) exist in single availability zone.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
