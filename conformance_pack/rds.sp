@@ -390,6 +390,16 @@ control "rds_db_cluster_multiple_az_enabled" {
   })
 }
 
+control "rds_db_instance_connections_encryption_enabled" {
+  title       = "RDS DB instances connections should be encrypted"
+  description = "This control checks if RDS DB instance connections are encrypted. Secure Sockets Layer (SSL) is used to encrypt between client applications and Amazon RDS DB instances running Microsoft SQL Server or PostgreSQL."
+  query       = query.rds_db_instance_connections_encryption_enabled
+
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -1125,5 +1135,55 @@ query "rds_db_security_group_events_subscription" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_event_subscription;
+  EOQ
+}
+
+query "rds_db_instance_connections_encryption_enabled" {
+  sql = <<-EOQ
+    with instance_pg as (
+      select
+        g ->> 'DBParameterGroupName' as pg_name,
+        i.engine,
+        i.title,
+        i.arn,
+        i.tags,
+        i.region,
+        i.account_id,
+        i._ctx
+      from
+        aws_rds_db_instance as i,
+        jsonb_array_elements(db_parameter_groups) as g
+    ), pg_with_ssl_enabled as (
+      select
+        g.name
+      from
+        instance_pg as i,
+        aws_rds_db_parameter_group as g,
+        jsonb_array_elements(parameters) as p
+      where
+        i.pg_name = g.name
+        and g.account_id = i.account_id
+        and g.region = i.region
+        and p ->> 'ParameterName' = 'rds.force_ssl'
+        and p ->> 'ParameterValue' = '1'
+    )
+    select
+      i.arn as resource,
+      i.engine,
+      case
+        when i.engine not in ('sqlserver', 'postgres') then 'skip'
+        when p.name is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when i.engine not in ('sqlserver', 'postgres') then title || ' has ' || engine || 'engine type.'
+        when p.name is not null then title || ' connections are SSL encrypted.'
+        else title || ' connections are not SSL encrypted.'
+      end reason
+      ${local.tag_dimensions_sql}
+       ${local.common_dimensions_sql}
+    from
+      instance_pg as i
+      left join pg_with_ssl_enabled as p on p.name = i.pg_name
   EOQ
 }

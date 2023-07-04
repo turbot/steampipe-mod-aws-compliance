@@ -60,6 +60,16 @@ control "guardduty_no_high_severity_findings" {
   })
 }
 
+control "guardduty_centrally_configured" {
+  title       = "GuardDuty Detector should should be centrally configured"
+  description = "Ensure that GuardDuty is centrally configured, if GuardDuty is not under central management, it becomes impossible to centrally manage GuardDuty findings, settings, and member accounts."
+  query       = query.guardduty_centrally_configured
+
+  tags = merge(local.conformance_pack_guardduty_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "guardduty_enabled" {
   sql = <<-EOQ
     select
@@ -135,3 +145,32 @@ query "guardduty_finding_archived" {
       aws_guardduty_finding;
   EOQ
 }
+
+query "guardduty_centrally_configured" {
+  sql = <<-EOQ
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
+        -- Skip any regions that are disabled in the account.
+        when r.opt_in_status = 'not-opted-in' then 'skip'
+        when status is null then 'info'
+        when status = 'DISABLED' then 'alarm'
+        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then r.region || ' region not supported.'
+        when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
+        when status is null then 'No GuardDuty detector found in ' || r.region || '.'
+        when status = 'DISABLED' then r.region || ' detector ' || d.title || ' disabled.'
+        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' centrally configured.'
+        else r.region || ' detector ' || d.title || ' not centrally configured..'
+      end as reason
+    ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join aws_guardduty_detector d on r.account_id = d.account_id and r.name = d.region;
+  EOQ
+}
+

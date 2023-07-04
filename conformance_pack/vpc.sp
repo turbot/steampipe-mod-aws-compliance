@@ -373,6 +373,36 @@ control "vpc_security_group_allows_ingress_to_oracle_ports" {
   })
 }
 
+control "vpc_in_more_than_one_region" {
+  title       = "VPCs should exist in multiple regions"
+  description = "This control checks whether there are VPCs present in multiple regions."
+  query       = query.vpc_in_more_than_one_region
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_subnet_multi_az_enabled" {
+  title       = "VPCs subnets should exist in multiple availability zones"
+  description = "Ensure that each VPC has subnets spread across multiple availability zones."
+  query       = query.vpc_subnet_multi_az_enabled
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_peering_route_table_least_access" {
+  title       = "VPC peering route table should have least access"
+  description = "Implementing a highly selective approach in peering routing tables is an effective strategy for minimizing the impact of a breach. By restricting the routes to only essential resources, any resources outside of these routes become inaccessible to the peered VPC, enhancing security measures."
+  query       = query.vpc_peering_route_table_least_access
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1577,5 +1607,101 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
     from
       aws_vpc_security_group as sg
       left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
+  EOQ
+}
+
+query "vpc_in_more_than_one_region" {
+  sql = <<-EOQ
+    with vpc_region_list as (
+      select
+        region,
+        count(*)
+      from
+        aws_vpc
+      group by
+        region, account_id
+    )
+    select
+      arn as resource,
+      case
+        when (select count(*) from vpc_region_list) > 1  then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (select count(*) from vpc_region_list) > 1  then 'VPC exist in ' || (select count(*) from vpc_region_list) || ' regions.'
+        else 'VPC  does not exist in more than one region.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_account;
+  EOQ
+}
+
+query "vpc_subnet_multi_az_enabled" {
+  sql = <<-EOQ
+    with subnet_list as (
+      select
+        distinct availability_zone,
+        vpc_id,
+        count(*)
+      from
+        aws_vpc_subnet
+      group by
+        vpc_id, availability_zone
+    ), zone_list as (
+      select
+        vpc_id,
+        count(*) as num
+      from
+        subnet_list
+      group by
+        vpc_id
+    )
+    select
+      arn as resource,
+      case
+        when l.num > 1  then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.num > 1  then v.title  || ' subnets exist in ' || num || ' availability zones.'
+        else v.title || ' subnet does not exist in more than one availability zone.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v
+      left join zone_list as l on l.vpc_id = v.vpc_id;
+  EOQ
+}
+
+query "vpc_peering_route_table_least_access" {
+  sql = <<-EOQ
+    with peering_connection_with_extended_access as (
+      select
+        distinct vpc_peering_connection_id
+      from
+        aws_vpc_peering_connection as p
+        left join aws_vpc_route as r on p.id = r.vpc_peering_connection_id
+      where
+        p.requester_cidr_block = r.destination_cidr_block
+        or p.accepter_cidr_block = r.destination_cidr_block
+        or r.destination_cidr_block = '0.0.0.0/0'
+    )
+    select
+      p.id as resource,
+      case
+        when a.vpc_peering_connection_id is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when a.vpc_peering_connection_id is not null then p.title || ' routing tables does not have least access.'
+        else p.title || ' routing tables have least access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection as p
+      left join peering_connection_with_extended_access as a on p.id = a.vpc_peering_connection_id;
   EOQ
 }
