@@ -1628,7 +1628,7 @@ query "vpc_in_more_than_one_region" {
         else 'alarm'
       end as status,
       case
-        when (select count(*) from vpc_region_list) > 1  then 'VPC exist in ' || (select count(*) from vpc_region_list) || ' regions.'
+        when (select count(*) from vpc_region_list) > 1  then 'VPCs exist in ' || (select count(*) from vpc_region_list) || ' regions.'
         else 'VPC  does not exist in more than one region.'
       end as reason
       ${local.common_dimensions_sql}
