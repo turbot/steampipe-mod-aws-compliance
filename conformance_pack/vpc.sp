@@ -393,16 +393,6 @@ control "vpc_subnet_multi_az_enabled" {
   })
 }
 
-control "vpc_peering_route_table_least_access" {
-  title       = "VPC peering route table should have least access"
-  description = "Implementing a highly selective approach in peering routing tables is an effective strategy for minimizing the impact of a breach. By restricting the routes to only essential resources, any resources outside of these routes become inaccessible to the peered VPC, enhancing security measures."
-  query       = query.vpc_peering_route_table_least_access
-
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
-}
-
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1614,26 +1604,33 @@ query "vpc_in_more_than_one_region" {
   sql = <<-EOQ
     with vpc_region_list as (
       select
-        region,
-        count(*)
+        distinct region, account_id
       from
         aws_vpc
-      group by
-        region, account_id
+    ), vpc_count_in_account as (
+        select
+        count(*) as num,
+        account_id
+      from
+        vpc_region_list
+        group by account_id
     )
     select
       arn as resource,
       case
-        when (select count(*) from vpc_region_list) > 1  then 'ok'
+        when v.num > 1 then 'ok'
+        when v.num = 1 then 'alarm'
         else 'alarm'
       end as status,
       case
-        when (select count(*) from vpc_region_list) > 1  then 'VPCs exist in ' || (select count(*) from vpc_region_list) || ' regions.'
-        else 'VPC  does not exist in more than one region.'
+        when v.num > 1 then 'VPCs exist in ' || v.num || ' regions.'
+        when v.num = 1 then 'VPCs exist only in one region.'
+        else 'VPC does not exist.'
       end as reason
       ${local.common_dimensions_sql}
     from
-      aws_account;
+      aws_account as a
+      left join vpc_count_in_account as v on v.account_id = a.account_id
   EOQ
 }
 
@@ -1674,36 +1671,5 @@ query "vpc_subnet_multi_az_enabled" {
     from
       aws_vpc as v
       left join zone_list as l on l.vpc_id = v.vpc_id;
-  EOQ
-}
-
-query "vpc_peering_route_table_least_access" {
-  sql = <<-EOQ
-    with peering_connection_with_extended_access as (
-      select
-        distinct vpc_peering_connection_id
-      from
-        aws_vpc_peering_connection as p
-        left join aws_vpc_route as r on p.id = r.vpc_peering_connection_id
-      where
-        p.requester_cidr_block = r.destination_cidr_block
-        or p.accepter_cidr_block = r.destination_cidr_block
-        or r.destination_cidr_block = '0.0.0.0/0'
-    )
-    select
-      p.id as resource,
-      case
-        when a.vpc_peering_connection_id is not null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when a.vpc_peering_connection_id is not null then p.title || ' routing tables does not have least access.'
-        else p.title || ' routing tables have least access.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_vpc_peering_connection as p
-      left join peering_connection_with_extended_access as a on p.id = a.vpc_peering_connection_id;
   EOQ
 }

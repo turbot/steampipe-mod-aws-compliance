@@ -69,7 +69,6 @@ benchmark "other" {
     control.vpc_in_more_than_one_region,
     control.guardduty_centrally_configured,
     control.iam_securityaudit_role,
-    control.vpc_peering_route_table_least_access,
     control.lambda_function_restrict_public_url,
     control.es_domain_cognito_authentication_enabled,
     control.es_domain_internal_user_database_enabled,
