@@ -1660,12 +1660,14 @@ query "vpc_subnet_multi_az_enabled" {
     select
       arn as resource,
       case
-        when l.num > 1  then 'ok'
+        when l.num is null then 'alarm'
+        when l.num > 1 then 'ok'
         else 'alarm'
       end as status,
       case
-        when l.num > 1  then v.title  || ' subnets exist in ' || num || ' availability zones.'
-        else v.title || ' subnet does not exist in more than one availability zone.'
+        when l.num is null then v.title || ' no subnet exists.'
+        when l.num > 1 then v.title || ' subnets exist in ' || num || ' availability zones.'
+        else v.title || ' subnet exist in only one availability zone.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

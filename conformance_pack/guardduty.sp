@@ -61,7 +61,7 @@ control "guardduty_no_high_severity_findings" {
 }
 
 control "guardduty_centrally_configured" {
-  title       = "GuardDuty Detector should should be centrally configured"
+  title       = "GuardDuty Detector should be centrally configured"
   description = "Ensure that GuardDuty is centrally configured, if GuardDuty is not under central management, it becomes impossible to centrally manage GuardDuty findings, settings, and member accounts."
   query       = query.guardduty_centrally_configured
 
