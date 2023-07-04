@@ -592,6 +592,16 @@ control "iam_securityaudit_role" {
   })
 }
 
+control "iam_policy_custom_no_permissive_role_assumption" {
+  title       = "IAM custom policy should not have overly permissive STS role assumption"
+  description = "Ensure that no custom IAM policies exist which allow permissive role assumption."
+  query       = query.iam_policy_custom_no_permissive_role_assumption
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -2020,3 +2030,44 @@ query "iam_securityaudit_role" {
   EOQ
 }
 
+query "iam_policy_custom_no_permissive_role_assumption" {
+  sql = <<-EOQ
+    with bad_policies as (
+      select
+        arn,
+        count(*) as num
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        not is_aws_managed
+        and s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          ( action = '*'
+            or action = 'sts:*'
+            or action = 'sts:AssumeRole'
+          )
+        )
+      group by
+        arn
+    )
+    select
+      p.arn as resource,
+      case
+        when b.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      p.name || ' contains ' || coalesce(b.num, 0)  ||
+          ' statements that allow overly permissive STS role assumption.' as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join bad_policies as b on p.arn = b.arn
+      where
+        not is_aws_managed;
+  EOQ
+}
