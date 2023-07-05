@@ -133,6 +133,7 @@ benchmark "other" {
     control.vpc_security_group_restrict_ingress_redis_port,
     control.vpc_security_group_restricted_common_ports,
     control.vpc_subnet_multi_az_enabled,
+    control.vpc_subnet_public_and_private,
     control.workspaces_workspace_volume_encryption_enabled
   ]
 

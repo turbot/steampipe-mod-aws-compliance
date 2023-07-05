@@ -393,6 +393,16 @@ control "vpc_subnet_multi_az_enabled" {
   })
 }
 
+control "vpc_subnet_public_and_private" {
+  title       = "VPCs both public and private subnets should be configured"
+  description = "Ensure that all VPCs have both public and private subnets configured."
+  query       = query.vpc_subnet_public_and_private
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1673,3 +1683,79 @@ query "vpc_subnet_multi_az_enabled" {
       left join zone_list as l on l.vpc_id = v.vpc_id;
   EOQ
 }
+
+query "vpc_subnet_public_and_private" {
+  sql = <<-EOQ
+    with subnets_with_explicit_route as (
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as (
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+    select
+      subnet_id,
+      vpc_id,
+      case
+        when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+        when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+        else 'private'
+      end as access
+    from
+    aws_vpc_subnet as s
+    left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    )
+    select
+      arn as resource,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then 'alarm'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'ok'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        end as status,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then v.title || ' has no subnet.'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having both private and public subnet(s).'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only public subnet(s).'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only private subnet(s).'
+        end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v;
+  EOQ
+}
+
