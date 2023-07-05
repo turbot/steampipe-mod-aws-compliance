@@ -583,7 +583,7 @@ control "iam_role_cross_account_readonlyaccess_policy" {
 }
 
 control "iam_securityaudit_role" {
-  title       = "IAM Security Audit role shoulb be created to conduct security audits"
+  title       = "IAM Security Audit role should be created to conduct security audits"
   description = "Ensure IAM Security Audit role is created. By creating an IAM role with a security audit policy, a distinct segregation of responsibilities is established between the security team and other teams within the organization."
   query       = query.iam_securityaudit_role
 
@@ -2023,7 +2023,7 @@ query "iam_securityaudit_role" {
         when count = 1 then 'SecurityAudit policy attached to 1 role.'
         when count > 1 then 'SecurityAudit policy attached to ' || count || ' roles.'
         else 'SecurityAudit policy not attached to any role.'
-      end  as reason
+      end as reason
       ${local.common_dimensions_global_sql}
     from
       securityaudit_role_count;
@@ -2060,7 +2060,7 @@ query "iam_policy_custom_no_permissive_role_assumption" {
         when b.arn is not null then 'alarm'
         else 'ok'
       end as status,
-      p.name || ' contains ' || coalesce(b.num, 0)  ||
+      p.name || ' contains ' || coalesce(b.num, 0) ||
           ' statements that allow overly permissive STS role assumption.' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}

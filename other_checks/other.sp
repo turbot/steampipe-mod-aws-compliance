@@ -50,7 +50,7 @@ benchmark "other" {
     control.efs_file_system_enforces_ssl,
     control.efs_file_system_restrict_public_access,
     control.eks_cluster_control_plane_audit_logging_enabled,
-    control.eks_cluster_endpoint_public_access_restircted,
+    control.eks_cluster_endpoint_public_access_restricted,
     control.eks_cluster_no_default_vpc,
     control.elb_application_classic_network_lb_prohibit_public_access,
     control.elb_application_lb_listener_certificate_expire_30_days,

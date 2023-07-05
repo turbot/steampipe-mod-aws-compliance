@@ -62,10 +62,10 @@ control "eks_cluster_with_latest_kubernetes_version" {
   })
 }
 
-control "eks_cluster_endpoint_public_access_restircted" {
-  title       = "EKS clusters endpoint public access should be restircted"
+control "eks_cluster_endpoint_public_access_restricted" {
+  title       = "EKS clusters endpoint public access should be restricted"
   description = "EKS clusters endpoint with private access allows communication between your nodes and the API server stays within. This control is non-compliant if clusters endpoint public access is enabled as cluster API server is accessible from the internet."
-  query       = query.eks_cluster_endpoint_public_access_restircted
+  query       = query.eks_cluster_endpoint_public_access_restricted
 
   tags = merge(local.conformance_pack_eks_common_tags, {
     other_checks = "true"
@@ -205,7 +205,7 @@ query "eks_cluster_with_latest_kubernetes_version" {
   EOQ
 }
 
-query "eks_cluster_endpoint_public_access_restircted" {
+query "eks_cluster_endpoint_public_access_restricted" {
   sql = <<-EOQ
     select
       arn as resource,

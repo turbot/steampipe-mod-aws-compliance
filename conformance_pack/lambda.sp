@@ -129,7 +129,7 @@ control "lambda_function_use_latest_runtime" {
 
 control "lambda_function_restrict_public_url" {
   title       = "Lambda functions should restrict public URL"
-  description = "This control checks that the Lambda function does not have any public URL. Exposing services publicly could potentially make sensitive data accessible to malicious actors."
+  description = "This control verifies that the Lambda function does not have a publicly accessible URL. Exposing services publicly could potentially make sensitive data accessible to malicious actors."
   query       = query.lambda_function_restrict_public_url
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -139,7 +139,7 @@ control "lambda_function_restrict_public_url" {
 
 control "lambda_function_variables_no_sensitive_data" {
   title       = "Lambda functions variable should not have any sensitive data"
-  description = "Ensure functions env variable is not having any sensitive data. Leveraging Secrets Manager enables secure provisioning of database credentials to Lambda functions while also ensuring the security of databases. This approach eliminates the need to hardcode secrets in code or pass them through environmental variables. Additionally, Secrets Manager facilitates the secure retrieval of credentials for establishing connections to databases and performing queries, enhancing overall security measures."
+  description = "Ensure functions environment variables is not having any sensitive data. Leveraging Secrets Manager enables secure provisioning of database credentials to Lambda functions while also ensuring the security of databases. This approach eliminates the need to hardcode secrets in code or pass them through environmental variables. Additionally, Secrets Manager facilitates the secure retrieval of credentials for establishing connections to databases and performing queries, enhancing overall security measures."
   query       = query.lambda_function_variables_no_sensitive_data
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
