@@ -40,7 +40,7 @@ control "cis_v200_4_1" {
 
   tags = merge(local.cis_v200_4_common_tags, {
     cis_item_id = "4.1"
-    cis_level   = "1"
+    cis_level   = "2"
     cis_type    = "manual"
     service     = "AWS/CloudWatch"
   })
@@ -61,7 +61,7 @@ control "cis_v200_4_2" {
 }
 
 control "cis_v200_4_3" {
-  title         = "4.3 Ensure usage of 'root' account is monitored (Manual)"
+  title         = "4.3 Ensure usage of 'root' account is monitored"
   description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
   query         = query.log_metric_filter_root_login
   documentation = file("./cis_v200/docs/cis_v200_4_3.md")
@@ -76,7 +76,7 @@ control "cis_v200_4_3" {
 
 control "cis_v200_4_4" {
   title         = "4.4 Ensure IAM policy changes are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established changes made to Identity and Access Management (IAM) policies."
   query         = query.log_metric_filter_iam_policy
   documentation = file("./cis_v200/docs/cis_v200_4_4.md")
 
@@ -90,7 +90,7 @@ control "cis_v200_4_4" {
 
 control "cis_v200_4_5" {
   title         = "4.5 Ensure CloudTrail configuration changes are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, where metric filters and alarms can be established."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, where metric filters and alarms can be established. It is recommended that a metric filter and alarm be established changes made to Identity and Access Management (IAM) policies."
   query         = query.log_metric_filter_cloudtrail_configuration
   documentation = file("./cis_v200/docs/cis_v200_4_5.md")
 
@@ -104,7 +104,7 @@ control "cis_v200_4_5" {
 
 control "cis_v200_4_6" {
   title         = "4.6 Ensure AWS Management Console authentication failures are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for failed console authentication attempts."
   query         = query.log_metric_filter_console_authentication_failure
   documentation = file("./cis_v200/docs/cis_v200_4_6.md")
 
@@ -118,7 +118,7 @@ control "cis_v200_4_6" {
 
 control "cis_v200_4_7" {
   title         = "4.7 Ensure disabling or scheduled deletion of customer created CMKs is monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for customer created CMKs which have changed state to disabled or scheduled deletion."
   query         = query.log_metric_filter_disable_or_delete_cmk
   documentation = file("./cis_v200/docs/cis_v200_4_7.md")
 
@@ -132,7 +132,7 @@ control "cis_v200_4_7" {
 
 control "cis_v200_4_8" {
   title         = "4.8 Ensure S3 bucket policy changes are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for changes to S3 bucket policies."
   query         = query.log_metric_filter_bucket_policy
   documentation = file("./cis_v200/docs/cis_v200_4_8.md")
 
@@ -146,7 +146,7 @@ control "cis_v200_4_8" {
 
 control "cis_v200_4_9" {
   title         = "4.9 Ensure AWS Config configuration changes are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for detecting changes to AWS Config's configurations."
   query         = query.log_metric_filter_config_configuration
   documentation = file("./cis_v200/docs/cis_v200_4_9.md")
 
