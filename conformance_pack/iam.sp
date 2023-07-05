@@ -1984,7 +1984,7 @@ query "iam_role_cross_account_readonlyaccess_policy" {
       case
         when ar.arn is null then r.title || ' not associated with ReadOnlyAccess policy.'
         when c.arn is not null then r.title || ' associated with ReadOnlyAccess cross account access.'
-        else r.title || ' associated ReadOnlyAccess without cross account access.''
+        else r.title || ' associated ReadOnlyAccess without cross account access.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from

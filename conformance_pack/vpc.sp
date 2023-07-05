@@ -1627,7 +1627,7 @@ query "vpc_in_more_than_one_region" {
         when v.num = 1 then 'VPCs exist only in one region.'
         else 'VPC does not exist.'
       end as reason
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
       left join vpc_count_in_account as v on v.account_id = a.account_id

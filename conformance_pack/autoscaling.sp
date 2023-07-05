@@ -278,7 +278,6 @@ query "autoscaling_ec2_launch_configuration_no_sensitive_data" {
           or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then title || ' has potential secret patterns in user data.'
         else title || ' does not contain secret patterns in user data.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ec2_launch_configuration;
