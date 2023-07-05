@@ -390,9 +390,9 @@ query "lambda_function_restrict_public_url" {
         else 'alarm'
       end as status,
       case
-        when url_config is null then title || ' does not has a URL config.'
-        when url_config ->> 'AuthType' = 'AWS_IAM' then title || ' restric public function URL.'
-        else title || ' have public function URL.'
+        when url_config is null then title || ' having no URL config.'
+        when url_config ->> 'AuthType' = 'AWS_IAM' then title || ' restricts public function URL.'
+        else title || ' public function URL configured.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
