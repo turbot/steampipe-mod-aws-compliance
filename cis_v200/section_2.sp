@@ -72,8 +72,8 @@ control "cis_v200_2_1_2" {
 
   tags = merge(local.cis_v200_2_1_common_tags, {
     cis_item_id = "2.1.2"
-    cis_level   = "1"
-    cis_type    = "automated"
+    cis_level   = "2"
+    cis_type    = "manual"
     service     = "AWS/S3"
   })
 }

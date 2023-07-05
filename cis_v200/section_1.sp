@@ -28,7 +28,8 @@ benchmark "cis_v200_1" {
     control.cis_v200_1_18,
     control.cis_v200_1_19,
     control.cis_v200_1_20,
-    control.cis_v200_1_21
+    control.cis_v200_1_21,
+    control.cis_v200_1_22
   ]
 
   tags = merge(local.cis_v200_1_common_tags, {
@@ -80,7 +81,7 @@ control "cis_v200_1_3" {
 
 control "cis_v200_1_4" {
   title         = "1.4 Ensure no 'root' user account access key exists"
-  description   = "The 'root' user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the 'root' user account be removed."
+  description   = "The 'root' user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the 'root' user account be deleted."
   query         = query.iam_root_user_no_access_keys
   documentation = file("./cis_v200/docs/cis_v200_1_4.md")
 
@@ -115,7 +116,7 @@ control "cis_v200_1_6" {
   tags = merge(local.cis_v200_1_common_tags, {
     cis_item_id = "1.6"
     cis_level   = "2"
-    cis_type    = "automated"
+    cis_type    = "manual"
     service     = "AWS/IAM"
   })
 }
@@ -129,7 +130,7 @@ control "cis_v200_1_7" {
   tags = merge(local.cis_v200_1_common_tags, {
     cis_item_id = "1.7"
     cis_level   = "1"
-    cis_type    = "automated"
+    cis_type    = "manual"
     service     = "AWS/IAM"
   })
 }
@@ -185,7 +186,7 @@ control "cis_v200_1_11" {
   tags = merge(local.cis_v200_1_common_tags, {
     cis_item_id = "1.11"
     cis_level   = "1"
-    cis_type    = "automated"
+    cis_type    = "manual"
     service     = "AWS/IAM"
   })
 }
@@ -283,7 +284,7 @@ control "cis_v200_1_18" {
   tags = merge(local.cis_v200_1_common_tags, {
     cis_item_id = "1.18"
     cis_level   = "2"
-    cis_type    = "manual"
+    cis_type    = "automated"
     service     = "AWS/IAM"
   })
 }
@@ -338,7 +339,7 @@ control "cis_v200_1_22" {
 
   tags = merge(local.cis_v200_1_common_tags, {
     cis_item_id = "1.22"
-    cis_level   = "2"
+    cis_level   = "1"
     cis_type    = "manual"
     service     = "AWS/IAM"
   })
