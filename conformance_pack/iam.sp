@@ -1919,3 +1919,49 @@ query "iam_role_unused_60" {
       aws_iam_role;
   EOQ
 }
+
+query "aws_iam_user_group_role_cloudshell_fullaccess_restricted" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then 'alarm'
+        else 'ok'
+      end status,
+      case  
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then  'User ' || title || ' has access to AWSCloudShellFullAccess.'
+        else 'User ' || title || ' access to AWSCloudShellFullAccess is restricted.' 
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_user
+    union
+    select
+      arn as resource,
+      case
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then 'alarm'
+        else 'ok'
+      end status,
+      case  
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then  'Role ' || title || ' has access to AWSCloudShellFullAccess.'
+        else 'Role ' || title || ' access to AWSCloudShellFullAccess is restricted.' 
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_role
+    union
+    select
+      arn as resource,
+      case
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when attached_policy_arns @> '["arn:aws:iam::aws:policy/AWSCloudShellFullAccess"]' then  'Group ' || title || ' has access to AWSCloudShellFullAccess.'
+        else 'Group ' || title || ' access to AWSCloudShellFullAccess is restricted.' 
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_group;
+  EOQ
+}
