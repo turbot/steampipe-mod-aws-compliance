@@ -523,9 +523,9 @@ control "iam_policy_unused" {
 }
 
 control "iam_access_analyzer_enabled_without_findings" {
-  title         = "IAM Access analyzer should be enabled without findings"
-  description   = "This control checks whether the IAM Access analyzer is enabled without findings. If you grant permissions to an S3 bucket in one of your organization member accounts to a principal in another organization member account, IAM Access Analyzer does not generate a finding. But if you grant permission to a principal in an account that is not a member of the organization, IAM Access Analyzer generates a finding."
-  query         = query.iam_access_analyzer_enabled_without_findings
+  title       = "IAM Access analyzer should be enabled without findings"
+  description = "This control checks whether the IAM Access analyzer is enabled without findings. If you grant permissions to an S3 bucket in one of your organization member accounts to a principal in another organization member account, IAM Access Analyzer does not generate a finding. But if you grant permission to a principal in an account that is not a member of the organization, IAM Access Analyzer generates a finding."
+  query       = query.iam_access_analyzer_enabled_without_findings
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     other_checks = "true"
@@ -566,6 +566,36 @@ control "iam_policy_no_full_access_to_kms" {
   title       = "IAM policy should not grant full access to KMS service"
   description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to KMS service."
   query       = query.iam_policy_no_full_access_to_cloudtrail
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_role_cross_account_read_only_access_policy" {
+  title       = "IAM roles should not have read only access for external AWS accounts"
+  description = "Ensure IAM Roles do not have ReadOnlyAccess access for external AWS account. The AWS-managed ReadOnlyAccess policy carries a high risk of potential data leakage, posing a significant threat to customer security and privacy."
+  query       = query.iam_role_cross_account_read_only_access_policy
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_security_audit_role" {
+  title       = "IAM Security Audit role should be created to conduct security audits"
+  description = "Ensure IAM Security Audit role is created. By creating an IAM role with a security audit policy, a distinct segregation of responsibilities is established between the security team and other teams within the organization."
+  query       = query.iam_security_audit_role
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "iam_policy_custom_no_permissive_role_assumption" {
+  title       = "IAM custom policy should not have overly permissive STS role assumption"
+  description = "Ensure that no custom IAM policies exist which allow permissive role assumption."
+  query       = query.iam_policy_custom_no_permissive_role_assumption
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     other_checks = "true"
@@ -1917,5 +1947,127 @@ query "iam_role_unused_60" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_role;
+  EOQ
+}
+
+query "iam_role_cross_account_read_only_access_policy" {
+  sql = <<-EOQ
+    with read_only_access_roles as (
+      select
+        *
+      from
+        aws_iam_role,
+        jsonb_array_elements_text(attached_policy_arns) as a
+      where
+        a = 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+    ), read_only_access_roles_with_cross_account_access as (
+      select
+        arn
+      from
+        read_only_access_roles,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as stmt,
+        jsonb_array_elements_text( stmt -> 'Principal' -> 'AWS' ) as p
+      where
+        stmt ->> 'Effect' = 'Allow'
+        and (
+          p = '*'
+          or not (p like '%' || account_id || '%')
+        )
+    )
+    select
+      r.arn as resource,
+      case
+        when ar.arn is null then 'skip'
+        when c.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ar.arn is null then r.title || ' not associated with ReadOnlyAccess policy.'
+        when c.arn is not null then r.title || ' associated with ReadOnlyAccess cross account access.'
+        else r.title || ' associated ReadOnlyAccess without cross account access.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_iam_role as r
+      left join read_only_access_roles as ar on r.arn = ar.arn
+      left join read_only_access_roles_with_cross_account_access as c on c.arn = r.arn;
+  EOQ
+}
+
+query "iam_security_audit_role" {
+  sql = <<-EOQ
+    with security_audit_role_count as(
+      select
+        'arn:' || a.partition || ':::' || a.account_id as resource,
+        count(policy_arn),
+        a.account_id,
+        a._ctx
+      from
+        aws_account as a
+        left join aws_iam_role as r on r.account_id = a.account_id
+        left join jsonb_array_elements_text(attached_policy_arns) as policy_arn on true
+      where
+        policy_arn = 'arn:aws:iam::aws:policy/SecurityAudit'
+      group by
+        a.account_id,
+        a.partition,
+        a._ctx
+    )
+    select
+      resource,
+      case
+        when count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when count = 1 then 'SecurityAudit policy attached to 1 role.'
+        when count > 1 then 'SecurityAudit policy attached to ' || count || ' roles.'
+        else 'SecurityAudit policy not attached to any role.'
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      security_audit_role_count;
+  EOQ
+}
+
+query "iam_policy_custom_no_permissive_role_assumption" {
+  sql = <<-EOQ
+    with bad_policies as (
+      select
+        arn,
+        count(*) as num
+      from
+        aws_iam_policy,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        not is_aws_managed
+        and s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          ( action = '*'
+            or action = 'sts:*'
+            or action = 'sts:AssumeRole'
+          )
+        )
+      group by
+        arn
+    )
+    select
+      p.arn as resource,
+      case
+        when b.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      p.name || ' contains ' || coalesce(b.num, 0) ||
+          ' statements that allow overly permissive STS role assumption.' as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_iam_policy as p
+      left join bad_policies as b on p.arn = b.arn
+    where
+        not is_aws_managed;
   EOQ
 }

@@ -96,6 +96,16 @@ control "autoscaling_launch_config_hop_limit" {
   })
 }
 
+control "autoscaling_ec2_launch_configuration_no_sensitive_data" {
+  title       = "EC2 auto scaling group launch configurations user data should not have any sensitive data"
+  description = "Ensure that sensitive information is not included in the user data of the launch configuration. It is recommended to utilize Secrets Manager as an alternative for securely managing sensitive data."
+  query       = query.autoscaling_ec2_launch_configuration_no_sensitive_data
+
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "autoscaling_launch_config_requires_imdsv2" {
   sql = <<-EOQ
     select
@@ -251,6 +261,29 @@ query "autoscaling_launch_config_hop_limit" {
       aws_ec2_launch_configuration;
   EOQ
 }
+
+query "autoscaling_ec2_launch_configuration_no_sensitive_data" {
+  sql = <<-EOQ
+    select
+      launch_configuration_arn as resource,
+      case
+        when
+          user_data like any (array [ '%pass%', '%secret%', '%token%', '%key%' ])
+          or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when
+          user_data like any (array [ '%pass%', '%secret%', '%token%', '%key%' ])
+          or user_data ~ '(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]' then title || ' has potential secret patterns in user data.'
+        else title || ' does not contain secret patterns in user data.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_configuration;
+  EOQ
+}
+
 
 # Non-Config rule query
 
