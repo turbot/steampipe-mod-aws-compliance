@@ -62,6 +62,16 @@ control "eks_cluster_with_latest_kubernetes_version" {
   })
 }
 
+control "eks_cluster_endpoint_public_access_restricted" {
+  title       = "EKS clusters endpoint public access should be restricted"
+  description = "EKS clusters endpoint with private access allows communication between your nodes and the API server stays within. This control is non-compliant if clusters endpoint public access is enabled as cluster API server is accessible from the internet."
+  query       = query.eks_cluster_endpoint_public_access_restricted
+
+  tags = merge(local.conformance_pack_eks_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "eks_cluster_secrets_encrypted" {
   sql = <<-EOQ
     with eks_secrets_encrypted as (
@@ -187,6 +197,27 @@ query "eks_cluster_with_latest_kubernetes_version" {
       case
         when (version)::decimal >= 1.19 then title || ' runs on a supported kubernetes version.'
         else title || ' does not run on a supported kubernetes version.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}
+
+query "eks_cluster_endpoint_public_access_restricted" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when resources_vpc_config ->> 'EndpointPrivateAccess' = 'true' and resources_vpc_config ->> 'EndpointPublicAccess' = 'false' then 'ok'
+        when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' and resources_vpc_config -> 'PublicAccessCidrs' @> '["0.0.0.0/0"]' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when resources_vpc_config ->> 'EndpointPrivateAccess' = 'true' and resources_vpc_config ->> 'EndpointPublicAccess' = 'false' then title || ' endpoint access is private.'
+        when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' and resources_vpc_config -> 'PublicAccessCidrs' @> '["0.0.0.0/0"]' then title || ' endpoint access is public.'
+        else title || ' endpoint public access is restricted.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
