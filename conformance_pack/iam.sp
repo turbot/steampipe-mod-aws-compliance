@@ -572,20 +572,20 @@ control "iam_policy_no_full_access_to_kms" {
   })
 }
 
-control "iam_role_cross_account_readonlyaccess_policy" {
+control "iam_role_cross_account_read_only_access_policy" {
   title       = "IAM roles should not have read only access for external AWS accounts"
   description = "Ensure IAM Roles do not have ReadOnlyAccess access for external AWS account. The AWS-managed ReadOnlyAccess policy carries a high risk of potential data leakage, posing a significant threat to customer security and privacy."
-  query       = query.iam_role_cross_account_readonlyaccess_policy
+  query       = query.iam_role_cross_account_read_only_access_policy
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     other_checks = "true"
   })
 }
 
-control "iam_securityaudit_role" {
+control "iam_security_audit_role" {
   title       = "IAM Security Audit role should be created to conduct security audits"
   description = "Ensure IAM Security Audit role is created. By creating an IAM role with a security audit policy, a distinct segregation of responsibilities is established between the security team and other teams within the organization."
-  query       = query.iam_securityaudit_role
+  query       = query.iam_security_audit_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     other_checks = "true"
@@ -1950,7 +1950,7 @@ query "iam_role_unused_60" {
   EOQ
 }
 
-query "iam_role_cross_account_readonlyaccess_policy" {
+query "iam_role_cross_account_read_only_access_policy" {
   sql = <<-EOQ
     with read_only_access_roles as (
       select
@@ -1994,9 +1994,9 @@ query "iam_role_cross_account_readonlyaccess_policy" {
   EOQ
 }
 
-query "iam_securityaudit_role" {
+query "iam_security_audit_role" {
   sql = <<-EOQ
-    with securityaudit_role_count as(
+    with security_audit_role_count as(
       select
         'arn:' || a.partition || ':::' || a.account_id as resource,
         count(policy_arn),
@@ -2026,7 +2026,7 @@ query "iam_securityaudit_role" {
       end as reason
       ${local.common_dimensions_global_sql}
     from
-      securityaudit_role_count;
+      security_audit_role_count;
   EOQ
 }
 
@@ -2067,7 +2067,7 @@ query "iam_policy_custom_no_permissive_role_assumption" {
     from
       aws_iam_policy as p
       left join bad_policies as b on p.arn = b.arn
-      where
+    where
         not is_aws_managed;
   EOQ
 }

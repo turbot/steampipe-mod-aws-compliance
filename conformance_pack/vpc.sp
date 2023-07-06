@@ -394,7 +394,7 @@ control "vpc_subnet_multi_az_enabled" {
 }
 
 control "vpc_subnet_public_and_private" {
-  title       = "VPCs both public and private subnets should be configured"
+  title       = "VPCs should have both public and private subnets configured"
   description = "Ensure that all VPCs have both public and private subnets configured."
   query       = query.vpc_subnet_public_and_private
 
@@ -1640,7 +1640,7 @@ query "vpc_in_more_than_one_region" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
-      left join vpc_count_in_account as v on v.account_id = a.account_id
+      left join vpc_count_in_account as v on v.account_id = a.account_id;
   EOQ
 }
 
