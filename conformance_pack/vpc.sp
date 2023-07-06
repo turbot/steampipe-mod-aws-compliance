@@ -373,6 +373,36 @@ control "vpc_security_group_allows_ingress_to_oracle_ports" {
   })
 }
 
+control "vpc_in_more_than_one_region" {
+  title       = "VPCs should exist in multiple regions"
+  description = "This control checks whether there are VPCs present in multiple regions."
+  query       = query.vpc_in_more_than_one_region
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_subnet_multi_az_enabled" {
+  title       = "VPCs subnets should exist in multiple availability zones"
+  description = "Ensure that each VPC has subnets spread across multiple availability zones."
+  query       = query.vpc_subnet_multi_az_enabled
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
+control "vpc_subnet_public_and_private" {
+  title       = "VPCs should have both public and private subnets configured"
+  description = "Ensure that all VPCs have both public and private subnets configured."
+  query       = query.vpc_subnet_public_and_private
+
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1579,3 +1609,153 @@ query "vpc_security_group_allows_ingress_authorized_ports" {
       left join ingress_unauthorized_ports on ingress_unauthorized_ports.group_id = sg.group_id;
   EOQ
 }
+
+query "vpc_in_more_than_one_region" {
+  sql = <<-EOQ
+    with vpc_region_list as (
+      select
+        distinct region, account_id
+      from
+        aws_vpc
+    ), vpc_count_in_account as (
+        select
+        count(*) as num,
+        account_id
+      from
+        vpc_region_list
+        group by account_id
+    )
+    select
+      arn as resource,
+      case
+        when v.num > 1 then 'ok'
+        when v.num = 1 then 'alarm'
+        else 'alarm'
+      end as status,
+      case
+        when v.num > 1 then 'VPCs exist in ' || v.num || ' regions.'
+        when v.num = 1 then 'VPCs exist only in one region.'
+        else 'VPC does not exist.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join vpc_count_in_account as v on v.account_id = a.account_id;
+  EOQ
+}
+
+query "vpc_subnet_multi_az_enabled" {
+  sql = <<-EOQ
+    with subnet_list as (
+      select
+        distinct availability_zone,
+        vpc_id,
+        count(*)
+      from
+        aws_vpc_subnet
+      group by
+        vpc_id, availability_zone
+    ), zone_list as (
+      select
+        vpc_id,
+        count(*) as num
+      from
+        subnet_list
+      group by
+        vpc_id
+    )
+    select
+      arn as resource,
+      case
+        when l.num is null then 'alarm'
+        when l.num > 1 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.num is null then v.title || ' no subnet exists.'
+        when l.num > 1 then v.title || ' subnets exist in ' || num || ' availability zones.'
+        else v.title || ' subnet(s) exist in single availability zone.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v
+      left join zone_list as l on l.vpc_id = v.vpc_id;
+  EOQ
+}
+
+query "vpc_subnet_public_and_private" {
+  sql = <<-EOQ
+    with subnets_with_explicit_route as (
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as (
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+    select
+      subnet_id,
+      vpc_id,
+      case
+        when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+        when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+        else 'private'
+      end as access
+    from
+    aws_vpc_subnet as s
+    left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    )
+    select
+      arn as resource,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then 'alarm'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'ok'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        end as status,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then v.title || ' has no subnet.'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having both private and public subnet(s).'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only public subnet(s).'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only private subnet(s).'
+        end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v;
+  EOQ
+}
+
