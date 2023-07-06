@@ -252,6 +252,7 @@ benchmark "nist_800_171_rev_2_3_13_15" {
   children = [
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
+    control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners
   ]
 
