@@ -1,3 +1,26 @@
+## v0.74 [2023-07-06]
+
+_What's new?_
+
+- Added CIS v2.0.0 benchmark (`steampipe check benchmark.cis_v200`). ([#683](https://github.com/turbot/steampipe-mod-aws-compliance/pull/683))
+
+_Enhancements_
+
+- Added the following controls to `Other Compliance Checks` benchmark: ([#678](https://github.com/turbot/steampipe-mod-aws-compliance/pull/678))
+  - `autoscaling_ec2_launch_configuration_no_sensitive_data`
+  - `eks_cluster_endpoint_public_access_restircted`
+  - `guardduty_centrally_configured`
+  - `iam_policy_custom_no_permissive_role_assumption`
+  - `iam_role_cross_account_read_only_access_policy`
+  - `iam_security_audit_role`
+  - `lambda_function_restrict_public_url`
+  - `lambda_function_variables_no_sensitive_data`
+  - `rds_db_instance_connections_encryption_enabled`
+  - `vpc_in_more_than_one_region`
+  - `vpc_subnet_multi_az_enabled`
+  - `vpc_subnet_public_and_private`
+  - `workspaces_workspace_volume_encryption_enabled`
+
 ## v0.73 [2023-06-29]
 
 _Enhancements_
