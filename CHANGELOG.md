@@ -2,7 +2,7 @@
 
 _Bug fixes_
 
-- Fixed the formatting in CIS v2.0.0 benchmark documents which would cause the control page to not render correctly on the hub. ([#687](https://github.com/turbot/steampipe-mod-aws-compliance/pull/687))
+- Fixed the formatting in CIS v2.0.0 benchmark documents which would cause several control pages to not render correctly on the hub. ([#687](https://github.com/turbot/steampipe-mod-aws-compliance/pull/687))
 
 ## v0.74 [2023-07-06]
 
