@@ -250,10 +250,11 @@ benchmark "nist_800_171_rev_2_3_13_15" {
   title       = "3.13.15 Protect the authenticity of communications sessions"
   description = "Authenticity protection includes protecting against man-in-the-middle attacks, session hijacking, and the insertion of false information into communications sessions. This requirement addresses communications protection at the session versus packet level (e.g., sessions in service-oriented architectures providing web-based services) and establishes grounds for confidence at both ends of communications sessions in ongoing identities of other parties and in the validity of information transmitted."
   children = [
+    control.elb_application_network_lb_use_ssl_certificate,
+    control.elb_classic_lb_use_tls_https_listeners,
     control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_redirect_http_request_to_https,
-    control.elb_application_network_lb_use_ssl_certificate,
-    control.elb_classic_lb_use_tls_https_listeners
+    control.elb_classic_lb_use_ssl_certificate
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
