@@ -245,6 +245,7 @@ control "rds_db_instance_iam_authentication_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -257,7 +258,6 @@ control "rds_db_cluster_iam_authentication_enabled" {
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_800_171_rev_2 = "true"
     nist_csf           = "true"
-    pci_dss_v321       = "true"
   })
 }
 

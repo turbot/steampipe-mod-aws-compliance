@@ -466,7 +466,7 @@ benchmark "pci_dss_v321_requirement_8_7_a" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled
+    control.rds_db_instance_iam_authentication_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -479,7 +479,7 @@ benchmark "pci_dss_v321_requirement_8_7_b" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled
+    control.rds_db_instance_iam_authentication_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -492,7 +492,7 @@ benchmark "pci_dss_v321_requirement_8_7_c" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled
+    control.rds_db_instance_iam_authentication_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
@@ -505,7 +505,7 @@ benchmark "pci_dss_v321_requirement_8_7_d" {
   description = "Without user authentication for access to databases and applications, the potential for unauthorized or malicious access increases, and such access cannot be logged since the user has not been authenticated and is therefore not known to the system. Also, database access should be granted through programmatic methods only (for example, through stored procedures), rather than via direct access to the database by end users (except for DBAs, who may need direct access to the database for their administrative duties)."
 
   children = [
-    control.rds_db_cluster_iam_authentication_enabled
+    control.rds_db_instance_iam_authentication_enabled
   ]
 
   tags = merge(local.pci_dss_v321_requirement_8_common_tags, {
