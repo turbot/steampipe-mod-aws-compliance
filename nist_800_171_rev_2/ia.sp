@@ -102,7 +102,7 @@ benchmark "nist_800_171_rev_2_3_5_8" {
   title       = "3.5.8 Prohibit password reuse for a specified number of generations"
   description = "Password lifetime restrictions do not apply to temporary passwords."
   children = [
-    control.iam_user_unused_credentials_90
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = local.nist_800_171_rev_2_common_tags
