@@ -1,3 +1,16 @@
+## v0.76 [2023-07-11]
+
+_Enhancements_
+
+- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#684](https://github.com/turbot/steampipe-mod-aws-compliance/pull/684))
+  - The following controls have been added to the benchmarks:
+    - `elb_application_network_lb_use_ssl_certificate`
+- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#690](https://github.com/turbot/steampipe-mod-aws-compliance/pull/690))
+  - The following controls have been added to the benchmarks:
+    - `rds_db_instance_iam_authentication_enabled`
+  - The following controls are no longer included in the benchmarks:
+    - `rds_db_cluster_iam_authentication_enabled`
+
 ## v0.75 [2023-07-07]
 
 _Bug fixes_
