@@ -417,6 +417,7 @@ benchmark "pci_dss_v321_requirement_10_5_5" {
   description = "File-integrity monitoring or change-detection systems check for changes to critical files, and notify when such changes are noted. For file- integrity monitoring purposes, an entity usually monitors files that don't regularly change, but when changed indicate a possible compromise."
 
   children = [
+    control.cloudtrail_trail_validation_enabled,
     control.s3_bucket_versioning_enabled
   ]
 
