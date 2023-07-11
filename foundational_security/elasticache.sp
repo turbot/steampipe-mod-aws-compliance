@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "foundational_security_elasticache" {
-  title         = "ElasticCache"
+  title         = "ElastiCache"
   documentation = file("./foundational_security/docs/foundational_security_elasticache.md")
   children = [
     control.foundational_security_elasticache_1,
