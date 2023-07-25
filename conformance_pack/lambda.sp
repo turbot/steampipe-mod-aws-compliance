@@ -365,7 +365,7 @@ query "lambda_function_use_latest_runtime" {
       arn as resource,
       case
         when package_type <> 'Zip' then 'skip'
-        when runtime in (''nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'go1.x', 'dotnet7', 'dotnet6') then 'ok'
+        when runtime in ('nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'go1.x', 'dotnet7', 'dotnet6') then 'ok'
         else 'alarm'
       end as status,
       case
