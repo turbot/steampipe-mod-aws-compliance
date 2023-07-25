@@ -33,7 +33,7 @@ control "foundational_security_lambda_1" {
 
 control "foundational_security_lambda_2" {
   title         = "2 Lambda functions should use latest runtimes"
-  description   = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: 'nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'go1.x', 'dotnet7', 'dotnet6'"
+  description   = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs18.x, nodejs16.x, nodejs14.x, python3.10, python3.9, python3.8, python3.7, ruby3.2, ruby2.7, java17, java11, java8, go1.x, dotnet7, dotnet6"
   severity      = "medium"
   query         = query.lambda_function_use_latest_runtime
   documentation = file("./foundational_security/docs/foundational_security_lambda_2.md")
