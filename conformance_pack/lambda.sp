@@ -119,7 +119,7 @@ control "lambda_function_multiple_az_configured" {
 
 control "lambda_function_use_latest_runtime" {
   title       = "Lambda functions should use latest runtimes"
-  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs18.x, nodejs16.x, nodejs14.x, python3.10, python3.9, python3.8, python3.7, ruby3.2, ruby2.7, java17, java11, java8, java8.al2, java8.al2, go1.x, dotnet7, dotnet6"
+  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs18.x, nodejs16.x, nodejs14.x, python3.10, python3.9, python3.8, python3.7, ruby3.2, ruby2.7, java17, java11, java8, java8.al2, go1.x, dotnet7, dotnet6"
   query       = query.lambda_function_use_latest_runtime
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
