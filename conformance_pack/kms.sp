@@ -75,6 +75,16 @@ control "kms_key_decryption_restricted_in_iam_inline_policy" {
   })
 }
 
+control "kms_cmk_unused" {
+  title       = "KMS key should be in use"
+  description = "This control checks whether there are any unused CMK (Customer Master Key) KMS (Key Management Service) keys."
+  query       = query.kms_cmk_unused
+
+  tags = merge(local.conformance_pack_kms_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "kms_key_not_pending_deletion" {
   sql = <<-EOQ
     select
@@ -283,5 +293,30 @@ query "kms_key_decryption_restricted_in_iam_inline_policy" {
     from
       aws_iam_group g
       left join group_with_decrypt_grant d on g.arn = d.arn;
+  EOQ
+}
+
+query "kms_cmk_unused" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      enabled,
+      key_state,
+      case
+        when not enabled and key_state = 'PendingDeletion' then 'ok'
+        when not enabled and key_state <> 'PendingDeletion' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not enabled and key_state = 'PendingDeletion' then title || ' scheduled for deletion and will be deleted in ' || extract(day from deletion_date - current_timestamp) || ' day(s).'
+        when not enabled and key_state <> 'PendingDeletion' then title || ' is unused.'
+        else title || ' is being used.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_kms_key
+    where
+      key_manager = 'CUSTOMER';
   EOQ
 }
