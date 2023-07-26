@@ -24,6 +24,16 @@ control "directory_service_directory_sns_notifications_enabled" {
   })
 }
 
+control "directory_service_certificate_expires_90_days" {
+  title       = "Directory Service certificates should not expire within 90 days"
+  description = "Is is recommended to monitor certificate expiration and implement automated alerts to notify the responsible team for timely certificate replacement or removal."
+  query       = query.directory_service_certificate_expires_90_days
+
+  tags = merge(local.conformance_pack_directoryservice_common_tags, {
+    other_checks = "true"
+  })
+}
+
 query "directory_service_directory_snapshots_limit" {
   sql = <<-EOQ
     select
@@ -61,5 +71,21 @@ query "directory_service_directory_sns_notifications_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_directory_service_directory;
+  EOQ
+}
+
+query "directory_service_certificate_expires_90_days" {
+  sql = <<-EOQ
+    select
+      certificate_id as resource,
+      case
+        when date(expiry_date_time) - date(current_date) >= 90 then 'ok'
+        else 'alarm'
+      end as status,
+      title || ' expires ' || to_char(expiry_date_time, 'DD-Mon-YYYY') ||
+        ' (' || extract(day from expiry_date_time - current_date) || ' days).' as reason
+      --${local.common_dimensions_sql}
+    from
+      aws_directory_service_certificate;
   EOQ
 }

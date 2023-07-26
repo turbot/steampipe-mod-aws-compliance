@@ -36,6 +36,8 @@ benchmark "other" {
     control.codebuild_project_build_greater_then_90_days,
     control.codebuild_project_with_user_controlled_buildspec,
     control.directory_service_directory_snapshots_limit,
+    control.directory_service_directory_sns_notifications_enabled,
+    control.directory_service_certificate_expires_90_days,
     control.docdb_cluster_instance_logging_enabled,
     control.drs_job_enabled,
     control.ebs_snapshot_encryption_enabled,
