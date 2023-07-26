@@ -102,6 +102,17 @@ control "backup_vault_region_configured" {
   })
 }
 
+control "backup_report_plan_configured" {
+  title       = "Backup report plan should exist in a region where backup plan is enabled"
+  description = "Ensure that there exists at least one backup report plan in a region. The rule is non-compliant if there are no report plan in a region where backup plan exist."
+  query       = query.backup_report_plan_configured
+
+  tags = merge(local.conformance_pack_backup_common_tags, {
+    other_checks = "true"
+  })
+}
+
+
 query "backup_recovery_point_manual_deletion_disabled" {
   sql = <<-EOQ
     with recovery_point_manual_deletion_disabled as (
@@ -264,5 +275,46 @@ query "backup_vault_region_configured" {
     from
       aws_region as r
       left join count_vaults as v on r.account_id = v.account_id and r.region = v.region;
+  EOQ
+}
+
+query "backup_report_plan_configured" {
+  sql = <<-EOQ
+    with backup_plan_configured_regions as (
+      select
+        distinct region,
+        account_id
+      from
+        aws_backup_plan
+      group by
+        region,
+        account_id
+    ), backup_report_plan_configured as  (
+      select
+        distinct region,
+        account_id
+      from
+        aws_backup_report_plan
+      group by
+        region,
+        account_id
+    )
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when cp.region is not null and rp.region is not null then 'ok'
+        when cp.region is not null and rp.region is null then 'alarm'
+        else 'info'
+      end as status,
+      case
+        when cp.region is not null and rp.region is not null then 'Backup report plan(s) exist in region ' || r.region || '.'
+        when cp.region is not null and rp.region is null then 'No backup report plans exist in region ' || r.region || '.'
+        else 'No backup plans exist in region ' || r.region || '.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join backup_plan_configured_regions as cp on r.account_id = cp.account_id and r.region = cp.region
+      left join backup_report_plan_configured as rp on r.account_id = rp.account_id and r.region = rp.region;
   EOQ
 }
