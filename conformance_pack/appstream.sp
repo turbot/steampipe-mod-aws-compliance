@@ -6,7 +6,7 @@ locals {
 
 control "appstream_fleet_default_internet_access_disabled" {
   title       = "AppStream fleet default internet access should be disabled"
-  description = "This control checks whether default internet access is disabled for AppStream fleets."
+  description = "Enabling default internet access for AppStream fleets is not recommended. This control will be considered non-compliant if default internet access is enabled for AppStream fleets."
   query       = query.appstream_fleet_default_internet_access_disabled
 
   tags = merge(local.conformance_pack_appstream_common_tags, {
@@ -56,8 +56,8 @@ query "appstream_fleet_default_internet_access_disabled" {
         when enable_default_internet_access then title || ' has default internet access enabled.'
         else title || ' has default internet access disabled.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_appstream_fleet;
   EOQ

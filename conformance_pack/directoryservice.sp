@@ -40,13 +40,13 @@ query "directory_service_directory_snapshots_limit" {
       arn as resource,
       case
         when snapshot_limit ->> 'ManualSnapshotsLimitReached' = 'true' then 'alarm'
-        when ((snapshot_limit ->> 'ManualSnapshotsLimit')::int -  (snapshot_limit ->> 'ManualSnapshotsCurrentCount')::int) <= 2 then 'alarm'
+        when ((snapshot_limit ->> 'ManualSnapshotsLimit')::int - (snapshot_limit ->> 'ManualSnapshotsCurrentCount')::int) <= 2 then 'alarm'
         else 'ok'
       end as status,
       case
         when snapshot_limit ->> 'ManualSnapshotsLimitReached' = 'true' then title || ' has reached ' || (snapshot_limit ->> 'ManualSnapshotsLimit') || ' snapshots limit.'
         when ((snapshot_limit ->> 'ManualSnapshotsLimit')::int - (snapshot_limit ->> 'ManualSnapshotsCurrentCount')::int) <= 2 then title || ' is about to reach its ' || (snapshot_limit ->> 'ManualSnapshotsLimit') || ' snapshot limit.'
-        else title || ' is using ' || (snapshot_limit ->> 'ManualSnapshotsCurrentCount') || ' out of '  || (snapshot_limit ->> 'ManualSnapshotsLimit') || ' snapshots limit.'
+        else title || ' is using ' || (snapshot_limit ->> 'ManualSnapshotsCurrentCount') || ' out of ' || (snapshot_limit ->> 'ManualSnapshotsLimit') || ' snapshots limit.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -84,7 +84,7 @@ query "directory_service_certificate_expires_90_days" {
       end as status,
       title || ' expires ' || to_char(expiry_date_time, 'DD-Mon-YYYY') ||
         ' (' || extract(day from expiry_date_time - current_date) || ' days).' as reason
-      --${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_directory_service_certificate;
   EOQ

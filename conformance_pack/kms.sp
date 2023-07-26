@@ -300,8 +300,6 @@ query "kms_cmk_unused" {
   sql = <<-EOQ
     select
       arn as resource,
-      enabled,
-      key_state,
       case
         when not enabled and key_state = 'PendingDeletion' then 'ok'
         when not enabled and key_state <> 'PendingDeletion' then 'alarm'
@@ -312,8 +310,8 @@ query "kms_cmk_unused" {
         when not enabled and key_state <> 'PendingDeletion' then title || ' is unused.'
         else title || ' is being used.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_kms_key
     where
