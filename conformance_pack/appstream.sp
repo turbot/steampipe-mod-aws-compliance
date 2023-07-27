@@ -6,7 +6,7 @@ locals {
 
 control "appstream_fleet_default_internet_access_disabled" {
   title       = "AppStream fleet default internet access should be disabled"
-  description = "Enabling default internet access for AppStream fleets is not recommended. This control will be considered non-compliant if default internet access is enabled for AppStream fleets."
+  description = "Enabling default internet access for AppStream fleet is not recommended. This control will be considered non-compliant if default internet access is enabled for AppStream fleet."
   query       = query.appstream_fleet_default_internet_access_disabled
 
   tags = merge(local.conformance_pack_appstream_common_tags, {
@@ -16,7 +16,7 @@ control "appstream_fleet_default_internet_access_disabled" {
 
 control "appstream_fleet_session_disconnect_timeout_300_seconds" {
   title       = "AppStream fleet session disconnect timeout should be set to less than or equal to 5 mins"
-  description = "The disconnect timeout in minutes refers to the duration for which a streaming session remains active even after users have disconnected. It is recommended to set the Disconnect timeout to 5 minutes or less for the AppStream Fleet."
+  description = "The disconnect timeout in minutes refers to the duration for which a streaming session remains active even after users have disconnected. It is recommended to set the disconnect timeout to 5 minutes or less for the AppStream Fleet."
   query       = query.appstream_fleet_session_disconnect_timeout_300_seconds
 
   tags = merge(local.conformance_pack_appstream_common_tags, {

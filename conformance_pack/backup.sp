@@ -307,8 +307,8 @@ query "backup_report_plan_configured" {
       end as status,
       case
         when cp.region is not null and rp.region is not null then 'Backup report plan(s) exist in region ' || r.region || '.'
-        when cp.region is not null and rp.region is null then 'No backup report plans exist in region ' || r.region || '.'
-        else 'No backup plans exist in region ' || r.region || '.'
+        when cp.region is not null and rp.region is null then 'No backup report plan(s) exist in region ' || r.region || '.'
+        else 'No backup plan(s) configured in region ' || r.region || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
