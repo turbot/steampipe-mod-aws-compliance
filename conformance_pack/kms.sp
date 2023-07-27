@@ -306,9 +306,9 @@ query "kms_cmk_unused" {
         else 'ok'
       end as status,
       case
-        when not enabled and key_state = 'PendingDeletion' then title || ' scheduled for deletion and will be deleted in ' || extract(day from deletion_date - current_timestamp) || ' day(s).'
+        when not enabled and key_state = 'PendingDeletion' then title || ' scheduled for deletion in ' || extract(day from deletion_date - current_timestamp) || ' day(s).'
         when not enabled and key_state <> 'PendingDeletion' then title || ' is unused.'
-        else title || ' is being used.'
+        else title || ' is in use.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
