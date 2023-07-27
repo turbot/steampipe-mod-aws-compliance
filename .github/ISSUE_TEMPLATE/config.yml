@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Questions
-    url: https://steampipe.io/community/join
+    url: https://turbot.com/community/join
     about: GitHub issues in this repository are only intended for bug reports and feature requests. Other issues will be closed. Please ask and answer questions through the Steampipe Slack community.
   - name: Steampipe CLI Bug Reports and Feature Requests
     url: https://github.com/turbot/steampipe/issues/new/choose
