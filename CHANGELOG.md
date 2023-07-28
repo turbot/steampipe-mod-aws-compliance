@@ -1,3 +1,18 @@
+## v0.77 [2023-07-28]
+
+_Enhancements_
+
+- Added the following controls to `Other Compliance Checks` benchmark: ([#697](https://github.com/turbot/steampipe-mod-aws-compliance/pull/697))
+  - `appstream_fleet_default_internet_access_disabled`
+  - `appstream_fleet_idle_disconnect_timeout_600_seconds`
+  - `appstream_fleet_max_user_duration_36000_seconds`
+  - `appstream_fleet_session_disconnect_timeout_300_seconds`
+  - `backup_report_plan_configured`
+  - `directory_service_certificate_expires_90_days`
+  - `directory_service_directory_snapshots_limit`
+  - `directory_service_directory_sns_notifications_enabled`
+  - `kms_cmk_unused`
+
 ## v0.76 [2023-07-11]
 
 _Enhancements_
