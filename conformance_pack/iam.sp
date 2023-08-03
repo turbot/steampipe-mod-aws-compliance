@@ -10,6 +10,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
   query       = query.iam_account_password_policy_strong_min_reuse_24
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
@@ -318,7 +319,6 @@ control "iam_account_password_policy_min_length_14" {
   query       = query.iam_account_password_policy_min_length_14
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis_controls_v8_ig1    = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"

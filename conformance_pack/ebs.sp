@@ -34,7 +34,6 @@ control "ebs_volume_encryption_at_rest_enabled" {
   query       = query.ebs_volume_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    cis_controls_v8_ig1    = "true"
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
     nist_800_53_rev_5      = "true"
@@ -49,6 +48,7 @@ control "ebs_attached_volume_encryption_enabled" {
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     audit_manager_control_tower            = "true"
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"

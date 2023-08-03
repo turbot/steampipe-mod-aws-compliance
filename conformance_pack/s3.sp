@@ -289,7 +289,6 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    cis_controls_v8_ig1 = "true"
     nist_csf            = "true"
   })
 }
@@ -310,6 +309,7 @@ control "s3_bucket_policy_restrict_public_access" {
   query       = query.s3_bucket_policy_restrict_public_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"

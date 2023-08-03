@@ -40,12 +40,13 @@ benchmark "cis_controls_v8_ig1_3_3" {
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
-    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.ssm_document_prohibit_public_access,
     control.vpc_subnet_auto_assign_public_ip_disabled
   ]
 

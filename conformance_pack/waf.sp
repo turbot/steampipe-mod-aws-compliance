@@ -43,6 +43,7 @@ control "waf_web_acl_logging_enabled" {
   query       = query.waf_web_acl_logging_enabled
 
   tags = merge(local.conformance_pack_waf_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"

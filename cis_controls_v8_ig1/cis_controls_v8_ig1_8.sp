@@ -35,7 +35,8 @@ benchmark "cis_controls_v8_ig1_8_2" {
     control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.waf_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.cis_controls_v8_ig1_common_tags
