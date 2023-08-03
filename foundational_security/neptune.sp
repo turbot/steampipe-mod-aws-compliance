@@ -10,8 +10,10 @@ benchmark "foundational_security_neptune" {
   children = [
     control.foundational_security_neptune_1,
     control.foundational_security_neptune_2,
+    control.foundational_security_neptune_3,
     control.foundational_security_neptune_4,
     control.foundational_security_neptune_5,
+    control.foundational_security_neptune_6,
     control.foundational_security_neptune_7,
     control.foundational_security_neptune_8
 
@@ -48,6 +50,19 @@ control "foundational_security_neptune_2" {
   })
 }
 
+control "foundational_security_neptune_3" {
+  title         = "3 Neptune DB cluster snapshots should not be public"
+  description   = "This control checks whether a Neptune manual DB cluster snapshot is public. The control fails if a Neptune manual DB cluster snapshot is public."
+  severity      = "medium"
+  query         = query.neptune_db_cluster_snapshot_prohibit_public_access
+  documentation = file("./foundational_security/docs/foundational_security_neptune_3.md")
+
+  tags = merge(local.foundational_security_neptune_common_tags, {
+    foundational_security_item_id  = "neptune_3"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+
 control "foundational_security_neptune_4" {
   title         = "4 Neptune DB clusters should have deletion protection enabled"
   description   = "This control checks if a Neptune DB cluster has deletion protection enabled. The control fails if a Neptune DB cluster doesn't have deletion protection enabled."
@@ -71,6 +86,19 @@ control "foundational_security_neptune_5" {
   tags = merge(local.foundational_security_neptune_common_tags, {
     foundational_security_item_id  = "neptune_5"
     foundational_security_category = "backups_enabled"
+  })
+}
+
+control "foundational_security_neptune_6" {
+  title         = "6 Neptune DB cluster snapshots should be encrypted at rest"
+  description   = "This control checks whether a Neptune DB cluster snapshot is encrypted at rest. The control fails if a Neptune DB cluster isn't encrypted at rest."
+  severity      = "medium"
+  query         = query.neptune_db_cluster_snapshot_encryption_at_rest_enabled
+  documentation = file("./foundational_security/docs/foundational_security_neptune_6.md")
+
+  tags = merge(local.foundational_security_neptune_common_tags, {
+    foundational_security_item_id  = "neptune_6"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 

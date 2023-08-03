@@ -118,3 +118,40 @@ query "neptune_db_cluster_automated_backup_enabled" {
       aws_neptune_db_cluster;
   EOQ
 }
+
+query "neptune_db_cluster_snapshot_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      db_cluster_snapshot_arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_neptune_db_cluster_snapshot;
+  EOQ
+}
+
+query "neptune_db_cluster_snapshot_prohibit_public_access" {
+  sql = <<-EOQ
+    select
+      db_cluster_snapshot_arn as resource,
+      case
+        when cluster_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' publicly accessible.'
+        else title || ' not publicly accessible.'
+      end reason
+      ${local.common_dimensions_sql}
+    from
+      aws_neptune_db_cluster_snapshot,
+      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot
+  EOQ
+}
