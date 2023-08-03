@@ -1,6 +1,6 @@
 locals {
   foundational_security_athena_common_tags = merge(local.foundational_security_common_tags, {
-    service = "AWS/ACM"
+    service = "AWS/Athena"
   })
 }
 
@@ -21,7 +21,7 @@ control "foundational_security_athena_1" {
   description   = "This control checks if an Athena workgroup is encrypted at rest. The control fails if an Athena workgroup isn’t encrypted at rest."
   severity      = "medium"
   query         = query.athena_workgroup_encryption_at_rest_enabled
-  documentation = file("./foundational_security/docs/foundational_security_acm_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_athena_1.md")
 
   tags = merge(local.foundational_security_athena_common_tags, {
     foundational_security_item_id  = "athena_1"

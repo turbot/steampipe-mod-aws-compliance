@@ -1,3 +1,3 @@
 ## Overview
 
-This section contains recommendations for configuring Athena resources and options.
+This section contains recommendations for configuring AWS Athena resources and options.

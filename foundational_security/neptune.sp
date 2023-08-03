@@ -16,7 +16,6 @@ benchmark "foundational_security_neptune" {
     control.foundational_security_neptune_6,
     control.foundational_security_neptune_7,
     control.foundational_security_neptune_8
-
   ]
 
   tags = merge(local.foundational_security_neptune_common_tags, {
