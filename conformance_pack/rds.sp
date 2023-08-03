@@ -1187,3 +1187,22 @@ query "rds_db_instance_connections_encryption_enabled" {
       left join pg_with_ssl_enabled as p on p.name = i.pg_name
   EOQ
 }
+
+query "rds_db_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
