@@ -15,8 +15,8 @@ benchmark "audit_manager_control_tower_disallow_instances" {
 }
 
 benchmark "audit_manager_control_tower_disallow_instances_5_0_1" {
-  title         = "5.0.1 - Disallow RDS database instances that are not storage encrypted"
-  description   = "Disallow RDS database instances that are not storage encrypted - Checks whether storage encryption is enabled for your RDS DB instances."
+  title       = "5.0.1 - Disallow RDS database instances that are not storage encrypted"
+  description = "Disallow RDS database instances that are not storage encrypted - Checks whether storage encryption is enabled for your RDS DB instances."
   children = [
     control.rds_db_instance_encryption_at_rest_enabled
   ]

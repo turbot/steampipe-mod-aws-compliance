@@ -96,9 +96,9 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
   query       = query.ebs_attached_volume_delete_on_termination_enabled
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
-    fedramp_moderate_rev_4      = "true"
-    ffiec                       = "true"
-    nist_800_53_rev_4           = "true"
+    fedramp_moderate_rev_4 = "true"
+    ffiec                  = "true"
+    nist_800_53_rev_4      = "true"
   })
 }
 

@@ -32,8 +32,8 @@ benchmark "audit_manager_control_tower_ebs_checks_1_0_1" {
 }
 
 benchmark "audit_manager_control_tower_ebs_checks_1_0_2" {
-  title         = "1.0.2 - Disallow EBS volumes that are unattached to an EC2 instance"
-  description   = "Disallow EBS volumes that are unattached to an EC2 instance - Checks whether EBS volumes are attached to EC2 instances"
+  title       = "1.0.2 - Disallow EBS volumes that are unattached to an EC2 instance"
+  description = "Disallow EBS volumes that are unattached to an EC2 instance - Checks whether EBS volumes are attached to EC2 instances."
   children = [
     control.ebs_volume_unused
   ]
