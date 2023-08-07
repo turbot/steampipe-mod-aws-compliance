@@ -10,6 +10,7 @@ control "wafv2_web_acl_logging_enabled" {
   query       = query.wafv2_web_acl_logging_enabled
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
+    cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
