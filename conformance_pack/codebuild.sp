@@ -67,8 +67,8 @@ control "codebuild_project_environment_privileged_mode_disabled" {
   description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
   query       = query.codebuild_project_environment_privileged_mode_disabled
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    nist_csf            = "true"
-    pci_dss_v321        = "true"
+    nist_csf     = "true"
+    pci_dss_v321 = "true"
   })
 }
 

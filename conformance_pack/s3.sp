@@ -289,7 +289,7 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf            = "true"
+    nist_csf = "true"
   })
 }
 
