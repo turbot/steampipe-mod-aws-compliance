@@ -152,6 +152,6 @@ query "neptune_db_cluster_snapshot_prohibit_public_access" {
       ${local.common_dimensions_sql}
     from
       aws_neptune_db_cluster_snapshot,
-      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot
+      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot;
   EOQ
 }
