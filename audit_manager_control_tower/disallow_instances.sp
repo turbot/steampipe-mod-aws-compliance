@@ -5,13 +5,13 @@ locals {
 }
 
 benchmark "audit_manager_control_tower_disallow_instances" {
-  title        = "Disallow Instances"
-  description  = "This benchmark checks if RDS storage is encrypted and S3 bucket's versioning is enabled."
+  title       = "Disallow Instances"
+  description = "This benchmark checks if RDS storage is encrypted and S3 bucket's versioning is enabled."
   children = [
     benchmark.audit_manager_control_tower_disallow_instances_5_0_1,
     benchmark.audit_manager_control_tower_disallow_instances_5_1_1
   ]
-  tags          = local.audit_manager_control_tower_disallow_instances_common_tags
+  tags = local.audit_manager_control_tower_disallow_instances_common_tags
 }
 
 benchmark "audit_manager_control_tower_disallow_instances_5_0_1" {
@@ -28,8 +28,8 @@ benchmark "audit_manager_control_tower_disallow_instances_5_0_1" {
 }
 
 benchmark "audit_manager_control_tower_disallow_instances_5_1_1" {
-  title         = "5.1.1 - Disallow S3 buckets that are not versioning enabled"
-  description   = "Disallow S3 buckets that are not versioning enabled - Checks whether versioning is enabled for your S3 buckets."
+  title       = "5.1.1 - Disallow S3 buckets that are not versioning enabled"
+  description = "Disallow S3 buckets that are not versioning enabled - Checks whether versioning is enabled for your S3 buckets."
   children = [
     control.s3_bucket_versioning_enabled
   ]
