@@ -35,6 +35,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   query       = query.rds_db_instance_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -105,7 +106,6 @@ control "rds_db_snapshot_encrypted_at_rest" {
   query       = query.rds_db_snapshot_encrypted_at_rest
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    audit_manager_control_tower            = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_moderate_rev_4                 = "true"
     gdpr                                   = "true"
@@ -1185,5 +1185,24 @@ query "rds_db_instance_connections_encryption_enabled" {
     from
       instance_pg as i
       left join pg_with_ssl_enabled as p on p.name = i.pg_name
+  EOQ
+}
+
+query "rds_db_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
   EOQ
 }

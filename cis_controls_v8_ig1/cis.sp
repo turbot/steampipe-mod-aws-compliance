@@ -19,9 +19,7 @@ benchmark "cis_controls_v8_ig1" {
     benchmark.cis_controls_v8_ig1_8,
     benchmark.cis_controls_v8_ig1_10,
     benchmark.cis_controls_v8_ig1_11,
-    benchmark.cis_controls_v8_ig1_12,
-    benchmark.cis_controls_v8_ig1_13,
-    benchmark.cis_controls_v8_ig1_16
+    benchmark.cis_controls_v8_ig1_12
   ]
 
   tags = merge(local.cis_controls_v8_ig1_common_tags, {

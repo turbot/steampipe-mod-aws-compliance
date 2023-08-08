@@ -34,3 +34,38 @@ query "docdb_cluster_instance_logging_enabled" {
       aws_docdb_cluster_instance;
   EOQ
 }
+
+query "docdb_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster;
+  EOQ
+}
+
+query "docdb_cluster_backup_retention_period_7_days" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when backup_retention_period >= 7 then 'ok'
+        else 'alarm'
+      end as status,
+      title || ' backup retention period is ' || backup_retention_period || ' day(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster;
+  EOQ
+}

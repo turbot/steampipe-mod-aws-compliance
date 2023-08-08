@@ -14,7 +14,7 @@ benchmark "cis_controls_v8_ig1_5_2" {
   title       = "5.2 Use Unique Passwords"
   description = "Use unique passwords for all enterprise assets. Best practice implementation includes, at a minimum, an 8-character password for accounts using MFA and a 14-character password for accounts not using MFA."
   children = [
-    control.iam_account_password_policy_min_length_14,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled

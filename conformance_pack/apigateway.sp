@@ -86,7 +86,6 @@ control "apigateway_stage_use_waf_web_acl" {
   query       = query.apigateway_stage_use_waf_web_acl
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    cis_controls_v8_ig1    = "true"
     cisa_cyber_essentials  = "true"
     fedramp_low_rev_4      = "true"
     fedramp_moderate_rev_4 = "true"

@@ -1,3 +1,46 @@
+## v0.78 [2023-08-08]
+
+_Breaking changes_
+
+- The `CIS Controls v8 IG1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/CIS-controls-v8.html). The following updates have been made to the benchmark: ([#706](https://github.com/turbot/steampipe-mod-aws-compliance/pull/706))
+  - The following sub-benchmarks have been removed from the `cis_controls_v8_ig1` benchmark:
+    - `cis_controls_v8_ig1_13`
+    - `cis_controls_v8_ig1_16`
+  - The following controls have been added to the benchmarks:
+    - `ebs_attached_volume_encryption_enabled`
+    - `iam_account_password_policy_strong_min_reuse_24`
+    - `s3_bucket_policy_restrict_public_access`
+    - `ssm_document_prohibit_public_access`
+    - `waf_web_acl_logging_enabled`
+  - The following controls are no longer included in the benchmarks:
+    - `apigateway_stage_use_waf_web_acl`
+    - `codebuild_project_artifact_encryption_enabled`
+    - `codebuild_project_environment_privileged_mode_disabled`
+    - `codebuild_project_logging_enabled`
+    - `codebuild_project_plaintext_env_variables_no_sensitive_aws_values`
+    - `codebuild_project_source_repo_oauth_configured`
+    - `ebs_volume_encryption_at_rest_enabled`
+    - `iam_account_password_policy_min_length_14`
+    - `s3_bucket_policy_restricts_cross_account_permission_changes`
+
+_Enhancements_
+
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#704](https://github.com/turbot/steampipe-mod-aws-compliance/pull/704))
+  - The following sub-benchmarks have been added to the `foundational_security` benchmark:
+    - `foundational_security_athena`
+    - `foundational_security_docdb`
+    - `foundational_security_neptune`
+  - The following controls have been added to the benchmarks:
+    - `foundational_security_rds_27`
+
+- The `AWS Audit Manager Control Tower Guardrails` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html). The following updates have been made to the benchmark: ([#705](https://github.com/turbot/steampipe-mod-aws-compliance/pull/705))
+  - The following controls have been added to the benchmarks:
+    - `ebs_volume_unused`
+    - `rds_db_instance_encryption_at_rest_enabled`
+  - The following controls are no longer included in the benchmarks:
+    - `ebs_attached_volume_delete_on_termination_enabled`
+    - `rds_db_snapshot_encrypted_at_rest`
+
 ## v0.77 [2023-07-28]
 
 _Enhancements_
