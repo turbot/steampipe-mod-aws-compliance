@@ -32,7 +32,8 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_22,
     control.foundational_security_rds_23,
     control.foundational_security_rds_24,
-    control.foundational_security_rds_25
+    control.foundational_security_rds_25,
+    control.foundational_security_rds_27
   ]
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -362,5 +363,18 @@ control "foundational_security_rds_25" {
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_25"
     foundational_security_category = "resource_configuration"
+  })
+}
+
+control "foundational_security_rds_27" {
+  title         = "27 RDS DB clusters should be encrypted at rest"
+  description   = "This control checks if an RDS DB cluster is encrypted at rest. The control fails if an RDS DB cluster isn't encrypted at rest."
+  severity      = "medium"
+  query         = query.rds_db_cluster_encryption_at_rest_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_27.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_27"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
