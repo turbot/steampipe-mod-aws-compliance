@@ -62,7 +62,7 @@ query "docdb_cluster_backup_retention_period_7_days" {
         when backup_retention_period >= 7 then 'ok'
         else 'alarm'
       end as status,
-      title || ' backups retention period is ' || backup_retention_period || ' day(s).' as reason
+      title || ' backup retention period is ' || backup_retention_period || ' day(s).' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
