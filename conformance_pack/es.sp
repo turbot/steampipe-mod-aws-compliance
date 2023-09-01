@@ -4,6 +4,46 @@ locals {
   })
 }
 
+control "es_domain_error_logging_enabled" {
+  title       = "Elasticsearch domain error logging to CloudWatch Logs should be enabled"
+  description = "This control checks whether Elasticsearch domains are configured to send error logs to CloudWatch Logs."
+  query       = query.es_domain_error_logging_enabled
+
+  tags = local.conformance_pack_es_common_tags
+}
+
+control "es_domain_audit_logging_enabled" {
+  title       = "Elasticsearch domains should have audit logging enabled"
+  description = "This control checks whether Elasticsearch domains have audit logging enabled. This control fails if an Elasticsearch domain does not have audit logging enabled."
+  query       = query.es_domain_audit_logging_enabled
+
+  tags = local.conformance_pack_es_common_tags
+}
+
+control "es_domain_data_nodes_min_3" {
+  title       = "Elasticsearch domains should have at least three data nodes"
+  description = "This control checks whether Elasticsearch domains are configured with at least three data nodes and zoneAwarenessEnabled is true."
+  query       = query.es_domain_data_nodes_min_3
+
+  tags = local.conformance_pack_es_common_tags
+}
+
+control "es_domain_dedicated_master_nodes_min_3" {
+  title       = "Elasticsearch domains should be configured with at least three dedicated master nodes"
+  description = "This control checks whether Elasticsearch domains are configured with at least three dedicated master nodes. This control fails if the domain does not use dedicated master nodes. This control passes if Elasticsearch domains have five dedicated master nodes. However, using more than three master nodes might be unnecessary to mitigate the availability risk, and will result in additional cost."
+  query       = query.es_domain_dedicated_master_nodes_min_3
+
+  tags = local.conformance_pack_es_common_tags
+}
+
+control "es_domain_encrypted_using_tls_1_2" {
+  title       = "Connections to Elasticsearch domains should be encrypted using TLS 1.2"
+  description = "This control checks whether connections to Elasticsearch domains are required to use TLS 1.2. The check fails if the Elasticsearch domain TLSSecurityPolicy is not Policy-Min-TLS-1-2-2019-07."
+  query       = query.es_domain_encrypted_using_tls_1_2
+
+  tags = local.conformance_pack_es_common_tags
+}
+
 control "es_domain_encryption_at_rest_enabled" {
   title       = "ES domain encryption at rest should be enabled"
   description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elasticsearch Service (Amazon ES) domains"
@@ -256,8 +296,6 @@ query "es_domain_internal_user_database_enabled" {
       aws_elasticsearch_domain;
   EOQ
 }
-
-# Non-Config rule query
 
 query "es_domain_audit_logging_enabled" {
   sql = <<-EOQ

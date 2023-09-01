@@ -4,6 +4,22 @@ locals {
   })
 }
 
+control "api_gatewayv2_route_authorization_type_configured" {
+  title       = "API Gateway routes should specify an authorization type"
+  description = "This control checks if Amazon API Gateway routes have an authorization type. The control fails if the API Gateway route does not specify an authorization type."
+  query       = query.api_gatewayv2_route_authorization_type_configured
+
+  tags = local.conformance_pack_apigateway_common_tags
+}
+
+control "gatewayv2_stage_access_logging_enabled" {
+  title       = "Access logging should be configured for API Gateway V2 Stages"
+  description = "This control checks if Amazon API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
+  query       = query.gatewayv2_stage_access_logging_enabled
+
+  tags = local.conformance_pack_apigateway_common_tags
+}
+
 control "apigateway_stage_cache_encryption_at_rest_enabled" {
   title       = "API Gateway stage cache encryption at rest should be enabled"
   description = "To help protect data at rest, ensure encryption is enabled for your API Gateway stage's cache."
@@ -307,8 +323,6 @@ query "api_gatewayv2_route_authorizer_configured" {
       aws_api_gatewayv2_route;
   EOQ
 }
-
-# Non-Config rule query
 
 query "api_gatewayv2_route_authorization_type_configured" {
   sql = <<-EOQ

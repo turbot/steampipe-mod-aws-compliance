@@ -4,6 +4,22 @@ locals {
   })
 }
 
+control "vpc_security_group_unused" {
+  title       = "Unused EC2 security groups should be removed"
+  description = "This AWS control checks that security groups are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or to an elastic network interface. The control will fail if the security group is not associated with an Amazon EC2 instance or an elastic network interface."
+  query       = query.vpc_security_group_unused
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_launch_template_not_publicly_accessible" {
+  title       = "Amazon EC2 launch templates should not assign public IPs to network interfaces"
+  description = "This control checks if Amazon EC2 launch templates are configured to assign public IP addresses to network interfaces upon launch. The control fails if an EC2 launch template is configured to assign a public IP address to network interfaces or if there is at least one network interface that has a public IP address."
+  query       = query.ec2_launch_template_not_publicly_accessible
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 control "ec2_ebs_default_encryption_enabled" {
   title       = "EBS default encryption should be enabled"
   description = "To help protect data at rest, ensure that encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."

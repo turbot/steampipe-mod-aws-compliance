@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "opensearch_domain_data_node_fault_tolerance" {
+  title       = "OpenSearch domains should have at least three data nodes"
+  description = "This control checks whether OpenSearch domains are configured with at least three data nodes and zoneAwarenessEnabled is true. This control fails for an OpenSearch domain if instanceCount is less than 3 or zoneAwarenessEnabled is false."
+  query       = query.opensearch_domain_data_node_fault_tolerance
+
+  tags = local.conformance_pack_opensearch_common_tags
+}
+
 control "opensearch_domain_encryption_at_rest_enabled" {
   title       = "OpenSearch domains should have encryption at rest enabled"
   description = "This control checks whether Amazon OpenSearch domains have encryption-at-rest configuration enabled. The check fails if encryption at rest is not enabled."
@@ -385,8 +393,6 @@ query "opensearch_domain_updated_with_latest_service_software_version" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "opensearch_domain_data_node_fault_tolerance" {
   sql = <<-EOQ
     select
@@ -406,4 +412,3 @@ query "opensearch_domain_data_node_fault_tolerance" {
       aws_opensearch_domain;
   EOQ
 }
-

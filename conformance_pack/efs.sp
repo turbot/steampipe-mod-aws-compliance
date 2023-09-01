@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "efs_file_system_automatic_backups_enabled" {
+  title       = "Amazon EFS volumes should be in backup plans"
+  description = "This control checks whether Amazon Elastic File System (Amazon EFS) file systems are added to the backup plans in AWS Backup. The control fails if Amazon EFS file systems are not included in the backup plans."
+  query       = query.efs_file_system_automatic_backups_enabled
+
+  tags = local.conformance_pack_efs_common_tags
+}
+
 control "efs_file_system_encrypt_data_at_rest" {
   title       = "EFS file system encryption at rest should be enabled"
   description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic File System (EFS)."

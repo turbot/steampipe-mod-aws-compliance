@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "ec2_classic_lb_connection_draining_enabled" {
+  title       = "Classic Load Balancers should have connection draining enabled"
+  description = "This control checks whether Classic Load Balancers have connection draining enabled."
+  query       = query.ec2_classic_lb_connection_draining_enabled
+
+  tags = local.conformance_pack_elb_common_tags
+}
+
 control "elb_application_classic_lb_logging_enabled" {
   title       = "ELB application and classic load balancer logging should be enabled"
   description = "Elastic Load Balancing activity is a central point of communication within an environment."
@@ -934,8 +942,6 @@ query "elb_application_gateway_network_lb_multiple_az_configured" {
       aws_ec2_gateway_load_balancer;
   EOQ
 }
-
-# Non-Config rule query
 
 query "elb_network_lb_tls_listener_security_policy_configured" {
   sql = <<-EOQ

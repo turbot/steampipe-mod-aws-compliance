@@ -4,6 +4,22 @@ locals {
   })
 }
 
+control "docdb_cluster_encryption_at_rest_enabled" {
+  title       = "Amazon DocumentDB clusters should be encrypted at rest"
+  description = "This control checks whether an Amazon DocumentDB cluster is encrypted at rest. The control fails if an Amazon DocumentDB cluster isn't encrypted at rest."
+  query       = query.docdb_cluster_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
+control "docdb_cluster_backup_retention_period_7_days" {
+  title       = "Amazon DocumentDB clusters should have an adequate backup retention period"
+  description = "This control checks whether an Amazon DocumentDB cluster has a backup retention period greater than or equal to 7 days. The control fails if the backup retention period is less than 7 days."
+  query       = query.docdb_cluster_backup_retention_period_7_days
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 control "docdb_cluster_instance_logging_enabled" {
   title       = "DocumentDB instance logging should be enabled"
   description = "To help with logging and monitoring within your environment, ensure Amazon DocumentDB instance logging is enabled."

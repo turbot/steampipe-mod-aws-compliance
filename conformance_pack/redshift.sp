@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "redshift_cluster_automatic_upgrade_major_versions_enabled" {
+  title       = "Amazon Redshift should have automatic upgrades to major versions enabled"
+  description = "This control checks whether automatic major version upgrades are enabled for the Amazon Redshift cluster."
+  query       = query.redshift_cluster_automatic_upgrade_major_versions_enabled
+
+  tags = local.conformance_pack_redshift_common_tags
+}
+
 control "redshift_cluster_encryption_in_transit_enabled" {
   title       = "Redshift cluster encryption in transit should be enabled"
   description = "Ensure that your Amazon Redshift clusters require TLS/SSL encryption to connect to SQL clients."
@@ -393,8 +401,6 @@ query "redshift_cluster_no_default_database_name" {
       aws_redshift_cluster;
   EOQ
 }
-
-# Non-Config rule query
 
 query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
   sql = <<-EOQ

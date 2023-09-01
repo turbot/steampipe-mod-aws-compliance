@@ -4,6 +4,22 @@ locals {
   })
 }
 
+control "secretsmanager_secret_last_used_1_day" {
+  title       = "Remove unused Secrets Manager secrets"
+  description = "This control checks whether your secrets have been accessed within a specified number of days. The default value is 90 days. If a secret was accessed even once within the defined number of days, this control fails."
+  query       = query.secretsmanager_secret_last_used_1_day
+
+  tags = local.conformance_pack_secretsmanager_common_tags
+}
+
+control "secretsmanager_secret_automatic_rotation_lambda_enabled" {
+  title       = "Secrets Manager secrets should be rotated within a specified number of days"
+  description = "This control checks whether your secrets have been rotated at least once within 90 days. Rotating secrets can help you to reduce the risk of an unauthorized use of your secrets in your AWS account. Examples include database credentials, passwords, third-party API keys, and even arbitrary text. If you do not change your secrets for a long period of time, the secrets are more likely to be compromised."
+  query       = query.secretsmanager_secret_automatic_rotation_lambda_enabled
+
+  tags = local.conformance_pack_secretsmanager_common_tags
+}
+
 control "secretsmanager_secret_automatic_rotation_enabled" {
   title       = "Secrets Manager secrets should have automatic rotation enabled"
   description = "This rule ensures AWS Secrets Manager secrets have rotation enabled. Rotating secrets on a regular schedule can shorten the period a secret is active, and potentially reduce the business impact if the secret is compromised."
@@ -202,8 +218,6 @@ query "secretsmanager_secret_last_changed_90_day" {
       aws_secretsmanager_secret;
   EOQ
 }
-
-# Non-Config rule query
 
 query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
   sql = <<-EOQ

@@ -4,6 +4,78 @@ locals {
   })
 }
 
+control "rds_db_cluster_copy_tags_to_snapshot_enabled" {
+  title       = "RDS DB clusters should be configured to copy tags to snapshots"
+  description = "This control checks whether RDS DB clusters are configured to copy all tags to snapshots when the snapshots are created."
+  query       = query.rds_db_cluster_copy_tags_to_snapshot_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_copy_tags_to_snapshot_enabled" {
+  title       = "RDS DB instances should be configured to copy tags to snapshots"
+  description = "This control checks whether RDS DB instances are configured to copy all tags to snapshots when the snapshots are created."
+  query       = query.rds_db_instance_copy_tags_to_snapshot_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_in_vpc" {
+  title       = "RDS instances should be deployed in a VPC"
+  description = "This control checks whether an RDS instance is deployed in a VPC (EC2-VPC)."
+  query       = query.rds_db_instance_in_vpc
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_cluster_events_subscription" {
+  title       = "An RDS event notifications subscription should be configured for critical cluster events"
+  description = "This control checks whether an Amazon RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
+  query       = query.rds_db_cluster_events_subscription
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_events_subscription" {
+  title       = "An RDS event notifications subscription should be configured for critical database instance events"
+  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  query       = query.rds_db_instance_events_subscription
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_parameter_group_events_subscription" {
+  title       = "An RDS event notifications subscription should be configured for critical database parameter group events"
+  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  query       = query.rds_db_parameter_group_events_subscription
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_security_group_events_subscription" {
+  title       = "An RDS event notifications subscription should be configured for critical database security group events"
+  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  query       = query.rds_db_security_group_events_subscription
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_and_cluster_no_default_port" {
+  title       = "RDS databases and clusters should not use a database engine default port"
+  description = "This control checks whether the RDS cluster or instance uses a port other than the default port of the database engine."
+  query       = query.rds_db_instance_and_cluster_no_default_port
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_cluster_encryption_at_rest_enabled" {
+  title       = "RDS DB clusters should be encrypted at rest"
+  description = "This control checks if an RDS DB cluster is encrypted at rest. The control fails if an RDS DB cluster isn't encrypted at rest."
+  query       = query.rds_db_cluster_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 control "rds_db_instance_backup_enabled" {
   title       = "RDS DB instance backup should be enabled"
   description = "The backup feature of Amazon RDS creates backups of your databases and transaction logs."
@@ -948,8 +1020,6 @@ query "rds_db_cluster_multiple_az_enabled" {
       aws_rds_db_cluster;
   EOQ
 }
-
-# Non-Config rule query
 
 query "rds_db_cluster_copy_tags_to_snapshot_enabled" {
   sql = <<-EOQ

@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "cloudfront_distribution_no_non_existent_s3_origin" {
+  title       = "CloudFront distributions should not point to non-existent S3 origins"
+  description = "This control checks whether Amazon CloudFront distributions are pointing to non-existent Amazon S3 origins. The control fails for a CloudFront distribution if the origin is configured to point to a non-existent bucket. This control only applies to CloudFront distributions where an S3 bucket without static website hosting is the S3 origin."
+  query       = query.cloudfront_distribution_no_non_existent_s3_origin
+
+  tags = local.conformance_pack_cloudfront_common_tags
+}
+
 control "cloudfront_distribution_encryption_in_transit_enabled" {
   title       = "CloudFront distributions should require encryption in transit"
   description = "This control checks whether an Amazon CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
@@ -521,8 +529,6 @@ query "cloudfront_distribution_field_level_encryption_enabled" {
       aws_cloudfront_distribution;
   EOQ
 }
-
-# Non-Config rule query
 
 query "cloudfront_distribution_no_non_existent_s3_origin" {
   sql = <<-EOQ

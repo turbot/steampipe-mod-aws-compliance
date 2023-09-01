@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "ecs_service_not_publicly_accessible" {
+  title       = "Amazon ECS services should not have public IP addresses assigned to them automatically"
+  description = "This control checks whether Amazon ECS services are configured to automatically assign public IP addresses. This control fails if AssignPublicIP is ENABLED. This control passes if AssignPublicIP is DISABLED."
+  query       = query.ecs_service_not_publicly_accessible
+
+  tags = local.conformance_pack_ecs_common_tags
+}
+
 control "ecs_cluster_encryption_at_rest_enabled" {
   title       = "ECS clusters encryption at rest should be enabled"
   description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."

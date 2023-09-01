@@ -4,6 +4,30 @@ locals {
   })
 }
 
+control "iam_policy_custom_attached_no_star_star" {
+  title       = "IAM policies should not allow full '*' administrative privileges"
+  description = "This control checks whether the default version of IAM policies (also known as customer managed policies) has administrator access that includes a statement with 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'. The control only checks the customer managed policies that you create. It does not check inline and AWS managed policies."
+  query       = query.iam_policy_custom_attached_no_star_star
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_account_password_policy_strong_min_length_8" {
+  title       = "Password policies for IAM users should have strong configurations"
+  description = "This control checks whether the account password policy for IAM users uses the recommended configurations."
+  query       = query.iam_account_password_policy_strong_min_length_8
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_policy_custom_no_service_wildcard" {
+  title       = "IAM customer managed policies that you create should not allow wildcard actions for services"
+  description = "This control checks whether the IAM identity-based policies that you create have Allow statements that use the * wildcard to grant permissions for all actions on any service. The control fails if any policy statement includes 'Effect': 'Allow' with 'Action': 'Service:*'."
+  query       = query.iam_policy_custom_no_service_wildcard
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 control "iam_account_password_policy_strong_min_reuse_24" {
   title       = "IAM password policies for users should have strong configurations"
   description = "The identities and the credentials are issued, managed, and verified based on an organizational IAM password policy."
@@ -1599,8 +1623,6 @@ query "iam_policy_no_full_access_to_kms" {
     not p.is_aws_managed;
   EOQ
 }
-
-# Non-Config rule query
 
 query "iam_access_analyzer_enabled" {
   sql = <<-EOQ

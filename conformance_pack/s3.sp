@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "s3_bucket_public_access_blocked" {
+  title       = "S3 Block Public Access setting should be enabled at the bucket level"
+  description = "This control checks whether S3 buckets have bucket-level public access blocks applied."
+  query       = query.s3_bucket_public_access_blocked
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
 control "s3_bucket_cross_region_replication_enabled" {
   title       = "S3 bucket cross-region replication should be enabled"
   description = "Amazon Simple Storage Service (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
@@ -1070,8 +1078,6 @@ query "s3_bucket_acls_should_prohibit_user_access" {
       bucket_acl_checks;
   EOQ
 }
-
-# Non-Config rule query
 
 query "s3_bucket_mfa_delete_enabled" {
   sql = <<-EOQ

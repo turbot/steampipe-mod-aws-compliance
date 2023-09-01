@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "autoscaling_group_uses_ec2_launch_template" {
+  title       = "EC2 Auto Scaling groups should use EC2 launch templates"
+  description = "This control checks whether an Amazon EC2 Auto Scaling group is created from an EC2 launch template. This control fails if an Amazon EC2 Auto Scaling group is not created with a launch template or if a launch template is not specified in a mixed instances policy."
+  query       = query.autoscaling_group_uses_ec2_launch_template
+
+  tags = local.conformance_pack_autoscaling_common_tags
+}
+
 control "autoscaling_launch_config_requires_imdsv2" {
   title       = "Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
   description = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
@@ -283,9 +291,6 @@ query "autoscaling_ec2_launch_configuration_no_sensitive_data" {
       aws_ec2_launch_configuration;
   EOQ
 }
-
-
-# Non-Config rule query
 
 query "autoscaling_group_uses_ec2_launch_template" {
   sql = <<-EOQ

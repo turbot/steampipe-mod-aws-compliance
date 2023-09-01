@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "sqs_queue_encrypted_at_rest" {
+  title       = "Amazon SQS queues should be encrypted at rest"
+  description = "This control checks whether Amazon SQS queues are encrypted at rest."
+  query       = query.sqs_queue_encrypted_at_rest
+
+  tags = local.conformance_pack_sqs_common_tags
+}
+
 control "sqs_queue_policy_prohibit_public_access" {
   title       = "SQS queue policies should prohibit public access"
   description = "Manage access to resources in the AWS Cloud by ensuring AWS SQS queues cannot be publicly accessed."
@@ -80,8 +88,6 @@ query "sqs_queue_dead_letter_queue_configured" {
       aws_sqs_queue;
   EOQ
 }
-
-# Non-Config rule query
 
 query "sqs_queue_encrypted_at_rest" {
   sql = <<-EOQ
