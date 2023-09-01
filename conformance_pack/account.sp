@@ -1,5 +1,18 @@
-# Non-Config rule query
+locals {
+  conformance_pack_account_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/Account"
+  })
+}
 
+control "account_alternate_contact_security_registered" {
+  title       = "Security contact information should be provided for an AWS account"
+  description = "This control checks if an Amazon Web Services (AWS) account has security contact information. The control fails if security contact information is not provided for the account."
+  query       = query.account_alternate_contact_security_registered
+
+  tags = local.conformance_pack_account_common_tags
+}
+
+# Non-Config rule query
 query "account_alternate_contact_security_registered" {
   sql = <<-EOQ
     with alternate_security_contact as (
