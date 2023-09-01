@@ -56,7 +56,7 @@ _Enhancements_
   - `directory_service_directory_sns_notifications_enabled`
   - `kms_cmk_unused`
 
-- Updated the `lambda_function_use_latest_runtime` and `foundational_security_lambda_2` controls to use latest runtimes for each language. ([#696](https://github.com/turbot/steampipe-mod-aws-compliance/pull/696)) (Thanks to [@akumar-99](https://github.com/papaharry) for the contribution!)
+- Updated the `lambda_function_use_latest_runtime` and `foundational_security_lambda_2` controls to use latest runtimes for each language. ([#696](https://github.com/turbot/steampipe-mod-aws-compliance/pull/696)) (Thanks to [@papaharry](https://github.com/papaharry) for the contribution!)
 
 ## v0.76 [2023-07-11]
 
