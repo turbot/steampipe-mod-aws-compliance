@@ -6,7 +6,7 @@ locals {
 
 control "vpc_flow_logs_enabled" {
   title       = "VPC flow logs should be enabled"
-  description = "The VPC flow logs provide detailed records for information about the IP traffic going to and from network interfaces in your Amazon Virtual Private Cloud (Amazon VPC."
+  description = "The VPC flow logs provide detailed records for information about the IP traffic going to and from network interfaces in your AWS Virtual Private Cloud (AWS VPC."
   query       = query.vpc_flow_logs_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -29,9 +29,49 @@ control "vpc_flow_logs_enabled" {
   })
 }
 
+control "vpc_security_group_remote_administration" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 to remote server administration ports"
+  description = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389."
+  query       = query.vpc_security_group_remote_administration
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_security_group_remote_administration_ipv4" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 to remote server administration ports"
+  description = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389, using either the TDP (6), UDP (17) or ALL (-1) protocols."
+  query       = query.vpc_security_group_remote_administration_ipv4
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_security_group_restrict_ingress_rdp_all" {
+  title       = "Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389"
+  description = "Security groups provide stateful filtering of ingress/egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to port 3389."
+  query       = query.vpc_security_group_restrict_ingress_rdp_all
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_security_group_remote_administration_ipv6" {
+  title       = "Ensure no security groups allow ingress from ::/0 to remote server administration ports"
+  description = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389."
+  query       = query.vpc_security_group_remote_administration_ipv6
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_security_group_unused" {
+  title       = "Unused EC2 security groups should be removed"
+  description = "This AWS control checks that security groups are attached to AWS Elastic Compute Cloud (AWS EC2) instances or to an elastic network interface. The control will fail if the security group is not associated with an AWS EC2 instance or an elastic network interface."
+  query       = query.vpc_security_group_unused
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 control "vpc_igw_attached_to_authorized_vpc" {
   title       = "VPC internet gateways should be attached to authorized vpc"
-  description = "Manage access to resources in the AWS Cloud by ensuring that internet gateways are only attached to authorized Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Manage access to resources in the AWS Cloud by ensuring that internet gateways are only attached to authorized AWS Virtual Private Cloud (AWS VPC)."
   query       = query.vpc_igw_attached_to_authorized_vpc
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -60,7 +100,7 @@ control "vpc_network_acl_remote_administration" {
 
 control "vpc_security_group_restrict_ingress_tcp_udp_all" {
   title       = "VPC security groups should restrict ingress TCP and UDP access from 0.0.0.0/0"
-  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) Security Groups."
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on AWS Elastic Compute Cloud (AWS EC2) Security Groups."
   query       = query.vpc_security_group_restrict_ingress_tcp_udp_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -83,7 +123,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
 
 control "vpc_security_group_restrict_ingress_common_ports_all" {
   title       = "VPC security groups should restrict ingress access on ports 20, 21, 22, 3306, 3389, 4333 from 0.0.0.0/0"
-  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on Amazon Elastic Compute Cloud (Amazon EC2) security groups."
+  description = "Manage access to resources in the AWS Cloud by ensuring common ports are restricted on AWS Elastic Compute Cloud (AWS EC2) security groups."
   query       = query.vpc_security_group_restrict_ingress_common_ports_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -106,7 +146,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
 
 control "vpc_security_group_restrict_ingress_ssh_all" {
   title       = "VPC security groups should restrict ingress SSH access from 0.0.0.0/0"
-  description = "Amazon Elastic Compute Cloud (Amazon EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  description = "AWS Elastic Compute Cloud (AWS EC2) Security Groups can help manage network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_ssh_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -131,7 +171,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
 
 control "vpc_default_security_group_restricts_all_traffic" {
   title       = "VPC default security group should not allow inbound and outbound traffic"
-  description = "Amazon Elastic Compute Cloud (Amazon EC2) security groups can help in the management of network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  description = "AWS Elastic Compute Cloud (AWS EC2) security groups can help in the management of network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_default_security_group_restricts_all_traffic
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -172,7 +212,7 @@ control "vpc_vpn_tunnel_up" {
 
 control "vpc_eip_associated" {
   title       = "VPC EIPs should be associated with an EC2 instance or ENI"
-  description = "This rule ensures Elastic IPs allocated to a Amazon Virtual Private Cloud (Amazon VPC) are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or in-use Elastic Network Interfaces."
+  description = "This rule ensures Elastic IPs allocated to a AWS Virtual Private Cloud (AWS VPC) are attached to AWS Elastic Compute Cloud (AWS EC2) instances or in-use Elastic Network Interfaces."
   query       = query.vpc_eip_associated
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -188,7 +228,7 @@ control "vpc_eip_associated" {
 
 control "vpc_security_group_associated_to_eni" {
   title       = "VPC security groups should be associated with at least one ENI"
-  description = "This rule ensures the security groups are attached to an Amazon Elastic Compute Cloud (Amazon EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
+  description = "This rule ensures the security groups are attached to an AWS Elastic Compute Cloud (AWS EC2) instance or to an ENI. This rule helps monitoring unused security groups in the inventory and the management of your environment."
   query       = query.vpc_security_group_associated_to_eni
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -200,7 +240,7 @@ control "vpc_security_group_associated_to_eni" {
 
 control "vpc_subnet_auto_assign_public_ip_disabled" {
   title       = "VPC subnet auto assign public IP should be disabled"
-  description = "Ensure if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The control is compliant if Amazon VPC does not have subnets that are assigned a public IP address. The control is non compliant if Amazon VPC has subnets that are assigned a public IP address."
+  description = "Ensure if AWS Virtual Private Cloud (AWS VPC) subnets are assigned a public IP address. The control is compliant if AWS VPC does not have subnets that are assigned a public IP address. The control is non compliant if AWS VPC has subnets that are assigned a public IP address."
   query       = query.vpc_subnet_auto_assign_public_ip_disabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -240,7 +280,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
 
 control "vpc_security_group_restrict_ingress_redis_port" {
   title       = "VPC security groups should restrict ingress redis access from 0.0.0.0/0"
-  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_redis_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -250,7 +290,7 @@ control "vpc_security_group_restrict_ingress_redis_port" {
 
 control "vpc_security_group_restrict_ingress_kafka_port" {
   title       = "VPC security groups should restrict ingress Kafka port access from 0.0.0.0/0"
-  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_kafka_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -260,7 +300,7 @@ control "vpc_security_group_restrict_ingress_kafka_port" {
 
 control "vpc_security_group_restrict_ingress_kibana_port" {
   title       = "VPC security groups should restrict ingress kibana port access from 0.0.0.0/0"
-  description = "Amazon VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
+  description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_kibana_port
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -302,7 +342,7 @@ control "vpc_network_acl_unused" {
 
 control "vpc_configured_to_use_vpc_endpoints" {
   title       = "VPC should be configured to use VPC endpoints"
-  description = "Checks if Service Endpoint for the service provided in rule parameter is created for each Amazon Virtual Private Cloud (Amazon VPC). The rule is non compliant if an Amazon VPC doesn't have an Amazon VPC endpoint created for the service."
+  description = "Checks if Service Endpoint for the service provided in rule parameter is created for each AWS Virtual Private Cloud (AWS VPC). The rule is non compliant if an AWS VPC doesn't have an AWS VPC endpoint created for the service."
   query       = query.vpc_configured_to_use_vpc_endpoints
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -1215,8 +1255,6 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
       left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
   EOQ
 }
-
-# Non-Config rule query
 
 query "vpc_security_group_associated" {
   sql = <<-EOQ

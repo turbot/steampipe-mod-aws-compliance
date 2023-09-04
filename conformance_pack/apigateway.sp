@@ -6,7 +6,7 @@ locals {
 
 control "api_gatewayv2_route_authorization_type_configured" {
   title       = "API Gateway routes should specify an authorization type"
-  description = "This control checks if Amazon API Gateway routes have an authorization type. The control fails if the API Gateway route does not specify an authorization type."
+  description = "This control checks if AWS API Gateway routes have an authorization type. The control fails if the API Gateway route does not specify an authorization type."
   query       = query.api_gatewayv2_route_authorization_type_configured
 
   tags = local.conformance_pack_apigateway_common_tags
@@ -14,7 +14,7 @@ control "api_gatewayv2_route_authorization_type_configured" {
 
 control "gatewayv2_stage_access_logging_enabled" {
   title       = "Access logging should be configured for API Gateway V2 Stages"
-  description = "This control checks if Amazon API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
+  description = "This control checks if AWS API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
   query       = query.gatewayv2_stage_access_logging_enabled
 
   tags = local.conformance_pack_apigateway_common_tags
@@ -87,7 +87,7 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
 
 control "apigateway_rest_api_stage_xray_tracing_enabled" {
   title       = "API Gateway REST API stages should have AWS X-Ray tracing enabled"
-  description = "This control checks whether AWS X-Ray active tracing is enabled for your Amazon API Gateway REST API stages."
+  description = "This control checks whether AWS X-Ray active tracing is enabled for your AWS API Gateway REST API stages."
   query       = query.apigateway_rest_api_stage_xray_tracing_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
@@ -98,7 +98,7 @@ control "apigateway_rest_api_stage_xray_tracing_enabled" {
 
 control "apigateway_stage_use_waf_web_acl" {
   title       = "API Gateway stage should be associated with waf"
-  description = "Ensure if an Amazon API Gateway API stage is using a WAF Web ACL. This rule is non compliant if an AWS WAF Web ACL is not used."
+  description = "Ensure if an AWS API Gateway API stage is using a WAF Web ACL. This rule is non compliant if an AWS WAF Web ACL is not used."
   query       = query.apigateway_stage_use_waf_web_acl
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {

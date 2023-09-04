@@ -10,7 +10,6 @@ benchmark "all_controls_efs" {
   children = [
     control.efs_access_point_enforce_root_directory,
     control.efs_access_point_enforce_user_identity,
-    control.efs_file_system_automatic_backups_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.efs_file_system_encrypted_with_cmk,
     control.efs_file_system_enforces_ssl,

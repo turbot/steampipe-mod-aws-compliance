@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "log_metric_filter_organization" {
+  title       = "Ensure AWS Organizations changes are monitored"
+  description = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, and establishing corresponding metric filters and alarms. It is recommended that a metric filter and alarm be established for AWS Organizations changes made in the master AWS Account."
+  query       = query.log_metric_filter_organization
+
+  tags = local.conformance_pack_cloudwatch_common_tags
+}
+
 control "cloudwatch_alarm_action_enabled" {
   title       = "CloudWatch alarm should have an action configured"
   description = "Checks if CloudWatch alarms have an action configured for the ALARM, INSUFFICIENT_DATA, or OK state. Optionally checks if any actions match a named ARN. The rule is non compliant if there is no action specified for the alarm or optional parameter."
@@ -26,7 +34,7 @@ control "cloudwatch_alarm_action_enabled" {
 
 control "cloudwatch_alarm_action_enabled_check" {
   title       = "CloudWatch alarm action should be enabled"
-  description = "Checks if Amazon CloudWatch alarm actions are in enabled state. The rule is non compliant if the CloudWatch alarm actions are not in enabled state."
+  description = "Checks if AWS CloudWatch alarm actions are in enabled state. The rule is non compliant if the CloudWatch alarm actions are not in enabled state."
   query       = query.cloudwatch_alarm_action_enabled_check
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
@@ -38,7 +46,7 @@ control "cloudwatch_alarm_action_enabled_check" {
 
 control "cloudwatch_cross_account_sharing" {
   title       = "CloudWatch should not allow cross-account sharing"
-  description = "Ensure that your Amazon CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."
+  description = "Ensure that your AWS CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."
   query       = query.cloudwatch_cross_account_sharing
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
@@ -48,7 +56,7 @@ control "cloudwatch_cross_account_sharing" {
 
 control "log_group_encryption_at_rest_enabled" {
   title       = "Log group encryption at rest should be enabled"
-  description = "To help protect sensitive data at rest, ensure encryption is enabled for your Amazon CloudWatch Log Group"
+  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS CloudWatch Log Group"
   query       = query.log_group_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
@@ -1049,8 +1057,6 @@ query "log_metric_filter_cloudtrail_configuration" {
       left join filter_data as f on a.account_id = f.account_id;
   EOQ
 }
-
-# Non-Config rule query
 
 query "log_metric_filter_organization" {
   sql = <<-EOQ

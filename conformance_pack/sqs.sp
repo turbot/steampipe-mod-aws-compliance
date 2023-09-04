@@ -5,8 +5,8 @@ locals {
 }
 
 control "sqs_queue_encrypted_at_rest" {
-  title       = "Amazon SQS queues should be encrypted at rest"
-  description = "This control checks whether Amazon SQS queues are encrypted at rest."
+  title       = "AWS SQS queues should be encrypted at rest"
+  description = "This control checks whether AWS SQS queues are encrypted at rest."
   query       = query.sqs_queue_encrypted_at_rest
 
   tags = local.conformance_pack_sqs_common_tags

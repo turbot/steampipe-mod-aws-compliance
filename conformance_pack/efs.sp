@@ -4,17 +4,9 @@ locals {
   })
 }
 
-control "efs_file_system_automatic_backups_enabled" {
-  title       = "Amazon EFS volumes should be in backup plans"
-  description = "This control checks whether Amazon Elastic File System (Amazon EFS) file systems are added to the backup plans in AWS Backup. The control fails if Amazon EFS file systems are not included in the backup plans."
-  query       = query.efs_file_system_automatic_backups_enabled
-
-  tags = local.conformance_pack_efs_common_tags
-}
-
 control "efs_file_system_encrypt_data_at_rest" {
   title       = "EFS file system encryption at rest should be enabled"
-  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elastic File System (EFS)."
+  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your AWS Elastic File System (EFS)."
   query       = query.efs_file_system_encrypt_data_at_rest
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -37,8 +29,8 @@ control "efs_file_system_encrypt_data_at_rest" {
 
 control "efs_file_system_in_backup_plan" {
   title       = "EFS file systems should be in a backup plan"
-  description = "To help with data back-up processes, ensure your Amazon Elastic File System (Amazon EFS) file systems are a part of an AWS Backup plan."
-  query       = query.efs_file_system_automatic_backups_enabled
+  description = "To help with data back-up processes, ensure your AWS Elastic File System (AWS EFS) file systems are a part of an AWS Backup plan."
+  query       = query.efs_file_system_in_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
     cis_controls_v8_ig1                    = "true"
@@ -59,7 +51,7 @@ control "efs_file_system_in_backup_plan" {
 
 control "efs_file_system_protected_by_backup_plan" {
   title       = "EFS file systems should be protected by backup plan"
-  description = "Ensure if Amazon Elastic File System (Amazon EFS) File Systems are protected by a backup plan. The rule is non compliant if the EFS File System is not covered by a backup plan."
+  description = "Ensure if AWS Elastic File System (AWS EFS) File Systems are protected by a backup plan. The rule is non compliant if the EFS File System is not covered by a backup plan."
   query       = query.efs_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -79,7 +71,7 @@ control "efs_file_system_protected_by_backup_plan" {
 
 control "efs_file_system_encrypted_with_cmk" {
   title       = "EFS file systems should be encrypted with CMK"
-  description = "Ensure Amazon Elastic File Systems (Amazon EFS) are encrypted using CMK. The rule is non compliant if the EFS File System is not encrypted using CMK."
+  description = "Ensure AWS Elastic File Systems (AWS EFS) are encrypted using CMK. The rule is non compliant if the EFS File System is not encrypted using CMK."
   query       = query.efs_file_system_encrypted_with_cmk
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -100,7 +92,7 @@ control "efs_file_system_enforces_ssl" {
 
 control "efs_access_point_enforce_user_identity" {
   title       = "EFS access points should enforce a user identity"
-  description = "This control checks whether Amazon EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
+  description = "This control checks whether AWS EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
   query       = query.efs_access_point_enforce_user_identity
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -111,7 +103,7 @@ control "efs_access_point_enforce_user_identity" {
 
 control "efs_access_point_enforce_root_directory" {
   title       = "EFS access points should enforce a root directory"
-  description = "This control checks if Amazon EFS access points are configured to enforce a root directory. The control fails if the value of Path is set to / (the default root directory of the file system)."
+  description = "This control checks if AWS EFS access points are configured to enforce a root directory. The control fails if the value of Path is set to / (the default root directory of the file system)."
   query       = query.efs_access_point_enforce_root_directory
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -148,7 +140,7 @@ query "efs_file_system_encrypt_data_at_rest" {
   EOQ
 }
 
-query "efs_file_system_automatic_backups_enabled" {
+query "efs_file_system_in_backup_plan" {
   sql = <<-EOQ
     select
       arn as resource,

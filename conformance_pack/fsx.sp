@@ -6,7 +6,7 @@ locals {
 
 control "fsx_file_system_protected_by_backup_plan" {
   title       = "FSx file system should be protected by backup plan"
-  description = "Checks if Amazon FSx File Systems are protected by a backup plan. The rule is non compliant if the Amazon FSx File System is not covered by a backup plan."
+  description = "Checks if AWS FSx File Systems are protected by a backup plan. The rule is non compliant if the AWS FSx File System is not covered by a backup plan."
   query       = query.fsx_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_fsx_common_tags, {

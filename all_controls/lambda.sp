@@ -10,6 +10,7 @@ benchmark "all_controls_lambda" {
   children = [
     control.lambda_function_cloudtrail_logging_enabled,
     control.lambda_function_concurrent_execution_limit_configured,
+    control.lambda_function_cors_configuration,
     control.lambda_function_dead_letter_queue_configured,
     control.lambda_function_in_vpc,
     control.lambda_function_multiple_az_configured,

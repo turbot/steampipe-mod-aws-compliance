@@ -9,6 +9,7 @@ benchmark "all_controls_ecs" {
   description = "This section contains recommendations for configuring ECS resources."
   children = [
     control.ecs_cluster_container_insights_enabled,
+    control.ecs_cluster_container_instance_agent_connected,
     control.ecs_cluster_encryption_at_rest_enabled,
     control.ecs_cluster_instance_in_vpc,
     control.ecs_cluster_no_registered_container_instance,

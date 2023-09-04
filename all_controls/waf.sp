@@ -15,8 +15,7 @@ benchmark "all_controls_waf" {
     control.waf_rule_group_rule_attached,
     control.waf_web_acl_logging_enabled,
     control.waf_web_acl_resource_associated,
-    control.waf_web_acl_rule_attached,
-    control.wafv2_web_acl_rule_attached
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.all_controls_waf_common_tags, {

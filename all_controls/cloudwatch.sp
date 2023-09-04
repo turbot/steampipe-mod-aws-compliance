@@ -22,6 +22,7 @@ benchmark "all_controls_cloudwatch" {
     control.log_metric_filter_iam_policy,
     control.log_metric_filter_network_acl,
     control.log_metric_filter_network_gateway,
+    control.log_metric_filter_organization,
     control.log_metric_filter_root_login,
     control.log_metric_filter_route_table,
     control.log_metric_filter_security_group,

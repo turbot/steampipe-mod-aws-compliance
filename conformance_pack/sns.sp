@@ -6,7 +6,7 @@ locals {
 
 control "sns_topic_encrypted_at_rest" {
   title       = "SNS topics should be encrypted at rest"
-  description = "To help protect data at rest, ensure that your Amazon Simple Notification Service (Amazon SNS) topics require encryption using AWS Key Management Service (AWS KMS)."
+  description = "To help protect data at rest, ensure that your AWS Simple Notification Service (AWS SNS) topics require encryption using AWS Key Management Service (AWS KMS)."
   query       = query.sns_topic_encrypted_at_rest
 
   tags = merge(local.conformance_pack_sns_common_tags, {
@@ -39,7 +39,7 @@ control "sns_topic_policy_prohibit_public_access" {
 
 control "sns_topic_notification_delivery_status_enabled" {
   title       = "Logging of delivery status should be enabled for notification messages sent to a topic"
-  description = "This control checks whether logging is enabled for the delivery status of notification messages sent to an Amazon SNS topic for the endpoints. This control fails if the delivery status notification for messages is not enabled."
+  description = "This control checks whether logging is enabled for the delivery status of notification messages sent to an AWS SNS topic for the endpoints. This control fails if the delivery status notification for messages is not enabled."
   query       = query.sns_topic_notification_delivery_status_enabled
 
   tags = merge(local.conformance_pack_sns_common_tags, {

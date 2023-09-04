@@ -6,7 +6,7 @@ locals {
 
 control "autoscaling_group_uses_ec2_launch_template" {
   title       = "EC2 Auto Scaling groups should use EC2 launch templates"
-  description = "This control checks whether an Amazon EC2 Auto Scaling group is created from an EC2 launch template. This control fails if an Amazon EC2 Auto Scaling group is not created with a launch template or if a launch template is not specified in a mixed instances policy."
+  description = "This control checks whether an AWS EC2 Auto Scaling group is created from an EC2 launch template. This control fails if an AWS EC2 Auto Scaling group is not created with a launch template or if a launch template is not specified in a mixed instances policy."
   query       = query.autoscaling_group_uses_ec2_launch_template
 
   tags = local.conformance_pack_autoscaling_common_tags
@@ -14,7 +14,7 @@ control "autoscaling_group_uses_ec2_launch_template" {
 
 control "autoscaling_launch_config_requires_imdsv2" {
   title       = "Auto Scaling group should configure EC2 instances to require Instance Metadata Service Version 2 (IMDSv2)"
-  description = "This control checks whether IMDSv2 is enabled on all instances launched by Amazon EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
+  description = "This control checks whether IMDSv2 is enabled on all instances launched by AWS EC2 Auto Scaling groups. The control fails if the Instance Metadata Service (IMDS) version is not included in the launch configuration or if both IMDSv1 and IMDSv2 are enabled."
   query       = query.autoscaling_launch_config_requires_imdsv2
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -25,7 +25,7 @@ control "autoscaling_launch_config_requires_imdsv2" {
 
 control "autoscaling_group_with_lb_use_health_check" {
   title       = "Auto Scaling groups with a load balancer should use health checks"
-  description = "The Elastic Load Balancer (ELB) health checks for Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling groups support maintenance of adequate capacity and availability."
+  description = "The Elastic Load Balancer (ELB) health checks for AWS Elastic Compute Cloud (AWS EC2) Auto Scaling groups support maintenance of adequate capacity and availability."
   query       = query.autoscaling_group_with_lb_use_health_check
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -45,7 +45,7 @@ control "autoscaling_group_with_lb_use_health_check" {
 
 control "autoscaling_launch_config_public_ip_disabled" {
   title       = "Auto Scaling launch config public IP should be disabled"
-  description = "Ensure if Amazon EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is non compliant if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'."
+  description = "Ensure if AWS EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is non compliant if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'."
   query       = query.autoscaling_launch_config_public_ip_disabled
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -76,7 +76,7 @@ control "autoscaling_group_no_suspended_process" {
 
 control "autoscaling_group_multiple_az_configured" {
   title       = "EC2 auto scaling groups should cover multiple availability zones"
-  description = "This control checks whether an Amazon EC2 Auto Scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
+  description = "This control checks whether an AWS EC2 Auto Scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
   query       = query.autoscaling_group_multiple_az_configured
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
@@ -86,7 +86,7 @@ control "autoscaling_group_multiple_az_configured" {
 
 control "autoscaling_use_multiple_instance_types_in_multiple_az" {
   title       = "EC2 auto scaling groups should use multiple instance types in multiple availability zones"
-  description = "This control checks whether an Amazon EC2 Auto Scaling group uses multiple instance types. The control fails if the Auto Scaling group has only one instance type defined."
+  description = "This control checks whether an AWS EC2 Auto Scaling group uses multiple instance types. The control fails if the Auto Scaling group has only one instance type defined."
   query       = query.autoscaling_use_multiple_instance_types_in_multiple_az
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {

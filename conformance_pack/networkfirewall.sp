@@ -26,7 +26,7 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
 
 control "networkfirewall_firewall_policy_default_stateless_action_check_full_packets" {
   title       = "The default stateless action for Network Firewall policies should be drop or forward for full packets"
-  description = "A firewall policy defines how your firewall monitors and handles traffic in Amazon VPC. You configure stateless and stateful rule groups to filter packets and traffic flows. Defaulting to Pass can allow unintended traffic."
+  description = "A firewall policy defines how your firewall monitors and handles traffic in AWS VPC. You configure stateless and stateful rule groups to filter packets and traffic flows. Defaulting to Pass can allow unintended traffic."
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_full_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
@@ -46,7 +46,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
 
 control "networkfirewall_firewall_in_vpc" {
   title       = "Networkfirewall firewall should be in a VPC"
-  description = "Deploy AWS Networkfirewall firewall within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
+  description = "Deploy AWS Networkfirewall firewall within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.networkfirewall_firewall_in_vpc
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {

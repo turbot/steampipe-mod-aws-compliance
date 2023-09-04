@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "elb_network_lb_tls_listener_security_policy_configured" {
+  title      = "ELB network load balancers should have TLS listener security policy configured"
+  description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy, could make the TLS connection between the client and the load balancer vulnerable to exploits."
+  query       = query.elb_network_lb_tls_listener_security_policy_configured
+
+  tags = local.conformance_pack_elb_common_tags
+}
+
 control "ec2_classic_lb_connection_draining_enabled" {
   title       = "Classic Load Balancers should have connection draining enabled"
   description = "This control checks whether Classic Load Balancers have connection draining enabled."
@@ -532,7 +540,7 @@ query "elb_classic_lb_cross_zone_load_balancing_enabled" {
 
 query "elb_application_network_lb_use_ssl_certificate" {
   sql = <<-EOQ
-     with listeners_without_certificate as (
+    with listeners_without_certificate as (
       select
         load_balancer_arn,
         count(*) as count
@@ -983,5 +991,24 @@ query "elb_network_lb_tls_listener_security_policy_configured" {
     from
       aws_ec2_network_load_balancer as lb
       left join nwl_without_tls_listener as l on l.load_balancer_arn = lb.arn;
+  EOQ
+}
+
+query "ec2_classic_lb_connection_draining_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when connection_draining_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when connection_draining_enabled then title || ' connection draining enabled.'
+        else title || ' connection draining disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_classic_load_balancer;
   EOQ
 }

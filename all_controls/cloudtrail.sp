@@ -13,6 +13,8 @@ benchmark "all_controls_cloudtrail" {
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_s3_logging_enabled,
+    control.cloudtrail_s3_object_read_events_audit_enabled,
+    control.cloudtrail_s3_object_write_events_audit_enabled,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_bucket_mfa_enabled,
     control.cloudtrail_trail_enabled,

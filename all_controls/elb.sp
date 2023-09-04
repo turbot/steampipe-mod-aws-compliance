@@ -29,6 +29,7 @@ benchmark "all_controls_elb" {
     control.elb_classic_lb_use_tls_https_listeners,
     control.elb_classic_lb_with_outbound_rule,
     control.elb_listener_use_secure_ssl_cipher,
+    control.elb_network_lb_tls_listener_security_policy_configured,
     control.elb_tls_listener_protocol_version
   ]
 

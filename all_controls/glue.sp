@@ -8,6 +8,8 @@ benchmark "all_controls_glue" {
   title       = "Glue"
   description = "This section contains recommendations for configuring Glue resources."
   children = [
+    control.glue_data_catalog_encryption_settings_metadata_encryption_enabled,
+    control.glue_data_catalog_encryption_settings_password_encryption_enabled,
     control.glue_dev_endpoint_cloudwatch_logs_encryption_enabled,
     control.glue_dev_endpoint_job_bookmarks_encryption_enabled,
     control.glue_dev_endpoint_s3_encryption_enabled,

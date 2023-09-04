@@ -4,9 +4,17 @@ locals {
   })
 }
 
+control "lambda_function_cors_configuration" {
+  title       = "Lambda functions CORS configuration should not allow all origins"
+  description = "Enable this rule to ensure that the CORS configuration for your Lambda functions does not allow all origins."
+  query       = query.lambda_function_cors_configuration
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
 control "lambda_function_dead_letter_queue_configured" {
   title       = "Lambda functions should be configured with a dead-letter queue"
-  description = "Enable this rule to help notify the appropriate personnel through Amazon Simple Queue Service (Amazon SQS) or Amazon Simple Notification Service (Amazon SNS) when a function has failed."
+  description = "Enable this rule to help notify the appropriate personnel through AWS Simple Queue Service (AWS SQS) or AWS Simple Notification Service (AWS SNS) when a function has failed."
   query       = query.lambda_function_dead_letter_queue_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -24,7 +32,7 @@ control "lambda_function_dead_letter_queue_configured" {
 
 control "lambda_function_in_vpc" {
   title       = "Lambda functions should be in a VPC"
-  description = "Deploy AWS Lambda functions within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
+  description = "Deploy AWS Lambda functions within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -433,8 +441,6 @@ query "lambda_function_variables_no_sensitive_data" {
       left join function_vaiable_with_sensitive_data b on f.arn = b.arn;
   EOQ
 }
-
-# Non-Config rule query
 
 query "lambda_function_cors_configuration" {
   sql = <<-EOQ

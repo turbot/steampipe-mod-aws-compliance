@@ -30,7 +30,7 @@ control "rds_db_instance_in_vpc" {
 
 control "rds_db_cluster_events_subscription" {
   title       = "An RDS event notifications subscription should be configured for critical cluster events"
-  description = "This control checks whether an Amazon RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
+  description = "This control checks whether an AWS RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_cluster_events_subscription
 
   tags = local.conformance_pack_rds_common_tags
@@ -38,7 +38,7 @@ control "rds_db_cluster_events_subscription" {
 
 control "rds_db_instance_events_subscription" {
   title       = "An RDS event notifications subscription should be configured for critical database instance events"
-  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_instance_events_subscription
 
   tags = local.conformance_pack_rds_common_tags
@@ -46,7 +46,7 @@ control "rds_db_instance_events_subscription" {
 
 control "rds_db_parameter_group_events_subscription" {
   title       = "An RDS event notifications subscription should be configured for critical database parameter group events"
-  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_parameter_group_events_subscription
 
   tags = local.conformance_pack_rds_common_tags
@@ -54,7 +54,7 @@ control "rds_db_parameter_group_events_subscription" {
 
 control "rds_db_security_group_events_subscription" {
   title       = "An RDS event notifications subscription should be configured for critical database security group events"
-  description = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
+  description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_security_group_events_subscription
 
   tags = local.conformance_pack_rds_common_tags
@@ -78,7 +78,7 @@ control "rds_db_cluster_encryption_at_rest_enabled" {
 
 control "rds_db_instance_backup_enabled" {
   title       = "RDS DB instance backup should be enabled"
-  description = "The backup feature of Amazon RDS creates backups of your databases and transaction logs."
+  description = "The backup feature of AWS RDS creates backups of your databases and transaction logs."
   query       = query.rds_db_instance_backup_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -103,7 +103,7 @@ control "rds_db_instance_backup_enabled" {
 
 control "rds_db_instance_encryption_at_rest_enabled" {
   title       = "RDS DB instance encryption at rest should be enabled"
-  description = "To help protect data at rest, ensure that encryption is enabled for your Amazon Relational Database Service (Amazon RDS) instances."
+  description = "To help protect data at rest, ensure that encryption is enabled for your AWS Relational Database Service (AWS RDS) instances."
   query       = query.rds_db_instance_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -129,7 +129,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
 
 control "rds_db_instance_multiple_az_enabled" {
   title       = "RDS DB instance multiple az should be enabled"
-  description = "Multi-AZ support in Amazon Relational Database Service (Amazon RDS) provides enhanced availability and durability for database instances."
+  description = "Multi-AZ support in AWS Relational Database Service (AWS RDS) provides enhanced availability and durability for database instances."
   query       = query.rds_db_instance_multiple_az_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -149,7 +149,7 @@ control "rds_db_instance_multiple_az_enabled" {
 
 control "rds_db_instance_prohibit_public_access" {
   title       = "RDS DB instances should prohibit public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Relational Database Service (Amazon RDS) instances are not public."
+  description = "Manage access to resources in the AWS Cloud by ensuring that AWS Relational Database Service (AWS RDS) instances are not public."
   query       = query.rds_db_instance_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -174,7 +174,7 @@ control "rds_db_instance_prohibit_public_access" {
 
 control "rds_db_snapshot_encrypted_at_rest" {
   title       = "RDS DB snapshots should be encrypted at rest"
-  description = "Ensure that encryption is enabled for your Amazon Relational Database Service (Amazon RDS) snapshots."
+  description = "Ensure that encryption is enabled for your AWS Relational Database Service (AWS RDS) snapshots."
   query       = query.rds_db_snapshot_encrypted_at_rest
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -197,7 +197,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
 
 control "rds_db_snapshot_prohibit_public_access" {
   title       = "RDS snapshots should prohibit public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Relational Database Service (Amazon RDS) instances are not public."
+  description = "Manage access to resources in the AWS Cloud by ensuring that AWS Relational Database Service (AWS RDS) instances are not public."
   query       = query.rds_db_snapshot_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -222,7 +222,7 @@ control "rds_db_snapshot_prohibit_public_access" {
 
 control "rds_db_instance_logging_enabled" {
   title       = "Database logging should be enabled"
-  description = "To help with logging and monitoring within your environment, ensure Amazon Relational Database Service (Amazon RDS) logging is enabled."
+  description = "To help with logging and monitoring within your environment, ensure AWS Relational Database Service (AWS RDS) logging is enabled."
   query       = query.rds_db_instance_logging_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -247,7 +247,7 @@ control "rds_db_instance_logging_enabled" {
 
 control "rds_db_instance_in_backup_plan" {
   title       = "RDS DB instances should be in a backup plan"
-  description = "To help with data back-up processes, ensure your Amazon Relational Database Service (Amazon RDS) instances are a part of an AWS Backup plan."
+  description = "To help with data back-up processes, ensure your AWS Relational Database Service (AWS RDS) instances are a part of an AWS Backup plan."
   query       = query.rds_db_instance_in_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -271,7 +271,7 @@ control "rds_db_instance_in_backup_plan" {
 
 control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
   title       = "RDS DB instance and cluster enhanced monitoring should be enabled"
-  description = "Enable Amazon Relational Database Service (Amazon RDS) to help monitor Amazon RDS availability. This provides detailed visibility into the health of your Amazon RDS database instances."
+  description = "Enable AWS Relational Database Service (AWS RDS) to help monitor AWS RDS availability. This provides detailed visibility into the health of your AWS RDS database instances."
   query       = query.rds_db_instance_and_cluster_enhanced_monitoring_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -289,7 +289,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
 
 control "rds_db_instance_deletion_protection_enabled" {
   title       = "RDS DB instances should have deletion protection enabled"
-  description = "Ensure Amazon Relational Database Service (Amazon RDS) instances have deletion protection enabled."
+  description = "Ensure AWS Relational Database Service (AWS RDS) instances have deletion protection enabled."
   query       = query.rds_db_instance_deletion_protection_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -309,7 +309,7 @@ control "rds_db_instance_deletion_protection_enabled" {
 
 control "rds_db_instance_iam_authentication_enabled" {
   title       = "RDS DB instances should have iam authentication enabled"
-  description = "Checks if an Amazon Relational Database Service (Amazon RDS) instance has AWS Identity and Access Management (IAM) authentication enabled."
+  description = "Checks if an AWS Relational Database Service (AWS RDS) instance has AWS Identity and Access Management (IAM) authentication enabled."
   query       = query.rds_db_instance_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -324,7 +324,7 @@ control "rds_db_instance_iam_authentication_enabled" {
 
 control "rds_db_cluster_iam_authentication_enabled" {
   title       = "IAM authentication should be configured for RDS clusters"
-  description = "Checks if an Amazon RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is non compliant if an RDS Cluster does not have IAM authentication enabled."
+  description = "Checks if an AWS RDS Cluster has AWS Identity and Access Management (IAM) authentication enabled. The rule is non compliant if an RDS Cluster does not have IAM authentication enabled."
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -335,7 +335,7 @@ control "rds_db_cluster_iam_authentication_enabled" {
 
 control "rds_db_cluster_aurora_protected_by_backup_plan" {
   title       = "RDS Aurora clusters should be protected by backup plan"
-  description = "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is non compliant if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan."
+  description = "Checks if AWS Aurora DB clusters are protected by a backup plan. The rule is non compliant if the AWS Relational Database Service (AWS RDS) Database Cluster is not protected by a backup plan."
   query       = query.rds_db_cluster_aurora_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -356,7 +356,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
 
 control "rds_db_instance_protected_by_backup_plan" {
   title       = "RDS DB instance should be protected by backup plan"
-  description = "Ensure if Amazon Relational Database Service (Amazon RDS) instances are protected by a backup plan. The rule is non compliant if the Amazon RDS Database instance is not covered by a backup plan."
+  description = "Ensure if AWS Relational Database Service (AWS RDS) instances are protected by a backup plan. The rule is non compliant if the AWS RDS Database instance is not covered by a backup plan."
   query       = query.rds_db_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -377,7 +377,7 @@ control "rds_db_instance_protected_by_backup_plan" {
 
 control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   title       = "RDS DB instance automatic minor version upgrade should be enabled"
-  description = "Ensure if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is non compliant if the value of 'autoMinorVersionUpgrade' is false."
+  description = "Ensure if AWS Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is non compliant if the value of 'autoMinorVersionUpgrade' is false."
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -391,7 +391,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
 
 control "rds_db_cluster_deletion_protection_enabled" {
   title       = "RDS clusters should have deletion protection enabled"
-  description = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and Amazon DocumentDB clusters. If these findings are not useful,then you can suppress them."
+  description = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and AWS DocumentDB clusters. If these findings are not useful,then you can suppress them."
   severity    = "low"
   query       = query.rds_db_cluster_deletion_protection_enabled
 
@@ -402,7 +402,7 @@ control "rds_db_cluster_deletion_protection_enabled" {
 
 control "rds_db_instance_cloudwatch_logs_enabled" {
   title       = "RDS DB instances should be integrated with CloudWatch logs"
-  description = "Use Amazon CloudWatch to centrally collect and manage RDS DB instance activity."
+  description = "Use AWS CloudWatch to centrally collect and manage RDS DB instance activity."
   query       = query.rds_db_instance_cloudwatch_logs_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -422,7 +422,7 @@ control "rds_db_instance_ca_certificate_expires_7_days" {
 
 control "rds_db_instance_no_default_admin_name" {
   title       = "RDS database instances should use a custom administrator username"
-  description = "This control checks whether you've changed the administrative username for Amazon Relational Database Service (Amazon RDS) database instances from the default value. The control fails if the administrative username is set to the default value."
+  description = "This control checks whether you've changed the administrative username for AWS Relational Database Service (AWS RDS) database instances from the default value. The control fails if the administrative username is set to the default value."
   query       = query.rds_db_instance_no_default_admin_name
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -433,7 +433,7 @@ control "rds_db_instance_no_default_admin_name" {
 
 control "rds_db_cluster_no_default_admin_name" {
   title       = "RDS database clusters should use a custom administrator username"
-  description = "This control checks whether an Amazon RDS database cluster has changed the admin username from its default value. This rule will fail if the admin username is set to the default value."
+  description = "This control checks whether an AWS RDS database cluster has changed the admin username from its default value. This rule will fail if the admin username is set to the default value."
   query       = query.rds_db_cluster_no_default_admin_name
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -444,7 +444,7 @@ control "rds_db_cluster_no_default_admin_name" {
 
 control "rds_db_cluster_aurora_backtracking_enabled" {
   title       = "RDS Aurora clusters should have backtracking enabled"
-  description = "This control checks whether Amazon Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthen the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
+  description = "This control checks whether AWS Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthen the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
   query       = query.rds_db_cluster_aurora_backtracking_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
@@ -464,7 +464,7 @@ control "rds_db_cluster_multiple_az_enabled" {
 
 control "rds_db_instance_connections_encryption_enabled" {
   title       = "RDS DB instances connections should be encrypted"
-  description = "This control checks if RDS DB instance connections are encrypted. Secure Sockets Layer (SSL) is used to encrypt between client applications and Amazon RDS DB instances running Microsoft SQL Server or PostgreSQL."
+  description = "This control checks if RDS DB instance connections are encrypted. Secure Sockets Layer (SSL) is used to encrypt between client applications and AWS RDS DB instances running Microsoft SQL Server or PostgreSQL."
   query       = query.rds_db_instance_connections_encryption_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {

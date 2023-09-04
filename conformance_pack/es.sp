@@ -46,7 +46,7 @@ control "es_domain_encrypted_using_tls_1_2" {
 
 control "es_domain_encryption_at_rest_enabled" {
   title       = "ES domain encryption at rest should be enabled"
-  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your Amazon Elasticsearch Service (Amazon ES) domains"
+  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your AWS Elasticsearch Service (AWS ES) domains"
   query       = query.es_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -70,7 +70,7 @@ control "es_domain_encryption_at_rest_enabled" {
 
 control "es_domain_in_vpc" {
   title       = "ES domains should be in a VPC"
-  description = "Manage access to the AWS Cloud by ensuring Amazon Elasticsearch Service (Amazon ES) Domains are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Manage access to the AWS Cloud by ensuring AWS Elasticsearch Service (AWS ES) Domains are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.es_domain_in_vpc
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -94,7 +94,7 @@ control "es_domain_in_vpc" {
 
 control "es_domain_node_to_node_encryption_enabled" {
   title       = "Elasticsearch domain node-to-node encryption should be enabled"
-  description = "Ensure node-to-node encryption for Amazon Elasticsearch Service is enabled. Node-to-node encryption enables TLS 1.2 encryption for all communications within the Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Ensure node-to-node encryption for AWS Elasticsearch Service is enabled. Node-to-node encryption enables TLS 1.2 encryption for all communications within the AWS Virtual Private Cloud (AWS VPC)."
   query       = query.es_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -118,7 +118,7 @@ control "es_domain_node_to_node_encryption_enabled" {
 
 control "es_domain_logs_to_cloudwatch" {
   title       = "Elasticsearch domain should send logs to CloudWatch"
-  description = "Ensure if Amazon OpenSearch Service (OpenSearch Service) domains are configured to send logs to Amazon CloudWatch Logs. The rule is compliant if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
+  description = "Ensure if AWS OpenSearch Service (OpenSearch Service) domains are configured to send logs to AWS CloudWatch Logs. The rule is compliant if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
   query       = query.es_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -140,7 +140,7 @@ control "es_domain_logs_to_cloudwatch" {
 
 control "es_domain_cognito_authentication_enabled" {
   title       = "Elasticsearch domains should have cognito authentication enabled"
-  description = "Amazon Elasticsearch service uses Amazon Cognito to offer user name and password protection for Kibana. This control is non compliant if Amazon Cognito authentication is not enabled."
+  description = "AWS Elasticsearch service uses AWS Cognito to offer user name and password protection for Kibana. This control is non compliant if AWS Cognito authentication is not enabled."
   query       = query.es_domain_cognito_authentication_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -268,8 +268,8 @@ query "es_domain_cognito_authentication_enabled" {
         else 'alarm'
       end as status,
       case
-        when cognito_options ->> 'Enabled' = 'true' then title || ' Amazon Cognito authentication for Kibana enabled.'
-        else title || ' Amazon Cognito authentication for Kibana disabled.'
+        when cognito_options ->> 'Enabled' = 'true' then title || ' AWS Cognito authentication for Kibana enabled.'
+        else title || ' AWS Cognito authentication for Kibana disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

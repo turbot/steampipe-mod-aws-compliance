@@ -56,7 +56,7 @@ control "route53_domain_not_expired" {
 
 control "route53_domain_privacy_protection_enabled" {
   title       = "Route53 domains privacy protection should be enabled"
-  description = "Ensure that your Amazon Route 53 domains have Privacy Protection feature enabled in order to hide all their contact information from WHOIS queries and reduce the amount of spam received. The feature allows you to conceal your personal phone number, email and physical address for the domain names registered and/or transferred to AWS Route 53 service."
+  description = "Ensure that your AWS Route 53 domains have Privacy Protection feature enabled in order to hide all their contact information from WHOIS queries and reduce the amount of spam received. The feature allows you to conceal your personal phone number, email and physical address for the domain names registered and/or transferred to AWS Route 53 service."
   query       = query.route53_domain_privacy_protection_enabled
 
   tags = merge(local.conformance_pack_route53_common_tags, {

@@ -4,15 +4,27 @@ locals {
   })
 }
 
+control "account_part_of_organizations" {
+  title       = "AWS account should be part of AWS Organizations"
+  description = "Ensure if an AWS account is part of AWS Organizations. The rule is non compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
+  query       = query.account_part_of_organizations
+
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    cis_controls_v8_ig1 = "true"
+    gxp_21_cfr_part_11  = "true"
+    nist_800_53_rev_5   = "true"
+    nist_csf            = "true"
+  })
+}
+
 control "account_alternate_contact_security_registered" {
   title       = "Security contact information should be provided for an AWS account"
-  description = "This control checks if an Amazon Web Services (AWS) account has security contact information. The control fails if security contact information is not provided for the account."
+  description = "This control checks if an AWS Web Services (AWS) account has security contact information. The control fails if security contact information is not provided for the account."
   query       = query.account_alternate_contact_security_registered
 
   tags = local.conformance_pack_account_common_tags
 }
 
-# Non-Config rule query
 query "account_alternate_contact_security_registered" {
   sql = <<-EOQ
     with alternate_security_contact as (
@@ -41,5 +53,23 @@ query "account_alternate_contact_security_registered" {
     from
       aws_account as a
       left join alternate_security_contact as c on c.account_id = a.account_id;
+  EOQ
+}
+
+query "account_part_of_organizations" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when organization_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when organization_id is not null then title || ' is part of organization(s).'
+        else title || ' is not part of organization.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_account;
   EOQ
 }

@@ -4,14 +4,6 @@ locals {
   })
 }
 
-control "wafv2_web_acl_rule_attached" {
-  title       = "A WAFV2 web ACL should have at least one rule or rule group"
-  description = "This control checks whether a WAFV2 web access control list (web ACL) contains at least one WAF rule or WAF rule group. The control fails if a web ACL does not contain any WAF rules or rule groups."
-  query       = query.wafv2_web_acl_rule_attached
-
-  tags = local.conformance_pack_waf_common_tags
-}
-
 control "waf_rule_condition_attached" {
   title       = "WAF global rule should have at least one condition"
   description = "This control checks whether an AWS WAF global rule contains any conditions. The control fails if no conditions are present within a rule."

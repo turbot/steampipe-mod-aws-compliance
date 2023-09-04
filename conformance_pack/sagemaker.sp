@@ -6,7 +6,7 @@ locals {
 
 control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   title       = "SageMaker notebook instances should be encrypted using CMK"
-  description = "This control checks if SageMaker notebook instance storage volumes are encrypted with Amazon KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
+  description = "This control checks if SageMaker notebook instance storage volumes are encrypted with AWS KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
   query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -16,7 +16,7 @@ control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
 
 control "sagemaker_notebook_instance_direct_internet_access_disabled" {
   title       = "SageMaker notebook instances should not have direct internet access"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon SageMaker notebooks do not allow direct internet access."
+  description = "Manage access to resources in the AWS Cloud by ensuring that AWS SageMaker notebooks do not allow direct internet access."
   query       = query.sagemaker_notebook_instance_direct_internet_access_disabled
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -88,7 +88,7 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
 
 control "sagemaker_model_in_vpc" {
   title       = "SageMaker models should be in a VPC"
-  description = "Manage access to the AWS Cloud by ensuring SageMaker models are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Manage access to the AWS Cloud by ensuring SageMaker models are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_model_in_vpc
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -108,7 +108,7 @@ control "sagemaker_model_network_isolation_enabled" {
 
 control "sagemaker_notebook_instance_in_vpc" {
   title       = "SageMaker notebook instances should be in a VPC"
-  description = "Manage access to the AWS Cloud by ensuring SageMaker notebook instances are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Manage access to the AWS Cloud by ensuring SageMaker notebook instances are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_notebook_instance_in_vpc
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
@@ -128,7 +128,7 @@ control "sagemaker_notebook_instance_root_access_disabled" {
 
 control "sagemaker_training_job_in_vpc" {
   title       = "SageMaker training jobs should be in VPC"
-  description = "Manage access to the AWS Cloud by ensuring SageMaker training jobs are within an Amazon Virtual Private Cloud (Amazon VPC)."
+  description = "Manage access to the AWS Cloud by ensuring SageMaker training jobs are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_training_job_in_vpc
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
