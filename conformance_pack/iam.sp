@@ -4,6 +4,22 @@ locals {
   })
 }
 
+control "iam_user_unused_credentials_45" {
+  title         = "Ensure credentials unused for 45 days or greater are disabled"
+  description   = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 45 or greater days be deactivated or removed."
+  query         = query.iam_user_unused_credentials_45
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_root_user_virtual_mfa" {
+  title       = "Ensure root user has a virtual MFA device"
+  description = "Manage access to resources in the AWS Cloud by ensuring that the root user has a virtual multi-factor authentication (MFA) device."
+  query       = query.iam_root_user_virtual_mfa
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 control "iam_access_analyzer_enabled" {
   title       = "Ensure that IAM Access analyzer is enabled for all regions"
   description = "This control checks whether IAM Access analyzer is enabled for all regions. The control fails if IAM Access analyzer is not enabled for all regions."

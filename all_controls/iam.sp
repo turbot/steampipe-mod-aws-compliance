@@ -41,6 +41,7 @@ benchmark "all_controls_iam" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_root_user_no_access_keys,
+    control.iam_root_user_virtual_mfa,
     control.iam_security_audit_role,
     control.iam_server_certificate_not_expired,
     control.iam_support_role,
@@ -54,6 +55,7 @@ benchmark "all_controls_iam" {
     control.iam_user_no_inline_attached_policies,
     control.iam_user_no_policies,
     control.iam_user_one_active_key,
+    control.iam_user_unused_credentials_45,
     control.iam_user_unused_credentials_90,
     control.iam_user_with_administrator_access_mfa_enabled
   ]

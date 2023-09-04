@@ -1256,34 +1256,6 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
   EOQ
 }
 
-query "vpc_security_group_associated" {
-  sql = <<-EOQ
-    with associated_sg as (
-      select
-        sg ->> 'GroupId' as secgrp_id,
-        sg ->> 'GroupName' as secgrp_name
-      from
-        aws_ec2_network_interface,
-        jsonb_array_elements(groups) as sg
-    )
-    select
-      distinct s.arn as resource,
-      case
-        when a.secgrp_id = s.group_id then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when a.secgrp_id = s.group_id then s.title || ' is associated.'
-        else s.title || ' not associated.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "s.")}
-    from
-      aws_vpc_security_group s
-      left join associated_sg a on s.group_id = a.secgrp_id;
-  EOQ
-}
-
 query "vpc_security_group_remote_administration_ipv4" {
   sql = <<-EOQ
     with bad_rules as (
