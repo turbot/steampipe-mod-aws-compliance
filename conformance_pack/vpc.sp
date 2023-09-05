@@ -283,9 +283,7 @@ control "vpc_security_group_restrict_ingress_redis_port" {
   description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_redis_port
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_restrict_ingress_kafka_port" {
@@ -293,9 +291,7 @@ control "vpc_security_group_restrict_ingress_kafka_port" {
   description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_kafka_port
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_restrict_ingress_kibana_port" {
@@ -303,9 +299,7 @@ control "vpc_security_group_restrict_ingress_kibana_port" {
   description = "AWS VPC security groups can help in managing network access by providing stateful filtering of ingress and egress network traffic to AWS resources."
   query       = query.vpc_security_group_restrict_ingress_kibana_port
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_not_uses_launch_wizard_sg" {
@@ -313,9 +307,7 @@ control "vpc_security_group_not_uses_launch_wizard_sg" {
   description = "Ensure the launch-wizard security group in your AWS account is not being used."
   query       = query.vpc_security_group_not_uses_launch_wizard_sg
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_endpoint_service_acceptance_required_enabled" {
@@ -323,9 +315,7 @@ control "vpc_endpoint_service_acceptance_required_enabled" {
   description = "Ensure VPC endpoints connection requests to the service are accepted by the service owner."
   query       = query.vpc_endpoint_service_acceptance_required_enabled
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_network_acl_unused" {
@@ -358,9 +348,7 @@ control "vpc_security_group_restricted_common_ports" {
   description = "This control checks whether unrestricted incoming traffic for the security groups is accessible to the specified ports that have the highest risk. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 for those ports."
   query       = query.vpc_security_group_restricted_common_ports
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_allows_ingress_authorized_ports" {
@@ -368,9 +356,7 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
   description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
   query       = query.vpc_security_group_allows_ingress_authorized_ports
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_allows_ingress_to_cassandra_ports" {
@@ -378,9 +364,7 @@ control "vpc_security_group_allows_ingress_to_cassandra_ports" {
   description = "This control checks whether the VPC security groups allow ingress from 0.0.0.0/0 or ::/0 to cassandra ports 7199 or 9160 or 8888. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 7199 or 9160 or 8888."
   query       = query.vpc_security_group_allows_ingress_to_cassandra_ports
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_allows_ingress_to_memcached_port" {
@@ -388,9 +372,7 @@ control "vpc_security_group_allows_ingress_to_memcached_port" {
   description = "This control checks whether the VPC security groups that are in use allow allow ingress from 0.0.0.0/0 or ::/0 to memcached port 11211. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from port 11211."
   query       = query.vpc_security_group_allows_ingress_to_memcached_port
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_allows_ingress_to_mongodb_ports" {
@@ -398,9 +380,7 @@ control "vpc_security_group_allows_ingress_to_mongodb_ports" {
   description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to mongoDB ports 27017 and 27018. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 27017 and 27018."
   query       = query.vpc_security_group_allows_ingress_to_mongodb_ports
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_security_group_allows_ingress_to_oracle_ports" {
@@ -408,9 +388,7 @@ control "vpc_security_group_allows_ingress_to_oracle_ports" {
   description = "This control checks whether the VPC security groups that are in use allow ingress from 0.0.0.0/0 or ::/0 to oracle ports 1521 or 2483. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. This control passes when none of the rules in a security group allow ingress traffic from 0.0.0.0/0 from ports 1521 or 2483."
   query       = query.vpc_security_group_allows_ingress_to_oracle_ports
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_in_more_than_one_region" {
@@ -418,9 +396,7 @@ control "vpc_in_more_than_one_region" {
   description = "This control checks whether there are VPCs present in multiple regions."
   query       = query.vpc_in_more_than_one_region
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_subnet_multi_az_enabled" {
@@ -428,9 +404,7 @@ control "vpc_subnet_multi_az_enabled" {
   description = "Ensure that each VPC has subnets spread across multiple availability zones."
   query       = query.vpc_subnet_multi_az_enabled
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 control "vpc_subnet_public_and_private" {
@@ -438,9 +412,7 @@ control "vpc_subnet_public_and_private" {
   description = "Ensure that all VPCs have both public and private subnets configured."
   query       = query.vpc_subnet_public_and_private
 
-  tags = merge(local.conformance_pack_vpc_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_vpc_common_tags
 }
 
 query "vpc_flow_logs_enabled" {

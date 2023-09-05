@@ -69,9 +69,7 @@ control "autoscaling_group_no_suspended_process" {
   description = "Ensure that there are no Auto Scaling Groups (ASGs) with suspended processes provisioned in your AWS account in order to avoid disrupting the auto scaling workflow."
   query       = query.autoscaling_group_no_suspended_process
 
-  tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_autoscaling_common_tags
 }
 
 control "autoscaling_group_multiple_az_configured" {
@@ -109,9 +107,7 @@ control "autoscaling_ec2_launch_configuration_no_sensitive_data" {
   description = "Ensure that sensitive information is not included in the user data of the launch configuration. It is recommended to utilize Secrets Manager as an alternative for securely managing sensitive data."
   query       = query.autoscaling_ec2_launch_configuration_no_sensitive_data
 
-  tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_autoscaling_common_tags
 }
 
 query "autoscaling_launch_config_requires_imdsv2" {

@@ -5,9 +5,9 @@ locals {
 }
 
 control "iam_user_unused_credentials_45" {
-  title         = "Ensure credentials unused for 45 days or greater are disabled"
-  description   = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 45 or greater days be deactivated or removed."
-  query         = query.iam_user_unused_credentials_45
+  title       = "Ensure credentials unused for 45 days or greater are disabled"
+  description = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 45 or greater days be deactivated or removed."
+  query       = query.iam_user_unused_credentials_45
 
   tags = local.conformance_pack_iam_common_tags
 }
@@ -554,9 +554,7 @@ control "iam_policy_custom_no_assume_role" {
   description = "Role assume policies can provide access to roles in external AWS accounts."
   query       = query.iam_policy_custom_no_assume_role
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_user_hardware_mfa_enabled" {
@@ -564,9 +562,7 @@ control "iam_user_hardware_mfa_enabled" {
   description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
   query       = query.iam_user_hardware_mfa_enabled
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_user_with_administrator_access_mfa_enabled" {
@@ -574,9 +570,7 @@ control "iam_user_with_administrator_access_mfa_enabled" {
   description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for users with administrative privileges."
   query       = query.iam_user_with_administrator_access_mfa_enabled
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_managed_policy_attached_to_role" {
@@ -610,9 +604,7 @@ control "iam_access_analyzer_enabled_without_findings" {
   description = "This control checks whether the IAM Access analyzer is enabled without findings. If you grant permissions to an S3 bucket in one of your organization member accounts to a principal in another organization member account, IAM Access Analyzer does not generate a finding. But if you grant permission to a principal in an account that is not a member of the organization, IAM Access Analyzer generates a finding."
   query       = query.iam_access_analyzer_enabled_without_findings
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_role_unused_60" {
@@ -620,9 +612,7 @@ control "iam_role_unused_60" {
   description = "This control checks whether the IAM role has been used in 60 days. Unused accounts and roles increase the attack surface area."
   query       = query.iam_role_unused_60
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_custom_policy_unattached_no_star_star" {
@@ -630,9 +620,7 @@ control "iam_custom_policy_unattached_no_star_star" {
   description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, restricting policies from containing 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
   query       = query.iam_custom_policy_unattached_no_star_star
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_policy_no_full_access_to_cloudtrail" {
@@ -640,9 +628,7 @@ control "iam_policy_no_full_access_to_cloudtrail" {
   description = "CloudTrail is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to cloudtrail service."
   query       = query.iam_policy_no_full_access_to_cloudtrail
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_policy_no_full_access_to_kms" {
@@ -650,9 +636,7 @@ control "iam_policy_no_full_access_to_kms" {
   description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to KMS service."
   query       = query.iam_policy_no_full_access_to_cloudtrail
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_role_cross_account_read_only_access_policy" {
@@ -660,9 +644,7 @@ control "iam_role_cross_account_read_only_access_policy" {
   description = "Ensure IAM Roles do not have ReadOnlyAccess access for external AWS account. The AWS-managed ReadOnlyAccess policy carries a high risk of potential data leakage, posing a significant threat to customer security and privacy."
   query       = query.iam_role_cross_account_read_only_access_policy
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_security_audit_role" {
@@ -670,9 +652,7 @@ control "iam_security_audit_role" {
   description = "Ensure IAM Security Audit role is created. By creating an IAM role with a security audit policy, a distinct segregation of responsibilities is established between the security team and other teams within the organization."
   query       = query.iam_security_audit_role
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 control "iam_policy_custom_no_permissive_role_assumption" {
@@ -680,9 +660,7 @@ control "iam_policy_custom_no_permissive_role_assumption" {
   description = "Ensure that no custom IAM policies exist which allow permissive role assumption."
   query       = query.iam_policy_custom_no_permissive_role_assumption
 
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_iam_common_tags
 }
 
 query "iam_account_password_policy_strong_min_reuse_24" {

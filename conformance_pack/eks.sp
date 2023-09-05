@@ -36,9 +36,7 @@ control "eks_cluster_control_plane_audit_logging_enabled" {
   description = "AWS EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
   query       = query.eks_cluster_control_plane_audit_logging_enabled
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 control "eks_cluster_no_default_vpc" {
@@ -46,9 +44,7 @@ control "eks_cluster_no_default_vpc" {
   description = "Ensure to configure a new VPC for your EKS cluster as default VPC comes with a default configuration that lacks the proper security controls. Your network should be well configured and should follow the least privilege principle, meaning only the necessary privileges are granted."
   query       = query.eks_cluster_no_default_vpc
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 control "eks_cluster_with_latest_kubernetes_version" {
@@ -67,9 +63,7 @@ control "eks_cluster_endpoint_public_access_restricted" {
   description = "EKS clusters endpoint with private access allows communication between your nodes and the API server stays within. This control is non-compliant if clusters endpoint public access is enabled as cluster API server is accessible from the internet."
   query       = query.eks_cluster_endpoint_public_access_restricted
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 query "eks_cluster_secrets_encrypted" {

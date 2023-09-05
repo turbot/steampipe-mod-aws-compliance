@@ -85,9 +85,7 @@ control "efs_file_system_enforces_ssl" {
   description = "To help protect data in transit, ensure that your EFS file systems require requests to use Secure Socket Layer (SSL)."
   query       = query.efs_file_system_enforces_ssl
 
-  tags = merge(local.conformance_pack_efs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_efs_common_tags
 }
 
 control "efs_access_point_enforce_user_identity" {
@@ -116,9 +114,7 @@ control "efs_file_system_restrict_public_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring AWS EFS file systems cannot be publicly accessed."
   query       = query.efs_file_system_restrict_public_access
 
-  tags = merge(local.conformance_pack_efs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_efs_common_tags
 }
 
 query "efs_file_system_encrypt_data_at_rest" {

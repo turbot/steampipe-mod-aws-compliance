@@ -100,9 +100,7 @@ control "lambda_function_cloudtrail_logging_enabled" {
   description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
   query       = query.lambda_function_cloudtrail_logging_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_tracing_enabled" {
@@ -110,9 +108,7 @@ control "lambda_function_tracing_enabled" {
   description = "AWS X-Ray can be used to visualize the components of application, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Lambda functions send trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries."
   query       = query.lambda_function_tracing_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_multiple_az_configured" {
@@ -140,9 +136,7 @@ control "lambda_function_restrict_public_url" {
   description = "This control verifies that the Lambda function does not have a publicly accessible URL. Exposing services publicly could potentially make sensitive data accessible to malicious actors."
   query       = query.lambda_function_restrict_public_url
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_variables_no_sensitive_data" {
@@ -150,9 +144,7 @@ control "lambda_function_variables_no_sensitive_data" {
   description = "Ensure functions environment variables is not having any sensitive data. Leveraging Secrets Manager enables secure provisioning of database credentials to Lambda functions while also ensuring the security of databases. This approach eliminates the need to hardcode secrets in code or pass them through environmental variables. Additionally, Secrets Manager facilitates the secure retrieval of credentials for establishing connections to databases and performing queries, enhancing overall security measures."
   query       = query.lambda_function_variables_no_sensitive_data
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 query "lambda_function_dead_letter_queue_configured" {

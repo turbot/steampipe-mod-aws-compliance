@@ -405,9 +405,7 @@ control "rds_db_instance_cloudwatch_logs_enabled" {
   description = "Use AWS CloudWatch to centrally collect and manage RDS DB instance activity."
   query       = query.rds_db_instance_cloudwatch_logs_enabled
 
-  tags = merge(local.conformance_pack_rds_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_rds_common_tags
 }
 
 control "rds_db_instance_ca_certificate_expires_7_days" {
@@ -415,9 +413,7 @@ control "rds_db_instance_ca_certificate_expires_7_days" {
   description = "Ensure RDS DB instances CA certificates are not getting expired within the next 7 days."
   query       = query.rds_db_instance_ca_certificate_expires_7_days
 
-  tags = merge(local.conformance_pack_rds_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_rds_common_tags
 }
 
 control "rds_db_instance_no_default_admin_name" {
@@ -467,9 +463,7 @@ control "rds_db_instance_connections_encryption_enabled" {
   description = "This control checks if RDS DB instance connections are encrypted. Secure Sockets Layer (SSL) is used to encrypt between client applications and AWS RDS DB instances running Microsoft SQL Server or PostgreSQL."
   query       = query.rds_db_instance_connections_encryption_enabled
 
-  tags = merge(local.conformance_pack_rds_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_rds_common_tags
 }
 
 query "rds_db_instance_backup_enabled" {

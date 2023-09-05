@@ -25,9 +25,7 @@ control "ecs_cluster_encryption_at_rest_enabled" {
   description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
   query       = query.ecs_cluster_encryption_at_rest_enabled
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecs_common_tags
 }
 
 control "ecs_cluster_instance_in_vpc" {
@@ -35,9 +33,7 @@ control "ecs_cluster_instance_in_vpc" {
   description = "Deploy AWS ECS cluster instance within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a instance and other services within the AWS VPC."
   query       = query.ecs_cluster_instance_in_vpc
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecs_common_tags
 }
 
 control "ecs_cluster_no_registered_container_instance" {
@@ -45,9 +41,7 @@ control "ecs_cluster_no_registered_container_instance" {
   description = "This control ensures that at least one container instance is registered with an ECS cluster."
   query       = query.ecs_cluster_no_registered_container_instance
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecs_common_tags
 }
 
 control "ecs_service_load_balancer_attached" {
@@ -55,9 +49,7 @@ control "ecs_service_load_balancer_attached" {
   description = "ECS service can be configured to use Elastic Load Balancing to distribute traffic evenly across the tasks in your service. It is recommended to use Application Load Balancers for your AWS ECS services so that you can take advantage of these latest features, unless your service requires a feature that is only available with Network Load Balancers or Classic Load Balancers."
   query       = query.ecs_service_load_balancer_attached
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecs_common_tags
 }
 
 control "ecs_task_definition_user_for_host_mode_check" {
@@ -84,9 +76,7 @@ control "ecs_task_definition_logging_enabled" {
   description = "Ensure logging is enabled for task definitions so that you can access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation."
   query       = query.ecs_task_definition_logging_enabled
 
-  tags = merge(local.conformance_pack_ecs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecs_common_tags
 }
 
 control "ecs_cluster_container_insights_enabled" {

@@ -9,9 +9,7 @@ control "workspaces_workspace_volume_encryption_enabled" {
   description = "To help protect data at rest, ensure encryption is enabled for your WorkSpaces root and user volumes."
   query       = query.workspaces_workspace_volume_encryption_enabled
 
-  tags = merge(local.conformance_pack_workspaces_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_workspaces_common_tags
 }
 
 query "workspaces_workspace_volume_encryption_enabled" {

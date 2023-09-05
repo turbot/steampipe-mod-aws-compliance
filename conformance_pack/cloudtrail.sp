@@ -226,9 +226,7 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
   query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
 
-  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudtrail_common_tags
 }
 
 control "cloudtrail_trail_bucket_mfa_enabled" {
@@ -236,9 +234,7 @@ control "cloudtrail_trail_bucket_mfa_enabled" {
   description = "Ensure that CloudTrail trail S3 buckets should have MFA delete enabled. MFA delete helps prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
   query       = query.cloudtrail_trail_bucket_mfa_enabled
 
-  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudtrail_common_tags
 }
 
 query "cloudtrail_trail_integrated_with_logs" {

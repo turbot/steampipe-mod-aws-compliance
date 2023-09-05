@@ -9,9 +9,7 @@ control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   description = "This control checks if SageMaker notebook instance storage volumes are encrypted with AWS KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
   query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_notebook_instance_direct_internet_access_disabled" {
@@ -91,9 +89,7 @@ control "sagemaker_model_in_vpc" {
   description = "Manage access to the AWS Cloud by ensuring SageMaker models are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_model_in_vpc
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_model_network_isolation_enabled" {
@@ -101,9 +97,7 @@ control "sagemaker_model_network_isolation_enabled" {
   description = "SageMaker models are internet-enabled by default. Network isolation should be enabled to avoid external network access to your inference containers."
   query       = query.sagemaker_model_network_isolation_enabled
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_notebook_instance_in_vpc" {
@@ -111,9 +105,7 @@ control "sagemaker_notebook_instance_in_vpc" {
   description = "Manage access to the AWS Cloud by ensuring SageMaker notebook instances are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_notebook_instance_in_vpc
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_notebook_instance_root_access_disabled" {
@@ -121,9 +113,7 @@ control "sagemaker_notebook_instance_root_access_disabled" {
   description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. It is recommeneded to disable root access to restrict users from accessing and editing all the files."
   query       = query.sagemaker_notebook_instance_root_access_disabled
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_training_job_in_vpc" {
@@ -131,9 +121,7 @@ control "sagemaker_training_job_in_vpc" {
   description = "Manage access to the AWS Cloud by ensuring SageMaker training jobs are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.sagemaker_training_job_in_vpc
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
@@ -141,9 +129,7 @@ control "sagemaker_training_job_inter_container_traffic_encryption_enabled" {
   description = "Inter-container traffic encryption shoule be used to protect data that is transmitted between instances while performing distributed training. This control in compliant when inter-container traffic encryption is enabled."
   query       = query.sagemaker_training_job_inter_container_traffic_encryption_enabled
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_training_job_network_isolation_enabled" {
@@ -151,9 +137,7 @@ control "sagemaker_training_job_network_isolation_enabled" {
   description = "SageMaker training jobs are internet-enabled by default. Network isolation should be enabled to avoid external network access to your training."
   query       = query.sagemaker_training_job_network_isolation_enabled
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 control "sagemaker_training_job_volume_and_data_encryption_enabled" {
@@ -161,9 +145,7 @@ control "sagemaker_training_job_volume_and_data_encryption_enabled" {
   description = "Ensure that SageMaker training jobs have volumes and outputs with KMS encryption enabled in order to have a more granular control over the data-at-rest encryption/decryption process and to meet compliance requirements."
   query       = query.sagemaker_training_job_volume_and_data_encryption_enabled
 
-  tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sagemaker_common_tags
 }
 
 query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {

@@ -143,9 +143,7 @@ control "es_domain_cognito_authentication_enabled" {
   description = "AWS Elasticsearch service uses AWS Cognito to offer user name and password protection for Kibana. This control is non compliant if AWS Cognito authentication is not enabled."
   query       = query.es_domain_cognito_authentication_enabled
 
-  tags = merge(local.conformance_pack_es_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_es_common_tags
 }
 
 control "es_domain_internal_user_database_enabled" {
@@ -153,9 +151,7 @@ control "es_domain_internal_user_database_enabled" {
   description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
   query       = query.es_domain_internal_user_database_enabled
 
-  tags = merge(local.conformance_pack_es_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_es_common_tags
 }
 
 query "es_domain_encryption_at_rest_enabled" {

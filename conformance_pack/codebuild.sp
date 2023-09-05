@@ -9,9 +9,7 @@ control "codebuild_project_build_greater_then_90_days" {
   description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
   query       = query.codebuild_project_build_greater_then_90_days
 
-  tags = merge(local.conformance_pack_codebuild_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_codebuild_common_tags
 }
 
 control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
@@ -57,9 +55,7 @@ control "codebuild_project_with_user_controlled_buildspec" {
   description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
   query       = query.codebuild_project_with_user_controlled_buildspec
 
-  tags = merge(local.conformance_pack_codebuild_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_codebuild_common_tags
 }
 
 control "codebuild_project_environment_privileged_mode_disabled" {
@@ -90,9 +86,9 @@ control "codebuild_project_artifact_encryption_enabled" {
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    gxp_21_cfr_part_11  = "true"
-    gxp_eu_annex_11     = "true"
-    nist_csf            = "true"
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
   })
 }
 

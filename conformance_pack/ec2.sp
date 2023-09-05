@@ -131,9 +131,7 @@ control "ec2_instance_no_high_level_finding_in_inspector_scan" {
   description = "AWS Inspector scans operating system packages installed on your AWS EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
   query       = query.ec2_instance_no_high_level_finding_in_inspector_scan
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_stopped_instance_30_days" {
@@ -239,9 +237,7 @@ control "ec2_instance_publicly_accessible_iam_profile_attached" {
   description = "Ensure AWS Elastic Compute Cloud (AWS EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non compliant if no IAM profile is attached to public AWS EC2 instance."
   query       = query.ec2_instance_publicly_accessible_iam_profile_attached
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_instance_user_data_no_secrets" {
@@ -249,9 +245,7 @@ control "ec2_instance_user_data_no_secrets" {
   description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code which is exposed to any entity which has the most basic access to EC2, even read-only configurations. It is recommended to not use secrets in user data."
   query       = query.ec2_instance_user_data_no_secrets
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
@@ -261,7 +255,6 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf     = "true"
-    other_checks = "true"
   })
 }
 
@@ -270,9 +263,7 @@ control "ec2_instance_no_launch_wizard_security_group" {
   description = "Ensure EC2 instances provisioned in your AWS account are not associated with security groups that have their name prefixed with 'launch-wizard', in order to enforce using secure and custom security groups that exercise the principle of least privilege."
   query       = query.ec2_instance_no_launch_wizard_security_group
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_instance_virtualization_type_no_paravirtual" {
@@ -290,9 +281,7 @@ control "ec2_ami_restrict_public_access" {
   description = "This control checks whether EC2 AMIs are set as private or not. The control fails if the EC2 AMIs are set as public."
   query       = query.ec2_ami_restrict_public_access
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 query "ec2_ebs_default_encryption_enabled" {

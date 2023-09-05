@@ -32,9 +32,7 @@ control "sns_topic_policy_prohibit_public_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot be publicly accessed."
   query       = query.sns_topic_policy_prohibit_public_access
 
-  tags = merge(local.conformance_pack_sns_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_sns_common_tags
 }
 
 control "sns_topic_notification_delivery_status_enabled" {

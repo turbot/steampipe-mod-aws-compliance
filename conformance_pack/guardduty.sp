@@ -55,9 +55,7 @@ control "guardduty_no_high_severity_findings" {
   description = "GuardDuty generates a finding whenever it detects unexpected and potentially malicious activity in your AWS environment. If critical findings are not addressed threats can spread in the environment. This rule is non-compliant if there are high severity findings."
   query       = query.guardduty_no_high_severity_findings
 
-  tags = merge(local.conformance_pack_guardduty_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_centrally_configured" {
@@ -65,9 +63,7 @@ control "guardduty_centrally_configured" {
   description = "Ensure that GuardDuty is centrally configured, if GuardDuty is not under central management, it becomes impossible to centrally manage GuardDuty findings, settings, and member accounts."
   query       = query.guardduty_centrally_configured
 
-  tags = merge(local.conformance_pack_guardduty_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_guardduty_common_tags
 }
 
 query "guardduty_enabled" {

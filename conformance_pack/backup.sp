@@ -87,9 +87,7 @@ control "backup_plan_region_configured" {
   description = "Ensure that there exists at least one backup plan in a region. The rule is non-compliant if there are no backup plans in a region."
   query       = query.backup_plan_region_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 control "backup_vault_region_configured" {
@@ -97,9 +95,7 @@ control "backup_vault_region_configured" {
   description = "Ensure that there exists at least one backup vault in a region. The rule is non-compliant if there are no backup vaults in a region."
   query       = query.backup_vault_region_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 control "backup_report_plan_configured" {
@@ -107,9 +103,7 @@ control "backup_report_plan_configured" {
   description = "Ensure that there is a minimum of one backup report plan in each region. The rule will be considered non-compliant if a region with backup plans does not have any backup report plans."
   query       = query.backup_report_plan_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 query "backup_recovery_point_manual_deletion_disabled" {

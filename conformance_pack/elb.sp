@@ -5,7 +5,7 @@ locals {
 }
 
 control "elb_network_lb_tls_listener_security_policy_configured" {
-  title      = "ELB network load balancers should have TLS listener security policy configured"
+  title       = "ELB network load balancers should have TLS listener security policy configured"
   description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy, could make the TLS connection between the client and the load balancer vulnerable to exploits."
   query       = query.elb_network_lb_tls_listener_security_policy_configured
 
@@ -221,9 +221,7 @@ control "elb_listener_use_secure_ssl_cipher" {
   description = "Ensure that ELB listeners do not have any insecure SSL ciphers. Using insecure and deprecated ciphers for your ELB Predefined Security Policy or Custom Security Policy could make the SSL connection between the client and the load balancer vulnerable to exploits."
   query       = query.elb_listener_use_secure_ssl_cipher
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_classic_network_lb_prohibit_public_access" {
@@ -231,9 +229,7 @@ control "elb_application_classic_network_lb_prohibit_public_access" {
   description = "An internet facing load balancer has a publicly resolvable DNS name, so it can route requests from clients over the internet to the EC2 instances that are registered with the load balancer."
   query       = query.elb_application_classic_network_lb_prohibit_public_access
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_lb_listener_certificate_expire_7_days" {
@@ -241,9 +237,7 @@ control "elb_application_lb_listener_certificate_expire_7_days" {
   description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 7 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_7_days
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_lb_listener_certificate_expire_30_days" {
@@ -251,9 +245,7 @@ control "elb_application_lb_listener_certificate_expire_30_days" {
   description = "This control ensures that SSL/TLS certificates used in application load balancers are renewed 30 days before their expiration date."
   query       = query.elb_application_lb_listener_certificate_expire_30_days
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_lb_with_outbound_rule" {
@@ -261,9 +253,7 @@ control "elb_application_lb_with_outbound_rule" {
   description = "Ensure application load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
   query       = query.elb_application_lb_with_outbound_rule
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_network_lb_use_listeners" {
@@ -271,9 +261,7 @@ control "elb_application_network_lb_use_listeners" {
   description = "Ensure that application and network load balancer must have one or more listeners. A listener is a process that checks for connection requests, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets."
   query       = query.elb_application_network_lb_use_listeners
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_classic_lb_with_outbound_rule" {
@@ -281,9 +269,7 @@ control "elb_classic_lb_with_outbound_rule" {
   description = "Ensure classic load balancers have at least one outbound rule in all the attached security groups. A security group without any outbound rule rejects all outgoing traffic. This means that all outgoing traffic originating from your cloud assets (instances, containers, etc.) will be dropped when it reaches the ELB layer."
   query       = query.elb_classic_lb_with_outbound_rule
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_tls_listener_protocol_version" {
@@ -291,9 +277,7 @@ control "elb_tls_listener_protocol_version" {
   description = "Using insecure ciphers for your ELB Predefined or Custom Security Policy, could make the SSL connection between the client and the load balancer vulnerable to exploits. TLS 1.0 was recommended to be disabled by PCI Council after June 30, 2016."
   query       = query.elb_tls_listener_protocol_version
 
-  tags = merge(local.conformance_pack_elb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_application_lb_desync_mitigation_mode" {

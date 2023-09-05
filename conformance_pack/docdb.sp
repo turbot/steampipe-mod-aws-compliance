@@ -25,9 +25,7 @@ control "docdb_cluster_instance_logging_enabled" {
   description = "To help with logging and monitoring within your environment, ensure AWS DocumentDB instance logging is enabled."
   query       = query.docdb_cluster_instance_logging_enabled
 
-  tags = merge(local.conformance_pack_docdb_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_docdb_common_tags
 }
 
 query "docdb_cluster_instance_logging_enabled" {

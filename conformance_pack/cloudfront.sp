@@ -32,9 +32,7 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
   description = "Geographic restriction is used to restrict access to all of the files that are associated with a distribution at the country level."
   query       = query.cloudfront_distribution_geo_restrictions_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_use_secure_cipher" {
@@ -42,9 +40,7 @@ control "cloudfront_distribution_use_secure_cipher" {
   description = "Ensure that CloudFront distributions do not have any insecure SSL ciphers. Using insecure and deprecated ciphers could make the SSL connection between the CloudFront and the origins vulnerable to exploits."
   query       = query.cloudfront_distribution_use_secure_cipher
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
@@ -52,9 +48,7 @@ control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
   description = "This control ensures that conection between cloudfront and oriign server is encrypted. It is recommended to enforce HTTPS-only traffic between a CloudFront distribution and the origin."
   query       = query.cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_no_deprecated_ssl_protocol" {
@@ -161,9 +155,7 @@ control "cloudfront_distribution_field_level_encryption_enabled" {
   description = "This control checks whether an AWS CloudFront distribution has field-level encryption enabled. The control fails if CloudFront distribution field-level encryption is not enabled."
   query       = query.cloudfront_distribution_field_level_encryption_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 query "cloudfront_distribution_encryption_in_transit_enabled" {

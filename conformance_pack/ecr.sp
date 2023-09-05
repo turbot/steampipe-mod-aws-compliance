@@ -11,7 +11,6 @@ control "ecr_repository_image_scan_on_push_enabled" {
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
     nist_csf     = "true"
-    other_checks = "true"
   })
 }
 
@@ -20,9 +19,7 @@ control "ecr_repository_prohibit_public_access" {
   description = "Ensure there are no ECR repositories set as public."
   query       = query.ecr_repository_prohibit_public_access
 
-  tags = merge(local.conformance_pack_ecr_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ecr_common_tags
 }
 
 control "ecr_repository_tag_immutability_enabled" {

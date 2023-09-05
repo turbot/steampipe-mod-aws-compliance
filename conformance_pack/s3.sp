@@ -225,9 +225,7 @@ control "s3_bucket_static_website_hosting_disabled" {
   description = "Enabling static website on a S3 bucket requires to grant public read access to the bucket. There is a potential risk of exposure when you turn off block public access settings to make your bucket public. This is recommend to not configure static website on S3 bucket."
   query       = query.s3_bucket_static_website_hosting_disabled
 
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_public_access_block_account" {
@@ -322,9 +320,7 @@ control "s3_bucket_object_logging_enabled" {
   description = "Object-Level logging saves events in JSON format in CloudTrail. This is recommended from a security best practice perspective for buckets that contain sensitive data."
   query       = query.s3_bucket_object_logging_enabled
 
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_bucket_policy_restrict_public_access" {

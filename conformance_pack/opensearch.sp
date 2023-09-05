@@ -113,9 +113,7 @@ control "opensearch_domain_cognito_authentication_enabled_for_kibana" {
   description = "This control checks whether AWS OpenSearch domain has AWS Cognito authentication for Kibana enabled. AWS Cognito lets you easily add user sign-up and authentication to your mobile and web apps."
   query       = query.opensearch_domain_cognito_authentication_enabled_for_kibana
 
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_opensearch_common_tags
 }
 
 control "opensearch_domain_internal_user_database_disabled" {
@@ -123,9 +121,7 @@ control "opensearch_domain_internal_user_database_disabled" {
   description = "Ensure that AWS OpenSearch domain has internal user database disabled. This control is non compliant if the OpenSearch domain internal user database is enabled."
   query       = query.opensearch_domain_internal_user_database_disabled
 
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_opensearch_common_tags
 }
 
 control "opensearch_domain_updated_with_latest_service_software_version" {
@@ -133,9 +129,7 @@ control "opensearch_domain_updated_with_latest_service_software_version" {
   description = "This control checks whether AWS OpenSearch domain has any updates available. This control is non compliant if the OpenSearch domain has any updates available."
   query       = query.opensearch_domain_updated_with_latest_service_software_version
 
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_opensearch_common_tags
 }
 
 query "opensearch_domain_encryption_at_rest_enabled" {

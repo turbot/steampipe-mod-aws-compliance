@@ -146,9 +146,7 @@ control "ebs_snapshot_encryption_enabled" {
   description = "Ensure that EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
   query       = query.ebs_snapshot_encryption_enabled
 
-  tags = merge(local.conformance_pack_ebs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ebs_common_tags
 }
 
 query "ebs_snapshot_not_publicly_restorable" {

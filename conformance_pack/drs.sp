@@ -9,9 +9,7 @@ control "drs_job_enabled" {
   description = "Ensure if DRS is enabled with jobs. This rule is non-compliant if DRS is not enabled with jobs for a particular region."
   query       = query.drs_job_enabled
 
-  tags = merge(local.conformance_pack_drs_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_drs_common_tags
 }
 
 query "drs_job_enabled" {

@@ -49,9 +49,7 @@ control "cloudwatch_cross_account_sharing" {
   description = "Ensure that your AWS CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."
   query       = query.cloudwatch_cross_account_sharing
 
-  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudwatch_common_tags
 }
 
 control "log_group_encryption_at_rest_enabled" {

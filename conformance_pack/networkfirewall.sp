@@ -49,9 +49,7 @@ control "networkfirewall_firewall_in_vpc" {
   description = "Deploy AWS Networkfirewall firewall within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.networkfirewall_firewall_in_vpc
 
-  tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_networkfirewall_common_tags
 }
 
 query "networkfirewall_stateless_rule_group_not_empty" {

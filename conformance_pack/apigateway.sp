@@ -119,9 +119,7 @@ control "apigateway_rest_api_authorizers_configured" {
   description = "Ensure API Gateway stages have authorizers configured."
   query       = query.apigateway_rest_api_authorizers_configured
 
-  tags = merge(local.conformance_pack_apigateway_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_apigateway_common_tags
 }
 
 control "apigateway_rest_api_endpoint_restrict_public_access" {
@@ -129,9 +127,7 @@ control "apigateway_rest_api_endpoint_restrict_public_access" {
   description = "This control checks whether API Gateway endpoint is public or private. This rule is non-compliant if API Gateway endpoint is public."
   query       = query.apigateway_rest_api_endpoint_restrict_public_access
 
-  tags = merge(local.conformance_pack_apigateway_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_apigateway_common_tags
 }
 
 control "api_gatewayv2_route_authorizer_configured" {
@@ -139,9 +135,7 @@ control "api_gatewayv2_route_authorizer_configured" {
   description = "This control checks whether API Gateway V2 has an authorizer configured. This rule is non-compliant if API Gateway V2 has no authorizers configured."
   query       = query.api_gatewayv2_route_authorizer_configured
 
-  tags = merge(local.conformance_pack_apigateway_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_apigateway_common_tags
 }
 
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
