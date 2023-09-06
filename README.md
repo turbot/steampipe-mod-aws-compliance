@@ -83,7 +83,7 @@ terminal with the `steampipe check` command:
 Run all controls:
 
 ```sh
-steampipe check aws_compliance.benchmark.all_controls
+steampipe check benchmark.all_controls
 ```
 
 Run a single benchmark:
