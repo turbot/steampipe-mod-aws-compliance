@@ -69,7 +69,7 @@ control "opensearch_domain_audit_logging_enabled" {
 
 control "opensearch_domain_logs_to_cloudwatch" {
   title       = "OpenSearch domains logs to AWS CloudWatch Logs"
-  description = "This control checks whether AWS OpenSearch Service domains are configured to send logs to CloudWatch logs. The rule is non compliant if logging is not configured."
+  description = "This control checks whether AWS OpenSearch Service domains are configured to send logs to CloudWatch logs. The rule is non-compliant if logging is not configured."
   query       = query.opensearch_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -82,7 +82,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
 
 control "opensearch_domain_node_to_node_encryption_enabled" {
   title       = "OpenSearch domains node-to-node encryption should be enabled"
-  description = "This control checks if AWS OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
+  description = "This control checks if AWS OpenSearch Service nodes are encrypted end to end. The rule is non-compliant if the node-to-node encryption is not enabled on the domain."
   query       = query.opensearch_domain_node_to_node_encryption_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -118,7 +118,7 @@ control "opensearch_domain_cognito_authentication_enabled_for_kibana" {
 
 control "opensearch_domain_internal_user_database_disabled" {
   title       = "OpenSearch domains internal user database should be disabled"
-  description = "Ensure that AWS OpenSearch domain has internal user database disabled. This control is non compliant if the OpenSearch domain internal user database is enabled."
+  description = "Ensure that AWS OpenSearch domain has internal user database disabled. This control is non-compliant if the OpenSearch domain internal user database is enabled."
   query       = query.opensearch_domain_internal_user_database_disabled
 
   tags = local.conformance_pack_opensearch_common_tags
@@ -126,7 +126,7 @@ control "opensearch_domain_internal_user_database_disabled" {
 
 control "opensearch_domain_updated_with_latest_service_software_version" {
   title       = "OpenSearch domains should be updated to the latest service software version"
-  description = "This control checks whether AWS OpenSearch domain has any updates available. This control is non compliant if the OpenSearch domain has any updates available."
+  description = "This control checks whether AWS OpenSearch domain has any updates available. This control is non-compliant if the OpenSearch domain has any updates available."
   query       = query.opensearch_domain_updated_with_latest_service_software_version
 
   tags = local.conformance_pack_opensearch_common_tags

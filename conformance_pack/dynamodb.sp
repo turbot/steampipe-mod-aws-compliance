@@ -110,7 +110,7 @@ control "dynamodb_table_encryption_enabled" {
 
 control "dynamodb_table_protected_by_backup_plan" {
   title       = "DynamoDB table should be protected by backup plan"
-  description = "Ensure if AWS DynamoDB tables are protected by a backup plan. The rule is non compliant if the DynamoDB Table is not covered by a backup plan."
+  description = "Ensure if AWS DynamoDB tables are protected by a backup plan. The rule is non-compliant if the DynamoDB Table is not covered by a backup plan."
   query       = query.dynamodb_table_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {

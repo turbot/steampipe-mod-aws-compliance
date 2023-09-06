@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_route53" {
-  title       = "Route53"
-  description = "This section contains recommendations for configuring Route53 resources."
+  title       = "Route 53"
+  description = "This section contains recommendations for configuring Route 53 resources."
   children = [
     control.route53_domain_auto_renew_enabled,
     control.route53_domain_expires_30_days,

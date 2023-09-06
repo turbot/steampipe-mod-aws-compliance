@@ -14,7 +14,7 @@ control "ecs_cluster_container_instance_agent_connected" {
 
 control "ecs_service_not_publicly_accessible" {
   title       = "AWS ECS services should not have public IP addresses assigned to them automatically"
-  description = "This control checks whether AWS ECS services are configured to automatically assign public IP addresses. This control fails if AssignPublicIP is ENABLED. This control passes if AssignPublicIP is DISABLED."
+  description = "This control checks whether AWS ECS services are configured to automatically assign public IP addresses. This control fails if AssignPublicIP is enabled."
   query       = query.ecs_service_not_publicly_accessible
 
   tags = local.conformance_pack_ecs_common_tags
@@ -54,7 +54,7 @@ control "ecs_service_load_balancer_attached" {
 
 control "ecs_task_definition_user_for_host_mode_check" {
   title       = "ECS task definition container definitions should be checked for host mode"
-  description = "Check if AWS Elastic Container Service (AWS ECS) task definition with host networking mode has 'privileged' or 'user' container definitions.The rule is non compliant for task definitions with host network mode and container definitions of privileged=false or empty and user=root or empty."
+  description = "Check if AWS Elastic Container Service (AWS ECS) task definition with host networking mode has 'privileged' or 'user' container definitions.The rule is non-compliant for task definitions with host network mode and container definitions of privileged=false or empty and user=root or empty."
   query       = query.ecs_task_definition_user_for_host_mode_check
 
   tags = merge(local.conformance_pack_ecs_common_tags, {

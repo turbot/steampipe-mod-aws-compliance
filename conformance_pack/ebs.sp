@@ -104,7 +104,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
 
 control "ebs_volume_protected_by_backup_plan" {
   title       = "EBS volumes should be protected by a backup plan"
-  description = "Ensure if AWS Elastic Block Store (AWS EBS) volumes are protected by a backup plan. The rule is non compliant if the AWS EBS volume is not covered by a backup plan."
+  description = "Ensure that AWS Elastic Block Store (AWS EBS) volumes are protected by a backup plan. The rule is non-compliant if the AWS EBS volume is not covered by a backup plan."
   query       = query.ebs_volume_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {

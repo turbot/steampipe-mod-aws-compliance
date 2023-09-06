@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_directoryservice" {
-  title       = "DirectoryService"
-  description = "This section contains recommendations for configuring DirectoryService resources."
+  title       = "Directory Service"
+  description = "This section contains recommendations for configuring Directory Service resources."
   children = [
     control.directory_service_certificate_expires_90_days,
     control.directory_service_directory_snapshots_limit_2,

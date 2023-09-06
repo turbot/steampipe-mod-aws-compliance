@@ -46,7 +46,7 @@ control "es_domain_encrypted_using_tls_1_2" {
 
 control "es_domain_encryption_at_rest_enabled" {
   title       = "ES domain encryption at rest should be enabled"
-  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your AWS Elasticsearch Service (AWS ES) domains"
+  description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your AWS Elasticsearch Service (AWS ES) domains."
   query       = query.es_domain_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -118,7 +118,7 @@ control "es_domain_node_to_node_encryption_enabled" {
 
 control "es_domain_logs_to_cloudwatch" {
   title       = "Elasticsearch domain should send logs to CloudWatch"
-  description = "Ensure if AWS OpenSearch Service (OpenSearch Service) domains are configured to send logs to AWS CloudWatch Logs. The rule is compliant if a log is enabled for an OpenSearch Service domain. This rule is non compliant if logging is not configured."
+  description = "Ensure that AWS OpenSearch Service (OpenSearch Service) domains are configured to send logs to AWS CloudWatch Logs. The rule is compliant if a log is enabled for an OpenSearch Service domain. This rule is non-compliant if logging is not configured."
   query       = query.es_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_es_common_tags, {
@@ -140,7 +140,7 @@ control "es_domain_logs_to_cloudwatch" {
 
 control "es_domain_cognito_authentication_enabled" {
   title       = "Elasticsearch domains should have cognito authentication enabled"
-  description = "AWS Elasticsearch service uses AWS Cognito to offer user name and password protection for Kibana. This control is non compliant if AWS Cognito authentication is not enabled."
+  description = "AWS Elasticsearch service uses AWS Cognito to offer user name and password protection for Kibana. This control is non-compliant if AWS Cognito authentication is not enabled."
   query       = query.es_domain_cognito_authentication_enabled
 
   tags = local.conformance_pack_es_common_tags
@@ -148,7 +148,7 @@ control "es_domain_cognito_authentication_enabled" {
 
 control "es_domain_internal_user_database_enabled" {
   title       = "Elasticsearch domains should have internal user database enabled"
-  description = "Ensure Elasticsearch domains have internal user database enabled. This control is non compliant if a domain's internal user database is not enabled."
+  description = "Ensure Elasticsearch domains have internal user database enabled. This control is non-compliant if a domain's internal user database is not enabled."
   query       = query.es_domain_internal_user_database_enabled
 
   tags = local.conformance_pack_es_common_tags

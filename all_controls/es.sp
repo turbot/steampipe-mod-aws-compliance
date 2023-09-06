@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_es" {
-  title       = "ES"
-  description = "This section contains recommendations for configuring ES resources."
+  title       = "Elasticsearch"
+  description = "This section contains recommendations for configuring Elasticsearch resources."
   children = [
     control.es_domain_audit_logging_enabled,
     control.es_domain_cognito_authentication_enabled,

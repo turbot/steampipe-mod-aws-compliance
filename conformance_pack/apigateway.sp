@@ -98,7 +98,7 @@ control "apigateway_rest_api_stage_xray_tracing_enabled" {
 
 control "apigateway_stage_use_waf_web_acl" {
   title       = "API Gateway stage should be associated with waf"
-  description = "Ensure if an AWS API Gateway API stage is using a WAF Web ACL. This rule is non compliant if an AWS WAF Web ACL is not used."
+  description = "Ensure if an AWS API Gateway API stage is using a WAF Web ACL. This rule is non-compliant if an AWS WAF Web ACL is not used."
   query       = query.apigateway_stage_use_waf_web_acl
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {

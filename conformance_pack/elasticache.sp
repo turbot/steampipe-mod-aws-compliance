@@ -37,8 +37,8 @@ control "elasticache_replication_group_encryption_in_transit_enabled" {
 }
 
 control "elasticache_replication_group_redis_auth_enabled" {
-  title       = "ElastiCache for Redis replication groups before version 6.0 should use Redis AUTH"
-  description = "This control checks if ElastiCache for Redis replication groups have Redis AUTH enabled. The control fails for an ElastiCache for Redis replication group if the Redis version of its nodes is below 6.0 and AuthToken isn't in use."
+  title       = "ElastiCache for Redis replication groups before version 6.0 should use Redis Auth"
+  description = "This control checks if ElastiCache for Redis replication groups has Redis Auth enabled. The control fails for an ElastiCache for Redis replication group if the Redis version of its nodes is below 6.0 and AuthToken isn't in use."
   query       = query.elasticache_replication_group_redis_auth_enabled
 
   tags = local.conformance_pack_elasticache_common_tags

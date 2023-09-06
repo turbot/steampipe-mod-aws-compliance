@@ -6,7 +6,7 @@ locals {
 
 control "account_part_of_organizations" {
   title       = "AWS account should be part of AWS Organizations"
-  description = "Ensure if an AWS account is part of AWS Organizations. The rule is non compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
+  description = "Ensure if an AWS account is part of AWS Organizations. The rule is non-compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
   query       = query.account_part_of_organizations
 
   tags = merge(local.conformance_pack_iam_common_tags, {

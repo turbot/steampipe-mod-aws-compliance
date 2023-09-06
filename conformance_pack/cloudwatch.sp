@@ -34,7 +34,7 @@ control "cloudwatch_alarm_action_enabled" {
 
 control "cloudwatch_alarm_action_enabled_check" {
   title       = "CloudWatch alarm action should be enabled"
-  description = "Checks if AWS CloudWatch alarm actions are in enabled state. The rule is non compliant if the CloudWatch alarm actions are not in enabled state."
+  description = "Checks if AWS CloudWatch alarm actions are in enabled state. The rule is non-compliant if the CloudWatch alarm actions are not in enabled state."
   query       = query.cloudwatch_alarm_action_enabled_check
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
@@ -54,7 +54,7 @@ control "cloudwatch_cross_account_sharing" {
 
 control "log_group_encryption_at_rest_enabled" {
   title       = "Log group encryption at rest should be enabled"
-  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS CloudWatch Log Group"
+  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS CloudWatch Log Group."
   query       = query.log_group_encryption_at_rest_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {

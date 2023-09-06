@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_elasticbeanstalk" {
-  title       = "ElasticBeanstalk"
-  description = "This section contains recommendations for configuring ElasticBeanstalk resources."
+  title       = "Elastic Beanstalk"
+  description = "This section contains recommendations for configuring Elastic Beanstalk resources."
   children = [
     control.elastic_beanstalk_enhanced_health_reporting_enabled
   ]

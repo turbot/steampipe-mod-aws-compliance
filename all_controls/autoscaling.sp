@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_autoscaling" {
-  title       = "AutoScaling"
-  description = "This section contains recommendations for configuring AutoScaling resources."
+  title       = "Auto Scaling"
+  description = "This section contains recommendations for configuring Auto Scaling resources."
   children = [
     control.autoscaling_ec2_launch_configuration_no_sensitive_data,
     control.autoscaling_group_multiple_az_configured,

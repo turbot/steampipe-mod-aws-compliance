@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_secretsmanager" {
-  title       = "SecretsManager"
-  description = "This section contains recommendations for configuring SecretsManager resources."
+  title       = "Secrets Manager"
+  description = "This section contains recommendations for configuring Secrets Manager resources."
   children = [
     control.secretsmanager_secret_automatic_rotation_enabled,
     control.secretsmanager_secret_automatic_rotation_lambda_enabled,

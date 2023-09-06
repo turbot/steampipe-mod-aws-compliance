@@ -6,7 +6,7 @@ locals {
 
 control "elb_network_lb_tls_listener_security_policy_configured" {
   title       = "ELB network load balancers should have TLS listener security policy configured"
-  description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy, could make the TLS connection between the client and the load balancer vulnerable to exploits."
+  description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy could make the TLS connection between the client and the load balancer vulnerable to exploits."
   query       = query.elb_network_lb_tls_listener_security_policy_configured
 
   tags = local.conformance_pack_elb_common_tags

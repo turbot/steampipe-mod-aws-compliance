@@ -197,7 +197,7 @@ control "ec2_instance_uses_imdsv2" {
 
 control "ec2_instance_protected_by_backup_plan" {
   title       = "EC2 instances should be protected by backup plan"
-  description = "Ensure if AWS Elastic Compute Cloud (AWS EC2) instances are protected by a backup plan. The rule is non compliant if the AWS EC2 instance is not covered by a backup plan."
+  description = "Ensure that AWS Elastic Compute Cloud (AWS EC2) instances are protected by a backup plan. The rule is non-compliant if the AWS EC2 instance is not covered by a backup plan."
   query       = query.ec2_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -218,7 +218,7 @@ control "ec2_instance_protected_by_backup_plan" {
 
 control "ec2_instance_iam_profile_attached" {
   title       = "EC2 instances should have IAM profile attached"
-  description = "Ensure if an AWS Elastic Compute Cloud (AWS EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to the AWS EC2 instance."
+  description = "Ensure that an AWS Elastic Compute Cloud (AWS EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non-compliant if no IAM profile is attached to the AWS EC2 instance."
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -234,7 +234,7 @@ control "ec2_instance_iam_profile_attached" {
 
 control "ec2_instance_publicly_accessible_iam_profile_attached" {
   title       = "Public EC2 instances should have IAM profile attached"
-  description = "Ensure AWS Elastic Compute Cloud (AWS EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non compliant if no IAM profile is attached to public AWS EC2 instance."
+  description = "Ensure AWS Elastic Compute Cloud (AWS EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non-compliant if no IAM profile is attached to a public AWS EC2 instance."
   query       = query.ec2_instance_publicly_accessible_iam_profile_attached
 
   tags = local.conformance_pack_ec2_common_tags

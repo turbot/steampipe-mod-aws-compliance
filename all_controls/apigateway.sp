@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_apigateway" {
-  title       = "APIGateway"
-  description = "This section contains recommendations for configuring APIGateway resources."
+  title       = "API Gateway"
+  description = "This section contains recommendations for configuring API Gateway resources."
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
     control.api_gatewayv2_route_authorizer_configured,

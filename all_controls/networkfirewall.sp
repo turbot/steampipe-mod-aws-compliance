@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_networkfirewall" {
-  title       = "NetworkFirewall"
-  description = "This section contains recommendations for configuring NetworkFirewall resources."
+  title       = "Network Firewall"
+  description = "This section contains recommendations for configuring Network Firewall resources."
   children = [
     control.networkfirewall_firewall_in_vpc,
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,

@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "all_controls_securityhub" {
-  title       = "SecurityHub"
-  description = "This section contains recommendations for configuring SecurityHub resources."
+  title       = "Security Hub"
+  description = "This section contains recommendations for configuring Security Hub resources."
   children = [
     control.securityhub_enabled
   ]
