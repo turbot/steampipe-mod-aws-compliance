@@ -6,7 +6,7 @@ locals {
 
 control "eks_cluster_secrets_encrypted" {
   title       = "EKS clusters should be configured to have kubernetes secrets encrypted using KMS"
-  description = "Ensure if AWS Elastic Kubernetes Service clusters are configured to have Kubernetes secrets encrypted using AWS Key Management Service (KMS) keys."
+  description = "Ensure that AWS Elastic Kubernetes Service clusters are configured to have Kubernetes secrets encrypted using AWS Key Management Service (KMS) keys."
   query       = query.eks_cluster_secrets_encrypted
 
   tags = merge(local.conformance_pack_eks_common_tags, {

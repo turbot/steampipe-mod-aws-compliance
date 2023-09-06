@@ -497,7 +497,7 @@ control "iam_account_password_policy_one_symbol" {
 
 control "iam_all_policy_no_service_wild_card" {
   title       = "Ensure IAM policy should not grant full access to service"
-  description = "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is non compliant if the managed IAM policy allows full access to at least 1 AWS service."
+  description = "Checks if AWS Identity and Access Management (IAM) policies grant permissions to all actions on individual AWS resources. The rule is non-compliant if the managed IAM policy allows full access to at least 1 AWS service."
   query       = query.iam_all_policy_no_service_wild_card
 
   tags = merge(local.conformance_pack_iam_common_tags, {
@@ -575,7 +575,7 @@ control "iam_user_with_administrator_access_mfa_enabled" {
 
 control "iam_managed_policy_attached_to_role" {
   title       = "IAM AWS managed policies should be attached to IAM role"
-  description = "This control checks if all AWS managed policies specified in the list of managed policies are attached to the AWS Identity and Access Management (IAM) role. The rule is non compliant if an AWS managed policy is not attached to the IAM role."
+  description = "This control checks if all AWS managed policies specified in the list of managed policies are attached to the AWS Identity and Access Management (IAM) role. The rule is non-compliant if an AWS managed policy is not attached to the IAM role."
   query       = query.iam_managed_policy_attached_to_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
@@ -625,7 +625,7 @@ control "iam_custom_policy_unattached_no_star_star" {
 
 control "iam_policy_no_full_access_to_cloudtrail" {
   title       = "IAM policy should not grant full access to cloudtrail service"
-  description = "CloudTrail is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to cloudtrail service."
+  description = "CloudTrail is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non-compliant if the managed IAM policy allows full access to cloudtrail service."
   query       = query.iam_policy_no_full_access_to_cloudtrail
 
   tags = local.conformance_pack_iam_common_tags
@@ -633,7 +633,7 @@ control "iam_policy_no_full_access_to_cloudtrail" {
 
 control "iam_policy_no_full_access_to_kms" {
   title       = "IAM policy should not grant full access to KMS service"
-  description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non compliant if the managed IAM policy allows full access to KMS service."
+  description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non-compliant if the managed IAM policy allows full access to KMS service."
   query       = query.iam_policy_no_full_access_to_cloudtrail
 
   tags = local.conformance_pack_iam_common_tags

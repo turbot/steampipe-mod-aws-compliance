@@ -282,7 +282,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
 
 control "s3_public_access_block_bucket" {
   title       = "S3 public access should be blocked at bucket levels"
-  description = "Ensure if AWS Simple Storage Service (AWS S3) buckets are publicly accessible. This rule is non-compliant if an AWS S3 bucket is not listed in the excludedPublicBuckets parameter and bucket level settings are public."
+  description = "Ensure that AWS Simple Storage Service (AWS S3) buckets are publicly accessible. This rule is non-compliant if an AWS S3 bucket is not listed in the excludedPublicBuckets parameter and bucket level settings are public."
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {

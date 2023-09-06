@@ -51,7 +51,7 @@ control "efs_file_system_in_backup_plan" {
 
 control "efs_file_system_protected_by_backup_plan" {
   title       = "EFS file systems should be protected by backup plan"
-  description = "Ensure if AWS Elastic File System (AWS EFS) File Systems are protected by a backup plan. The rule is non-compliant if the EFS File System is not covered by a backup plan."
+  description = "Ensure that AWS Elastic File System (AWS EFS) File Systems are protected by a backup plan. The rule is non-compliant if the EFS File System is not covered by a backup plan."
   query       = query.efs_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
@@ -76,7 +76,6 @@ control "efs_file_system_encrypted_with_cmk" {
 
   tags = merge(local.conformance_pack_efs_common_tags, {
     cisa_cyber_essentials = "true"
-    other_checks          = "true"
   })
 }
 

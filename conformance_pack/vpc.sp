@@ -240,7 +240,7 @@ control "vpc_security_group_associated_to_eni" {
 
 control "vpc_subnet_auto_assign_public_ip_disabled" {
   title       = "VPC subnet auto assign public IP should be disabled"
-  description = "Ensure if AWS Virtual Private Cloud (AWS VPC) subnets are assigned a public IP address. The control is compliant if AWS VPC does not have subnets that are assigned a public IP address. The control is non compliant if AWS VPC has subnets that are assigned a public IP address."
+  description = "Ensure that AWS Virtual Private Cloud (AWS VPC) subnets are assigned a public IP address. The control is compliant if AWS VPC does not have subnets that are assigned a public IP address. The control is non-compliant if AWS VPC has subnets that are assigned a public IP address."
   query       = query.vpc_subnet_auto_assign_public_ip_disabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -260,7 +260,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
 
 control "vpc_route_table_restrict_public_access_to_igw" {
   title       = "VPC route table should restrict public access to IGW"
-  description = "Ensure if there are public routes in the route table to an Internet Gateway (IGW). The rule is non compliant if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
+  description = "Ensure that there are public routes in the route table to an Internet Gateway (IGW). The rule is non-compliant if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0'."
   query       = query.vpc_route_table_restrict_public_access_to_igw
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
@@ -332,7 +332,7 @@ control "vpc_network_acl_unused" {
 
 control "vpc_configured_to_use_vpc_endpoints" {
   title       = "VPC should be configured to use VPC endpoints"
-  description = "Checks if Service Endpoint for the service provided in rule parameter is created for each AWS Virtual Private Cloud (AWS VPC). The rule is non compliant if an AWS VPC doesn't have an AWS VPC endpoint created for the service."
+  description = "Checks if Service Endpoint for the service provided in rule parameter is created for each AWS Virtual Private Cloud (AWS VPC). The rule is non-compliant if an AWS VPC doesn't have an AWS VPC endpoint created for the service."
   query       = query.vpc_configured_to_use_vpc_endpoints
 
   tags = merge(local.conformance_pack_vpc_common_tags, {

@@ -66,7 +66,7 @@ control "waf_regional_rule_condition_attached" {
 
 control "waf_regional_rule_group_rule_attached" {
   title       = "WAF regional rule group should have at least one rule attached"
-  description = "This control checks if WAF regional rule groups contain any rules. The rule is non compliant if there are no rules present within a WAF regional rule group."
+  description = "This control checks if WAF regional rule groups contain any rules. The rule is non-compliant if there are no rules present within a WAF regional rule group."
   query       = query.waf_regional_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
@@ -88,7 +88,7 @@ control "waf_web_acl_resource_associated" {
 
 control "waf_regional_web_acl_rule_attached" {
   title       = "WAF regional web ACL should have at least one rule or rule group attached"
-  description = "This control checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is non compliant if there are no WAF rules or rule groups present within a Web ACL."
+  description = "This control checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is non-compliant if there are no WAF rules or rule groups present within a Web ACL."
   query       = query.waf_regional_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {

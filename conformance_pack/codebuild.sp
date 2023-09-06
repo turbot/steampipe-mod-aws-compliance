@@ -70,7 +70,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
 
 control "codebuild_project_logging_enabled" {
   title       = "CodeBuild projects should have logging enabled"
-  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non compliant if the status of all present log configurations is set to 'DISABLED'."
+  description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non-compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
@@ -82,7 +82,7 @@ control "codebuild_project_logging_enabled" {
 
 control "codebuild_project_artifact_encryption_enabled" {
   title       = "CodeBuild project artifact encryption should be enabled"
-  description = "This control checks if a CodeBuild project has encryption enabled for all of its artifacts. The rule is non compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+  description = "This control checks if a CodeBuild project has encryption enabled for all of its artifacts. The rule is non-compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {

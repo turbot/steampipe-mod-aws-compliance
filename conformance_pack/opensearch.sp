@@ -41,7 +41,7 @@ control "opensearch_domain_fine_grained_access_enabled" {
 
 control "opensearch_domain_https_required" {
   title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non-compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -56,7 +56,7 @@ control "opensearch_domain_https_required" {
 
 control "opensearch_domain_audit_logging_enabled" {
   title       = "OpenSearch domains should have audit logging enabled."
-  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non compliant if an OpenSearch service domain does not have audit logging enabled."
+  description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non-compliant if an OpenSearch service domain does not have audit logging enabled."
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {

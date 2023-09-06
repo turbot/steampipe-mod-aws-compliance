@@ -113,7 +113,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
 
 control "redshift_cluster_kms_enabled" {
   title       = "AWS Redshift clusters should be encrypted with KMS"
-  description = "Ensure if AWS Redshift clusters are using a specified AWS Key Management Service (AWS KMS) key for encryption. The rule is compliant if encryption is enabled and the cluster is encrypted with the key provided in the kmsKeyArn parameter. The rule is non-compliant if the cluster is not encrypted or encrypted with another key."
+  description = "Ensure that AWS Redshift clusters are using a specified AWS Key Management Service (AWS KMS) key for encryption. The rule is compliant if encryption is enabled and the cluster is encrypted with the key provided in the kmsKeyArn parameter. The rule is non-compliant if the cluster is not encrypted or encrypted with another key."
   query       = query.redshift_cluster_kms_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {

@@ -6,7 +6,7 @@ locals {
 
 control "cloudformation_stack_drift_detection_check" {
   title       = "CloudFormation stacks differ from the expected configuration"
-  description = "Ensure if the actual configuration of a Cloud Formation stack differs, or has drifted, from the expected configuration, a stack is considered to have drifted if one or more of its resources differ from their expected configuration."
+  description = "Ensure that the actual configuration of a Cloud Formation stack differs, or has drifted, from the expected configuration, a stack is considered to have drifted if one or more of its resources differ from their expected configuration."
   query       = query.cloudformation_stack_drift_detection_check
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
@@ -29,7 +29,7 @@ control "cloudformation_stack_notifications_enabled" {
   query       = query.cloudformation_stack_notifications_enabled
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
-    nist_csf     = "true"
+    nist_csf = "true"
   })
 }
 

@@ -45,7 +45,7 @@ control "autoscaling_group_with_lb_use_health_check" {
 
 control "autoscaling_launch_config_public_ip_disabled" {
   title       = "Auto Scaling launch config public IP should be disabled"
-  description = "Ensure if AWS EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is non-compliant if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'."
+  description = "Ensure that AWS EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. This rule is non-compliant if the Launch Configuration for an Auto Scaling group has AssociatePublicIpAddress set to 'true'."
   query       = query.autoscaling_launch_config_public_ip_disabled
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {

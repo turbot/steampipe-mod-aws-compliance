@@ -254,7 +254,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   query       = query.ec2_transit_gateway_auto_cross_account_attachment_disabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf     = "true"
+    nist_csf = "true"
   })
 }
 

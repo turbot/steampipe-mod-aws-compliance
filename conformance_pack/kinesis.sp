@@ -13,7 +13,6 @@ control "kinesis_stream_server_side_encryption_enabled" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
-    other_checks       = "true"
     pci_dss_v321       = "true"
   })
 }
