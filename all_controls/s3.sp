@@ -22,7 +22,6 @@ benchmark "all_controls_s3" {
     control.s3_bucket_policy_restrict_public_access,
     control.s3_bucket_policy_restricts_cross_account_permission_changes,
     control.s3_bucket_protected_by_macie,
-    control.s3_bucket_public_access_blocked,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_static_website_hosting_disabled,

@@ -20,14 +20,6 @@ control "s3_bucket_mfa_delete_enabled" {
   tags = local.conformance_pack_s3_common_tags
 }
 
-control "s3_bucket_public_access_blocked" {
-  title       = "S3 Block Public Access setting should be enabled at the bucket level"
-  description = "This control checks whether S3 buckets have bucket-level public access blocks applied."
-  query       = query.s3_bucket_public_access_blocked
-
-  tags = local.conformance_pack_s3_common_tags
-}
-
 control "s3_bucket_cross_region_replication_enabled" {
   title       = "S3 bucket cross-region replication should be enabled"
   description = "AWS Simple Storage Service (AWS S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
@@ -1137,36 +1129,5 @@ query "s3_bucket_protected_by_macie" {
     from
       aws_s3_bucket as b
       left join bucket_list as l on b.name = l.bucket_name;
-  EOQ
-}
-
-query "s3_bucket_public_access_blocked" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when
-          block_public_acls
-          and block_public_policy
-          and ignore_public_acls
-          and restrict_public_buckets
-        then
-          'ok'
-        else
-          'alarm'
-      end as status,
-      case
-        when
-          block_public_acls
-          and block_public_policy
-          and ignore_public_acls
-          and restrict_public_buckets
-        then name || ' blocks public access.'
-        else name || ' does not block public access.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_s3_bucket;
   EOQ
 }

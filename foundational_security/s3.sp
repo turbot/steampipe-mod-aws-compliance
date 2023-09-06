@@ -109,7 +109,7 @@ control "foundational_security_s3_8" {
   title         = "8 S3 Block Public Access setting should be enabled at the bucket level"
   description   = "This control checks whether S3 buckets have bucket-level public access blocks applied."
   severity      = "high"
-  query         = query.s3_bucket_public_access_blocked
+  query         = query.s3_public_access_block_bucket
   documentation = file("./foundational_security/docs/foundational_security_s3_8.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {

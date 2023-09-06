@@ -66,5 +66,5 @@ benchmark "all_controls" {
     benchmark.all_controls_workspaces
   ]
 
-  tags = local.other_common_tags
+  tags = local.all_controls_common_tags
 }
