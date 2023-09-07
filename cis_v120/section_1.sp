@@ -180,7 +180,7 @@ control "cis_v120_1_10" {
 control "cis_v120_1_11" {
   title         = "1.11 Ensure IAM password policy expires passwords within 90 days or less"
   description   = "IAM password policies can require passwords to be rotated or expired after a given number of days. It is recommended that the password policy expire passwords after 90 days or less."
-  query         = query.iam_account_password_policy_expire_90
+  query         = query.iam_password_policy_expire_90
   documentation = file("./cis_v120/docs/cis_v120_1_11.md")
 
   tags = merge(local.cis_v120_1_common_tags, {

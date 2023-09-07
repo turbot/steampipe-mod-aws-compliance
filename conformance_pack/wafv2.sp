@@ -29,6 +29,14 @@ control "wafv2_web_acl_logging_enabled" {
   })
 }
 
+control "wafv2_web_acl_rule_attached" {
+  title       = "A WAFV2 web ACL should have at least one rule or rule group"
+  description = "This control checks whether a WAFV2 web access control list (web ACL) contains at least one WAF rule or WAF rule group. The control fails if a web ACL does not contain any WAF rules or rule groups."
+  query       = query.wafv2_web_acl_rule_attached
+
+  tags = local.conformance_pack_waf_common_tags
+}
+
 query "wafv2_web_acl_logging_enabled" {
   sql = <<-EOQ
     select
@@ -47,8 +55,6 @@ query "wafv2_web_acl_logging_enabled" {
       aws_wafv2_web_acl;
   EOQ
 }
-
-# Non-Config rule query
 
 query "wafv2_web_acl_rule_attached" {
   sql = <<-EOQ

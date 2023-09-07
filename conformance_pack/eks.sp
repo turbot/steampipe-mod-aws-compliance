@@ -6,7 +6,7 @@ locals {
 
 control "eks_cluster_secrets_encrypted" {
   title       = "EKS clusters should be configured to have kubernetes secrets encrypted using KMS"
-  description = "Ensure if Amazon Elastic Kubernetes Service clusters are configured to have Kubernetes secrets encrypted using AWS Key Management Service (KMS) keys."
+  description = "Ensure that AWS Elastic Kubernetes Service clusters are configured to have Kubernetes secrets encrypted using AWS Key Management Service (KMS) keys."
   query       = query.eks_cluster_secrets_encrypted
 
   tags = merge(local.conformance_pack_eks_common_tags, {
@@ -20,7 +20,7 @@ control "eks_cluster_secrets_encrypted" {
 
 control "eks_cluster_endpoint_restrict_public_access" {
   title       = "EKS clusters endpoint should restrict public access"
-  description = "Ensure whether Amazon Elastic Kubernetes Service (Amazon EKS) endpoint is not publicly accessible. The rule is compliant if the endpoint is publicly accessible."
+  description = "Ensure whether AWS Elastic Kubernetes Service (AWS EKS) endpoint is not publicly accessible. The rule is compliant if the endpoint is publicly accessible."
   query       = query.eks_cluster_endpoint_restrict_public_access
 
   tags = merge(local.conformance_pack_eks_common_tags, {
@@ -33,12 +33,10 @@ control "eks_cluster_endpoint_restrict_public_access" {
 
 control "eks_cluster_control_plane_audit_logging_enabled" {
   title       = "EKS clusters should have control plane audit logging enabled"
-  description = "Amazon EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
+  description = "AWS EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
   query       = query.eks_cluster_control_plane_audit_logging_enabled
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 control "eks_cluster_no_default_vpc" {
@@ -46,14 +44,12 @@ control "eks_cluster_no_default_vpc" {
   description = "Ensure to configure a new VPC for your EKS cluster as default VPC comes with a default configuration that lacks the proper security controls. Your network should be well configured and should follow the least privilege principle, meaning only the necessary privileges are granted."
   query       = query.eks_cluster_no_default_vpc
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 control "eks_cluster_with_latest_kubernetes_version" {
   title       = "EKS clusters should run on a supported Kubernetes version"
-  description = "This control checks whether an Amazon EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
+  description = "This control checks whether an AWS EKS cluster is running on a supported Kubernetes version. The control fails if the EKS cluster is running on an unsupported version. If your application doesn't require a specific version of Kubernetes, we recommend that you use the latest available Kubernetes version that's supported by EKS for your clusters."
   query       = query.eks_cluster_with_latest_kubernetes_version
 
   tags = merge(local.conformance_pack_eks_common_tags, {
@@ -67,9 +63,7 @@ control "eks_cluster_endpoint_public_access_restricted" {
   description = "EKS clusters endpoint with private access allows communication between your nodes and the API server stays within. This control is non-compliant if clusters endpoint public access is enabled as cluster API server is accessible from the internet."
   query       = query.eks_cluster_endpoint_public_access_restricted
 
-  tags = merge(local.conformance_pack_eks_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_eks_common_tags
 }
 
 query "eks_cluster_secrets_encrypted" {

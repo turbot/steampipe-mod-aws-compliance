@@ -32,9 +32,7 @@ control "acm_certificate_transparency_logging_enabled" {
   description = "Ensure ACM certificates transparency logging is enabled as certificate transparency logging guards against SSL/TLS certificates issued by mistake or by a compromised certificate authority."
   query       = query.acm_certificate_transparency_logging_enabled
 
-  tags = merge(local.conformance_pack_acm_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_acm_common_tags
 }
 
 control "acm_certificate_no_wildcard_domain_name" {
@@ -42,9 +40,7 @@ control "acm_certificate_no_wildcard_domain_name" {
   description = "Ensure that ACM single domain name certificates are used instead of wildcard certificates within your AWS account in order to follow security best practices and protect each domain/subdomain with its own unique private key."
   query       = query.acm_certificate_no_wildcard_domain_name
 
-  tags = merge(local.conformance_pack_acm_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_acm_common_tags
 }
 
 query "acm_certificate_expires_30_days" {

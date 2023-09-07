@@ -13,7 +13,6 @@ control "kinesis_stream_server_side_encryption_enabled" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
-    other_checks       = "true"
     pci_dss_v321       = "true"
   })
 }
@@ -23,9 +22,7 @@ control "kinesis_stream_encrypted_with_kms_cmk" {
   description = "Ensure Kinesis streams are encrypted using CMK. Using KMS CMK, you gain full control over who can use the keys to access AWS Kinesis data (including the system metadata)."
   query       = query.kinesis_stream_encrypted_with_kms_cmk
 
-  tags = merge(local.conformance_pack_kinesis_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_kinesis_common_tags
 }
 
 query "kinesis_stream_server_side_encryption_enabled" {

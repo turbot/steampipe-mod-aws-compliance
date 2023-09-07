@@ -58,7 +58,7 @@ control "foundational_security_iam_3" {
   documentation = file("./foundational_security/docs/foundational_security_iam_3.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {
-    foundational_security_item_id = "iam_3"
+    foundational_security_item_id  = "iam_3"
     foundational_security_category = "secure_access_management"
   })
 }
@@ -132,7 +132,7 @@ control "foundational_security_iam_21" {
   title         = "21 IAM customer managed policies that you create should not allow wildcard actions for services"
   description   = "This control checks whether the IAM identity-based policies that you create have Allow statements that use the * wildcard to grant permissions for all actions on any service. The control fails if any policy statement includes 'Effect': 'Allow' with 'Action': 'Service:*'."
   severity      = "low"
-  query         = query.iam_policy_custom_no_service_wildcard
+  query         = query.iam_all_policy_no_service_wild_card
   documentation = file("./foundational_security/docs/foundational_security_iam_21.md")
 
   tags = merge(local.foundational_security_iam_common_tags, {

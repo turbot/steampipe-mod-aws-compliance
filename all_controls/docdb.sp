@@ -1,0 +1,19 @@
+locals {
+  all_controls_docdb_common_tags = merge(local.all_controls_common_tags, {
+    service = "AWS/DocumentDB"
+  })
+}
+
+benchmark "all_controls_docdb" {
+  title       = "DocumentDB"
+  description = "This section contains recommendations for configuring DocumentDB resources."
+  children = [
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.docdb_cluster_encryption_at_rest_enabled,
+    control.docdb_cluster_instance_logging_enabled
+  ]
+
+  tags = merge(local.all_controls_docdb_common_tags, {
+    type = "Benchmark"
+  })
+}

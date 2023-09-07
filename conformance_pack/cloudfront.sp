@@ -4,9 +4,17 @@ locals {
   })
 }
 
+control "cloudfront_distribution_no_non_existent_s3_origin" {
+  title       = "CloudFront distributions should not point to non-existent S3 origins"
+  description = "This control checks whether AWS CloudFront distributions are pointing to non-existent AWS S3 origins. The control fails for a CloudFront distribution if the origin is configured to point to a non-existent bucket. This control only applies to CloudFront distributions where an S3 bucket without static website hosting is the S3 origin."
+  query       = query.cloudfront_distribution_no_non_existent_s3_origin
+
+  tags = local.conformance_pack_cloudfront_common_tags
+}
+
 control "cloudfront_distribution_encryption_in_transit_enabled" {
   title       = "CloudFront distributions should require encryption in transit"
-  description = "This control checks whether an Amazon CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
+  description = "This control checks whether an AWS CloudFront distribution requires viewers to use HTTPS directly or whether it uses redirection. The control fails if ViewerProtocolPolicy is set to allow-all for defaultCacheBehavior or for cacheBehaviors."
   query       = query.cloudfront_distribution_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -24,9 +32,7 @@ control "cloudfront_distribution_geo_restrictions_enabled" {
   description = "Geographic restriction is used to restrict access to all of the files that are associated with a distribution at the country level."
   query       = query.cloudfront_distribution_geo_restrictions_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_use_secure_cipher" {
@@ -34,9 +40,7 @@ control "cloudfront_distribution_use_secure_cipher" {
   description = "Ensure that CloudFront distributions do not have any insecure SSL ciphers. Using insecure and deprecated ciphers could make the SSL connection between the CloudFront and the origins vulnerable to exploits."
   query       = query.cloudfront_distribution_use_secure_cipher
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
@@ -44,14 +48,12 @@ control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
   description = "This control ensures that conection between cloudfront and oriign server is encrypted. It is recommended to enforce HTTPS-only traffic between a CloudFront distribution and the origin."
   query       = query.cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   title       = "CloudFront distributions should not use deprecated SSL protocols between edge locations and custom origins"
-  description = "This control checks if Amazon CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
+  description = "This control checks if AWS CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and your custom origins. This control fails if a CloudFront distribution has a CustomOriginConfig where OriginSslProtocols includes SSLv3."
   query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -64,7 +66,7 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
 
 control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
   title       = "CloudFront distributions should encrypt traffic to custom origins"
-  description = "This control checks if Amazon CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
+  description = "This control checks if AWS CloudFront distributions are encrypting traffic to custom origins. This control fails for a CloudFront distribution whose origin protocol policy allows 'http-only'. This control also fails if the distribution's origin protocol policy is 'match-viewer' while the viewer protocol policy is 'allow-all'."
   query       = query.cloudfront_distribution_custom_origins_encryption_in_transit_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -77,7 +79,7 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
 
 control "cloudfront_distribution_logging_enabled" {
   title       = "CloudFront distributions access logs should be enabled"
-  description = "This control checks if Amazon CloudFront distributions are configured to capture information from Amazon Simple Storage Service (Amazon S3) server access logs. This rule is non compliant if a CloudFront distribution does not have logging configured."
+  description = "This control checks if AWS CloudFront distributions are configured to capture information from AWS Simple Storage Service (AWS S3) server access logs. This rule is non-compliant if a CloudFront distribution does not have logging configured."
   query       = query.cloudfront_distribution_logging_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -90,7 +92,7 @@ control "cloudfront_distribution_logging_enabled" {
 
 control "cloudfront_distribution_sni_enabled" {
   title       = "CloudFront distributions should use SNI to serve HTTPS requests"
-  description = "This control checks if Amazon CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
+  description = "This control checks if AWS CloudFront distributions are using a custom SSL/TLS certificate and are configured to use SNI to serve HTTPS requests. This control fails if a custom SSL/TLS certificate is associated but the SSL/TLS support method is a dedicated IP address."
   query       = query.cloudfront_distribution_sni_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -110,7 +112,7 @@ control "cloudfront_distribution_waf_enabled" {
 
 control "cloudfront_distribution_configured_with_origin_failover" {
   title       = "CloudFront distributions should have origin failover configured"
-  description = "This control checks whether an Amazon CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
+  description = "This control checks whether an AWS CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
   query       = query.cloudfront_distribution_configured_with_origin_failover
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -120,7 +122,7 @@ control "cloudfront_distribution_configured_with_origin_failover" {
 
 control "cloudfront_distribution_default_root_object_configured" {
   title       = "CloudFront distributions should have a default root object configured"
-  description = "This control checks whether an Amazon CloudFront distribution is configured to return a specific object that is the default root object. The control fails if the CloudFront distribution does not have a default root object configured."
+  description = "This control checks whether an AWS CloudFront distribution is configured to return a specific object that is the default root object. The control fails if the CloudFront distribution does not have a default root object configured."
   query       = query.cloudfront_distribution_default_root_object_configured
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -140,7 +142,7 @@ control "cloudfront_distribution_use_custom_ssl_certificate" {
 
 control "cloudfront_distribution_origin_access_identity_enabled" {
   title       = "CloudFront distributions should have origin access identity enabled"
-  description = "This control checks whether an Amazon CloudFront distribution with Amazon S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
+  description = "This control checks whether an AWS CloudFront distribution with AWS S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
   query       = query.cloudfront_distribution_origin_access_identity_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
@@ -150,12 +152,10 @@ control "cloudfront_distribution_origin_access_identity_enabled" {
 
 control "cloudfront_distribution_field_level_encryption_enabled" {
   title       = "CloudFront distributions should have field level encryption enabled"
-  description = "This control checks whether an Amazon CloudFront distribution has field-level encryption enabled. The control fails if CloudFront distribution field-level encryption is not enabled."
+  description = "This control checks whether an AWS CloudFront distribution has field-level encryption enabled. The control fails if CloudFront distribution field-level encryption is not enabled."
   query       = query.cloudfront_distribution_field_level_encryption_enabled
 
-  tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudfront_common_tags
 }
 
 query "cloudfront_distribution_encryption_in_transit_enabled" {
@@ -521,8 +521,6 @@ query "cloudfront_distribution_field_level_encryption_enabled" {
       aws_cloudfront_distribution;
   EOQ
 }
-
-# Non-Config rule query
 
 query "cloudfront_distribution_no_non_existent_s3_origin" {
   sql = <<-EOQ

@@ -80,10 +80,10 @@ selecting one or searching for a specific one.
 Instead of running benchmarks in a dashboard, you can also run them within your
 terminal with the `steampipe check` command:
 
-Run all benchmarks:
+Run all controls:
 
 ```sh
-steampipe check all
+steampipe check benchmark.all_controls
 ```
 
 Run a single benchmark:

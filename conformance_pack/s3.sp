@@ -4,9 +4,25 @@ locals {
   })
 }
 
+control "s3_bucket_protected_by_macie" {
+  title       = "Ensure all data in AWS S3 has been discovered, classified and secured when required"
+  description = "AWS S3 buckets can contain sensitive data, that for security purposes should be discovered, monitored, classified and protected. Macie along with other 3rd party tools can automatically provide an inventory of AWS S3 buckets."
+  query       = query.s3_bucket_protected_by_macie
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
+control "s3_bucket_mfa_delete_enabled" {
+  title       = "Ensure MFA Delete is enabled on S3 buckets"
+  description = "Once MFA Delete is enabled on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
+  query       = query.s3_bucket_mfa_delete_enabled
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
 control "s3_bucket_cross_region_replication_enabled" {
   title       = "S3 bucket cross-region replication should be enabled"
-  description = "Amazon Simple Storage Service (Amazon S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
+  description = "AWS Simple Storage Service (AWS S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
   query       = query.s3_bucket_cross_region_replication_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -31,7 +47,7 @@ control "s3_bucket_cross_region_replication_enabled" {
 
 control "s3_bucket_default_encryption_enabled" {
   title       = "S3 bucket default encryption should be enabled"
-  description = "To help protect data at rest, ensure encryption is enabled for your Amazon Simple Storage Service (Amazon S3) buckets."
+  description = "To help protect data at rest, ensure encryption is enabled for your AWS Simple Storage Service (AWS S3) buckets."
   query       = query.s3_bucket_default_encryption_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -55,7 +71,7 @@ control "s3_bucket_default_encryption_enabled" {
 
 control "s3_bucket_enforces_ssl" {
   title       = "S3 buckets should enforce SSL"
-  description = "To help protect data in transit, ensure that your Amazon Simple Storage Service (Amazon S3) buckets require requests to use Secure Socket Layer (SSL)."
+  description = "To help protect data in transit, ensure that your AWS Simple Storage Service (AWS S3) buckets require requests to use Secure Socket Layer (SSL)."
   query       = query.s3_bucket_enforces_ssl
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -80,7 +96,7 @@ control "s3_bucket_enforces_ssl" {
 
 control "s3_bucket_logging_enabled" {
   title       = "S3 bucket logging should be enabled"
-  description = "Amazon Simple Storage Service (Amazon S3) server access logging provides a method to monitor the network for potential cybersecurity events."
+  description = "AWS Simple Storage Service (AWS S3) server access logging provides a method to monitor the network for potential cybersecurity events."
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -104,7 +120,7 @@ control "s3_bucket_logging_enabled" {
 
 control "s3_bucket_object_lock_enabled" {
   title       = "S3 bucket object lock should be enabled"
-  description = "Ensure that your Amazon Simple Storage Service (Amazon S3) bucket has lock enabled, by default."
+  description = "Ensure that your AWS Simple Storage Service (AWS S3) bucket has lock enabled, by default."
   query       = query.s3_bucket_object_lock_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -122,7 +138,7 @@ control "s3_bucket_object_lock_enabled" {
 
 control "s3_bucket_restrict_public_read_access" {
   title       = "S3 buckets should prohibit public read access"
-  description = "Manage access to resources in the AWS Cloud by only allowing authorized users, processes, and devices access to Amazon Simple Storage Service (Amazon S3) buckets."
+  description = "Manage access to resources in the AWS Cloud by only allowing authorized users, processes, and devices access to AWS Simple Storage Service (AWS S3) buckets."
   query       = query.s3_bucket_restrict_public_read_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -147,7 +163,7 @@ control "s3_bucket_restrict_public_read_access" {
 
 control "s3_bucket_restrict_public_write_access" {
   title       = "S3 buckets should prohibit public write access"
-  description = "Manage access to resources in the AWS Cloud by only allowing authorized users, processes, and devices access to Amazon Simple Storage Service (Amazon S3) buckets."
+  description = "Manage access to resources in the AWS Cloud by only allowing authorized users, processes, and devices access to AWS Simple Storage Service (AWS S3) buckets."
   query       = query.s3_bucket_restrict_public_write_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -172,7 +188,7 @@ control "s3_bucket_restrict_public_write_access" {
 
 control "s3_bucket_versioning_enabled" {
   title       = "S3 bucket versioning should be enabled"
-  description = "Amazon Simple Storage Service (Amazon S3) bucket versioning helps keep multiple variants of an object in the same Amazon S3 bucket."
+  description = "AWS Simple Storage Service (AWS S3) bucket versioning helps keep multiple variants of an object in the same AWS S3 bucket."
   query       = query.s3_bucket_versioning_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -201,14 +217,12 @@ control "s3_bucket_static_website_hosting_disabled" {
   description = "Enabling static website on a S3 bucket requires to grant public read access to the bucket. There is a potential risk of exposure when you turn off block public access settings to make your bucket public. This is recommend to not configure static website on S3 bucket."
   query       = query.s3_bucket_static_website_hosting_disabled
 
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_public_access_block_account" {
   title       = "S3 public access should be blocked at account level"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed."
+  description = "Manage access to resources in the AWS Cloud by ensuring that AWS Simple Storage Service (AWS S3) buckets cannot be publicly accessed."
   query       = query.s3_public_access_block_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -231,7 +245,7 @@ control "s3_public_access_block_account" {
 
 control "s3_public_access_block_bucket_account" {
   title       = "S3 public access should be blocked at account and bucket levels"
-  description = "Manage access to resources in the AWS Cloud by ensuring that Amazon Simple Storage Service (Amazon S3) buckets cannot be publicly accessed."
+  description = "Manage access to resources in the AWS Cloud by ensuring that AWS Simple Storage Service (AWS S3) buckets cannot be publicly accessed."
   query       = query.s3_public_access_block_bucket_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -245,7 +259,7 @@ control "s3_public_access_block_bucket_account" {
 
 control "s3_bucket_default_encryption_enabled_kms" {
   title       = "S3 bucket default encryption should be enabled with KMS"
-  description = "To help protect data at rest, ensure encryption is enabled for your Amazon Simple Storage Service (Amazon S3) buckets."
+  description = "To help protect data at rest, ensure encryption is enabled for your AWS Simple Storage Service (AWS S3) buckets."
   query       = query.s3_bucket_default_encryption_enabled_kms
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -268,7 +282,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
 
 control "s3_public_access_block_bucket" {
   title       = "S3 public access should be blocked at bucket levels"
-  description = "Ensure if Amazon Simple Storage Service (Amazon S3) buckets are publicly accessible. This rule is non compliant if an Amazon S3 bucket is not listed in the excludedPublicBuckets parameter and bucket level settings are public."
+  description = "Ensure that AWS Simple Storage Service (AWS S3) buckets are publicly accessible. This rule is non-compliant if an AWS S3 bucket is not listed in the excludedPublicBuckets parameter and bucket level settings are public."
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -284,7 +298,7 @@ control "s3_public_access_block_bucket" {
 }
 
 control "s3_bucket_policy_restricts_cross_account_permission_changes" {
-  title       = "Amazon S3 permissions granted to other AWS accounts in bucket policies should be restricted"
+  title       = "AWS S3 permissions granted to other AWS accounts in bucket policies should be restricted"
   description = "This control checks whether the S3 bucket policy prevents principals from other AWS accounts from performing denied actions on resources in the S3 bucket."
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
@@ -298,9 +312,7 @@ control "s3_bucket_object_logging_enabled" {
   description = "Object-Level logging saves events in JSON format in CloudTrail. This is recommended from a security best practice perspective for buckets that contain sensitive data."
   query       = query.s3_bucket_object_logging_enabled
 
-  tags = merge(local.conformance_pack_s3_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_bucket_policy_restrict_public_access" {
@@ -321,7 +333,7 @@ control "s3_bucket_policy_restrict_public_access" {
 
 control "s3_bucket_lifecycle_policy_enabled" {
   title       = "S3 buckets should have lifecycle policies configured"
-  description = "This control checks if Amazon Simple Storage Service (Amazon S3) buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  description = "This control checks if AWS Simple Storage Service (AWS S3) buckets have lifecycle policy configured. This rule fails if AWS S3 lifecycle policy is not enabled."
   query       = query.s3_bucket_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -334,7 +346,7 @@ control "s3_bucket_lifecycle_policy_enabled" {
 
 control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
   title       = "S3 buckets with versioning enabled should have lifecycle policies configured"
-  description = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
+  description = "This control checks if AWS Simple Storage Service (AWS S3) version enabled buckets have lifecycle policy configured. This rule fails if AWS S3 lifecycle policy is not enabled."
   query       = query.s3_bucket_versioning_and_lifecycle_policy_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -347,7 +359,7 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
 
 control "s3_bucket_event_notifications_enabled" {
   title       = "S3 buckets should have event notifications enabled"
-  description = "This control checks whether S3 Event Notifications are enabled on an Amazon S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
+  description = "This control checks whether S3 Event Notifications are enabled on an AWS S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
   severity    = "medium"
   query       = query.s3_bucket_event_notifications_enabled
 
@@ -359,7 +371,7 @@ control "s3_bucket_event_notifications_enabled" {
 
 control "s3_bucket_acls_should_prohibit_user_access" {
   title       = "S3 buckets access control lists (ACLs) should not be used to manage user access to buckets"
-  description = "This control checks whether Amazon S3 buckets provide user permissions via ACLs. The control fails if ACLs are configured for managing user access on S3 buckets."
+  description = "This control checks whether AWS S3 buckets provide user permissions via ACLs. The control fails if ACLs are configured for managing user access on S3 buckets."
   query       = query.s3_bucket_acls_should_prohibit_user_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -1071,8 +1083,6 @@ query "s3_bucket_acls_should_prohibit_user_access" {
   EOQ
 }
 
-# Non-Config rule query
-
 query "s3_bucket_mfa_delete_enabled" {
   sql = <<-EOQ
     select
@@ -1119,36 +1129,5 @@ query "s3_bucket_protected_by_macie" {
     from
       aws_s3_bucket as b
       left join bucket_list as l on b.name = l.bucket_name;
-  EOQ
-}
-
-query "s3_bucket_public_access_blocked" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when
-          block_public_acls
-          and block_public_policy
-          and ignore_public_acls
-          and restrict_public_buckets
-        then
-          'ok'
-        else
-          'alarm'
-      end as status,
-      case
-        when
-          block_public_acls
-          and block_public_policy
-          and ignore_public_acls
-          and restrict_public_buckets
-        then name || ' blocks public access.'
-        else name || ' does not block public access.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_s3_bucket;
   EOQ
 }

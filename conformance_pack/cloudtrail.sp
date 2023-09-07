@@ -4,9 +4,25 @@ locals {
   })
 }
 
+control "cloudtrail_s3_object_read_events_audit_enabled" {
+  title       = "Ensure that Object-level logging for read events is enabled for S3 bucket"
+  description = "This rule enables object-level logging for read events for S3 buckets. Object-level logging for read events helps in identifying the requestor who performed the read operation on the S3 bucket objects."
+  query       = query.cloudtrail_s3_object_read_events_audit_enabled
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
+control "cloudtrail_s3_object_write_events_audit_enabled" {
+  title       = "Ensure that Object-level logging for write events is enabled for S3 bucket"
+  description = "This rule enables object-level logging for write events for S3 buckets. Object-level logging for write events helps in identifying the requestor who performed the write operation on the S3 bucket objects."
+  query       = query.cloudtrail_s3_object_write_events_audit_enabled
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
 control "cloudtrail_trail_integrated_with_logs" {
   title       = "CloudTrail trails should be integrated with CloudWatch logs"
-  description = "Use Amazon CloudWatch to centrally collect and manage log event activity. Inclusion of AWS CloudTrail data provides details of API call activity within your AWS account."
+  description = "Use AWS CloudWatch to centrally collect and manage log event activity. Inclusion of AWS CloudTrail data provides details of API call activity within your AWS account."
   query       = query.cloudtrail_trail_integrated_with_logs
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
@@ -31,7 +47,7 @@ control "cloudtrail_trail_integrated_with_logs" {
 
 control "cloudtrail_s3_data_events_enabled" {
   title       = "All S3 buckets should log S3 data events in CloudTrail"
-  description = "The collection of Simple Storage Service (Amazon S3) data events helps in detecting any anomalous activity. The details include AWS account information that accessed an Amazon S3 bucket, IP address, and time of event."
+  description = "The collection of Simple Storage Service (AWS S3) data events helps in detecting any anomalous activity. The details include AWS account information that accessed an AWS S3 bucket, IP address, and time of event."
   query       = query.cloudtrail_s3_data_events_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
@@ -57,7 +73,7 @@ control "cloudtrail_s3_data_events_enabled" {
 
 control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   title       = "CloudTrail trail logs should be encrypted with KMS CMK"
-  description = "To help protect sensitive data at rest, ensure encryption is enabled for your Amazon CloudWatch Log Groups."
+  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS CloudWatch Log Groups."
   query       = query.cloudtrail_trail_logs_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
@@ -210,9 +226,7 @@ control "cloudtrail_trail_insight_selectors_and_logging_enabled" {
   description = "CloudTrail Insights provides a powerful way to search and analyze CloudTrail log data using pre-built queries and machine learning algorithms. This can help to identify potential security threats and suspicious activity in near real-time, such as unauthorized access attempts, policy changes, or resource modifications."
   query       = query.cloudtrail_trail_insight_selectors_and_logging_enabled
 
-  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudtrail_common_tags
 }
 
 control "cloudtrail_trail_bucket_mfa_enabled" {
@@ -220,9 +234,7 @@ control "cloudtrail_trail_bucket_mfa_enabled" {
   description = "Ensure that CloudTrail trail S3 buckets should have MFA delete enabled. MFA delete helps prevent accidental bucket deletions by requiring the user who initiates the delete action to prove physical possession of an MFA device with an MFA code and adding an extra layer of friction and security to the delete action."
   query       = query.cloudtrail_trail_bucket_mfa_enabled
 
-  tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_cloudtrail_common_tags
 }
 
 query "cloudtrail_trail_integrated_with_logs" {
@@ -643,7 +655,6 @@ query "cloudtrail_trail_bucket_mfa_enabled" {
       t.region = t.home_region;
   EOQ
 }
-# Non-Config rule query
 
 query "cloudtrail_s3_object_read_events_audit_enabled" {
   sql = <<-EOQ

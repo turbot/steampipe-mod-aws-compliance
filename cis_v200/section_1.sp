@@ -334,7 +334,7 @@ control "cis_v200_1_21" {
 control "cis_v200_1_22" {
   title         = "1.22 Ensure access to AWSCloudShellFullAccess is restricted"
   description   = "AWS CloudShell is a convenient way of running CLI commands against AWS services; a managed IAM policy ('AWSCloudShellFullAccess') provides full access to CloudShell, which allows file upload and download capability between a user's local system and the CloudShell environment. Within the CloudShell environment a user has sudo permissions, and can access the internet. So it is feasible to install file transfer software (for example) and move data from CloudShell to external internet servers."
-  query         = query.aws_iam_user_group_role_cloudshell_fullaccess_restricted
+  query         = query.iam_user_group_role_cloudshell_fullaccess_restricted
   documentation = file("./cis_v200/docs/cis_v200_1_22.md")
 
   tags = merge(local.cis_v200_1_common_tags, {

@@ -9,9 +9,7 @@ control "appstream_fleet_default_internet_access_disabled" {
   description = "Enabling default internet access for AppStream fleet is not recommended. This control will be considered non-compliant if default internet access is enabled for AppStream fleet."
   query       = query.appstream_fleet_default_internet_access_disabled
 
-  tags = merge(local.conformance_pack_appstream_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_appstream_common_tags
 }
 
 control "appstream_fleet_session_disconnect_timeout_300_seconds" {
@@ -19,9 +17,7 @@ control "appstream_fleet_session_disconnect_timeout_300_seconds" {
   description = "The disconnect timeout in minutes refers to the duration for which a streaming session remains active even after users have disconnected. It is recommended to set the disconnect timeout to 5 minutes or less for the AppStream Fleet."
   query       = query.appstream_fleet_session_disconnect_timeout_300_seconds
 
-  tags = merge(local.conformance_pack_appstream_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_appstream_common_tags
 }
 
 control "appstream_fleet_max_user_duration_36000_seconds" {
@@ -29,9 +25,7 @@ control "appstream_fleet_max_user_duration_36000_seconds" {
   description = "Ensure user maximum session duration is no longer than 10 hours. A session duration exceeding 10 hours is unnecessary and may offer malicious users an extended period of unauthorized usage beyond acceptable limits."
   query       = query.appstream_fleet_max_user_duration_36000_seconds
 
-  tags = merge(local.conformance_pack_appstream_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_appstream_common_tags
 }
 
 control "appstream_fleet_idle_disconnect_timeout_600_seconds" {
@@ -39,9 +33,7 @@ control "appstream_fleet_idle_disconnect_timeout_600_seconds" {
   description = "Ensure session idle disconnect timeout is set to 10 minutes or less."
   query       = query.appstream_fleet_idle_disconnect_timeout_600_seconds
 
-  tags = merge(local.conformance_pack_appstream_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_appstream_common_tags
 }
 
 query "appstream_fleet_default_internet_access_disabled" {
