@@ -9,9 +9,7 @@ control "glacier_vault_restrict_public_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring AWS Glacier vault cannot be publicly accessed."
   query       = query.glacier_vault_restrict_public_access
 
-  tags = merge(local.conformance_pack_glacier_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glacier_common_tags
 }
 
 query "glacier_vault_restrict_public_access" {

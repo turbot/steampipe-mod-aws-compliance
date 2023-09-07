@@ -6,7 +6,7 @@ locals {
 
 control "backup_recovery_point_manual_deletion_disabled" {
   title       = "Backup recovery points manual deletion should be disabled"
-  description = "Checks if a backup vault has an attached resource-based policy which prevents deletion of recovery points. The rule is non compliant if the Backup Vault does not have resource-based policies or has policies without a suitable 'Deny' statement."
+  description = "Checks if a backup vault has an attached resource-based policy which prevents deletion of recovery points. The rule is non-compliant if the Backup Vault does not have resource-based policies or has policies without a suitable 'Deny' statement."
   query       = query.backup_recovery_point_manual_deletion_disabled
 
   tags = merge(local.conformance_pack_backup_common_tags, {
@@ -25,7 +25,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
 
 control "backup_plan_min_retention_35_days" {
   title       = "Backup plan min frequency and min retention check"
-  description = "Checks if a backup plan has a backup rule that satisfies the required frequency and retention period(35 Days). The rule is non compliant if recovery points are not created at least as often as the specified frequency or expire before the specified period."
+  description = "Checks if a backup plan has a backup rule that satisfies the required frequency and retention period(35 Days). The rule is non-compliant if recovery points are not created at least as often as the specified frequency or expire before the specified period."
   query       = query.backup_plan_min_retention_35_days
 
   tags = merge(local.conformance_pack_backup_common_tags, {
@@ -46,7 +46,7 @@ control "backup_plan_min_retention_35_days" {
 
 control "backup_recovery_point_encryption_enabled" {
   title       = "Backup recovery points should be encrypted"
-  description = "Ensure if a recovery point is encrypted. The rule is non compliant if the recovery point is not encrypted."
+  description = "Ensure that a recovery point is encrypted. The rule is non-compliant if the recovery point is not encrypted."
   query       = query.backup_recovery_point_encryption_enabled
 
   tags = merge(local.conformance_pack_backup_common_tags, {
@@ -87,9 +87,7 @@ control "backup_plan_region_configured" {
   description = "Ensure that there exists at least one backup plan in a region. The rule is non-compliant if there are no backup plans in a region."
   query       = query.backup_plan_region_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 control "backup_vault_region_configured" {
@@ -97,9 +95,7 @@ control "backup_vault_region_configured" {
   description = "Ensure that there exists at least one backup vault in a region. The rule is non-compliant if there are no backup vaults in a region."
   query       = query.backup_vault_region_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 control "backup_report_plan_configured" {
@@ -107,9 +103,7 @@ control "backup_report_plan_configured" {
   description = "Ensure that there is a minimum of one backup report plan in each region. The rule will be considered non-compliant if a region with backup plans does not have any backup report plans."
   query       = query.backup_report_plan_configured
 
-  tags = merge(local.conformance_pack_backup_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_backup_common_tags
 }
 
 query "backup_recovery_point_manual_deletion_disabled" {

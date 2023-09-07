@@ -4,6 +4,14 @@ locals {
   })
 }
 
+control "athena_workgroup_encryption_at_rest_enabled" {
+  title       = "Athena workgroups should be encrypted at rest"
+  description = "This control checks if an Athena workgroup is encrypted at rest. The control fails if an Athena workgroup isn't encrypted at rest."
+  query       = query.athena_workgroup_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_athena_common_tags
+}
+
 query "athena_workgroup_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select

@@ -4,9 +4,17 @@ locals {
   })
 }
 
+control "lambda_function_cors_configuration" {
+  title       = "Lambda functions CORS configuration should not allow all origins"
+  description = "Enable this rule to ensure that the CORS configuration for your Lambda functions does not allow all origins."
+  query       = query.lambda_function_cors_configuration
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
 control "lambda_function_dead_letter_queue_configured" {
   title       = "Lambda functions should be configured with a dead-letter queue"
-  description = "Enable this rule to help notify the appropriate personnel through Amazon Simple Queue Service (Amazon SQS) or Amazon Simple Notification Service (Amazon SNS) when a function has failed."
+  description = "Enable this rule to help notify the appropriate personnel through AWS Simple Queue Service (AWS SQS) or AWS Simple Notification Service (AWS SNS) when a function has failed."
   query       = query.lambda_function_dead_letter_queue_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -24,7 +32,7 @@ control "lambda_function_dead_letter_queue_configured" {
 
 control "lambda_function_in_vpc" {
   title       = "Lambda functions should be in a VPC"
-  description = "Deploy AWS Lambda functions within an Amazon Virtual Private Cloud (Amazon VPC) for a secure communication between a function and other services within the Amazon VPC."
+  description = "Deploy AWS Lambda functions within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.lambda_function_in_vpc
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -72,7 +80,7 @@ control "lambda_function_restrict_public_access" {
 
 control "lambda_function_concurrent_execution_limit_configured" {
   title       = "Lambda functions concurrent execution limit configured"
-  description = "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The control is non compliant if the Lambda function is not configured with function-level concurrent execution limit."
+  description = "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The control is non-compliant if the Lambda function is not configured with function-level concurrent execution limit."
   query       = query.lambda_function_concurrent_execution_limit_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -92,9 +100,7 @@ control "lambda_function_cloudtrail_logging_enabled" {
   description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
   query       = query.lambda_function_cloudtrail_logging_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_tracing_enabled" {
@@ -102,9 +108,7 @@ control "lambda_function_tracing_enabled" {
   description = "AWS X-Ray can be used to visualize the components of application, identify performance bottlenecks, and troubleshoot requests that resulted in an error. Lambda functions send trace data to X-Ray, and X-Ray processes the data to generate a service map and searchable trace summaries."
   query       = query.lambda_function_tracing_enabled
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_multiple_az_configured" {
@@ -132,9 +136,7 @@ control "lambda_function_restrict_public_url" {
   description = "This control verifies that the Lambda function does not have a publicly accessible URL. Exposing services publicly could potentially make sensitive data accessible to malicious actors."
   query       = query.lambda_function_restrict_public_url
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 control "lambda_function_variables_no_sensitive_data" {
@@ -142,9 +144,7 @@ control "lambda_function_variables_no_sensitive_data" {
   description = "Ensure functions environment variables is not having any sensitive data. Leveraging Secrets Manager enables secure provisioning of database credentials to Lambda functions while also ensuring the security of databases. This approach eliminates the need to hardcode secrets in code or pass them through environmental variables. Additionally, Secrets Manager facilitates the secure retrieval of credentials for establishing connections to databases and performing queries, enhancing overall security measures."
   query       = query.lambda_function_variables_no_sensitive_data
 
-  tags = merge(local.conformance_pack_lambda_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_lambda_common_tags
 }
 
 query "lambda_function_dead_letter_queue_configured" {
@@ -433,8 +433,6 @@ query "lambda_function_variables_no_sensitive_data" {
       left join function_vaiable_with_sensitive_data b on f.arn = b.arn;
   EOQ
 }
-
-# Non-Config rule query
 
 query "lambda_function_cors_configuration" {
   sql = <<-EOQ

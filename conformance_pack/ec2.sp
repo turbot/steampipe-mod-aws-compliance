@@ -4,9 +4,25 @@ locals {
   })
 }
 
+control "ec2_instance_termination_protection_enabled" {
+  title       = "AWS EC2 instances should have termination protection enabled"
+  description = "This control checks whether termination protection is enabled for EC2 instances. The control fails if termination protection is not enabled for an EC2 instance."
+  query       = query.ec2_instance_termination_protection_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_launch_template_not_publicly_accessible" {
+  title       = "AWS EC2 launch templates should not assign public IPs to network interfaces"
+  description = "This control checks if AWS EC2 launch templates are configured to assign public IP addresses to network interfaces upon launch. The control fails if an EC2 launch template is configured to assign a public IP address to network interfaces or if there is at least one network interface that has a public IP address."
+  query       = query.ec2_launch_template_not_publicly_accessible
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 control "ec2_ebs_default_encryption_enabled" {
   title       = "EBS default encryption should be enabled"
-  description = "To help protect data at rest, ensure that encryption is enabled for your Amazon Elastic Block Store (Amazon EBS) volumes."
+  description = "To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ec2_ebs_default_encryption_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -28,7 +44,7 @@ control "ec2_ebs_default_encryption_enabled" {
 
 control "ec2_instance_detailed_monitoring_enabled" {
   title       = "EC2 instance detailed monitoring should be enabled"
-  description = "Enable this rule to help improve Amazon Elastic Compute Cloud (Amazon EC2) instance monitoring on the Amazon EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
+  description = "Enable this rule to help improve AWS Elastic Compute Cloud (AWS EC2) instance monitoring on the AWS EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
   query       = query.ec2_instance_detailed_monitoring_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -64,7 +80,7 @@ control "ec2_instance_no_amazon_key_pair" {
 
 control "ec2_instance_in_vpc" {
   title       = "EC2 instances should be in a VPC"
-  description = "Deploy Amazon Elastic Compute Cloud (Amazon EC2) instances within an Amazon Virtual Private Cloud (Amazon VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
+  description = "Deploy AWS Elastic Compute Cloud (AWS EC2) instances within an AWS Virtual Private Cloud (AWS VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
   query       = query.ec2_instance_in_vpc
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -88,7 +104,7 @@ control "ec2_instance_in_vpc" {
 
 control "ec2_instance_not_publicly_accessible" {
   title       = "EC2 instances should not have a public IP address"
-  description = "Manage access to the AWS Cloud by ensuring Amazon Elastic Compute Cloud (Amazon EC2) instances cannot be publicly accessed."
+  description = "Manage access to the AWS Cloud by ensuring AWS Elastic Compute Cloud (AWS EC2) instances cannot be publicly accessed."
   query       = query.ec2_instance_not_publicly_accessible
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -112,17 +128,15 @@ control "ec2_instance_not_publicly_accessible" {
 
 control "ec2_instance_no_high_level_finding_in_inspector_scan" {
   title       = "EC2 instances high level findings should not be there in inspector scans"
-  description = "Amazon Inspector scans operating system packages installed on your Amazon EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
+  description = "AWS Inspector scans operating system packages installed on your AWS EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
   query       = query.ec2_instance_no_high_level_finding_in_inspector_scan
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_stopped_instance_30_days" {
   title       = "EC2 stopped instances should be removed in 30 days"
-  description = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
+  description = "Enable this rule to help with the baseline configuration of AWS Elastic Compute Cloud (AWS EC2) instances by checking whether AWS EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
   query       = query.ec2_stopped_instance_30_days
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -143,7 +157,7 @@ control "ec2_stopped_instance_30_days" {
 
 control "ec2_instance_ebs_optimized" {
   title       = "EC2 instance should have EBS optimization enabled"
-  description = "An optimized instance in Amazon Elastic Block Store (Amazon EBS) provides additional, dedicated capacity for Amazon EBS I/O operations."
+  description = "An optimized instance in AWS Elastic Block Store (AWS EBS) provides additional, dedicated capacity for AWS EBS I/O operations."
   query       = query.ec2_instance_ebs_optimized
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -166,7 +180,7 @@ control "ec2_instance_ebs_optimized" {
 
 control "ec2_instance_uses_imdsv2" {
   title       = "EC2 instances should use IMDSv2"
-  description = "Ensure the Instance Metadata Service Version 2 (IMDSv2) method is enabled to help protect access and control of Amazon Elastic Compute Cloud (Amazon EC2) instance metadata."
+  description = "Ensure the Instance Metadata Service Version 2 (IMDSv2) method is enabled to help protect access and control of AWS Elastic Compute Cloud (AWS EC2) instance metadata."
   query       = query.ec2_instance_uses_imdsv2
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -183,7 +197,7 @@ control "ec2_instance_uses_imdsv2" {
 
 control "ec2_instance_protected_by_backup_plan" {
   title       = "EC2 instances should be protected by backup plan"
-  description = "Ensure if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is non compliant if the Amazon EC2 instance is not covered by a backup plan."
+  description = "Ensure that AWS Elastic Compute Cloud (AWS EC2) instances are protected by a backup plan. The rule is non-compliant if the AWS EC2 instance is not covered by a backup plan."
   query       = query.ec2_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -204,7 +218,7 @@ control "ec2_instance_protected_by_backup_plan" {
 
 control "ec2_instance_iam_profile_attached" {
   title       = "EC2 instances should have IAM profile attached"
-  description = "Ensure if an Amazon Elastic Compute Cloud (Amazon EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non compliant if no IAM profile is attached to the Amazon EC2 instance."
+  description = "Ensure that an AWS Elastic Compute Cloud (AWS EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non-compliant if no IAM profile is attached to the AWS EC2 instance."
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
@@ -220,12 +234,10 @@ control "ec2_instance_iam_profile_attached" {
 
 control "ec2_instance_publicly_accessible_iam_profile_attached" {
   title       = "Public EC2 instances should have IAM profile attached"
-  description = "Ensure Amazon Elastic Compute Cloud (Amazon EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non compliant if no IAM profile is attached to public Amazon EC2 instance."
+  description = "Ensure AWS Elastic Compute Cloud (AWS EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non-compliant if no IAM profile is attached to a public AWS EC2 instance."
   query       = query.ec2_instance_publicly_accessible_iam_profile_attached
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_instance_user_data_no_secrets" {
@@ -233,9 +245,7 @@ control "ec2_instance_user_data_no_secrets" {
   description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code which is exposed to any entity which has the most basic access to EC2, even read-only configurations. It is recommended to not use secrets in user data."
   query       = query.ec2_instance_user_data_no_secrets
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
@@ -244,8 +254,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   query       = query.ec2_transit_gateway_auto_cross_account_attachment_disabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf     = "true"
-    other_checks = "true"
+    nist_csf = "true"
   })
 }
 
@@ -254,9 +263,7 @@ control "ec2_instance_no_launch_wizard_security_group" {
   description = "Ensure EC2 instances provisioned in your AWS account are not associated with security groups that have their name prefixed with 'launch-wizard', in order to enforce using secure and custom security groups that exercise the principle of least privilege."
   query       = query.ec2_instance_no_launch_wizard_security_group
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_instance_virtualization_type_no_paravirtual" {
@@ -274,9 +281,7 @@ control "ec2_ami_restrict_public_access" {
   description = "This control checks whether EC2 AMIs are set as private or not. The control fails if the EC2 AMIs are set as public."
   query       = query.ec2_ami_restrict_public_access
 
-  tags = merge(local.conformance_pack_ec2_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_ec2_common_tags
 }
 
 query "ec2_ebs_default_encryption_enabled" {
@@ -659,27 +664,6 @@ query "ec2_ami_restrict_public_access" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_ami;
-  EOQ
-}
-
-# Non-Config rule query
-
-query "ec2_classic_lb_connection_draining_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when connection_draining_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when connection_draining_enabled then title || ' connection draining enabled.'
-        else title || ' connection draining disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_classic_load_balancer;
   EOQ
 }
 

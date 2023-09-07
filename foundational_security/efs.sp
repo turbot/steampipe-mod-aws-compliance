@@ -36,7 +36,7 @@ control "foundational_security_efs_2" {
   title         = "2 Amazon EFS volumes should be in backup plans"
   description   = "This control checks whether Amazon Elastic File System (Amazon EFS) file systems are added to the backup plans in AWS Backup. The control fails if Amazon EFS file systems are not included in the backup plans."
   severity      = "medium"
-  query         = query.efs_file_system_automatic_backups_enabled
+  query         = query.efs_file_system_in_backup_plan
   documentation = file("./foundational_security/docs/foundational_security_efs_2.md")
 
   tags = merge(local.foundational_security_efs_common_tags, {

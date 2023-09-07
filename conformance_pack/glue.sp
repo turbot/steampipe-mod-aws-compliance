@@ -9,9 +9,7 @@ control "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   description = "Ensure Glue dev endpoints have CloudWatch logs encryption enabled to protect sensitive information at rest."
   query       = query.glue_dev_endpoint_cloudwatch_logs_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
 }
 
 control "glue_dev_endpoint_job_bookmarks_encryption_enabled" {
@@ -19,9 +17,7 @@ control "glue_dev_endpoint_job_bookmarks_encryption_enabled" {
   description = "Ensure Glue dev endpoints have job bookmark encryption enabled to protect sensitive information at rest."
   query       = query.glue_dev_endpoint_job_bookmarks_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
 }
 
 control "glue_dev_endpoint_s3_encryption_enabled" {
@@ -29,9 +25,7 @@ control "glue_dev_endpoint_s3_encryption_enabled" {
   description = "Ensure Glue dev endpoints have S3 encryption enabled to protect sensitive information at rest."
   query       = query.glue_dev_endpoint_s3_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
 }
 
 control "glue_job_cloudwatch_logs_encryption_enabled" {
@@ -39,9 +33,7 @@ control "glue_job_cloudwatch_logs_encryption_enabled" {
   description = "Ensure Glue jobs have CloudWatch logs encryption enabled to protect sensitive information at rest."
   query       = query.glue_job_cloudwatch_logs_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
 }
 
 control "glue_job_bookmarks_encryption_enabled" {
@@ -49,9 +41,7 @@ control "glue_job_bookmarks_encryption_enabled" {
   description = "Ensure Glue job bookmarks have encryption enabled to protect sensitive information at rest."
   query       = query.glue_job_bookmarks_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
 }
 
 control "glue_job_s3_encryption_enabled" {
@@ -59,9 +49,23 @@ control "glue_job_s3_encryption_enabled" {
   description = "Ensure Glue jobs have S3 encryption enabled to protect sensitive information at rest."
   query       = query.glue_job_s3_encryption_enabled
 
-  tags = merge(local.conformance_pack_glue_common_tags, {
-    other_checks = "true"
-  })
+  tags = local.conformance_pack_glue_common_tags
+}
+
+control "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
+  title       = "Glue data catalog metadata encryption should be enabled"
+  description = "Ensure Glue data catalog metadata encryption is enabled to protect sensitive information at rest."
+  query       = query.glue_data_catalog_encryption_settings_metadata_encryption_enabled
+
+  tags = local.conformance_pack_glue_common_tags
+}
+
+control "glue_data_catalog_encryption_settings_password_encryption_enabled" {
+  title       = "Glue data catalog connection password encryption should be enabled"
+  description = "Ensure Glue data catalog connection password encryption is enabled to protect sensitive information at rest."
+  query       = query.glue_data_catalog_encryption_settings_password_encryption_enabled
+
+  tags = local.conformance_pack_glue_common_tags
 }
 
 query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
@@ -179,8 +183,6 @@ query "glue_job_s3_encryption_enabled" {
       jsonb_array_elements(s.s3_encryption) e;
   EOQ
 }
-
-# Non-Config rule query
 
 query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
   sql = <<-EOQ
