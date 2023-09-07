@@ -1,3 +1,9 @@
+## v0.79 [2023-09-07]
+
+_Breaking changes_
+
+- The `Other Compliance Checks` benchmark (`steampipe check benchmark.other_checks`) has been removed and replaced by the new `All Controls` benchmark (`steampipe check benchmark.all_controls`). This new benchmark includes 353 service-specific controls. ([#710](https://github.com/turbot/steampipe-mod-aws-compliance/pull/710))
+
 ## v0.78 [2023-08-08]
 
 _Breaking changes_
