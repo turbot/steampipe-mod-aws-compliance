@@ -187,6 +187,7 @@ query "glue_job_s3_encryption_enabled" {
 query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
   sql = <<-EOQ
     select
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
         when encryption_at_rest is not null and encryption_at_rest ->> 'CatalogEncryptionMode' != 'DISABLED' then 'ok'
         else 'alarm'
@@ -204,6 +205,7 @@ query "glue_data_catalog_encryption_settings_metadata_encryption_enabled" {
 query "glue_data_catalog_encryption_settings_password_encryption_enabled" {
   sql = <<-EOQ
     select
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
         when connection_password_encryption is not null and connection_password_encryption ->> 'ReturnConnectionPasswordEncrypted' != 'false' then 'ok'
         else 'alarm'
