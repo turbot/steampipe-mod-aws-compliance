@@ -1,3 +1,9 @@
+## v0.80 [2023-09-15]
+
+_Bug fixes_
+
+- Added the `resource` column in the queries of `glue_data_catalog_encryption_settings_metadata_encryption_enabled` and `glue_data_catalog_encryption_settings_password_encryption_enabled` controls. ([#715](https://github.com/turbot/steampipe-mod-aws-compliance/pull/715))
+
 ## v0.79 [2023-09-07]
 
 _Breaking changes_
