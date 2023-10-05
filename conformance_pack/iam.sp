@@ -663,6 +663,14 @@ control "iam_policy_custom_no_permissive_role_assumption" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_inline_policy_no_administrative_privileges" {
+  title       = "IAM inline policy should not have administrative privileges"
+  description = "Ensure that no inline IAM policies exist which allow administrative privileges."
+  query       = query.iam_inline_policy_no_administrative_privileges
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -2156,5 +2164,77 @@ query "iam_policy_custom_no_permissive_role_assumption" {
       left join bad_policies as b on p.arn = b.arn
     where
         not is_aws_managed;
+  EOQ
+}
+
+query "iam_inline_policy_no_administrative_privileges" {
+  sql = <<-EOQ
+    with iam_resource_types as (
+      select
+        arn,
+        inline_policies_std,
+        name,
+        account_id,
+        region,
+        _ctx,
+        'iam_user' as type
+      from
+        aws_iam_user
+      union
+      select
+        arn,
+        inline_policies_std,
+        name,
+        account_id,
+        region,
+        _ctx,
+        'iam_role' as type
+      from
+        aws_iam_role
+      union
+      select
+        arn,
+        inline_policies_std,
+        name,
+        account_id,
+        region,
+        _ctx,
+        'iam_group' as type
+      from
+        aws_iam_group
+    ),
+    with bad_policies as (
+      select
+        arn,
+        count(*) as statements_num
+      from
+        iam_resource_types,
+        jsonb_array_elements(inline_policies_std) as policy_std,
+        jsonb_array_elements(policy_std -> 'PolicyDocument' -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Resource') as resource,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        s ->> 'Effect' = 'Allow'
+        and resource = '*'
+        and (
+          (action = '*'
+          or action = '*:*'
+          )
+        )
+      group by
+        arn
+    )
+    select
+      p.arn as resource,
+      case
+        when bad.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
+        ' statements that allow action "*" on resource "*".' as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+    from
+      iam_resource_types as p
+      left join bad_policies as bad on p.arn = bad.arn
   EOQ
 }
