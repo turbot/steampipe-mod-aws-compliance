@@ -2203,7 +2203,7 @@ query "iam_inline_policy_no_administrative_privileges" {
       from
         aws_iam_group
     ),
-    with bad_policies as (
+    bad_policies as (
       select
         arn,
         count(*) as statements_num
@@ -2230,11 +2230,11 @@ query "iam_inline_policy_no_administrative_privileges" {
         when bad.arn is null then 'ok'
         else 'alarm'
       end status,
-      p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
+      p.name || ' contains ' || coalesce(bad.statements_num,0)  ||
         ' statements that allow action "*" on resource "*".' as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       iam_resource_types as p
-      left join bad_policies as bad on p.arn = bad.arn
+      left join bad_policies as bad on p.arn = bad.arn;
   EOQ
 }
