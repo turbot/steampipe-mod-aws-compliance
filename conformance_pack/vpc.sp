@@ -39,7 +39,7 @@ control "vpc_security_group_remote_administration" {
 
 control "vpc_security_group_remote_administration_ipv4" {
   title       = "Ensure no security groups allow ingress from 0.0.0.0/0 to remote server administration ports"
-  description = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389, using either the TDP (6), UDP (17) or ALL (-1) protocols."
+  description = "Security groups provide stateful filtering of ingress and egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to remote server administration ports, such as SSH to port 22 and RDP to port 3389, using either the TCP (6), UDP (17) or ALL (-1) protocols."
   query       = query.vpc_security_group_remote_administration_ipv4
 
   tags = local.conformance_pack_vpc_common_tags
@@ -1740,4 +1740,3 @@ query "vpc_subnet_public_and_private" {
       aws_vpc as v;
   EOQ
 }
-
