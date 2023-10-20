@@ -23,6 +23,7 @@ benchmark "all_controls_iam" {
     control.iam_custom_policy_unattached_no_star_star,
     control.iam_group_not_empty,
     control.iam_group_user_role_no_inline_policies,
+    control.iam_inline_policy_no_administrative_privileges,
     control.iam_managed_policy_attached_to_role,
     control.iam_password_policy_expire_90,
     control.iam_policy_all_attached_no_star_star,
