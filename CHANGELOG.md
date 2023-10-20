@@ -1,3 +1,15 @@
+## v0.81 [2023-10-20]
+
+_Enhancements_
+
+- Added the following controls to the `All Controls` benchmark: ([#722](https://github.com/turbot/steampipe-mod-aws-compliance/pull/722))
+  - `athena_workgroup_enforce_configuration_enabled`
+  - `iam_inline_policy_no_administrative_privileges`
+
+_Bug fixes_
+
+- Fix README to include correct reference to the `All Controls` benchmark. ([#721](https://github.com/turbot/steampipe-mod-aws-compliance/pull/721)) (Thanks [@vil02](https://github.com/vil02) for the contribution!)
+
 ## v0.80 [2023-09-15]
 
 _Bug fixes_
