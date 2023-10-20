@@ -12,6 +12,14 @@ control "athena_workgroup_encryption_at_rest_enabled" {
   tags = local.conformance_pack_athena_common_tags
 }
 
+control "athena_workgroup_enforce_configuration_enabled" {
+  title       = "Athena workgroups should enforce configuration"
+  description = "This control checks if an Athena workgroup enforces configuration. The control fails if an Athena workgroup doesn't enforce configuration."
+  query       = query.athena_workgroup_enforce_configuration_enabled
+
+  tags = local.conformance_pack_athena_common_tags
+}
+
 query "athena_workgroup_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -23,6 +31,24 @@ query "athena_workgroup_encryption_at_rest_enabled" {
       case
         when encryption_option is not null then name || ' encryption at rest enabled.'
         else name || ' encryption at rest disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_athena_workgroup;
+  EOQ
+}
+
+query "athena_workgroup_enforce_configuration_enabled" {
+  sql = <<-EOQ
+    select
+      name as resource,
+      case
+        when enforce_workgroup_configuration then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when enforce_workgroup_configuration then name || ' has enforce workgroup configuration enabled.'
+        else name || ' has enforce workgroup configuration disabled.'
       end as reason
       ${local.common_dimensions_sql}
     from

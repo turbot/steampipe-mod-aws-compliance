@@ -5,7 +5,7 @@ locals {
 }
 
 control "acm_certificate_expires_30_days" {
-  title       = "ACM certificates should be set to expire within 30 days"
+  title       = "ACM certificates should not expire within 30 days"
   description = "Ensure network integrity is protected by ensuring X509 certificates are issued by AWS ACM."
   query       = query.acm_certificate_expires_30_days
 
