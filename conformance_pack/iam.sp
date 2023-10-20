@@ -665,7 +665,7 @@ control "iam_policy_custom_no_permissive_role_assumption" {
 
 control "iam_inline_policy_no_administrative_privileges" {
   title       = "IAM inline policy should not have administrative privileges"
-  description = "Ensure that no inline IAM policies exist which allow administrative privileges."
+  description = "Ensure that no inline IAM policies exist that allow administrative privileges."
   query       = query.iam_inline_policy_no_administrative_privileges
 
   tags = local.conformance_pack_iam_common_tags

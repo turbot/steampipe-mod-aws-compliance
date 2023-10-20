@@ -47,8 +47,8 @@ query "athena_workgroup_enforce_configuration_enabled" {
         else 'alarm'
       end as status,
       case
-        when enforce_workgroup_configuration then name || ' enforce workgroup configuration enabled.'
-        else name || ' enforce workgroup configuration disabled.'
+        when enforce_workgroup_configuration then name || ' has enforce workgroup configuration enabled.'
+        else name || ' has enforce workgroup configuration disabled.'
       end as reason
       ${local.common_dimensions_sql}
     from
