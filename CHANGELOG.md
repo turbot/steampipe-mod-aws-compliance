@@ -8,7 +8,7 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fix README to include correct reference to the `All Controls` benchmark. ([#721](https://github.com/turbot/steampipe-mod-aws-compliance/pull/721)) (Thanks [@vil02](https://github.com/vil02) for the contribution!)
+- Fixed README to include correct reference to the `All Controls` benchmark. ([#721](https://github.com/turbot/steampipe-mod-aws-compliance/pull/721)) (Thanks [@vil02](https://github.com/vil02) for the contribution!)
 - Fixed typos in several compliance control descriptions. ([#719](https://github.com/turbot/steampipe-mod-aws-compliance/pull/719)) (Thanks [@pdecat](https://github.com/pdecat) for the contribution!)
 
 ## v0.80 [2023-09-15]
