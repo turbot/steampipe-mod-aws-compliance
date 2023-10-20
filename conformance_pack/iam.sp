@@ -2169,7 +2169,7 @@ query "iam_policy_custom_no_permissive_role_assumption" {
 
 query "iam_inline_policy_no_administrative_privileges" {
   sql = <<-EOQ
-    with iam_resource_types as (
+    with full_administrative_privilege_policies as (
       select
         arn,
         inline_policies_std,
@@ -2208,7 +2208,7 @@ query "iam_inline_policy_no_administrative_privileges" {
         arn,
         count(*) as statements_num
       from
-        iam_resource_types,
+        full_administrative_privilege_policies,
         jsonb_array_elements(inline_policies_std) as policy_std,
         jsonb_array_elements(policy_std -> 'PolicyDocument' -> 'Statement') as s,
         jsonb_array_elements_text(s -> 'Resource') as resource,
@@ -2234,7 +2234,7 @@ query "iam_inline_policy_no_administrative_privileges" {
         ' statements that allow action "*" on resource "*".' as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
-      iam_resource_types as p
+      full_administrative_privilege_policies as p
       left join bad_policies as bad on p.arn = bad.arn;
   EOQ
 }
