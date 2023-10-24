@@ -17,7 +17,7 @@ Includes support for:
 * [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150)
 * [AWS CIS v2.0.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v200) 🚀 New!
 * [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
-* [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.control_tower)
+* [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.audit_manager_control_tower)
 * [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
 * [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
 * [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
