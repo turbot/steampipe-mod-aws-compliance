@@ -70,7 +70,7 @@ control "glue_data_catalog_encryption_settings_password_encryption_enabled" {
 
 control "glue_connection_ssl_enabled" {
   title       = "Glue connection SSL should be enabled"
-  description = "Ensure Glue connection encryption SSL is enabled.."
+  description = "Ensure Glue connection encryption SSL is enabled."
   query       = query.glue_connection_ssl_enabled
 
   tags = local.conformance_pack_glue_common_tags
