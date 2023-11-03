@@ -4,6 +4,12 @@ _Breaking changes_
 
 - Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#728](https://github.com/turbot/steampipe-mod-aws-compliance/pull/728))
 
+_Enhancements_
+
+- Added the following controls to the `All Controls` benchmark: ([#727](https://github.com/turbot/steampipe-mod-aws-compliance/pull/727))
+  - `glue_connection_ssl_enabled`
+  - `vpc_peering_connection_route_table_least_privilege`
+
 ## v0.81 [2023-10-20]
 
 _Enhancements_
