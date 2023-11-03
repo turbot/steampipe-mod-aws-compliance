@@ -415,6 +415,14 @@ control "vpc_subnet_public_and_private" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_peering_connection_route_table_least_privilege" {
+  title       = "VPCs peering connection route tables should have least privilege"
+  description = "Ensure that all VPCs peering connection route tables have least privilege."
+  query       = query.vpc_peering_connection_route_table_least_privilege
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1738,5 +1746,41 @@ query "vpc_subnet_public_and_private" {
       ${local.common_dimensions_sql}
     from
       aws_vpc as v;
+  EOQ
+}
+
+query "vpc_peering_connection_route_table_least_privilege" {
+  sql = <<-EOQ
+    with vpc_peering_routing_tables as (
+      select
+        r ->> 'VpcPeeringConnectionId' as peering_connection_id
+      from
+        aws_vpc_route_table,
+        jsonb_array_elements(routes) as r
+        inner join aws_vpc_peering_connection as c on r ->> 'VpcPeeringConnectionId' = c.id
+      where
+        ( r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+          or r ->> 'DestinationCidrBlock' = '::/0'
+          or (r ->> 'DestinationCidrBlock')::cidr = c.accepter_cidr_block
+          or (r ->> 'DestinationCidrBlock')::cidr = c.requester_cidr_block
+        )
+      group by
+      r ->> 'VpcPeeringConnectionId'
+    )
+    select
+      c.id as resource,
+      case
+        when t.peering_connection_id is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when t.peering_connection_id is not null then c.title || ' does not have least privilege access.'
+        else c.title || ' have least privilege access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection as c
+      left join vpc_peering_routing_tables as t on t.peering_connection_id = c.id;
   EOQ
 }
