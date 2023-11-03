@@ -1,3 +1,9 @@
+## v0.82 [2023-11-03]
+
+_Breaking changes_
+
+- Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#728](https://github.com/turbot/steampipe-mod-aws-compliance/pull/728))
+
 ## v0.81 [2023-10-20]
 
 _Enhancements_
