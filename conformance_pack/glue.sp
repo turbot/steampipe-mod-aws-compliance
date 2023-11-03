@@ -68,6 +68,14 @@ control "glue_data_catalog_encryption_settings_password_encryption_enabled" {
   tags = local.conformance_pack_glue_common_tags
 }
 
+control "glue_connection_ssl_enabled" {
+  title       = "Glue connection SSL should be enabled"
+  description = "Ensure Glue connection encryption SSL is enabled."
+  query       = query.glue_connection_ssl_enabled
+
+  tags = local.conformance_pack_glue_common_tags
+}
+
 query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -217,5 +225,23 @@ query "glue_data_catalog_encryption_settings_password_encryption_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_glue_data_catalog_encryption_settings;
+  EOQ
+}
+
+query "glue_connection_ssl_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when connection_properties ->> 'JDBC_ENFORCE_SSL' = 'true' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when connection_properties ->> 'JDBC_ENFORCE_SSL' = 'true' then name || ' SSL enabled.'
+        else name || ' SSL disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_glue_connection;
   EOQ
 }
