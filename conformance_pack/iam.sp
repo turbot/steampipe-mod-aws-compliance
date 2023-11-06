@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "managed_policy_arns" {
+  type        = list(string)
+  default     = ["arn:aws:iam::aws:policy/AWSSupportAccess", "arn:aws:iam::aws:policy/AWSDirectConnectReadOnlyAccess"]
+  description = "A list of managed policy arns."
+}
+
 control "iam_user_unused_credentials_45" {
   title       = "Ensure credentials unused for 45 days or greater are disabled"
   description = "AWS IAM users can access AWS resources using different types of credentials, such as passwords or access keys. It is recommended that all credentials that have been unused in 45 or greater days be deactivated or removed."
@@ -1466,8 +1472,13 @@ query "iam_managed_policy_attached_to_role" {
     from
       aws_iam_policy
     where
-      is_aws_managed;
+      is_aws_managed and arn = any (($1)::text[])
   EOQ
+
+  param "managed_policy_arns" {
+    description = "A list of trusted organization units."
+    default     = var.managed_policy_arns
+  }
 }
 
 query "iam_policy_unused" {
