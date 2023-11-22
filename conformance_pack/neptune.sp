@@ -302,8 +302,8 @@ query "neptune_db_cluster_no_public_subnet" {
         when s.subnet_group_name is not null then c.title || ' have public subnet.'
         else c.title || ' have private subnet.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_neptune_db_cluster as c
       left join cluster_public_subnet as s on s.subnet_group_name = c.db_subnet_group;
