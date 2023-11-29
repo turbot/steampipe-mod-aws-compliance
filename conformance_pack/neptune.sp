@@ -299,8 +299,8 @@ query "neptune_db_cluster_no_public_subnet" {
         else 'ok'
       end as status,
       case
-        when s.subnet_group_name is not null then c.title || ' have public subnet.'
-        else c.title || ' have private subnet.'
+        when s.subnet_group_name is not null then c.title || ' has public subnet.'
+        else c.title || ' has private subnet.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

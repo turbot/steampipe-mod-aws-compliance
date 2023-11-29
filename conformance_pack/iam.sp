@@ -687,10 +687,10 @@ control "iam_user_access_key_unused_45" {
   tags = local.conformance_pack_iam_common_tags
 }
 
-control "iam_role_no_administratoraccess_policy_attached" {
+control "iam_role_no_administrator_access_policy_attached" {
   title       = "Ensure IAM role not attached with Administratoraccess policy"
   description = "AWS IAM role should not be attached Administratoraccess policy."
-  query       = query.iam_role_no_administratoraccess_policy_attached
+  query       = query.iam_role_no_administrator_access_policy_attached
 
   tags = local.conformance_pack_iam_common_tags
 }
@@ -2315,7 +2315,7 @@ query "iam_user_access_key_unused_45" {
   EOQ
 }
 
-query "iam_role_no_administratoraccess_policy_attached" {
+query "iam_role_no_administrator_access_policy_attached" {
   sql = <<-EOQ
     with admin_roles as (
       select

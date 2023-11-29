@@ -6,7 +6,7 @@ locals {
 
 control "dlm_ebs_snapshot_lifecycle_policy_enabled" {
   title       = "DLM EBS snapshot lifecycle policy should be enabled"
-  description = "Ensure DLM EBS snapshot lifecycle policy is enabled in all the region with EBS snapshots."
+  description = "Ensure DLM EBS snapshot lifecycle policy is enabled in all the regions with EBS snapshots."
   query       = query.dlm_ebs_snapshot_lifecycle_policy_enabled
 
   tags = local.conformance_pack_dlm_common_tags
@@ -32,7 +32,8 @@ query "dlm_ebs_snapshot_lifecycle_policy_enabled" {
       where
         policy_details ->> 'PolicyType' like 'EBS_SNAPSHOT%'
       group by
-        region, account_id
+        region,
+        account_id
     )
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
@@ -44,10 +45,10 @@ query "dlm_ebs_snapshot_lifecycle_policy_enabled" {
         when p.region is not null then 'EBS snapshot DLM policy exist in region ' || r.region || '.'
         else 'EBS snapshots DLM policy does not exist in region ' || r.region || '.'
       end as reason
-      --${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       region_with_ebs_snapshots as r
-      left join dlm_ebs_lifecycle_policy as p on p.region = r.region and r.account_id = p.account_id
+      left join dlm_ebs_lifecycle_policy as p on p.region = r.region and r.account_id = p.account_id;
   EOQ
 }
 
