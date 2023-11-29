@@ -563,3 +563,24 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
       left join distribution_with_non_existent_bucket as b on b.arn = d.arn;
   EOQ
 }
+
+query "cloudfront_distribution_protocol_version_latest" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when viewer_certificate ->> 'CertificateSource' = 'cloudfront'
+          and viewer_certificate ->> 'MinimumProtocolVersion' = 'TLSv1.2_2021' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'CertificateSource' = 'cloudfront'
+          and viewer_certificate ->> 'MinimumProtocolVersion' = 'TLSv1.2_2021' then title || ' uses latest protocol version.'
+        else title || ' not uses latest protocol version.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
+  EOQ
+}

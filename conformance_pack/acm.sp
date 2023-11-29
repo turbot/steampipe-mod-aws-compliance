@@ -103,3 +103,42 @@ query "acm_certificate_no_wildcard_domain_name" {
       aws_acm_certificate;
   EOQ
 }
+
+query "acm_certificate_expired" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when renewal_eligibility = 'INELIGIBLE' then 'skip'
+        when date(not_after) < (current_date - interval '1' minute) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
+        when date(not_after) < (current_date - interval '1' minute) then title || ' expired ' || to_char(not_after, 'DD-Mon-YYYY') ||
+        ' (' || extract(day from not_after - current_date) || ' days ago).'
+        else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
+        ' (' || extract(day from not_after - current_date) || ' days).'
+       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_no_failed_certificate" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when status in ('VALIDATION_TIMED_OUT', 'FAILED') then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' status is ' || status || '.'  as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}

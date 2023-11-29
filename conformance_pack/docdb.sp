@@ -28,6 +28,14 @@ control "docdb_cluster_instance_logging_enabled" {
   tags = local.conformance_pack_docdb_common_tags
 }
 
+control "docdb_cluster_deletion_protection_enabled" {
+  title       = "DocumentDB clusters should have deletion protection enabled"
+  description = "Ensure DocumentDB) clusters have deletion protection enabled."
+  query       = query.docdb_cluster_deletion_protection_enabled
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 query "docdb_cluster_instance_logging_enabled" {
   sql = <<-EOQ
     select
@@ -77,6 +85,44 @@ query "docdb_cluster_backup_retention_period_7_days" {
         else 'alarm'
       end as status,
       title || ' backup retention period is ' || backup_retention_period || ' day(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster;
+  EOQ
+}
+
+query "docdb_cluster_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when deletion_protection then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when deletion_protection then title || ' deletion protection enabled.'
+        else title || ' deletion protection not enabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster;
+  EOQ
+}
+
+query "docdb_cluster_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when deletion_protection then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when deletion_protection then title || ' deletion protection enabled.'
+        else title || ' deletion protection not enabled.'
+      end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

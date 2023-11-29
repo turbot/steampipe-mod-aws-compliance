@@ -1784,3 +1784,31 @@ query "vpc_peering_connection_route_table_least_privilege" {
       left join vpc_peering_routing_tables as t on t.peering_connection_id = c.id;
   EOQ
 }
+
+query "vpc_not_in_use" {
+  sql = <<-EOQ
+    with vpc_without_subnet as (
+      select
+        distinct vpc_id
+      from
+        aws_vpc
+      where
+        vpc_id not in (select vpc_id from aws_vpc_subnet)
+    )
+    select
+      arn as resource,
+      case
+        when s.vpc_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.vpc_id is null then title || ' in use.'
+        else title || ' not in use.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v
+      left join vpc_without_subnet as s on s.vpc_id = v.vpc_id
+  EOQ
+}

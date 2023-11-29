@@ -103,3 +103,24 @@ query "sqs_queue_encrypted_at_rest" {
       aws_sqs_queue;
   EOQ
 }
+
+query "sqs_queue_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      queue_arn as resource,
+      case
+        when kms_master_key_id is null then 'alarm'
+        when kms_master_key_id is not null and kms_master_key_id = 'alias/aws/sqs' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_master_key_id is null then title || ' encryption at rest disabled.'
+        when kms_master_key_id is not null and kms_master_key_id = 'alias/aws/sqs' then title || ' not encrypted with CMK.'
+        else title || ' encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sqs_queue;
+  EOQ
+}
