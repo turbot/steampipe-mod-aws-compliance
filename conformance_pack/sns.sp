@@ -128,3 +128,83 @@ query "sns_topic_notification_delivery_status_enabled" {
       aws_sns_topic;
   EOQ
 }
+
+query "sns_topic_policy_prohibit_publishing_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        topic_arn,
+        count(*) as statements_num
+      from
+        aws_sns_topic,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Action') as a
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+        and a = 'sns:publish'
+        and s -> 'Condition' is null
+      group by
+        topic_arn
+    )
+    select
+      t.topic_arn as resource,
+      case
+        when p.topic_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.topic_arn is null then title || ' does not allow publish access without condition.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows publish access without condition.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_sns_topic as t
+      left join wildcard_action_policies as p on p.topic_arn = t.topic_arn;
+  EOQ
+}
+
+query "sns_topic_policy_prohibit_subscription_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        topic_arn,
+        count(*) as statements_num
+      from
+        aws_sns_topic,
+        jsonb_array_elements(policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Action') as a
+      where
+        s ->> 'Effect' = 'Allow'
+        and (
+          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+        and a in ('sns:subscribe', 'sns:receive')
+        and s -> 'Condition' is null
+      group by
+        topic_arn
+    )
+    select
+      t.topic_arn as resource,
+      case
+        when p.topic_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.topic_arn is null then title || ' does not allow subscribe access without condition.'
+        else title || ' contains ' || coalesce(p.statements_num,0) ||
+        ' statements that allows subscribe access without condition.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
+    from
+      aws_sns_topic as t
+      left join wildcard_action_policies as p on p.topic_arn = t.topic_arn;
+  EOQ
+}
