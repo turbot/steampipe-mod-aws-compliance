@@ -219,3 +219,19 @@ query "eks_cluster_endpoint_public_access_restricted" {
       aws_eks_cluster;
   EOQ
 }
+
+query "eks_cluster_no_multiple_security_groups" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(resources_vpc_config -> 'SecurityGroupIds') > 1 then 'alarm'
+        else 'ok'
+      end as status,
+        title || ' has '|| jsonb_array_length(resources_vpc_config -> 'SecurityGroupIds') || ' security group(s).' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}

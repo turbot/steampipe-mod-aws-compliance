@@ -515,3 +515,51 @@ query "ecs_service_not_publicly_accessible" {
       left join service_awsvpc_mode_task_definition as b on a.service_name = b.service_name;
   EOQ
 }
+
+query "ecs_task_definition_no_root_user" {
+  sql = <<-EOQ
+    with root_user_task_definition as (
+      select
+        distinct task_definition_arn as arn
+      from
+        aws_ecs_task_definition,
+        jsonb_array_elements(container_definitions) as c
+      where
+        c ->> 'User' = 'root'
+    )
+    select
+      a.task_definition_arn as resource,
+      case
+        when b.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.arn is not null then a.title || ' have root user.'
+        else a.title || ' does not have root user.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_task_definition as a
+      left join root_user_task_definition as b on a.task_definition_arn = b.arn;
+  EOQ
+}
+
+query "ecs_cluster_no_active_services_count" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when active_services_count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when active_services_count > 0 then title || ' has ' || active_services_count || ' active service(s).'
+        else title || ' has no active service.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_cluster;
+  EOQ
+}

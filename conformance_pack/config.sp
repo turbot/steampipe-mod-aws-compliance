@@ -79,3 +79,23 @@ query "config_enabled_all_regions" {
       left join aws_config_configuration_recorder as r on r.account_id = a.account_id and r.region = a.name;
   EOQ
 }
+
+query "config_no_failed_deliver_logs" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when status ->> 'LastStatus' = 'FAILURE' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when status ->> 'LastStatus' = 'FAILURE' then title || ' has failed deliver logs.'
+        else title || ' does not have failed deliver logs.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_config_configuration_recorder;
+  EOQ
+}
+
