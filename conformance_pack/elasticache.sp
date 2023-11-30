@@ -215,3 +215,26 @@ query "elasticache_cluster_auto_minor_version_upgrade_enabled" {
       aws_elasticache_cluster;
   EOQ
 }
+
+query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      r.arn as resource,
+      case
+        when not at_rest_encryption_enabled then 'alarm'
+        when at_rest_encryption_enabled and kms_key_id is null then 'alarm'
+        when at_rest_encryption_enabled and kms_key_id is not null and k.enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not at_rest_encryption_enabled then r.title || ' encryption at rest disabled.'
+        when at_rest_encryption_enabled and kms_key_id is null then r.title || ' encryption at rest not enabled with CMK.'
+        when at_rest_encryption_enabled and kms_key_id is not null and k.enabled then r.title || ' encryption at rest enabled with CMK.'
+        else r.title || ' encryption at rest enabled with disabled CMK.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_replication_group as r
+      left join aws_kms_key as k on k.arn = r.kms_key_id;
+  EOQ
+}

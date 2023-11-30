@@ -996,3 +996,62 @@ query "ec2_classic_lb_connection_draining_enabled" {
       aws_ec2_classic_load_balancer;
   EOQ
 }
+
+query "elb_classic_lb_no_registered_instance" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(instances) = 0 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' has ' || jsonb_array_length(instances) || ' instances registered.' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_classic_load_balancer;
+  EOQ
+}
+
+query "elb_classic_lb_with_inbound_rule" {
+  sql = <<-EOQ
+    with sg_with_inbound as (
+      select
+        arn,
+        sg
+      from
+        aws_ec2_classic_load_balancer,
+        jsonb_array_elements_text(security_groups) as sg
+        left join aws_vpc_security_group_rule as sgr on sg = sgr.group_id
+      where
+        sgr.type = 'ingress'
+      group by
+        sg, arn
+    ), classic_lb_without_inbound as (
+      select
+        distinct arn
+      from
+        aws_ec2_classic_load_balancer,
+        jsonb_array_elements_text(security_groups) as s
+      where
+        s not in ( select sg from sg_with_inbound)
+    )
+    select
+      distinct c.arn as resource,
+      case
+        when c.security_groups is null then 'alarm'
+        when i.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when c.security_groups is null then c.title || ' does not have security group attached.'
+        when i.arn is not null then c.title || ' all attached security groups do not have inbound  rule(s).'
+        else c.title || ' all attached security groups have inbound  rule(s).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_ec2_classic_load_balancer as c
+      left join classic_lb_without_inbound as i on c.arn = i.arn;
+  EOQ
+}
