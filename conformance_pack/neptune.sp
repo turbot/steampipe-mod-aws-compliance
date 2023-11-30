@@ -68,6 +68,14 @@ control "neptune_db_cluster_copy_tags_to_snapshot_enabled" {
   tags = local.conformance_pack_neptune_common_tags
 }
 
+control "neptune_db_cluster_no_public_subnet" {
+  title       = "Neptune DB clusters should not use public_subnet"
+  description = "This control checks if Neptune DB clusters are configured with public subnet as there is a risk of exposing sensitive data."
+  query       = query.neptune_db_cluster_no_public_subnet
+
+  tags = local.conformance_pack_elasticache_common_tags
+}
+
 query "neptune_db_cluster_audit_logging_enabled" {
   sql = <<-EOQ
     select
@@ -217,5 +225,87 @@ query "neptune_db_cluster_snapshot_prohibit_public_access" {
     from
       aws_neptune_db_cluster_snapshot,
       jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot;
+  EOQ
+}
+
+query "neptune_db_cluster_no_public_subnet" {
+  sql = <<-EOQ
+    with subnets_with_explicit_route as (
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as (
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+      select
+        subnet_id,
+        vpc_id,
+        case
+          when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+          when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+          else 'private'
+        end as access
+      from
+        aws_vpc_subnet as s
+        left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    ), cluster_public_subnet as (
+      select
+        distinct arn,
+        name as subnet_group_name
+      from
+        aws_rds_db_subnet_group,
+        jsonb_array_elements(subnets) as s
+        left join subnet_accessibility as a on a.subnet_id = s ->> 'SubnetIdentifier'
+      where
+        a.access = 'public'
+    )
+    select
+      c.arn as resource,
+      case
+        when s.subnet_group_name is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when s.subnet_group_name is not null then c.title || ' has public subnet.'
+        else c.title || ' has private subnet.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_neptune_db_cluster as c
+      left join cluster_public_subnet as s on s.subnet_group_name = c.db_subnet_group;
   EOQ
 }

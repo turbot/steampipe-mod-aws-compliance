@@ -10,6 +10,7 @@ benchmark "all_controls_elasticache" {
   children = [
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.elasticache_cluster_no_default_subnet_group,
+    control.elasticache_cluster_no_public_subnet,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.elasticache_replication_group_auto_failover_enabled,
     control.elasticache_replication_group_encryption_at_rest_enabled,

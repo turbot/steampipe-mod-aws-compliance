@@ -149,6 +149,14 @@ control "ebs_snapshot_encryption_enabled" {
   tags = local.conformance_pack_ebs_common_tags
 }
 
+control "ebs_volume_snapshot_exists" {
+  title       = "EBS volume snapshots should exist"
+  description = "Ensure that EBS volume snapshots exist. This rule is non-compliant if the EBS volume does not have any snapshot."
+  query       = query.ebs_volume_snapshot_exists
+
+  tags = local.conformance_pack_ebs_common_tags
+}
+
 query "ebs_snapshot_not_publicly_restorable" {
   sql = <<-EOQ
     select
@@ -342,5 +350,34 @@ query "ebs_snapshot_encryption_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_ebs_snapshot;
+  EOQ
+}
+
+query "ebs_volume_snapshot_exists" {
+  sql = <<-EOQ
+    with volume_with_snapshots as (
+      select
+        volume_id,
+        count(*) as snap_count
+      from
+        aws_ebs_snapshot
+      group by
+        volume_id
+    )
+    select
+      v.arn as resource,
+      case
+        when s.volume_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.volume_id is not null then v.title || ' has ' || s.snap_count || ' snapshot(s).'
+        else v.title || ' does not have snapshot.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ebs_volume as v
+      left join volume_with_snapshots as s on s.volume_id = v.volume_id;
   EOQ
 }
