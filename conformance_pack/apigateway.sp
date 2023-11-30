@@ -138,6 +138,14 @@ control "api_gatewayv2_route_authorizer_configured" {
   tags = local.conformance_pack_apigateway_common_tags
 }
 
+control "api_gateway_rest_api_public_endpoint_with_authorizer" {
+  title       = "API Gateway REST API public endpoints should be configured with authorizer"
+  description = "Ensure API Gateway REST API public endpoint is configured with authorizer. This rule is non-compliant if API Gateway REST API public endpoint has no authorizer configured."
+  query       = query.api_gateway_rest_api_public_endpoint_with_authorizer
+
+  tags = local.conformance_pack_apigateway_common_tags
+}
+
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -352,5 +360,27 @@ query "gatewayv2_stage_access_logging_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_api_gatewayv2_stage;
+  EOQ
+}
+
+query "api_gateway_rest_api_public_endpoint_with_authorizer" {
+  sql = <<-EOQ
+    select
+      'arn:' || p.partition || ':apigateway:' || p.region || '::/apis/' || p.api_id as resource,
+      case
+        when not (endpoint_configuration_types ? 'PRIVATE') and (a.provider_arns is not null and jsonb_array_length(a.provider_arns) > 0 ) then 'ok'
+        when not (endpoint_configuration_types ? 'PRIVATE') and ( a.provider_arns is null or jsonb_array_length(a.provider_arns) = 0 ) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not (endpoint_configuration_types ? 'PRIVATE') and (a.provider_arns is not null and jsonb_array_length(a.provider_arns) > 0 ) then p.name || ' has public endpoint with authorizer.'
+        when not (endpoint_configuration_types ? 'PRIVATE') and ( a.provider_arns is null or jsonb_array_length(a.provider_arns) = 0 ) then p.name || ' has public endpoint without authorizer.'
+        else p.name || ' has private endpoint.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+    from
+      aws_api_gateway_rest_api as p
+      left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
   EOQ
 }

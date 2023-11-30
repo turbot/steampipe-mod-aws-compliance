@@ -1,3 +1,18 @@
+## v0.83 [2023-11-30]
+
+_Enhancements_
+
+- Added the following controls to the `All Controls` benchmark: ([#733](https://github.com/turbot/steampipe-mod-aws-compliance/pull/733))
+  - `api_gateway_rest_api_public_endpoint_with_authorizer`
+  - `dlm_ebs_snapshot_lifecycle_policy_enabled`
+  - `docdb_cluster_instance_encryption_at_rest_enabled`
+  - `ebs_volume_snapshot_exists`
+  - `elasticache_cluster_no_public_subnet`
+  - `iam_role_no_administrator_access_policy_attached`
+  - `iam_user_access_key_unused_45`
+  - `iam_user_console_access_unused_45`
+  - `neptune_db_cluster_no_public_subnet`
+
 ## v0.82 [2023-11-03]
 
 _Breaking changes_

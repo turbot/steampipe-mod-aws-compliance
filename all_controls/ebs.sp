@@ -15,6 +15,7 @@ benchmark "all_controls_ebs" {
     control.ebs_volume_encryption_at_rest_enabled,
     control.ebs_volume_in_backup_plan,
     control.ebs_volume_protected_by_backup_plan,
+    control.ebs_volume_snapshot_exists,
     control.ebs_volume_unused
   ]
 

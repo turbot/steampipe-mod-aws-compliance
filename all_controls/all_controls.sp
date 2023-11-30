@@ -24,6 +24,7 @@ benchmark "all_controls" {
     benchmark.all_controls_config,
     benchmark.all_controls_dax,
     benchmark.all_controls_directoryservice,
+    benchmark.all_controls_dlm,
     benchmark.all_controls_dms,
     benchmark.all_controls_docdb,
     benchmark.all_controls_drs,
