@@ -13,7 +13,8 @@ benchmark "all_controls_eks" {
     control.eks_cluster_endpoint_restrict_public_access,
     control.eks_cluster_no_default_vpc,
     control.eks_cluster_secrets_encrypted,
-    control.eks_cluster_with_latest_kubernetes_version
+    control.eks_cluster_with_latest_kubernetes_version,
+    control.eks_cluster_no_multiple_security_groups,
   ]
 
   tags = merge(local.all_controls_eks_common_tags, {

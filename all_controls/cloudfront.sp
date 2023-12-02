@@ -22,7 +22,8 @@ benchmark "all_controls_cloudfront" {
     control.cloudfront_distribution_sni_enabled,
     control.cloudfront_distribution_use_custom_ssl_certificate,
     control.cloudfront_distribution_use_secure_cipher,
-    control.cloudfront_distribution_waf_enabled
+    control.cloudfront_distribution_waf_enabled,
+    control.cloudfront_distribution_protocol_version_latest,
   ]
 
   tags = merge(local.all_controls_cloudfront_common_tags, {

@@ -41,7 +41,8 @@ benchmark "all_controls_vpc" {
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.vpc_subnet_multi_az_enabled,
     control.vpc_subnet_public_and_private,
-    control.vpc_vpn_tunnel_up
+    control.vpc_vpn_tunnel_up,
+    control.vpc_not_in_use,
   ]
 
   tags = merge(local.all_controls_vpc_common_tags, {

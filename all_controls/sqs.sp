@@ -10,7 +10,8 @@ benchmark "all_controls_sqs" {
   children = [
     control.sqs_queue_dead_letter_queue_configured,
     control.sqs_queue_encrypted_at_rest,
-    control.sqs_queue_policy_prohibit_public_access
+    control.sqs_queue_policy_prohibit_public_access,
+    control.sqs_queue_encrypted_with_kms_cmk,
   ]
 
   tags = merge(local.all_controls_sqs_common_tags, {

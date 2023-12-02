@@ -21,7 +21,9 @@ benchmark "all_controls_ecs" {
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.ecs_task_definition_logging_enabled,
     control.ecs_task_definition_no_host_pid_mode,
-    control.ecs_task_definition_user_for_host_mode_check
+    control.ecs_task_definition_user_for_host_mode_check,
+    control.ecs_task_definition_no_root_user,
+    control.ecs_cluster_no_active_services_count,
   ]
 
   tags = merge(local.all_controls_ecs_common_tags, {

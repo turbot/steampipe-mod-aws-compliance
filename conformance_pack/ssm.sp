@@ -90,6 +90,14 @@ control "ssm_document_prohibit_public_access" {
   })
 }
 
+control "ssm_parameter_encryption_enabled" {
+  title       = "SSM parameters encryption should be enabled"
+  description = "This control checks if SSM parameter has encryption enabled."
+  query       = query.ssm_parameter_encryption_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select

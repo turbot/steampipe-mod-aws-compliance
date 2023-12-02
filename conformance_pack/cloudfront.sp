@@ -158,6 +158,14 @@ control "cloudfront_distribution_field_level_encryption_enabled" {
   tags = local.conformance_pack_cloudfront_common_tags
 }
 
+control "cloudfront_distribution_protocol_version_latest" {
+  title       = "CloudFront distributions should have latest TLS protocol version"
+  description = "This control checks whether an AWS CloudFront distribution uses latest protocol version."
+  query       = query.cloudfront_distribution_protocol_version_latest
+
+  tags = local.conformance_pack_cloudfront_common_tags
+}
+
 query "cloudfront_distribution_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with data as (

@@ -28,6 +28,14 @@ control "sqs_queue_dead_letter_queue_configured" {
   tags = local.conformance_pack_sqs_common_tags
 }
 
+control "sqs_queue_encrypted_with_kms_cmk" {
+  title       = "SQS queues should be encrypted with KMS CMK"
+  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS SQS queues with KMS CMK."
+  query       = query.sqs_queue_encrypted_with_kms_cmk
+
+  tags = local.conformance_pack_sqs_common_tags
+}
+
 query "sqs_queue_policy_prohibit_public_access" {
   sql = <<-EOQ
     with wildcard_action_policies as (

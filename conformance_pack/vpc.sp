@@ -423,6 +423,14 @@ control "vpc_peering_connection_route_table_least_privilege" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_not_in_use" {
+  title       = "VPCs should be in use"
+  description = "This control checks whether there are any unused VPCs."
+  query       = query.vpc_not_in_use
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1810,5 +1818,32 @@ query "vpc_not_in_use" {
     from
       aws_vpc as v
       left join vpc_without_subnet as s on s.vpc_id = v.vpc_id
+  EOQ
+}
+
+query "vpc_vpn_gateway_per_region_less_then_4" {
+  sql = <<-EOQ
+    with vpn_gateway_per_region as (
+      select
+        count(*),
+        region,
+        account_id
+      from
+        aws_vpc_vpn_gateway
+      group by
+        region,
+        account_id
+    )
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when v.count > 3 then 'alarm'
+        else 'ok'
+      end as status,
+      r.region || ' region has ' || coalesce(v.count, 0) || ' VPN gateway(s).' as reason
+      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join vpn_gateway_per_region as v on r.account_id = v.account_id and r.region = v.region;
   EOQ
 }

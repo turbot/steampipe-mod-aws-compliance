@@ -237,6 +237,22 @@ control "cloudtrail_trail_bucket_mfa_enabled" {
   tags = local.conformance_pack_cloudtrail_common_tags
 }
 
+control "cloudtrail_trail_enabled_account" {
+  title       = "At least one CloudTrail trail should be enabled in the AWS account"
+  description = "Ensure that at least one CloudTrail trail is be enabled in the AWS account."
+  query       = query.cloudtrail_trail_enabled_account
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
+control "cloudtrail_multi_region_trail_integrated_with_logs" {
+  title       = "CloudTrail multi region trails should be integrated with CloudWatch logs"
+  description = "Ensure that CloudTrail multi region trails are itegrated with CloudWatch logs."
+  query       = query.cloudtrail_multi_region_trail_integrated_with_logs
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
 query "cloudtrail_trail_integrated_with_logs" {
   sql = <<-EOQ
     select
