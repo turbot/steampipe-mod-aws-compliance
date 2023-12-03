@@ -9,7 +9,8 @@ benchmark "all_controls_kinesis" {
   description = "This section contains recommendations for configuring Kinesis resources."
   children = [
     control.kinesis_stream_encrypted_with_kms_cmk,
-    control.kinesis_stream_server_side_encryption_enabled
+    control.kinesis_stream_server_side_encryption_enabled,
+    control.kinesis_firehose_delivery_stream_server_side_encryption_enabled,
   ]
 
   tags = merge(local.all_controls_kinesis_common_tags, {
