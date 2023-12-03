@@ -77,6 +77,14 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   })
 }
 
+control "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
+  title       = "ElastiCache for Redis replication groups should be encrypted with CMK"
+  description = "Ensure ElastiCache for Redis replication group are encrypted using CMK. The rule is non-compliant if the ElastiCache for Redis replication group is not encrypted using CMK."
+  query       = query.elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk
+
+  tags = local.conformance_pack_elasticache_common_tags
+}
+
 query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   sql = <<-EOQ
     select

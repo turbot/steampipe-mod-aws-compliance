@@ -196,6 +196,14 @@ control "redshift_cluster_no_default_database_name" {
   })
 }
 
+control "redshift_cluster_encrypted_with_cmk" {
+  title       = "Redshift clusters should be encrypted with CMK"
+  description = "Ensure Redshift cluster is encrypted using CMK. The rule is non-compliant if the Redshift clusters is not encrypted using CMK."
+  query       = query.redshift_cluster_encrypted_with_cmk
+
+  tags = local.conformance_pack_redshift_common_tags
+}
+
 query "redshift_cluster_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with pg_with_ssl as (

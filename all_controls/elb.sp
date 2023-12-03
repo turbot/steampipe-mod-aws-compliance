@@ -30,7 +30,9 @@ benchmark "all_controls_elb" {
     control.elb_classic_lb_with_outbound_rule,
     control.elb_listener_use_secure_ssl_cipher,
     control.elb_network_lb_tls_listener_security_policy_configured,
-    control.elb_tls_listener_protocol_version
+    control.elb_tls_listener_protocol_version,
+    control.elb_classic_lb_no_registered_instance,
+    control.elb_classic_lb_with_inbound_rule,
   ]
 
   tags = merge(local.all_controls_elb_common_tags, {

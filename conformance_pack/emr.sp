@@ -54,6 +54,14 @@ control "emr_cluster_master_nodes_no_public_ip" {
   })
 }
 
+control "emr_cluster_security_configuration_enabled" {
+  title       = "EMR clusters should have security configuration enabled"
+  description = "Ensure EMR cluster have security configuration enabled. This control fails if security configuration is not enabled for EMR cluster."
+  query       = query.emr_cluster_security_configuration_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     select

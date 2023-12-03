@@ -321,6 +321,22 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   })
 }
 
+control "elb_classic_lb_no_registered_instance" {
+  title       = "ELB classic load balancers should have at least one registered instance"
+  description = "This control checks whether an ELB classic load balancers has registered instances. The control fails if an ELB classic load balancer has zero instances registered."
+  query       = query.elb_classic_lb_no_registered_instance
+
+  tags = local.foundational_security_elb_common_tags
+}
+
+control "elb_classic_lb_with_inbound_rule" {
+  title       = "ELB classic load balancers should have at least one inbound rule"
+  description = "Ensure classic load balancers have at least one inbound rule in all the attached security groups."
+  query       = query.elb_classic_lb_with_inbound_rule
+
+  tags = local.foundational_security_elb_common_tags
+}
+
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ
     (

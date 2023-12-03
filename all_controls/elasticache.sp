@@ -14,7 +14,8 @@ benchmark "all_controls_elasticache" {
     control.elasticache_replication_group_auto_failover_enabled,
     control.elasticache_replication_group_encryption_at_rest_enabled,
     control.elasticache_replication_group_encryption_in_transit_enabled,
-    control.elasticache_replication_group_redis_auth_enabled
+    control.elasticache_replication_group_redis_auth_enabled,
+    control.elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk,
   ]
 
   tags = merge(local.all_controls_elasticache_common_tags, {
