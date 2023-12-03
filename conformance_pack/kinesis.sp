@@ -31,7 +31,6 @@ control "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
   query       = query.kinesis_firehose_delivery_stream_server_side_encryption_enabled
 
   tags = local.conformance_pack_kinesis_common_tags
-  })
 }
 
 query "kinesis_stream_server_side_encryption_enabled" {

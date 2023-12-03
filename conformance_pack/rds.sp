@@ -474,6 +474,22 @@ control "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerabi
   tags = local.conformance_pack_rds_common_tags
 }
 
+control "rds_db_cluster_encrypted_with_cmk" {
+  title       = "RDS DB clusters should be encrypted with CMK"
+  description = "Ensure RDS DB cluster is encrypted using CMK. The rule is non-compliant if the RDS DB cluster is not encrypted using CMK."
+  query       = query.rds_db_cluster_encrypted_with_cmk
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_backup_retention_period_less_than_7" {
+  title       = "RDS DB instances backup retention period should be greater than or equal to 7"
+  description = "Ensure RDS DB instance backup retention period is greater than or equal to 7."
+  query       = query.rds_db_instance_backup_retention_period_less_than_7
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -486,6 +502,22 @@ query "rds_db_instance_backup_enabled" {
         when backup_retention_period < 1 then title || ' backups not enabled.'
         else title || ' backups enabled.'
       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_backup_retention_period_less_than_7" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when backup_retention_period < 7 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' backup retention period set to ' || backup_retention_period || '.'  as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1297,5 +1329,37 @@ query "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerabili
       ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_encrypted_with_cmk" {
+  sql = <<-EOQ
+    with encrypted_cluster as (
+      select
+        c.arn as arn,
+        key_manager
+      from
+        aws_rds_db_cluster as c
+        left join aws_kms_key as k on c.kms_key_id = k.arn
+      where
+        enabled
+    )
+    select
+      c.arn as resource,
+      case
+        when not storage_encrypted then 'alarm'
+        when storage_encrypted and e.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not storage_encrypted then title || ' not encrypted.'
+        when storage_encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster as c
+      left join encrypted_cluster as e on c.arn = e.arn;
   EOQ
 }

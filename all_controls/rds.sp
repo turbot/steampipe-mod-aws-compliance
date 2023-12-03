@@ -41,6 +41,8 @@ benchmark "all_controls_rds" {
     control.rds_db_snapshot_encrypted_at_rest,
     control.rds_db_snapshot_prohibit_public_access,
     control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
+    control.rds_db_cluster_encrypted_with_cmk,
+    control.rds_db_instance_backup_retention_period_less_than_7,
   ]
 
   tags = merge(local.all_controls_rds_common_tags, {
