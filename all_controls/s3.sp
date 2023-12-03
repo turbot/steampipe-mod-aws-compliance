@@ -29,7 +29,8 @@ benchmark "all_controls_s3" {
     control.s3_bucket_versioning_enabled,
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
-    control.s3_public_access_block_bucket_account
+    control.s3_public_access_block_bucket_account,
+    control.s3_bucket_not_accessible_to_all_authenticated_user
   ]
 
   tags = merge(local.all_controls_s3_common_tags, {
