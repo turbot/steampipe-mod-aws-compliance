@@ -59,6 +59,14 @@ control "acm_certificate_no_failed_certificate" {
   tags = local.conformance_pack_acm_common_tags
 }
 
+control "acm_certificate_no_pending_validation_certificate" {
+  title       = "Ensure that ACM certificates are not in pending validation state"
+  description = "This control ensures that ACM certificates are not in pending validation state. When certificates are not validated within 72 hours after the request is made, those certificates become invalid."
+  query       = query.acm_certificate_no_pending_validation_certificate
+
+  tags = local.conformance_pack_acm_common_tags
+}
+
 query "acm_certificate_expires_30_days" {
   sql = <<-EOQ
     select
@@ -149,6 +157,22 @@ query "acm_certificate_no_failed_certificate" {
       certificate_arn as resource,
       case
         when status in ('VALIDATION_TIMED_OUT', 'FAILED') then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' status is ' || status || '.'  as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_no_pending_validation_certificate" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when status = 'PENDING_VALIDATION' then 'info'
         else 'ok'
       end as status,
       title || ' status is ' || status || '.'  as reason

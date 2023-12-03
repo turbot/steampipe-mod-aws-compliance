@@ -466,6 +466,14 @@ control "rds_db_instance_connections_encryption_enabled" {
   tags = local.conformance_pack_rds_common_tags
 }
 
+control "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability" {
+  title       = "RDS Aurora PostgreSQL clusters should not be exposed to local file read vulnerability"
+  description = "This control checks whether AWS Aurora PostgreSQL clusters are exposed to local file read vulnerability by ensuring that AWS RDS PostgreSQL instances use a non-vulnerable version of the log_fdw."
+  query       = query.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -1268,5 +1276,26 @@ query "rds_db_cluster_encryption_at_rest_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not engine ilike '%aurora-postgres%' then 'skip'
+        when engine ilike '%aurora-postgres%' and engine_version like any (array ['10.11', '10.12', '10.13', '11.6', '11.7', '11.8']) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not engine ilike '%aurora-postgres%' then title || ' not Aurora PostgreSQL edition.'
+        when engine ilike '%aurora-postgres%' and engine_version like any (array ['10.11', '10.12', '10.13', '11.6', '11.7', '11.8']) then title || ' exposed to local file read vulnerability.'
+        else title || ' not exposed to local file read vulnerability.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
   EOQ
 }

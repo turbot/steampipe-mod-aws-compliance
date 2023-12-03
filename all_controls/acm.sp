@@ -12,7 +12,8 @@ benchmark "all_controls_acm" {
     control.acm_certificate_no_wildcard_domain_name,
     control.acm_certificate_transparency_logging_enabled,
     control.acm_certificate_not_expired,
-    control.acm_certificate_no_failed_certificate
+    control.acm_certificate_no_failed_certificate,
+    control.acm_certificate_no_pending_validation_certificate,
   ]
 
   tags = merge(local.all_controls_acm_common_tags, {

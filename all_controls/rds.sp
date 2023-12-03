@@ -39,7 +39,8 @@ benchmark "all_controls_rds" {
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.rds_db_snapshot_encrypted_at_rest,
-    control.rds_db_snapshot_prohibit_public_access
+    control.rds_db_snapshot_prohibit_public_access,
+    control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
   ]
 
   tags = merge(local.all_controls_rds_common_tags, {
