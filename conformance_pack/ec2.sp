@@ -778,3 +778,195 @@ query "ec2_instance_no_management_level_access" {
       left join iam_role_with_permission as p on p.arn = r.role_arn
   EOQ
 }
+
+query "ec2_instance_no_data_destruction_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('s3:deletebucket', 'rds:deletedbcluster', 'rds:deletedbinstance', 'rds:deleteDBSnapshot', 'rds:deletedbclustersnapshot', 'rds:deleteglobalcluster', 'ec2:deletesnapshot', 'ec2:deletevolume', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no data destruction access.'
+        else title || ' has data destruction access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_write_level_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:addclientidtoopenidconnectprovider','iam:addroletoinstanceprofile','iam:addusertogroup','iam:changepassword','iam:createaccesskey','iam:createaccountalias','iam:creategroup','iam:createinstanceprofile','iam:createloginprofile','iam:createopenidconnectprovider','iam:createrole','iam:createsamlprovider','iam:createservicelinkedrole','iam:createservicespecificcredential','iam:createuser','iam:createvirtualmfadevice','iam:deactivatemfadevice','iam:deleteaccesskey','iam:deleteaccountalias','iam:deletegroup','iam:deleteinstanceprofile','iam:deleteloginprofile','iam:deleteopenidconnectprovider','iam:deleterole','iam:deletesamlprovider','iam:deletesshpublickey','iam:deleteservercertificate','iam:deleteservicelinkedrole','iam:deleteservicespecificcredential','iam:deletesigningcertificate','iam:deleteUser','iam:deletevirtualmfadevice','iam:enablemfadevice','iam:passrole','iam:removeclientidfromopenidconnectprovider','iam:removerolefrominstanceprofile','iam:removeuserfromgroup','iam:resetservicespecificcredential','iam:resyncmfadevice','iam:setsecuritytokenservicepreferences','iam:updateaccesskey','iam:updateaccountpasswordpolicy','iam:updategroup','iam:updateloginprofile','iam:updateopenidconnectproviderthumbprint','iam:updaterole','iam:updateroledescription','iam:updatesamlprovider','iam:updatesshpublicKey','iam:updateservercertificate','iam:updateservicespecificcredential','iam:updatesigningcertificate','iam:updateuser','iam:uploadsshpublicKey','iam:uploadservercertificate','iam:uploadsigningcertificate' ,'*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM rite level access.'
+        else title || ' has IAM write level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_database_management_write_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('rds:modifydbcluster','rds:modifydbclusterendpoint','rds:modifydbinstance','rds:modifydbsnapshot','rds:modifyglobalcluster','dynamodb:updateitem','dynamodb:updatetable','memorydb:updatecluster','neptune-db:resetdatabase','neptune-db:writedataviaquery','docdb-elastic:updatecluster','elasticache:modifycachecluster','cassandra:alter','cassandra:modify','qldb:executestatement','qldb:partiqlupdate','qldb:sendcommand','qldb:updateledger','redshift:modifycluster','redshift:modifyclustersnapshot','redshift:modifyendpointaccess','timestream:updatedatabase','timestream:updatetable','timestream:writerecords', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no database management write level access.'
+        else title || ' has database management write level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_org_write_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('organizations:accepthandshake','organizations:attachpolicy','organizations:cancelhandshake','organizations:createaccount','organizations:creategovcloudaccount','organizations:createorganization','organizations:createorganizationalunit','organizations:createpolicy','organizations:declinehandshake','organizations:deleteorganization','organizations:deleteorganizationalunit','organizations:deletepolicy','organizations:deregisterdelegatedadministrator','organizations:detachpolicy','organizations:disableawsserviceaccess','organizations:disablepolicytype','organizations:enableawsserviceaccess','organizations:enableallfeatures','organizations:enablepolicytype','organizations:inviteaccounttoorganization','organizations:Leaveorganization','organizations:moveaccount','organizations:registerdelegatedadministrator','organizations:removeaccountfromorganization','organizations:updateorganizationalunit','organizations:updatepolicy', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no database management write level access.'
+        else title || ' has database management write level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
