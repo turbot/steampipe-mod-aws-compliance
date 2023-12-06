@@ -970,3 +970,189 @@ query "ec2_instance_no_org_write_access" {
       left join iam_role_with_permission as p on p.arn = r.role_arn;
   EOQ
 }
+
+query "ec2_instance_no_privilege_escalation_risk_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:createpolicy', 'iam:createpolicyversion', 'iam:SetDefaultpolicyversion', 'iam:passrole', 'iam:createaccessKey', 'iam:createloginprofile', 'iam:updateloginprofile', 'iam:attachuserpolicy', 'iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:putuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepolicy', 'iam:addusertogroup', 'iam:updateassumerolepolicy', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no privilege escalation access.'
+        else title || ' has privilege escalation access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_new_group_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:creategroup'
+        and action = 'iam:attachgrouppolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new group creation with attached policy access.'
+        else title || ' has new group creation with attached policy access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_new_role_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:createrole'
+        and action = 'iam:attachrolepolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new role creation with attached policy access.'
+        else title || ' has new role creation with attached policy access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_new_user_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:createuser'
+        and action = 'iam:attachuserpolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new user creation with attached policy access.'
+        else title || ' has new user creation with attached policy access.'
+      end as reason
+      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+     -- ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
