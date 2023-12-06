@@ -756,7 +756,7 @@ query "ec2_instance_no_management_level_access" {
         and  s ->> 'Effect' = 'Allow'
         and service = 'ec2.amazonaws.com'
         and (
-          (action in ('iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:attachuserpolicy', 'iam:createpolicy', 'iam:createpolicyversion', 'iam:deleteaccountpasswordpolicy', 'iam:deletegrouppolicy', 'iam:deletepolicy', 'iam:deletepolicyversion', 'iam:deleterolepermissionsboundary', 'iam:deleterolepolicy', 'iam:deleteuserpermissionsboundary', 'iam:deleteuserpolicy', 'iam:detachgrouppolicy', 'iam:detachrolepolicy', 'iam:detachuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepermissionsboundary', 'iam:putrolepolicy', 'iam:putuserpermissionsboundary', 'iam:putuserpolicy','iam:setdefaultpolicyversion','iam:updateassumerolerolicy', 'sts:assumerole', '*:*')
+          (action in ('iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:attachuserpolicy', 'iam:createpolicy', 'iam:createpolicyversion', 'iam:deleteaccountpasswordpolicy', 'iam:deletegrouppolicy', 'iam:deletepolicy', 'iam:deletepolicyversion', 'iam:deleterolepermissionsboundary', 'iam:deleterolepolicy', 'iam:deleteuserpermissionsboundary', 'iam:deleteuserpolicy', 'iam:detachgrouppolicy', 'iam:detachrolepolicy', 'iam:detachuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepermissionsboundary', 'iam:putrolepolicy', 'iam:putuserpermissionsboundary', 'iam:putuserpolicy','iam:setdefaultpolicyversion','iam:updateassumerolerolicy', '*:*')
           )
         )
     )
@@ -770,8 +770,8 @@ query "ec2_instance_no_management_level_access" {
         when p.arn is null then title || ' has no management level access.'
         else title || ' has management level access.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
-      --${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance as i
       left join iam_roles as r on r.intance_arn = i.arn
