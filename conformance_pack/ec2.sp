@@ -284,6 +284,14 @@ control "ec2_ami_restrict_public_access" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_instance_no_management_level_access" {
+  title       = "EC2 instance IAM role should not allow management level access"
+  description = "This control checks whether EC2 instance IAM roles should not allow management level access."
+  query       = query.ec2_instance_no_management_level_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -720,5 +728,53 @@ query "ec2_launch_template_not_publicly_accessible" {
     from
       aws_ec2_launch_template as t
       left join launch_templates_associated_instance as i on i.launch_template_id = t.launch_template_id;
+  EOQ
+}
+
+query "ec2_instance_no_management_level_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:attachuserpolicy', 'iam:createpolicy', 'iam:createpolicyversion', 'iam:deleteaccountpasswordpolicy', 'iam:deletegrouppolicy', 'iam:deletepolicy', 'iam:deletepolicyversion', 'iam:deleterolepermissionsboundary', 'iam:deleterolepolicy', 'iam:deleteuserpermissionsboundary', 'iam:deleteuserpolicy', 'iam:detachgrouppolicy', 'iam:detachrolepolicy', 'iam:detachuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepermissionsboundary', 'iam:putrolepolicy', 'iam:putuserpermissionsboundary', 'iam:putuserpolicy','iam:setdefaultpolicyversion','iam:updateassumerolerolicy', 'sts:assumerole', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no management level access.'
+        else title || ' has management level access.'
+      end as reason
+      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      --${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn
   EOQ
 }

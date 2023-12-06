@@ -431,6 +431,14 @@ control "vpc_not_in_use" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_peering_connection_no_cross_account_access" {
+  title       = "VPCs peering connection should not be allowed in cross account"
+  description = "Ensure that all VPCs peering connection are not having cross account access."
+  query       = query.vpc_peering_connection_no_cross_account_access
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1845,5 +1853,26 @@ query "vpc_vpn_gateway_per_region_less_then_4" {
     from
       aws_region as r
       left join vpn_gateway_per_region as v on r.account_id = v.account_id and r.region = v.region;
+  EOQ
+}
+
+query "vpc_peering_connection_no_cross_account_access" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when status_code <> 'active' then 'alarm'
+        when requester_owner_id <> accepter_owner_id then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when status_code <> 'active' then title || ' is not in active state.'
+        when requester_owner_id <> accepter_owner_id then title || ' have cross account access.'
+        else title || ' does not have cross account access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection;
   EOQ
 }

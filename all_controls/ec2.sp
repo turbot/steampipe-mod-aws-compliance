@@ -27,7 +27,8 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_virtualization_type_no_paravirtual,
     control.ec2_launch_template_not_publicly_accessible,
     control.ec2_stopped_instance_30_days,
-    control.ec2_transit_gateway_auto_cross_account_attachment_disabled
+    control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
+    control.ec2_instance_no_management_level_access,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {
