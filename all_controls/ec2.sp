@@ -29,6 +29,22 @@ benchmark "all_controls_ec2" {
     control.ec2_stopped_instance_30_days,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
     control.ec2_instance_no_management_level_access,
+    control.ec2_instance_no_iam_role_with_data_destruction_access,
+    control.ec2_instance_no_iam_with_write_level_access,
+    control.ec2_instance_no_iam_role_with_database_management_write_access,
+    control.ec2_instance_no_iam_role_with_org_write_access,
+    control.ec2_instance_no_iam_role_with_privilege_escalation_risk_access,
+    control.ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access,
+    control.ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access,
+    control.ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access,
+    control.ec2_instance_no_iam_role_with_write_access_to_resource_based_policies,
+    control.ec2_instance_no_iam_role_attached_with_credentials_exposure_access,
+    control.ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration,
+    control.ec2_instance_no_iam_role_with_destruction_kms_access,
+    control.ec2_instance_no_iam_role_with_destruction_rds_access,
+    control.ec2_instance_no_iam_role_with_cloud_log_tampering_access,
+    control.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration,
+    control.ec2_instance_no_iam_role_with_security_group_write_access,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {
