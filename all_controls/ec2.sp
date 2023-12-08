@@ -47,6 +47,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_no_iam_role_with_security_group_write_access,
     control.ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access,
     control.ec2_instance_no_iam_role_with_elastic_ip_hijacking_access,
+    control.ec2_instance_no_iam_passrole_and_lambda_invoke_function_access,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {
