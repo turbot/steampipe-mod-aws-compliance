@@ -420,6 +420,22 @@ control "ec2_instance_no_iam_role_with_security_group_write_access" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access" {
+  title       = "EC2 instance IAM role should not allow defense evasion impact of AWS security services access"
+  description = "This control checks whether EC2 instance IAM role should not allow defense evasion impact of AWS security services access."
+  query       = query.ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
+  title       = "EC2 instance IAM role should not allow elastic IP hijacking access."
+  description = "This control checks whether EC2 instance IAM role should not allow elastic IP hijacking access."
+  query       = query.ec2_instance_no_iam_role_with_elastic_ip_hijacking_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -1641,6 +1657,96 @@ query "ec2_instance_no_iam_role_with_security_group_write_access" {
       case
         when p.arn is null then title || ' has no IAM role with security group write access.'
         else title || ' has IAM role with security group write access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'guardduty:updatedetector','guardduty:deletedetector','guardduty:deletemembers','guardduty:updatefilter','guardduty:deletefilter','shield:disableapplicationlayerautomaticresponse','shield:updateprotectiongroup','shield:deletesubscription','detective:disassociatemembership','detective:deletemembers','inspector:disable','config:stopconfigurationrecorder','config:deleteconfigurationrecorder','config:deleteconfigrule','config:deleteorganizationconfigrule','cloudwatch:disablealarmactions','cloudwatch:disableinsightrules', '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role With defense evasion impact of AWS security services access.'
+        else title || ' has IAM role With defense evasion impact of AWS security services access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'ec2:DisassociateAddress', 'ec2:EnableAddressTransfer' '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with elastic IP hijacking access.'
+        else title || ' has IAM role with elastic IP hijacking access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}

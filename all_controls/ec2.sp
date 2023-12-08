@@ -45,6 +45,8 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_no_iam_role_with_cloud_log_tampering_access,
     control.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration,
     control.ec2_instance_no_iam_role_with_security_group_write_access,
+    control.ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access,
+    control.ec2_instance_no_iam_role_with_elastic_ip_hijacking_access,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {
