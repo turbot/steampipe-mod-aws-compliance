@@ -11,6 +11,7 @@ benchmark "all_controls_redshift" {
     control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_automatic_snapshots_min_7_days,
     control.redshift_cluster_automatic_upgrade_major_versions_enabled,
+    control.redshift_cluster_encrypted_with_cmk,
     control.redshift_cluster_encryption_in_transit_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.redshift_cluster_enhanced_vpc_routing_enabled,
@@ -18,8 +19,7 @@ benchmark "all_controls_redshift" {
     control.redshift_cluster_maintenance_settings_check,
     control.redshift_cluster_no_default_admin_name,
     control.redshift_cluster_no_default_database_name,
-    control.redshift_cluster_prohibit_public_access,
-    control.redshift_cluster_encrypted_with_cmk,
+    control.redshift_cluster_prohibit_public_access
   ]
 
   tags = merge(local.all_controls_redshift_common_tags, {

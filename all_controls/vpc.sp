@@ -17,6 +17,8 @@ benchmark "all_controls_vpc" {
     control.vpc_in_more_than_one_region,
     control.vpc_network_acl_remote_administration,
     control.vpc_network_acl_unused,
+    control.vpc_not_in_use,
+    control.vpc_peering_connection_no_cross_account_access,
     control.vpc_peering_connection_route_table_least_privilege,
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_allows_ingress_authorized_ports,
@@ -26,9 +28,9 @@ benchmark "all_controls_vpc" {
     control.vpc_security_group_allows_ingress_to_oracle_ports,
     control.vpc_security_group_associated_to_eni,
     control.vpc_security_group_not_uses_launch_wizard_sg,
-    control.vpc_security_group_remote_administration,
     control.vpc_security_group_remote_administration_ipv4,
     control.vpc_security_group_remote_administration_ipv6,
+    control.vpc_security_group_remote_administration,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_kafka_port,
     control.vpc_security_group_restrict_ingress_kibana_port,
@@ -41,9 +43,7 @@ benchmark "all_controls_vpc" {
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.vpc_subnet_multi_az_enabled,
     control.vpc_subnet_public_and_private,
-    control.vpc_vpn_tunnel_up,
-    control.vpc_not_in_use,
-    control.vpc_peering_connection_no_cross_account_access,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = merge(local.all_controls_vpc_common_tags, {

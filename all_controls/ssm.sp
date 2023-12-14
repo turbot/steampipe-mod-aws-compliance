@@ -12,7 +12,7 @@ benchmark "all_controls_ssm" {
     control.ssm_document_prohibit_public_access,
     control.ssm_managed_instance_compliance_association_compliant,
     control.ssm_managed_instance_compliance_patch_compliant,
-    control.ssm_parameter_encryption_enabled,
+    control.ssm_parameter_encryption_enabled
   ]
 
   tags = merge(local.all_controls_ssm_common_tags, {

@@ -25,14 +25,14 @@ benchmark "all_controls_elb" {
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.elb_classic_lb_desync_mitigation_mode,
     control.elb_classic_lb_multiple_az_configured,
+    control.elb_classic_lb_no_registered_instance,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
+    control.elb_classic_lb_with_inbound_rule,
     control.elb_classic_lb_with_outbound_rule,
     control.elb_listener_use_secure_ssl_cipher,
     control.elb_network_lb_tls_listener_security_policy_configured,
-    control.elb_tls_listener_protocol_version,
-    control.elb_classic_lb_no_registered_instance,
-    control.elb_classic_lb_with_inbound_rule,
+    control.elb_tls_listener_protocol_version
   ]
 
   tags = merge(local.all_controls_elb_common_tags, {

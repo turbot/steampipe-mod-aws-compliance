@@ -9,9 +9,11 @@ benchmark "all_controls_rds" {
   description = "This section contains recommendations for configuring RDS resources."
   children = [
     control.rds_db_cluster_aurora_backtracking_enabled,
+    control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_cluster_copy_tags_to_snapshot_enabled,
     control.rds_db_cluster_deletion_protection_enabled,
+    control.rds_db_cluster_encrypted_with_cmk,
     control.rds_db_cluster_encryption_at_rest_enabled,
     control.rds_db_cluster_events_subscription,
     control.rds_db_cluster_iam_authentication_enabled,
@@ -21,6 +23,7 @@ benchmark "all_controls_rds" {
     control.rds_db_instance_and_cluster_no_default_port,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_backup_retention_period_less_than_7,
     control.rds_db_instance_ca_certificate_expires_7_days,
     control.rds_db_instance_cloudwatch_logs_enabled,
     control.rds_db_instance_connections_encryption_enabled,
@@ -34,17 +37,14 @@ benchmark "all_controls_rds" {
     control.rds_db_instance_logging_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.rds_db_instance_no_default_admin_name,
+    control.rds_db_instance_no_public_subnet,
+    control.rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_instance_protected_by_backup_plan,
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.rds_db_snapshot_encrypted_at_rest,
-    control.rds_db_snapshot_prohibit_public_access,
-    control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
-    control.rds_db_cluster_encrypted_with_cmk,
-    control.rds_db_instance_backup_retention_period_less_than_7,
-    control.rds_db_instance_no_public_subnet,
-    control.rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability,
+    control.rds_db_snapshot_prohibit_public_access
   ]
 
   tags = merge(local.all_controls_rds_common_tags, {

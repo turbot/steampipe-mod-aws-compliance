@@ -11,7 +11,7 @@ benchmark "all_controls_emr" {
     control.emr_account_public_access_blocked,
     control.emr_cluster_kerberos_enabled,
     control.emr_cluster_master_nodes_no_public_ip,
-    control.emr_cluster_security_configuration_enabled,
+    control.emr_cluster_security_configuration_enabled
   ]
 
   tags = merge(local.all_controls_emr_common_tags, {
