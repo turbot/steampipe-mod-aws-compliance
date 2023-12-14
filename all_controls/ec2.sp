@@ -36,7 +36,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration,
     control.ec2_instance_no_iam_with_write_level_access,
     control.ec2_instance_no_launch_wizard_security_group,
-    control.ec2_instance_no_management_level_access,
+    control.ec2_instance_no_iam_role_with_management_level_access,
     control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_not_use_multiple_enis,
     control.ec2_instance_protected_by_backup_plan,

@@ -48,15 +48,15 @@ control "sns_topic_notification_delivery_status_enabled" {
 
 control "sns_topic_policy_prohibit_publishing_access" {
   title       = "SNS topic policies should prohibit publishing access"
-  description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot accessed publicly for .publishing"
+  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot accessed publicly for publishing."
   query       = query.sns_topic_policy_prohibit_publishing_access
 
   tags = local.conformance_pack_sns_common_tags
 }
 
 control "sns_topic_policy_prohibit_subscription_access" {
-  title       = "SNS topic policies should subscription public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot accessed publicly for subscription"
+  title       = "SNS topic policies should prohibit subscription public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot accessed publicly for subscription."
   query       = query.sns_topic_policy_prohibit_subscription_access
 
   tags = local.conformance_pack_sns_common_tags
@@ -64,7 +64,7 @@ control "sns_topic_policy_prohibit_subscription_access" {
 
 control "sns_topic_policy_prohibit_cross_account_access" {
   title       = "SNS topic policies should prohibit cross account access"
-  description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics does not have cross account access."
+  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics does not have cross account access."
   query       = query.sns_topic_policy_prohibit_cross_account_access
 
   tags = local.conformance_pack_sns_common_tags

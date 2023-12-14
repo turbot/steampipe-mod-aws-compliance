@@ -323,7 +323,7 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
 
 control "elb_classic_lb_no_registered_instance" {
   title       = "ELB classic load balancers should have at least one registered instance"
-  description = "This control checks whether an ELB classic load balancers has registered instances. The control fails if an ELB classic load balancer has zero instances registered."
+  description = "This control checks whether an ELB classic load balancer has registered instances. The control fails if an ELB classic load balancer has zero instances registered."
   query       = query.elb_classic_lb_no_registered_instance
 
   tags = local.foundational_security_elb_common_tags
@@ -331,7 +331,7 @@ control "elb_classic_lb_no_registered_instance" {
 
 control "elb_classic_lb_with_inbound_rule" {
   title       = "ELB classic load balancers should have at least one inbound rule"
-  description = "Ensure classic load balancers have at least one inbound rule in all the attached security groups."
+  description = "Ensure classic load balancer have at least one inbound rule in all the attached security groups."
   query       = query.elb_classic_lb_with_inbound_rule
 
   tags = local.foundational_security_elb_common_tags
@@ -1061,8 +1061,8 @@ query "elb_classic_lb_with_inbound_rule" {
       end as status,
       case
         when c.security_groups is null then c.title || ' does not have security group attached.'
-        when i.arn is not null then c.title || ' all attached security groups do not have inbound  rule(s).'
-        else c.title || ' all attached security groups have inbound  rule(s).'
+        when i.arn is not null then c.title || ' all attached security groups do not have inbound rule(s).'
+        else c.title || ' all attached security groups have inbound rule(s).'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}

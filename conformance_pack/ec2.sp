@@ -284,17 +284,17 @@ control "ec2_ami_restrict_public_access" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
-control "ec2_instance_no_management_level_access" {
+control "ec2_instance_no_iam_role_with_management_level_access" {
   title       = "EC2 instance IAM role should not allow management level access"
-  description = "This control checks whether EC2 instance IAM roles should not allow management level access."
-  query       = query.ec2_instance_no_management_level_access
+  description = "This control ensures that EC2 instance IAM role does not not allow management level access."
+  query       = query.ec2_instance_no_iam_role_with_management_level_access
 
   tags = local.conformance_pack_ec2_common_tags
 }
 
 control "ec2_instance_no_iam_role_with_data_destruction_access" {
   title       = "EC2 instance IAM role should not allow data destruction access"
-  description = "This control checks whether EC2 instance IAM roles should not allow data destruction access."
+  description = "This control ensures that EC2 instance IAM role does not allow data destruction access."
   query       = query.ec2_instance_no_iam_role_with_data_destruction_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -302,7 +302,7 @@ control "ec2_instance_no_iam_role_with_data_destruction_access" {
 
 control "ec2_instance_no_iam_with_write_level_access" {
   title       = "EC2 instance IAM role should not allow write level access"
-  description = "This control checks whether EC2 instance IAM roles should not allow write level access."
+  description = "This control ensures that EC2 instance IAM role does not allow write level access."
   query       = query.ec2_instance_no_iam_with_write_level_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -310,7 +310,7 @@ control "ec2_instance_no_iam_with_write_level_access" {
 
 control "ec2_instance_no_iam_role_with_database_management_write_access" {
   title       = "EC2 instance IAM role should not allow database management write access"
-  description = "This control checks whether EC2 instance IAM roles should not allow database management write access."
+  description = "This control ensures that EC2 instance IAM role does not allow database management write access."
   query       = query.ec2_instance_no_iam_role_with_database_management_write_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -318,7 +318,7 @@ control "ec2_instance_no_iam_role_with_database_management_write_access" {
 
 control "ec2_instance_no_iam_role_with_org_write_access" {
   title       = "EC2 instance IAM role should not allow oraganization write access"
-  description = "This control checks whether EC2 instance IAM roles should not allow oraganization write access."
+  description = "This control ensures that EC2 instance IAM role does not allow oraganization write access."
   query       = query.ec2_instance_no_iam_role_with_org_write_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -326,7 +326,7 @@ control "ec2_instance_no_iam_role_with_org_write_access" {
 
 control "ec2_instance_no_iam_role_with_privilege_escalation_risk_access" {
   title       = "EC2 instance IAM role should not allow privilege escalation risk access"
-  description = "This control checks whether EC2 instance IAM roles should not allow privilege escalation risk access."
+  description = "This control ensures that EC2 instance IAM role does not allow privilege escalation risk access."
   query       = query.ec2_instance_no_iam_role_with_privilege_escalation_risk_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -334,7 +334,7 @@ control "ec2_instance_no_iam_role_with_privilege_escalation_risk_access" {
 
 control "ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access" {
   title       = "EC2 instance IAM role should not allow new group creation with attached policy access"
-  description = "This control checks whether EC2 instance IAM roles should not allow new group creation with attached policy access."
+  description = "This control ensures that EC2 instance IAM role does not allow new group creation with attached policy access."
   query       = query.ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -342,7 +342,7 @@ control "ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_a
 
 control "ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access" {
   title       = "EC2 instance IAM role should not allow new role creation with attached policy access"
-  description = "This control checks whether EC2 instance IAM roles should not allow new role creation with attached policy access."
+  description = "This control ensures that EC2 instance IAM role does not allow new role creation with attached policy access."
   query       = query.ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -350,7 +350,7 @@ control "ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_ac
 
 control "ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access" {
   title       = "EC2 instance IAM role should not allow new user creation with attached policy access"
-  description = "This control checks whether EC2 instance IAM roles should not allow new user creation with attached policy access."
+  description = "This control ensures that EC2 instance IAM role does not allow new user creation with attached policy access."
   query       = query.ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -358,7 +358,7 @@ control "ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_ac
 
 control "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" {
   title       = "EC2 instance IAM role should not allow write access to resource based policies"
-  description = "This control checks whether EC2 instance IAM roles should not allow write access to resource based policies."
+  description = "This control ensures that EC2 instance IAM role does not allow write access to resource based policies."
   query       = query.ec2_instance_no_iam_role_with_write_access_to_resource_based_policies
 
   tags = local.conformance_pack_ec2_common_tags
@@ -366,7 +366,7 @@ control "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" 
 
 control "ec2_instance_no_iam_role_attached_with_credentials_exposure_access" {
   title       = "EC2 instance IAM role should not be attached with credentials exposure access"
-  description = "This control checks whether EC2 instance IAM roles should not be attached with credentials exposure access."
+  description = "This control ensures that EC2 instance IAM role should not be attached with credentials exposure access."
   query       = query.ec2_instance_no_iam_role_attached_with_credentials_exposure_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -374,7 +374,7 @@ control "ec2_instance_no_iam_role_attached_with_credentials_exposure_access" {
 
 control "ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration" {
   title       = "EC2 instance IAM role should not allow to alter critical s3 permissions configuration"
-  description = "This control checks whether EC2 instance IAM roles should not allow to alter critical s3 permissions configuration."
+  description = "This control ensures that EC2 instance IAM role does not allow to alter critical s3 permissions configuration."
   query       = query.ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration
 
   tags = local.conformance_pack_ec2_common_tags
@@ -382,7 +382,7 @@ control "ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configurati
 
 control "ec2_instance_no_iam_role_with_destruction_kms_access" {
   title       = "EC2 instance IAM role should not allow destruction KMS access"
-  description = "This control checks whether EC2 instance IAM roles should not allow destruction KMS access."
+  description = "This control ensures that EC2 instance IAM roles does not allow destruction KMS access."
   query       = query.ec2_instance_no_iam_role_with_destruction_kms_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -390,7 +390,7 @@ control "ec2_instance_no_iam_role_with_destruction_kms_access" {
 
 control "ec2_instance_no_iam_role_with_destruction_rds_access" {
   title       = "EC2 instance IAM role should not allow destruction RDS access"
-  description = "This control checks whether EC2 instance IAM roles should not allow destruction RDS access."
+  description = "This control ensures that EC2 instance IAM roles does not allow destruction RDS access."
   query       = query.ec2_instance_no_iam_role_with_destruction_rds_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -398,7 +398,7 @@ control "ec2_instance_no_iam_role_with_destruction_rds_access" {
 
 control "ec2_instance_no_iam_role_with_cloud_log_tampering_access" {
   title       = "EC2 instance IAM role should not allow cloud log tampering access"
-  description = "This control checks whether EC2 instance IAM roles should not allow cloud log tampering access."
+  description = "This control ensures that EC2 instance IAM roles does not allow cloud log tampering access."
   query       = query.ec2_instance_no_iam_role_with_cloud_log_tampering_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -406,7 +406,7 @@ control "ec2_instance_no_iam_role_with_cloud_log_tampering_access" {
 
 control "ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration" {
   title       = "EC2 instance IAM role should not allow write permission on critical s3 configuration"
-  description = "This control checks whether EC2 instance IAM roles should not allow write permission on critical s3 configuration."
+  description = "This control ensures that EC2 instance IAM roles does not allow write permission on critical s3 configuration."
   query       = query.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration
 
   tags = local.conformance_pack_ec2_common_tags
@@ -414,7 +414,7 @@ control "ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configura
 
 control "ec2_instance_no_iam_role_with_security_group_write_access" {
   title       = "EC2 instance IAM role should not allow security group write access"
-  description = "This control checks whether EC2 instance IAM roles should not allow security group write access."
+  description = "This control ensures that EC2 instance IAM roles does not allow security group write access."
   query       = query.ec2_instance_no_iam_role_with_security_group_write_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -422,7 +422,7 @@ control "ec2_instance_no_iam_role_with_security_group_write_access" {
 
 control "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access" {
   title       = "EC2 instance IAM role should not allow defense evasion impact of AWS security services access"
-  description = "This control checks whether EC2 instance IAM role should not allow defense evasion impact of AWS security services access."
+  description = "This control ensures that EC2 instance IAM role does not allow defense evasion impact of AWS security services access."
   query       = query.ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -430,7 +430,7 @@ control "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_se
 
 control "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
   title       = "EC2 instance IAM role should not allow elastic IP hijacking access."
-  description = "This control checks whether EC2 instance IAM role should not allow elastic IP hijacking access."
+  description = "This control ensures that EC2 instance IAM role does not allow elastic IP hijacking access."
   query       = query.ec2_instance_no_iam_role_with_elastic_ip_hijacking_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -438,7 +438,7 @@ control "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
 
 control "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
   title       = "EC2 instance IAM should not allow pass role and lambda invoke function access."
-  description = "This control checks whether EC2 instance IAM role should not allow pass role and lambda invoke function access."
+  description = "This control ensures that EC2 instance IAM role does not allow pass role and lambda invoke function access."
   query       = query.ec2_instance_no_iam_passrole_and_lambda_invoke_function_access
 
   tags = local.conformance_pack_ec2_common_tags
@@ -883,7 +883,7 @@ query "ec2_launch_template_not_publicly_accessible" {
   EOQ
 }
 
-query "ec2_instance_no_management_level_access" {
+query "ec2_instance_no_iam_role_with_management_level_access" {
   sql = <<-EOQ
     with iam_roles as (
       select
@@ -1111,8 +1111,8 @@ query "ec2_instance_no_iam_role_with_org_write_access" {
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no database management write level access.'
-        else title || ' has database management write level access.'
+        when p.arn is null then title || ' has no organization write access.'
+        else title || ' has organization write access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1205,8 +1205,8 @@ query "ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_acc
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no new group creation with attached policy access.'
-        else title || ' has new group creation with attached policy access.'
+        when p.arn is null then title || ' has no new group creation access with attached policy.'
+        else title || ' has new group creation access with attached policy.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1251,8 +1251,8 @@ query "ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_acce
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no new role creation with attached policy access.'
-        else title || ' has new role creation with attached policy access.'
+        when p.arn is null then title || ' has no new role creation access with attached policy .'
+        else title || ' has new role creation access with attached policy.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1297,11 +1297,11 @@ query "ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_acce
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no new user creation with attached policy access.'
-        else title || ' has new user creation with attached policy access.'
+        when p.arn is null then title || ' has no new user creation access with attached policy.'
+        else title || ' has new user creation access with attached policy.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
-     -- ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance as i
       left join iam_roles as r on r.intance_arn = i.arn
@@ -1344,8 +1344,8 @@ query "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" {
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no write access permission to resource based policiess.'
-        else title || ' has write access permission to resource based policiess.'
+        when p.arn is null then title || ' has no write access permission to resource based policies.'
+        else title || ' has write access permission to resource based policies.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1394,8 +1394,8 @@ query "ec2_instance_no_iam_role_attached_with_credentials_exposure_access" {
         when p.arn is null then title || ' has no IAM role attached with credentials exposure permissions.'
         else title || ' has IAM role attached with credentials exposure permissions.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
-     -- ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance as i
       left join iam_roles as r on r.intance_arn = i.arn
@@ -1441,8 +1441,8 @@ query "ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration
         when p.arn is null then title || ' has no IAM role with alter critical s3 permissions configuration.'
         else title || ' has IAM role with alter critical s3 permissions configuration.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
-     -- ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance as i
       left join iam_roles as r on r.intance_arn = i.arn
@@ -1483,8 +1483,8 @@ query "ec2_instance_no_iam_role_with_destruction_kms_access" {
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no IAM role with destruction KMS permission'
-        else title || ' has IAM role with destruction KMS permission'
+        when p.arn is null then title || ' has no IAM role with destruction KMS permission.'
+        else title || ' has IAM role with destruction KMS permission.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1528,8 +1528,8 @@ query "ec2_instance_no_iam_role_with_destruction_rds_access" {
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no IAM role with destruction RDS permission'
-        else title || ' has IAM role with destruction RDS permission'
+        when p.arn is null then title || ' has no IAM role with destruction RDS permission.'
+        else title || ' has IAM role with destruction RDS permission.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1708,8 +1708,8 @@ query "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_serv
         else 'alarm'
       end status,
       case
-        when p.arn is null then title || ' has no IAM role With defense evasion impact of AWS security services access.'
-        else title || ' has IAM role With defense evasion impact of AWS security services access.'
+        when p.arn is null then title || ' has no IAM role with defense evasion impact of AWS security services access.'
+        else title || ' has IAM role with defense evasion impact of AWS security services access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
@@ -1799,7 +1799,7 @@ query "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
       end status,
       case
         when p.arn is null then title || ' has no IAM pass role and lambda invoke function access.'
-        else title || ' has IAM IAM pass role and lambda invoke function access.'
+        else title || ' has IAM pass role and lambda invoke function access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}

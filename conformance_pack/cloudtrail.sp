@@ -239,7 +239,7 @@ control "cloudtrail_trail_bucket_mfa_enabled" {
 
 control "cloudtrail_trail_enabled_account" {
   title       = "At least one CloudTrail trail should be enabled in the AWS account"
-  description = "Ensure that at least one CloudTrail trail is be enabled in the AWS account."
+  description = "Ensure that at least one CloudTrail trail is enabled in the AWS account."
   query       = query.cloudtrail_trail_enabled_account
 
   tags = local.conformance_pack_cloudtrail_common_tags
@@ -247,7 +247,7 @@ control "cloudtrail_trail_enabled_account" {
 
 control "cloudtrail_multi_region_trail_integrated_with_logs" {
   title       = "CloudTrail multi region trails should be integrated with CloudWatch logs"
-  description = "Ensure that CloudTrail multi region trails are itegrated with CloudWatch logs."
+  description = "Ensure that CloudTrail multi region trail is itegrated with CloudWatch logs."
   query       = query.cloudtrail_multi_region_trail_integrated_with_logs
 
   tags = local.conformance_pack_cloudtrail_common_tags
@@ -803,7 +803,7 @@ query "cloudtrail_multi_region_trail_integrated_with_logs" {
       end as status,
       case
         when log_group_arn != 'null' and ((latest_delivery_time) > current_date - 1) then title || ' multi region trail integrated with CloudWatch logs.'
-        else title || ' multi region trsail not integrated with CloudWatch logs.'
+        else title || ' multi region trail not integrated with CloudWatch logs.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

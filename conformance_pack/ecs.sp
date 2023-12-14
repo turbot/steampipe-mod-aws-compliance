@@ -141,7 +141,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
 
 control "ecs_task_definition_no_root_user" {
   title       = "ECS task definitions should not use root user."
-  description = "This control checks if ECS task definitions have root user. This control fails if the ECS task definitions .have root user"
+  description = "This control checks if ECS task definitions have root user. This control fails if the ECS task definitions have root user."
   query       = query.ecs_task_definition_no_root_user
 
   tags = local.conformance_pack_ecs_common_tags

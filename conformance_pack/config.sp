@@ -21,10 +21,10 @@ control "config_enabled_all_regions" {
   })
 }
 
-control "config_no_failed_deliver_logs" {
-  title       = "Config should not fail to deliver logs"
-  description = "This control checks whether AWS Config fails to deliver logs. This control is non-compliant if AWS Config fails to deliver logs."
-  query       = query.config_no_failed_deliver_logs
+control "config_configuration_recorder_no_failed_deliver_logs" {
+  title       = "Config configuration recorder should not fail to deliver logs"
+  description = "This control checks whether Config configuration recorder fails to deliver logs. This control is non-compliant if Config configuration recorder fails to deliver logs."
+  query       = query.config_configuration_recorder_no_failed_deliver_logs
 
   tags = local.conformance_pack_config_common_tags
 }
@@ -88,7 +88,7 @@ query "config_enabled_all_regions" {
   EOQ
 }
 
-query "config_no_failed_deliver_logs" {
+query "config_configuration_recorder_no_failed_deliver_logs" {
   sql = <<-EOQ
     select
       arn as resource,

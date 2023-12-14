@@ -102,7 +102,7 @@ query "docdb_cluster_deletion_protection_enabled" {
       end status,
       case
         when deletion_protection then title || ' deletion protection enabled.'
-        else title || ' deletion protection not enabled.'
+        else title || ' deletion protection disabled.'
       end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

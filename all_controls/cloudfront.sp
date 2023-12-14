@@ -19,7 +19,7 @@ benchmark "all_controls_cloudfront" {
     control.cloudfront_distribution_no_non_existent_s3_origin,
     control.cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_origin_access_identity_enabled,
-    control.cloudfront_distribution_protocol_version_latest,
+    control.cloudfront_distribution_latest_tls_version,
     control.cloudfront_distribution_sni_enabled,
     control.cloudfront_distribution_use_custom_ssl_certificate,
     control.cloudfront_distribution_use_secure_cipher,

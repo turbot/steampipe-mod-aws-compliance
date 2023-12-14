@@ -1849,7 +1849,7 @@ query "vpc_vpn_gateway_per_region_less_then_4" {
         else 'ok'
       end as status,
       r.region || ' region has ' || coalesce(v.count, 0) || ' VPN gateway(s).' as reason
-      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
       left join vpn_gateway_per_region as v on r.account_id = v.account_id and r.region = v.region;

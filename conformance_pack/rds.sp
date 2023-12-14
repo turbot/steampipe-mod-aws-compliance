@@ -491,7 +491,7 @@ control "rds_db_instance_backup_retention_period_less_than_7" {
 }
 
 control "rds_db_instance_no_public_subnet" {
-  title       = "RDS DB instances should not use public_subnet"
+  title       = "RDS DB instances should not use public subnet"
   description = "This control checks if RDS DB instance is configured with public subnet as there is a risk of exposing sensitive data."
   query       = query.rds_db_instance_no_public_subnet
 
