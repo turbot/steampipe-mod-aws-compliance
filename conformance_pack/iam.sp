@@ -671,6 +671,30 @@ control "iam_inline_policy_no_administrative_privileges" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_user_console_access_unused_45" {
+  title       = "Ensure IAM users with console access unused for 45 days or greater are disabled"
+  description = "AWS IAM users can access AWS resources using console access. It is recommended that console access that have been unused in 45 or greater days be deactivated or removed."
+  query       = query.iam_user_console_access_unused_45
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_user_access_key_unused_45" {
+  title       = "Ensure IAM users with access keys unused for 45 days or greater are disabled"
+  description = "AWS IAM users can access AWS resources using  access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
+  query       = query.iam_user_access_key_unused_45
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_role_no_administrator_access_policy_attached" {
+  title       = "Ensure IAM role not attached with Administratoraccess policy"
+  description = "AWS IAM role should not be attached Administratoraccess policy."
+  query       = query.iam_role_no_administrator_access_policy_attached
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -2236,5 +2260,90 @@ query "iam_inline_policy_no_administrative_privileges" {
     from
       full_administrative_privilege_policies as p
       left join bad_policies as bad on p.arn = bad.arn;
+  EOQ
+}
+
+query "iam_user_console_access_unused_45" {
+  sql = <<-EOQ
+    select
+      user_arn as resource,
+      case
+        when not password_enabled then 'ok'
+        when password_enabled and password_last_used is null then 'alarm'
+        when password_enabled and password_last_used < (current_date - interval '45' day) then 'alarm'
+        else 'ok'
+      end status,
+      user_name ||
+        case
+          when not password_enabled then ' password not enabled.'
+          when password_enabled and password_last_used is null then ' password created ' || to_char(password_last_changed, 'DD-Mon-YYYY') || ' never used.'
+          else ' password used ' || to_char(password_last_used, 'DD-Mon-YYYY') || '.'
+        end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_credential_report;
+  EOQ
+}
+
+query "iam_user_access_key_unused_45" {
+  sql = <<-EOQ
+    select
+      user_arn as resource,
+      case
+        when not access_key_1_active then 'ok'
+        when access_key_1_active and access_key_1_last_used_date is null then 'alarm'
+        when access_key_1_active and access_key_1_last_used_date < (current_date - interval '45' day) then 'alarm'
+        when not access_key_2_active then 'ok'
+        when access_key_2_active and access_key_2_last_used_date is null then 'alarm'
+        when access_key_2_active and access_key_2_last_used_date  < (current_date - interval '45' day) then 'alarm'
+        else 'ok'
+      end as status,
+      user_name ||
+        case
+          when not access_key_1_active then ' key 1 not enabled,'
+          when access_key_1_active and access_key_1_last_used_date is null then ' key 1 created ' || to_char(access_key_1_last_rotated, 'DD-Mon-YYYY') || ' never used,'
+          else ' key 1 used ' || to_char(access_key_1_last_used_date, 'DD-Mon-YYYY') || ','
+        end ||
+        case
+          when not access_key_2_active then ' key 2 not enabled.'
+          when access_key_2_active and access_key_2_last_used_date is null then ' key 2 created ' || to_char(access_key_2_last_rotated, 'DD-Mon-YYYY') || ' never used.'
+          else ' key 2 used ' || to_char(access_key_2_last_used_date, 'DD-Mon-YYYY') || '.'
+        end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_credential_report;
+  EOQ
+}
+
+query "iam_role_no_administrator_access_policy_attached" {
+  sql = <<-EOQ
+    with admin_roles as (
+      select
+        arn,
+        name,
+        attachments
+      from
+        aws_iam_role,
+        jsonb_array_elements_text(attached_policy_arns) as attachments
+      where
+        split_part(attachments, '/', 2) = 'AdministratorAccess'
+    )
+    select
+      r.arn as resource,
+      case
+        when ar.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ar.arn is not null then r.name || ' have AdministratorAccess policy attached.'
+        else r.name || ' does not have AdministratorAccess policy attached.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_iam_role as r
+      left join admin_roles ar on r.arn = ar.arn
+    order by
+      r.name;
   EOQ
 }

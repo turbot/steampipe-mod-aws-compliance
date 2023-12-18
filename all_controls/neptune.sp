@@ -14,6 +14,7 @@ benchmark "all_controls_neptune" {
     control.neptune_db_cluster_deletion_protection_enabled,
     control.neptune_db_cluster_encryption_at_rest_enabled,
     control.neptune_db_cluster_iam_authentication_enabled,
+    control.neptune_db_cluster_no_public_subnet,
     control.neptune_db_cluster_snapshot_encryption_at_rest_enabled,
     control.neptune_db_cluster_snapshot_prohibit_public_access
   ]

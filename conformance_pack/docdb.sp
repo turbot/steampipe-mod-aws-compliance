@@ -28,6 +28,14 @@ control "docdb_cluster_instance_logging_enabled" {
   tags = local.conformance_pack_docdb_common_tags
 }
 
+control "docdb_cluster_instance_encryption_at_rest_enabled" {
+  title       = "DocumentDB instance should be encrypted at rest"
+  description = "This control checks whether an DocumentDB instance is encrypted at rest. The control fails if an DocumentDB instance isn't encrypted at rest."
+  query       = query.docdb_cluster_instance_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 control "docdb_cluster_deletion_protection_enabled" {
   title       = "DocumentDB clusters should have deletion protection enabled"
   description = "Ensure DocumentDB clusters have deletion protection enabled."
@@ -89,6 +97,25 @@ query "docdb_cluster_backup_retention_period_7_days" {
       ${local.common_dimensions_sql}
     from
       aws_docdb_cluster;
+  EOQ
+}
+
+query "docdb_cluster_instance_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      db_instance_arn as resource,
+      case
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster_instance;
   EOQ
 }
 
