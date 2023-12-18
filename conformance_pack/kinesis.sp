@@ -76,11 +76,11 @@ query "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
     select
       arn as resource,
       case
-        when delivery_stream_encryption_configuration ->> 'Status' =  'ENABLED' then 'ok'
+        when delivery_stream_encryption_configuration ->> 'Status' = 'ENABLED' then 'ok'
         else 'alarm'
       end as status,
       case
-        when delivery_stream_encryption_configuration ->> 'Status' =  'ENABLED' then title || ' server side encryption enabled.'
+        when delivery_stream_encryption_configuration ->> 'Status' = 'ENABLED' then title || ' server side encryption enabled.'
         else title || ' server side encryption disabled.'
       end as reason
       ${local.tag_dimensions_sql}

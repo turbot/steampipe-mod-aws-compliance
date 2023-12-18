@@ -1825,7 +1825,7 @@ query "vpc_not_in_use" {
       ${local.common_dimensions_sql}
     from
       aws_vpc as v
-      left join vpc_without_subnet as s on s.vpc_id = v.vpc_id
+      left join vpc_without_subnet as s on s.vpc_id = v.vpc_id;
   EOQ
 }
 

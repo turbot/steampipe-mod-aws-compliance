@@ -48,7 +48,7 @@ control "sns_topic_notification_delivery_status_enabled" {
 
 control "sns_topic_policy_prohibit_publishing_access" {
   title       = "SNS topic policies should prohibit publishing access"
-  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot accessed publicly for publishing."
+  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot be accessed publicly for publishing."
   query       = query.sns_topic_policy_prohibit_publishing_access
 
   tags = local.conformance_pack_sns_common_tags
@@ -56,7 +56,7 @@ control "sns_topic_policy_prohibit_publishing_access" {
 
 control "sns_topic_policy_prohibit_subscription_access" {
   title       = "SNS topic policies should prohibit subscription public access"
-  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot accessed publicly for subscription."
+  description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot be accessed publicly for subscription."
   query       = query.sns_topic_policy_prohibit_subscription_access
 
   tags = local.conformance_pack_sns_common_tags
@@ -182,8 +182,7 @@ query "sns_topic_policy_prohibit_publishing_access" {
       end as status,
       case
         when p.topic_arn is null then title || ' does not allow publish access without condition.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
-        ' statements that allows publish access without condition.'
+        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allows publish access without condition.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
@@ -222,8 +221,7 @@ query "sns_topic_policy_prohibit_subscription_access" {
       end as status,
       case
         when p.topic_arn is null then title || ' does not allow subscribe access without condition.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
-        ' statements that allows subscribe access without condition.'
+        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allows subscribe access without condition.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
@@ -261,8 +259,7 @@ query "sns_topic_policy_prohibit_cross_account_access" {
       end as status,
       case
         when p.topic_arn is null then title || ' does not allow cross account access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) ||
-        ' statements that allows cross account access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allows cross account access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}

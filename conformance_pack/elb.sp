@@ -1021,7 +1021,7 @@ query "elb_classic_lb_no_registered_instance" {
         when jsonb_array_length(instances) = 0 then 'alarm'
         else 'ok'
       end as status,
-      title || ' has ' || jsonb_array_length(instances) || ' instances registered.' as reason
+      title || ' has ' || jsonb_array_length(instances) || ' instance(s) registered.' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
