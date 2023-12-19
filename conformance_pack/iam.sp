@@ -432,19 +432,6 @@ control "iam_account_password_policy_reuse_24" {
   })
 }
 
-control "iam_account_password_policy_strong" {
-  title       = "Password policies for IAM users should have strong configurations"
-  description = "This control checks whether the account password policy for IAM users have strong configurations."
-  query       = query.iam_account_password_policy_strong
-
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    gdpr                  = "true"
-    pci_dss_v321          = "true"
-  })
-}
-
 control "iam_account_password_policy_one_lowercase_letter" {
   title       = "Ensure IAM password policy requires at least one lowercase letter"
   description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets. Security Hub recommends that the password policy require at least one lowercase letter. Setting a password complexity policy increases account resiliency against brute force login attempts."
@@ -1099,40 +1086,6 @@ query "iam_account_password_policy_reuse_24" {
         when password_reuse_prevention is null then 'Password reuse prevention not set.'
         else 'Password reuse prevention set to ' || password_reuse_prevention || '.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
-    from
-      aws_account as a
-      left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
-  EOQ
-}
-
-query "iam_account_password_policy_strong" {
-  sql = <<-EOQ
-    select
-      'arn:' || a.partition || ':::' || a.account_id as resource,
-      case
-        when
-          minimum_password_length >= 14
-          and password_reuse_prevention >= 5
-          and require_lowercase_characters = 'true'
-          and require_uppercase_characters = 'true'
-          and require_numbers = 'true'
-          and max_password_age <= 90
-        then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when minimum_password_length is null then 'No password policy set.'
-        when
-          minimum_password_length >= 14
-          and password_reuse_prevention >= 5
-          and require_lowercase_characters = 'true'
-          and require_uppercase_characters = 'true'
-          and require_numbers = 'true'
-          and max_password_age <= 90
-        then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
-      end reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a

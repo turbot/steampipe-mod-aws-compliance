@@ -88,7 +88,7 @@ benchmark "cisa_cyber_essentials_your_systems_3" {
     control.es_domain_node_to_node_encryption_enabled,
     control.fsx_file_system_protected_by_backup_plan,
     control.guardduty_enabled,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_group_user_role_no_inline_policies,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
