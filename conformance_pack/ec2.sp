@@ -1334,7 +1334,7 @@ query "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" {
         and  s ->> 'Effect' = 'Allow'
         and service = 'ec2.amazonaws.com'
         and action in (
-          'ecr:setrepositorypolicy','serverlessrepo:putapplicationpolicy','backup:putbackupvaultaccesspolicy','efs:putfilesystempolicy','glacier:setvaultaccesspolicy','secretsmanager:putresourcepolicy','events:putpermission','mediastore:putcontainerpolicy','glue:putresourcepolicy','ses:putidentitypolicy','lambda:addpermission','lambda:addlayerversionpermission','s3:putbucketpolicy','s3:putbucketacl','s3:putObject','s3:putobjectacl','kms:creategrant','kms:putkeypolicy','es:Updateelasticsearchdomainconfig','sns:addpermission','sqs:addpermission','*:*'
+  'ecr:setrepositorypolicy','serverlessrepo:putapplicationpolicy','backup:putbackupvaultaccesspolicy','efs:putfilesystempolicy','glacier:setvaultaccesspolicy','secretsmanager:putresourcepolicy','events:putpermission','mediastore:putcontainerpolicy','glue:putresourcepolicy','ses:putidentitypolicy','lambda:addpermission','lambda:addlayerversionpermission','s3:putbucketpolicy','s3:putbucketacl','s3:putObject','s3:putobjectacl','kms:creategrant','kms:putkeypolicy','es:Updateelasticsearchdomainconfig','sns:addpermission','sqs:addpermission','*:*'
         )
     )
     select
@@ -1609,7 +1609,7 @@ query "ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configurati
         arn in (select role_arn from iam_roles)
         and  s ->> 'Effect' = 'Allow'
         and service = 'ec2.amazonaws.com'
-        and action in ( 's3:putobjectretention','s3:putlifecycleconfiguration','s3:putbucketpolicy','s3:putbucketversioning','*:*')
+        and action in ('s3:putobjectretention','s3:putlifecycleconfiguration','s3:putbucketpolicy','s3:putbucketversioning','*:*')
     )
     select
       i.arn as resource,
@@ -1789,7 +1789,7 @@ query "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
         arn in (select role_arn from iam_roles)
         and  s ->> 'Effect' = 'Allow'
         and service = 'ec2.amazonaws.com'
-        and action in ( 'iam:passrole','lambda:createfunction', 'lambda:invokefunction','*:*')
+        and action in ( 'iam:passrole','lambda:createfunction', 'lambda:invokefunction', '*:*')
     )
     select
       i.arn as resource,
