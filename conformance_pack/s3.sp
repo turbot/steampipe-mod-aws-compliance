@@ -379,6 +379,14 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   })
 }
 
+control "s3_bucket_not_accessible_to_all_authenticated_user" {
+  title       = "S3 bucket ACLs should not be accessible to all authenticated user"
+  description = "This control checks whether AWS S3 bucket ACL allow access to all authenticated users."
+  query       = query.s3_bucket_not_accessible_to_all_authenticated_user
+
+  tags =local.conformance_pack_s3_common_tags
+}
+
 query "s3_bucket_cross_region_replication_enabled" {
   sql = <<-EOQ
     with bucket_with_replication as (
@@ -1129,5 +1137,34 @@ query "s3_bucket_protected_by_macie" {
     from
       aws_s3_bucket as b
       left join bucket_list as l on b.name = l.bucket_name;
+  EOQ
+}
+
+query "s3_bucket_not_accessible_to_all_authenticated_user" {
+  sql = <<-EOQ
+    with public_acl as (
+      select
+        distinct name
+      from
+        aws_s3_bucket,
+        jsonb_array_elements(acl -> 'Grants') as grants
+      where
+        grants -> 'Grantee' ->> 'URI' = 'http://acs.amazonaws.com/groups/global/AuthenticatedUsers'
+    )
+    select
+      b.arn as resource,
+      case
+        when p.name is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.name is null then b.title || ' not accessible to all authenticated user.'
+        else b.title || ' accessible to all authenticated user.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "b.")}
+    from
+      aws_s3_bucket as b
+      left join public_acl as p on b.name = p.name;
   EOQ
 }

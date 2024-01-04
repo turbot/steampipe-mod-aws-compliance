@@ -237,6 +237,22 @@ control "cloudtrail_trail_bucket_mfa_enabled" {
   tags = local.conformance_pack_cloudtrail_common_tags
 }
 
+control "cloudtrail_trail_enabled_account" {
+  title       = "At least one CloudTrail trail should be enabled in the AWS account"
+  description = "Ensure that at least one CloudTrail trail is enabled in the AWS account."
+  query       = query.cloudtrail_trail_enabled_account
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
+control "cloudtrail_multi_region_trail_integrated_with_logs" {
+  title       = "CloudTrail multi region trails should be integrated with CloudWatch logs"
+  description = "Ensure that CloudTrail multi region trail is itegrated with CloudWatch logs."
+  query       = query.cloudtrail_multi_region_trail_integrated_with_logs
+
+  tags = local.conformance_pack_cloudtrail_common_tags
+}
+
 query "cloudtrail_trail_integrated_with_logs" {
   sql = <<-EOQ
     select
@@ -743,5 +759,58 @@ query "cloudtrail_s3_object_write_events_audit_enabled" {
         or bucket_selector = 'arn:aws:s3'
     group by
       b.account_id, b.region, b.arn, b.name, b.tags, b._ctx;
+  EOQ
+}
+
+query "cloudtrail_trail_enabled_account" {
+  sql = <<-EOQ
+    with trails_enabled_account as (
+      select
+        account_id,
+        count(*) as num
+      from
+        aws_cloudtrail_trail
+      where
+        home_region = region
+        and is_logging
+      group by
+        account_id
+    )
+    select
+      a.arn as resource,
+      case
+        when b.num > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.num > 0 then a.title || ' has ' || b.num || ' trails enabled.'
+        else a.title || ' has no trail enabled.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
+    from
+      aws_account as a
+      left join trails_enabled_account b on a.account_id = b.account_id;
+  EOQ
+}
+
+query "cloudtrail_multi_region_trail_integrated_with_logs" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when log_group_arn != 'null' and ((latest_delivery_time) > current_date - 1) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when log_group_arn != 'null' and ((latest_delivery_time) > current_date - 1) then title || ' multi region trail integrated with CloudWatch logs.'
+        else title || ' multi region trail not integrated with CloudWatch logs.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudtrail_trail
+    where
+      region = home_region
+      and is_multi_region_trail;
   EOQ
 }

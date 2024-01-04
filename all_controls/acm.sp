@@ -9,7 +9,10 @@ benchmark "all_controls_acm" {
   description = "This section contains recommendations for configuring ACM resources."
   children = [
     control.acm_certificate_expires_30_days,
+    control.acm_certificate_no_failed_certificate,
+    control.acm_certificate_no_pending_validation_certificate,
     control.acm_certificate_no_wildcard_domain_name,
+    control.acm_certificate_not_expired,
     control.acm_certificate_transparency_logging_enabled
   ]
 

@@ -90,6 +90,14 @@ control "ssm_document_prohibit_public_access" {
   })
 }
 
+control "ssm_parameter_encryption_enabled" {
+  title       = "SSM parameters encryption should be enabled"
+  description = "This control checks if SSM parameter has encryption enabled."
+  query       = query.ssm_parameter_encryption_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select
@@ -177,3 +185,23 @@ query "ssm_document_prohibit_public_access" {
       owner_type = 'Self';
   EOQ
 }
+
+query "ssm_parameter_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when type = 'SecureString' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when type = 'SecureString' then title || ' encryption enabled.'
+        else title || ' encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_parameter;
+  EOQ
+}
+

@@ -158,6 +158,14 @@ control "cloudfront_distribution_field_level_encryption_enabled" {
   tags = local.conformance_pack_cloudfront_common_tags
 }
 
+control "cloudfront_distribution_latest_tls_version" {
+  title       = "CloudFront distributions should have latest TLS version"
+  description = "This control checks whether CloudFront distribution uses latest TLS version."
+  query       = query.cloudfront_distribution_latest_tls_version
+
+  tags = local.conformance_pack_cloudfront_common_tags
+}
+
 query "cloudfront_distribution_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with data as (
@@ -561,5 +569,26 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
     from
       aws_cloudfront_distribution as d
       left join distribution_with_non_existent_bucket as b on b.arn = d.arn;
+  EOQ
+}
+
+query "cloudfront_distribution_latest_tls_version" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when viewer_certificate ->> 'CertificateSource' = 'cloudfront'
+          and viewer_certificate ->> 'MinimumProtocolVersion' = 'TLSv1.2_2021' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when viewer_certificate ->> 'CertificateSource' = 'cloudfront'
+          and viewer_certificate ->> 'MinimumProtocolVersion' = 'TLSv1.2_2021' then title || ' uses latest TLS version.'
+        else title || ' not uses latest TLS version.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution;
   EOQ
 }

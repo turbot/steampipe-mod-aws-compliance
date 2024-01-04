@@ -284,6 +284,166 @@ control "ec2_ami_restrict_public_access" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_instance_no_iam_role_with_management_level_access" {
+  title       = "EC2 instance IAM role should not allow management level access"
+  description = "This control ensures that EC2 instance IAM role does not allow management level access."
+  query       = query.ec2_instance_no_iam_role_with_management_level_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_data_destruction_access" {
+  title       = "EC2 instance IAM role should not allow data destruction access"
+  description = "This control ensures that EC2 instance IAM role does not allow data destruction access."
+  query       = query.ec2_instance_no_iam_role_with_data_destruction_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_with_write_level_access" {
+  title       = "EC2 instance IAM role should not allow write level access"
+  description = "This control ensures that EC2 instance IAM role does not allow write level access."
+  query       = query.ec2_instance_no_iam_with_write_level_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_database_management_write_access" {
+  title       = "EC2 instance IAM role should not allow database management write access"
+  description = "This control ensures that EC2 instance IAM role does not allow database management write access."
+  query       = query.ec2_instance_no_iam_role_with_database_management_write_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_org_write_access" {
+  title       = "EC2 instance IAM role should not allow oraganization write access"
+  description = "This control ensures that EC2 instance IAM role does not allow oraganization write access."
+  query       = query.ec2_instance_no_iam_role_with_org_write_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_privilege_escalation_risk_access" {
+  title       = "EC2 instance IAM role should not allow privilege escalation risk access"
+  description = "This control ensures that EC2 instance IAM role does not allow privilege escalation risk access."
+  query       = query.ec2_instance_no_iam_role_with_privilege_escalation_risk_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access" {
+  title       = "EC2 instance IAM role should not allow new group creation with attached policy access"
+  description = "This control ensures that EC2 instance IAM role does not allow new group creation with attached policy access."
+  query       = query.ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access" {
+  title       = "EC2 instance IAM role should not allow new role creation with attached policy access"
+  description = "This control ensures that EC2 instance IAM role does not allow new role creation with attached policy access."
+  query       = query.ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access" {
+  title       = "EC2 instance IAM role should not allow new user creation with attached policy access"
+  description = "This control ensures that EC2 instance IAM role does not allow new user creation with attached policy access."
+  query       = query.ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" {
+  title       = "EC2 instance IAM role should not allow write access to resource based policies"
+  description = "This control ensures that EC2 instance IAM role does not allow write access to resource based policies."
+  query       = query.ec2_instance_no_iam_role_with_write_access_to_resource_based_policies
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_attached_with_credentials_exposure_access" {
+  title       = "EC2 instance IAM role should not be attached with credentials exposure access"
+  description = "This control ensures that EC2 instance IAM role should not be attached with credentials exposure access."
+  query       = query.ec2_instance_no_iam_role_attached_with_credentials_exposure_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration" {
+  title       = "EC2 instance IAM role should not allow to alter critical s3 permissions configuration"
+  description = "This control ensures that EC2 instance IAM role does not allow to alter critical s3 permissions configuration."
+  query       = query.ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_destruction_kms_access" {
+  title       = "EC2 instance IAM role should not allow destruction KMS access"
+  description = "This control ensures that EC2 instance IAM roles do not allow destruction KMS access."
+  query       = query.ec2_instance_no_iam_role_with_destruction_kms_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_destruction_rds_access" {
+  title       = "EC2 instance IAM role should not allow destruction RDS access"
+  description = "This control ensures that EC2 instance IAM roles do not allow destruction RDS access."
+  query       = query.ec2_instance_no_iam_role_with_destruction_rds_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_cloud_log_tampering_access" {
+  title       = "EC2 instance IAM role should not allow cloud log tampering access"
+  description = "This control ensures that EC2 instance IAM roles do not allow cloud log tampering access."
+  query       = query.ec2_instance_no_iam_role_with_cloud_log_tampering_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration" {
+  title       = "EC2 instance IAM role should not allow write permission on critical s3 configuration"
+  description = "This control ensures that EC2 instance IAM roles do not allow write permission on critical s3 configuration."
+  query       = query.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_security_group_write_access" {
+  title       = "EC2 instance IAM role should not allow security group write access"
+  description = "This control ensures that EC2 instance IAM roles do not allow security group write access."
+  query       = query.ec2_instance_no_iam_role_with_security_group_write_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access" {
+  title       = "EC2 instance IAM role should not allow defense evasion impact of AWS security services access"
+  description = "This control ensures that EC2 instance IAM role does not allow defense evasion impact of AWS security services access."
+  query       = query.ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
+  title       = "EC2 instance IAM role should not allow elastic IP hijacking access."
+  description = "This control ensures that EC2 instance IAM role does not allow elastic IP hijacking access."
+  query       = query.ec2_instance_no_iam_role_with_elastic_ip_hijacking_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
+  title       = "EC2 instance IAM should not allow pass role and lambda invoke function access."
+  description = "This control ensures that EC2 instance IAM role does not allow pass role and lambda invoke function access."
+  query       = query.ec2_instance_no_iam_passrole_and_lambda_invoke_function_access
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -720,5 +880,932 @@ query "ec2_launch_template_not_publicly_accessible" {
     from
       aws_ec2_launch_template as t
       left join launch_templates_associated_instance as i on i.launch_template_id = t.launch_template_id;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_management_level_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:attachuserpolicy', 'iam:createpolicy', 'iam:createpolicyversion', 'iam:deleteaccountpasswordpolicy', 'iam:deletegrouppolicy', 'iam:deletepolicy', 'iam:deletepolicyversion', 'iam:deleterolepermissionsboundary', 'iam:deleterolepolicy', 'iam:deleteuserpermissionsboundary', 'iam:deleteuserpolicy', 'iam:detachgrouppolicy', 'iam:detachrolepolicy', 'iam:detachuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepermissionsboundary', 'iam:putrolepolicy', 'iam:putuserpermissionsboundary', 'iam:putuserpolicy','iam:setdefaultpolicyversion','iam:updateassumerolerolicy', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no management level access.'
+        else title || ' has management level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_data_destruction_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('s3:deletebucket', 'rds:deletedbcluster', 'rds:deletedbinstance', 'rds:deleteDBSnapshot', 'rds:deletedbclustersnapshot', 'rds:deleteglobalcluster', 'ec2:deletesnapshot', 'ec2:deletevolume', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no data destruction access.'
+        else title || ' has data destruction access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_with_write_level_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:addclientidtoopenidconnectprovider','iam:addroletoinstanceprofile','iam:addusertogroup','iam:changepassword','iam:createaccesskey','iam:createaccountalias','iam:creategroup','iam:createinstanceprofile','iam:createloginprofile','iam:createopenidconnectprovider','iam:createrole','iam:createsamlprovider','iam:createservicelinkedrole','iam:createservicespecificcredential','iam:createuser','iam:createvirtualmfadevice','iam:deactivatemfadevice','iam:deleteaccesskey','iam:deleteaccountalias','iam:deletegroup','iam:deleteinstanceprofile','iam:deleteloginprofile','iam:deleteopenidconnectprovider','iam:deleterole','iam:deletesamlprovider','iam:deletesshpublickey','iam:deleteservercertificate','iam:deleteservicelinkedrole','iam:deleteservicespecificcredential','iam:deletesigningcertificate','iam:deleteUser','iam:deletevirtualmfadevice','iam:enablemfadevice','iam:passrole','iam:removeclientidfromopenidconnectprovider','iam:removerolefrominstanceprofile','iam:removeuserfromgroup','iam:resetservicespecificcredential','iam:resyncmfadevice','iam:setsecuritytokenservicepreferences','iam:updateaccesskey','iam:updateaccountpasswordpolicy','iam:updategroup','iam:updateloginprofile','iam:updateopenidconnectproviderthumbprint','iam:updaterole','iam:updateroledescription','iam:updatesamlprovider','iam:updatesshpublicKey','iam:updateservercertificate','iam:updateservicespecificcredential','iam:updatesigningcertificate','iam:updateuser','iam:uploadsshpublicKey','iam:uploadservercertificate','iam:uploadsigningcertificate','*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM rite level access.'
+        else title || ' has IAM write level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_database_management_write_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('rds:modifydbcluster','rds:modifydbclusterendpoint','rds:modifydbinstance','rds:modifydbsnapshot','rds:modifyglobalcluster','dynamodb:updateitem','dynamodb:updatetable','memorydb:updatecluster','neptune-db:resetdatabase','neptune-db:writedataviaquery','docdb-elastic:updatecluster','elasticache:modifycachecluster','cassandra:alter','cassandra:modify','qldb:executestatement','qldb:partiqlupdate','qldb:sendcommand','qldb:updateledger','redshift:modifycluster','redshift:modifyclustersnapshot','redshift:modifyendpointaccess','timestream:updatedatabase','timestream:updatetable','timestream:writerecords','*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no database management write level access.'
+        else title || ' has database management write level access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_org_write_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('organizations:accepthandshake','organizations:attachpolicy','organizations:cancelhandshake','organizations:createaccount','organizations:creategovcloudaccount','organizations:createorganization','organizations:createorganizationalunit','organizations:createpolicy','organizations:declinehandshake','organizations:deleteorganization','organizations:deleteorganizationalunit','organizations:deletepolicy','organizations:deregisterdelegatedadministrator','organizations:detachpolicy','organizations:disableawsserviceaccess','organizations:disablepolicytype','organizations:enableawsserviceaccess','organizations:enableallfeatures','organizations:enablepolicytype','organizations:inviteaccounttoorganization','organizations:Leaveorganization','organizations:moveaccount','organizations:registerdelegatedadministrator','organizations:removeaccountfromorganization','organizations:updateorganizationalunit','organizations:updatepolicy','*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no organization write access.'
+        else title || ' has organization write access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_privilege_escalation_risk_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and (
+          (action in ('iam:createpolicy', 'iam:createpolicyversion', 'iam:SetDefaultpolicyversion', 'iam:passrole', 'iam:createaccessKey', 'iam:createloginprofile', 'iam:updateloginprofile', 'iam:attachuserpolicy', 'iam:attachgrouppolicy', 'iam:attachrolepolicy', 'iam:putuserpolicy', 'iam:putgrouppolicy', 'iam:putrolepolicy', 'iam:addusertogroup', 'iam:updateassumerolepolicy', '*:*')
+          )
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no privilege escalation access.'
+        else title || ' has privilege escalation access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_new_group_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:creategroup'
+        and action = 'iam:attachgrouppolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new group creation access with attached policy.'
+        else title || ' has new group creation access with attached policy.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_new_role_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:createrole'
+        and action = 'iam:attachrolepolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new role creation access with attached policy .'
+        else title || ' has new role creation access with attached policy.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_new_user_creation_with_attached_policy_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action = 'iam:createuser'
+        and action = 'iam:attachuserpolicy'
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no new user creation access with attached policy.'
+        else title || ' has new user creation access with attached policy.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_write_access_to_resource_based_policies" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in (
+  'ecr:setrepositorypolicy','serverlessrepo:putapplicationpolicy','backup:putbackupvaultaccesspolicy','efs:putfilesystempolicy','glacier:setvaultaccesspolicy','secretsmanager:putresourcepolicy','events:putpermission','mediastore:putcontainerpolicy','glue:putresourcepolicy','ses:putidentitypolicy','lambda:addpermission','lambda:addlayerversionpermission','s3:putbucketpolicy','s3:putbucketacl','s3:putObject','s3:putobjectacl','kms:creategrant','kms:putkeypolicy','es:Updateelasticsearchdomainconfig','sns:addpermission','sqs:addpermission','*:*'
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no write access permission to resource based policies.'
+        else title || ' has write access permission to resource based policies.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_attached_with_credentials_exposure_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in (
+          'chime:createapikey', 'codepipeline:pollforjobs', 'cognito-identity:getopenidtoken', 'cognito-identity:getopenidtokenfordeveloperidentity', 'cognito-identity:getcredentialsforidentity', 'connect:getfederationtoken', 'connect:getfederationtokens', 'ec2:getpassworddata', 'ecr:getauthorizationtoken', 'gamelift:requestuploadcredentials', 'iam:createaccesskey', 'iam:createloginprofile', 'iam:createservicespecificcredential', 'iam:resetservicespecificcredential', 'iam:updateaccesskey', 'lightsail:getinstanceaccessdetails', 'lightsail:getrelationaldatabasemasteruserpassword', 'rds-db:connect', 'redshift:getclustercredentials', 'sso:getrolecredentials', 'mediapackage:rotatechannelcredentials', 'mediapackage:rotateingestendpointcredentials', 'sts:assumerole', 'sts:assumerolewithsaml', 'sts:assumerolewithwebidentity', 'sts:getfederationtoken', 'sts:getsessiontoken','*:*'
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role attached with credentials exposure permissions.'
+        else title || ' has IAM role attached with credentials exposure permissions.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_alter_critical_s3_permissions_configuration" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in (
+          's3:putobjectretention','s3:putlifecycleconfiguration','s3:putbucketpolicy','s3:putbucketversioning','*:*'
+        )
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with alter critical s3 permissions configuration.'
+        else title || ' has IAM role with alter critical s3 permissions configuration.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_destruction_kms_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ('secretsmanager:getsecretvalue', 'kms:decrypt', '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with destruction KMS permission.'
+        else title || ' has IAM role with destruction KMS permission.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_destruction_rds_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'srds-data:ExecuteStatement', 'rds-data:BatchExecuteStatement', '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with destruction RDS permission.'
+        else title || ' has IAM role with destruction RDS permission.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_cloud_log_tampering_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'cloudtrail:deletetrail','cloudtrail:puteventselectors','cloudtrail:stoplogging','ec2:deleteflowlogs','s3:putbucketlogging','logs:deletelogstream','logs:deleteloggroup','waf:deleteloggingconfiguration','waf:putloggingconfiguration','*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with cloud log tampering access.'
+        else title || ' has IAM role with cloud log tampering access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ('s3:putobjectretention','s3:putlifecycleconfiguration','s3:putbucketpolicy','s3:putbucketversioning','*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with write permission on critical s3 configuration.'
+        else title || ' has IAM role with write permission on critical s3 configuration.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_security_group_write_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'rds:createdbsecuritygroup','rds:deletedbsecuritygroup','rds:revokedbsecuritygroupingress','ec2:authorizesecuritygroupegress','ec2:authorizesecuritygroupingress','ec2:createsecuritygroup','ec2:deletesecuritygroup','ec2:modifysecuritygrouprules','ec2:revokesecuritygroupegress','ec2:revokesecuritygroupingress','elasticloadbalancing:applysecuritygroupsToLoadbalancer','elasticloadbalancing:setsecuritygroups','redshift:authorizeclustersecuritygroupingress','redshift:createclustersecuritygroup','redshift:deleteclustersecuritygroup','*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with security group write access.'
+        else title || ' has IAM role with security group write access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_defense_evasion_impact_of_aws_security_services_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'guardduty:updatedetector','guardduty:deletedetector','guardduty:deletemembers','guardduty:updatefilter','guardduty:deletefilter','shield:disableapplicationlayerautomaticresponse','shield:updateprotectiongroup','shield:deletesubscription','detective:disassociatemembership','detective:deletemembers','inspector:disable','config:stopconfigurationrecorder','config:deleteconfigurationrecorder','config:deleteconfigrule','config:deleteorganizationconfigrule','cloudwatch:disablealarmactions','cloudwatch:disableinsightrules','*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with defense evasion impact of AWS security services access.'
+        else title || ' has IAM role with defense evasion impact of AWS security services access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_role_with_elastic_ip_hijacking_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'ec2:DisassociateAddress', 'ec2:EnableAddressTransfer', '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM role with elastic IP hijacking access.'
+        else title || ' has IAM role with elastic IP hijacking access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
+  sql = <<-EOQ
+    with iam_roles as (
+      select
+        r.arn as role_arn,
+        i.arn as intance_arn
+      from
+        aws_iam_role as r,
+        jsonb_array_elements_text(instance_profile_arns) as p
+        left join aws_ec2_instance as i on p = i.iam_instance_profile_arn
+      where
+        i.arn is not null
+    ), iam_role_with_permission as (
+      select
+        arn
+      from
+        aws_iam_role,
+        jsonb_array_elements(assume_role_policy_std -> 'Statement') as s,
+        jsonb_array_elements_text(s -> 'Principal' -> 'Service') as service,
+        jsonb_array_elements_text(s -> 'Action') as action
+      where
+        arn in (select role_arn from iam_roles)
+        and  s ->> 'Effect' = 'Allow'
+        and service = 'ec2.amazonaws.com'
+        and action in ( 'iam:passrole','lambda:createfunction', 'lambda:invokefunction', '*:*')
+    )
+    select
+      i.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when p.arn is null then title || ' has no IAM pass role and lambda invoke function access.'
+        else title || ' has IAM pass role and lambda invoke function access.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "i.")}
+    from
+      aws_ec2_instance as i
+      left join iam_roles as r on r.intance_arn = i.arn
+      left join iam_role_with_permission as p on p.arn = r.role_arn;
   EOQ
 }

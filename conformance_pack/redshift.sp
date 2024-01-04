@@ -196,6 +196,14 @@ control "redshift_cluster_no_default_database_name" {
   })
 }
 
+control "redshift_cluster_encrypted_with_cmk" {
+  title       = "Redshift clusters should be encrypted with CMK"
+  description = "Ensure Redshift cluster is encrypted using CMK. The rule is non-compliant if the Redshift clusters is not encrypted using CMK."
+  query       = query.redshift_cluster_encrypted_with_cmk
+
+  tags = local.conformance_pack_redshift_common_tags
+}
+
 query "redshift_cluster_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with pg_with_ssl as (
@@ -418,5 +426,37 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_encrypted_with_cmk" {
+  sql = <<-EOQ
+    with encrypted_cluster as (
+      select
+        r.arn as arn,
+        key_manager
+      from
+        aws_redshift_cluster as r
+        left join aws_kms_key as k on r.kms_key_id = k.arn
+      where
+        enabled
+    )
+    select
+      r.arn as resource,
+      case
+        when not encrypted then 'alarm'
+        when encrypted and c.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not encrypted then title || ' not encrypted.'
+        when encrypted and c.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster as r
+      left join encrypted_cluster as c on r.arn = c.arn;
   EOQ
 }

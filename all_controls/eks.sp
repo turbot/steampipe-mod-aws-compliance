@@ -12,6 +12,7 @@ benchmark "all_controls_eks" {
     control.eks_cluster_endpoint_public_access_restricted,
     control.eks_cluster_endpoint_restrict_public_access,
     control.eks_cluster_no_default_vpc,
+    control.eks_cluster_no_multiple_security_groups,
     control.eks_cluster_secrets_encrypted,
     control.eks_cluster_with_latest_kubernetes_version
   ]

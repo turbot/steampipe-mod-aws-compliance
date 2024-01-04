@@ -28,6 +28,14 @@ control "sqs_queue_dead_letter_queue_configured" {
   tags = local.conformance_pack_sqs_common_tags
 }
 
+control "sqs_queue_encrypted_with_kms_cmk" {
+  title       = "SQS queues should be encrypted with KMS CMK"
+  description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS SQS queues with KMS CMK."
+  query       = query.sqs_queue_encrypted_with_kms_cmk
+
+  tags = local.conformance_pack_sqs_common_tags
+}
+
 query "sqs_queue_policy_prohibit_public_access" {
   sql = <<-EOQ
     with wildcard_action_policies as (
@@ -96,6 +104,27 @@ query "sqs_queue_encrypted_at_rest" {
       case
         when kms_master_key_id is null then title || ' encryption at rest disabled.'
         else title || ' encryption at rest enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sqs_queue;
+  EOQ
+}
+
+query "sqs_queue_encrypted_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      queue_arn as resource,
+      case
+        when kms_master_key_id is null then 'alarm'
+        when kms_master_key_id is not null and kms_master_key_id = 'alias/aws/sqs' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_master_key_id is null then title || ' encryption at rest disabled.'
+        when kms_master_key_id is not null and kms_master_key_id = 'alias/aws/sqs' then title || ' not encrypted with CMK.'
+        else title || ' encrypted with CMK.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

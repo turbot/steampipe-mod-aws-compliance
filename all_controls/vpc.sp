@@ -17,6 +17,8 @@ benchmark "all_controls_vpc" {
     control.vpc_in_more_than_one_region,
     control.vpc_network_acl_remote_administration,
     control.vpc_network_acl_unused,
+    control.vpc_not_in_use,
+    control.vpc_peering_connection_no_cross_account_access,
     control.vpc_peering_connection_route_table_least_privilege,
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_allows_ingress_authorized_ports,

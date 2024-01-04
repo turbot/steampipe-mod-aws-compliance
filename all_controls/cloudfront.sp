@@ -14,6 +14,7 @@ benchmark "all_controls_cloudfront" {
     control.cloudfront_distribution_encryption_in_transit_enabled,
     control.cloudfront_distribution_field_level_encryption_enabled,
     control.cloudfront_distribution_geo_restrictions_enabled,
+    control.cloudfront_distribution_latest_tls_version,
     control.cloudfront_distribution_logging_enabled,
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudfront_distribution_no_non_existent_s3_origin,

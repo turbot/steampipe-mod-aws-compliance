@@ -423,6 +423,22 @@ control "vpc_peering_connection_route_table_least_privilege" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_not_in_use" {
+  title       = "VPCs should be in use"
+  description = "This control checks whether there are any unused VPCs."
+  query       = query.vpc_not_in_use
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_peering_connection_no_cross_account_access" {
+  title       = "VPCs peering connection should not be allowed in cross account"
+  description = "Ensure that all VPCs peering connection are not having cross account access."
+  query       = query.vpc_peering_connection_no_cross_account_access
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1782,5 +1798,81 @@ query "vpc_peering_connection_route_table_least_privilege" {
     from
       aws_vpc_peering_connection as c
       left join vpc_peering_routing_tables as t on t.peering_connection_id = c.id;
+  EOQ
+}
+
+query "vpc_not_in_use" {
+  sql = <<-EOQ
+    with vpc_without_subnet as (
+      select
+        distinct vpc_id
+      from
+        aws_vpc
+      where
+        vpc_id not in (select vpc_id from aws_vpc_subnet)
+    )
+    select
+      arn as resource,
+      case
+        when s.vpc_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.vpc_id is null then title || ' in use.'
+        else title || ' not in use.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc as v
+      left join vpc_without_subnet as s on s.vpc_id = v.vpc_id;
+  EOQ
+}
+
+query "vpc_vpn_gateway_per_region_less_then_4" {
+  sql = <<-EOQ
+    with vpn_gateway_per_region as (
+      select
+        count(*),
+        region,
+        account_id
+      from
+        aws_vpc_vpn_gateway
+      group by
+        region,
+        account_id
+    )
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when v.count > 3 then 'alarm'
+        else 'ok'
+      end as status,
+      r.region || ' region has ' || coalesce(v.count, 0) || ' VPN gateway(s).' as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join vpn_gateway_per_region as v on r.account_id = v.account_id and r.region = v.region;
+  EOQ
+}
+
+query "vpc_peering_connection_no_cross_account_access" {
+  sql = <<-EOQ
+    select
+      id as resource,
+      case
+        when status_code <> 'active' then 'alarm'
+        when requester_owner_id <> accepter_owner_id then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when status_code <> 'active' then title || ' is not in active state.'
+        when requester_owner_id <> accepter_owner_id then title || ' have cross account access.'
+        else title || ' does not have cross account access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection;
   EOQ
 }
