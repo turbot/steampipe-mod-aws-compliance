@@ -21,6 +21,14 @@ control "config_enabled_all_regions" {
   })
 }
 
+control "config_configuration_recorder_no_failed_deliver_logs" {
+  title       = "Config configuration recorder should not fail to deliver logs"
+  description = "This control checks whether Config configuration recorder fails to deliver logs. This control is non-compliant if Config configuration recorder fails to deliver logs."
+  query       = query.config_configuration_recorder_no_failed_deliver_logs
+
+  tags = local.conformance_pack_config_common_tags
+}
+
 query "config_enabled_all_regions" {
   sql = <<-EOQ
     -- pgFormatter-ignore
@@ -79,3 +87,23 @@ query "config_enabled_all_regions" {
       left join aws_config_configuration_recorder as r on r.account_id = a.account_id and r.region = a.name;
   EOQ
 }
+
+query "config_configuration_recorder_no_failed_deliver_logs" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when status ->> 'LastStatus' = 'FAILURE' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when status ->> 'LastStatus' = 'FAILURE' then title || ' has failed deliver logs.'
+        else title || ' does not have failed deliver logs.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_config_configuration_recorder;
+  EOQ
+}
+

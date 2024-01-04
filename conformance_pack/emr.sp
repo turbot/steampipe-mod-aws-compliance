@@ -54,6 +54,14 @@ control "emr_cluster_master_nodes_no_public_ip" {
   })
 }
 
+control "emr_cluster_security_configuration_enabled" {
+  title       = "EMR clusters should have security configuration enabled"
+  description = "Ensure EMR cluster have security configuration enabled. This control fails if security configuration is not enabled for EMR cluster."
+  query       = query.emr_cluster_security_configuration_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     select
@@ -113,4 +121,21 @@ query "emr_cluster_master_nodes_no_public_ip" {
   EOQ
 }
 
-
+query "emr_cluster_security_configuration_enabled" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when security_configuration is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when security_configuration is not null then title || ' security configuration enabled.'
+        else title || ' security configuration disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_cluster;
+  EOQ
+}

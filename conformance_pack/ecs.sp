@@ -139,6 +139,22 @@ control "ecs_service_fargate_using_latest_platform_version" {
   })
 }
 
+control "ecs_task_definition_no_root_user" {
+  title       = "ECS task definitions should not use root user."
+  description = "This control checks if ECS task definitions have root user. This control fails if the ECS task definitions have root user."
+  query       = query.ecs_task_definition_no_root_user
+
+  tags = local.conformance_pack_ecs_common_tags
+}
+
+control "ecs_cluster_no_active_services_count" {
+  title       = "ECS cluster should be configured with active services"
+  description = "This control checks if ECS cluster have active services. This control fails if ECS cluster does not have any active services."
+  query       = query.ecs_cluster_no_active_services_count
+
+  tags = local.conformance_pack_ecs_common_tags
+}
+
 query "ecs_cluster_encryption_at_rest_enabled" {
   sql = <<-EOQ
     with unencrypted_volumes as (
@@ -513,5 +529,53 @@ query "ecs_service_not_publicly_accessible" {
     from
       aws_ecs_service as a
       left join service_awsvpc_mode_task_definition as b on a.service_name = b.service_name;
+  EOQ
+}
+
+query "ecs_task_definition_no_root_user" {
+  sql = <<-EOQ
+    with root_user_task_definition as (
+      select
+        distinct task_definition_arn as arn
+      from
+        aws_ecs_task_definition,
+        jsonb_array_elements(container_definitions) as c
+      where
+        c ->> 'User' = 'root'
+    )
+    select
+      a.task_definition_arn as resource,
+      case
+        when b.arn is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when b.arn is not null then a.title || ' have root user.'
+        else a.title || ' does not have root user.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_task_definition as a
+      left join root_user_task_definition as b on a.task_definition_arn = b.arn;
+  EOQ
+}
+
+query "ecs_cluster_no_active_services_count" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when active_services_count > 0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when active_services_count > 0 then title || ' has ' || active_services_count || ' active service(s).'
+        else title || ' has no active service.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ecs_cluster;
   EOQ
 }

@@ -17,6 +17,7 @@ benchmark "all_controls_s3" {
     control.s3_bucket_lifecycle_policy_enabled,
     control.s3_bucket_logging_enabled,
     control.s3_bucket_mfa_delete_enabled,
+    control.s3_bucket_not_accessible_to_all_authenticated_user,
     control.s3_bucket_object_lock_enabled,
     control.s3_bucket_object_logging_enabled,
     control.s3_bucket_policy_restrict_public_access,

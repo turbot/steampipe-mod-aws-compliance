@@ -466,6 +466,46 @@ control "rds_db_instance_connections_encryption_enabled" {
   tags = local.conformance_pack_rds_common_tags
 }
 
+control "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability" {
+  title       = "RDS Aurora PostgreSQL clusters should not be exposed to local file read vulnerability"
+  description = "This control checks whether AWS Aurora PostgreSQL clusters are exposed to local file read vulnerability by ensuring that AWS RDS PostgreSQL instances use a non-vulnerable version of the log_fdw."
+  query       = query.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_cluster_encrypted_with_cmk" {
+  title       = "RDS DB clusters should be encrypted with CMK"
+  description = "Ensure RDS DB cluster is encrypted using CMK. The rule is non-compliant if the RDS DB cluster is not encrypted using CMK."
+  query       = query.rds_db_cluster_encrypted_with_cmk
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_backup_retention_period_less_than_7" {
+  title       = "RDS DB instances backup retention period should be greater than or equal to 7"
+  description = "Ensure RDS DB instance backup retention period is greater than or equal to 7."
+  query       = query.rds_db_instance_backup_retention_period_less_than_7
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_no_public_subnet" {
+  title       = "RDS DB instances should not use public subnet"
+  description = "This control checks if RDS DB instance is configured with public subnet as there is a risk of exposing sensitive data."
+  query       = query.rds_db_instance_no_public_subnet
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability" {
+  title       = "RDS PostgreSQL DB instances should not be exposed to local file read vulnerability"
+  description = "This control checks whether AWS PostgreSQL DB isntance are exposed to local file read vulnerability by ensuring that AWS RDS PostgreSQL instances use a non-vulnerable version of the log_fdw."
+  query       = query.rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -478,6 +518,22 @@ query "rds_db_instance_backup_enabled" {
         when backup_retention_period < 1 then title || ' backups not enabled.'
         else title || ' backups enabled.'
       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_backup_retention_period_less_than_7" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when backup_retention_period < 7 then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' backup retention period set to ' || backup_retention_period || '.'  as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1268,5 +1324,161 @@ query "rds_db_cluster_encryption_at_rest_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not engine ilike '%aurora-postgres%' then 'skip'
+        when engine ilike '%aurora-postgres%' and engine_version like any (array ['10.11', '10.12', '10.13', '11.6', '11.7', '11.8']) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not engine ilike '%aurora-postgres%' then title || ' not Aurora PostgreSQL edition.'
+        when engine ilike '%aurora-postgres%' and engine_version like any (array ['10.11', '10.12', '10.13', '11.6', '11.7', '11.8']) then title || ' exposed to local file read vulnerability.'
+        else title || ' not exposed to local file read vulnerability.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_encrypted_with_cmk" {
+  sql = <<-EOQ
+    with encrypted_cluster as (
+      select
+        c.arn as arn,
+        key_manager
+      from
+        aws_rds_db_cluster as c
+        left join aws_kms_key as k on c.kms_key_id = k.arn
+      where
+        enabled
+    )
+    select
+      c.arn as resource,
+      case
+        when not storage_encrypted then 'alarm'
+        when storage_encrypted and e.key_manager = 'CUSTOMER' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not storage_encrypted then title || ' not encrypted.'
+        when storage_encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        else title || ' not encrypted with CMK.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster as c
+      left join encrypted_cluster as e on c.arn = e.arn;
+  EOQ
+}
+
+query "rds_db_instance_no_public_subnet" {
+  sql = <<-EOQ
+    with subnets_with_explicit_route as (
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as (
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+      select
+        subnet_id,
+        vpc_id,
+        case
+          when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+          when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+          else 'private'
+        end as access
+      from
+        aws_vpc_subnet as s
+        left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    ), cluster_public_subnet as (
+      select
+        distinct arn,
+        name as subnet_group_name
+      from
+        aws_rds_db_subnet_group,
+        jsonb_array_elements(subnets) as s
+        left join subnet_accessibility as a on a.subnet_id = s ->> 'SubnetIdentifier'
+      where
+        a.access = 'public'
+    )
+    select
+      c.arn as resource,
+      case
+        when s.subnet_group_name is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when s.subnet_group_name is not null then c.title || ' has public subnet.'
+        else c.title || ' has private subnet.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance as c
+      left join cluster_public_subnet as s on s.subnet_group_name = c.db_subnet_group_name;
+  EOQ
+}
+
+query "rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not engine = 'postgres' then 'skip'
+        when engine = 'postgres' and engine_version like any (array ['10.11', '10.12', '10.13', '11.6', '11.7', '11.8']) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not engine = 'postgres'  then title || ' not PostgreSQL edition.'
+        when engine = 'postgres'  and engine_version like any (array ['13.2','13.1','12.6','12.5','12.4','12.3','12.2','11.11','11.10','11.9','11.8','11.7','11.6','11.5','11.4','11.3','11.2','11.1','10.16','10.15','10.14','10.13','10.12','10.11','10.10','10.9','10.7','10.6','10.5','10.4','10.3','10.1','9.6.21','9.6.20','9.6.19','9.6.18','9.6.17','9.6.16','9.6.15','9.6.14','9.6.12','9.6.11','9.6.10','9.6.9','9.6.8','9.6.6','9.6.5','9.6.3','9.6.2','9.6.1','9.5','9.4','9.3']) then title || ' exposed to local file read vulnerability.'
+        else title || ' not exposed to local file read vulnerability.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
   EOQ
 }

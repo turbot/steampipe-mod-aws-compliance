@@ -66,6 +66,14 @@ control "eks_cluster_endpoint_public_access_restricted" {
   tags = local.conformance_pack_eks_common_tags
 }
 
+control "eks_cluster_no_multiple_security_groups" {
+  title       = "EKS clusters should not use multiple security groups"
+  description = "This controls ensures that EKS clusters is not using multiple security groups."
+  query       = query.eks_cluster_no_multiple_security_groups
+
+  tags = local.conformance_pack_eks_common_tags
+}
+
 query "eks_cluster_secrets_encrypted" {
   sql = <<-EOQ
     with eks_secrets_encrypted as (
@@ -213,6 +221,22 @@ query "eks_cluster_endpoint_public_access_restricted" {
         when resources_vpc_config ->> 'EndpointPublicAccess' = 'true' and resources_vpc_config -> 'PublicAccessCidrs' @> '["0.0.0.0/0"]' then title || ' endpoint access is public.'
         else title || ' endpoint public access is restricted.'
       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_eks_cluster;
+  EOQ
+}
+
+query "eks_cluster_no_multiple_security_groups" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(resources_vpc_config -> 'SecurityGroupIds') > 1 then 'alarm'
+        else 'ok'
+      end as status,
+        title || ' has '|| jsonb_array_length(resources_vpc_config -> 'SecurityGroupIds') || ' security group(s).' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

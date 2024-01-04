@@ -43,6 +43,30 @@ control "acm_certificate_no_wildcard_domain_name" {
   tags = local.conformance_pack_acm_common_tags
 }
 
+control "acm_certificate_not_expired" {
+  title       = "Ensure that all the expired ACM certificates are removed"
+  description = "This control ensures that all expired ACM certificates are removed from AWS account."
+  query       = query.acm_certificate_not_expired
+
+  tags = local.conformance_pack_acm_common_tags
+}
+
+control "acm_certificate_no_failed_certificate" {
+  title       = "Ensure that ACM certificates are not in failed state"
+  description = "This control ensures that ACM certificates are not in failed state."
+  query       = query.acm_certificate_no_failed_certificate
+
+  tags = local.conformance_pack_acm_common_tags
+}
+
+control "acm_certificate_no_pending_validation_certificate" {
+  title       = "Ensure that ACM certificates are not in pending validation state"
+  description = "This control ensures that ACM certificates are not in pending validation state. When certificates are not validated within 72 hours after the request is made, those certificates become invalid."
+  query       = query.acm_certificate_no_pending_validation_certificate
+
+  tags = local.conformance_pack_acm_common_tags
+}
+
 query "acm_certificate_expires_30_days" {
   sql = <<-EOQ
     select
@@ -97,6 +121,61 @@ query "acm_certificate_no_wildcard_domain_name" {
         when domain_name like '*%' then title || ' uses wildcard domain name.'
         else title || ' does not use wildcard domain name.'
       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_not_expired" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when renewal_eligibility = 'INELIGIBLE' then 'skip'
+        when date(not_after) < (current_date - interval '1' minute) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when renewal_eligibility = 'INELIGIBLE' then title || ' not eligible for renewal.'
+        when date(not_after) < (current_date - interval '1' minute) then title || ' expired ' || to_char(not_after, 'DD-Mon-YYYY') ||
+        ' (' || extract(day from not_after - current_date) || ' days ago).'
+        else title || ' expires ' || to_char(not_after, 'DD-Mon-YYYY') ||
+        ' (' || extract(day from not_after - current_date) || ' days).'
+       end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_no_failed_certificate" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when status in ('VALIDATION_TIMED_OUT', 'FAILED') then 'alarm'
+        else 'ok'
+      end as status,
+      title || ' status is ' || status || '.'  as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_no_pending_validation_certificate" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when status = 'PENDING_VALIDATION' then 'info'
+        else 'ok'
+      end as status,
+      title || ' status is ' || status || '.'  as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

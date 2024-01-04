@@ -85,6 +85,14 @@ control "elasticache_cluster_no_public_subnet" {
   tags = local.conformance_pack_elasticache_common_tags
 }
 
+control "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
+  title       = "ElastiCache for Redis replication groups should be encrypted with CMK"
+  description = "Ensure ElastiCache for Redis replication group are encrypted using CMK. The rule is non-compliant if the ElastiCache for Redis replication group is not encrypted using CMK."
+  query       = query.elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk
+
+  tags = local.conformance_pack_elasticache_common_tags
+}
+
 query "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   sql = <<-EOQ
     select
@@ -303,5 +311,28 @@ query "elasticache_cluster_no_public_subnet" {
     from
       aws_elasticache_cluster as c
       left join cluster_public_subnet as s on s.cache_subnet_group_name = c.cache_subnet_group_name;
+  EOQ
+}
+
+query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
+  sql = <<-EOQ
+    select
+      r.arn as resource,
+      case
+        when not at_rest_encryption_enabled then 'alarm'
+        when at_rest_encryption_enabled and kms_key_id is null then 'alarm'
+        when at_rest_encryption_enabled and kms_key_id is not null and k.enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not at_rest_encryption_enabled then r.title || ' encryption at rest disabled.'
+        when at_rest_encryption_enabled and kms_key_id is null then r.title || ' encryption at rest not enabled with CMK.'
+        when at_rest_encryption_enabled and kms_key_id is not null and k.enabled then r.title || ' encryption at rest enabled with CMK.'
+        else r.title || ' encryption at rest enabled with disabled CMK.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_replication_group as r
+      left join aws_kms_key as k on k.arn = r.kms_key_id;
   EOQ
 }

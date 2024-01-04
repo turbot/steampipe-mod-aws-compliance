@@ -25,6 +25,14 @@ control "kinesis_stream_encrypted_with_kms_cmk" {
   tags = local.conformance_pack_kinesis_common_tags
 }
 
+control "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
+  title       = "Kinesis firehose delivery streams should have server side encryption enabled"
+  description = "Enable server side encryption (SSE) of your Kinesis firehose delivery stream, in order to protect your data and metadata from breaches or unauthorized access, and fulfill compliance requirements for data-at-rest encryption within your organization."
+  query       = query.kinesis_firehose_delivery_stream_server_side_encryption_enabled
+
+  tags = local.conformance_pack_kinesis_common_tags
+}
+
 query "kinesis_stream_server_side_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -60,5 +68,24 @@ query "kinesis_stream_encrypted_with_kms_cmk" {
       ${local.common_dimensions_sql}
     from
       aws_kinesis_stream;
+  EOQ
+}
+
+query "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when delivery_stream_encryption_configuration ->> 'Status' = 'ENABLED' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when delivery_stream_encryption_configuration ->> 'Status' = 'ENABLED' then title || ' server side encryption enabled.'
+        else title || ' server side encryption disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_kinesis_firehose_delivery_stream;
   EOQ
 }
