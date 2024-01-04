@@ -1,3 +1,28 @@
+## v0.84 [2024-01-04]
+
+_Enhancements_
+
+- Added 50 new controls to the `All Controls` benchmark across the following services: ([#736](https://github.com/turbot/steampipe-mod-aws-compliance/pull/736))
+  - `ACM`
+  - `CloudFront`
+  - `CloudTrail`
+  - `Config`
+  - `DocumentDB`
+  - `EC2`
+  - `ECS`
+  - `EKS`
+  - `ElastiCache`
+  - `ELB`
+  - `EMR`
+  - `Kinesis`
+  - `RDS`
+  - `Redshift`
+  - `S3`
+  - `SNS`
+  - `SQS`
+  - `SSM`
+  - `VPC`
+
 ## v0.83 [2023-11-30]
 
 _Enhancements_
