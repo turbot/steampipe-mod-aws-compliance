@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- Added 50 new controls to the `All Controls` benchmark across the following services: ([#736](https://github.com/turbot/steampipe-mod-aws-compliance/pull/736))
+- Added 50 new controls to the `All Controls` benchmark across the following services: ([#736](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/736))
   - `ACM`
   - `CloudFront`
   - `CloudTrail`
@@ -27,7 +27,7 @@ _Enhancements_
 
 _Enhancements_
 
-- Added the following controls to the `All Controls` benchmark: ([#733](https://github.com/turbot/steampipe-mod-aws-compliance/pull/733))
+- Added the following controls to the `All Controls` benchmark: ([#733](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/733))
   - `api_gateway_rest_api_public_endpoint_with_authorizer`
   - `dlm_ebs_snapshot_lifecycle_policy_enabled`
   - `docdb_cluster_instance_encryption_at_rest_enabled`
@@ -42,11 +42,11 @@ _Enhancements_
 
 _Breaking changes_
 
-- Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#728](https://github.com/turbot/steampipe-mod-aws-compliance/pull/728))
+- Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#728](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/728))
 
 _Enhancements_
 
-- Added the following controls to the `All Controls` benchmark: ([#727](https://github.com/turbot/steampipe-mod-aws-compliance/pull/727))
+- Added the following controls to the `All Controls` benchmark: ([#727](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/727))
   - `glue_connection_ssl_enabled`
   - `vpc_peering_connection_route_table_least_privilege`
 
@@ -54,32 +54,32 @@ _Enhancements_
 
 _Enhancements_
 
-- Added the following controls to the `All Controls` benchmark: ([#722](https://github.com/turbot/steampipe-mod-aws-compliance/pull/722))
+- Added the following controls to the `All Controls` benchmark: ([#722](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/722))
   - `athena_workgroup_enforce_configuration_enabled`
   - `iam_inline_policy_no_administrative_privileges`
 
 _Bug fixes_
 
-- Fixed README to include correct reference to the `All Controls` benchmark. ([#721](https://github.com/turbot/steampipe-mod-aws-compliance/pull/721)) (Thanks [@vil02](https://github.com/vil02) for the contribution!)
-- Fixed typos in several compliance control descriptions. ([#719](https://github.com/turbot/steampipe-mod-aws-compliance/pull/719)) (Thanks [@pdecat](https://github.com/pdecat) for the contribution!)
+- Fixed README to include correct reference to the `All Controls` benchmark. ([#721](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/721)) (Thanks [@vil02](https://github.com/vil02) for the contribution!)
+- Fixed typos in several compliance control descriptions. ([#719](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/719)) (Thanks [@pdecat](https://github.com/pdecat) for the contribution!)
 
 ## v0.80 [2023-09-15]
 
 _Bug fixes_
 
-- Added the missing `resource` column in the queries of `glue_data_catalog_encryption_settings_metadata_encryption_enabled` and `glue_data_catalog_encryption_settings_password_encryption_enabled` controls. ([#715](https://github.com/turbot/steampipe-mod-aws-compliance/pull/715))
+- Added the missing `resource` column in the queries of `glue_data_catalog_encryption_settings_metadata_encryption_enabled` and `glue_data_catalog_encryption_settings_password_encryption_enabled` controls. ([#715](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/715))
 
 ## v0.79 [2023-09-07]
 
 _Breaking changes_
 
-- The `Other Compliance Checks` benchmark (`steampipe check benchmark.other_checks`) has been removed and replaced by the new `All Controls` benchmark (`steampipe check benchmark.all_controls`). This new benchmark includes 353 service-specific controls. ([#710](https://github.com/turbot/steampipe-mod-aws-compliance/pull/710))
+- The `Other Compliance Checks` benchmark (`powerpipe check benchmark.other_checks`) has been removed and replaced by the new `All Controls` benchmark (`powerpipe check benchmark.all_controls`). This new benchmark includes 353 service-specific controls. ([#710](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/710))
 
 ## v0.78 [2023-08-08]
 
 _Breaking changes_
 
-- The `CIS Controls v8 IG1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/CIS-controls-v8.html). The following updates have been made to the benchmark: ([#706](https://github.com/turbot/steampipe-mod-aws-compliance/pull/706))
+- The `CIS Controls v8 IG1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/CIS-controls-v8.html). The following updates have been made to the benchmark: ([#706](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/706))
   - The following sub-benchmarks have been removed from the `cis_controls_v8_ig1` benchmark:
     - `cis_controls_v8_ig1_13`
     - `cis_controls_v8_ig1_16`
@@ -102,7 +102,7 @@ _Breaking changes_
 
 _Enhancements_
 
-- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#704](https://github.com/turbot/steampipe-mod-aws-compliance/pull/704))
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#704](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/704))
   - The following sub-benchmarks have been added to the `foundational_security` benchmark:
     - `foundational_security_athena`
     - `foundational_security_docdb`
@@ -110,7 +110,7 @@ _Enhancements_
   - The following controls have been added to the benchmarks:
     - `foundational_security_rds_27`
 
-- The `AWS Audit Manager Control Tower Guardrails` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html). The following updates have been made to the benchmark: ([#705](https://github.com/turbot/steampipe-mod-aws-compliance/pull/705))
+- The `AWS Audit Manager Control Tower Guardrails` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html). The following updates have been made to the benchmark: ([#705](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/705))
   - The following controls have been added to the benchmarks:
     - `ebs_volume_unused`
     - `rds_db_instance_encryption_at_rest_enabled`
@@ -122,7 +122,7 @@ _Enhancements_
 
 _Enhancements_
 
-- Added the following controls to `Other Compliance Checks` benchmark: ([#697](https://github.com/turbot/steampipe-mod-aws-compliance/pull/697))
+- Added the following controls to `Other Compliance Checks` benchmark: ([#697](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/697))
   - `appstream_fleet_default_internet_access_disabled`
   - `appstream_fleet_idle_disconnect_timeout_600_seconds`
   - `appstream_fleet_max_user_duration_36000_seconds`
@@ -133,16 +133,16 @@ _Enhancements_
   - `directory_service_directory_sns_notifications_enabled`
   - `kms_cmk_unused`
 
-- Updated the `lambda_function_use_latest_runtime` and `foundational_security_lambda_2` controls to use latest runtimes for each language. ([#696](https://github.com/turbot/steampipe-mod-aws-compliance/pull/696)) (Thanks to [@papaharry](https://github.com/papaharry) for the contribution!)
+- Updated the `lambda_function_use_latest_runtime` and `foundational_security_lambda_2` controls to use latest runtimes for each language. ([#696](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/696)) (Thanks to [@papaharry](https://github.com/papaharry) for the contribution!)
 
 ## v0.76 [2023-07-11]
 
 _Enhancements_
 
-- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#684](https://github.com/turbot/steampipe-mod-aws-compliance/pull/684))
+- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#684](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/684))
   - The following controls have been added to the benchmarks:
     - `elb_application_network_lb_use_ssl_certificate`
-- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#690](https://github.com/turbot/steampipe-mod-aws-compliance/pull/690))
+- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#690](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/690))
   - The following controls have been added to the benchmarks:
     - `rds_db_instance_iam_authentication_enabled`
   - The following controls are no longer included in the benchmarks:
@@ -152,17 +152,17 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed the formatting in CIS v2.0.0 benchmark documents which would cause several control pages to not render correctly on the hub. ([#687](https://github.com/turbot/steampipe-mod-aws-compliance/pull/687))
+- Fixed the formatting in CIS v2.0.0 benchmark documents which would cause several control pages to not render correctly on the hub. ([#687](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/687))
 
 ## v0.74 [2023-07-06]
 
 _What's new?_
 
-- Added CIS v2.0.0 benchmark (`steampipe check benchmark.cis_v200`). ([#683](https://github.com/turbot/steampipe-mod-aws-compliance/pull/683))
+- Added CIS v2.0.0 benchmark (`powerpipe check benchmark.cis_v200`). ([#683](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/683))
 
 _Enhancements_
 
-- Added the following controls to `Other Compliance Checks` benchmark: ([#678](https://github.com/turbot/steampipe-mod-aws-compliance/pull/678))
+- Added the following controls to `Other Compliance Checks` benchmark: ([#678](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/678))
   - `autoscaling_ec2_launch_configuration_no_sensitive_data`
   - `eks_cluster_endpoint_public_access_restircted`
   - `guardduty_centrally_configured`
@@ -181,7 +181,7 @@ _Enhancements_
 
 _Enhancements_
 
-- Added the following controls to `Other Compliance Checks` benchmark: ([#675](https://github.com/turbot/steampipe-mod-aws-compliance/pull/675))
+- Added the following controls to `Other Compliance Checks` benchmark: ([#675](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/675))
   - `cloudtrail_trail_bucket_mfa_enabled`
   - `efs_file_system_restrict_public_access`
   - `glacier_vault_restrict_public_access`
@@ -197,13 +197,13 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed the `iam_role_unused_60` query to use the correct resource and common dimensions. ([#672](https://github.com/turbot/steampipe-mod-aws-compliance/pull/672))
+- Fixed the `iam_role_unused_60` query to use the correct resource and common dimensions. ([#672](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/672))
 
 ## v0.71 [2023-06-21]
 
 _Breaking changes_
 
-- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#669](https://github.com/turbot/steampipe-mod-aws-compliance/pull/669))
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#669](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/669))
   - The following controls are no longer included in the benchmarks:
     - `foundational_security_ec2_27`
     - `foundational_security_lambda_4`
@@ -212,18 +212,18 @@ _Breaking changes_
 
 _Enhancements_
 
-- Added the following control to `Other Compliance Checks` benchmark: ([#663](https://github.com/turbot/steampipe-mod-aws-compliance/pull/663))
+- Added the following control to `Other Compliance Checks` benchmark: ([#663](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/663))
   - `iam_role_unused_60`
 
 _Bug fixes_
 
-- Fixed the filter pattern in `log_metric_filter_organization` query to correctly match the log event. ([#664](https://github.com/turbot/steampipe-mod-aws-compliance/pull/664))
+- Fixed the filter pattern in `log_metric_filter_organization` query to correctly match the log event. ([#664](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/664))
 
 ## v0.69 [2023-06-15]
 
 _Enhancements_
 
-- Added the following controls to `Other Compliance Checks` benchmark: ([#641](https://github.com/turbot/steampipe-mod-aws-compliance/pull/641)) ([#645](https://github.com/turbot/steampipe-mod-aws-compliance/pull/645))
+- Added the following controls to `Other Compliance Checks` benchmark: ([#641](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/641)) ([#645](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/645))
   - `api_gatewayv2_route_authorizer_configured`
   - `apigateway_rest_api_endpoint_restrict_public_access`
   - `backup_plan_region_configured`
@@ -240,28 +240,28 @@ _Enhancements_
   - `vpc_security_group_allows_ingress_to_memcached_port`
   - `vpc_security_group_allows_ingress_to_mongodb_ports`
   - `vpc_security_group_allows_ingress_to_oracle_ports`
-- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#654](https://github.com/turbot/steampipe-mod-aws-compliance/pull/654))
+- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#654](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/654))
   - The following controls are no longer included in the benchmarks:
     - `kms_key_decryption_restricted_in_iam_customer_managed_policy`
     - `kms_key_decryption_restricted_in_iam_inline_policy`
 
 _Bug fixes_
 
-- Fixed the `rds_db_instance_logging_enabled` query to filter out `docdb` instances. ([#660](https://github.com/turbot/steampipe-mod-aws-compliance/pull/660))
+- Fixed the `rds_db_instance_logging_enabled` query to filter out `docdb` instances. ([#660](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/660))
 
 ## v0.68 [2023-06-07]
 
 _Bug fixes_
 
-- Fixed the `wafv2_web_acl_rule_attached` query to correctly evaluate the number of rule(s) attached to multiple web ACLs instead of returning an error. ([#655](https://github.com/turbot/steampipe-mod-aws-compliance/pull/655))
-- Fixed the `iam_policy_all_attached_no_star_star` query to skip AWS managed policies. ([#643](https://github.com/turbot/steampipe-mod-aws-compliance/pull/643))
-- Fixed the `foundational_security_cloudtrail_1` control to refer the correct document. ([#650](https://github.com/turbot/steampipe-mod-aws-compliance/pull/650)) (Thanks [@ajoga](https://github.com/ajoga) for the contribution!!)
+- Fixed the `wafv2_web_acl_rule_attached` query to correctly evaluate the number of rule(s) attached to multiple web ACLs instead of returning an error. ([#655](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/655))
+- Fixed the `iam_policy_all_attached_no_star_star` query to skip AWS managed policies. ([#643](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/643))
+- Fixed the `foundational_security_cloudtrail_1` control to refer the correct document. ([#650](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/650)) (Thanks [@ajoga](https://github.com/ajoga) for the contribution!!)
 
 ## v0.67 [2023-06-01]
 
 _Breaking changes_
 
-- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/steampipe-mod-aws-compliance/pull/636))
+- The `NIST SP 800-171 (Rev. 2)` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-800-171-r2-1.1.html). The following updates have been made to the benchmark: ([#636](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/636))
   - The following benchmarks have been added:
     - `nist_800_171_rev_2_2`
     -  Added the following sub-benchmarks to `nist_800_171_rev_2_3_4` benchmark:
@@ -300,7 +300,7 @@ _Breaking changes_
 
 _Enhancements_
 
-- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#635](https://github.com/turbot/steampipe-mod-aws-compliance/pull/635))
+- The `HIPAA Security Rule 2003` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html). The following updates have been made to the benchmark: ([#635](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/635))
   - The following controls have been added to the benchmarks:
     - `iam_policy_custom_no_blocked_kms_actions`
     - `iam_policy_inline_no_blocked_kms_actions`
@@ -308,11 +308,11 @@ _Enhancements_
     - `vpc_endpoint_service_acceptance_required_enabled` replaced by `vpc_configured_to_use_vpc_endpoints`
     - `vpc_security_group_restricted_common_ports` replaced by `vpc_security_group_restrict_ingress_common_ports_all`
     - `vpc_security_group_allows_ingress_authorized_ports` replaced by `vpc_igw_attached_to_authorized_vpc`
-- The `HIPAA Final Omnibus Security Rule 2013` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html). The following updates have been made to the benchmark: ([#632](https://github.com/turbot/steampipe-mod-aws-compliance/pull/632))
+- The `HIPAA Final Omnibus Security Rule 2013` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html). The following updates have been made to the benchmark: ([#632](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/632))
   - Added `ssm_document_prohibit_public_access` control to the benchmarks
   - The following controls are no longer included in the benchmarks:
     - `vpc_endpoint_service_acceptance_required_enabled`
-- The `GxP 21 CFR Part 11` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html). The following updates have been made to the benchmark: ([#638](https://github.com/turbot/steampipe-mod-aws-compliance/pull/638))
+- The `GxP 21 CFR Part 11` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html). The following updates have been made to the benchmark: ([#638](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/638))
   - The following controls have been added to the benchmarks:
     - `ebs_volume_unused`
     - `ssm_document_prohibit_public_access`
@@ -324,13 +324,13 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed the typo in the query name to use `vpc_security_group_unused` instead of `vpc_security_group_unsued`. ([#640](https://github.com/turbot/steampipe-mod-aws-compliance/pull/640))
+- Fixed the typo in the query name to use `vpc_security_group_unused` instead of `vpc_security_group_unsued`. ([#640](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/640))
 
 ## v0.66 [2023-05-25]
 
 _Enhancements_
 
-- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html). The following updates have been made to the benchmark: ([#631](https://github.com/turbot/steampipe-mod-aws-compliance/pull/631))
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html). The following updates have been made to the benchmark: ([#631](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/631))
   - The following controls have been added to the benchmarks:
     - `cloudwatch_alarm_action_enabled_check`
     - `ssm_document_prohibit_public_access`
@@ -340,7 +340,7 @@ _Enhancements_
 
 _Enhancements_
 
-- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/steampipe-mod-aws-compliance/pull/626))
+- The `PCI DSS v3.2.1` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#626](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/626))
   - The following controls have been added to the benchmarks:
     - `log_metric_filter_root_login`
     - `vpc_configured_to_use_vpc_endpoints`
@@ -355,7 +355,7 @@ _Enhancements_
     - `kms_key_decryption_restricted_in_iam_customer_managed_policy`
     - `kms_key_decryption_restricted_in_iam_inline_policy`
     - `vpc_endpoint_service_acceptance_required_enabled`
-- The `S0C 2` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/steampipe-mod-aws-compliance/pull/628))
+- The `S0C 2` benchmark has been updated to better align with the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html). The following updates have been made to the benchmark: ([#628](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/628))
   - The following controls have been added to the benchmarks:
     - `waf_web_acl_logging_enabled`
     - `cloudwatch_alarm_action_enabled_check`
@@ -367,13 +367,13 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed dashboard localhost URLs in README and index doc. ([#627](https://github.com/turbot/steampipe-mod-aws-compliance/pull/627))
+- Fixed dashboard localhost URLs in README and index doc. ([#627](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/627))
 
 ## v0.64 [2023-05-05]
 
 _What's new?_
 
-- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#614](https://github.com/turbot/steampipe-mod-aws-compliance/pull/614))
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#614](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/614))
   - EC2.20
   - EKS.1
   - ElastiCache.1
@@ -407,7 +407,7 @@ _What's new?_
 
 _Breaking changes_
 
-- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the official [NIST document](https://www.nist.gov/cyberframework) and the matching [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/steampipe-mod-aws-compliance/pull/604))
+- The `NIST Cybersecurity Framework (CSF) v1.1` benchmark has been updated to better align with the official [NIST document](https://www.nist.gov/cyberframework) and the matching [AWS Audit Manager NIST Cybersecurity Framework (CSF) v1.1](https://docs.aws.amazon.com/audit-manager/latest/userguide/NIST-Cybersecurity-Framework-v1-1.html) framework. The following updates have been made: ([#604](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/604))
   - 100+ new controls have been added
   - The following controls are no longer included in the benchmarks:
     - `ebs_attached_volume_delete_on_termination_enabled`
@@ -417,14 +417,14 @@ _Breaking changes_
 
 _Bug fixes_
 
-- Fixed the `lambda_function_in_vpc` and the `lambda_function_multiple_az_configured` queries to correctly check if a function is present in a VPC or not. ([#610](https://github.com/turbot/steampipe-mod-aws-compliance/pull/610))
+- Fixed the `lambda_function_in_vpc` and the `lambda_function_multiple_az_configured` queries to correctly check if a function is present in a VPC or not. ([#610](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/610))
 
 ## v0.62 [2023-04-13]
 
 _Breaking changes_
 
-- The HIPAA benchmark has been updated to better align with official [HIPAA document](https://www.hhs.gov/hipaa/index.html) and the matching [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Final Omnibus Security Rule 2013](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html) and [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Security Rule 2003](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html) frameworks. The following updates have been made to the benchmark: ([#605](https://github.com/turbot/steampipe-mod-aws-compliance/pull/605))
-  - The `hipaa` benchmark has been removed and replaced by two new benchmarks - `hipaa_final_omnibus_security_rule_2013` (`steampipe check benchmark.hipaa_final_omnibus_security_rule_2013`) and `hipaa_security_rule_2003` (`steampipe check benchmark.hipaa_security_rule_2003`).
+- The HIPAA benchmark has been updated to better align with official [HIPAA document](https://www.hhs.gov/hipaa/index.html) and the matching [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Final Omnibus Security Rule 2013](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA-omnibus-rule.html) and [AWS Audit Manager Health Insurance Portability and Accountability Act (HIPAA) Security Rule 2003](https://docs.aws.amazon.com/audit-manager/latest/userguide/HIPAA.html) frameworks. The following updates have been made to the benchmark: ([#605](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/605))
+  - The `hipaa` benchmark has been removed and replaced by two new benchmarks - `hipaa_final_omnibus_security_rule_2013` (`powerpipe check benchmark.hipaa_final_omnibus_security_rule_2013`) and `hipaa_security_rule_2003` (`powerpipe check benchmark.hipaa_security_rule_2003`).
   - 30+ new unique controls have been added across the two new benchmarks
   - The following controls are no longer included in the benchmarks:
     - `ebs_volume_encryption_at_rest_enabled`
@@ -437,13 +437,13 @@ _Breaking changes_
     - `iam_password_policy_expire_90`
     - `log_metric_filter_console_login_mfa`
     - `s3_public_access_block_bucket_account`
-  - All documentation has been updated on the [Hub](https://hub.steampipe.io/mods/turbot/aws_compliance/controls) to better match official [HIPAA Final Omnibus Security Rule 2013](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_final_omnibus_security_rule_2013) and [HIPAA Security Rule 2003](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_security_rule_2003) documentations.
+  - All documentation has been updated on the [Hub](https://hub.powerpipe.io/mods/turbot/aws_compliance/controls) to better match official [HIPAA Final Omnibus Security Rule 2013](https://hub.powerpipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_final_omnibus_security_rule_2013) and [HIPAA Security Rule 2003](https://hub.powerpipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_security_rule_2003) documentations.
 
 ## v0.61 [2023-04-07]
 
 _Breaking changes_
 
-- The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to better align with [AWS Audit Manager GxP 21 CFR Part 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html) and [AWS Audit Manager GxP EU Annex 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP-EU-Annex-11.html) frameworks. The following updates have been made: ([#600](https://github.com/turbot/steampipe-mod-aws-compliance/pull/600))
+- The `GxP 21 CFR Part 11` and `GxP EU Annex 11` benchmarks have been updated to better align with [AWS Audit Manager GxP 21 CFR Part 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP.html) and [AWS Audit Manager GxP EU Annex 11](https://docs.aws.amazon.com/audit-manager/latest/userguide/GxP-EU-Annex-11.html) frameworks. The following updates have been made: ([#600](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/600))
   - New benchmarks added:
     - `gxp_21_cfr_part_11_11_200_a`
     - `gxp_eu_annex_11_project_phase_4`
@@ -460,26 +460,26 @@ _Breaking changes_
 
 _Breaking changes_
 
-- The PCI DSS v3.2.1 benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
-  - The `pci_v321` benchmark has been removed and replaced by the `pci_dss_v321` benchmark (`steampipe check benchmark.pci_dss_v321`)
-  - The benchmark is now organized by **Requirements** instead of AWS services and all children benchmarks now start with `pci_dss_v321_` instead of `pci_v321`, e.g., `steampipe check benchmark.pci_dss_v321_requirement_2`
+- The PCI DSS v3.2.1 benchmark has been updated to better align with official [PCI DSS v3.2.1 document](https://www.pcisecuritystandards.org/document_library/?category=pcidss&document=pci_dss) and the matching [AWS Audit Manager framework](https://docs.aws.amazon.com/audit-manager/latest/userguide/PCI.html). The following updates have been made to the benchmark: ([#570](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/570))
+  - The `pci_v321` benchmark has been removed and replaced by the `pci_dss_v321` benchmark (`powerpipe check benchmark.pci_dss_v321`)
+  - The benchmark is now organized by **Requirements** instead of AWS services and all children benchmarks now start with `pci_dss_v321_` instead of `pci_v321`, e.g., `powerpipe check benchmark.pci_dss_v321_requirement_2`
   - 100+ new controls have been added
   - The following controls are no longer included in the benchmark:
     - `control.iam_root_user_virtual_mfa`
     - `kms_cmk_rotation_enabled`
     - `opensearch_domain_in_vpc`
     - `vpc_security_group_associated`
-  - All documentation has been updated on the [Hub](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_dss_v321) to better match official PCI documentation.
+  - All documentation has been updated on the [Hub](https://hub.powerpipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_dss_v321) to better match official PCI documentation.
 
 _Dependencies_
 
-- AWS plugin `v0.97.0` or higher is now required. ([#570](https://github.com/turbot/steampipe-mod-aws-compliance/pull/570))
+- AWS plugin `v0.97.0` or higher is now required. ([#570](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/570))
 
 ## v0.59 [2023-03-24]
 
 _Breaking changes_
 
-- Fixed the names of the following benchmarks to align with the AWS Audit Manager framework: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
+- Fixed the names of the following benchmarks to align with the AWS Audit Manager framework: ([#581](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/581))
   - `soc_2_cc_a_1` to `soc_2_a_1`
   - `soc_2_cc_a_1_1` to `soc_2_a_1_1`
   - `soc_2_cc_a_1_2` to `soc_2_a_1_2`
@@ -491,9 +491,9 @@ _Breaking changes_
 
 _What's new?_
 
-- New benchmark added: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
-  - `soc_2_c_1` (`steampipe check benchmark.soc_2_c_1`)
-- More than 200 controls were added to the following `SOC 2` sub-benchmarks: ([#581](https://github.com/turbot/steampipe-mod-aws-compliance/pull/581))
+- New benchmark added: ([#581](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/581))
+  - `soc_2_c_1` (`powerpipe check benchmark.soc_2_c_1`)
+- More than 200 controls were added to the following `SOC 2` sub-benchmarks: ([#581](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/581))
   - `a_1_2`
   - `soc2_c_1_1`
   - `soc2_c_1_2`
@@ -516,49 +516,49 @@ _What's new?_
 
 _What's new?_
 
-- New AWS Foundational Security Best Practices control added: ([#586](https://github.com/turbot/steampipe-mod-aws-compliance/pull/586))
-  - EC2.25 (`steampipe check control.foundational_security_ec2_25`)
-- Added `tags` as dimensions to group and filter findings. (see [var.tag_dimensions](https://hub.steampipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/steampipe-mod-aws-compliance/pull/574))
-- Added `connection_name` in the common dimensions to group and filter findings. (see [var.common_dimensions](https://hub.steampipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/steampipe-mod-aws-compliance/pull/574))
+- New AWS Foundational Security Best Practices control added: ([#586](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/586))
+  - EC2.25 (`powerpipe check control.foundational_security_ec2_25`)
+- Added `tags` as dimensions to group and filter findings. (see [var.tag_dimensions](https://hub.powerpipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/574))
+- Added `connection_name` in the common dimensions to group and filter findings. (see [var.common_dimensions](https://hub.powerpipe.io/mods/turbot/aws_compliance/variables)) ([#574](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/574))
 
 _Bug fixes_
 
-- Fixed the sub-benchmark titles of `CIS Controls v8 IG1` benchmark to maintain consistency across other CIS benchmark titles. ([#589](https://github.com/turbot/steampipe-mod-aws-compliance/pull/589))
+- Fixed the sub-benchmark titles of `CIS Controls v8 IG1` benchmark to maintain consistency across other CIS benchmark titles. ([#589](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/589))
 
 ## v0.57 [2023-03-10]
 
 _Dependencies_
 
-- AWS plugin `v0.95.0` or higher is now required. ([#579](https://github.com/turbot/steampipe-mod-aws-compliance/pull/579))
+- AWS plugin `v0.95.0` or higher is now required. ([#579](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/579))
 
 _What's new?_
 
-- Added CIS Controls v8 IG1 benchmark (`steampipe check benchmark.cis_controls_v8_ig1`). ([#568](https://github.com/turbot/steampipe-mod-aws-compliance/pull/568))
-- Add 30 new controls to Other Compliance Checks benchmark. ([#563](https://github.com/turbot/steampipe-mod-aws-compliance/pull/563))
+- Added CIS Controls v8 IG1 benchmark (`powerpipe check benchmark.cis_controls_v8_ig1`). ([#568](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/568))
+- Add 30 new controls to Other Compliance Checks benchmark. ([#563](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/563))
 
 _Bug fixes_
 
-- Fixed the `cloudtrail_multi_region_trail_enabled` query to correctly evaluate organizational trails. ([#552](https://github.com/turbot/steampipe-mod-aws-compliance/pull/552))
-- Fixed `s3_bucket_restrict_*` queries to correctly check if buckets prohibit public read access or not. ([#548](https://github.com/turbot/steampipe-mod-aws-compliance/pull/548))
-- Fixed `s3_bucket_acls_should_prohibit_user_access` query to correctly evaluate a bucket to be in `ok` state if it does not have ACLs for user access. ([#549](https://github.com/turbot/steampipe-mod-aws-compliance/pull/549))
+- Fixed the `cloudtrail_multi_region_trail_enabled` query to correctly evaluate organizational trails. ([#552](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/552))
+- Fixed `s3_bucket_restrict_*` queries to correctly check if buckets prohibit public read access or not. ([#548](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/548))
+- Fixed `s3_bucket_acls_should_prohibit_user_access` query to correctly evaluate a bucket to be in `ok` state if it does not have ACLs for user access. ([#549](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/549))
 
 ## v0.56 [2023-02-03]
 
 _Bug fixes_
 
-- Fixed the `guardduty_enabled` query to no longer report false positive results on accounts which are members of an AWS organization where GuardDuty is managed by another account via Delegated Admin. ([#551](https://github.com/turbot/steampipe-mod-aws-compliance/pull/551))
-- Fixed the `ec2_instance_ssm_managed` query to return `info` instead of an `error` for instances that are in stopped state and are not managed by SSM. ([#550](https://github.com/turbot/steampipe-mod-aws-compliance/pull/550))
+- Fixed the `guardduty_enabled` query to no longer report false positive results on accounts which are members of an AWS organization where GuardDuty is managed by another account via Delegated Admin. ([#551](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/551))
+- Fixed the `ec2_instance_ssm_managed` query to return `info` instead of an `error` for instances that are in stopped state and are not managed by SSM. ([#550](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/550))
 
 ## v0.55 [2023-01-20]
 
 _Dependencies_
 
-- AWS plugin `v0.92.0` or higher is now required. ([#545](https://github.com/turbot/steampipe-mod-aws-compliance/pull/545))
+- AWS plugin `v0.92.0` or higher is now required. ([#545](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/545))
 
 _What's new?_
 
-- Added CIS v1.2.0 benchmark (`steampipe check benchmark.cis_v120`). ([#535](https://github.com/turbot/steampipe-mod-aws-compliance/pull/535))
-- New AWS Foundational Security Best Practices control added: ([#542](https://github.com/turbot/steampipe-mod-aws-compliance/pull/542))
+- Added CIS v1.2.0 benchmark (`powerpipe check benchmark.cis_v120`). ([#535](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/535))
+- New AWS Foundational Security Best Practices control added: ([#542](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/542))
   - Account.1
   - APIGateway.8
   - APIGateway.9
@@ -572,21 +572,21 @@ _What's new?_
 
 _What's new?_
 
-- New AWS Foundational Security Best Practices control added: ([#529](https://github.com/turbot/steampipe-mod-aws-compliance/pull/529))
-  - AutoScaling.9 (`steampipe check control.foundational_security_autoscaling_9`)
+- New AWS Foundational Security Best Practices control added: ([#529](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/529))
+  - AutoScaling.9 (`powerpipe check control.foundational_security_autoscaling_9`)
 
 ## v0.53 [2022-11-17]
 
 _Bug fixes_
 
-- Fixed the `acm_certificate_expires_30_days` query to correctly alarm the ACM certificates which are set to expire within 30 days. ([#552](https://github.com/turbot/steampipe-mod-aws-compliance/pull/525))
-- Fixed typos in several compliance control descriptions to use `compliant` instead of `complaint`. ([#522](https://github.com/turbot/steampipe-mod-aws-compliance/pull/522)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
+- Fixed the `acm_certificate_expires_30_days` query to correctly alarm the ACM certificates which are set to expire within 30 days. ([#552](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/525))
+- Fixed typos in several compliance control descriptions to use `compliant` instead of `complaint`. ([#522](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/522)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
 
 ## v0.52 [2022-11-04]
 
 _Enhancements_
 
-- Updated `iam_user_in_group` and `vpc_default_security_group_restricts_all_traffic` queries to correctly handle empty column data. ([#520](https://github.com/turbot/steampipe-mod-aws-compliance/pull/520))
+- Updated `iam_user_in_group` and `vpc_default_security_group_restricts_all_traffic` queries to correctly handle empty column data. ([#520](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/520))
 
 _Dependencies_
 
@@ -596,13 +596,13 @@ _Dependencies_
 
 _Bug fixes_
 
-- Fixed `apigateway_rest_api_authorizers_configured`, `apigateway_stage_logging_enabled`, `cloudformation_stack_notifications_enabled`, `route53_zone_query_logging_enabled`, `secretsmanager_secret_encrypted_with_kms_cmk` and `vpc_igw_attached_to_authorized_vpc` queries to correctly handle columns when empty in their respective tables. ([#517](https://github.com/turbot/steampipe-mod-aws-compliance/pull/517))
+- Fixed `apigateway_rest_api_authorizers_configured`, `apigateway_stage_logging_enabled`, `cloudformation_stack_notifications_enabled`, `route53_zone_query_logging_enabled`, `secretsmanager_secret_encrypted_with_kms_cmk` and `vpc_igw_attached_to_authorized_vpc` queries to correctly handle columns when empty in their respective tables. ([#517](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/517))
 
 ## v0.50 [2022-10-21]
 
 _Enhancements_
 
-- Updated `cloudwatch_alarm_action_enabled` query to use updated column data in `aws_cloudwatch_alarm` table. ([#511](https://github.com/turbot/steampipe-mod-aws-compliance/pull/511))
+- Updated `cloudwatch_alarm_action_enabled` query to use updated column data in `aws_cloudwatch_alarm` table. ([#511](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/511))
 
 _Dependencies_
 
@@ -612,16 +612,16 @@ _Dependencies_
 
 _Bug fixes_
 
-- Fixed the `ecr_repository_prohibit_public_access` query to correctly check if the Cross-Account ECR repositories are public or not. ([#513](https://github.com/turbot/steampipe-mod-aws-compliance/pull/513))
-- Fixed the `ebs_attached_volume_encryption_enabled` query to validate all EBS volumes instead of ignoring the unattached volumes. ([#504](https://github.com/turbot/steampipe-mod-aws-compliance/pull/504))
+- Fixed the `ecr_repository_prohibit_public_access` query to correctly check if the Cross-Account ECR repositories are public or not. ([#513](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/513))
+- Fixed the `ebs_attached_volume_encryption_enabled` query to validate all EBS volumes instead of ignoring the unattached volumes. ([#504](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/504))
 - Fixed the `secretsmanager_secret_encrypted_with_kms_cmk` query to correctly alarm if the secret is not encrypted with CMK.
-- Fixed typos in various CIS docs and NIST 800-53 benchmark title. ([#508](https://github.com/turbot/steampipe-mod-aws-compliance/pull/508)) (Thanks [@akumar-99](https://github.com/akumar-99) for the contribution!)
+- Fixed typos in various CIS docs and NIST 800-53 benchmark title. ([#508](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/508)) (Thanks [@akumar-99](https://github.com/akumar-99) for the contribution!)
 
 ## v0.48 [2022-09-23]
 
 _What's new?_
 
-- Added queries with automated checks to the following CIS controls: ([#502](https://github.com/turbot/steampipe-mod-aws-compliance/pull/502))
+- Added queries with automated checks to the following CIS controls: ([#502](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/502))
   - `cis_v130_1_2`
   - `cis_v140_1_2`
   - `cis_v140_2_1_4`
@@ -636,7 +636,7 @@ _Dependencies_
 
 _What's new?_
 
-- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#489](https://github.com/turbot/steampipe-mod-aws-compliance/pull/489))
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#489](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/489))
   - S3.12
 
 _Bug fixes_
@@ -647,49 +647,49 @@ _Bug fixes_
 
 _What's new?_
 
-- Added CIS v1.5.0 benchmark (`steampipe check benchmark.cis_v150`). ([#496](https://github.com/turbot/steampipe-mod-aws-compliance/pull/496))
-- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#488](https://github.com/turbot/steampipe-mod-aws-compliance/pull/488))
+- Added CIS v1.5.0 benchmark (`powerpipe check benchmark.cis_v150`). ([#496](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/496))
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#488](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/488))
   - AutoScaling.6
 
 _Enhancements_
 
-- Updated `foundational_security_lambda_2` control to use latest runtimes for each language.  ([#497](https://github.com/turbot/steampipe-mod-aws-compliance/pull/497))
+- Updated `foundational_security_lambda_2` control to use latest runtimes for each language.  ([#497](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/497))
 
 _Bug fixes_
 
-- Fixed typo in `nist_800_53_rev_5_si_2_2` control title. ([#490](https://github.com/turbot/steampipe-mod-aws-compliance/pull/490)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
+- Fixed typo in `nist_800_53_rev_5_si_2_2` control title. ([#490](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/490)) (Thanks to [@akumar-99](https://github.com/akumar-99) for the contribution!)
 
 ## v0.45 [2022-08-17]
 
 _Breaking changes_
 
-- Removed the `cloudtrail_enabled_all_regions` control since it was no longer being used by any benchmark. ([#485](https://github.com/turbot/steampipe-mod-aws-compliance/pull/485))
+- Removed the `cloudtrail_enabled_all_regions` control since it was no longer being used by any benchmark. ([#485](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/485))
 
 ## v0.44 [2022-08-12]
 
 _Bug fixes_
 
-- Fixed the `cis_v130_3_1` and `cis_v140_3_1` controls to correctly use the `cloudtrail_multi_region_read_write_enabled` query instead of `cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
-- Fixed the `article_25` and `article_30` benchmarks to include the `cloudtrail_multi_region_trail_enabled` control instead of the `cloudtrail_enabled_all_regions` control. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
-- Fixed the `pci_v321_cloudtrail_2` control to correctly use the `cloudtrail_trail_enabled` query instead of the`cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/steampipe-mod-aws-compliance/pull/479))
+- Fixed the `cis_v130_3_1` and `cis_v140_3_1` controls to correctly use the `cloudtrail_multi_region_read_write_enabled` query instead of `cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/479))
+- Fixed the `article_25` and `article_30` benchmarks to include the `cloudtrail_multi_region_trail_enabled` control instead of the `cloudtrail_enabled_all_regions` control. ([#479](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/479))
+- Fixed the `pci_v321_cloudtrail_2` control to correctly use the `cloudtrail_trail_enabled` query instead of the`cloudtrail_enabled_all_regions` query. ([#479](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/479))
 
 ## v0.43 [2022-07-27]
 
 _What's new?_
 
-- Added GxP EU Annex 11 benchmark (`steampipe check benchmark.gxp_eu_annex_11`). ([#452](https://github.com/turbot/steampipe-mod-aws-compliance/pull/452))
+- Added GxP EU Annex 11 benchmark (`powerpipe check benchmark.gxp_eu_annex_11`). ([#452](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/452))
 
 ## v0.42 [2022-07-26]
 
 _Bug fixes_
 
-- Fixed the `foundational_security_ec2` benchmark to correctly include the `foundational_security_ec2_27` control. ([#474](https://github.com/turbot/steampipe-mod-aws-compliance/pull/474))
+- Fixed the `foundational_security_ec2` benchmark to correctly include the `foundational_security_ec2_27` control. ([#474](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/474))
 
 ## v0.41 [2022-07-21]
 
 _What's new?_
 
-- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#468](https://github.com/turbot/steampipe-mod-aws-compliance/pull/468))([#457](https://github.com/turbot/steampipe-mod-aws-compliance/pull/457))
+- Added the following new controls to the AWS Foundational Security Best Practices benchmark: ([#468](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/468))([#457](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/457))
   - AutoScaling.3
   - AutoScaling.4
   - CloudFormation.1
@@ -725,125 +725,125 @@ _What's new?_
 
 _Enhancements_
 
-- Updated the `kms_cmk_rotation_enabled` query to skip KMS keys which are either in `PendingDeletion` or `Disabled` state since we cannot set rotation for such keys. ([#466](https://github.com/turbot/steampipe-mod-aws-compliance/pull/466)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+- Updated the `kms_cmk_rotation_enabled` query to skip KMS keys which are either in `PendingDeletion` or `Disabled` state since we cannot set rotation for such keys. ([#466](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/466)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
 
 _Breaking changes_
 
-- Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/steampipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
+- Renamed the control and the query `dynamodb_table_encrypted_with_kms_cmk` to `dynamodb_table_encrypted_with_kms` to maintain consistency with AWS documentation. ([#467](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/467)) (Thanks to [@pdecat](https://github.com/pdecat) for the contribution!)
 
 _Dependencies_
 
-- AWS plugin `v0.71.0` or higher is now required. ([#470](https://github.com/turbot/steampipe-mod-aws-compliance/pull/470))
+- AWS plugin `v0.71.0` or higher is now required. ([#470](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/470))
 
 ## v0.40 [2022-07-15]
 
 _What's new?_
 
-- Added CISA Cyber Essentials benchmark (`steampipe check benchmark.cisa_cyber_essentials`). ([#454](https://github.com/turbot/steampipe-mod-aws-compliance/pull/454))
+- Added CISA Cyber Essentials benchmark (`powerpipe check benchmark.cisa_cyber_essentials`). ([#454](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/454))
 
 _Bug fixes_
 
-- Added the missing `resource` column in the `vpc_flow_logs_enabled` query so that all the controls using this query will get executed correctly instead of returning an error. ([#463](https://github.com/turbot/steampipe-mod-aws-compliance/pull/463)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+- Added the missing `resource` column in the `vpc_flow_logs_enabled` query so that all the controls using this query will get executed correctly instead of returning an error. ([#463](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/463)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
 
 ## v0.39 [2022-07-14]
 
 _What's new?_
 
-- Added NIST 800-171 Revision 2 benchmark (`steampipe check benchmark.nist_800_171_rev_2`). ([#453](https://github.com/turbot/steampipe-mod-aws-compliance/pull/453))
+- Added NIST 800-171 Revision 2 benchmark (`powerpipe check benchmark.nist_800_171_rev_2`). ([#453](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/453))
 
 _Enhancements_
 
-- Updated `guardduty_enabled`, `iam_access_analyzer_enabled` and `securityhub_enabled` queries to skip the regions which have been disabled. ([#451](https://github.com/turbot/steampipe-mod-aws-compliance/pull/451))
+- Updated `guardduty_enabled`, `iam_access_analyzer_enabled` and `securityhub_enabled` queries to skip the regions which have been disabled. ([#451](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/451))
 
 ## v0.38 [2022-07-07]
 
 _Dependencies_
 
-- AWS plugin `v0.68.0` or higher is now required ([#446](https://github.com/turbot/steampipe-mod-aws-compliance/pull/446))
+- AWS plugin `v0.68.0` or higher is now required ([#446](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/446))
 
 _What's new?_
 
-- Added GxP 21 CFR Part 11 benchmark (`steampipe check benchmark.gxp_21_cfr_part_11`). ([#436](https://github.com/turbot/steampipe-mod-aws-compliance/pull/436))
-- Added Other Compliance Checks benchmark (`steampipe check benchmark.other`). ([#431](https://github.com/turbot/steampipe-mod-aws-compliance/pull/431))
+- Added GxP 21 CFR Part 11 benchmark (`powerpipe check benchmark.gxp_21_cfr_part_11`). ([#436](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/436))
+- Added Other Compliance Checks benchmark (`powerpipe check benchmark.other`). ([#431](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/431))
 
 _Enhancements_
 
-- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled. ([#437](https://github.com/turbot/steampipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
+- Updated the `config_enabled_all_regions` query to skip the regions which have been disabled. ([#437](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/437)) (Thanks to [@yorinasub17](https://github.com/yorinasub17) for the contribution!)
 
 _Bug fixes_
 
-- Fixed the `vpc_flow_logs_enabled` query to skip VPCs which are shared with the owner account, since flow logs cannot be enabled for shared VPCs. ([#444](https://github.com/turbot/steampipe-mod-aws-compliance/pull/444))
+- Fixed the `vpc_flow_logs_enabled` query to skip VPCs which are shared with the owner account, since flow logs cannot be enabled for shared VPCs. ([#444](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/444))
 
 ## v0.37 [2022-06-29]
 
 _What's new?_
 
-- Added Federal Financial Institutions Examination Council (FFIEC) benchmark (`steampipe check benchmark.ffiec`). ([#420](https://github.com/turbot/steampipe-mod-aws-compliance/pull/420))
+- Added Federal Financial Institutions Examination Council (FFIEC) benchmark (`powerpipe check benchmark.ffiec`). ([#420](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/420))
 
 ## v0.36 [2022-06-27]
 
 _Bug fixes_
 
-- Fixed the `backup_plan_min_retention_35_days` query to check if the backup plan retention period is more than `35` days instead of `37` days. ([#424](https://github.com/turbot/steampipe-mod-aws-compliance/pull/424))
-- Fixed the `lambda_function_restrict_public_access` query to correctly evaluate if a lambda function is restricting public access or not. ([#422](https://github.com/turbot/steampipe-mod-aws-compliance/pull/422))
+- Fixed the `backup_plan_min_retention_35_days` query to check if the backup plan retention period is more than `35` days instead of `37` days. ([#424](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/424))
+- Fixed the `lambda_function_restrict_public_access` query to correctly evaluate if a lambda function is restricting public access or not. ([#422](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/422))
 
 ## v0.35 [2022-06-14]
 
 _Enhancements_
 
-- Updated the `NIST 800-53` link in the docs/index.md file to reference the latest `NIST 800-53 Revision 5` document. ([#407](https://github.com/turbot/steampipe-mod-aws-compliance/pull/407))
+- Updated the `NIST 800-53` link in the docs/index.md file to reference the latest `NIST 800-53 Revision 5` document. ([#407](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/407))
 
 _Bug fixes_
 
-- Fixed the typo in the query name to use `ebs_volume_unused` instead of `ebs_volume_unsued`. ([#412](https://github.com/turbot/steampipe-mod-aws-compliance/pull/412))
-- Fixed the typo `Prinipal` in `lambda_function_restrict_public_access` query. ([#413](https://github.com/turbot/steampipe-mod-aws-compliance/pull/413))
+- Fixed the typo in the query name to use `ebs_volume_unused` instead of `ebs_volume_unsued`. ([#412](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/412))
+- Fixed the typo `Prinipal` in `lambda_function_restrict_public_access` query. ([#413](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/413))
 
 ## v0.34 [2022-06-02]
 
 _What's new?_
 
-- Added NIST 800-53 Revision 5 benchmark (`steampipe check benchmark.nist_800_53_rev_5`). ([#399](https://github.com/turbot/steampipe-mod-aws-compliance/pull/399))
+- Added NIST 800-53 Revision 5 benchmark (`powerpipe check benchmark.nist_800_53_rev_5`). ([#399](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/399))
 
 _Bug fixes_
 
-- Fixed the `rds_db_instance_deletion_protection_enabled` query to skip Amazon RDS Aurora, DocumentDB and Neptune DB instances, since deletion protection can only be enabled at the cluster level for such instances. ([#401](https://github.com/turbot/steampipe-mod-aws-compliance/pull/401))
-- Fixed the `foundational_security_s3_9` control to correctly reference `s3_bucket_logging_enabled` query instead of `s3_bucket_public_access_blocked` query. ([#403](https://github.com/turbot/steampipe-mod-aws-compliance/pull/403))
+- Fixed the `rds_db_instance_deletion_protection_enabled` query to skip Amazon RDS Aurora, DocumentDB and Neptune DB instances, since deletion protection can only be enabled at the cluster level for such instances. ([#401](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/401))
+- Fixed the `foundational_security_s3_9` control to correctly reference `s3_bucket_logging_enabled` query instead of `s3_bucket_public_access_blocked` query. ([#403](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/403))
 
 ## v0.33 [2022-05-18]
 
 _What's new?_
 
-- Added FedRAMP Low Revision 4 benchmark (`steampipe check benchmark.fedramp_low_rev_4`).
-- Added FedRAMP Moderate Revision 4 benchmark (`steampipe check benchmark.fedramp_moderate_rev_4`).
+- Added FedRAMP Low Revision 4 benchmark (`powerpipe check benchmark.fedramp_low_rev_4`).
+- Added FedRAMP Moderate Revision 4 benchmark (`powerpipe check benchmark.fedramp_moderate_rev_4`).
 
 _Bug fixes_
 
-- Fixed `lambda_function_multiple_az_configured` query to correctly check if Lambda functions have more than one availability zone. ([#392](https://github.com/turbot/steampipe-mod-aws-compliance/pull/392))
-- Fixed `lambda_function_use_latest_runtime` query to correctly return `skip` instead of `alarm` if the deployment package type is `zip`. ([#392](https://github.com/turbot/steampipe-mod-aws-compliance/pull/392))
+- Fixed `lambda_function_multiple_az_configured` query to correctly check if Lambda functions have more than one availability zone. ([#392](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/392))
+- Fixed `lambda_function_use_latest_runtime` query to correctly return `skip` instead of `alarm` if the deployment package type is `zip`. ([#392](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/392))
 
 ## v0.32 [2022-05-11]
 
 _Dependencies_
 
-- AWS plugin `v0.59.0` or higher is now required. ([#390](https://github.com/turbot/steampipe-mod-aws-compliance/pull/390))
+- AWS plugin `v0.59.0` or higher is now required. ([#390](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/390))
 
 _What's new?_
 
-- New PCI v3.2.1 benchmark added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
-  - OpenSearch (`steampipe check benchmark.pci_v321_opensearch`)
-- New PCI v3.2.1 controls added: ([#385](https://github.com/turbot/steampipe-mod-aws-compliance/pull/385))
-  - OpenSearch.1 (`steampipe check control.pci_v321_opensearch_1`)
-  - OpenSearch.2 (`steampipe check control.pci_v321_opensearch_2`)
+- New PCI v3.2.1 benchmark added: ([#385](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/385))
+  - OpenSearch (`powerpipe check benchmark.pci_v321_opensearch`)
+- New PCI v3.2.1 controls added: ([#385](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/385))
+  - OpenSearch.1 (`powerpipe check control.pci_v321_opensearch_1`)
+  - OpenSearch.2 (`powerpipe check control.pci_v321_opensearch_2`)
 
 ## v0.31 [2022-05-09]
 
 _Enhancements_
 
-- Updated docs/index.md and README with new dashboard screenshots and latest format. ([#379](https://github.com/turbot/steampipe-mod-aws-compliance/pull/379))
+- Updated docs/index.md and README with new dashboard screenshots and latest format. ([#379](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/379))
 
 _Bug fixes_
 
-- Fixed incorrect doc link for `pci_v321_s3_5` control. ([#381](https://github.com/turbot/steampipe-mod-aws-compliance/pull/381))
+- Fixed incorrect doc link for `pci_v321_s3_5` control. ([#381](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/381))
 
 ## v0.30 [2022-05-03]
 
@@ -857,7 +857,7 @@ _Bug fixes_
 
 _Enhancements_
 
-- Added `category`, `service`, and `type` tags to benchmarks and controls. ([#375](https://github.com/turbot/steampipe-mod-aws-compliance/pull/375))
+- Added `category`, `service`, and `type` tags to benchmarks and controls. ([#375](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/375))
 - Improved reason in `iam_root_user_hardware_mfa_enabled` query when a virtual MFA device is enabled.
 
 _Bug fixes_
@@ -868,14 +868,14 @@ _Bug fixes_
 
 _Enhancements_
 
-- Renamed several IAM policy and account password policy query names to be more consistent with other query names. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+- Renamed several IAM policy and account password policy query names to be more consistent with other query names. ([#367](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/367))
 
 _Bug fixes_
 
-- The `cis_v130_1_16` and `cis_v140_1_16` controls now only show results for attached IAM policies. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
-- The `iam_all_policy_no_service_wild_card` control now only checks customer managed IAM policies for full service access statements. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
-- Fixed `iam_all_policy_no_service_wild_card` and `foundational_security_iam_21` controls not alarming if any policy statements grant `*:*`, as these statements also grant full access to at least 1 AWS service. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
-- Removed `iam_all_policy_no_service_wild_card.sql` and `iam_policy_in_use.sql` queries as these were unused by any controls. ([#367](https://github.com/turbot/steampipe-mod-aws-compliance/pull/367))
+- The `cis_v130_1_16` and `cis_v140_1_16` controls now only show results for attached IAM policies. ([#367](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/367))
+- The `iam_all_policy_no_service_wild_card` control now only checks customer managed IAM policies for full service access statements. ([#367](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/367))
+- Fixed `iam_all_policy_no_service_wild_card` and `foundational_security_iam_21` controls not alarming if any policy statements grant `*:*`, as these statements also grant full access to at least 1 AWS service. ([#367](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/367))
+- Removed `iam_all_policy_no_service_wild_card.sql` and `iam_policy_in_use.sql` queries as these were unused by any controls. ([#367](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/367))
 
 ## v0.27 [2022-04-21]
 
@@ -889,7 +889,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `guardduty_enabled` query to only check if GuardDuty is enabled and no longer check if S3 logging is enabled. ([#360](https://github.com/turbot/steampipe-mod-aws-compliance/pull/360))
+- Fixed the `guardduty_enabled` query to only check if GuardDuty is enabled and no longer check if S3 logging is enabled. ([#360](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/360))
 
 ## v0.26 [2022-04-18]
 
@@ -922,13 +922,13 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly check if the tables have on-demand capacity mode enabled or not ([#350](https://github.com/turbot/steampipe-mod-aws-compliance/pull/350))
+- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly check if the tables have on-demand capacity mode enabled or not ([#350](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/350))
 
 ## v0.23 [2022-02-02]
 
 _Enhancements_
 
-- Updated the following queries to use `cidr_ipv4` column instead of the deprecated `cidr_ip` column ([#342](https://github.com/turbot/steampipe-mod-aws-compliance/pull/342))
+- Updated the following queries to use `cidr_ipv4` column instead of the deprecated `cidr_ip` column ([#342](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/342))
   - vpc_security_group_allows_ingress_authorized_ports
   - vpc_security_group_remote_administration
   - vpc_security_group_restrict_ingress_common_ports_all
@@ -940,11 +940,11 @@ _Enhancements_
 
 _What's new?_
 
-- RBI Cyber Security Framework benchmark (`steampipe check benchmark.rbi_cyber_security`) now includes 17 new controls and 7 new queries ([331](https://github.com/turbot/steampipe-mod-aws-compliance/pull/331))
+- RBI Cyber Security Framework benchmark (`powerpipe check benchmark.rbi_cyber_security`) now includes 17 new controls and 7 new queries ([331](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/331))
 
 _Bug fixes_
 
-- Fixed the `config_enabled_all_regions` query to correctly evaluate if AWS Config is enabled in the account for the local Region and is recording all resources ([325](https://github.com/turbot/steampipe-mod-aws-compliance/pull/325))
+- Fixed the `config_enabled_all_regions` query to correctly evaluate if AWS Config is enabled in the account for the local Region and is recording all resources ([325](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/325))
 
 ## v0.21 [2021-11-24]
 
@@ -971,17 +971,17 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly evaluate if auto scaling is enabled for a DynamoDB table instead of throwing a validation error ([319](https://github.com/turbot/steampipe-mod-aws-compliance/pull/319))
+- Fixed the `dynamodb_table_auto_scaling_enabled` query to correctly evaluate if auto scaling is enabled for a DynamoDB table instead of throwing a validation error ([319](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/319))
 
 ## v0.19 [2021-11-17]
 
 _What's new?_
 
-- Added: AWS Audit Manager Control Tower Guardrails benchmark (`steampipe check aws_compliance.benchmark.audit_manager_control_tower`)
+- Added: AWS Audit Manager Control Tower Guardrails benchmark (`powerpipe check aws_compliance.benchmark.audit_manager_control_tower`)
 
 _Bug fixes_
 
-- Fixed the `backup_plan_min_retention_35_days` query to correctly evaluate backup plan rules where the lifecycle is set to `Never Expire` ([314](https://github.com/turbot/steampipe-mod-aws-compliance/pull/314))
+- Fixed the `backup_plan_min_retention_35_days` query to correctly evaluate backup plan rules where the lifecycle is set to `Never Expire` ([314](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/314))
 
 ## v0.18 [2021-11-10]
 
@@ -1002,7 +1002,7 @@ _What's new?_
 
 _What's new?_
 
-- Added: System and Organization Controls (SOC 2) benchmark (`steampipe check aws_compliance.benchmark.soc_2`)
+- Added: System and Organization Controls (SOC 2) benchmark (`powerpipe check aws_compliance.benchmark.soc_2`)
 
 ## v0.16 [2021-10-12]
 
@@ -1014,23 +1014,23 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed the metric filter pattern in the `log_metric_filter_unauthorized_api` query as per the CIS documentation ([#294](https://github.com/turbot/steampipe-mod-aws-compliance/pull/294))
-- Fixed the `rds_db_instance_logging_enabled` query to correctly evaluate if logging is enabled for `SQL Server Express Edition` DB engine type ([296](https://github.com/turbot/steampipe-mod-aws-compliance/pull/296))
+- Fixed the metric filter pattern in the `log_metric_filter_unauthorized_api` query as per the CIS documentation ([#294](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/294))
+- Fixed the `rds_db_instance_logging_enabled` query to correctly evaluate if logging is enabled for `SQL Server Express Edition` DB engine type ([296](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/296))
 
 ## v0.15 [2021-09-27]
 
 _Bug fixes_
 
-- Fixed the metric filter pattern in the `log_metric_filter_organization` query as per the CIS documentation ([#271](https://github.com/turbot/steampipe-mod-aws-compliance/pull/289))
-- `cis_v140_1_16` control now refers to `iam_all_policy_no_star_star` query which evaluates all the attached IAM policies(both AWS and customer managed) instead of only IAM customer managed policies ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
-- `foundational_security_iam_1` control now refers to `iam_custom_policy_no_star_star` query which only evaluates IAM customer managed policies instead of evaluating both customer and AWS managed IAM policies ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
-- `foundational_security_iam_21` control now refers to `iam_custom_policy_no_service_wild_card` query which correctly checks if there are any IAM customer managed policies that allow wildcard access for services ([#281](https://github.com/turbot/steampipe-mod-aws-compliance/pull/281))
+- Fixed the metric filter pattern in the `log_metric_filter_organization` query as per the CIS documentation ([#271](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/289))
+- `cis_v140_1_16` control now refers to `iam_all_policy_no_star_star` query which evaluates all the attached IAM policies(both AWS and customer managed) instead of only IAM customer managed policies ([#281](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/281))
+- `foundational_security_iam_1` control now refers to `iam_custom_policy_no_star_star` query which only evaluates IAM customer managed policies instead of evaluating both customer and AWS managed IAM policies ([#281](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/281))
+- `foundational_security_iam_21` control now refers to `iam_custom_policy_no_service_wild_card` query which correctly checks if there are any IAM customer managed policies that allow wildcard access for services ([#281](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/281))
 
 ## v0.14 [2021-09-23]
 
 _What's new?_
 
-- Added: AWS General Data Protection Regulation(GDPR) benchmarks and controls (`steampipe check benchmark.gdpr`)
+- Added: AWS General Data Protection Regulation(GDPR) benchmarks and controls (`powerpipe check benchmark.gdpr`)
 
 _Enhancements_
 
@@ -1038,9 +1038,9 @@ _Enhancements_
 
 _Bug fixes_
 
-- `vpc_security_group_associated` query will no longer return duplicate security groups ([#283](https://github.com/turbot/steampipe-mod-aws-compliance/pull/283))
-- Fixed the missing filter patterns in `log_metric_filter_root_login` and `log_metric_filter_unauthorized_api` queries ([#285](https://github.com/turbot/steampipe-mod-aws-compliance/pull/285)) ([#278](https://github.com/turbot/steampipe-mod-aws-compliance/pull/278))
-- `cis_v130_1_12` and `cis_v140_1_12` controls will now render `<root_account>` user status as `info` ([#286](https://github.com/turbot/steampipe-mod-aws-compliance/pull/286))
+- `vpc_security_group_associated` query will no longer return duplicate security groups ([#283](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/283))
+- Fixed the missing filter patterns in `log_metric_filter_root_login` and `log_metric_filter_unauthorized_api` queries ([#285](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/285)) ([#278](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/278))
+- `cis_v130_1_12` and `cis_v140_1_12` controls will now render `<root_account>` user status as `info` ([#286](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/286))
 
 ## v0.13 [2021-09-09]
 
@@ -1096,20 +1096,20 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed: Update multiple CloudTrail, CloudWatch, Config, Lambda, and S3 queries to work properly with multi-account connections ([#247](https://github.com/turbot/steampipe-mod-aws-compliance/pull/247))
-- Fixed: Cleanup unnecessary quotes in various CloudFront, CloudTrail, GuardDuty and S3 queries ([#249](https://github.com/turbot/steampipe-mod-aws-compliance/pull/249))
+- Fixed: Update multiple CloudTrail, CloudWatch, Config, Lambda, and S3 queries to work properly with multi-account connections ([#247](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/247))
+- Fixed: Cleanup unnecessary quotes in various CloudFront, CloudTrail, GuardDuty and S3 queries ([#249](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/249))
 
 ## v0.9 [2021-07-14]
 
 _What's new?_
 
-- Added: NIST 800-53 Revision 4 benchmark (`steampipe check benchmark.nist_800_53_rev_4`)
+- Added: NIST 800-53 Revision 4 benchmark (`powerpipe check benchmark.nist_800_53_rev_4`)
 
 ## v0.8 [2021-07-01]
 
 _What's new?_
 
-- Added: NIST Cybersecurity Framework (CSF) benchmark (`steampipe check benchmark.nist_csf`)
+- Added: NIST Cybersecurity Framework (CSF) benchmark (`powerpipe check benchmark.nist_csf`)
 - New AWS Foundational Security Best Practices controls added:
   - CodeBuild.1
   - CodeBuild.2
@@ -1138,7 +1138,7 @@ _What's new?_
 
 _What's new?_
 
-- Added: RBI Cyber Security Framework benchmark (`steampipe check benchmark.rbi_cyber_security`)
+- Added: RBI Cyber Security Framework benchmark (`powerpipe check benchmark.rbi_cyber_security`)
 - New Foundational Security controls added:
   - CloudTrail.1
   - EC2.7
@@ -1162,14 +1162,14 @@ _Enhancements_
 
 _What's new?_
 
-- Added: HIPAA benchmark (`steampipe check benchmark.hipaa`)
+- Added: HIPAA benchmark (`powerpipe check benchmark.hipaa`)
 
 ## v0.4 [2021-06-03]
 
 _What's new?_
 
-- Added: CIS v1.4.0 benchmark (`steampipe check benchmark.cis_v140`)
-- Added: AWS Foundational Security Best Practices benchmark (`steampipe check benchmark.foundational_security`)
+- Added: CIS v1.4.0 benchmark (`powerpipe check benchmark.cis_v140`)
+- Added: AWS Foundational Security Best Practices benchmark (`powerpipe check benchmark.foundational_security`)
 
 ## v0.3 [2021-05-28]
 
@@ -1192,4 +1192,4 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed: `autoscaling_group_with_lb_use_healthcheck` query should skip groups that aren't associated with a load balancer ([#30](https://github.com/turbot/steampipe-mod-aws-compliance/pull/30))
+- Fixed: `autoscaling_group_with_lb_use_healthcheck` query should skip groups that aren't associated with a load balancer ([#30](https://github.com/turbot/powerpipe-mod-aws-compliance/pull/30))

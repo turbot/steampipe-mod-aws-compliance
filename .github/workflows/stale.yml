@@ -12,6 +12,6 @@ on:
 
 jobs:
   stale_workflow:
-    uses: turbot/steampipe-workflows/.github/workflows/stale.yml@main
+    uses: turbot/powerpipe-workflows/.github/workflows/stale.yml@main
     with:
       dryRun: ${{ github.event.inputs.dryRun }}

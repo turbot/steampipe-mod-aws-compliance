@@ -6,4 +6,4 @@ on:
 
 jobs:
   sync_labels_workflow:
-    uses: turbot/steampipe-workflows/.github/workflows/sync-labels.yml@main
+    uses: turbot/powerpipe-workflows/.github/workflows/sync-labels.yml@main
