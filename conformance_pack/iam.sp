@@ -93,7 +93,7 @@ control "iam_policy_custom_attached_no_star_star" {
 }
 
 control "iam_account_password_policy_strong_min_length_8" {
-  title       = "Password policies for IAM users should have strong configurations"
+  title       = "Password policies for IAM users should have strong configurations with minimum length of 8 or greater"
   description = "This control checks whether the account password policy for IAM users uses the recommended configurations."
   query       = query.iam_account_password_policy_strong_min_length_8
 
