@@ -668,7 +668,7 @@ control "iam_user_console_access_unused_45" {
 
 control "iam_user_access_key_unused_45" {
   title       = "Ensure IAM users with access keys unused for 45 days or greater are disabled"
-  description = "AWS IAM users can access AWS resources using  access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
+  description = "AWS IAM users can access AWS resources using access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
   query       = query.iam_user_access_key_unused_45
 
   tags = local.conformance_pack_iam_common_tags
@@ -709,7 +709,16 @@ query "iam_account_password_policy_strong_min_reuse_24" {
           and require_symbols = 'true'
           and max_password_age <= 90
         then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
+        else 'Password policy ' ||
+          concat_ws(', ',
+            case when minimum_password_length < 14 then ('minimum password length set to ' || minimum_password_length) end,
+            case when password_reuse_prevention < 24 then ('password reuse prevention set to ' || password_reuse_prevention) end,
+            case when not (require_lowercase_characters = 'true') then 'lowercase characters not required' end,
+            case when not (require_uppercase_characters = 'true') then 'uppercase characters not required' end,
+            case when not (require_numbers) then 'numbers not required' end,
+            case when not (require_symbols) then 'symbols not required' end,
+            case when max_password_age > 90 then ('max password age set to ' || max_password_age) end
+          ) || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1673,7 +1682,14 @@ query "iam_account_password_policy_strong_min_length_8" {
           and require_numbers = 'true'
           and require_symbols = 'true'
         then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
+        else 'Password policy ' ||
+          concat_ws(', ',
+            case when minimum_password_length < 8 then ('minimum password length set to ' || minimum_password_length) end,
+            case when not (require_lowercase_characters = 'true') then 'lowercase characters not required' end,
+            case when not (require_uppercase_characters = 'true') then 'uppercase characters not required' end,
+            case when not (require_numbers) then 'numbers not required' end,
+            case when not (require_symbols) then 'symbols not required' end
+          ) || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
