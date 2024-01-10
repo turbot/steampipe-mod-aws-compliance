@@ -118,7 +118,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
-    soc_2
+    soc_2                                  = "true"
   })
 }
 
