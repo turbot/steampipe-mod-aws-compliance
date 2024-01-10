@@ -107,6 +107,9 @@ control "iam_account_password_policy_strong_min_reuse_24" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
@@ -115,7 +118,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
-    soc_2                                  = "true"
+    soc_2
   })
 }
 
