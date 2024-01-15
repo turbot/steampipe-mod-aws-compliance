@@ -43,7 +43,6 @@ benchmark "all_controls_iam" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_root_user_no_access_keys,
-    control.iam_root_user_virtual_mfa,
     control.iam_security_audit_role,
     control.iam_server_certificate_not_expired,
     control.iam_support_role,

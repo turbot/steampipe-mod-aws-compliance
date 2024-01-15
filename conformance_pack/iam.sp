@@ -12,14 +12,6 @@ control "iam_user_unused_credentials_45" {
   tags = local.conformance_pack_iam_common_tags
 }
 
-control "iam_root_user_virtual_mfa" {
-  title       = "Ensure root user has a virtual MFA device"
-  description = "Manage access to resources in the AWS Cloud by ensuring that the root user has a virtual multi-factor authentication (MFA) device."
-  query       = query.iam_root_user_virtual_mfa
-
-  tags = local.conformance_pack_iam_common_tags
-}
-
 control "iam_access_analyzer_enabled" {
   title       = "Ensure that IAM Access analyzer is enabled for all regions"
   description = "This control checks whether IAM Access analyzer is enabled for all regions. The control fails if IAM Access analyzer is not enabled for all regions."
@@ -1843,26 +1835,6 @@ query "iam_root_last_used" {
       aws_iam_credential_report
     where
       user_name = '<root_account>';
-  EOQ
-}
-
-query "iam_root_user_virtual_mfa" {
-  sql = <<-EOQ
-    select
-      'arn:' || s.partition || ':::' || s.account_id as resource,
-      case
-        when account_mfa_enabled and serial_number is not null then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when account_mfa_enabled = false then 'MFA is not enabled for the root user.'
-        when serial_number is null then 'MFA is enabled for the root user, but the MFA associated with the root user is a hardware device.'
-        else 'Virtual MFA enabled for the root user.'
-      end reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
-    from
-      aws_iam_account_summary as s
-      left join aws_iam_virtual_mfa_device on serial_number = 'arn:' || s.partition || ':iam::' || s.account_id || ':mfa/root-account-mfa-device';
   EOQ
 }
 
