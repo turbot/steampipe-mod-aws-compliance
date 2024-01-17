@@ -94,6 +94,22 @@ control "emr_cluster_local_disk_encrypted_with_cmk" {
   tags = local.conformance_pack_emr_common_tags
 }
 
+control "emr_cluster_encryption_at_rest_with_sse_kms" {
+  title       = "EMR clusters server side encryption (SSE KMS) enabled with KMS"
+  description = "This control checks whether EMR clusters server side encryption (SSE KMS) is enabled with KMS. The check fails if encryption at rest is not enabled with SSE-KMS."
+  query       = query.emr_cluster_encryption_at_rest_with_sse_kms
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_encryption_at_rest_with_cse_cmk" {
+  title       = "EMR clusters client side encryption (CSE CMK) enabled with CMK"
+  description = "This control checks whether EMR client side encryption (CSE CMK) is enabled with CMK. The check fails if encryption at rest is not enabled with CSE-CMK."
+  query       = query.emr_cluster_encryption_at_rest_with_cse_cmk
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     select
@@ -264,6 +280,54 @@ query "emr_cluster_local_disk_encrypted_with_cmk" {
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_encryption_at_rest_with_sse_kms" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'alarm'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'SSE-KMS' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest disabled.'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'SSE-KMS' then c.title || ' encryption at rest enabled with SSE KMS.'
+        else c.title || ' encryption at rest not enabled with SSE KMS.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_encryption_at_rest_with_cse_cmk" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'alarm'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest disabled.'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then c.title || ' encryption at rest enabled with CSE-CMK.'
+        else c.title || ' encryption at rest not enabled with CSE-CMK.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
