@@ -202,8 +202,8 @@ query "emr_cluster_encryption_at_rest_enabled" {
         when s.name is not null and (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest enabled.'
         else c.title || ' encryption at rest disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
@@ -224,8 +224,8 @@ query "emr_cluster_encryption_in_transit_enabled" {
         when s.name is not null and (encryption_configuration -> 'EnableInTransitEncryption')::bool then c.title || ' encryption in transit enabled.'
         else c.title || ' encryption in transit disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
@@ -250,8 +250,8 @@ query "emr_cluster_local_disk_encryption_enabled" {
           and (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is not null then c.title || ' local disk encryption enabled.'
         else c.title || ' local disk encryption disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
@@ -278,8 +278,8 @@ query "emr_cluster_local_disk_encrypted_with_cmk" {
           and  (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration' ->> 'EncryptionKeyProviderType') = 'Custom' then c.title || ' local disk encrypted with CMK.'
         else c.title || ' local disk not encrypted with CMK.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
@@ -302,8 +302,8 @@ query "emr_cluster_encryption_at_rest_with_sse_kms" {
         when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'SSE-KMS' then c.title || ' encryption at rest enabled with SSE KMS.'
         else c.title || ' encryption at rest not enabled with SSE KMS.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
@@ -326,8 +326,8 @@ query "emr_cluster_encryption_at_rest_with_cse_cmk" {
         when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then c.title || ' encryption at rest enabled with CSE-CMK.'
         else c.title || ' encryption at rest not enabled with CSE-CMK.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
