@@ -326,8 +326,8 @@ query "emr_cluster_encryption_at_rest_with_cse_cmk" {
         when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then c.title || ' encryption at rest enabled with CSE-CMK.'
         else c.title || ' encryption at rest not enabled with CSE-CMK.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;

@@ -1918,8 +1918,8 @@ query "vpc_gateway_endpoint_restrict_public_access" {
         else title || ' contains ' || coalesce(p.statements_num, 0) ||
         ' statements that allows public access.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
     from
       aws_vpc_endpoint as e
       left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;

@@ -20,7 +20,7 @@ benchmark "all_controls_apigateway" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.apigateway_stage_logging_enabled,
     control.apigateway_stage_use_waf_web_acl,
-    control.gatewayv2_stage_access_logging_enabled,
+    control.gatewayv2_stage_access_logging_enabled
   ]
 
   tags = merge(local.all_controls_apigateway_common_tags, {

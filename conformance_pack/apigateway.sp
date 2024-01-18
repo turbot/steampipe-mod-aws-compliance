@@ -147,7 +147,7 @@ control "api_gateway_rest_api_public_endpoint_with_authorizer" {
 }
 
 control "api_gateway_method_authorization_type_configured" {
-  title       = "API Gateway method authorizer should be configured"
+  title       = "API Gateway methods authorizer should be configured"
   description = "This control checks whether API Gateway method has an authorizer configured. This rule is non-compliant if API Gateway method has no authorizers configured."
   query       = query.api_gateway_method_authorization_type_configured
 
@@ -155,8 +155,8 @@ control "api_gateway_method_authorization_type_configured" {
 }
 
 control "api_gateway_method_request_parameter_validated" {
-  title       = "API Gateway method request parameter should be validated"
-  description = "This control checks whether API Gateway method request parameter is validated. This rule is non-compliant if API Gateway method request parameter id not validated."
+  title       = "API Gateway methods request parameter should be validated"
+  description = "This control checks whether API Gateway method request parameter is validated. This rule is non-compliant if API Gateway method request parameter is not validated."
   query       = query.api_gateway_method_request_parameter_validated
 
   tags = local.conformance_pack_apigateway_common_tags
@@ -428,10 +428,10 @@ query "api_gateway_method_request_parameter_validated" {
         else 'ok'
       end as status,
       case
-        when request_validator_id is null then title || 'request parameter not validated.'
-        else title || 'request parameter validated.'
+        when request_validator_id is null then title || ' request parameter not validated.'
+        else title || ' request parameter validated.'
       end as reason
-      --${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_api_gateway_method;
   EOQ
