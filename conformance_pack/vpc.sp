@@ -439,6 +439,14 @@ control "vpc_peering_connection_no_cross_account_access" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_gateway_endpoint_restrict_public_access" {
+  title       = "VPC gateway endpoints should restrict public access"
+  description = "Manage access to resources in the AWS Cloud by ensuring VPC gateway endpoints cannot be publicly accessed."
+  query       = query.vpc_gateway_endpoint_restrict_public_access
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     select
@@ -1874,5 +1882,46 @@ query "vpc_peering_connection_no_cross_account_access" {
       ${local.common_dimensions_sql}
     from
       aws_vpc_peering_connection;
+  EOQ
+}
+
+query "vpc_gateway_endpoint_restrict_public_access" {
+  sql = <<-EOQ
+    with wildcard_action_policies as (
+      select
+        vpc_endpoint_id,
+        count(*) as statements_num
+      from
+        aws_vpc_endpoint,
+        jsonb_array_elements(policy_std -> 'Statement') as s
+      where
+        s ->> 'Effect' = 'Allow'
+        and s -> 'Condition' is null
+        and (
+          (s -> 'Principal' -> 'AWS') = '["*"]'
+          or s ->> 'Principal' = '*'
+        )
+        and s ->> 'Action' = '["*"]'
+      group by
+        vpc_endpoint_id
+    )
+    select
+      e.vpc_endpoint_id as resource,
+      case
+        when e.vpc_endpoint_type <> 'Gateway' then 'skip'
+        when p.vpc_endpoint_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when vpc_endpoint_type <> 'Gateway' then e.title || ' is of ' || e.vpc_endpoint_type || ' endpoint type.'
+        when p.vpc_endpoint_id is null then e.title || ' does not allow public access.'
+        else title || ' contains ' || coalesce(p.statements_num, 0) ||
+        ' statements that allows public access.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
+    from
+      aws_vpc_endpoint as e
+      left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;
   EOQ
 }

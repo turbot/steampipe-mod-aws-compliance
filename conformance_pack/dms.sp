@@ -28,6 +28,14 @@ control "dms_replication_instance_not_publicly_accessible" {
   })
 }
 
+control "dms_certificate_not_expired" {
+  title       = "Ensure that all the expired DMS certificates are removed"
+  description = "This control ensures that all expired DMS certificates are removed from AWS account."
+  query       = query.dms_certificate_not_expired
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
 query "dms_replication_instance_not_publicly_accessible" {
   sql = <<-EOQ
     select
@@ -44,5 +52,26 @@ query "dms_replication_instance_not_publicly_accessible" {
       ${local.common_dimensions_sql}
     from
       aws_dms_replication_instance;
+  EOQ
+}
+
+query "dms_certificate_not_expired" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when valid_to_date < (current_date - interval '1' second) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when valid_to_date < (current_date - interval '1' second) then
+        title || ' expired ' || to_char(valid_to_date, 'DD-Mon-YYYY') || '.'
+        else
+        title || ' valid until ' || to_char(valid_to_date, 'DD-Mon-YYYY')  || '.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
+    from
+      aws_dms_certificate;
   EOQ
 }

@@ -8,6 +8,7 @@ benchmark "all_controls_dms" {
   title       = "DMS"
   description = "This section contains recommendations for configuring DMS resources."
   children = [
+    control.dms_certificate_not_expired,
     control.dms_replication_instance_not_publicly_accessible
   ]
 
