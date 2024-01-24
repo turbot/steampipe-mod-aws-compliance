@@ -1,3 +1,11 @@
+## v0.85 [2024-01-24]
+
+_Bug fixes_
+
+- Updated the dashboard image to correctly list all the 25 benchmarks. ([#748](https://github.com/turbot/steampipe-mod-aws-compliance/pull/748))
+- Removed the `iam_root_user_virtual_mfa` control since it is not recommended as good practice. ([#743](https://github.com/turbot/steampipe-mod-aws-compliance/pull/743))
+- Replaced `iam_account_password_policy_strong` by `iam_account_password_policy_strong_min_reuse_24` in the benchmarks `GDPR`, `FFIEC` and `CISA Cyber Essentials` to align more accurately with the requirements of the AWS Config rule. ([#739](https://github.com/turbot/steampipe-mod-aws-compliance/pull/739))
+
 ## v0.84 [2024-01-04]
 
 _Enhancements_
