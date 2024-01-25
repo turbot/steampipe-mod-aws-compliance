@@ -12,14 +12,6 @@ control "iam_user_unused_credentials_45" {
   tags = local.conformance_pack_iam_common_tags
 }
 
-control "iam_root_user_virtual_mfa" {
-  title       = "Ensure root user has a virtual MFA device"
-  description = "Manage access to resources in the AWS Cloud by ensuring that the root user has a virtual multi-factor authentication (MFA) device."
-  query       = query.iam_root_user_virtual_mfa
-
-  tags = local.conformance_pack_iam_common_tags
-}
-
 control "iam_access_analyzer_enabled" {
   title       = "Ensure that IAM Access analyzer is enabled for all regions"
   description = "This control checks whether IAM Access analyzer is enabled for all regions. The control fails if IAM Access analyzer is not enabled for all regions."
@@ -93,7 +85,7 @@ control "iam_policy_custom_attached_no_star_star" {
 }
 
 control "iam_account_password_policy_strong_min_length_8" {
-  title       = "Password policies for IAM users should have strong configurations"
+  title       = "Password policies for IAM users should have strong configurations with minimum length of 8 or greater"
   description = "This control checks whether the account password policy for IAM users uses the recommended configurations."
   query       = query.iam_account_password_policy_strong_min_length_8
 
@@ -107,6 +99,9 @@ control "iam_account_password_policy_strong_min_reuse_24" {
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    gdpr                                   = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
@@ -432,19 +427,6 @@ control "iam_account_password_policy_reuse_24" {
   })
 }
 
-control "iam_account_password_policy_strong" {
-  title       = "Password policies for IAM users should have strong configurations"
-  description = "This control checks whether the account password policy for IAM users have strong configurations."
-  query       = query.iam_account_password_policy_strong
-
-  tags = merge(local.conformance_pack_iam_common_tags, {
-    cisa_cyber_essentials = "true"
-    ffiec                 = "true"
-    gdpr                  = "true"
-    pci_dss_v321          = "true"
-  })
-}
-
 control "iam_account_password_policy_one_lowercase_letter" {
   title       = "Ensure IAM password policy requires at least one lowercase letter"
   description = "Password policies, in part, enforce password complexity requirements. Use IAM password policies to ensure that passwords use different character sets. Security Hub recommends that the password policy require at least one lowercase letter. Setting a password complexity policy increases account resiliency against brute force login attempts."
@@ -681,7 +663,7 @@ control "iam_user_console_access_unused_45" {
 
 control "iam_user_access_key_unused_45" {
   title       = "Ensure IAM users with access keys unused for 45 days or greater are disabled"
-  description = "AWS IAM users can access AWS resources using  access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
+  description = "AWS IAM users can access AWS resources using access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
   query       = query.iam_user_access_key_unused_45
 
   tags = local.conformance_pack_iam_common_tags
@@ -722,7 +704,16 @@ query "iam_account_password_policy_strong_min_reuse_24" {
           and require_symbols = 'true'
           and max_password_age <= 90
         then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
+        else 'Password policy ' ||
+          concat_ws(', ',
+            case when minimum_password_length < 14 then ('minimum password length set to ' || minimum_password_length) end,
+            case when password_reuse_prevention < 24 then ('password reuse prevention set to ' || password_reuse_prevention) end,
+            case when not (require_lowercase_characters = 'true') then 'lowercase characters not required' end,
+            case when not (require_uppercase_characters = 'true') then 'uppercase characters not required' end,
+            case when not (require_numbers) then 'numbers not required' end,
+            case when not (require_symbols) then 'symbols not required' end,
+            case when max_password_age > 90 then ('max password age set to ' || max_password_age) end
+          ) || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1099,40 +1090,6 @@ query "iam_account_password_policy_reuse_24" {
         when password_reuse_prevention is null then 'Password reuse prevention not set.'
         else 'Password reuse prevention set to ' || password_reuse_prevention || '.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
-    from
-      aws_account as a
-      left join aws_iam_account_password_policy as pol on a.account_id = pol.account_id;
-  EOQ
-}
-
-query "iam_account_password_policy_strong" {
-  sql = <<-EOQ
-    select
-      'arn:' || a.partition || ':::' || a.account_id as resource,
-      case
-        when
-          minimum_password_length >= 14
-          and password_reuse_prevention >= 5
-          and require_lowercase_characters = 'true'
-          and require_uppercase_characters = 'true'
-          and require_numbers = 'true'
-          and max_password_age <= 90
-        then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when minimum_password_length is null then 'No password policy set.'
-        when
-          minimum_password_length >= 14
-          and password_reuse_prevention >= 5
-          and require_lowercase_characters = 'true'
-          and require_uppercase_characters = 'true'
-          and require_numbers = 'true'
-          and max_password_age <= 90
-        then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
-      end reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -1720,7 +1677,14 @@ query "iam_account_password_policy_strong_min_length_8" {
           and require_numbers = 'true'
           and require_symbols = 'true'
         then 'Strong password policies configured.'
-        else 'Strong password policies not configured.'
+        else 'Password policy ' ||
+          concat_ws(', ',
+            case when minimum_password_length < 8 then ('minimum password length set to ' || minimum_password_length) end,
+            case when not (require_lowercase_characters = 'true') then 'lowercase characters not required' end,
+            case when not (require_uppercase_characters = 'true') then 'uppercase characters not required' end,
+            case when not (require_numbers) then 'numbers not required' end,
+            case when not (require_symbols) then 'symbols not required' end
+          ) || '.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1843,26 +1807,6 @@ query "iam_root_last_used" {
       aws_iam_credential_report
     where
       user_name = '<root_account>';
-  EOQ
-}
-
-query "iam_root_user_virtual_mfa" {
-  sql = <<-EOQ
-    select
-      'arn:' || s.partition || ':::' || s.account_id as resource,
-      case
-        when account_mfa_enabled and serial_number is not null then 'ok'
-        else 'alarm'
-      end status,
-      case
-        when account_mfa_enabled = false then 'MFA is not enabled for the root user.'
-        when serial_number is null then 'MFA is enabled for the root user, but the MFA associated with the root user is a hardware device.'
-        else 'Virtual MFA enabled for the root user.'
-      end reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
-    from
-      aws_iam_account_summary as s
-      left join aws_iam_virtual_mfa_device on serial_number = 'arn:' || s.partition || ':iam::' || s.account_id || ':mfa/root-account-mfa-device';
   EOQ
 }
 

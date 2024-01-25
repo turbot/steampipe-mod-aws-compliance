@@ -158,7 +158,7 @@ benchmark "ffiec_d_3_pc_am_b_6" {
   title       = "D3.PC.Am.B.6"
   description = "Identification and authentication are required and managed for access to systems, applications, and hardware."
   children = [
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_not_empty,
     control.iam_policy_no_star_star,
@@ -179,7 +179,7 @@ benchmark "ffiec_d_3_pc_am_b_7" {
   title       = "D3.PC.Am.B.7"
   description = "Access controls include password complexity and limits to password attempts and reuse."
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = local.ffiec_common_tags

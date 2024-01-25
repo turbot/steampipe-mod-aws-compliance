@@ -53,7 +53,7 @@ benchmark "cisa_cyber_essentials_your_surroundings_4" {
   title       = "Your Surroundings-4"
   description = "Leverage unique passwords for all user accounts."
   children = [
-    control.iam_account_password_policy_strong
+    control.iam_account_password_policy_strong_min_reuse_24
   ]
 
   tags = local.cisa_cyber_essentials_common_tags

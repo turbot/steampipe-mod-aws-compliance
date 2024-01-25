@@ -21,7 +21,7 @@ benchmark "article_25" {
     control.iam_account_password_policy_one_symbol,
     control.iam_account_password_policy_one_uppercase_letter,
     control.iam_account_password_policy_reuse_24,
-    control.iam_account_password_policy_strong,
+    control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_password_policy_expire_90,
     control.iam_policy_no_star_star,
     control.iam_root_user_hardware_mfa_enabled,
