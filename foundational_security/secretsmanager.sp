@@ -47,9 +47,9 @@ control "foundational_security_secretsmanager_2" {
 
 control "foundational_security_secretsmanager_3" {
   title         = "3 Remove unused Secrets Manager secrets"
-  description   = "This control checks whether your secrets have been accessed within a specified number of days. The default value is 90 days. If a secret was accessed even once within the defined number of days, this control fails."
+  description   = "This control checks whether an AWS Secrets Manager secret has been accessed within the specified time frame. The control fails if a secret is unused beyond the specified time frame. Unless you provide a custom parameter value for the access period, Security Hub uses a default value of 90 days"
   severity      = "medium"
-  query         = query.secretsmanager_secret_last_used_1_day
+  query         = query.secretsmanager_secret_unused_90_day
   documentation = file("./foundational_security/docs/foundational_security_secretsmanager_3.md")
 
   tags = merge(local.foundational_security_secretsmanager_common_tags, {
