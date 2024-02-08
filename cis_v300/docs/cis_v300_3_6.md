@@ -1,0 +1,59 @@
+## Description
+
+S3 Bucket Access Logging generates a log that contains access records for each request made to your S3 bucket. An access log record contains details about the request, such as the request type, the resources specified in the request worked, and the time and date the request was processed. It is recommended that bucket access logging be enabled on the CloudTrail S3 bucket.
+
+By enabling S3 bucket logging on target S3 buckets, it is possible to capture all events which may affect objects within any target buckets. Configuring logs to be placed in a separate bucket allows access to log information which can be useful in security and incident response workflows.
+
+## Remediation
+
+Perform the following to enable S3 bucket logging:
+
+### From Console:
+
+1. Sign in to the AWS Management Console and open the S3 console at https://console.aws.amazon.com/s3.
+2. Under `All Buckets` click on the target S3 bucket.
+3. Click on `Properties` in the top right of the console.
+4. Under `Bucket`:  &lt;s3_bucket_for_cloudtrail&gt; click on `Logging`.
+5. Configurebucketlogging
+  - Click on the `Enabled` checkbox.
+  - Select Target Bucket from list.
+  - Enter a Target Prefix.
+6. Click `Save`.
+
+### From Command Line:
+
+1. Get the name of the S3 bucket that CloudTrail is logging to:
+
+```bash
+aws cloudtrail describe-trails --region <region-name> --query trailList[*].S3BucketName
+```
+
+2. Copy and add target bucket name at `<Logging_BucketName>`, Prefix for logfile at `<LogFilePrefix>` and optionally add an email address in the following template and save it as `<FileName.Json>`:
+
+```bash
+{
+  "LoggingEnabled":{
+    "TargetBucket": "<Logging_BucketName>",
+    "TargetPrefix": "<LogFilePrefix>",
+    "TargetGrants": [
+        {
+        "Grantee":{
+            "Type": "AmazonCustomerByEmail",
+            "EmailAddress": "<EmailID>"
+            },
+        "Permission": "FULL_CONTROL"
+        }
+    ]
+  }
+}
+```
+
+3. Run the `put-bucket-logging` command with bucket name and &lt;FileName.Json&gt; as input, for more information refer at [put-bucket-logging](https://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-logging.html):
+
+```bash
+aws s3api put-bucket-logging --bucket <BucketName> --bucket-logging-status file://<FileName.Json>
+```
+
+### Default Value:
+
+Logging is disabled.

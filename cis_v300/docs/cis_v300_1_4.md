@@ -1,0 +1,20 @@
+## Description
+
+The 'root' user account is the most privileged user in an AWS account. AWS Access Keys provide programmatic access to a given AWS account. It is recommended that all access keys associated with the 'root' user account be deleted.
+
+Deleting access keys associated with the 'root' user account limits vectors by which the account can be compromised. Additionally, deleting the 'root' access keys encourages the creation and use of role based accounts that are least privileged.
+
+## Remediation
+
+Perform the following to delete active 'root' user access keys.
+
+### From Console:
+
+1. Sign in to the AWS Management Console as 'root' and open the IAM console at https://console.aws.amazon.com/iam/.
+2. Click on `<root_account>` at the top right and select `My Security Credentials` from the drop down list.
+3. On the pop out screen click on `Continue to Security Credentials`.
+4. Click on `Access Keys` (Access Key ID and Secret Access Key).
+5. Under the `Status` column (if there are any Keys which are active).
+6. Click `Delete` (Note: Deleted keys cannot be recovered).
+
+**Note**: While a key can be made inactive, this inactive key will still show up in the CLI command from the audit procedure, and may lead to a key being falsely flagged as being non-compliant.
