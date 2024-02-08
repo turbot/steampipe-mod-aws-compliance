@@ -90,7 +90,7 @@ control "cis_v300_4_4" {
 
 control "cis_v300_4_5" {
   title         = "4.5 Ensure CloudTrail configuration changes are monitored"
-  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, where metric filters and alarms can be established. It is recommended that a metric filter and alarm be established changes made to Identity and Access Management (IAM) policies."
+  description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs, or an external Security information and event management (SIEM) environment, where metric filters and alarms can be established. It is recommended that a metric filter and alarm be utilized for detecting changes to CloudTrail's configurations."
   query         = query.log_metric_filter_cloudtrail_configuration
   documentation = file("./cis_v300/docs/cis_v300_4_5.md")
 

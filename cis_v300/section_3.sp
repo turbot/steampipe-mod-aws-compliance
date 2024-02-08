@@ -126,7 +126,7 @@ control "cis_v300_3_8" {
   title         = "3.8 Ensure that Object-level logging for write events is enabled for S3 bucket"
   description   = "S3 object-level API operations such as GetObject, DeleteObject, and PutObject are called data events. By default, CloudTrail trails don't log data events and so it is recommended to enable Object-level logging for S3 buckets."
   query         = query.cloudtrail_s3_object_write_events_audit_enabled
-  documentation = file("./cis_v300/docs/cis_v300_3_10.md")
+  documentation = file("./cis_v300/docs/cis_v300_3_8.md")
 
   tags = merge(local.cis_v300_3_common_tags, {
     cis_item_id = "3.8"
@@ -140,7 +140,7 @@ control "cis_v300_3_9" {
   title         = "3.9 Ensure that Object-level logging for read events is enabled for S3 bucket"
   description   = "S3 object-level API operations such as GetObject, DeleteObject, and PutObject are called data events. By default, CloudTrail trails don't log data events and so it is recommended to enable Object-level logging for S3 buckets."
   query         = query.cloudtrail_s3_object_read_events_audit_enabled
-  documentation = file("./cis_v300/docs/cis_v300_3_11.md")
+  documentation = file("./cis_v300/docs/cis_v300_3_9.md")
 
   tags = merge(local.cis_v300_3_common_tags, {
     cis_item_id = "3.9"
