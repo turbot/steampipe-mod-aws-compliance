@@ -97,7 +97,7 @@ control "cis_v300_3_5" {
 control "cis_v300_3_6" {
   title         = "3.6 Ensure rotation for customer-created symmetric CMKs is enabled"
   description   = "AWS Key Management Service (KMS) allows customers to rotate the backing key which is key material stored within the KMS which is tied to the key ID of the customercreated customer master key (CMK). It is the backing key that is used to perform cryptographic operations such as encryption and decryption. Automated key rotation currently retains all prior backing keys so that decryption of encrypted data can take place transparently. It is recommended that CMK key rotation be enabled for symmetric keys. Key rotation can not be enabled for any asymmetric CMK"
-  query         = query.cloudtrail_trail_integrated_with_logs
+  query         = query.kms_cmk_rotation_enabled
   documentation = file("./cis_v300/docs/cis_v300_3_6.md")
 
   tags = merge(local.cis_v300_3_common_tags, {
