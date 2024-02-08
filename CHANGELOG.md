@@ -1,3 +1,9 @@
+## v0.86 [2024-02-08]
+
+_What's new?_
+
+- Added CIS v3.0.0 benchmark (`steampipe check benchmark.cis_v300`). ([#755](https://github.com/turbot/steampipe-mod-aws-compliance/pull/755))
+
 ## v0.85 [2024-01-25]
 
 _Breaking changes_
