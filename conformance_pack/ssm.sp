@@ -155,8 +155,8 @@ query "ssm_managed_instance_compliance_patch_compliant" {
       case
         when c.status = '' then 'Patch is not applicable for instance ' || i.title || '.'
         when c.status = 'COMPLIANT' then c.resource_id || ' patch ' || c.title || ' is compliant.'
-        else c.resource_id || ' patch ' || c.title || ' is ' || c.status || '.'
-      end as g
+        else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
+      end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
       aws_ssm_managed_instance as i,
