@@ -148,10 +148,12 @@ query "ssm_managed_instance_compliance_patch_compliant" {
     select
       id as resource,
       case
+        when c.status = '' then 'skip'
         when c.status = 'COMPLIANT' then 'ok'
         else 'alarm'
       end as status,
       case
+        when c.status = '' then 'Patch is not applicable for instance ' || i.title || '.'
         when c.status = 'COMPLIANT' then c.resource_id || ' patch ' || c.title || ' is compliant.'
         else c.resource_id || ' patch ' || c.title || ' is non-compliant.'
       end as reason

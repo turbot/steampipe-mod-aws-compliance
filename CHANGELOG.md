@@ -1,3 +1,22 @@
+## v0.87 [2024-02-21]
+
+_Dependencies_
+
+- AWS plugin `v0.131.0` or higher is now required. ([#747](https://github.com/turbot/steampipe-mod-aws-compliance/pull/747))
+
+_Enhancements_
+
+- Added 11 new controls to the `All Controls` benchmark across the following services: ([#747](https://github.com/turbot/steampipe-mod-aws-compliance/pull/747))
+  - `API Gateway`
+  - `DMS`
+  - `EMR`
+  - `MQ`
+  - `VPC`
+
+_Bug fixes_
+
+- Fixed the `foundational_security_ssm_2` control to correctly evaluate results when patches are not applicable for SSM managed EC2 instances. ([#761](https://github.com/turbot/steampipe-mod-aws-compliance/pull/761))
+
 ## v0.86 [2024-02-08]
 
 _What's new?_
