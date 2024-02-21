@@ -62,6 +62,54 @@ control "emr_cluster_security_configuration_enabled" {
   tags = local.conformance_pack_emr_common_tags
 }
 
+control "emr_cluster_encryption_at_rest_enabled" {
+  title       = "EMR clusters encryption at rest should be enabled"
+  description = "This control checks whether EMR clusters have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
+  query       = query.emr_cluster_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_encryption_in_transit_enabled" {
+  title       = "EMR clusters encryption in transit should be enabled"
+  description = "This control checks whether EMR clusters have encryption in transit enabled. This control fails if an EMR cluster isn't encrypted in transit."
+  query       = query.emr_cluster_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_local_disk_encryption_enabled" {
+  title       = "EMR clusters local disk encryption should be enabled"
+  description = "This control checks whether EMR cluster have local disk encryption enabled. This control fails if an EMR cluster local disk isn't encrypted."
+  query       = query.emr_cluster_local_disk_encryption_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_local_disk_encrypted_with_cmk" {
+  title       = "EMR cluster local disks should be encrypted with CMK"
+  description = "Ensure EMR cluster local disk are encrypted using CMK. This control fails if an EMR cluster local disk isn't encrypted with CMK."
+  query       = query.emr_cluster_local_disk_encrypted_with_cmk
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_encryption_at_rest_with_sse_kms" {
+  title       = "EMR clusters server side encryption (SSE KMS) enabled with KMS"
+  description = "This control checks whether EMR clusters server side encryption (SSE KMS) is enabled with KMS. The check fails if encryption at rest is not enabled with SSE-KMS."
+  query       = query.emr_cluster_encryption_at_rest_with_sse_kms
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_cluster_encryption_at_rest_with_cse_cmk" {
+  title       = "EMR clusters client side encryption (CSE CMK) enabled with CMK"
+  description = "This control checks whether EMR client side encryption (CSE CMK) is enabled with CMK. The check fails if encryption at rest is not enabled with CSE-CMK."
+  query       = query.emr_cluster_encryption_at_rest_with_cse_cmk
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     select
@@ -137,5 +185,151 @@ query "emr_cluster_security_configuration_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_emr_cluster;
+  EOQ
+}
+
+query "emr_cluster_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when s.name is not null and (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when s.name is not null and (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest enabled.'
+        else c.title || ' encryption at rest disabled.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when s.name is not null and (encryption_configuration -> 'EnableInTransitEncryption')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when s.name is not null and (encryption_configuration -> 'EnableInTransitEncryption')::bool then c.title || ' encryption in transit enabled.'
+        else c.title || ' encryption in transit disabled.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_local_disk_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when s.name is not null
+          and (encryption_configuration -> 'EnableAtRestEncryption')::bool
+          and (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when s.name is not null
+          and (encryption_configuration -> 'EnableAtRestEncryption')::bool
+          and (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is not null then c.title || ' local disk encryption enabled.'
+        else c.title || ' local disk encryption disabled.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_local_disk_encrypted_with_cmk" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is null then 'alarm'
+        when s.name is not null
+          and (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is not null
+          and  (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration' ->> 'EncryptionKeyProviderType') = 'Custom' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is null then c.title || ' local disk not encrypted.'
+        when s.name is not null
+          and (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration') is not null
+          and  (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'LocalDiskEncryptionConfiguration' ->> 'EncryptionKeyProviderType') = 'Custom' then c.title || ' local disk encrypted with CMK.'
+        else c.title || ' local disk not encrypted with CMK.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_encryption_at_rest_with_sse_kms" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'alarm'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'SSE-KMS' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest disabled.'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'SSE-KMS' then c.title || ' encryption at rest enabled with SSE KMS.'
+        else c.title || ' encryption at rest not enabled with SSE KMS.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_cluster_encryption_at_rest_with_cse_cmk" {
+  sql = <<-EOQ
+    select
+      cluster_arn as resource,
+      case
+        when s.name is null then 'alarm'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'alarm'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when s.name is null then c.title || ' security configuration disabled.'
+        when not (encryption_configuration -> 'EnableAtRestEncryption')::bool then c.title || ' encryption at rest disabled.'
+        when (encryption_configuration -> 'AtRestEncryptionConfiguration' -> 'S3EncryptionConfiguration' ->> 'EncryptionMode') = 'CSE-Custom' then c.title || ' encryption at rest enabled with CSE-CMK.'
+        else c.title || ' encryption at rest not enabled with CSE-CMK.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
+    from
+      aws_emr_cluster as c
+      left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
   EOQ
 }

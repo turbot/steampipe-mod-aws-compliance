@@ -48,6 +48,7 @@ benchmark "all_controls" {
     benchmark.all_controls_kinesis,
     benchmark.all_controls_kms,
     benchmark.all_controls_lambda,
+    benchmark.all_controls_mq,
     benchmark.all_controls_neptune,
     benchmark.all_controls_networkfirewall,
     benchmark.all_controls_opensearch,

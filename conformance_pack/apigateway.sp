@@ -146,6 +146,22 @@ control "api_gateway_rest_api_public_endpoint_with_authorizer" {
   tags = local.conformance_pack_apigateway_common_tags
 }
 
+control "api_gateway_method_authorization_type_configured" {
+  title       = "API Gateway methods authorizer should be configured"
+  description = "This control checks whether API Gateway method has an authorizer configured. This rule is non-compliant if API Gateway method has no authorizers configured."
+  query       = query.api_gateway_method_authorization_type_configured
+
+  tags = local.conformance_pack_apigateway_common_tags
+}
+
+control "api_gateway_method_request_parameter_validated" {
+  title       = "API Gateway methods request parameter should be validated"
+  description = "This control checks whether API Gateway method request parameter is validated. This rule is non-compliant if API Gateway method request parameter is not validated."
+  query       = query.api_gateway_method_request_parameter_validated
+
+  tags = local.conformance_pack_apigateway_common_tags
+}
+
 query "apigateway_stage_cache_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -382,5 +398,41 @@ query "api_gateway_rest_api_public_endpoint_with_authorizer" {
     from
       aws_api_gateway_rest_api as p
       left join aws_api_gateway_authorizer as a on p.api_id = a.rest_api_id;
+  EOQ
+}
+
+query "api_gateway_method_authorization_type_configured" {
+  sql = <<-EOQ
+    select
+      resource_id as resource,
+      case
+        when authorization_type = 'NONE' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when authorization_type = 'NONE' then title || ' authorization type not configured.'
+        else title || ' authorization type ' || authorization_type || ' configured.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_method;
+  EOQ
+}
+
+query "api_gateway_method_request_parameter_validated" {
+  sql = <<-EOQ
+    select
+      resource_id as resource,
+      case
+        when request_validator_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when request_validator_id is null then title || ' request parameter not validated.'
+        else title || ' request parameter validated.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_api_gateway_method;
   EOQ
 }
