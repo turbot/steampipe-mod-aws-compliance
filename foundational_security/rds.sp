@@ -276,7 +276,7 @@ control "foundational_security_rds_18" {
 }
 
 control "foundational_security_rds_19" {
-  title         = "19 An RDS event notifications subscription should be configured for critical cluster events"
+  title         = "19 Existing RDS event notification subscriptions should be configured for critical cluster events."
   description   = "This control checks whether an Amazon RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
   severity      = "low"
   query         = query.rds_db_cluster_events_subscription
@@ -289,7 +289,7 @@ control "foundational_security_rds_19" {
 }
 
 control "foundational_security_rds_20" {
-  title         = "20 An RDS event notifications subscription should be configured for critical database instance events"
+  title         = "20 Existing RDS event notification subscriptions should be configured for critical database instance events"
   description   = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   severity      = "low"
   query         = query.rds_db_instance_events_subscription
