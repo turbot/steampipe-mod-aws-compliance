@@ -46,20 +46,32 @@ control "ecr_repository_lifecycle_policy_configured" {
 
 query "ecr_repository_image_scan_on_push_enabled" {
   sql = <<-EOQ
+    with check_enhanced_scanning as (
+      select
+        registry_id,
+        region
+      from
+        aws_ecr_registry_scanning_configuration,
+        jsonb_array_elements(scanning_configuration -> 'Rules')  as r
+      where
+        r ->> 'ScanFrequency' = 'CONTINUOUS_SCAN'
+        or  r ->> 'ScanFrequency' = 'SCAN_ON_PUSH'
+    )
     select
       arn as resource,
       case
-        when image_scanning_configuration ->> 'ScanOnPush' = 'true' then 'ok'
+        when image_scanning_configuration ->> 'ScanOnPush' = 'true' or s.registry_id is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when image_scanning_configuration ->> 'ScanOnPush' = 'true' then title || ' scan on push enabled.'
+        when image_scanning_configuration ->> 'ScanOnPush' = 'true' or s.registry_id is not null  then title || ' scan on push enabled.'
         else title || ' scan on push disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_ecr_repository;
+      aws_ecr_repository as r
+      left join check_enhanced_scanning as s on s.registry_id = r.account_id and s.region = r.region;
   EOQ
 }
 
