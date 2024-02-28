@@ -1,7 +1,3 @@
----
-repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
----
-
 # AWS Compliance Mod
 
 Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `GxP EU Annex 11`, `HIPAA Final Omnibus Security Rule 2013`, `HIPAA Security Rule 2003`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework`, `SOC 2`, and more across all your AWS accounts.
