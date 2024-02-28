@@ -4,61 +4,19 @@ repository: "https://github.com/turbot/steampipe-mod-aws-compliance"
 
 # AWS Compliance Mod
 
-Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `GxP EU Annex 11`, `HIPAA Final Omnibus Security Rule 2013`, `HIPAA Security Rule 2003`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework` and `SOC 2` across all your AWS accounts.
+Run individual configuration, compliance and security controls or full compliance benchmarks for `Audit Manager Control Tower`, `AWS Foundational Security Best Practices`, `CIS`, `CISA Cyber Essentials`, `FedRAMP`, `FFIEC`, `GDPR`, `GxP 21 CFR Part 11`, `GxP EU Annex 11`, `HIPAA Final Omnibus Security Rule 2013`, `HIPAA Security Rule 2003`, `NIST 800-53`, `NIST CSF`, `PCI DSS`, `RBI Cyber Security Framework`, `SOC 2`, and more across all your AWS accounts.
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_compliance_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_fsbp_dashboard.png" width="50%" type="thumbnail"/>
 
-## References
-
-[AWS](https://aws.amazon.com/) provides on-demand cloud computing platforms and APIs to authenticated customers on a metered pay-as-you-go basis.
-
-[AWS Foundational Security Best Practices](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html) is a set of controls that detect when your deployed accounts and resources deviate from security best practices.
-
-[CIS AWS Benchmarks](https://www.cisecurity.org/benchmark/amazon_web_services/) provide a predefined set of compliance and security best-practice checks for AWS accounts.
-
-[CISA Cyber Essentials](https://www.cisa.gov/cyber-essentials) provide an actionable understanding of where to start implementing organizational cybersecurity practices.
-
-[Audit Manager Control Tower](https://docs.aws.amazon.com/audit-manager/latest/userguide/controltower.html) provide the easiest way to set up and govern a secure, multi-account AWS environment.
-
-[FedRAMP](https://www.fedramp.gov/baselines/) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services.
-
-[FFIEC](https://www.ffiec.gov/cyberassessmenttool.htm) provides a set of security standards for the Federal Financial Institutions Examination Council (FFIEC) Cyber Security Assessment Tool domains.
-
-[GDPR](https://docs.aws.amazon.com/audit-manager/latest/userguide/GDPR.html) provides a set of robust requirements that raise and harmonize standards for data protection, security, and compliance throughout the European Union (EU).
-
-[GxP 21 CFR Part 11](https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11?toc=1) includes details for the criteria under which electronic records and signatures are considered trustworthy and equivalent to paper records and ensures the integrity of data used to make product-related safety decisions.
-
-[GxP EU Annex 11](https://health.ec.europa.eu/system/files/2016-11/annex11_01-2011_en_0.pdf.) includes a prebuilt collection of controls with descriptions and testing procedures where controls are grouped into control sets according to GxP requirements.
-
-[HIPAA Final Omnibus Security Rule 2013](https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/combined-regulation-text/omnibus-hipaa-rulemaking/index.html) implements a number of provisions of the Health Information Technology for Economic and Clinical Health (HITECH) Act, enacted as part of the American Recovery and Reinvestment Act of 2009, to strengthen the privacy and security protections for health information established under the Health Insurance Portability and Accountability Act of 1996 (HIPAA).
-
-[HIPAA Security Rule 2003](https://www.hhs.gov/hipaa/for-professionals/security/index.html) establishes national standards to protect individuals' electronic personal health information that is created, received, used, or maintained by a covered entity.
-
-[NIST 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) provides minimum baselines of security controls for U.S. federal information systems except those related to national security.
-
-[NIST CSF](https://www.nist.gov/cyberframework) provides security standards for managing and reducing cybersecurity risk.
-
-[NIST 800-171](https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final) provides minimum baselines of security controls for protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective.
-
-[PCI DSS](https://www.pcisecuritystandards.org) provides security standards for the payment card industry.
-
-[RBI Cyber Security Framework](https://www.rbi.org.in/Scripts/NotificationUser.aspx?Id=11397) provides a cyber security framework for Urban Cooperative Banks (UCB) in India.
-
-[SOC 2](https://docs.aws.amazon.com/audit-manager/latest/userguide/SOC2.html) provides an auditing procedure that ensures a company's data is securely managed.
-
-[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
-
-[Steampipe Mods](https://steampipe.io/docs/reference/mod-resources#mod) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
-
 ## Documentation
 
 - **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/aws_compliance/controls)**
 - **[Named queries →](https://hub.steampipe.io/mods/turbot/aws_compliance/queries)**
 
-## Getting started
+## Getting Started
 
 ### Installation
 
@@ -112,13 +70,13 @@ steampipe check benchmark.all_controls
 Run a single benchmark:
 
 ```sh
-steampipe check benchmark.cis_v150
+steampipe check benchmark.cis_v300
 ```
 
 Run a specific control:
 
 ```sh
-steampipe check control.cis_v150_2_1_1
+steampipe check control.cis_v300_2_1_1
 ```
 
 Different output formats are also available, for more information please see
@@ -140,32 +98,34 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 - Pass in a value on the command line:
 
   ```shell
-  steampipe check benchmark.cis_v150 --var 'common_dimensions=["account_id", "connection_name", "region"]'
+  steampipe check benchmark.cis_v300 --var 'common_dimensions=["account_id", "connection_name", "region"]'
   ```
 
   ```shell
-  steampipe check benchmark.cis_v150 --var 'tag_dimensions=["Environment", "Owner"]'
+  steampipe check benchmark.cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
   ```
 
 - Set an environment variable:
 
   ```shell
-  SP_VAR_common_dimensions='["account_id", "connection_name", "region"]' steampipe check control.cis_v150_5_1
+  SP_VAR_common_dimensions='["account_id", "connection_name", "region"]' steampipe check control.cis_v300_5_1
   ```
 
   ```shell
-  SP_VAR_tag_dimensions='["Environment", "Owner"]' steampipe check control.cis_v150_5_1
+  SP_VAR_tag_dimensions='["Environment", "Owner"]' steampipe check control.cis_v300_5_1
   ```
 
-## Contributing
+## Open Source & Contributing
 
-If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing.
+This repository is published under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please see our [code of conduct](https://github.com/turbot/.github/blob/main/CODE_OF_CONDUCT.md). We look forward to collaborating with you!
 
-- **[Join #steampipe on Slack →](https://turbot.com/community/join)** and hang out with other Mod developers.
+[Steampipe](https://steampipe.io) is a product produced from this open source software, exclusively by [Turbot HQ, Inc](https://turbot.com). It is distributed under our commercial terms. Others are allowed to make their own distribution of the software, but cannot use any of the Turbot trademarks, cloud services, etc. You can learn more in our [Open Source FAQ](https://turbot.com/open-source).
 
-Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-aws-compliance/blob/main/LICENSE).
+## Get Involved
 
-Want to help but not sure where to start? Pick up one of the `help wanted` issues:
+**[Join #steampipe on Slack →](https://turbot.com/community/join)**
+
+Want to help but don't know where to start? Pick up one of the `help wanted` issues:
 
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
 - [AWS Compliance Mod](https://github.com/turbot/steampipe-mod-aws-compliance/labels/help%20wanted)
