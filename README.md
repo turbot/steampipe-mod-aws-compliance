@@ -1,3 +1,8 @@
+# :warning: Steampipe Support Deprecated
+
+This mod will be updated to only work with [Powerpipe](https://powerpipe.io) starting with v1.0.0. Please [install Powerpipe](https://powerpipe.io/downloads) to continue using this mod after v1.0.0 is released.
+
+---
 # AWS Compliance Mod for Steampipe and Powerpipe
 
 540+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including **the latest (v3.0.0) CIS benchmark**, PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower, and more!
