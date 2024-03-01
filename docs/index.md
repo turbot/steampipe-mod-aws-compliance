@@ -19,7 +19,7 @@ Run individual configuration, compliance and security controls or full complianc
 Install Powerpipe (https://powerpipe.io/downloads), or use Brew:
 
 ```shell
-brew install powerpipe
+brew install turbot/tap/powerpipe
 ```
 
 This mod also requires [Steampipe](https://steampipe.io) with the [AWS plugin](https://hub.steampipe.io/plugins/turbot/aws) as the data source. Install Steampipe (https://steampipe.io/downloads), or use Brew:
