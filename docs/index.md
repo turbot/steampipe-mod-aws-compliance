@@ -70,7 +70,7 @@ powerpipe benchmark list
 Run a benchmark:
 
 ```shell
-powerpipe benchmark run cis_v300
+powerpipe benchmark run aws_compliance.benchmark.cis_v300
 ```
 
 Different output formats are also available, for more information please see
@@ -90,7 +90,7 @@ vi powerpipe.ppvars
 Alternatively you can pass variables on the command line:
 
 ```shell
-powerpipe benchmark run cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
+powerpipe benchmark run aws_compliance.benchmark.cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
 ```
 
 Or through an environment variable:
@@ -98,7 +98,7 @@ Or through an environment variable:
 ```shell
 export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
 export PP_VAR_tag_dimensions='["Environment", "Owner"]'
-powerpipe benchmark run cis_v300
+powerpipe benchmark run aws_compliance.benchmark.cis_v300
 ```
 
 ## Open Source & Contributing
