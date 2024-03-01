@@ -18,13 +18,13 @@ Run individual configuration, compliance and security controls or full complianc
 
 Install Powerpipe (https://powerpipe.io/downloads), or use Brew:
 
-```shell
+```sh
 brew install turbot/tap/powerpipe
 ```
 
 This mod also requires [Steampipe](https://steampipe.io) with the [AWS plugin](https://hub.steampipe.io/plugins/turbot/aws) as the data source. Install Steampipe (https://steampipe.io/downloads), or use Brew:
 
-```shell
+```sh
 brew install turbot/tap/steampipe
 steampipe plugin install aws
 ```
@@ -33,7 +33,7 @@ Steampipe will automatically use your default AWS credentials. Optionally, you c
 
 Finally, install the mod:
 
-```shell
+```sh
 mkdir dashboards
 cd dashboards
 powerpipe mod init
@@ -44,32 +44,32 @@ powerpipe mod install github.com/turbot/powerpipe-mod-aws-compliance
 
 Start Steampipe as the data source:
 
-```shell
+```sh
 steampipe service start
 ```
 
 Start the dashboard server:
 
-```shell
+```sh
 powerpipe server
 ```
 
 Browse and view your dashboards at **https://localhost:9033**.
 
-### Running Checks in your terminal
+### Running Checks in Your Terminal
 
 Instead of running benchmarks in a dashboard, you can also run them within your
-terminal with the `powerpipe check` command:
+terminal with the `powerpipe benchmark` command:
 
 List available benchmarks:
 
-```shell
+```sh
 powerpipe benchmark list
 ```
 
 Run a benchmark:
 
-```shell
+```sh
 powerpipe benchmark run aws_compliance.benchmark.cis_v300
 ```
 
@@ -82,20 +82,20 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 
 It's easiest to setup your vars file, starting with the sample:
 
-```shell
+```sh
 cp powerpipe.ppvar.example powerpipe.ppvars
 vi powerpipe.ppvars
 ```
 
 Alternatively you can pass variables on the command line:
 
-```shell
+```sh
 powerpipe benchmark run aws_compliance.benchmark.cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
 ```
 
-Or through an environment variable:
+Or through environment variables:
 
-```shell
+```sh
 export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
 export PP_VAR_tag_dimensions='["Environment", "Owner"]'
 powerpipe benchmark run aws_compliance.benchmark.cis_v300
