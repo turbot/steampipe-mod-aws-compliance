@@ -51,7 +51,7 @@ steampipe service start
 Start the dashboard server:
 
 ```shell
-powerpipe dashboard
+powerpipe server
 ```
 
 Browse and view your dashboards at **https://localhost:9033**.
