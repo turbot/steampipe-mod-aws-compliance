@@ -3,6 +3,9 @@ contact_links:
   - name: Questions
     url: https://turbot.com/community/join
     about: GitHub issues in this repository are only intended for bug reports and feature requests. Other issues will be closed. Please ask and answer questions through the Steampipe Slack community.
+  - name: Powerpipe CLI Bug Reports and Feature Requests
+    url: https://github.com/turbot/powerpipe/issues/new/choose
+    about: Powerpipe CLI has its own codebase. Bug reports and feature requests for those pieces of functionality should be directed to that repository.
   - name: Steampipe CLI Bug Reports and Feature Requests
     url: https://github.com/turbot/steampipe/issues/new/choose
     about: Steampipe CLI has its own codebase. Bug reports and feature requests for those pieces of functionality should be directed to that repository.

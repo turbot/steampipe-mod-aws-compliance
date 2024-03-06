@@ -10,6 +10,9 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
+**Powerpipe version (`powerpipe -v`)**
+Example: v0.3.0
+
 **Steampipe version (`steampipe -v`)**
 Example: v0.3.0
 
