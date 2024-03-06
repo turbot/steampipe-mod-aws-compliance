@@ -1,3 +1,16 @@
+## v0.88 [2024-04-06]
+
+_Powerpipe_
+
+[Powerpipe](https://powerpipe.io) is now the preferred way to run this mod!  [Migrating from Steampipe →](https://powerpipe.io/blog/migrating-from-steampipe)
+
+All v0.x versions of this mod will work in both Steampipe and Powerpipe, but v1.0.0 onwards will be in Powerpipe format only.
+
+_Enhancements_
+
+- Focus documentation on Powerpipe commands.
+- Show how to combine Powerpipe mods with Steampipe plugins.
+
 ## v0.87 [2024-02-21]
 
 _Dependencies_
