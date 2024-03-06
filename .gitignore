@@ -11,3 +11,7 @@
 # Steampipe variable files
 *.spvars
 *.auto.spvars
+
+# Powerpipe variable files
+*.ppvars
+*.auto.ppvars

@@ -1,149 +1,123 @@
-# AWS Compliance Mod for Steampipe
+# AWS Compliance Mod for Powerpipe
 
-475+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower **and the latest (v1.5.0) CIS benchmarks**.
+> [!IMPORTANT]  
+> [Powerpipe](https://powerpipe.io) is now the preferred way to run this mod! [Migrating from Steampipe →](https://powerpipe.io/blog/migrating-from-steampipe)
+>
+> All v0.x versions of this mod will work in both Steampipe and Powerpipe, but v1.0.0 onwards will be in Powerpipe format only.
+
+540+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including **the latest (v3.0.0) CIS benchmark**, PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, Reserve Bank of India, Audit Manager Control Tower, and more!
 
 Run checks in a dashboard:
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png)
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v300_dashboard.png)
 
 Or in a terminal:
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png)
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v300_console.png)
 
-Includes support for:
-* [All Controls](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.all_controls)
-* [AWS CIS Controls v8 IG1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_controls_v8_ig1) 🚀 New!
-* [AWS CIS v1.2.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v120)
-* [AWS CIS v1.3.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v130)
-* [AWS CIS v1.4.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v140)
-* [AWS CIS v1.5.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v150)
-* [AWS CIS v2.0.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v200)
-* [AWS CIS v3.0.0](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cis_v300) 🚀 New!
-* [AWS Foundational Security Best Practices](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.foundational_security)
-* [Audit Manager Control Tower](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.audit_manager_control_tower)
-* [CISA Cyber Essentials](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.cisa_cyber_essentials)
-* [FedRAMP Low Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_low_rev_4)
-* [FedRAMP Moderate Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.fedramp_moderate_rev_4)
-* [Federal Financial Institutions Examination Council (FFIEC)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.ffiec)
-* [General Data Protection Regulation (GDPR)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gdpr)
-* [GxP 21 CFR Part 11](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gxp_21_cfr_part_11)
-* [GxP EU Annex 11](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.gxp_eu_annex_11)
-* [HIPAA Final Omnibus Security Rule 2013](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_final_omnibus_security_rule_2013)
-* [HIPAA Security Rule 2003](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.hipaa_security_rule_2003)
-* [NIST 800-171 Revision 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_171_rev_2)
-* [NIST 800-53 Revision 4](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_4)
-* [NIST 800-53 Revision 5](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_800_53_rev_5)
-* [NIST Cybersecurity Framework (CSF)](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.nist_csf)
-* [PCI DSS v3.2.1](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.pci_dss_v321)
-* [Reserve Bank of India (RBI) Cyber Security Framework](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.rbi_cyber_security)
-* [SOC 2](https://hub.steampipe.io/mods/turbot/aws_compliance/controls/benchmark.soc_2)
+## Documentation
 
-## Getting started
+- **[Benchmarks and controls →](https://hub.powerpipe.io/mods/turbot/aws_compliance/controls)**
+- **[Named queries →](https://hub.powerpipe.io/mods/turbot/aws_compliance/queries)**
+
+## Getting Started
 
 ### Installation
 
-Download and install Steampipe (https://steampipe.io/downloads). Or use Brew:
+Install Powerpipe (https://powerpipe.io/downloads), or use Brew:
 
 ```sh
-brew tap turbot/tap
-brew install steampipe
+brew install turbot/tap/powerpipe
 ```
 
-Install the AWS plugin with [Steampipe](https://steampipe.io):
+This mod also requires [Steampipe](https://steampipe.io) with the [AWS plugin](https://hub.steampipe.io/plugins/turbot/aws) as the data source. Install Steampipe (https://steampipe.io/downloads), or use Brew:
 
 ```sh
+brew install turbot/tap/steampipe
 steampipe plugin install aws
 ```
 
-Clone:
+Steampipe will automatically use your default AWS credentials. Optionally, you can [setup multiple accounts](https://hub.steampipe.io/plugins/turbot/aws#multi-account-connections) or [customize AWS credentials](https://hub.steampipe.io/plugins/turbot/aws#configuring-aws-credentials).
+
+Finally, install the mod:
 
 ```sh
-git clone http://github.com/turbot/steampipe-mod-aws-compliance.git
-cd steampipe-mod-aws-compliance
+mkdir dashboards
+cd dashboards
+powerpipe mod init
+powerpipe mod install github.com/turbot/steampipe-mod-aws-compliance
 ```
 
-### Usage
+### Browsing Dashboards
 
-Before running any benchmarks, it's recommended to generate your AWS credential report:
+Start Steampipe as the data source:
 
 ```sh
-aws iam generate-credential-report
+steampipe service start
 ```
 
-Start your dashboard server to get started:
+Start the dashboard server:
 
 ```sh
-steampipe dashboard
+powerpipe server
 ```
 
-By default, the dashboard interface will then be launched in a new browser
-window at https://localhost:9194. From here, you can run benchmarks by
-selecting one or searching for a specific one.
+Browse and view your dashboards at **http://localhost:9033**.
+
+### Running Checks in Your Terminal
 
 Instead of running benchmarks in a dashboard, you can also run them within your
-terminal with the `steampipe check` command:
+terminal with the `powerpipe benchmark` command:
 
-Run all controls:
+List available benchmarks:
 
 ```sh
-steampipe check benchmark.all_controls
+powerpipe benchmark list
 ```
 
-Run a single benchmark:
+Run a benchmark:
 
 ```sh
-steampipe check benchmark.cis_v150
-```
-
-Run a specific control:
-
-```sh
-steampipe check control.cis_v150_2_1_1
+powerpipe benchmark run aws_compliance.benchmark.cis_v300
 ```
 
 Different output formats are also available, for more information please see
-[Output Formats](https://steampipe.io/docs/reference/cli/check#output-formats).
-
-### Credentials
-
-This mod uses the credentials configured in the [Steampipe AWS plugin](https://hub.steampipe.io/plugins/turbot/aws).
-
-### Configuration
-
-No extra configuration is required.
+[Output Formats](https://powerpipe.io/docs/reference/cli/benchmark#output-formats).
 
 ### Common and Tag Dimensions
 
-The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the form of a default list of strings in the `mod.sp` file. These properties can be overwritten in several ways:
+The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the form of a default list of strings in the `variables.sp` file. These properties can be overwritten in several ways:
 
-- Copy and rename the `steampipe.spvars.example` file to `steampipe.spvars`, and then modify the variable values inside that file
-- Pass in a value on the command line:
+It's easiest to setup your vars file, starting with the sample:
 
-  ```shell
-  steampipe check benchmark.cis_v150 --var 'common_dimensions=["account_id", "connection_name", "region"]'
-  ```
+```sh
+cp steampipe.spvars.example steampipe.spvars
+vi steampipe.spvars
+```
 
-  ```shell
-  steampipe check benchmark.cis_v150 --var 'tag_dimensions=["Environment", "Owner"]'
-  ```
+Alternatively you can pass variables on the command line:
 
-- Set an environment variable:
+```sh
+powerpipe benchmark run aws_compliance.benchmark.cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
+```
 
-  ```shell
-  SP_VAR_common_dimensions='["account_id", "connection_name", "region"]' steampipe check control.cis_v150_5_1
-  ```
+Or through environment variables:
 
-  ```shell
-  SP_VAR_tag_dimensions='["Environment", "Owner"]' steampipe check control.cis_v150_5_1
-  ```
+```sh
+export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
+export PP_VAR_tag_dimensions='["Environment", "Owner"]'
+powerpipe benchmark run aws_compliance.benchmark.cis_v300
+```
 
-## Contributing
+## Open Source & Contributing
 
-If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing.
+This repository is published under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please see our [code of conduct](https://github.com/turbot/.github/blob/main/CODE_OF_CONDUCT.md). We look forward to collaborating with you!
 
-- **[Join #steampipe on Slack →](https://turbot.com/community/join)** and hang out with other Mod developers.
+[Steampipe](https://steampipe.io) and [Powerpipe](https://powerpipe.io) are products produced from this open source software, exclusively by [Turbot HQ, Inc](https://turbot.com). They are distributed under our commercial terms. Others are allowed to make their own distribution of the software, but cannot use any of the Turbot trademarks, cloud services, etc. You can learn more in our [Open Source FAQ](https://turbot.com/open-source).
 
-Please see the [contribution guidelines](https://github.com/turbot/steampipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/steampipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/steampipe-mod-aws-compliance/blob/main/LICENSE).
+## Get Involved
 
-Want to help but not sure where to start? Pick up one of the `help wanted` issues:
+**[Join #powerpipe on Slack →](https://turbot.com/community/join)**
 
-- [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
+Want to help but don't know where to start? Pick up one of the `help wanted` issues:
+
+- [Powerpipe](https://github.com/turbot/powerpipe/labels/help%20wanted)
 - [AWS Compliance Mod](https://github.com/turbot/steampipe-mod-aws-compliance/labels/help%20wanted)
