@@ -146,7 +146,7 @@ control "foundational_security_rds_8" {
 }
 
 control "foundational_security_rds_9" {
-  title         = "9 Database logging should be enabled"
+  title         = "9 RDS DB instances should publish logs to CloudWatch Logs"
   description   = "This control checks whether the logs of Amazon RDS are enabled and sent to CloudWatch Logs. RDS databases should have relevant logs enabled. Database logging provides detailed records of requests made to RDS. Database logs can assist with security and access audits and can help to diagnose availability issues."
   severity      = "medium"
   query         = query.rds_db_instance_logging_enabled
