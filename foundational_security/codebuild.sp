@@ -21,7 +21,7 @@ benchmark "foundational_security_codebuild" {
 }
 
 control "foundational_security_codebuild_1" {
-  title         = "1 CodeBuild GitHub or Bitbucket source repository URLs should use OAuth"
+  title         = "1 CodeBuild Bitbucket source repository URLs should not contain sensitive credentials"
   description   = "Authentication credentials should never be stored or transmitted in clear text or appear in the repository URL. Instead of personal access tokens or user name and password, you should use OAuth to grant authorization for accessing GitHub or Bitbucket repositories. Using personal access tokens or a user name and password could expose your credentials to unintended data exposure and unauthorized access."
   severity      = "critical"
   query         = query.codebuild_project_source_repo_oauth_configured
