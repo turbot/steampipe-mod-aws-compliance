@@ -50,6 +50,7 @@ benchmark "all_controls" {
     benchmark.all_controls_lambda,
     benchmark.all_controls_mq,
     benchmark.all_controls_neptune,
+    benchmark.all_controls_msk,
     benchmark.all_controls_networkfirewall,
     benchmark.all_controls_opensearch,
     benchmark.all_controls_rds,

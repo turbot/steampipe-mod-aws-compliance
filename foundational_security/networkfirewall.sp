@@ -11,7 +11,8 @@ benchmark "foundational_security_networkfirewall" {
     control.foundational_security_networkfirewall_3,
     control.foundational_security_networkfirewall_4,
     control.foundational_security_networkfirewall_5,
-    control.foundational_security_networkfirewall_6
+    control.foundational_security_networkfirewall_6,
+    control.foundational_security_networkfirewall_9
   ]
 
   tags = merge(local.foundational_security_networkfirewall_common_tags, {
@@ -68,5 +69,18 @@ control "foundational_security_networkfirewall_6" {
   tags = merge(local.foundational_security_networkfirewall_common_tags, {
     foundational_security_item_id  = "networkfirewall_1"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_networkfirewall_9" {
+  title         = "9 Network Firewall firewalls should have deletion protection enabled"
+  description   = "This control checks whether an AWS Network Firewall firewall has deletion protection enabled. The control fails if deletion protection isn't enabled for a firewall."
+  severity      = "medium"
+  query         = query.networkfirewall_firewall_deletion_protection_enabled
+  documentation = file("./foundational_security/docs/foundational_security_networkfirewall_9.md")
+
+  tags = merge(local.foundational_security_networkfirewall_common_tags, {
+    foundational_security_item_id  = "networkfirewall_9"
+    foundational_security_category = "high_availability"
   })
 }
