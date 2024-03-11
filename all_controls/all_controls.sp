@@ -59,6 +59,7 @@ benchmark "all_controls" {
     benchmark.all_controls_sagemaker,
     benchmark.all_controls_secretsmanager,
     benchmark.all_controls_securityhub,
+    benchmark.all_controls_sfn,
     benchmark.all_controls_sns,
     benchmark.all_controls_sqs,
     benchmark.all_controls_ssm,

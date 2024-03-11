@@ -19,7 +19,8 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_10,
     control.foundational_security_s3_11,
     control.foundational_security_s3_12,
-    control.foundational_security_s3_13
+    control.foundational_security_s3_13,
+    control.foundational_security_s3_19
   ]
 
   tags = merge(local.foundational_security_s3_common_tags, {
@@ -180,5 +181,18 @@ control "foundational_security_s3_13" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_13"
     foundational_security_category = "data_protection"
+  })
+}
+
+control "foundational_security_s3_19" {
+  title         = "19 S3 access points should have block public access settings enabled"
+  description   = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
+  severity      = "low"
+  query         = query.s3_access_point_restrict_public_access
+  documentation = file("./foundational_security/docs/foundational_security_s3_19.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_19"
+    foundational_security_category = "resource_not_publicly_accessible"
   })
 }

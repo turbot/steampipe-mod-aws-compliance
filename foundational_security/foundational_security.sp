@@ -48,6 +48,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_s3,
     benchmark.foundational_security_sagemaker,
     benchmark.foundational_security_secretsmanager,
+    benchmark.foundational_security_sfn,
     benchmark.foundational_security_sns,
     benchmark.foundational_security_sqs,
     benchmark.foundational_security_ssm,
