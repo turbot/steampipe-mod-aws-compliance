@@ -75,3 +75,22 @@ query "dms_certificate_not_expired" {
       aws_dms_certificate;
   EOQ
 }
+
+query "dms_replication_instance_automatic_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' automatic minor version upgrade enabled.'
+        else title || ' automatic minor version upgrade disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_replication_instance;
+  EOQ
+}

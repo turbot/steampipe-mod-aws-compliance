@@ -18,6 +18,14 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
   })
 }
 
+control "elastic_beanstalk_environment_logs_to_cloudwatch" {
+  title         = "lastic Beanstalk should stream logs to CloudWatch"
+  description   = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
+  query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
+
+  tags = local.conformance_pack_elasticbeanstalk_common_tags
+}
+
 query "elastic_beanstalk_enhanced_health_reporting_enabled" {
   sql = <<-EOQ
     select
@@ -34,5 +42,38 @@ query "elastic_beanstalk_enhanced_health_reporting_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_elastic_beanstalk_environment;
+  EOQ
+}
+
+query "elastic_beanstalk_environment_logs_to_cloudwatch" {
+  sql = <<-EOQ
+    with beanstalk_environment_logs_enabled as (
+      select
+        distinct e.arn
+      from
+        aws_elastic_beanstalk_environment as e,
+        jsonb_array_elements(e.configuration_settings) as c,
+        jsonb_array_elements(c -> 'OptionSettings') as s
+      where
+        s ->> 'OptionName' = 'StreamLogs'
+        and s ->> 'Value' = 'true'
+      group by
+        arn
+    )
+    select
+      e.arn as resource,
+      case
+        when l.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.arn is not null then title || ' send logs to AWS CloudWatch.'
+        else title || ' does not send logs to AWS CloudWatch.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_elastic_beanstalk_environment as e
+      left join beanstalk_environment_logs_enabled as l on e.arn = l.arn;
   EOQ
 }

@@ -9,6 +9,7 @@ benchmark "all_controls_dynamodb" {
   description = "This section contains recommendations for configuring DynamoDB resources."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
+    control.dynamodb_table_deletion_protection_enabled,
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.dynamodb_table_in_backup_plan,

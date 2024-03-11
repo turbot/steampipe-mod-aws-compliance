@@ -8,7 +8,8 @@ benchmark "foundational_security_dms" {
   title         = "DMS"
   documentation = file("./foundational_security/docs/foundational_security_dms.md")
   children = [
-    control.foundational_security_dms_1
+    control.foundational_security_dms_1,
+    control.foundational_security_dms_6
   ]
 
   tags = merge(local.foundational_security_dms_common_tags, {
@@ -26,5 +27,18 @@ control "foundational_security_dms_1" {
   tags = merge(local.foundational_security_dms_common_tags, {
     foundational_security_item_id  = "dms_1"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_dms_6" {
+  title         = "6 DMS replication instances should have automatic minor version upgrade enabled"
+  description   = "This control checks if automatic minor version upgrade is enabled for an AWS DMS replication instance. The control fails if automatic minor version upgrade isn't enabled for a DMS replication instance."
+  severity      = "medium"
+  query         = query.dms_replication_instance_automatic_minor_version_upgrade_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dms_6.md")
+
+  tags = merge(local.foundational_security_dms_common_tags, {
+    foundational_security_item_id  = "dms_6"
+    foundational_security_category = "vulnerability_patch_and_version_management"
   })
 }

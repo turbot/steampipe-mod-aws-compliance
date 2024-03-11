@@ -9,7 +9,9 @@ benchmark "foundational_security_docdb" {
   documentation = file("./foundational_security/docs/foundational_security_docdb.md")
   children = [
     control.foundational_security_docdb_1,
-    control.foundational_security_docdb_2
+    control.foundational_security_docdb_2,
+    control.foundational_security_docdb_4,
+    control.foundational_security_docdb_5
   ]
 
   tags = merge(local.foundational_security_docdb_common_tags, {
@@ -42,4 +44,31 @@ control "foundational_security_docdb_2" {
     foundational_security_category = "backups_enabled"
   })
 }
+
+control "foundational_security_docdb_4" {
+  title         = "4 Amazon DocumentDB clusters should publish audit logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon DocumentDB cluster publishes audit logs to Amazon CloudWatch Logs. The control fails if the cluster doesn't publish audit logs to CloudWatch Logs."
+  severity      = "medium"
+  query         = query.docdb_cluster_instance_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_docdb_4.md")
+
+  tags = merge(local.foundational_security_docdb_common_tags, {
+    foundational_security_item_id  = "docdb_4"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_docdb_5" {
+  title         = "5 Amazon DocumentDB clusters should have deletion protection enabled"
+  description   = "This control checks whether an Amazon DocumentDB cluster has deletion protection enabled. The control fails if the cluster doesn't have deletion protection enabled."
+  severity      = "medium"
+  query         = query.docdb_cluster_deletion_protection_enabled
+  documentation = file("./foundational_security/docs/foundational_security_docdb_5.md")
+
+  tags = merge(local.foundational_security_docdb_common_tags, {
+    foundational_security_item_id  = "docdb_5"
+    foundational_security_category = "data_deletion_protection"
+  })
+}
+
 

@@ -24,7 +24,6 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_19,
     control.foundational_security_ec2_20,
     control.foundational_security_ec2_21,
-    control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
     control.foundational_security_ec2_25
@@ -240,19 +239,6 @@ control "foundational_security_ec2_21" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_21"
     foundational_security_category = "secure_network_configuration"
-  })
-}
-
-control "foundational_security_ec2_22" {
-  title         = "22 Unused EC2 security groups should be removed"
-  description   = "This AWS control checks that security groups are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or to an elastic network interface. The control will fail if the security group is not associated with an Amazon EC2 instance or an elastic network interface."
-  severity      = "medium"
-  query         = query.vpc_security_group_unused
-  documentation = file("./foundational_security/docs/foundational_security_ec2_22.md")
-
-  tags = merge(local.foundational_security_ec2_common_tags, {
-    foundational_security_item_id  = "ec2_22"
-    foundational_security_category = "inventory"
   })
 }
 

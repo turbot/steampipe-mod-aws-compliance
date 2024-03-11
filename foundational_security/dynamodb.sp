@@ -10,7 +10,8 @@ benchmark "foundational_security_dynamodb" {
   children = [
     control.foundational_security_dynamodb_1,
     control.foundational_security_dynamodb_2,
-    control.foundational_security_dynamodb_3
+    control.foundational_security_dynamodb_3,
+    control.foundational_security_dynamodb_6
   ]
 
   tags = merge(local.foundational_security_dynamodb_common_tags, {
@@ -54,5 +55,18 @@ control "foundational_security_dynamodb_3" {
   tags = merge(local.foundational_security_dynamodb_common_tags, {
     foundational_security_item_id  = "dynamodb_3"
     foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
+control "foundational_security_dynamodb_6" {
+  title         = "6 DynamoDB tables should have deletion protection enabled"
+  description   = "This control checks whether an Amazon DynamoDB table has deletion protection enabled. The control fails if a DynamoDB table doesn't have deletion protection enabled."
+  severity      = "medium"
+  query         = query.dynamodb_table_deletion_protection_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dynamodb_6.md")
+
+  tags = merge(local.foundational_security_dynamodb_common_tags, {
+    foundational_security_item_id  = "dynamodb_6"
+    foundational_security_category = "data_deletion_protection"
   })
 }
