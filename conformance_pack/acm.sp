@@ -67,6 +67,14 @@ control "acm_certificate_no_pending_validation_certificate" {
   tags = local.conformance_pack_acm_common_tags
 }
 
+control "acm_certificate_rsa_key_length_2048_bits_or_greater" {
+  title         = "RSA certificates managed by ACM should use a key length of at least 2,048 bits"
+  description   = "This control checks whether RSA certificates managed by AWS Certificate Manager use a key length of at least 2,048 bits. The control fails if the key length is smaller than 2,048 bits."
+  query         = query.acm_certificate_rsa_key_length_2048_bits_or_greater
+
+  tags = local.conformance_pack_acm_common_tags
+}
+
 query "acm_certificate_expires_30_days" {
   sql = <<-EOQ
     select
@@ -176,6 +184,27 @@ query "acm_certificate_no_pending_validation_certificate" {
         else 'ok'
       end as status,
       title || ' status is ' || status || '.'  as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_acm_certificate;
+  EOQ
+}
+
+query "acm_certificate_rsa_key_length_2048_bits_or_greater" {
+  sql = <<-EOQ
+    select
+      certificate_arn as resource,
+      case
+        when not key_algorithm like 'RSA-%' then 'skip'
+        when key_algorithm = 'RSA_1024' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not key_algorithm like 'RSA-%' then title || ' is not a RSA certificate.'
+        when key_algorithm = 'RSA_1024' then title || ' is using 1024 bits key length.'
+        else title || ' is using ' || split_part(key_algorithm, '-', 2) || ' bits key length.'
+      end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

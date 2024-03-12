@@ -32,7 +32,6 @@ benchmark "foundational_security" {
     benchmark.foundational_security_elasticache,
     benchmark.foundational_security_elasticbeanstalk,
     benchmark.foundational_security_elb,
-    benchmark.foundational_security_elbv2,
     benchmark.foundational_security_emr,
     benchmark.foundational_security_es,
     benchmark.foundational_security_fsx,

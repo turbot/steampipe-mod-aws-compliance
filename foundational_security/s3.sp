@@ -11,7 +11,6 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_1,
     control.foundational_security_s3_2,
     control.foundational_security_s3_3,
-    control.foundational_security_s3_4,
     control.foundational_security_s3_5,
     control.foundational_security_s3_6,
     control.foundational_security_s3_8,
@@ -64,19 +63,6 @@ control "foundational_security_s3_3" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_3"
     foundational_security_category = "secure_network_configuration"
-  })
-}
-
-control "foundational_security_s3_4" {
-  title         = "4 S3 buckets should have server-side encryption enabled"
-  description   = "This control checks that your S3 bucket either has Amazon S3 default encryption enabled or that the S3 bucket policy explicitly denies put-object requests without server-side encryption."
-  severity      = "medium"
-  query         = query.s3_bucket_default_encryption_enabled
-  documentation = file("./foundational_security/docs/foundational_security_s3_4.md")
-
-  tags = merge(local.foundational_security_s3_common_tags, {
-    foundational_security_item_id  = "s3_4"
-    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 

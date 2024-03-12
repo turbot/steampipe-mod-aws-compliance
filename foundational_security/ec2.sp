@@ -23,7 +23,6 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_18,
     control.foundational_security_ec2_19,
     control.foundational_security_ec2_20,
-    control.foundational_security_ec2_21,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
     control.foundational_security_ec2_25
@@ -226,19 +225,6 @@ control "foundational_security_ec2_20" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_20"
     foundational_security_category = "resilience"
-  })
-}
-
-control "foundational_security_ec2_21" {
-  title         = "21 Network ACLs should not allow ingress from 0.0.0.0/0 to port 22 or port 3389"
-  description   = "This control checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule fails if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
-  severity      = "medium"
-  query         = query.vpc_network_acl_remote_administration
-  documentation = file("./foundational_security/docs/foundational_security_ec2_21.md")
-
-  tags = merge(local.foundational_security_ec2_common_tags, {
-    foundational_security_item_id  = "ec2_21"
-    foundational_security_category = "secure_network_configuration"
   })
 }
 

@@ -9,7 +9,6 @@ benchmark "foundational_security_cloudfront" {
   documentation = file("./foundational_security/docs/foundational_security_cloudfront.md")
   children = [
     control.foundational_security_cloudfront_1,
-    control.foundational_security_cloudfront_2,
     control.foundational_security_cloudfront_3,
     control.foundational_security_cloudfront_4,
     control.foundational_security_cloudfront_5,
@@ -37,19 +36,6 @@ control "foundational_security_cloudfront_1" {
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_1"
     foundational_security_category = "resources_not_publicly_accessible"
-  })
-}
-
-control "foundational_security_cloudfront_2" {
-  title         = "2 CloudFront distributions should have origin access identity enabled"
-  description   = "This control checks whether an Amazon CloudFront distribution with Amazon S3 Origin type has Origin Access Identity (OAI) configured. The control fails if OAI is not configured."
-  severity      = "medium"
-  query         = query.cloudfront_distribution_origin_access_identity_enabled
-  documentation = file("./foundational_security/docs/foundational_security_cloudfront_2.md")
-
-  tags = merge(local.foundational_security_cloudfront_common_tags, {
-    foundational_security_item_id  = "cloudfront_2"
-    foundational_security_category = "resource_policy_configuration"
   })
 }
 
