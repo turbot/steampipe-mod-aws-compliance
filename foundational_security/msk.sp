@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "foundational_security_msk" {
-  title         = "KMS"
+  title         = "MSK"
   documentation = file("./foundational_security/docs/foundational_security_mks.md")
   children = [
     control.foundational_security_msk_1

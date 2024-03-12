@@ -15,7 +15,8 @@ benchmark "foundational_security_waf" {
     control.foundational_security_waf_6,
     control.foundational_security_waf_7,
     control.foundational_security_waf_8,
-    control.foundational_security_waf_10
+    control.foundational_security_waf_10,
+    control.foundational_security_waf_12
   ]
 
   tags = merge(local.foundational_security_waf_common_tags, {
@@ -124,5 +125,18 @@ control "foundational_security_waf_10" {
   tags = merge(local.foundational_security_waf_common_tags, {
     foundational_security_item_id  = "waf_10"
     foundational_security_category = "secure_network_configuration"
+  })
+}
+
+control "foundational_security_waf_12" {
+  title         = "12 AWS WAF rules should have CloudWatch metrics enabled"
+  description   = "This control checks whether an AWS WAF rule or rule group has Amazon CloudWatch metrics enabled. The control fails if the rule or rule group doesn't have CloudWatch metrics enabled."
+  severity      = "medium"
+  query         = query.wafv2_rule_group_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_waf_12.md")
+
+  tags = merge(local.foundational_security_waf_common_tags, {
+    foundational_security_item_id  = "waf_12"
+    foundational_security_category = "logging"
   })
 }

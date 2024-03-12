@@ -15,7 +15,8 @@ benchmark "foundational_security_opensearch" {
     control.foundational_security_opensearch_5,
     control.foundational_security_opensearch_6,
     control.foundational_security_opensearch_7,
-    control.foundational_security_opensearch_8
+    control.foundational_security_opensearch_8,
+    control.foundational_security_opensearch_10
   ]
 
   tags = merge(local.foundational_security_opensearch_common_tags, {
@@ -124,5 +125,18 @@ control "foundational_security_opensearch_8" {
   tags = merge(local.foundational_security_opensearch_common_tags, {
     foundational_security_item_id  = "opensearch_8"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_opensearch_10" {
+  title         = "10 OpenSearch domains should have the latest software update installed"
+  description   = "This control checks whether an Amazon OpenSearch Service domain has the latest software update installed. The control fails if a software update is available but not installed for the domain."
+  severity      = "low"
+  query         = query.opensearch_domain_updated_with_latest_service_software_version
+  documentation = file("./foundational_security/docs/foundational_security_opensearch_10.md")
+
+  tags = merge(local.foundational_security_opensearch_common_tags, {
+    foundational_security_item_id  = "opensearch_10"
+    foundational_security_category = "vulnerability_patch_and_version_management"
   })
 }
