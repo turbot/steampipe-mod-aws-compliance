@@ -34,6 +34,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_elb,
     benchmark.foundational_security_emr,
     benchmark.foundational_security_es,
+    benchmark.foundational_security_eventbridge,
     benchmark.foundational_security_fsx,
     benchmark.foundational_security_guardduty,
     benchmark.foundational_security_iam,

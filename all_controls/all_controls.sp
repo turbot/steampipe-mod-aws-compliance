@@ -40,6 +40,7 @@ benchmark "all_controls" {
     benchmark.all_controls_elb,
     benchmark.all_controls_emr,
     benchmark.all_controls_es,
+    benchmark.all_controls_eventbridge,
     benchmark.all_controls_fsx,
     benchmark.all_controls_glacier,
     benchmark.all_controls_glue,
