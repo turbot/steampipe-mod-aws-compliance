@@ -22,7 +22,7 @@ benchmark "foundational_security_networkfirewall" {
 }
 
 control "foundational_security_networkfirewall_2" {
-  title         = "9 Network Firewall logging should be enabled"
+  title         = "2 Network Firewall logging should be enabled"
   description   = "This control checks whether logging is enabled for an AWS Network Firewall firewall. The control fails if logging isn't enabled for at least one log type or if the logging destination doesn't exist."
   severity      = "medium"
   query         = query.networkfirewall_firewall_logging_enabled

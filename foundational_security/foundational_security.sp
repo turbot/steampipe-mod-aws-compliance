@@ -41,6 +41,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_kinesis,
     benchmark.foundational_security_kms,
     benchmark.foundational_security_lambda,
+    benchmark.foundational_security_msk,
     benchmark.foundational_security_neptune,
     benchmark.foundational_security_networkfirewall,
     benchmark.foundational_security_opensearch,

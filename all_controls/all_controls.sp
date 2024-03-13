@@ -12,6 +12,7 @@ benchmark "all_controls" {
     benchmark.all_controls_acm,
     benchmark.all_controls_apigateway,
     benchmark.all_controls_appstream,
+    benchmark.all_controls_appsync,
     benchmark.all_controls_athena,
     benchmark.all_controls_autoscaling,
     benchmark.all_controls_backup,
