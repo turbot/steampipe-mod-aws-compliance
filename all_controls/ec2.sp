@@ -9,6 +9,7 @@ benchmark "all_controls_ec2" {
   description = "This section contains recommendations for configuring EC2 resources."
   children = [
     control.ec2_ami_restrict_public_access,
+    control.ec2_client_vpn_endpoint_client_connection_logging_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.ec2_instance_ebs_optimized,
@@ -47,7 +48,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_virtualization_type_no_paravirtual,
     control.ec2_launch_template_not_publicly_accessible,
     control.ec2_stopped_instance_30_days,
-    control.ec2_transit_gateway_auto_cross_account_attachment_disabled
+    control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {

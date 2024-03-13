@@ -25,7 +25,8 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_20,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
-    control.foundational_security_ec2_25
+    control.foundational_security_ec2_25,
+    control.foundational_security_ec2_51
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -267,3 +268,15 @@ control "foundational_security_ec2_25" {
   })
 }
 
+control "foundational_security_ec2_51" {
+  title         = "51 EC2 Client VPN endpoints should have client connection logging enabled"
+  description   = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
+  severity      = "low"
+  query         = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ec2_51.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_51"
+    foundational_security_category = "logging"
+  })
+}
