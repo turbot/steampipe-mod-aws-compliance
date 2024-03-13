@@ -44,6 +44,14 @@ control "docdb_cluster_deletion_protection_enabled" {
   tags = local.conformance_pack_docdb_common_tags
 }
 
+control "docdb_cluster_snapshot_restrict_public_access" {
+  title         = "Amazon DocumentDB manual cluster snapshots should not be public"
+  description   = "This control checks whether an Amazon DocumentDB manual cluster snapshot is public. The control fails if the manual cluster snapshot is public."
+  query         = query.docdb_cluster_snapshot_restrict_public_access
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 query "docdb_cluster_instance_logging_enabled" {
   sql = <<-EOQ
     select
@@ -135,5 +143,25 @@ query "docdb_cluster_deletion_protection_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_docdb_cluster;
+  EOQ
+}
+
+query "docdb_cluster_snapshot_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (cluster_snapshot ->> 'AttributeName' = 'restore') and cluster_snapshot -> 'AttributeValues' = '["all"]' then 'alarm'
+        else 'ok'
+      end status,
+      case
+        when (cluster_snapshot ->> 'AttributeName' = 'restore') and cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' does not restrict public access.'
+        else title || ' restrict public_access.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_docdb_cluster_snapshot,
+      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot
   EOQ
 }
