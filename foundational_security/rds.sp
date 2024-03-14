@@ -146,7 +146,7 @@ control "foundational_security_rds_8" {
 }
 
 control "foundational_security_rds_9" {
-  title         = "9 Database logging should be enabled"
+  title         = "9 RDS DB instances should publish logs to CloudWatch Logs"
   description   = "This control checks whether the logs of Amazon RDS are enabled and sent to CloudWatch Logs. RDS databases should have relevant logs enabled. Database logging provides detailed records of requests made to RDS. Database logs can assist with security and access audits and can help to diagnose availability issues."
   severity      = "medium"
   query         = query.rds_db_instance_logging_enabled
@@ -276,7 +276,7 @@ control "foundational_security_rds_18" {
 }
 
 control "foundational_security_rds_19" {
-  title         = "19 An RDS event notifications subscription should be configured for critical cluster events"
+  title         = "19 Existing RDS event notification subscriptions should be configured for critical cluster events."
   description   = "This control checks whether an Amazon RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
   severity      = "low"
   query         = query.rds_db_cluster_events_subscription
@@ -289,7 +289,7 @@ control "foundational_security_rds_19" {
 }
 
 control "foundational_security_rds_20" {
-  title         = "20 An RDS event notifications subscription should be configured for critical database instance events"
+  title         = "20 Existing RDS event notification subscriptions should be configured for critical database instance events"
   description   = "This control checks whether an Amazon RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   severity      = "low"
   query         = query.rds_db_instance_events_subscription
