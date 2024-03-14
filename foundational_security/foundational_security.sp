@@ -45,6 +45,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_neptune,
     benchmark.foundational_security_networkfirewall,
     benchmark.foundational_security_opensearch,
+    benchmark.foundational_security_pca,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
     benchmark.foundational_security_route53,
