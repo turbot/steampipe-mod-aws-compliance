@@ -1,4 +1,15 @@
-## v0.88 [2024-04-06]
+## v0.89 [2024-03-14]
+
+_Dependencies_
+
+- AWS plugin `v0.132.0` or higher is now required. ([#773](https://github.com/turbot/steampipe-mod-aws-compliance/pull/773))
+
+_Bug fixes_
+
+- Updated the titles of various controls in the `foundational_security` benchmark according to the latest document. . ([#765](https://github.com/turbot/steampipe-mod-aws-compliance/pull/765))
+- Fixed the `foundational_security_ecr_1` control to correctly evaluate results, taking into account whether ECR enhanced scanning is enabled at the region level. ([#766](https://github.com/turbot/steampipe-mod-aws-compliance/pull/766))
+
+## v0.88 [2024-03-06]
 
 _Powerpipe_
 
