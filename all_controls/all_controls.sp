@@ -55,6 +55,7 @@ benchmark "all_controls" {
     benchmark.all_controls_msk,
     benchmark.all_controls_networkfirewall,
     benchmark.all_controls_opensearch,
+    benchmark.all_controls_pca,
     benchmark.all_controls_rds,
     benchmark.all_controls_redshift,
     benchmark.all_controls_route53,
