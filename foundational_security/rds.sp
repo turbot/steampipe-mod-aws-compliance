@@ -381,7 +381,6 @@ control "foundational_security_rds_27" {
   })
 }
 
-
 control "foundational_security_rds_34" {
   title         = "34 Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
   description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."

@@ -39,6 +39,6 @@ control "foundational_security_elasticbeanstalk_3" {
 
   tags = merge(local.foundational_security_elasticbeanstalk_common_tags, {
     foundational_security_item_id  = "elasticbeanstalk_3"
-    foundational_security_category = "Logging"
+    foundational_security_category = "logging"
   })
 }

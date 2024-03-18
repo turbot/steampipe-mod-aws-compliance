@@ -19,7 +19,7 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
 }
 
 control "elastic_beanstalk_environment_logs_to_cloudwatch" {
-  title         = "lastic Beanstalk should stream logs to CloudWatch"
+  title         = "Elastic Beanstalk should stream logs to CloudWatch"
   description   = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
   query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
 

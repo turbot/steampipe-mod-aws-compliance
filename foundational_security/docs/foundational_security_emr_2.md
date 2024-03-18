@@ -6,5 +6,4 @@ Amazon EMR block public access prevents you from launching a cluster in a public
 
 ## Remediation
 
-
 To configure block public access for Amazon EMR, see [Using Amazon EMR block public access](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-block-public-access.html) in the Amazon EMR Management Guide.

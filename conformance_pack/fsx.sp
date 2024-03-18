@@ -76,8 +76,8 @@ query "fsx_file_system_copy_tags_to_backup_and_volume_enabled" {
         when (open_zfs_configuration ->> 'CopyTagsToVolumes')::bool then title || ' copy tags to volume enabled but disabled for backup.'
         else title || ' copy tags to backup and volume disabled.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_fsx_file_system;
   EOQ

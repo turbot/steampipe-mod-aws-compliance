@@ -19,7 +19,7 @@ benchmark "foundational_security_fsx" {
 control "foundational_security_fsx_1" {
   title         = "1 FSx for OpenZFS file systems should be configured to copy tags to backups and volumes"
   description   = "This control checks if an Amazon FSx for OpenZFS file system is configured to copy tags to backups and volumes. The control fails if the OpenZFS file system isn't configured to copy tags to backups and volumes."
-  severity      = "medium"
+  severity      = "low"
   query         = query.fsx_file_system_copy_tags_to_backup_and_volume_enabled
   documentation = file("./foundational_security/docs/foundational_security_fsx_1.md")
 

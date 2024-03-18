@@ -173,7 +173,7 @@ control "foundational_security_s3_13" {
 control "foundational_security_s3_19" {
   title         = "19 S3 access points should have block public access settings enabled"
   description   = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
-  severity      = "low"
+  severity      = "critical"
   query         = query.s3_access_point_restrict_public_access
   documentation = file("./foundational_security/docs/foundational_security_s3_19.md")
 

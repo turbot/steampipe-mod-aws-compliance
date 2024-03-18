@@ -1509,7 +1509,7 @@ query "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
       end as status,
       case
         when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
-        else title || ' automatic minor version upgrades not enabled.'
+        else title || ' automatic minor version upgrades disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1528,9 +1528,9 @@ query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
         else 'alarm'
       end as status,
       case
-        when engine not ilike '%aurora-mysql%' then title || ' not Aurora MySQL-compatible edition.'
+        when engine not ilike '%aurora-mysql%' then title || ' is not Aurora MySQL-compatible edition.'
         when enabled_cloudwatch_logs_exports @> '["audit"]' then title || ' audit logging enabled.'
-        else title || ' audit logging enabled.'
+        else title || ' audit logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

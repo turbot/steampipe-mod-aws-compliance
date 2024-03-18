@@ -156,12 +156,12 @@ query "docdb_cluster_snapshot_restrict_public_access" {
       end status,
       case
         when (cluster_snapshot ->> 'AttributeName' = 'restore') and cluster_snapshot -> 'AttributeValues' = '["all"]' then title || ' does not restrict public access.'
-        else title || ' restrict public_access.'
+        else title || ' restrict public access.'
       end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_docdb_cluster_snapshot,
-      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot
+      jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot;
   EOQ
 }

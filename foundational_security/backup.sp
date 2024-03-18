@@ -24,7 +24,7 @@ control "foundational_security_backup_1" {
   documentation = file("./foundational_security/docs/foundational_security_backup_1.md")
 
   tags = merge(local.foundational_security_backup_common_tags, {
-    foundational_security_item_id  = "autoscaling_1"
-    foundational_security_category = "inventory"
+    foundational_security_item_id  = "backup_1"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }

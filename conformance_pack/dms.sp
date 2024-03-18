@@ -36,6 +36,14 @@ control "dms_certificate_not_expired" {
   tags = local.conformance_pack_dms_common_tags
 }
 
+control "dms_replication_instance_automatic_minor_version_upgrade_enabled" {
+  title         = "DMS replication instances should have automatic minor version upgrade enabled"
+  description   = "This control checks if automatic minor version upgrade is enabled for an AWS DMS replication instance. The control fails if automatic minor version upgrade isn't enabled for a DMS replication instance."
+  query         = query.dms_replication_instance_automatic_minor_version_upgrade_enabled
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
 control "dms_endpoint_ssl_configured" {
   title         = "DMS endpoints should use SSL"
   description   = "This control checks whether an AWS DMS endpoint uses an SSL connection. The control fails if the endpoint doesn't use SSL."

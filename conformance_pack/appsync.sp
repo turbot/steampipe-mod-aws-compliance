@@ -22,7 +22,7 @@ query "appsync_graphql_api_field_level_logging_enabled" {
       end as status,
       case
         when log_config ->>  'FieldLogLevel' in ('ERROR', 'ALL') then title || ' field level logging enabled.'
-        else name || ' field level logging enabled.'
+        else name || ' field level logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
