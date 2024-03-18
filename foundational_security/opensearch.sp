@@ -38,7 +38,7 @@ control "foundational_security_opensearch_1" {
 }
 
 control "foundational_security_opensearch_2" {
-  title         = "2 OpenSearch domains should be in a VPC"
+  title         = "2 OpenSearch domains should not be publicly accessible"
   description   = "This control checks whether OpenSearch domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access."
   severity      = "critical"
   query         = query.opensearch_domain_in_vpc

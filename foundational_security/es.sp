@@ -37,7 +37,7 @@ control "foundational_security_es_1" {
 }
 
 control "foundational_security_es_2" {
-  title         = "2 Amazon Elasticsearch Service domains should be in a VPC"
+  title         = "2 Elasticsearch domains should not be publicly accessible"
   description   = "This control checks whether Amazon Elasticsearch Service domains are in a VPC. It does not evaluate the VPC subnet routing configuration to determine public access. You should ensure that Amazon ES domains are not attached to public subnets."
   severity      = "critical"
   query         = query.es_domain_in_vpc

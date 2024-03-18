@@ -49,7 +49,7 @@ control "foundational_security_ec2_1" {
 }
 
 control "foundational_security_ec2_2" {
-  title         = "2 The VPC default security group should not allow inbound and outbound traffic"
+  title         = "2 VPC default security groups should not allow inbound or outbound traffic"
   description   = "This control checks that the default security group of a VPC does not allow inbound or outbound traffic. The rules for the default security group allow all outbound and inbound traffic from network interfaces (and their associated instances) that are assigned to the same security group."
   severity      = "high"
   query         = query.vpc_default_security_group_restricts_all_traffic
