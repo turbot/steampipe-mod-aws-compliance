@@ -24,10 +24,10 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_19,
     control.foundational_security_ec2_20,
     control.foundational_security_ec2_21,
-    control.foundational_security_ec2_22,
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
-    control.foundational_security_ec2_25
+    control.foundational_security_ec2_25,
+    control.foundational_security_ec2_51
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -243,19 +243,6 @@ control "foundational_security_ec2_21" {
   })
 }
 
-control "foundational_security_ec2_22" {
-  title         = "22 Unused EC2 security groups should be removed"
-  description   = "This AWS control checks that security groups are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances or to an elastic network interface. The control will fail if the security group is not associated with an Amazon EC2 instance or an elastic network interface."
-  severity      = "medium"
-  query         = query.vpc_security_group_unused
-  documentation = file("./foundational_security/docs/foundational_security_ec2_22.md")
-
-  tags = merge(local.foundational_security_ec2_common_tags, {
-    foundational_security_item_id  = "ec2_22"
-    foundational_security_category = "inventory"
-  })
-}
-
 control "foundational_security_ec2_23" {
   title         = "23 EC2 Transit Gateways should not automatically accept VPC attachment requests"
   description   = "This control checks if EC2 Transit Gateways are automatically accepting shared VPC attachments. This control fails for a Transit Gateway that automatically accepts shared VPC attachment requests."
@@ -295,3 +282,15 @@ control "foundational_security_ec2_25" {
   })
 }
 
+control "foundational_security_ec2_51" {
+  title         = "51 EC2 Client VPN endpoints should have client connection logging enabled"
+  description   = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
+  severity      = "low"
+  query         = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ec2_51.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_51"
+    foundational_security_category = "logging"
+  })
+}

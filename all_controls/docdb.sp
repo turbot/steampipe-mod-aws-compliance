@@ -12,7 +12,8 @@ benchmark "all_controls_docdb" {
     control.docdb_cluster_deletion_protection_enabled,
     control.docdb_cluster_encryption_at_rest_enabled,
     control.docdb_cluster_instance_encryption_at_rest_enabled,
-    control.docdb_cluster_instance_logging_enabled
+    control.docdb_cluster_instance_logging_enabled,
+    control.docdb_cluster_snapshot_restrict_public_access
   ]
 
   tags = merge(local.all_controls_docdb_common_tags, {

@@ -8,7 +8,8 @@ benchmark "foundational_security_acm" {
   title         = "ACM"
   documentation = file("./foundational_security/docs/foundational_security_acm.md")
   children = [
-    control.foundational_security_acm_1
+    control.foundational_security_acm_1,
+    control.foundational_security_acm_2
   ]
 
   tags = merge(local.foundational_security_acm_common_tags, {
@@ -26,5 +27,18 @@ control "foundational_security_acm_1" {
   tags = merge(local.foundational_security_acm_common_tags, {
     foundational_security_item_id  = "acm_1"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_acm_2" {
+  title         = "2 RSA certificates managed by ACM should use a key length of at least 2,048 bits"
+  description   = "This control checks whether RSA certificates managed by AWS Certificate Manager use a key length of at least 2,048 bits. The control fails if the key length is smaller than 2,048 bits."
+  severity      = "high"
+  query         = query.acm_certificate_rsa_key_length_2048_bits_or_greater
+  documentation = file("./foundational_security/docs/foundational_security_acm_2.md")
+
+  tags = merge(local.foundational_security_acm_common_tags, {
+    foundational_security_item_id  = "acm_2"
+    foundational_security_category = "inventory_services"
   })
 }

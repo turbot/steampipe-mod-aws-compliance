@@ -13,6 +13,7 @@ benchmark "all_controls_acm" {
     control.acm_certificate_no_pending_validation_certificate,
     control.acm_certificate_no_wildcard_domain_name,
     control.acm_certificate_not_expired,
+    control.acm_certificate_rsa_key_length_2048_bits_or_greater,
     control.acm_certificate_transparency_logging_enabled
   ]
 

@@ -36,6 +36,38 @@ control "dms_certificate_not_expired" {
   tags = local.conformance_pack_dms_common_tags
 }
 
+control "dms_replication_instance_automatic_minor_version_upgrade_enabled" {
+  title         = "DMS replication instances should have automatic minor version upgrade enabled"
+  description   = "This control checks if automatic minor version upgrade is enabled for an AWS DMS replication instance. The control fails if automatic minor version upgrade isn't enabled for a DMS replication instance."
+  query         = query.dms_replication_instance_automatic_minor_version_upgrade_enabled
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
+control "dms_endpoint_ssl_configured" {
+  title         = "DMS endpoints should use SSL"
+  description   = "This control checks whether an AWS DMS endpoint uses an SSL connection. The control fails if the endpoint doesn't use SSL."
+  query         = query.dms_endpoint_ssl_configured
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
+control "dms_replication_task_target_database_logging_enabled" {
+  title         = "DMS replication tasks for the target database should have logging enabled"
+  description   = "This control checks whether logging is enabled with the minimum severity level of LOGGER_SEVERITY_DEFAULT for DMS replication tasks TARGET_APPLY and TARGET_LOAD. The control fails if logging isn't enabled for these tasks or if the minimum severity level is less than LOGGER_SEVERITY_DEFAULT."
+  query         = query.dms_replication_task_target_database_logging_enabled
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
+control "dms_replication_task_source_database_logging_enabled" {
+  title         = "DMS replication tasks for the source database should have logging enabled"
+  description   = "This control checks whether logging is enabled with the minimum severity level of LOGGER_SEVERITY_DEFAULT for DMS replication tasks SOURCE_CAPTURE and SOURCE_UNLOAD. The control fails if logging isn't enabled for these tasks or if the minimum severity level is less than LOGGER_SEVERITY_DEFAULT."
+  query         = query.dms_replication_task_source_database_logging_enabled
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
 query "dms_replication_instance_not_publicly_accessible" {
   sql = <<-EOQ
     select
@@ -73,5 +105,133 @@ query "dms_certificate_not_expired" {
       ${local.common_dimensions_global_sql}
     from
       aws_dms_certificate;
+  EOQ
+}
+
+query "dms_replication_instance_automatic_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' automatic minor version upgrade enabled.'
+        else title || ' automatic minor version upgrade disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_replication_instance;
+  EOQ
+}
+
+query "dms_endpoint_ssl_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when ssl_mode = 'none' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ssl_mode = 'none' then title || ' SSL not configured.'
+        else title || ' SSL configured.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_endpoint;
+  EOQ
+}
+
+query "dms_replication_task_target_database_logging_enabled" {
+  sql = <<-EOQ
+    with replication_task_target_apply as (
+      select
+        arn
+      from
+        aws_dms_replication_task,
+        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
+      where
+        o ->> 'Id' = 'TARGET_APPLY'
+        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
+    ), replication_task_target_load as (
+      select
+        arn
+      from
+        aws_dms_replication_task,
+        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
+      where
+        o ->> 'Id' = 'TARGET_LOAD'
+        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
+    )
+    select
+      t.arn as resource,
+      (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool,
+      case
+        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
+          and a.arn is not null
+          and l.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
+          and a.arn is not null
+          and l.arn is not null then title || ' target database logging enabled.'
+        else title || 'target database logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_replication_task as t
+      left join replication_task_target_apply as a on a.arn = t.arn
+      left join replication_task_target_load as l on l.arn = t.arn;
+  EOQ
+}
+
+query "dms_replication_task_source_database_logging_enabled" {
+  sql = <<-EOQ
+    with replication_task_source_capture as (
+      select
+        arn
+      from
+        aws_dms_replication_task,
+        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
+      where
+        o ->> 'Id' = 'SOURCE_CAPTURE'
+        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
+    ), replication_task_source_unload as (
+      select
+        arn
+      from
+        aws_dms_replication_task,
+        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
+      where
+        o ->> 'Id' = 'SOURCE_UNLOAD'
+        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
+    )
+    select
+      t.arn as resource,
+      (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool,
+      case
+        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
+          and a.arn is not null
+          and l.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
+          and a.arn is not null
+          and l.arn is not null then title || ' source database logging enabled.'
+        else title || 'source database logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_replication_task as t
+      left join replication_task_source_capture as a on a.arn = t.arn
+      left join replication_task_source_unload as l on l.arn = t.arn;
   EOQ
 }

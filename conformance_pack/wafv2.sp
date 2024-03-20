@@ -37,6 +37,14 @@ control "wafv2_web_acl_rule_attached" {
   tags = local.conformance_pack_waf_common_tags
 }
 
+control "wafv2_rule_group_logging_enabled" {
+  title         = "AWS WAF rules should have CloudWatch metrics enabled"
+  description   = "This control checks whether an AWS WAF rule or rule group has Amazon CloudWatch metrics enabled. The control fails if the rule or rule group doesn't have CloudWatch metrics enabled."
+  query         = query.wafv2_rule_group_logging_enabled
+
+  tags = local.conformance_pack_waf_common_tags
+}
+
 query "wafv2_web_acl_logging_enabled" {
   sql = <<-EOQ
     select
@@ -85,5 +93,24 @@ query "wafv2_web_acl_rule_attached" {
     from
       aws_wafv2_web_acl as a
       left join rule_group_count as c on c.arn = a.arn;
+  EOQ
+}
+
+query "wafv2_rule_group_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (visibility_config ->> 'CloudWatchMetricsEnabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (visibility_config ->> 'CloudWatchMetricsEnabled')::bool then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_wafv2_rule_group;
   EOQ
 }

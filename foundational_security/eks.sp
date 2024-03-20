@@ -9,7 +9,8 @@ benchmark "foundational_security_eks" {
   documentation = file("./foundational_security/docs/foundational_security_eks.md")
   children = [
     control.foundational_security_eks_1,
-    control.foundational_security_eks_2
+    control.foundational_security_eks_2,
+    control.foundational_security_eks_8
   ]
 
   tags = merge(local.foundational_security_eks_common_tags, {
@@ -40,5 +41,18 @@ control "foundational_security_eks_2" {
   tags = merge(local.foundational_security_eks_common_tags, {
     foundational_security_item_id  = "eks_2"
     foundational_security_category = "vulnerability_patch_and_version_management"
+  })
+}
+
+control "foundational_security_eks_8" {
+  title         = "8 EKS clusters should have audit logging enabled"
+  description   = "This control checks whether an Amazon EKS cluster has audit logging enabled. The control fails if audit logging isn't enabled for the cluster."
+  severity      = "medium"
+  query         = query.eks_cluster_control_plane_audit_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_eks_8.md")
+
+  tags = merge(local.foundational_security_eks_common_tags, {
+    foundational_security_item_id  = "eks_8"
+    foundational_security_category = "logging"
   })
 }

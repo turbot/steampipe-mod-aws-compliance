@@ -33,7 +33,9 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_23,
     control.foundational_security_rds_24,
     control.foundational_security_rds_25,
-    control.foundational_security_rds_27
+    control.foundational_security_rds_27,
+    control.foundational_security_rds_34,
+    control.foundational_security_rds_35
   ]
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -378,3 +380,31 @@ control "foundational_security_rds_27" {
     foundational_security_category = "encryption_of_data_at_rest"
   })
 }
+
+control "foundational_security_rds_34" {
+  title         = "34 Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
+  severity      = "medium"
+  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_34.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_34"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_rds_35" {
+  title         = "35 RDS DB clusters should have automatic minor version upgrade enabled"
+  description   = "This control checks if automatic minor version upgrade is enabled for an Amazon RDS database cluster. The control fails if automatic minor version upgrade isn't enabled for an RDS cluster."
+  severity      = "medium"
+  query         = query.rds_db_cluster_automatic_minor_version_upgrade_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_35.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_35"
+    foundational_security_category = "vulnerability_patch_and_version_management"
+  })
+}
+
+

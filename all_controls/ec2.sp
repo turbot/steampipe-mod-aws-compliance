@@ -9,6 +9,7 @@ benchmark "all_controls_ec2" {
   description = "This section contains recommendations for configuring EC2 resources."
   children = [
     control.ec2_ami_restrict_public_access,
+    control.ec2_client_vpn_endpoint_client_connection_logging_enabled,
     control.ec2_ebs_default_encryption_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.ec2_instance_ebs_optimized,
