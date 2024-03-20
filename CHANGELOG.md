@@ -1,3 +1,54 @@
+## v0.90 [2024-03-20]
+
+_Breaking changes_
+
+- Removed the `foundational_security_elbv2` sub benchmark and `foundational_security_cloudfront_2`, `foundational_security_ec2_22` and `foundational_security_s3_4` controls from `foundational_security` benchmark. ([#772](https://github.com/turbot/steampipe-mod-aws-compliance/pull/772))
+
+_Enhancements_
+
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#772](https://github.com/turbot/steampipe-mod-aws-compliance/pull/772))
+  - The following sub-benchmarks have been added to the `foundational_security` benchmark:
+    - `foundational_security_appsync`
+    - `foundational_security_backup`
+    - `foundational_security_eventbridge`
+    - `foundational_security_fsx`
+    - `foundational_security_msk`
+    - `foundational_security_pca`
+    - `foundational_security_route53`
+    - `foundational_security_sfn`
+  - The following controls have been added to the benchmarks:
+    - `foundational_security_acm_2`
+    - `foundational_security_appsync_2`
+    - `foundational_security_backup_1`
+    - `foundational_security_cloudfront_13`
+    - `foundational_security_dms_6`
+    - `foundational_security_dms_7`
+    - `foundational_security_dms_8`
+    - `foundational_security_dms_9`
+    - `foundational_security_docdb_3`
+    - `foundational_security_docdb_4`
+    - `foundational_security_docdb_5`
+    - `foundational_security_dms_9`
+    - `foundational_security_dynamodb_6`
+    - `foundational_security_ec2_51`
+    - `foundational_security_ecs_9`
+    - `foundational_security_eks_8`
+    - `foundational_security_elasticbeanstalk_3`
+    - `foundational_security_emr_2`
+    - `foundational_security_eventbridge_3`
+    - `foundational_security_fsx_1`
+    - `foundational_security_msk_1`
+    - `foundational_security_networkfirewall_2`
+    - `foundational_security_networkfirewall_9`
+    - `foundational_security_opensearch_10`
+    - `foundational_security_pca_1`
+    - `foundational_security_rds_34`
+    - `foundational_security_rds_35`
+    - `foundational_security_route53_2`
+    - `foundational_security_s3_19`
+    - `foundational_security_sfn_1`
+    - `foundational_security_waf_12`
+
 ## v0.89 [2024-03-14]
 
 _Dependencies_
