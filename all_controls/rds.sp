@@ -9,8 +9,10 @@ benchmark "all_controls_rds" {
   description = "This section contains recommendations for configuring RDS resources."
   children = [
     control.rds_db_cluster_aurora_backtracking_enabled,
+    control.rds_db_cluster_aurora_mysql_audit_logging_enabled,
     control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_cluster_automatic_minor_version_upgrade_enabled,
     control.rds_db_cluster_copy_tags_to_snapshot_enabled,
     control.rds_db_cluster_deletion_protection_enabled,
     control.rds_db_cluster_encrypted_with_cmk,

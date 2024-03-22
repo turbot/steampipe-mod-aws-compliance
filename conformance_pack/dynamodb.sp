@@ -128,6 +128,14 @@ control "dynamodb_table_protected_by_backup_plan" {
   })
 }
 
+control "dynamodb_table_deletion_protection_enabled" {
+  title       = "DynamoDB table should have deletion protection enabled"
+  description = "This control checks whether an Amazon DynamoDB table has deletion protection enabled. The control fails if a DynamoDB table doesn't have deletion protection enabled."
+  query       = query.dynamodb_table_deletion_protection_enabled
+
+  tags = local.conformance_pack_dynamodb_common_tags
+}
+
 query "dynamodb_table_auto_scaling_enabled" {
   sql = <<-EOQ
     with table_with_autocaling as (
@@ -294,5 +302,24 @@ query "dynamodb_table_protected_by_backup_plan" {
     from
       aws_dynamodb_table as t
       left join backup_protected_table as b on t.arn = b.arn;
+  EOQ
+}
+
+query "dynamodb_table_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when deletion_protection_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when deletion_protection_enabled then title || ' deletion protection enabled.'
+        else title || ' deletion protection disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dynamodb_table;
   EOQ
 }

@@ -387,6 +387,14 @@ control "s3_bucket_not_accessible_to_all_authenticated_user" {
   tags =local.conformance_pack_s3_common_tags
 }
 
+control "s3_access_point_restrict_public_access" {
+  title         = "S3 access points should have block public access settings enabled"
+  description   = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
+  query         = query.s3_access_point_restrict_public_access
+
+  tags =local.conformance_pack_s3_common_tags
+}
+
 query "s3_bucket_cross_region_replication_enabled" {
   sql = <<-EOQ
     with bucket_with_replication as (
@@ -1166,5 +1174,37 @@ query "s3_bucket_not_accessible_to_all_authenticated_user" {
     from
       aws_s3_bucket as b
       left join public_acl as p on b.name = p.name;
+  EOQ
+}
+
+query "s3_access_point_restrict_public_access" {
+  sql = <<-EOQ
+    select
+      access_point_arn as resource,
+      case
+        when block_public_acls
+          and block_public_policy
+          and ignore_public_acls
+          and restrict_public_buckets
+          then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when block_public_acls
+          and block_public_policy
+          and ignore_public_acls
+          and restrict_public_buckets
+          then name || ' all public access blocks enabled.'
+        else name || ' not enabled for: ' ||
+          concat_ws(', ',
+            case when not block_public_acls then 'block_public_acls' end,
+            case when not block_public_policy then 'block_public_policy' end,
+            case when not ignore_public_acls then 'ignore_public_acls' end,
+            case when not restrict_public_buckets then 'restrict_public_buckets' end
+          ) || '.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_access_point;
   EOQ
 }

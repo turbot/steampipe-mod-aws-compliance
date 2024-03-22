@@ -8,7 +8,9 @@ benchmark "all_controls_networkfirewall" {
   title       = "Network Firewall"
   description = "This section contains recommendations for configuring Network Firewall resources."
   children = [
+    control.networkfirewall_firewall_deletion_protection_enabled,
     control.networkfirewall_firewall_in_vpc,
+    control.networkfirewall_firewall_logging_enabled,
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,

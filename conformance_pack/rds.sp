@@ -506,6 +506,22 @@ control "rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability" 
   tags = local.conformance_pack_rds_common_tags
 }
 
+control "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
+  title         = "RDS DB clusters should have automatic minor version upgrade enabled"
+  description   = "This control checks if automatic minor version upgrade is enabled for an Amazon RDS database cluster. The control fails if automatic minor version upgrade isn't enabled for an RDS cluster."
+  query         = query.rds_db_cluster_automatic_minor_version_upgrade_enabled
+
+  tags = local.foundational_security_rds_common_tags
+}
+
+control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
+  title         = "Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
+  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+
+  tags = local.foundational_security_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -1480,5 +1496,45 @@ query "rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' automatic minor version upgrades enabled.'
+        else title || ' automatic minor version upgrades disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine not ilike '%aurora-mysql%' then 'skip'
+        when enabled_cloudwatch_logs_exports @> '["audit"]' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine not ilike '%aurora-mysql%' then title || ' is not Aurora MySQL-compatible edition.'
+        when enabled_cloudwatch_logs_exports @> '["audit"]' then title || ' audit logging enabled.'
+        else title || ' audit logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
   EOQ
 }

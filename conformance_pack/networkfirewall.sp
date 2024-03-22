@@ -52,6 +52,22 @@ control "networkfirewall_firewall_in_vpc" {
   tags = local.conformance_pack_networkfirewall_common_tags
 }
 
+control "networkfirewall_firewall_deletion_protection_enabled" {
+  title       = "Network Firewall firewalls should have deletion protection enabled"
+  description = "This control checks whether an AWS Network Firewall firewall has deletion protection enabled. The control fails if deletion protection isn't enabled for a firewall."
+  query       = query.networkfirewall_firewall_deletion_protection_enabled
+
+  tags = local.conformance_pack_networkfirewall_common_tags
+}
+
+control "networkfirewall_firewall_logging_enabled" {
+  title         = "Network Firewall logging should be enabled"
+  description   = "This control checks whether logging is enabled for an AWS Network Firewall firewall. The control fails if logging isn't enabled for at least one log type or if the logging destination doesn't exist."
+  query         = query.networkfirewall_firewall_logging_enabled
+
+  tags = local.conformance_pack_networkfirewall_common_tags
+}
+
 query "networkfirewall_stateless_rule_group_not_empty" {
   sql = <<-EOQ
     select
@@ -146,6 +162,44 @@ query "networkfirewall_firewall_in_vpc" {
       case
         when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' is in VPC ' || vpc_id || '.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_networkfirewall_firewall;
+  EOQ
+}
+
+query "networkfirewall_firewall_deletion_protection_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when delete_protection then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when delete_protection then title || ' delete protection enabled.'
+        else title || ' delete protection disabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_networkfirewall_firewall;
+  EOQ
+}
+
+query "networkfirewall_firewall_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when jsonb_array_length(logging_configuration) > 0 then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when jsonb_array_length(logging_configuration) > 0 then title || ' logging enabled.'
+        else title || ' logging disabled.'
       end reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

@@ -444,6 +444,14 @@ control "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
+  title         = "EC2 Client VPN endpoints should have client connection logging enabled"
+  description   = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
+  query         = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -1807,5 +1815,24 @@ query "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
       aws_ec2_instance as i
       left join iam_roles as r on r.intance_arn = i.arn
       left join iam_role_with_permission as p on p.arn = r.role_arn;
+  EOQ
+}
+
+query "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
+  sql = <<-EOQ
+    select
+      client_vpn_endpoint_id as resource,
+      case
+        when (connection_log_options ->> 'Enabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (connection_log_options ->> 'Enabled')::bool then title || ' client connection logging enabled.'
+        else title || ' client connection logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_client_vpn_endpoint;
   EOQ
 }

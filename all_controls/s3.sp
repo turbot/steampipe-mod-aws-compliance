@@ -8,6 +8,7 @@ benchmark "all_controls_s3" {
   title       = "S3"
   description = "This section contains recommendations for configuring S3 resources."
   children = [
+    control.s3_access_point_restrict_public_access,
     control.s3_bucket_acls_should_prohibit_user_access,
     control.s3_bucket_cross_region_replication_enabled,
     control.s3_bucket_default_encryption_enabled,

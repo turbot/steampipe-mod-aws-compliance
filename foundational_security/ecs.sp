@@ -14,6 +14,7 @@ benchmark "foundational_security_ecs" {
     control.foundational_security_ecs_4,
     control.foundational_security_ecs_5,
     control.foundational_security_ecs_8,
+    control.foundational_security_ecs_9,
     control.foundational_security_ecs_10,
     control.foundational_security_ecs_12
   ]
@@ -98,6 +99,19 @@ control "foundational_security_ecs_8" {
   tags = merge(local.foundational_security_ecs_common_tags, {
     foundational_security_item_id  = "ecs_8"
     foundational_security_category = "credentials_not_hard_coded"
+  })
+}
+
+control "foundational_security_ecs_9" {
+  title         = "9 ECS task definitions should have a logging configuration"
+  description   = "This control checks if the latest active Amazon ECS task definition has a logging configuration specified. The control fails if the task definition doesn't have the logConfiguration property defined or if the value for logDriver is null in at least one container definition."
+  severity      = "high"
+  query         = query.ecs_task_definition_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ecs_9.md")
+
+  tags = merge(local.foundational_security_ecs_common_tags, {
+    foundational_security_item_id  = "ecs_9"
+    foundational_security_category = "logging"
   })
 }
 

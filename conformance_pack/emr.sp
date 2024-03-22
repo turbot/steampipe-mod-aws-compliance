@@ -112,19 +112,34 @@ control "emr_cluster_encryption_at_rest_with_cse_cmk" {
 
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
+    with emr_port_configuration as(
+      select
+        region,
+        account_id
+      from
+        aws_emr_block_public_access_configuration,
+        jsonb_array_elements(permitted_public_security_group_rule_ranges) as r
+      where
+        (r -> 'MaxRange')::int = 22
+        and (r-> 'MinRange')::int = 22
+        and block_public_security_group_rules
+    )
     select
-      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      'arn:' || c.partition || '::' || c.region || ':' || c.account_id as resource,
       case
-        when block_public_security_group_rules then 'ok'
+        when not block_public_security_group_rules then 'alarm'
+        when block_public_security_group_rules and p.region is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when block_public_security_group_rules then region || ' EMR block public access enabled.'
-        else region || ' EMR block public access disabled.'
+        when not block_public_security_group_rules then c.region || ' EMR block public access disabled.'
+        when block_public_security_group_rules and p.region is not null then c.region || ' EMR block public access enabled.'
+        else c.region || ' EMR block public access enabled for ports other than 22.'
       end as reason
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
-      aws_emr_block_public_access_configuration;
+      aws_emr_block_public_access_configuration as c
+      left join emr_port_configuration as p on p.region = c.region and p.account_id = c.account_id
   EOQ
 }
 

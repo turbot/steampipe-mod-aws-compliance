@@ -8,6 +8,7 @@ benchmark "all_controls_fsx" {
   title       = "FSx"
   description = "This section contains recommendations for configuring FSx resources."
   children = [
+    control.fsx_file_system_copy_tags_to_backup_and_volume_enabled,
     control.fsx_file_system_protected_by_backup_plan
   ]
 
