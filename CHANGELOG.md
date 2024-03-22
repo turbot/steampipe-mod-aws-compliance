@@ -2,7 +2,12 @@
 
 _Breaking changes_
 
-- Removed the `foundational_security_elbv2` sub benchmark and `foundational_security_cloudfront_2`, `foundational_security_ec2_22` and `foundational_security_s3_4` controls from `foundational_security` benchmark. ([#772](https://github.com/turbot/steampipe-mod-aws-compliance/pull/772))
+- The `Foundational Security Best Practices v1.0.0` benchmark has been updated to better align with the matching [AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/doc-history.html). The following updates have been made: ([#772](https://github.com/turbot/steampipe-mod-aws-compliance/pull/772))
+  - The `foundational_security_elbv2` sub-benchmark have been removed.
+  - The following controls are no longer included in the benchmarks:
+    - `foundational_security_cloudfront_2`
+    - `foundational_security_ec2_22`
+    - `foundational_security_s3_4`
 
 _Enhancements_
 
