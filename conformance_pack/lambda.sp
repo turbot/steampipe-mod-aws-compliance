@@ -365,13 +365,15 @@ query "lambda_function_use_latest_runtime" {
       arn as resource,
       case
         when package_type <> 'Zip' then 'skip'
-        when runtime in ('nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnet7', 'dotnet6') then 'ok'
-        else 'alarm'
+        when runtime in ('nodejs22.x', 'nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.13', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'java21', 'java17', 'java11', 'java8.al2' , 'dotnet8', 'dotnet7','dotnet6', 'ruby3.3', 'ruby3.2', 'provided.al2023', 'provided.al2') then 'ok'
+        when runtime in ('java8', 'go1.x', 'provided', 'ruby2.7', 'nodejs14.x', 'python3.7', 'dotnetcore3.1', 'nodejs12.x', 'python3.6', 'dotnet5.0', 'dotnetcore2.1', 'nodejs10.x', 'ruby2.5', 'python2.7', 'nodejs8.10', 'nodejs4.3', 'nodejs4.3-edge', 'nodejs6.10', 'dotnetcore1.0', 'dotnetcore2.0', 'nodejs') then 'alarm'
+        else 'error'
       end as status,
       case
         when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
-        when runtime in ('nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnet7', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
-        else title || ' uses ' || runtime || ' which is not the latest version.'
+        when runtime in ('nodejs22.x', 'nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.13', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'java21', 'java17', 'java11', 'java8.al2' , 'dotnet8', 'dotnet7','dotnet6', 'ruby3.3', 'ruby3.2', 'provided.al2023', 'provided.al2') then title || ' uses latest runtime - ' || runtime || '.'
+        when runtime in ('java8', 'go1.x', 'provided', 'ruby2.7', 'nodejs14.x', 'python3.7', 'dotnetcore3.1', 'nodejs12.x', 'python3.6', 'dotnet5.0', 'dotnetcore2.1', 'nodejs10.x', 'ruby2.5', 'python2.7', 'nodejs8.10', 'nodejs4.3', 'nodejs4.3-edge', 'nodejs6.10', 'dotnetcore1.0', 'dotnetcore2.0', 'nodejs') then title || ' uses deprecated runtime - ' || runtime || '.'
+        else title || ' uses unknown runtime - ' || runtime || '.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
