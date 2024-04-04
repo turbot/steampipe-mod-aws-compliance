@@ -213,7 +213,7 @@ query "autoscaling_use_multiple_instance_types_in_multiple_az" {
         tags,
         _ctx,
         account_id
-    from
+      from
         aws_ec2_autoscaling_group
     ),
     distinct_instance_types_count as (

@@ -428,7 +428,7 @@ query "cloudtrail_trail_enabled" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       aws_cloudtrail_trail as a
-    left join trails_enabled b on a.arn = b.arn;
+      left join trails_enabled b on a.arn = b.arn;
   EOQ
 }
 
@@ -500,7 +500,6 @@ query "cloudtrail_security_trail_enabled" {
       when jsonb_array_length(excludeManagementEventSources) > 0 then title || ' excludes management events for ' || trim(excludeManagementEventSources::text, '[]') || '.'
       else title || ' meets all security best practices.'
     end as reason
-
     ${local.tag_dimensions_sql}
     ${local.common_dimensions_sql}
   from

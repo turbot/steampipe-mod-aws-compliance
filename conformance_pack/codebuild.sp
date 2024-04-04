@@ -118,6 +118,24 @@ query "codebuild_project_build_greater_then_90_days" {
         project_name,
         region,
         account_id
+    ),
+    codebuild_projects as (
+      select
+        arn,
+        name,
+        region,
+        account_id,
+        title,
+        tags
+      from
+        aws_codebuild_project
+      group by
+        name,
+        tags,
+        arn,
+        title,
+        region,
+        account_id
     )
     select
       p.arn as resource,
@@ -133,7 +151,7 @@ query "codebuild_project_build_greater_then_90_days" {
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
     from
-      aws_codebuild_project as p
+      codebuild_projects as p
       left join latest_codebuild_build as b on p.name = b.project_name and p.region = b.region and p.account_id = b.account_id;
   EOQ
 }
