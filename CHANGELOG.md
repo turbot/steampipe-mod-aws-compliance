@@ -1,3 +1,9 @@
+## v0.91 [2024-04-05]
+
+_Bug fixes_
+
+- Updated the `foundational_security_lambda_2` control to check the latest runtime as per the [AWS FSBP document](https://docs.aws.amazon.com/securityhub/latest/userguide/lambda-controls.html#lambda-2). ([#778](https://github.com/turbot/steampipe-mod-aws-compliance/pull/778)) (Thanks [@sbldevnet](https://github.com/sbldevnet) for the contribution!)
+
 ## v0.90 [2024-03-22]
 
 _Breaking changes_
