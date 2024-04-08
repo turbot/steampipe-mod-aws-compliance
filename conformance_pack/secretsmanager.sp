@@ -53,7 +53,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
 }
 
 control "secretsmanager_secret_unused_90_day" {
-  title       = "Secrets Manager secrets should be rotated as per the rotation schedule"
+  title       = "Secrets Manager secrets that have not been used in 90 days should be removed"
   description = "Ensure that AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is non-compliant if a secret has not been accessed in 'unusedForDays' number of days. The default value is 90 days."
   query       = query.secretsmanager_secret_unused_90_day
 
