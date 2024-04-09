@@ -3,7 +3,6 @@
 _Bug fixes_
 
 - Updated the `foundational_security_lambda_2` control to check the latest runtime as per the [AWS FSBP document](https://docs.aws.amazon.com/securityhub/latest/userguide/lambda-controls.html#lambda-2). ([#778](https://github.com/turbot/steampipe-mod-aws-compliance/pull/778)) (Thanks [@sbldevnet](https://github.com/sbldevnet) for the contribution!)
-
 - Fixed the title of `secretsmanager_secret_unused_90_day` control. ([#783](https://github.com/turbot/steampipe-mod-aws-compliance/pull/783))
 
 ## v0.90 [2024-03-22]
