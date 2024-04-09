@@ -123,7 +123,7 @@ control "lambda_function_multiple_az_configured" {
 
 control "lambda_function_use_latest_runtime" {
   title       = "Lambda functions should use latest runtimes"
-  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs18.x, nodejs16.x, nodejs14.x, python3.10, python3.9, python3.8, python3.7, ruby3.2, ruby2.7, java17, java11, java8, java8.al2, go1.x, dotnet7, dotnet6"
+  description = "This control checks that the Lambda function settings for runtimes match the expected values set for the latest runtimes for each supported language. This control checks for the following runtimes: nodejs20.x, nodejs18.x, nodejs16.x, python3.12, python3.11, python3.10, python3.9, python3.8, ruby3.3, ruby3.2, java21, java17, java11, java8.al2, dotnet8, dotnet6"
   query       = query.lambda_function_use_latest_runtime
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
@@ -365,12 +365,12 @@ query "lambda_function_use_latest_runtime" {
       arn as resource,
       case
         when package_type <> 'Zip' then 'skip'
-        when runtime in ('nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnet7', 'dotnet6') then 'ok'
+        when runtime in ('nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'ruby3.3', 'ruby3.2', 'java21', 'java17', 'java11', 'java8.al2', 'dotnet8', 'dotnet6') then 'ok'
         else 'alarm'
       end as status,
       case
         when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
-        when runtime in ('nodejs18.x', 'nodejs16.x', 'nodejs14.x', 'python3.10', 'python3.9', 'python3.8', 'python3.7', 'ruby3.2', 'ruby2.7', 'java17', 'java11', 'java8', 'java8.al2', 'go1.x', 'dotnet7', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
+        when runtime in ('nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'ruby3.3', 'ruby3.2', 'java21', 'java17', 'java11', 'java8.al2', 'dotnet8', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
         else title || ' uses ' || runtime || ' which is not the latest version.'
       end as reason
       ${local.tag_dimensions_sql}
