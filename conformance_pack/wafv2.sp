@@ -69,7 +69,9 @@ query "wafv2_web_acl_rule_attached" {
     with rule_group_count as (
       select
         arn,
-        count(*) as rule_group_count
+        count(*) as rule_group_count,
+        region,
+        account_id
       from
         aws_wafv2_web_acl,
         jsonb_array_elements(rules) as r
@@ -92,7 +94,10 @@ query "wafv2_web_acl_rule_attached" {
       ${local.common_dimensions_sql}
     from
       aws_wafv2_web_acl as a
-      left join rule_group_count as c on c.arn = a.arn;
+      left join rule_group_count as c on c.arn = a.arn
+    where
+      c.region = a.region
+      and c.account_id = a.account_id;
   EOQ
 }
 

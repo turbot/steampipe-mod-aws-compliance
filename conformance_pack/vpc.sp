@@ -519,7 +519,10 @@ query "vpc_network_acl_remote_administration" {
     with bad_rules as (
       select
         network_acl_id,
-        count(*) as num_bad_rules
+        count(*) as num_bad_rules,
+        tags,
+        region,
+        account_id
       from
         aws_vpc_network_acl,
         jsonb_array_elements(entries) as att
@@ -547,7 +550,27 @@ query "vpc_network_acl_remote_administration" {
         )
       )
       group by
-        network_acl_id
+        network_acl_id,
+        region,
+        account_id
+      order by
+        network_acl_id,
+        region,
+        account_id
+    ),
+    aws_vpc_network_acls as (
+      select
+        network_acl_id,
+        tags,
+        partition,
+        region,
+        account_id
+      from
+        aws_vpc_network_acl
+      order by
+        network_acl_id,
+        region,
+        account_id
     )
     select
       'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
@@ -562,8 +585,11 @@ query "vpc_network_acl_remote_administration" {
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
-      aws_vpc_network_acl as acl
-      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
+      aws_vpc_network_acls as acl
+      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id
+    where
+      bad_rules.region = acl.region
+      and bad_rules.account_id = acl.account_id;
   EOQ
 }
 
