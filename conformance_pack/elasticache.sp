@@ -316,6 +316,32 @@ query "elasticache_cluster_no_public_subnet" {
 
 query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
   sql = <<-EOQ
+    with aws_elasticache_replication_groups as (
+      select 
+        arn,
+        at_rest_encryption_enabled,
+        title,
+        kms_key_id,
+        region,
+        account_id
+      from
+        aws_elasticache_replication_group
+      order by
+        arn
+    ),
+    kms_keys as (
+      select
+        k.arn,
+        k.region,
+        k.account_id,
+        k.enabled
+      from
+        aws_kms_key as k,
+        aws_elasticache_replication_groups as egr
+      where
+        k.region = egr.region
+        and k.account_id = egr.account_id
+    )
     select
       r.arn as resource,
       case
@@ -330,9 +356,9 @@ query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
         when at_rest_encryption_enabled and kms_key_id is not null and k.enabled then r.title || ' encryption at rest enabled with CMK.'
         else r.title || ' encryption at rest enabled with disabled CMK.'
       end as reason
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
-      aws_elasticache_replication_group as r
-      left join aws_kms_key as k on k.arn = r.kms_key_id;
+      aws_elasticache_replication_groups as r
+      left join kms_keys as k on k.arn = r.kms_key_id;
   EOQ
 }

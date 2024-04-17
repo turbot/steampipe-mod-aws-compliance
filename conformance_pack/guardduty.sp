@@ -95,14 +95,29 @@ query "guardduty_enabled" {
 
 query "guardduty_no_high_severity_findings" {
   sql = <<-EOQ
-    with finding_count as (
+    with detectors as (
       select
         detector_id,
+        arn,
+        title
+        region,
+        account_id,
+        status
+        
+      from
+        aws_guardduty_detector
+    ), finding_count as (
+      select
+        f.detector_id,
         count(*) as count
       from
-        aws_guardduty_finding
+        aws_guardduty_finding as f,
+        detectors as d
+      where
+        d.region = f.region
+        and d.account_id = f.account_id
       group by
-        detector_id
+        f.detector_id
     )
     select
       arn as resource,
@@ -119,7 +134,7 @@ query "guardduty_no_high_severity_findings" {
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
-      aws_guardduty_detector as d
+      detectors as d
       left join finding_count as fc on fc.detector_id = d.detector_id;
   EOQ
 }

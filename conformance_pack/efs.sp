@@ -184,15 +184,45 @@ query "efs_file_system_protected_by_backup_plan" {
 
 query "efs_file_system_encrypted_with_cmk" {
   sql = <<-EOQ
-    with encrypted_fs as (
+    with aws_efs_file_systems as (
+      select 
+        arn,
+        encrypted,
+        kms_key_id,
+        title,
+        region,
+        account_id
+      from
+        aws_efs_file_system as fs
+      order by
+        arn,
+        kms_key_id,
+        title,
+        region,
+        account_id
+      ),
+    kms_keys as (
+      select
+        k.key_manager,
+        k.kms_key_id,
+        k.arn,
+        k.region,
+        k.account_id
+      from
+        aws_kms_key as k,
+        aws_efs_file_systems as efs
+      where
+        efs.account_id = k.account_id
+        and efs.region = k.region
+        and enabled     
+    ),
+    encrypted_fs as (
       select
         fs.arn as arn,
         key_manager
       from
-        aws_efs_file_system as fs
-        left join aws_kms_key as k on fs.kms_key_id = k.arn
-      where
-        enabled
+        aws_efs_file_systems as fs
+        left join kms_keys as k on fs.kms_key_id = k.arn
     )
     select
       f.arn as resource,
@@ -206,10 +236,10 @@ query "efs_file_system_encrypted_with_cmk" {
         when encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "f.")}
     from
-      aws_efs_file_system as f
+      aws_efs_file_systems as f
       left join encrypted_fs as e on f.arn = e.arn;
   EOQ
 }
