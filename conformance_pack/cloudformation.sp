@@ -106,7 +106,7 @@ query "cloudformation_stack_output_no_secrets" {
         when c.outputs is null then title || ' has no outputs.'
         when s.id is null then title || ' no secrets found in outputs.'
         else title || ' has secrets in outputs.'
-      end as reason,
+      end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from

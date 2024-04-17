@@ -204,7 +204,6 @@ query "efs_file_system_encrypted_with_cmk" {
     kms_keys as (
       select
         k.key_manager,
-        k.kms_key_id,
         k.arn,
         k.region,
         k.account_id

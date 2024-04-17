@@ -214,7 +214,7 @@ query "dms_replication_task_source_database_logging_enabled" {
         case
           when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool and l.capture_logging_enabled and l.unload_logging_enabled then title || ' source database logging enabled.'
           else title || ' source database logging disabled.'
-          end as reason,
+          end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}      
       from
