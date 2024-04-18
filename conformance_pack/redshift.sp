@@ -431,15 +431,29 @@ query "redshift_cluster_automatic_upgrade_major_versions_enabled" {
 
 query "redshift_cluster_encrypted_with_cmk" {
   sql = <<-EOQ
-    with encrypted_cluster as (
+    with redshift_clusters as (
       select
-        r.arn as arn,
-        key_manager
+        arn,
+        region,
+        account_id,
+        kms_key_id,
+        encrypted,
+        title,
+        tags
       from
-        aws_redshift_cluster as r
-        left join aws_kms_key as k on r.kms_key_id = k.arn
+      aws_redshift_cluster
+    ), encrypted_clusters as (
+      select
+        c.arn,
+        k.key_manager
+      from
+        redshift_clusters  as c,
+        aws_kms_key as k
       where
         enabled
+        and c.kms_key_id = k.arn
+        and c.region = k.region
+        and c.account_id = k.account_id
     )
     select
       r.arn as resource,
@@ -456,7 +470,7 @@ query "redshift_cluster_encrypted_with_cmk" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_redshift_cluster as r
-      left join encrypted_cluster as c on r.arn = c.arn;
+      redshift_clusters as r
+      left join encrypted_clusters as c on r.arn = c.arn;
   EOQ
 }

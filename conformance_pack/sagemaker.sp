@@ -148,25 +148,70 @@ control "sagemaker_training_job_volume_and_data_encryption_enabled" {
   tags = local.conformance_pack_sagemaker_common_tags
 }
 
+# query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
+#   sql = <<-EOQ
+#     select
+#       i.arn as resource,
+#       case
+#         when kms_key_id is null then 'alarm'
+#         when k.key_manager = 'CUSTOMER' then 'ok'
+#         else 'alarm'
+#       end as status,
+#       case
+#         when kms_key_id is null then i.title || ' encryption disabled.'
+#         when k.key_manager = 'CUSTOMER' then i.title || ' encryption at rest with CMK enabled.'
+#         else i.title || ' encryption at rest with CMK disabled.'
+#       end as reason
+#       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+#       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+#     from
+#       aws_sagemaker_notebook_instance as i
+#       left join aws_kms_key as k on k.arn = i.kms_key_id;
+#   EOQ
+# }
+
 query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   sql = <<-EOQ
+    with sagemaker_notebook_instances as (
+      select
+        arn,
+        region,
+        account_id,
+        kms_key_id,
+        title,
+        tags
+      from
+        aws_sagemaker_notebook_instance
+    ), encrypted_sagemaker_notebook_instance as (
+      select
+        c.arn,
+        k.key_manager
+      from
+        sagemaker_notebook_instances as c,
+        aws_kms_key as k
+      where
+        enabled
+        and c.kms_key_id = k.arn
+        and c.region = k.region
+        and c.account_id = k.account_id
+    )
     select
       i.arn as resource,
       case
-        when kms_key_id is null then 'alarm'
-        when k.key_manager = 'CUSTOMER' then 'ok'
+        when e.arn is null then 'alarm'
+        when e.key_manager = 'CUSTOMER' then 'ok'
         else 'alarm'
       end as status,
       case
-        when kms_key_id is null then i.title || ' encryption disabled.'
-        when k.key_manager = 'CUSTOMER' then i.title || ' encryption at rest with CMK enabled.'
+        when e.arn  is null then i.title || ' encryption disabled.'
+        when e.key_manager = 'CUSTOMER' then i.title || ' encryption at rest with CMK enabled.'
         else i.title || ' encryption at rest with CMK disabled.'
       end as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
-      aws_sagemaker_notebook_instance as i
-      left join aws_kms_key as k on k.arn = i.kms_key_id;
+      sagemaker_notebook_instances as i
+      left join encrypted_sagemaker_notebook_instance as e on i.arn = e.arn;
   EOQ
 }
 
