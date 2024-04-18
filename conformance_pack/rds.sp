@@ -1377,18 +1377,13 @@ query "rds_db_cluster_encrypted_with_cmk" {
         tags
       from
         aws_rds_db_cluster
-    ), encrypted_clusters as (
+    ), kms_keys as (
       select
-        c.arn,
-        k.key_manager
+        k.arn,
+        k.key_manager,
+        k.enabled
       from
-        rds_clusters  as c,
         aws_kms_key as k
-      where
-        enabled
-        and c.kms_key_id = k.arn
-        and c.region = k.region
-        and c.account_id = k.account_id
     )
     select
       r.arn as resource,
@@ -1406,7 +1401,7 @@ query "rds_db_cluster_encrypted_with_cmk" {
       ${local.common_dimensions_sql}
     from
       rds_clusters as r
-      left join encrypted_clusters as c on r.arn = c.arn;
+      left join kms_keys as c on r.kms_key_id = c.arn;
   EOQ
 }
 

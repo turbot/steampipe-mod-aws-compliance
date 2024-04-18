@@ -185,7 +185,7 @@ query "efs_file_system_protected_by_backup_plan" {
 query "efs_file_system_encrypted_with_cmk" {
   sql = <<-EOQ
     with aws_efs_file_systems as (
-      select 
+      select
         arn,
         encrypted,
         kms_key_id,
@@ -204,17 +204,12 @@ query "efs_file_system_encrypted_with_cmk" {
     kms_keys as (
       select
         k.key_manager,
-        k.kms_key_id,
         k.arn,
         k.region,
-        k.account_id
+        k.account_id,
+        k.enabled
       from
-        aws_kms_key as k,
-        aws_efs_file_systems as efs
-      where
-        efs.account_id = k.account_id
-        and efs.region = k.region
-        and enabled     
+        aws_kms_key as k
     ),
     encrypted_fs as (
       select
@@ -223,6 +218,8 @@ query "efs_file_system_encrypted_with_cmk" {
       from
         aws_efs_file_systems as fs
         left join kms_keys as k on fs.kms_key_id = k.arn
+      where
+        enabled
     )
     select
       f.arn as resource,
