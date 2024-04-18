@@ -60,7 +60,7 @@ query "account_alternate_contact_security_registered" {
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
-      account as a
+      account as a,
       alternate_security_contact as c 
     where 
       c.account_id = a.account_id;
