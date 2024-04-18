@@ -484,7 +484,7 @@ query "vpc_flow_logs_enabled" {
         else v.vpc_id || ' flow logging disabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}                                                                                                          
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
       vpcs as v
       left join flowlogs as f on v.vpc_id = f.resource_id;
@@ -586,10 +586,7 @@ query "vpc_network_acl_remote_administration" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
       aws_vpc_network_acls as acl
-      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id
-    where
-      bad_rules.region = acl.region
-      and bad_rules.account_id = acl.account_id;
+      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
   EOQ
 }
 
@@ -1347,7 +1344,7 @@ query "vpc_security_group_remote_administration_ipv4" {
             group_id
           from
             aws_vpc_security_group
-          order by  
+          order by
             group_id
         )
         select

@@ -103,7 +103,7 @@ query "guardduty_no_high_severity_findings" {
         region,
         account_id,
         status
-        
+
       from
         aws_guardduty_detector
     ), finding_count as (
@@ -111,11 +111,7 @@ query "guardduty_no_high_severity_findings" {
         f.detector_id,
         count(*) as count
       from
-        aws_guardduty_finding as f,
-        detectors as d
-      where
-        d.region = f.region
-        and d.account_id = f.account_id
+        aws_guardduty_finding as f
       group by
         f.detector_id
     )
@@ -131,8 +127,8 @@ query "guardduty_no_high_severity_findings" {
         when fc.count = 0  or fc.count is NULL then d.detector_id || ' is enabled and does not have high severity findings.'
         else d.detector_id || ' is enabled and has ' || fc.count ||' high severity findings.'
       end as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       detectors as d
       left join finding_count as fc on fc.detector_id = d.detector_id;

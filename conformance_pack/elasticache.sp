@@ -317,7 +317,7 @@ query "elasticache_cluster_no_public_subnet" {
 query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
   sql = <<-EOQ
     with aws_elasticache_replication_groups as (
-      select 
+      select
         arn,
         at_rest_encryption_enabled,
         title,
@@ -336,11 +336,7 @@ query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
         k.account_id,
         k.enabled
       from
-        aws_kms_key as k,
-        aws_elasticache_replication_groups as egr
-      where
-        k.region = egr.region
-        and k.account_id = egr.account_id
+        aws_kms_key as k
     )
     select
       r.arn as resource,

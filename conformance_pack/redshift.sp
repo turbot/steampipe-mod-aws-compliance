@@ -442,18 +442,12 @@ query "redshift_cluster_encrypted_with_cmk" {
         tags
       from
       aws_redshift_cluster
-    ), encrypted_clusters as (
+    ), kms_keys as (
       select
-        c.arn,
+        k.arn,
         k.key_manager
       from
-        redshift_clusters  as c,
         aws_kms_key as k
-      where
-        enabled
-        and c.kms_key_id = k.arn
-        and c.region = k.region
-        and c.account_id = k.account_id
     )
     select
       r.arn as resource,
@@ -471,6 +465,6 @@ query "redshift_cluster_encrypted_with_cmk" {
       ${local.common_dimensions_sql}
     from
       redshift_clusters as r
-      left join encrypted_clusters as c on r.arn = c.arn;
+      left join kms_keys as c on r.kms_key_id = c.arn;
   EOQ
 }
