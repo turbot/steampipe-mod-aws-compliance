@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- Enhanced several queries to minimize API usage, achieving faster performance. ([#786](https://github.com/turbot/steampipe-mod-aws-compliance/pull/786))
+- Optimized several queries to minimize API usage, achieving faster performance. ([#786](https://github.com/turbot/steampipe-mod-aws-compliance/pull/786))
 
 ## v0.91 [2024-04-09]
 
