@@ -24,7 +24,7 @@ query "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
         tags,
         title,
         region,
-        account_id
+        account_id,
         _ctx
       from
         aws_codedeploy_deployment_group
