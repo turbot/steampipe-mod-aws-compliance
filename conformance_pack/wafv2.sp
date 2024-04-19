@@ -92,7 +92,7 @@ query "wafv2_web_acl_rule_attached" {
       ${local.common_dimensions_sql}
     from
       aws_wafv2_web_acl as a
-      left join rule_group_count as c on c.arn = a.arn
+      left join rule_group_count as c on c.arn = a.arn;
   EOQ
 }
 
