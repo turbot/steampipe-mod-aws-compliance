@@ -126,7 +126,8 @@ query "codebuild_project_build_greater_then_90_days" {
         region,
         account_id,
         title,
-        tags
+        tags,
+        _ctx
       from
         aws_codebuild_project
       group by
@@ -135,7 +136,8 @@ query "codebuild_project_build_greater_then_90_days" {
         arn,
         title,
         region,
-        account_id
+        account_id,
+        _ctx
     )
     select
       p.arn as resource,

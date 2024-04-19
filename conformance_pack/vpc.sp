@@ -455,7 +455,9 @@ query "vpc_flow_logs_enabled" {
         account_id,
         region,
         owner_id,
-        vpc_id
+        vpc_id,
+        tags,
+        _ctx
       from
         aws_vpc
       order by
@@ -552,11 +554,13 @@ query "vpc_network_acl_remote_administration" {
       group by
         network_acl_id,
         region,
-        account_id
+        account_id,
+        tags
       order by
         network_acl_id,
         region,
-        account_id
+        account_id,
+        tags
     ),
     aws_vpc_network_acls as (
       select
@@ -1341,7 +1345,8 @@ query "vpc_security_group_remote_administration_ipv4" {
             tags,
             region,
             account_id,
-            group_id
+            group_id,
+            _ctx
           from
             aws_vpc_security_group
           order by

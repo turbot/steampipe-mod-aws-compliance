@@ -1374,7 +1374,8 @@ query "rds_db_cluster_encrypted_with_cmk" {
         kms_key_id,
         storage_encrypted,
         title,
-        tags
+        tags,
+        _ctx
       from
         aws_rds_db_cluster
     ), kms_keys as (

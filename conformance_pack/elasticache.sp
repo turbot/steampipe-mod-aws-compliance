@@ -323,7 +323,8 @@ query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
         title,
         kms_key_id,
         region,
-        account_id
+        account_id,
+        _ctx
       from
         aws_elasticache_replication_group
       order by

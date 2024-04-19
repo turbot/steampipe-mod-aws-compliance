@@ -191,7 +191,9 @@ query "efs_file_system_encrypted_with_cmk" {
         kms_key_id,
         title,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx
       from
         aws_efs_file_system as fs
       order by
@@ -199,7 +201,9 @@ query "efs_file_system_encrypted_with_cmk" {
         kms_key_id,
         title,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx
       ),
     kms_keys as (
       select

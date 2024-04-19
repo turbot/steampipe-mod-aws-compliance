@@ -179,7 +179,8 @@ query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
         account_id,
         kms_key_id,
         title,
-        tags
+        tags,
+        _ctx
       from
         aws_sagemaker_notebook_instance
     ), kms_keys as (

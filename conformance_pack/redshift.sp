@@ -439,7 +439,8 @@ query "redshift_cluster_encrypted_with_cmk" {
         kms_key_id,
         encrypted,
         title,
-        tags
+        tags,
+        _ctx
       from
       aws_redshift_cluster
     ), kms_keys as (
