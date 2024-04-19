@@ -16,6 +16,44 @@ control "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
 
 query "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
   sql = <<-EOQ
+    with codedeployment_groups as (
+      select
+        arn,
+        application_name,
+        deployment_config_name,
+        tags,
+        title,
+        region,
+        account_id,
+        _ctx
+      from
+        aws_codedeploy_deployment_group
+      group by
+        arn,
+        application_name,
+        deployment_config_name,
+        tags,
+        title,
+        region,
+        account_id,
+        _ctx
+    ),
+    codedeploy_apps as (
+      select
+        application_name,
+        compute_platform,
+        region,
+        account_id,
+        title
+      from
+        aws_codedeploy_app
+      group by
+        application_name,
+        compute_platform,
+        region,
+        account_id,
+        title
+    )
     select
       g.arn as resource,
       case
@@ -30,8 +68,8 @@ query "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "g.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "g.")}
     from
-      aws_codedeploy_deployment_group as g,
-      aws_codedeploy_app as a
+      codedeployment_groups as g,
+      codedeploy_apps as a
     where
       g.application_name = a.application_name;
   EOQ

@@ -428,7 +428,6 @@ query "log_metric_filter_unauthorized_api" {
         when f.trail_name is null then 'No log metric filter and alarm exist for unauthorized API calls.'
         else filter_name || ' forwards events for unauthorized API calls.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -476,7 +475,6 @@ query "log_metric_filter_console_login_mfa" {
         when f.trail_name is null then 'No log metric filter and alarm exist for console sign-in without MFA.'
         else filter_name || ' forwards events for console sign-in without MFA.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
