@@ -148,8 +148,49 @@ control "sagemaker_training_job_volume_and_data_encryption_enabled" {
   tags = local.conformance_pack_sagemaker_common_tags
 }
 
+# query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
+#   sql = <<-EOQ
+#     select
+#       i.arn as resource,
+#       case
+#         when kms_key_id is null then 'alarm'
+#         when k.key_manager = 'CUSTOMER' then 'ok'
+#         else 'alarm'
+#       end as status,
+#       case
+#         when kms_key_id is null then i.title || ' encryption disabled.'
+#         when k.key_manager = 'CUSTOMER' then i.title || ' encryption at rest with CMK enabled.'
+#         else i.title || ' encryption at rest with CMK disabled.'
+#       end as reason
+#       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+#       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+#     from
+#       aws_sagemaker_notebook_instance as i
+#       left join aws_kms_key as k on k.arn = i.kms_key_id;
+#   EOQ
+# }
+
 query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   sql = <<-EOQ
+    with sagemaker_notebook_instances as (
+      select
+        arn,
+        region,
+        account_id,
+        kms_key_id,
+        title,
+        tags,
+        _ctx
+      from
+        aws_sagemaker_notebook_instance
+    ), kms_keys as (
+      select
+        arn,
+        key_manager,
+        enabled
+      from
+        aws_kms_key
+    )
     select
       i.arn as resource,
       case
@@ -165,8 +206,8 @@ query "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
-      aws_sagemaker_notebook_instance as i
-      left join aws_kms_key as k on k.arn = i.kms_key_id;
+      sagemaker_notebook_instances as i
+      left join kms_keys as k on i.kms_key_id = k.arn;
   EOQ
 }
 

@@ -78,7 +78,11 @@ query "cloudformation_stack_output_no_secrets" {
         jsonb_array_elements(outputs) -> 'OutputKey' as k,
         jsonb_array_elements(outputs) -> 'OutputValue' as v,
         region,
-        account_id
+        account_id,
+        tags,
+        _ctx,
+        outputs,
+        title
       from
         aws_cloudformation_stack
     ),
@@ -106,8 +110,8 @@ query "cloudformation_stack_output_no_secrets" {
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
     from
-      aws_cloudformation_stack as c
-      left join stack_with_secrets as s on c.id = s.id;
+      stack_output as c
+      left join stack_with_secrets as s on c.id = s.id
   EOQ
 }
 

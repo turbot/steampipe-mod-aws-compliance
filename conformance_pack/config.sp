@@ -100,7 +100,6 @@ query "config_configuration_recorder_no_failed_deliver_logs" {
         when status ->> 'LastStatus' = 'FAILURE' then title || ' has failed deliver logs.'
         else title || ' does not have failed deliver logs.'
       end as reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_config_configuration_recorder;

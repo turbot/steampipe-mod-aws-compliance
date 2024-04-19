@@ -449,23 +449,47 @@ control "vpc_gateway_endpoint_restrict_public_access" {
 
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
+    with vpcs as (
+      select
+        arn,
+        account_id,
+        region,
+        owner_id,
+        vpc_id,
+        tags,
+        _ctx
+      from
+        aws_vpc
+      order by
+        vpc_id
+    ),
+    flowlogs as (
+      select
+        resource_id,
+        account_id,
+        region
+      from
+        aws_vpc_flow_log
+      order by
+        resource_id
+    )
     select
-      distinct arn as resource,
+      v.arn as resource,
       case
         when v.account_id <> v.owner_id then 'skip'
         when f.resource_id is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when v.account_id <> v.owner_id then vpc_id || ' is a shared VPC.'
-        when f.resource_id is not null then vpc_id || ' flow logging enabled.'
-        else vpc_id || ' flow logging disabled.'
+        when v.account_id <> v.owner_id then v.vpc_id || ' is a shared VPC.'
+        when f.resource_id is not null then v.vpc_id || ' flow logging enabled.'
+        else v.vpc_id || ' flow logging disabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
-      aws_vpc as v
-      left join aws_vpc_flow_log as f on v.vpc_id = f.resource_id;
+      vpcs as v
+      left join flowlogs as f on v.vpc_id = f.resource_id;
   EOQ
 }
 
@@ -497,7 +521,10 @@ query "vpc_network_acl_remote_administration" {
     with bad_rules as (
       select
         network_acl_id,
-        count(*) as num_bad_rules
+        count(*) as num_bad_rules,
+        tags,
+        region,
+        account_id
       from
         aws_vpc_network_acl,
         jsonb_array_elements(entries) as att
@@ -525,7 +552,29 @@ query "vpc_network_acl_remote_administration" {
         )
       )
       group by
-        network_acl_id
+        network_acl_id,
+        region,
+        account_id,
+        tags
+      order by
+        network_acl_id,
+        region,
+        account_id,
+        tags
+    ),
+    aws_vpc_network_acls as (
+      select
+        network_acl_id,
+        tags,
+        partition,
+        region,
+        account_id
+      from
+        aws_vpc_network_acl
+      order by
+        network_acl_id,
+        region,
+        account_id
     )
     select
       'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
@@ -540,7 +589,7 @@ query "vpc_network_acl_remote_administration" {
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
-      aws_vpc_network_acl as acl
+      aws_vpc_network_acls as acl
       left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
   EOQ
 }
@@ -1262,48 +1311,62 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
 
 query "vpc_security_group_remote_administration_ipv4" {
   sql = <<-EOQ
-    with bad_rules as (
-      select
-        group_id,
-        count(*) as num_bad_rules
-      from
-        aws_vpc_security_group_rule
-      where
-        type = 'ingress'
-        and (
-          cidr_ipv4 = '0.0.0.0/0'
+        with bad_rules as (
+          select
+            group_id,
+            count(*) as num_bad_rules
+          from
+            aws_vpc_security_group_rule
+          where
+            type = 'ingress'
+            and (
+              cidr_ipv4 = '0.0.0.0/0'
+              or cidr_ipv6 = '::/0'
+            )
+            and (
+                ( ip_protocol = '-1'      -- all traffic
+                and from_port is null
+                )
+                or (
+                    from_port >= 22
+                    and to_port <= 22
+                )
+                or (
+                    from_port >= 3389
+                    and to_port <= 3389
+                )
+            )
+          group by
+            group_id
+        ),
+        security_groups as (
+          select
+            arn,
+            tags,
+            region,
+            account_id,
+            group_id,
+            _ctx
+          from
+            aws_vpc_security_group
+          order by
+            group_id
         )
-        and (
-            ( ip_protocol = '-1'      -- all traffic
-            and from_port is null
-            )
-            or (
-                from_port >= 22
-                and to_port <= 22
-            )
-            or (
-                from_port >= 3389
-                and to_port <= 3389
-            )
-        )
-      group by
-        group_id
-    )
-    select
-      arn as resource,
-      case
-        when bad_rules.group_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0.'
-        else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
-    from
-      aws_vpc_security_group as sg
-      left join bad_rules on bad_rules.group_id = sg.group_id;
+        select
+          arn as resource,
+          case
+            when bad_rules.group_id is null then 'ok'
+            else 'alarm'
+          end as status,
+          case
+            when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+            else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+          end as reason
+          ${local.tag_dimensions_sql}
+          ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
+        from
+          security_groups as sg
+          left join bad_rules on bad_rules.group_id = sg.group_id;
   EOQ
 }
 

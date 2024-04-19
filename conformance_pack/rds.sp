@@ -1366,33 +1366,43 @@ query "rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerabili
 
 query "rds_db_cluster_encrypted_with_cmk" {
   sql = <<-EOQ
-    with encrypted_cluster as (
+    with rds_clusters as (
       select
-        c.arn as arn,
-        key_manager
+        arn,
+        region,
+        account_id,
+        kms_key_id,
+        storage_encrypted,
+        title,
+        tags,
+        _ctx
       from
-        aws_rds_db_cluster as c
-        left join aws_kms_key as k on c.kms_key_id = k.arn
-      where
-        enabled
+        aws_rds_db_cluster
+    ), kms_keys as (
+      select
+        k.arn,
+        k.key_manager,
+        k.enabled
+      from
+        aws_kms_key as k
     )
     select
-      c.arn as resource,
+      r.arn as resource,
       case
         when not storage_encrypted then 'alarm'
-        when storage_encrypted and e.key_manager = 'CUSTOMER' then 'ok'
+        when storage_encrypted and c.key_manager = 'CUSTOMER' then 'ok'
         else 'alarm'
       end as status,
       case
         when not storage_encrypted then title || ' not encrypted.'
-        when storage_encrypted and e.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
+        when storage_encrypted and c.key_manager = 'CUSTOMER' then title || ' encrypted with CMK.'
         else title || ' not encrypted with CMK.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_rds_db_cluster as c
-      left join encrypted_cluster as e on c.arn = e.arn;
+      rds_clusters as r
+      left join kms_keys as c on r.kms_key_id = c.arn;
   EOQ
 }
 

@@ -193,45 +193,32 @@ query "dms_replication_task_target_database_logging_enabled" {
 
 query "dms_replication_task_source_database_logging_enabled" {
   sql = <<-EOQ
-    with replication_task_source_capture as (
+      with replication_task_logging as (
+        select
+          arn,
+          bool_or(o ->> 'Id' = 'SOURCE_CAPTURE' and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')) as capture_logging_enabled,
+          bool_or(o ->> 'Id' = 'SOURCE_UNLOAD' and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')) as unload_logging_enabled
+        from
+          aws_dms_replication_task,
+          jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
+        group by
+          arn
+      )
       select
-        arn
-      from
-        aws_dms_replication_task,
-        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
-      where
-        o ->> 'Id' = 'SOURCE_CAPTURE'
-        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
-    ), replication_task_source_unload as (
-      select
-        arn
-      from
-        aws_dms_replication_task,
-        jsonb_array_elements(replication_task_settings -> 'Logging' -> 'LogComponents') as o
-      where
-        o ->> 'Id' = 'SOURCE_UNLOAD'
-        and o ->> 'Severity' in ('LOGGER_SEVERITY_DEFAULT', 'LOGGER_SEVERITY_DEBUG', 'LOGGER_SEVERITY_DETAILED_DEBUG')
-    )
-    select
-      t.arn as resource,
-      (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool,
-      case
-        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
-          and a.arn is not null
-          and l.arn is not null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool
-          and a.arn is not null
-          and l.arn is not null then title || ' source database logging enabled.'
-        else title || 'source database logging disabled.'
-      end as reason
+        t.arn as resource,
+        (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool as logging_enabled,
+        case
+          when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool and l.capture_logging_enabled and l.unload_logging_enabled then 'ok'
+          else 'alarm'
+          end as status,
+        case
+          when (replication_task_settings -> 'Logging' ->> 'EnableLogging')::bool and l.capture_logging_enabled and l.unload_logging_enabled then title || ' source database logging enabled.'
+          else title || ' source database logging disabled.'
+          end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_dms_replication_task as t
-      left join replication_task_source_capture as a on a.arn = t.arn
-      left join replication_task_source_unload as l on l.arn = t.arn;
+      ${local.common_dimensions_sql}      
+      from
+        aws_dms_replication_task as t
+        left join replication_task_logging as l on l.arn = t.arn;    
   EOQ
 }
