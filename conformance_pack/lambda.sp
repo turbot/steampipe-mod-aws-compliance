@@ -399,7 +399,7 @@ query "lambda_function_use_latest_runtime" {
   }
 
   param "lambda_deprecated_runtimes" {
-    description = "A list of deprecate lambda runtimes."
+    description = "A list of deprecated lambda runtimes."
     default     = var.lambda_deprecated_runtimes
   }
 }
