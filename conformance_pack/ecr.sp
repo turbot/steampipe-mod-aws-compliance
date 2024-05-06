@@ -68,7 +68,7 @@ query "ecr_repository_image_scan_on_push_enabled" {
         else title || ' scan on push disabled.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_ecr_repository as r
       left join check_enhanced_scanning as s on s.registry_id = r.account_id and s.region = r.region;
