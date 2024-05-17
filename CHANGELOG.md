@@ -6,7 +6,7 @@ _Enhancements_
 
 _Bug fixes_
 
-- Fixed query `ecr_repository_image_scan_on_push_enabled` to use the correct common dimensions. ([#793](https://github.com/turbot/steampipe-mod-aws-compliance/pull/793))
+- Fixed the `ecr_repository_image_scan_on_push_enabled` query to use the correct common dimensions. ([#793](https://github.com/turbot/steampipe-mod-aws-compliance/pull/793))
 
 ## v0.92 [2024-04-19]
 
