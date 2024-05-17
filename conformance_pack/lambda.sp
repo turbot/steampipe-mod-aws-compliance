@@ -1,3 +1,15 @@
+variable "lambda_latest_runtimes" {
+  type        = list(string)
+  description = "A list of latest lambda runtimes."
+  default     = ["nodejs20.x", "nodejs18.x", "nodejs16.x", "python3.12", "python3.11", "python3.10", "python3.9", "python3.8", "ruby3.3", "ruby3.2", "java21", "java17", "java11", "java8.al2", "dotnet8", "dotnet6"]
+}
+
+variable "lambda_deprecated_runtimes" {
+  type        = list(string)
+  description = "A list of deprecated lambda runtimes."
+  default     = ["java8", "go1.x", "provided", "ruby2.7", "nodejs14.x", "python3.7", "dotnetcore3.1", "nodejs12.x", "python3.6", "dotnet5.0", "dotnetcore2.1", "nodejs10.x", "ruby2.5", "python2.7", "nodejs8.10", "nodejs4.3", "nodejs4.3-edge", "nodejs6.10", "dotnetcore1.0", "dotnetcore2.0", "nodejs"]
+}
+
 locals {
   conformance_pack_lambda_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/Lambda"
@@ -365,19 +377,31 @@ query "lambda_function_use_latest_runtime" {
       arn as resource,
       case
         when package_type <> 'Zip' then 'skip'
-        when runtime in ('nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'ruby3.3', 'ruby3.2', 'java21', 'java17', 'java11', 'java8.al2', 'dotnet8', 'dotnet6') then 'ok'
-        else 'alarm'
+        when runtime like any ($1) then  'ok'
+        when runtime like any ($2) then 'alarm'
+        else 'info'
       end as status,
       case
         when package_type <> 'Zip' then title || ' package type is ' || package_type || '.'
-        when runtime in ('nodejs20.x', 'nodejs18.x', 'nodejs16.x', 'python3.12', 'python3.11', 'python3.10', 'python3.9', 'python3.8', 'ruby3.3', 'ruby3.2', 'java21', 'java17', 'java11', 'java8.al2', 'dotnet8', 'dotnet6') then title || ' uses latest runtime - ' || runtime || '.'
-        else title || ' uses ' || runtime || ' which is not the latest version.'
+        when runtime like any ($1) then title || ' uses latest runtime - ' || runtime || '.'
+        when runtime like any ($2) then title || ' uses ' || runtime || ' which is not the latest version.'
+        else title || ' uses runtime ' || runtime || ' which is yet to be released.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_lambda_function;
   EOQ
+
+  param "lambda_latest_runtimes" {
+    description = "A list of latest lambda runtimes."
+    default     = var.lambda_latest_runtimes
+  }
+
+  param "lambda_deprecated_runtimes" {
+    description = "A list of deprecated lambda runtimes."
+    default     = var.lambda_deprecated_runtimes
+  }
 }
 
 query "lambda_function_restrict_public_url" {
