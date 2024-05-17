@@ -2,7 +2,7 @@
 
 _Enhancements_
 
-- Added runtime variable support for control `lambda_function_use_latest_runtime`. ([#791](https://github.com/turbot/steampipe-mod-aws-compliance/pull/791)) (Thanks [@m-rieke](https://github.com/m-rieke) for the contribution!)
+- Added runtime variable support for control `lambda_function_use_latest_runtime`. ([#791](https://github.com/turbot/steampipe-mod-aws-compliance/pull/791))
 
 _Bug fixes_
 
