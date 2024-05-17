@@ -1,3 +1,13 @@
+## v0.93 [2024-05-17]
+
+_Enhancements_
+
+- Added runtime variable support for control `lambda_function_use_latest_runtime`. ([#791](https://github.com/turbot/steampipe-mod-aws-compliance/pull/791)) (Thanks [@m-rieke](https://github.com/m-rieke) for the contribution!)
+
+_Bug fixes_
+
+- Fix query `ecr_repository_image_scan_on_push_enabled` to use the correct common dimensions. ([#793](https://github.com/turbot/steampipe-mod-aws-compliance/pull/793))
+
 ## v0.92 [2024-04-19]
 
 _Enhancements_
