@@ -241,6 +241,7 @@ control "rds_db_instance_logging_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -386,6 +387,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     nist_csf              = "true"
     pci_dss_v321          = "true"
     rbi_cyber_security    = "true"
+    rbi_itf_nbfc          = "true"
   })
 }
 

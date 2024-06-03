@@ -51,6 +51,7 @@ control "opensearch_domain_https_required" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -76,6 +77,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
     gxp_21_cfr_part_11 = "true"
     nist_csf           = "true"
     pci_dss_v321       = "true"
+    rbi_itf_nbfc       = "true"
     soc_2              = "true"
   })
 }

@@ -90,6 +90,7 @@ control "s3_bucket_enforces_ssl" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -114,6 +115,7 @@ control "s3_bucket_logging_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -384,15 +386,15 @@ control "s3_bucket_not_accessible_to_all_authenticated_user" {
   description = "This control checks whether AWS S3 bucket ACL allow access to all authenticated users."
   query       = query.s3_bucket_not_accessible_to_all_authenticated_user
 
-  tags =local.conformance_pack_s3_common_tags
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_access_point_restrict_public_access" {
-  title         = "S3 access points should have block public access settings enabled"
-  description   = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
-  query         = query.s3_access_point_restrict_public_access
+  title       = "S3 access points should have block public access settings enabled"
+  description = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
+  query       = query.s3_access_point_restrict_public_access
 
-  tags =local.conformance_pack_s3_common_tags
+  tags = local.conformance_pack_s3_common_tags
 }
 
 query "s3_bucket_cross_region_replication_enabled" {
