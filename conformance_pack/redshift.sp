@@ -84,6 +84,7 @@ control "redshift_cluster_prohibit_public_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -109,6 +110,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }

@@ -32,6 +32,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }

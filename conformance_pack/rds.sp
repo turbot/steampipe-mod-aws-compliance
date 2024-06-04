@@ -97,6 +97,7 @@ control "rds_db_instance_backup_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -144,6 +145,7 @@ control "rds_db_instance_multiple_az_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -168,6 +170,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -216,6 +219,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -266,6 +270,7 @@ control "rds_db_instance_in_backup_plan" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -285,6 +290,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -304,6 +310,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -351,6 +358,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -509,17 +517,17 @@ control "rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability" 
 }
 
 control "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
-  title         = "RDS DB clusters should have automatic minor version upgrade enabled"
-  description   = "This control checks if automatic minor version upgrade is enabled for an Amazon RDS database cluster. The control fails if automatic minor version upgrade isn't enabled for an RDS cluster."
-  query         = query.rds_db_cluster_automatic_minor_version_upgrade_enabled
+  title       = "RDS DB clusters should have automatic minor version upgrade enabled"
+  description = "This control checks if automatic minor version upgrade is enabled for an Amazon RDS database cluster. The control fails if automatic minor version upgrade isn't enabled for an RDS cluster."
+  query       = query.rds_db_cluster_automatic_minor_version_upgrade_enabled
 
   tags = local.foundational_security_rds_common_tags
 }
 
 control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
-  title         = "Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
-  description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
-  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+  title       = "Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
+  description = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
+  query       = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
 
   tags = local.foundational_security_rds_common_tags
 }

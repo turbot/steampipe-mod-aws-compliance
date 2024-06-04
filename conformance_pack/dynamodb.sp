@@ -21,6 +21,7 @@ control "dynamodb_table_auto_scaling_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 

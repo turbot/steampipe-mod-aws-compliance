@@ -5,9 +5,7 @@ benchmark "rbi_itf_nbfc_3" {
   children = [
     benchmark.rbi_itf_nbfc_3_1,
     benchmark.rbi_itf_nbfc_3_3,
-    benchmark.rbi_itf_nbfc_3_5,
-    benchmark.rbi_itf_nbfc_3_9,
-    benchmark.rbi_itf_nbfc_3_12
+    benchmark.rbi_itf_nbfc_3_5
   ]
 
   tags = merge(local.rbi_itf_nbfc_common_tags, {

@@ -41,6 +41,7 @@ control "s3_bucket_cross_region_replication_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -134,6 +135,7 @@ control "s3_bucket_object_lock_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -159,6 +161,7 @@ control "s3_bucket_restrict_public_read_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -184,6 +187,7 @@ control "s3_bucket_restrict_public_write_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -296,6 +300,7 @@ control "s3_public_access_block_bucket" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -329,6 +334,7 @@ control "s3_bucket_policy_restrict_public_access" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -377,7 +383,8 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   query       = query.s3_bucket_acls_should_prohibit_user_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 

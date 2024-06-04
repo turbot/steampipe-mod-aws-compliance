@@ -107,6 +107,7 @@ control "opensearch_domain_in_vpc" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
