@@ -5,9 +5,9 @@ benchmark "rbi_itf_nbfc_8" {
   children = [
     benchmark.rbi_itf_nbfc_8_1,
     benchmark.rbi_itf_nbfc_8_I,
-    // benchmark.rbi_itf_nbfc_8_II,
-    // benchmark.rbi_itf_nbfc_8_III,
-    // benchmark.rbi_itf_nbfc_8_IX
+    benchmark.rbi_itf_nbfc_8_II,
+    benchmark.rbi_itf_nbfc_8_III,
+    benchmark.rbi_itf_nbfc_8_IX
   ]
 
   tags = merge(local.rbi_itf_nbfc_common_tags, {
@@ -95,5 +95,58 @@ benchmark "rbi_itf_nbfc_8_I" {
   ]
   tags = merge(local.rbi_itf_nbfc_common_tags, {
     rbi_itf_nbfc_item_id = "8.I"
+  })
+}
+
+benchmark "rbi_itf_nbfc_8_II" {
+  title       = "A well-defined user role"
+  description = "A well-defined user role"
+
+  children = [
+    control.iam_account_password_policy_strong_min_reuse_24,
+    control.iam_group_not_empty,
+    control.iam_group_user_role_no_inline_policies,
+    control.iam_policy_no_star_star,
+    control.iam_user_in_group,
+    control.iam_user_no_inline_attached_policies,
+    control.iam_user_unused_credentials_90
+  ]
+  tags = merge(local.rbi_itf_nbfc_common_tags, {
+    rbi_itf_nbfc_item_id = "8.II"
+  })
+}
+
+benchmark "rbi_itf_nbfc_8_III" {
+  title       = "A Maker-checker concept to reduce the risk of error and misuse and to ensure reliability of data/information"
+  description = "A Maker-checker concept to reduce the risk of error and misuse and to ensure reliability of data/information."
+
+  children = [
+    control.s3_bucket_versioning_enabled
+  ]
+  tags = merge(local.rbi_itf_nbfc_common_tags, {
+    rbi_itf_nbfc_item_id = "8.III"
+  })
+}
+
+benchmark "rbi_itf_nbfc_8_IX" {
+  title       = "Arrangement for backup of data with periodic testing"
+  description = "Arrangement for backup of data with periodic testing."
+
+  children = [
+    control.backup_plan_min_retention_35_days,
+    control.backup_recovery_point_manual_deletion_disabled,
+    control.backup_recovery_point_min_retention_35_days,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.ebs_volume_in_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.s3_bucket_cross_region_replication_enabled
+  ]
+  tags = merge(local.rbi_itf_nbfc_common_tags, {
+    rbi_itf_nbfc_item_id = "8.IX"
   })
 }

@@ -19,6 +19,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
