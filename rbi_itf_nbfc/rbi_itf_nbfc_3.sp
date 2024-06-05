@@ -83,11 +83,11 @@ benchmark "rbi_itf_nbfc_3_1_g" {
   description = "The IS Policy should define what constitutes an incident. NBFCs shall develop and implement processes for preventing, detecting, analysing and responding to information security incidents."
 
   children = [
-    control.guardduty_finding_archived,
-    control.guardduty_enabled,
     control.elb_application_lb_waf_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
     control.securityhub_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = merge(local.rbi_itf_nbfc_common_tags, {
