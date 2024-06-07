@@ -1,4 +1,5 @@
 benchmark "rbi_itf_nbfc_8" {
+  title       = "8. IT Systems"
   description = "It is recommended that smaller NBFCs may start with developing basic IT systems mainly for maintaining the database. NBFCs having asset size below ₹ 500 crore shall have a Board approved Information Technology policy/Information system policy."
 
   children = [
@@ -15,6 +16,7 @@ benchmark "rbi_itf_nbfc_8" {
 }
 
 benchmark "rbi_itf_nbfc_8_1" {
+  title       = "8.1 IT Systems"
   description = "IT Systems should be progressively scaled up as the size and complexity of NBFC's operations increases."
 
   children = [
@@ -40,6 +42,7 @@ benchmark "rbi_itf_nbfc_8_1" {
 }
 
 benchmark "rbi_itf_nbfc_8_I" {
+  title       = "8.I Basic Security Aspects"
   description = "Basic security aspects such as physical/ logical access controls and well defined password policy."
 
   children = [
@@ -96,6 +99,7 @@ benchmark "rbi_itf_nbfc_8_I" {
 }
 
 benchmark "rbi_itf_nbfc_8_II" {
+  title       = "8.II User Role"
   description = "A well-defined user role"
 
   children = [
@@ -113,6 +117,7 @@ benchmark "rbi_itf_nbfc_8_II" {
 }
 
 benchmark "rbi_itf_nbfc_8_III" {
+  title       = "8.III Maker-Checker Concept"
   description = "A Maker-checker concept to reduce the risk of error and misuse and to ensure reliability of data/information."
 
   children = [
@@ -124,6 +129,7 @@ benchmark "rbi_itf_nbfc_8_III" {
 }
 
 benchmark "rbi_itf_nbfc_8_IX" {
+  title       = "8.IX Backup and Recovery"
   description = "Arrangement for backup of data with periodic testing."
 
   children = [

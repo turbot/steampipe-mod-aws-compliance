@@ -1,5 +1,5 @@
 benchmark "rbi_itf_nbfc_6" {
-  title       = "Business Continuity Planning (BCP) and Disaster Recovery"
+  title       = "6. Business Continuity Planning (BCP) and Disaster Recovery"
   description = "BCP forms a significant part of an organisation's overall Business Continuity Management plan, which includes policies, standards and procedures to ensure continuity, resumption and recovery of critical business processes. BCP shall be designed to minimise the operational, financial, legal, reputational and other material consequences arising from a disaster. NBFC should adopt a Board approved BCP Policy. The functioning of BCP shall be monitored by the Board by way of periodic reports. The CIO shall be responsible for formulation, review and monitoring of BCP to ensure continued effectiveness."
 
   children = [
@@ -12,6 +12,7 @@ benchmark "rbi_itf_nbfc_6" {
 }
 
 benchmark "rbi_itf_nbfc_6_3" {
+  title      = "6.3 Backup and Recovery"
   description = "NBFCs shall consider the need to put in place necessary backup sites for their critical business systems and Data centers."
 
   children = [
