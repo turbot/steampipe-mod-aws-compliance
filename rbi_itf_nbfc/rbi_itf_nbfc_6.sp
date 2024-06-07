@@ -12,7 +12,6 @@ benchmark "rbi_itf_nbfc_6" {
 }
 
 benchmark "rbi_itf_nbfc_6_3" {
-  title       = "Backup Sites for Critical Business Systems and Data Centers"
   description = "NBFCs shall consider the need to put in place necessary backup sites for their critical business systems and Data centers."
 
   children = [

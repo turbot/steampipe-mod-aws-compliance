@@ -1,6 +1,6 @@
 benchmark "rbi_itf_nbfc_3" {
-  title       = "Information and Cyber Security"
-  description = "Information is an asset to all NBFCs and Information Security (IS) refers to the protection of these assets in order to achieve organizational goals. The purpose of IS is to control access to sensitive information, ensuring use only by legitimate users so that data cannot be read or compromised without proper authorization."
+  title       = "3. Information Security"
+  description = "Information is an asset to all NBFCs and Information Security (IS) refers to the protection of these assets in order to achieve organizational goals. The purpose of IS is to control access to sensitive information, ensuring use only by legitimate users so that data cannot be read or compromised without proper authorization. NBFCs must have a board approved IS Policy with the following basic tenets: a. Confidentiality - Ensuring access to sensitive data to authorized users only, b. Integrity - Ensuring accuracy and reliability of information by ensuring that there is no modification without authorization, c. Availability - Ensuring that uninterrupted data is available to users when it is needed, d. Authenticity - For IS it is necessary to ensure that the data, transactions, communications or documents (electronic or physical) are genuine."
 
   children = [
     benchmark.rbi_itf_nbfc_3_1,
@@ -14,8 +14,7 @@ benchmark "rbi_itf_nbfc_3" {
 }
 
 benchmark "rbi_itf_nbfc_3_1" {
-  title       = "Information Security Policy"
-  description = "NBFCs should have a comprehensive Information Security Policy (ISP) that is approved by the Board of Directors. The ISP should be reviewed periodically and updated as necessary to reflect changes to the operating environment and the information security risks to which the NBFC is exposed."
+  description = "The IS Policy must provide for a IS framework with the following basic tenets: a. Identification and Classification of Information Assets, b. Segregation of functions, c. Role based Access Control, d. Personnel Security, e. Physical Security, f. Maker-checker, g. Incident Management, h. Trails, i. Public Key Infrastructure (PKI)"
 
   children = [
     benchmark.rbi_itf_nbfc_3_1_a,
@@ -31,7 +30,7 @@ benchmark "rbi_itf_nbfc_3_1" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_a" {
-  title       = "Identification and Classification of Information Assets"
+  title       = "Identification and Classification of Information Assets-3.1.a"
   description = "NBFCs shall maintain detailed inventory of Information Asset with distinct and clear identification of the asset."
 
   children = [
@@ -47,7 +46,7 @@ benchmark "rbi_itf_nbfc_3_1_a" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_c" {
-  title       = "Role based Access Control"
+  title       = "Role based Access Control-3.1.c"
   description = "Access to information should be based on well-defined user roles (system administrator, user manager, application owner etc.), NBFCs shall avoid dependence on one or few persons for a particular job. There should be clear delegation of authority for right to upgrade/change user profiles and permissions and also key business parameters (eg. interest rates) which should be documented."
 
   children = [
@@ -79,7 +78,7 @@ benchmark "rbi_itf_nbfc_3_1_c" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_g" {
-  title       = "Incident Management"
+  title       = "Incident Management-3.1.g"
   description = "The IS Policy should define what constitutes an incident. NBFCs shall develop and implement processes for preventing, detecting, analysing and responding to information security incidents."
 
   children = [
@@ -96,7 +95,7 @@ benchmark "rbi_itf_nbfc_3_1_g" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_h" {
-  title       = "Trails"
+  title       = "Trails-3.1.h"
   description = "NBFCs shall ensure that audit trails exist for IT assets satisfying its business requirements including regulatory and legal requirements, facilitating audit, serving as forensic evidence when required and assisting in dispute resolution. If an employee, for instance, attempts to access an unauthorized section, this improper activity should be recorded in the audit trail."
 
   children = [
@@ -124,7 +123,7 @@ benchmark "rbi_itf_nbfc_3_1_h" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_i" {
-  title       = "Public Key Infrastructure (PKI)"
+  title       = "Public Key Infrastructure (PKI)-3.1.i"
   description = "NBFCs may increase the usage of PKI to ensure confidentiality of data, access control, data integrity, authentication and nonrepudiation."
 
   children = [
@@ -146,8 +145,8 @@ benchmark "rbi_itf_nbfc_3_1_i" {
 }
 
 benchmark "rbi_itf_nbfc_3_3" {
-  title       = "Vulnerability Management"
-  description = "A vulnerability can be defined as an inherent configuration flaw in an organization’s information technology base, whether hardware or software, which can be exploited by a third party to gather sensitive information regarding the organization. Vulnerability management is an ongoing process to determine the process of eliminating or mitigating vulnerabilities based upon the risk and cost associated with the vulnerabilities. NBFCs may devise a strategy for managing and eliminating vulnerabilities and such strategy may clearly be communicated in the Cyber Security policy."
+  title       = "Vulnerability Management-3.3"
+  description = "A vulnerability can be defined as an inherent configuration flaw in an organization's information technology base, whether hardware or software, which can be exploited by a third party to gather sensitive information regarding the organization. Vulnerability management is an ongoing process to determine the process of eliminating or mitigating vulnerabilities based upon the risk and cost associated with the vulnerabilities. NBFCs may devise a strategy for managing and eliminating vulnerabilities and such strategy may clearly be communicated in the Cyber Security policy."
 
   children = [
     control.ec2_instance_ssm_managed,
@@ -165,8 +164,8 @@ benchmark "rbi_itf_nbfc_3_3" {
 }
 
 benchmark "rbi_itf_nbfc_3_5" {
-  title       = "Cyber Crisis Management Plan"
-  description = "A Cyber Crisis Management Plan (CCMP) should be immediately evolved and should be a part of the overall Board approved strategy."
+  title       = "Cyber Crisis Management Plan-3.5"
+  description = "A Cyber Crisis Management Plan (CCMP) should be immediately evolved and should be a part of the overall Board approved strategy. CCMP should address the following four aspects: (i) Detection (ii) Response (iii) Recovery and (iv) Containment. NBFCs need to take effective measures to prevent cyber-attacks and to promptly detect any cyber-intrusions so as to respond / recover / contain the fall out. NBFCs are expected to be well prepared to face emerging cyber-threats such as ‘zero-day’ attacks, remote access threats, and targeted attacks. Among other things, NBFCs should take necessary preventive and corrective measures in addressing various types of cyber threats including, but not limited to, denial of service, distributed denial of services (DDoS), ransom-ware / crypto ware, destructive malware, business email frauds including spam, email phishing, spear phishing, whaling, vishing frauds, drive-by downloads, browser gateway fraud, ghost administrator exploits, identity frauds, memory update frauds, password related frauds, etc."
 
   children = [
     control.ec2_instance_ssm_managed,

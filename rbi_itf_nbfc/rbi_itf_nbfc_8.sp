@@ -1,5 +1,4 @@
 benchmark "rbi_itf_nbfc_8" {
-  title       = "IT Systems should be progressively scaled up as the size and complexity of NBFC's operations increases."
   description = "It is recommended that smaller NBFCs may start with developing basic IT systems mainly for maintaining the database. NBFCs having asset size below ₹ 500 crore shall have a Board approved Information Technology policy/Information system policy."
 
   children = [
@@ -16,8 +15,7 @@ benchmark "rbi_itf_nbfc_8" {
 }
 
 benchmark "rbi_itf_nbfc_8_1" {
-  title       = "IT Systems should be progressively scaled up as the size and complexity of NBFC's operations increases."
-  description = "Basic security aspects such as physical/ logical access controls and well defined password policy."
+  description = "IT Systems should be progressively scaled up as the size and complexity of NBFC's operations increases."
 
   children = [
     control.autoscaling_group_with_lb_use_health_check,
@@ -42,7 +40,6 @@ benchmark "rbi_itf_nbfc_8_1" {
 }
 
 benchmark "rbi_itf_nbfc_8_I" {
-  title       = "Basic security aspects such as physical/ logical access controls and well defined password policy"
   description = "Basic security aspects such as physical/ logical access controls and well defined password policy."
 
   children = [
@@ -99,7 +96,6 @@ benchmark "rbi_itf_nbfc_8_I" {
 }
 
 benchmark "rbi_itf_nbfc_8_II" {
-  title       = "A well-defined user role"
   description = "A well-defined user role"
 
   children = [
@@ -117,7 +113,6 @@ benchmark "rbi_itf_nbfc_8_II" {
 }
 
 benchmark "rbi_itf_nbfc_8_III" {
-  title       = "A Maker-checker concept to reduce the risk of error and misuse and to ensure reliability of data/information"
   description = "A Maker-checker concept to reduce the risk of error and misuse and to ensure reliability of data/information."
 
   children = [
@@ -129,7 +124,6 @@ benchmark "rbi_itf_nbfc_8_III" {
 }
 
 benchmark "rbi_itf_nbfc_8_IX" {
-  title       = "Arrangement for backup of data with periodic testing"
   description = "Arrangement for backup of data with periodic testing."
 
   children = [

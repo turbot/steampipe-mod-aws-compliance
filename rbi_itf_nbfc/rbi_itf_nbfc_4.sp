@@ -1,5 +1,5 @@
 benchmark "rbi_itf_nbfc_4" {
-  title       = "IT Operations"
+  title       = "4. IT Operations"
   description = "IT Operations should support processing and storage of information, such that the required information is available in a timely, reliable, secure and resilient manner. The Board or Senior Management should take into consideration the risk associated with existing and planned IT operations and the risk tolerance and then establish and monitor policies for risk management."
 
   children = [
@@ -12,8 +12,7 @@ benchmark "rbi_itf_nbfc_4" {
 }
 
 benchmark "rbi_itf_nbfc_4_4" {
-  title       = "IT Operations"
-  description = "IT Operations should support processing and storage of information, such that the required information is available in a timely, reliable, secure and resilient manner. The Board or Senior Management should take into consideration the risk associated with existing and planned IT operations and the risk tolerance and then establish and monitor policies for risk management."
+  description = "NBFCs may put in place MIS that assist the Top Management as well as the business heads in decision making and also to maintain an oversight over operations of various business verticals. With robust IT systems in place, NBFCs may have the following as part of an effective system generated MIS (indicative list)"
 
   children = [
     benchmark.rbi_itf_nbfc_4_4_g,
@@ -27,8 +26,8 @@ benchmark "rbi_itf_nbfc_4_4" {
 }
 
 benchmark "rbi_itf_nbfc_4_4_g" {
-  title       = "Management Information System (MIS)"
-  description = "NBFCs may put in place MIS that assist the Top Management as well as the business heads in decision making and also to maintain an oversight over operations of various business verticals. With robust IT systems in place, NBFCs may have the following as part of an effective system generated MIS (indicative list)."
+  title       = "Fraud analysis"
+  description = "Suspicious transaction analysis, embezzlement, theft or suspected money-laundering, misappropriation of assets, manipulation of financial records etc. The regulatory requirement of reporting fraud to RBI should be system driven."
 
   children = [
     control.guardduty_enabled
@@ -40,8 +39,7 @@ benchmark "rbi_itf_nbfc_4_4_g" {
 }
 
 benchmark "rbi_itf_nbfc_4_4_h" {
-  title       = "Data Backup and Restoration"
-  description = "NBFCs should have a well-documented data backup policy and procedures for data backup and restoration. The policy should include the following aspects:"
+  description = "Capacity and performance analysis of IT security systems"
 
   children = [
     control.autoscaling_group_with_lb_use_health_check,
@@ -71,7 +69,6 @@ benchmark "rbi_itf_nbfc_4_4_h" {
 }
 
 benchmark "rbi_itf_nbfc_4_4_i" {
-  title       = "Incident Reporting and Response"
   description = "Incident reporting, their impact and steps taken for non-recurrence of such events in the future."
 
   children = [
