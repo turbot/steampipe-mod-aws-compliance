@@ -30,7 +30,7 @@ benchmark "rbi_itf_nbfc_3_1" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_a" {
-  title       = "Identification and Classification of Information Assets-3.1.a"
+  title       = "3.1.a Identification and Classification of Information Assets"
   description = "NBFCs shall maintain detailed inventory of Information Asset with distinct and clear identification of the asset."
 
   children = [
@@ -46,7 +46,7 @@ benchmark "rbi_itf_nbfc_3_1_a" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_c" {
-  title       = "Role based Access Control-3.1.c"
+  title       = "3.1.c Role based Access Control"
   description = "Access to information should be based on well-defined user roles (system administrator, user manager, application owner etc.), NBFCs shall avoid dependence on one or few persons for a particular job. There should be clear delegation of authority for right to upgrade/change user profiles and permissions and also key business parameters (eg. interest rates) which should be documented."
 
   children = [
@@ -78,7 +78,7 @@ benchmark "rbi_itf_nbfc_3_1_c" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_g" {
-  title       = "Incident Management-3.1.g"
+  title       = "3.1.g Incident Management"
   description = "The IS Policy should define what constitutes an incident. NBFCs shall develop and implement processes for preventing, detecting, analysing and responding to information security incidents."
 
   children = [
@@ -95,7 +95,7 @@ benchmark "rbi_itf_nbfc_3_1_g" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_h" {
-  title       = "Trails-3.1.h"
+  title       = "3.1.h Trails"
   description = "NBFCs shall ensure that audit trails exist for IT assets satisfying its business requirements including regulatory and legal requirements, facilitating audit, serving as forensic evidence when required and assisting in dispute resolution. If an employee, for instance, attempts to access an unauthorized section, this improper activity should be recorded in the audit trail."
 
   children = [
@@ -123,7 +123,7 @@ benchmark "rbi_itf_nbfc_3_1_h" {
 }
 
 benchmark "rbi_itf_nbfc_3_1_i" {
-  title       = "Public Key Infrastructure (PKI)-3.1.i"
+  title       = "3.1.i Public Key Infrastructure (PKI)"
   description = "NBFCs may increase the usage of PKI to ensure confidentiality of data, access control, data integrity, authentication and nonrepudiation."
 
   children = [
@@ -145,7 +145,7 @@ benchmark "rbi_itf_nbfc_3_1_i" {
 }
 
 benchmark "rbi_itf_nbfc_3_3" {
-  title       = "Vulnerability Management-3.3"
+  title       = "3.3 Vulnerability Management"
   description = "A vulnerability can be defined as an inherent configuration flaw in an organization's information technology base, whether hardware or software, which can be exploited by a third party to gather sensitive information regarding the organization. Vulnerability management is an ongoing process to determine the process of eliminating or mitigating vulnerabilities based upon the risk and cost associated with the vulnerabilities. NBFCs may devise a strategy for managing and eliminating vulnerabilities and such strategy may clearly be communicated in the Cyber Security policy."
 
   children = [
@@ -164,7 +164,7 @@ benchmark "rbi_itf_nbfc_3_3" {
 }
 
 benchmark "rbi_itf_nbfc_3_5" {
-  title       = "Cyber Crisis Management Plan-3.5"
+  title       = "3.5 Cyber Crisis Management Plan"
   description = "A Cyber Crisis Management Plan (CCMP) should be immediately evolved and should be a part of the overall Board approved strategy. CCMP should address the following four aspects: (i) Detection (ii) Response (iii) Recovery and (iv) Containment. NBFCs need to take effective measures to prevent cyber-attacks and to promptly detect any cyber-intrusions so as to respond / recover / contain the fall out. NBFCs are expected to be well prepared to face emerging cyber-threats such as ‘zero-day’ attacks, remote access threats, and targeted attacks. Among other things, NBFCs should take necessary preventive and corrective measures in addressing various types of cyber threats including, but not limited to, denial of service, distributed denial of services (DDoS), ransom-ware / crypto ware, destructive malware, business email frauds including spam, email phishing, spear phishing, whaling, vishing frauds, drive-by downloads, browser gateway fraud, ghost administrator exploits, identity frauds, memory update frauds, password related frauds, etc."
 
   children = [
