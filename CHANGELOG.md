@@ -1,3 +1,9 @@
+## v0.94 [2024-06-07]
+
+_What's new?_
+
+- Added Reserve Bank of India - IT Framework for NBFC Regulatory Compliance benchmark (powerpipe benchmark run aws_compliance.benchmark.rbi_itf_nbfc). ([#798](https://github.com/turbot/steampipe-mod-aws-compliance/pull/798))
+
 ## v0.93 [2024-05-17]
 
 _Enhancements_
