@@ -63,6 +63,7 @@ control "apigateway_stage_logging_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -82,6 +83,7 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 

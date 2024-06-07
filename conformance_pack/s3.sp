@@ -41,6 +41,7 @@ control "s3_bucket_cross_region_replication_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -90,6 +91,7 @@ control "s3_bucket_enforces_ssl" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -114,6 +116,7 @@ control "s3_bucket_logging_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -132,6 +135,7 @@ control "s3_bucket_object_lock_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -157,6 +161,7 @@ control "s3_bucket_restrict_public_read_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -182,6 +187,7 @@ control "s3_bucket_restrict_public_write_access" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -294,6 +300,7 @@ control "s3_public_access_block_bucket" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -327,6 +334,7 @@ control "s3_bucket_policy_restrict_public_access" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -375,7 +383,8 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   query       = query.s3_bucket_acls_should_prohibit_user_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 
@@ -384,15 +393,15 @@ control "s3_bucket_not_accessible_to_all_authenticated_user" {
   description = "This control checks whether AWS S3 bucket ACL allow access to all authenticated users."
   query       = query.s3_bucket_not_accessible_to_all_authenticated_user
 
-  tags =local.conformance_pack_s3_common_tags
+  tags = local.conformance_pack_s3_common_tags
 }
 
 control "s3_access_point_restrict_public_access" {
-  title         = "S3 access points should have block public access settings enabled"
-  description   = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
-  query         = query.s3_access_point_restrict_public_access
+  title       = "S3 access points should have block public access settings enabled"
+  description = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
+  query       = query.s3_access_point_restrict_public_access
 
-  tags =local.conformance_pack_s3_common_tags
+  tags = local.conformance_pack_s3_common_tags
 }
 
 query "s3_bucket_cross_region_replication_enabled" {

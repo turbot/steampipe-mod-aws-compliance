@@ -41,6 +41,7 @@ control "elb_application_classic_lb_logging_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -62,6 +63,7 @@ control "elb_application_lb_deletion_protection_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -85,6 +87,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -105,6 +108,7 @@ control "elb_application_lb_waf_enabled" {
     nist_csf               = "true"
     pci_dss_v321           = "true"
     rbi_cyber_security     = "true"
+    rbi_itf_nbfc           = "true"
     soc_2                  = "true"
   })
 }
@@ -129,6 +133,7 @@ control "elb_classic_lb_use_ssl_certificate" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -148,6 +153,7 @@ control "elb_application_lb_drop_http_headers" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -172,6 +178,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -193,6 +200,7 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -213,6 +221,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -307,7 +316,8 @@ control "elb_classic_lb_multiple_az_configured" {
   query       = query.elb_classic_lb_multiple_az_configured
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 
@@ -317,7 +327,8 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 
   tags = merge(local.foundational_security_elb_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 

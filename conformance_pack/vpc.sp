@@ -25,6 +25,7 @@ control "vpc_flow_logs_enabled" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -83,6 +84,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -117,6 +119,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -140,6 +143,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -165,6 +169,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -188,6 +193,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -207,6 +213,7 @@ control "vpc_vpn_tunnel_up" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -255,6 +262,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 

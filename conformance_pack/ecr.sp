@@ -28,7 +28,8 @@ control "ecr_repository_tag_immutability_enabled" {
   query       = query.ecr_repository_tag_immutability_enabled
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 
