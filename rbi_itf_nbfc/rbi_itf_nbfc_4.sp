@@ -13,7 +13,7 @@ benchmark "rbi_itf_nbfc_4" {
 
 benchmark "rbi_itf_nbfc_4_4" {
   title       = "4.4 Management Information System (MIS)"
-  description = "NBFCs may put in place MIS that assist the Top Management as well as the business heads in decision making and also to maintain an oversight over operations of various business verticals. With robust IT systems in place, NBFCs may have the following as part of an effective system generated MIS (indicative list)"
+  description = "NBFCs may put in place MIS that assist the Top Management as well as the business heads in decision making and also to maintain an oversight over operations of various business verticals. With robust IT systems in place, NBFCs may have the following as part of an effective system generated MIS (indicative list)."
 
   children = [
     benchmark.rbi_itf_nbfc_4_4_g,
@@ -41,7 +41,7 @@ benchmark "rbi_itf_nbfc_4_4_g" {
 
 benchmark "rbi_itf_nbfc_4_4_h" {
   title       = "4.4.h Capacity and performance analysis"
-  description = "Capacity and performance analysis of IT security systems"
+  description = "Capacity and performance analysis of IT security systems."
 
   children = [
     control.autoscaling_group_with_lb_use_health_check,
