@@ -1,5 +1,5 @@
 benchmark "rbi_itf_nbfc_8" {
-  title       = "8. IT Systems"
+  title       = "8. Recommendations for NBFCs with asset size below ₹ 500 crore"
   description = "It is recommended that smaller NBFCs may start with developing basic IT systems mainly for maintaining the database. NBFCs having asset size below ₹ 500 crore shall have a Board approved Information Technology policy/Information system policy."
 
   children = [
@@ -100,7 +100,7 @@ benchmark "rbi_itf_nbfc_8_I" {
 
 benchmark "rbi_itf_nbfc_8_II" {
   title       = "8.II User Role"
-  description = "A well-defined user role"
+  description = "A well-defined user role."
 
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
