@@ -45,6 +45,7 @@ control "efs_file_system_in_backup_plan" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -95,6 +96,7 @@ control "efs_access_point_enforce_user_identity" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 
@@ -104,7 +106,8 @@ control "efs_access_point_enforce_root_directory" {
   query       = query.efs_access_point_enforce_root_directory
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    rbi_itf_nbfc = "true"
   })
 }
 

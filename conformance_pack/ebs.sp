@@ -24,6 +24,7 @@ control "ebs_snapshot_not_publicly_restorable" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -86,6 +87,7 @@ control "ebs_volume_in_backup_plan" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -138,6 +140,7 @@ control "ebs_volume_unused" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    rbi_itf_nbfc                = "true"
   })
 }
 

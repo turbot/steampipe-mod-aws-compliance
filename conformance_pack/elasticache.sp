@@ -73,6 +73,7 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
 }
