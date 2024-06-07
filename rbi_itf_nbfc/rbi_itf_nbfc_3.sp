@@ -15,7 +15,7 @@ benchmark "rbi_itf_nbfc_3" {
 
 benchmark "rbi_itf_nbfc_3_1" {
   title       = "3.1 Information Security Policy"
-  description = "The IS Policy must provide for a IS framework with the following basic tenets: a. Identification and Classification of Information Assets, b. Segregation of functions, c. Role based Access Control, d. Personnel Security, e. Physical Security, f. Maker-checker, g. Incident Management, h. Trails, i. Public Key Infrastructure (PKI)"
+  description = "The IS Policy must provide for a IS framework with the following basic tenets: a. Identification and Classification of Information Assets, b. Segregation of functions, c. Role based Access Control, d. Personnel Security, e. Physical Security, f. Maker-checker, g. Incident Management, h. Trails, i. Public Key Infrastructure (PKI)."
 
   children = [
     benchmark.rbi_itf_nbfc_3_1_a,
