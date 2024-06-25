@@ -389,35 +389,68 @@ query "cloudwatch_log_group_retention_period_365" {
 
 query "log_metric_filter_unauthorized_api" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        -- As per cis recommended exact pattern order
-        -- {($.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*") || ($.sourceIPAddress!="delivery.logs.amazonaws.com") || ($.eventName!="HeadBucket") }
-        and filter.filter_pattern ~ '\$\.errorCode\s*=\s*"\*UnauthorizedOperation".+\$\.errorCode\s*=\s*"AccessDenied\*".+\$\.sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com".+\$\.eventName\s*!=\s*"HeadBucket"'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\$\.errorCode\s*=\s*"\*UnauthorizedOperation".+\$\.errorCode\s*=\s*"AccessDenied\*".+\$\.sourceIPAddress\s*!=\s*"delivery.logs.amazonaws.com".+\$\.eventName\s*!=\s*"HeadBucket"'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -438,33 +471,68 @@ query "log_metric_filter_unauthorized_api" {
 
 query "log_metric_filter_console_login_mfa" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\(\s*\$\.eventName\s*=\s*"ConsoleLogin"\)\s+&&\s+\(\s*\$.additionalEventData\.MFAUsed\s*!=\s*"Yes"'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\(\s*\$\.eventName\s*=\s*"ConsoleLogin"\)\s+&&\s+\(\s*\$.additionalEventData\.MFAUsed\s*!=\s*"Yes"'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -485,33 +553,68 @@ query "log_metric_filter_console_login_mfa" {
 
 query "log_metric_filter_root_login" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.userIdentity\.type\s*=\s*"Root".+\$\.userIdentity\.invokedBy NOT EXISTS.+\$\.eventType\s*!=\s*"AwsServiceEvent"'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.userIdentity\.type\s*=\s*"Root".+\$\.userIdentity\.invokedBy NOT EXISTS.+\$\.eventType\s*!=\s*"AwsServiceEvent"'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -523,7 +626,6 @@ query "log_metric_filter_root_login" {
         when f.trail_name is null then 'No log metric filter and alarm exist for usage of "root" account.'
         else filter_name || ' forwards events for usage of "root" account.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -533,34 +635,68 @@ query "log_metric_filter_root_login" {
 
 query "log_metric_filter_iam_policy" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
-        trail.is_logging as is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern,
-        filter.metric_transformation_name
+        trail.is_logging,
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-      and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*DeleteGroupPolicy.+\$\.eventName\s*=\s*DeleteRolePolicy.+\$\.eventName\s*=\s*DeleteUserPolicy.+\$\.eventName\s*=\s*PutGroupPolicy.+\$\.eventName\s*=\s*PutRolePolicy.+\$\.eventName\s*=\s*PutUserPolicy.+\$\.eventName\s*=\s*CreatePolicy.+\$\.eventName\s*=\s*DeletePolicy.+\$\.eventName\s*=\s*CreatePolicyVersion.+\$\.eventName\s*=\s*DeletePolicyVersion.+\$\.eventName\s*=\s*AttachRolePolicy.+\$\.eventName\s*=\s*DetachRolePolicy.+\$\.eventName\s*=\s*AttachUserPolicy.+\$\.eventName\s*=\s*DetachUserPolicy.+\$\.eventName\s*=\s*AttachGroupPolicy.+\$\.eventName\s*=\s*DetachGroupPolicy'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*DeleteGroupPolicy.+\$\.eventName\s*=\s*DeleteRolePolicy.+\$\.eventName\s*=\s*DeleteUserPolicy.+\$\.eventName\s*=\s*PutGroupPolicy.+\$\.eventName\s*=\s*PutRolePolicy.+\$\.eventName\s*=\s*PutUserPolicy.+\$\.eventName\s*=\s*CreatePolicy.+\$\.eventName\s*=\s*DeletePolicy.+\$\.eventName\s*=\s*CreatePolicyVersion.+\$\.eventName\s*=\s*DeletePolicyVersion.+\$\.eventName\s*=\s*AttachRolePolicy.+\$\.eventName\s*=\s*DetachRolePolicy.+\$\.eventName\s*=\s*AttachUserPolicy.+\$\.eventName\s*=\s*DetachUserPolicy.+\$\.eventName\s*=\s*AttachGroupPolicy.+\$\.eventName\s*=\s*DetachGroupPolicy'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -572,7 +708,6 @@ query "log_metric_filter_iam_policy" {
         when f.trail_name is null then 'No log metric filter and alarm exist for IAM policy changes.'
         else filter_name || ' forwards events for IAM policy changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -582,34 +717,68 @@ query "log_metric_filter_iam_policy" {
 
 query "log_metric_filter_vpc" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        alarm.name as alarm_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateVpc.+\$\.eventName\s*=\s*DeleteVpc.+\$\.eventName\s*=\s*ModifyVpcAttribute.+\$\.eventName\s*=\s*AcceptVpcPeeringConnection.+\$\.eventName\s*=\s*CreateVpcPeeringConnection.+\$\.eventName\s*=\s*DeleteVpcPeeringConnection.+\$\.eventName\s*=\s*RejectVpcPeeringConnection.+\$\.eventName\s*=\s*AttachClassicLinkVpc.+\$\.eventName\s*=\s*DetachClassicLinkVpc.+\$\.eventName\s*=\s*DisableVpcClassicLink.+\$\.eventName\s*=\s*EnableVpcClassicLink'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateVpc.+\$\.eventName\s*=\s*DeleteVpc.+\$\.eventName\s*=\s*ModifyVpcAttribute.+\$\.eventName\s*=\s*AcceptVpcPeeringConnection.+\$\.eventName\s*=\s*CreateVpcPeeringConnection.+\$\.eventName\s*=\s*DeleteVpcPeeringConnection.+\$\.eventName\s*=\s*RejectVpcPeeringConnection.+\$\.eventName\s*=\s*AttachClassicLinkVpc.+\$\.eventName\s*=\s*DetachClassicLinkVpc.+\$\.eventName\s*=\s*DisableVpcClassicLink.+\$\.eventName\s*=\s*EnableVpcClassicLink'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -621,7 +790,6 @@ query "log_metric_filter_vpc" {
         when f.trail_name is null then 'No log metric filter and alarm exist for VPC changes.'
         else filter_name || ' forwards events for VPC changes.'
       end as reason
-
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
@@ -631,34 +799,68 @@ query "log_metric_filter_vpc" {
 
 query "log_metric_filter_route_table" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        alarm.name as alarm_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateRoute.+\$\.eventName\s*=\s*CreateRouteTable.+\$\.eventName\s*=\s*ReplaceRoute.+\$\.eventName\s*=\s*ReplaceRouteTableAssociation.+\$\.eventName\s*=\s*DeleteRouteTable.+\$\.eventName\s*=\s*DeleteRoute.+\$\.eventName\s*=\s*DisassociateRouteTable'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateRoute.+\$\.eventName\s*=\s*CreateRouteTable.+\$\.eventName\s*=\s*ReplaceRoute.+\$\.eventName\s*=\s*ReplaceRouteTableAssociation.+\$\.eventName\s*=\s*DeleteRouteTable.+\$\.eventName\s*=\s*DeleteRoute.+\$\.eventName\s*=\s*DisassociateRouteTable'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -679,34 +881,68 @@ query "log_metric_filter_route_table" {
 
 query "log_metric_filter_network_gateway" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        alarm.name as alarm_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateCustomerGateway.+\$\.eventName\s*=\s*DeleteCustomerGateway.+\$\.eventName\s*=\s*AttachInternetGateway.+\$\.eventName\s*=\s*CreateInternetGateway.+\$\.eventName\s*=\s*DeleteInternetGateway.+\$\.eventName\s*=\s*DetachInternetGateway'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateCustomerGateway.+\$\.eventName\s*=\s*DeleteCustomerGateway.+\$\.eventName\s*=\s*AttachInternetGateway.+\$\.eventName\s*=\s*CreateInternetGateway.+\$\.eventName\s*=\s*DeleteInternetGateway.+\$\.eventName\s*=\s*DetachInternetGateway'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -727,33 +963,68 @@ query "log_metric_filter_network_gateway" {
 
 query "log_metric_filter_network_acl" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateNetworkAcl.+\$\.eventName\s*=\s*CreateNetworkAclEntry.+\$\.eventName\s*=\s*DeleteNetworkAcl.+\$\.eventName\s*=\s*DeleteNetworkAclEntry.+\$\.eventName\s*=\s*ReplaceNetworkAclEntry.+\$\.eventName\s*=\s*ReplaceNetworkAclAssociation'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateNetworkAcl.+\$\.eventName\s*=\s*CreateNetworkAclEntry.+\$\.eventName\s*=\s*DeleteNetworkAcl.+\$\.eventName\s*=\s*DeleteNetworkAclEntry.+\$\.eventName\s*=\s*ReplaceNetworkAclEntry.+\$\.eventName\s*=\s*ReplaceNetworkAclAssociation'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -774,33 +1045,68 @@ query "log_metric_filter_network_acl" {
 
 query "log_metric_filter_security_group" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*AuthorizeSecurityGroupIngress.+\$\.eventName\s*=\s*AuthorizeSecurityGroupEgress.+\$\.eventName\s*=\s*RevokeSecurityGroupIngress.+\$\.eventName\s*=\s*RevokeSecurityGroupEgress.+\$\.eventName\s*=\s*CreateSecurityGroup.+\$\.eventName\s*=\s*DeleteSecurityGroup'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*AuthorizeSecurityGroupIngress.+\$\.eventName\s*=\s*AuthorizeSecurityGroupEgress.+\$\.eventName\s*=\s*RevokeSecurityGroupIngress.+\$\.eventName\s*=\s*RevokeSecurityGroupEgress.+\$\.eventName\s*=\s*CreateSecurityGroup.+\$\.eventName\s*=\s*DeleteSecurityGroup'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -821,33 +1127,68 @@ query "log_metric_filter_security_group" {
 
 query "log_metric_filter_config_configuration" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*config.amazonaws.com.+\$\.eventName\s*=\s*StopConfigurationRecorder.+\$\.eventName\s*=\s*DeleteDeliveryChannel.+\$\.eventName\s*=\s*PutDeliveryChannel.+\$\.eventName\s*=\s*PutConfigurationRecorder'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*config.amazonaws.com.+\$\.eventName\s*=\s*StopConfigurationRecorder.+\$\.eventName\s*=\s*DeleteDeliveryChannel.+\$\.eventName\s*=\s*PutDeliveryChannel.+\$\.eventName\s*=\s*PutConfigurationRecorder'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -868,34 +1209,68 @@ query "log_metric_filter_config_configuration" {
 
 query "log_metric_filter_bucket_policy" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
-        trail.is_logging as is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern,
-        filter.metric_transformation_name
+        trail.is_logging,
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*s3.amazonaws.com.+\$\.eventName\s*=\s*PutBucketAcl.+\$\.eventName\s*=\s*PutBucketPolicy.+\$\.eventName\s*=\s*PutBucketCors.+\$\.eventName\s*=\s*PutBucketLifecycle.+\$\.eventName\s*=\s*PutBucketReplication.+\$\.eventName\s*=\s*DeleteBucketPolicy.+\$\.eventName\s*=\s*DeleteBucketCors.+\$\.eventName\s*=\s*DeleteBucketLifecycle.+\$\.eventName\s*=\s*DeleteBucketReplication'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*s3.amazonaws.com.+\$\.eventName\s*=\s*PutBucketAcl.+\$\.eventName\s*=\s*PutBucketPolicy.+\$\.eventName\s*=\s*PutBucketCors.+\$\.eventName\s*=\s*PutBucketLifecycle.+\$\.eventName\s*=\s*PutBucketReplication.+\$\.eventName\s*=\s*DeleteBucketPolicy.+\$\.eventName\s*=\s*DeleteBucketCors.+\$\.eventName\s*=\s*DeleteBucketLifecycle.+\$\.eventName\s*=\s*DeleteBucketReplication'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -916,33 +1291,68 @@ query "log_metric_filter_bucket_policy" {
 
 query "log_metric_filter_disable_or_delete_cmk" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*kms.amazonaws.com.+\$\.eventName\s*=\s*DisableKey.+\$\.eventName\s*=\s*ScheduleKeyDeletion'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*kms.amazonaws.com.+\$\.eventName\s*=\s*DisableKey.+\$\.eventName\s*=\s*ScheduleKeyDeletion'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -963,33 +1373,68 @@ query "log_metric_filter_disable_or_delete_cmk" {
 
 query "log_metric_filter_console_authentication_failure" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*ConsoleLogin.+\$\.errorMessage\s*=\s*"Failed authentication"'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*ConsoleLogin.+\$\.errorMessage\s*=\s*"Failed authentication"'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -999,7 +1444,7 @@ query "log_metric_filter_console_authentication_failure" {
       end as status,
       case
         when f.trail_name is null then 'No log metric filter and alarm exist for console authentication failures.'
-        else filter_name || ' forwards events for console authentication failures.'
+        else f.filter_name || ' forwards events for console authentication failures.'
       end as reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
@@ -1010,33 +1455,68 @@ query "log_metric_filter_console_authentication_failure" {
 
 query "log_metric_filter_cloudtrail_configuration" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateTrail.+\$\.eventName\s*=\s*UpdateTrail.+\$\.eventName\s*=\s*DeleteTrail.+\$\.eventName\s*=\s*StartLogging.+\$\.eventName\s*=\s*StopLogging'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventName\s*=\s*CreateTrail.+\$\.eventName\s*=\s*UpdateTrail.+\$\.eventName\s*=\s*DeleteTrail.+\$\.eventName\s*=\s*StartLogging.+\$\.eventName\s*=\s*StopLogging'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -1057,34 +1537,68 @@ query "log_metric_filter_cloudtrail_configuration" {
 
 query "log_metric_filter_organization" {
   sql = <<-EOQ
-    with filter_data as (
+    with trails as (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
-        split_part(trail.log_group_arn, ':', 7) as log_group_name,
-        filter.name as filter_name,
-        action_arn as topic_arn,
-        alarm.metric_name,
-        alarm.name as alarm_name,
-        subscription.subscription_arn,
-        filter.filter_pattern
+        split_part(trail.log_group_arn, ':', 7) as log_group_name
       from
         aws_cloudtrail_trail as trail,
-        jsonb_array_elements(trail.event_selectors) as se,
-        aws_cloudwatch_log_metric_filter as filter,
-        aws_cloudwatch_alarm as alarm,
-        jsonb_array_elements_text(alarm.alarm_actions) as action_arn,
-        aws_sns_topic_subscription as subscription
+        jsonb_array_elements(trail.event_selectors) as se
       where
         trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-        and filter.log_group_name = split_part(trail.log_group_arn, ':', 7)
-        and filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*organizations.amazonaws.com.+\$\.eventName\s*=\s*"?AcceptHandshake"?.+\$\.eventName\s*=\s*"?AttachPolicy"?.+\$\.eventName\s*=\s*"?CreateAccount"?.+\$\.eventName\s*=\s*"?CreateOrganizationalUnit"?.+\$\.eventName\s*=\s*"?CreatePolicy"?.+\$\.eventName\s*=\s*"?DeclineHandshake"?.+\$\.eventName\s*=\s*"?DeleteOrganization"?.+\$\.eventName\s*=\s*"?DeleteOrganizationalUnit"?.+\$\.eventName\s*=\s*"?DeletePolicy"?.+\$\.eventName\s*=\s*"?DetachPolicy"?.+\$\.eventName\s*=\s*"?DisablePolicyType"?.+\$\.eventName\s*=\s*"?EnablePolicyType"?.+\$\.eventName\s*=\s*"?InviteAccountToOrganization"?.+\$\.eventName\s*=\s*"?LeaveOrganization"?.+\$\.eventName\s*=\s*"?MoveAccount"?.+\$\.eventName\s*=\s*"?RemoveAccountFromOrganization"?.+\$\.eventName\s*=\s*"?UpdatePolicy"?.+\$\.eventName\s*=\s*"?UpdateOrganizationalUnit"?'
-        and alarm.metric_name = filter.metric_transformation_name
-        and subscription.topic_arn = action_arn
+      order by
+        trail_name
+    ),
+    alarms as (
+      select
+        metric_name,
+        action_arn as topic_arn
+      from
+        aws_cloudwatch_alarm,
+        jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
+      order by
+        metric_name
+    ),
+    topic_subscriptions as (
+      select
+        subscription_arn,
+        topic_arn
+      from
+        aws_sns_topic_subscription
+      order by
+        subscription_arn
+    ),
+    metric_filters as (
+      select
+        filter.name as filter_name,
+        filter_pattern,
+        log_group_name,
+        metric_transformation_name
+      from
+        aws_cloudwatch_log_metric_filter as filter
+      where
+        filter.filter_pattern ~ '\s*\$\.eventSource\s*=\s*organizations.amazonaws.com.+\$\.eventName\s*=\s*"?AcceptHandshake"?.+\$\.eventName\s*=\s*"?AttachPolicy"?.+\$\.eventName\s*=\s*"?CreateAccount"?.+\$\.eventName\s*=\s*"?CreateOrganizationalUnit"?.+\$\.eventName\s*=\s*"?CreatePolicy"?.+\$\.eventName\s*=\s*"?DeclineHandshake"?.+\$\.eventName\s*=\s*"?DeleteOrganization"?.+\$\.eventName\s*=\s*"?DeleteOrganizationalUnit"?.+\$\.eventName\s*=\s*"?DeletePolicy"?.+\$\.eventName\s*=\s*"?DetachPolicy"?.+\$\.eventName\s*=\s*"?DisablePolicyType"?.+\$\.eventName\s*=\s*"?EnablePolicyType"?.+\$\.eventName\s*=\s*"?InviteAccountToOrganization"?.+\$\.eventName\s*=\s*"?LeaveOrganization"?.+\$\.eventName\s*=\s*"?MoveAccount"?.+\$\.eventName\s*=\s*"?RemoveAccountFromOrganization"?.+\$\.eventName\s*=\s*"?UpdatePolicy"?.+\$\.eventName\s*=\s*"?UpdateOrganizationalUnit"?'
+      order by
+        filter_name
+    ),
+    filter_data as (
+      select
+        t.account_id,
+        t.trail_name,
+        f.filter_name
+      from
+        trails as t
+      join
+        metric_filters as f on f.log_group_name = t.log_group_name
+      join
+        alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join
+        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
