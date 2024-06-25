@@ -1,3 +1,9 @@
+## v0.95 [2024-06-25]
+
+_Enhancements_
+
+- Optimized `log_group_metric_*` queries to minimize API usage, achieving faster performance. ([#802](https://github.com/turbot/steampipe-mod-aws-compliance/pull/802))
+
 ## v0.94 [2024-06-07]
 
 _What's new?_
