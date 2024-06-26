@@ -103,6 +103,7 @@ query "sqs_queue_encrypted_at_rest" {
         else 'ok'
       end as status,
       case
+        when sqs_managed_sse_enabled then  title || ' secured with managed SQS-SSE.'
         when kms_master_key_id is null then title || ' encryption at rest disabled.'
         else title || ' encryption at rest enabled.'
       end as reason
