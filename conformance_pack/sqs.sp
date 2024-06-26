@@ -98,6 +98,7 @@ query "sqs_queue_encrypted_at_rest" {
     select
       queue_arn as resource,
       case
+        when sqs_managed_sse_enabled then 'ok'
         when kms_master_key_id is null then 'alarm'
         else 'ok'
       end as status,
