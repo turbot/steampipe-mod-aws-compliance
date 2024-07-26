@@ -6,8 +6,8 @@ locals {
 }
 
 benchmark "nist_800_172" {
-  title         = "NIST 800-171"
-  description   = "NIST SP 800-171 focuses on protecting the confidentiality of Controlled Unclassified Information (CUI) in nonfederal systems and organizations, and recommends specific security requirements to achieve that objective. NIST 800-171 is a publication that outlines the required security standards and practices for non-federal organizations that handle CUI on their networks."
+  title         = "NIST 800-172"
+  description   = "NIST Special Publication (SP) 800-172 provides federal agencies with a set of enhanced security requirements for protecting the confidentiality, integrity, and availability of controlled unclassified information (CUI) in nonfederal systems and organizations from the advanced persistent threat when the CUI is associated with a critical program or high value asset."
   documentation = file("./nist_800_172/docs/nist_800_172_overview.md")
 
   children = [
