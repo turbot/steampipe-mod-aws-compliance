@@ -1,3 +1,13 @@
+## v0.96 [2024-08-02]
+
+_What's new?_
+
+- Added NIST 800-172 benchmark (`powerpipe benchmark run aws_compliance.benchmark.nist_800_172`). ([#807](https://github.com/turbot/steampipe-mod-aws-compliance/pull/807))
+
+_Bug fixes_
+
+- Fixed `sqs_queue_encrypted_at_rest` query to make sure queues using `SQS-SSE` encryption at rest remain in ok state. ([#805](https://github.com/turbot/steampipe-mod-aws-compliance/pull/805)) (Thanks [@duncward](https://github.com/duncward) for the contribution!)
+
 ## v0.95 [2024-06-25]
 
 _Enhancements_
