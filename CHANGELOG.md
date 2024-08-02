@@ -6,7 +6,7 @@ _What's new?_
 
 _Bug fixes_
 
-- Fixed `sqs_queue_encrypted_at_rest` query to make sure queues using `SQS-SSE` encryption at rest remain in ok state. ([#805](https://github.com/turbot/steampipe-mod-aws-compliance/pull/805))
+- Fixed `sqs_queue_encrypted_at_rest` query to make sure queues using `SQS-SSE` encryption at rest remain in ok state. ([#805](https://github.com/turbot/steampipe-mod-aws-compliance/pull/805)) (Thanks [@duncward](https://github.com/duncward) for the contribution!)
 
 ## v0.95 [2024-06-25]
 
