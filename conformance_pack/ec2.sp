@@ -1843,3 +1843,124 @@ query "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
       aws_ec2_client_vpn_endpoint;
   EOQ
 }
+
+query "ec2_ami_ebs_encryption_enabled" {
+  sql = <<-EOQ
+    with encryption_status as (
+      select
+        image_id as resource,
+        bool_and(coalesce((mapping -> 'Ebs' ->> 'Encrypted')::text = 'true', false)) as all_encrypted
+      from
+        aws_ec2_ami
+        cross join jsonb_array_elements(block_device_mappings) as mapping
+      group by
+        image_id
+    )
+    select
+      resource,
+      case
+        when all_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when all_encrypted then resource || ' All EBS volumes are encrypted.'
+        else resource || ' Some EBS volumes are not encrypted.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      encryption_status;
+  EOQ
+}
+
+query "ec2_ami_not_older_than_90_days" {
+  sql = <<-EOQ
+    select
+      image_id as resource,
+      creation_date,
+      case
+        when creation_date >= (current_date - interval '90 days') then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when creation_date >= (current_date - interval '90 days') then title || ' AMI is not older than 90 days.'
+        else title || ' AMI is older than 90 days.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_ami;
+  EOQ
+}
+
+query "ec2_instance_not_older_than_180_days" {
+  sql = <<-EOQ
+    select
+      instance_id as resource,
+      launch_time,
+      case
+        when launch_time >= (current_date - interval '180 days') then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when launch_time >= (current_date - interval '180 days') then title || ' EC2 instance is not older than 180 days.'
+        else title || ' EC2 instance is older than 180 days.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_stopped_instance_90_days" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when instance_state not in ('stopped', 'stopping') then 'skip'
+        when state_transition_time <= (current_date - interval '90' day) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when instance_state not in ('stopped', 'stopping') then title || ' is in ' || instance_state || ' state.'
+        else title || ' stopped since ' || to_char(state_transition_time , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - state_transition_time) || ' days).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
+  EOQ
+}
+
+query "ec2_instance_attached_ebs_volume_with_delete_on_termination_enabled" {
+  sql = <<-EOQ
+    with ebs_volume_with_delete_on_termination_enabled as (
+      select
+        count(*) as count,
+        arn
+      from
+        aws_ec2_instance,
+        jsonb_array_elements(block_device_mappings) as p
+      where
+        p -> 'Ebs' ->> 'DeleteOnTermination' = 'false'
+      group by
+        arn
+    )
+    select
+      i.arn as resource,
+      case
+        when e.count > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.count > 0 then ' EBS volume(s) attached to ' || title || ' has delete on termination disabled.'
+        else ' EBS volume(s) attached to ' || title || ' has delete on termination enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance as i
+      left join ebs_volume_with_delete_on_termination_enabled as e on e.arn = i.arn;
+  EOQ
+}
