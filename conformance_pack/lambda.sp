@@ -510,3 +510,22 @@ query "lambda_function_cloudwatch_insights_enabled" {
       aws_lambda_function;
   EOQ
 }
+
+query "lambda_function_encryption_is_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when kms_key_arn is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_key_arn is null then title || ' encryption is not enabled.'
+        else title || ' encryption is enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
