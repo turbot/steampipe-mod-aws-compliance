@@ -483,3 +483,30 @@ query "lambda_function_cors_configuration" {
       aws_lambda_function;
   EOQ
 }
+
+query "lambda_function_cloudwatch_insights_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when exists (
+          select 1
+          from jsonb_array_elements(layers) as l
+          where l ->> 'Arn' like '%:layer:LambdaInsightsExtension:%'
+        ) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when exists (
+          select 1
+          from jsonb_array_elements(layers) as l
+          where l ->> 'Arn' like '%:layer:LambdaInsightsExtension:%'
+        ) then title || ' CloudWatch Insights enabled.'
+        else title || ' CloudWatch Insights disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
