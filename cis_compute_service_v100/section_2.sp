@@ -302,7 +302,7 @@ control "cis_compute_service_v100_2_10" {
 }
 
 control "cis_compute_service_v100_2_11" {
-  title         = "Ensure instances stopped for over 90 days are removed"
+  title         = "2.11 Ensure instances stopped for over 90 days are removed"
   description   = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
   query         = query.ec2_stopped_instance_90_days
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_11.md")
@@ -316,7 +316,7 @@ control "cis_compute_service_v100_2_11" {
 }
 
 control "cis_compute_service_v100_2_12" {
-  title         = "Ensure EBS volumes attached to an EC2 instance is marked for deletion upon instance termination"
+  title         = "2.12 Ensure EBS volumes attached to an EC2 instance is marked for deletion upon instance termination"
   description   = "This rule ensures that Amazon Elastic Block Store volumes that are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances are marked for deletion when an instance is terminated. If an Amazon EBS volume isn't deleted when the instance that it's attached to is terminated, it may violate the concept of least functionality."
   query         = query.ec2_instance_attached_ebs_volume_with_delete_on_termination_enabled
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_12.md")
@@ -330,7 +330,7 @@ control "cis_compute_service_v100_2_12" {
 }
 
 control "cis_compute_service_v100_2_13" {
-  title         = "Ensure Secrets and Sensitive Data are not stored directly in EC2 User Data"
+  title         = "2.13 Ensure Secrets and Sensitive Data are not stored directly in EC2 User Data"
   description   = "User Data can be specified when launching an ec2 instance. Examples include specifying parameters for configuring the instance or including a simple script."
   query         = query.ec2_instance_user_data_no_secrets
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_13.md")
@@ -344,7 +344,7 @@ control "cis_compute_service_v100_2_13" {
 }
 
 control "cis_compute_service_v100_2_14" {
-  title         = "Ensure EC2 Auto Scaling Groups Propagate Tags to EC2 Instances that it launches"
+  title         = "2.14 Ensure EC2 Auto Scaling Groups Propagate Tags to EC2 Instances that it launches"
   description   = "Tags can help with managing, identifying, organizing, searching for, and filtering resources. Additionally, tags can help with security and compliance. Tags can be propagated from an Auto Scaling group to the EC2 instances that it launches."
   query         = query.manual_control
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_14.md")

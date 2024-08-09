@@ -1,3 +1,9 @@
+locals {
+  conformance_pack_lightsail_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/Lightsail"
+  })
+}
+
 query "lightsail_instance_ssh_rdp_http_ports_disabled" {
   sql = <<-EOQ
     with open_ports as (
