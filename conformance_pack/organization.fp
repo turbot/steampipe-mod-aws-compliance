@@ -1,3 +1,9 @@
+locals {
+  conformance_pack_organization_common_tags = merge(local.aws_compliance_common_tags, {
+    service = "AWS/Organization"
+  })
+}
+
 query "organizational_tag_policies_enabled" {
   sql = <<-EOQ
   tag_policy_enabled (

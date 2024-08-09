@@ -158,3 +158,23 @@ query "lightsail_instance_ipv6_networking_disabled" {
       aws_lightsail_instance;
   EOQ
 }
+
+// query "lightsail_bucket_not_publicly_accessible" {
+//   sql = <<-EOQ
+//     select
+//       name as resource,
+//       case
+//         when access_rules ->> 'GetObject' = 'public' or access_rules ->> 'AllowPublicOverrides' = 'true' then 'alarm'
+//         else 'ok'
+//       end as status,
+//       case
+//         when access_rules ->> 'GetObject' = 'public' then name || ' has GetObject set to public.'
+//         when access_rules ->> 'AllowPublicOverrides' = 'true' then name || ' allows public overrides.'
+//         else name || ' is not publicly accessible.'
+//       end as reason
+//       ${local.tag_dimensions_sql}
+//       ${local.common_dimensions_sql}
+//     from
+//       aws_lightsail_bucket;
+//   EOQ
+// }
