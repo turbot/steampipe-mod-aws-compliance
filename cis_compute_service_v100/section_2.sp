@@ -107,7 +107,7 @@ control "cis_compute_service_v100_2_1_5" {
   title         = "2.1.5 Ensure Images are not Publicly Available"
   description   = "EC2 allows you to make an AMI public, sharing it with all AWS accounts."
   query         = query.ec2_ami_restrict_public_access
-  documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_1_4.md")
+  documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_1_5.md")
 
   tags = merge(local.cis_compute_service_v100_2_1_common_tags, {
     cis_item_id = "2.1.5"
