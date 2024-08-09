@@ -11,7 +11,7 @@ benchmark "cis_compute_service_v100_4" {
   children = [
     control.cis_compute_service_v100_4_1,
     control.cis_compute_service_v100_4_2,
-    control.cis_compute_service_v100_4_4,
+    control.cis_compute_service_v100_4_3,
     control.cis_compute_service_v100_4_4,
     control.cis_compute_service_v100_4_5,
     control.cis_compute_service_v100_4_6,

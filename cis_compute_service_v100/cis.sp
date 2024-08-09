@@ -15,9 +15,6 @@ benchmark "cis_compute_service_v100" {
     benchmark.cis_compute_service_v100_4,
     benchmark.cis_compute_service_v100_5,
     benchmark.cis_compute_service_v100_6,
-    benchmark.cis_compute_service_v100_7,
-    benchmark.cis_compute_service_v100_8,
-    benchmark.cis_compute_service_v100_9,
     benchmark.cis_compute_service_v100_10,
     benchmark.cis_compute_service_v100_11,
   ]
