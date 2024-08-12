@@ -50,7 +50,7 @@ control "cis_compute_service_v100_6_2" {
 
 control "cis_compute_service_v100_6_3" {
   title         = "6.3 Ensure access logs are enabled"
-  description   = "When you enable load balancing, your AWS Elastic Beanstalk environment is equipped with an Elastic Load Balancing load balancer to distribute traffic among the instances in your environment"
+  description   = "When you enable load balancing, your AWS Elastic Beanstalk environment is equipped with an Elastic Load Balancing load balancer to distribute traffic among the instances in your environment."
   query         = query.manual_control
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_6_3.md")
 

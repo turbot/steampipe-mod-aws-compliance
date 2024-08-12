@@ -127,7 +127,7 @@ control "cis_compute_service_v100_3_7" {
 }
 
 control "cis_compute_service_v100_3_8" {
-  title         = "Ensure Lightsail instances are attached to the buckets"
+  title         = "3.8 Ensure Lightsail instances are attached to the buckets"
   description   = "Attaching an Amazon Lightsail instance to a Lightsail storage bucket gives it full programmatic access to the bucket and its objects."
   query         = query.manual_control
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_3_8.md")

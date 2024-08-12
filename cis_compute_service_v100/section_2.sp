@@ -253,14 +253,14 @@ control "cis_compute_service_v100_2_7" {
 
   tags = merge(local.cis_compute_service_v100_2_common_tags, {
     cis_item_id = "2.7"
-    cis_level   = "2"
+    cis_level   = "1"
     cis_type    = "manual"
     service     = "AWS/EC2"
   })
 }
 
 control "cis_compute_service_v100_2_8" {
-  title         = "Ensure the Use of IMDSv2 is Enforced on All Existing Instances"
+  title         = "2.8 Ensure the Use of IMDSv2 is Enforced on All Existing Instances"
   description   = "Ensure the Instance Metadata Service Version 2 (IMDSv2) method is enabled on all running instances."
   query         = query.ec2_instance_uses_imdsv2
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_8.md")

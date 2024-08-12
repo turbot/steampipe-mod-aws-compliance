@@ -6,7 +6,7 @@ locals {
 
 benchmark "cis_compute_service_v100_5" {
   title         = "5 Batch"
-  description   = "Serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. Serverless addresses some of today's biggest security concerns as it removes infrastructure management tasks, such as operating system patching, updating binaries, etc."
+  description   = "AWS Batch enables developers, scientists, and engineers to easily and efficiently run hundreds of thousands of batch computing jobs on AWS. AWS Batch dynamically provisions the optimal quantity and type of compute resources (e.g., CPU or memory optimized instances) based on the volume and specific resource requirements of the batch jobs submitted."
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_5.md")
   children = [
     control.cis_compute_service_v100_5_1,
@@ -28,7 +28,7 @@ control "cis_compute_service_v100_5_1" {
     cis_item_id = "5.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "AWS/Lambda"
+    service     = "AWS/Batch"
   })
 }
 
@@ -42,6 +42,6 @@ control "cis_compute_service_v100_5_2" {
     cis_item_id = "5.2"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "AWS/Lambda"
+    service     = "AWS/Batch"
   })
 }
