@@ -1863,8 +1863,8 @@ query "ec2_ami_ebs_encryption_enabled" {
         else 'alarm'
       end as status,
       case
-        when all_encrypted then resource || ' All EBS volumes are encrypted.'
-        else resource || ' Some EBS volumes are not encrypted.'
+        when all_encrypted then resource || ' all EBS volumes are encrypted.'
+        else resource || ' all EBS volumes are not encrypted.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1877,15 +1877,11 @@ query "ec2_ami_not_older_than_90_days" {
   sql = <<-EOQ
     select
       image_id as resource,
-      creation_date,
       case
         when creation_date >= (current_date - interval '90 days') then 'ok'
         else 'alarm'
       end as status,
-      case
-        when creation_date >= (current_date - interval '90 days') then title || ' AMI is not older than 90 days.'
-        else title || ' AMI is older than 90 days.'
-      end as reason
+      title || ' created ' || to_char(creation_date , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - creation_date) || ' days).' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1902,10 +1898,7 @@ query "ec2_instance_not_older_than_180_days" {
         when launch_time >= (current_date - interval '180 days') then 'ok'
         else 'alarm'
       end as status,
-      case
-        when launch_time >= (current_date - interval '180 days') then title || ' EC2 instance is not older than 180 days.'
-        else title || ' EC2 instance is older than 180 days.'
-      end as reason
+      title || ' created ' || to_char(launch_time , 'DD-Mon-YYYY') || ' (' || extract(day from current_timestamp - launch_time) || ' days).' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
@@ -1933,7 +1926,7 @@ query "ec2_stopped_instance_90_days" {
   EOQ
 }
 
-query "ec2_instance_attached_ebs_volume_with_delete_on_termination_enabled" {
+query "ec2_instance_attached_ebs_volume_delete_on_termination_enabled" {
   sql = <<-EOQ
     with ebs_volume_with_delete_on_termination_enabled as (
       select

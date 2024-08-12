@@ -328,7 +328,7 @@ control "cis_compute_service_v100_2_11" {
 control "cis_compute_service_v100_2_12" {
   title         = "2.12 Ensure EBS volumes attached to an EC2 instance is marked for deletion upon instance termination"
   description   = "This rule ensures that Amazon Elastic Block Store volumes that are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances are marked for deletion when an instance is terminated. If an Amazon EBS volume isn't deleted when the instance that it's attached to is terminated, it may violate the concept of least functionality."
-  query         = query.ec2_instance_attached_ebs_volume_with_delete_on_termination_enabled
+  query         = query.ec2_instance_attached_ebs_volume_delete_on_termination_enabled
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_12.md")
 
   tags = merge(local.cis_compute_service_v100_2_common_tags, {

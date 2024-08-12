@@ -520,7 +520,7 @@ query "lambda_function_encryption_is_enabled" {
         else 'ok'
       end as status,
       case
-        when kms_key_arn is null then title || ' encryption is not enabled.'
+        when kms_key_arn is null then title || ' encryption is disabled.'
         else title || ' encryption is enabled.'
       end as reason
       ${local.tag_dimensions_sql}
