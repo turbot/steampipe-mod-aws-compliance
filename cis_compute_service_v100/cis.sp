@@ -6,8 +6,8 @@ locals {
 }
 
 benchmark "cis_compute_service_v100" {
-  title         = ""
-  description   = ""
+  title         = "CIS AWS Compute Services Benchmark v1.0.0"
+  description   = "This CIS AWS Compute Services Benchmark provides prescriptive guidance for configuring security options for the services within the Compute category in AWS. This Benchmark is intended to be used in conjunction with the CIS Amazon Web Services Foundations Benchmark."
   documentation = file("./cis_compute_service_v100/docs/cis_overview.md")
   children = [
     benchmark.cis_compute_service_v100_2,
