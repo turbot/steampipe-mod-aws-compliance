@@ -1,0 +1,3 @@
+## AWS App Runner
+
+AWS App Runner is a fully managed service that makes it easy for developers to deploy from source code or container image directly to a scalable and secure web application. At this time all Security Best practices for the customer for App Runner occurs with source code development or with the container image. So Best practices should be considered when developing the source code and/or container image and should happen prior to those being utilized with App Runner. There are no specific Security best practice recommendations related for AWS App Runner itself, but that does not alleviate the end user of this service of the shared responsibility model and the customer security requirements for service and data access and protection.
