@@ -8,7 +8,7 @@ Any ports enable within Lightsail by default are open and exposed to the world. 
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com
+1. Login to AWS Console using https://console.aws.amazon.com.
 2. Click `All services`, click `Lightsail` under Compute.
 3. This will open up the Lightsail console.
 4. Select the `Windows Instance` you want to review.

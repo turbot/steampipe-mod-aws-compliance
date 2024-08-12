@@ -8,13 +8,13 @@ The Principle of Least Privilege means that any Lambda function should have the 
 
 ### From the Console:
 
-1. Login to the AWS console using https://console.aws.amazon.com/lambda/
+1. Login to the AWS console using https://console.aws.amazon.com/lambda/.
 2. In the left column, under `AWS Lambda`, click `Functions`.
 3. Under `Function name` click on the name of the function that you want to change/update.
-4. Click the `Configuration` tab
+4. Click the `Configuration` tab.
 5. Under General configuration on the left column, click `Permissions`.
 6. Under the `Execution role` section, click `Edit`.
-7. Scroll down to `Execution role`
+7. Scroll down to `Execution role`.
 
 To use an existing IAM role
 ```
@@ -30,7 +30,6 @@ To use a new IAM role
 - Select the policy templates from the `Policy templates` dropdown.
 ```
 
-8. Click Save
-9. Repeat steps 2 – 8 for all the Lambda functions listed within the AWS region that
-do not have a unique IAM Execution Role.
+8. Click Save.
+9. Repeat steps 2 – 8 for all the Lambda functions listed within the AWS region that do not have a unique IAM Execution Role.
 10. Repeat this remediation process for all the AWS Regions.

@@ -8,12 +8,12 @@ In order to promote the Principle of Least Privilege (POLP) and provide your fun
 
 ### From the Console:
 
-1. Login in to the AWS Console using https://console.aws.amazon.com/lambda/
+1. Login in to the AWS Console using https://console.aws.amazon.com/lambda/.
 2. In the left column, under `AWS Lambda`, click `Functions`.
-3. Under `Function name` click on the name of the function that you want to remediate
-4. Click the Configuration tab
+3. Under `Function name` click on the name of the function that you want to remediate.
+4. Click the Configuration tab.
 5. Click on `Permissions` in the left column.
-6. In the Execution role section, click the `Edit`
+6. In the Execution role section, click the `Edit`.
 7. Edit basic settings configuration page:
 
 ```

@@ -8,17 +8,17 @@ When the Bucket access permissions are set to All objects are public (read-only)
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com
+1. Login to AWS Console using https://console.aws.amazon.com.
 2. Click `All services`, click `Lightsail` under Compute.
 3. This will open up the Lightsail console.
 4. Select `Storage`.
 5. All Lightsail buckets are listed here.
 6. Click on the bucket name that has `All objects are public (read-Only)` listed.
-7. Click on `Permissions`
-8. Click on `Change permissions`
-9. Select `All objects are private`
-10. Click `Save`
-11. Repeat for any other Buckets within Lightsail that are set with `All objects are public (read-Only)` and/or `Individual objects can be made public and read only`
+7. Click on `Permissions`.
+8. Click on `Change permissions`.
+9. Select `All objects are private`.
+10. Click `Save`.
+11. Repeat for any other Buckets within Lightsail that are set with `All objects are public (read-Only)` and/or `Individual objects can be made public and read only`.
 
 ### From the Command Line:
 

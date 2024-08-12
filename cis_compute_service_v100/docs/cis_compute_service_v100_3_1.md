@@ -17,8 +17,8 @@ To process and apply the latest updates for the application you are using is a m
 5. Make sure the instance status is running.
 6. Click on `Snapshots`.
 7. Under `Manual snapshots` click on + Create snapshot.
-8. Give it a name you will recognize
-9. Click on `create`
+8. Give it a name you will recognize.
+9. Click on `create`.
 
 ```bash
 while in process it will show 'Snapshotting...'

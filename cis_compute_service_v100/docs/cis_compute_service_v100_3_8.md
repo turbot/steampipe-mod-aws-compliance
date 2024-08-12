@@ -8,20 +8,20 @@ When you attach instances to buckets, you don't have to manage credentials like 
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com
+1. Login to AWS Console using https://console.aws.amazon.com.
 2. Click `All services`, click `Lightsail` under Compute.
 3. This will open up the Lightsail console.
-4. Confirm that the `instance` you want to connect to the Storage bucket is in a `running` state
-5. If it is move on to Step 6. If it is not click on the instance name, then click on `Start`. Wait for the status to read `Running`
+4. Confirm that the `instance` you want to connect to the Storage bucket is in a `running` state.
+5. If it is move on to Step 6. If it is not click on the instance name, then click on `Start`. Wait for the status to read `Running`.
 6. Select `Storage`.
 7. All Lightsail buckets are listed here.
 8. Click on the bucket you want to associate with the instances.
 9. Click `Permissions`.
 10. Scroll down to `Resource access`.
-11. Click on `Attach instance`
-12. Click on `Choose an instance`
-13. Select the instance
-14. Click Attach
+11. Click on `Attach instance`.
+12. Click on `Choose an instance`.
+13. Select the instance.
+14. Click Attach.
 15. Repeat this for any other instances and buckets that need to be attached.
 
 ### From the Command Line:

@@ -10,15 +10,16 @@ When you execute your Lambda functions using recent versions of the implemented 
 
 1. Login to the AWS Console using https://console.aws.amazon.com/lambda/.
 2. In the left column, under `AWS Lambda`, click `Functions`.
-3. Under `Function name` click on the name of the function that you want to review
-4. Click Code tab
+3. Under `Function name` click on the name of the function that you want to review.
+4. Click Code tab.
 5. Go to the Runtime settings section.
-6. Click Edit
-7. On the Edit runtime settings page, select the latest supported version of the runtime environment from the dropdown list **Note - make sure the correct architecture is also selected.**
-8. Click Save
-9. Select the Code tab
+6. Click Edit.
+7. On the Edit runtime settings page, select the latest supported version of the runtime environment from the dropdown list .
+**Note - make sure the correct architecture is also selected.**
+8. Click `Save`.
+9. Select the Code tab.
 10. Click Test from the Code source section.
-11. Once the testing is completed, the execution result of your Lambda function will be listed
+11. Once the testing is completed, the execution result of your Lambda function will be listed.
 12. Repeat steps for each Lambda function that failed the Audit within the current region.
 
 ### From the Command Line:

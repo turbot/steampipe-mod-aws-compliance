@@ -25,7 +25,7 @@ while in process it will show Snapshotting...
 ```
 
 10. Once the date and time and snapshot name appears it is completed.
-11. Click on `Connect`
+11. Click on `Connect`.
 12. Run the process to change either the `default administrator` name or password or both.
 13. Repeat steps no. 4 – 12 to apply any application `default administrator`
 changes required on the Lightsail instances that you are running.

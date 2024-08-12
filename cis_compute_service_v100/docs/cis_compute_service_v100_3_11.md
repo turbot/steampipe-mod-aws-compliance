@@ -8,14 +8,14 @@ Windows Server-based Lightsail instances need to be updated with the latest secu
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com
+1. Login to AWS Console using https://console.aws.amazon.com.
 2. Click `All services`, click `Lightsail` under Compute.
 3. This will open up the Lightsail console.
 4. Select the `Windows Instance` you want to review.
 5. Make sure the instance status is `running`.
 6. Connect to the `instance` using `Connect using RDP`.
 7. Log in using the credentials you have set for this instance.
-8. Open a command prompt
+8. Open a command prompt.
 9. Type sconfig, and then press Enter.
 
 ```

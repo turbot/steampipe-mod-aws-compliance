@@ -16,7 +16,7 @@ Perform these steps if the Creation date is older than 90 days.
 4. Click on `Launch`.
 5. Go through the EC2 Instance creation process.
 6. Apply all system, security and application updates that are applicable to the EC2 instance.
-7. Once completed click on `Instance state`, `Stop instance1.
+7. Once completed click on `Instance state`, `Stop instance`.
 8. Click on `Actions, Image and templates, Create image`.
 9. Once the image process has complete return to the AMI list but clicking on `Images, AMIs`.
 10. Select the AMI that is older than 90 days.

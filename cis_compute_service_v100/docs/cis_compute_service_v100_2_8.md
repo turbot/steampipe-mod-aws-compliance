@@ -21,15 +21,15 @@ http-tokens required --http-endpoint enabled
 
 2. The output should show the information for the instance and the metadata changes:
 
-```bash
+``` bash
 {
-  InstanceId": "i-1234567abcdefghi0",
-    "InstanceMetadataOptions": {
-    "State": "pending",
-    "HttpTokens": "required",
-    "HttpPutResponseHopLimit": 1,
-    "HttpEndpoint": "enabled"
-    }
+InstanceId": "i-1234567abcdefghi0",
+"InstanceMetadataOptions": {
+"State": "pending",
+"HttpTokens": "required",
+"HttpPutResponseHopLimit": 1,
+"HttpEndpoint": "enabled"
+}
 }
 ```
 

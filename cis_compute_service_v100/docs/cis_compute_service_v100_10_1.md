@@ -10,17 +10,13 @@ To create an interface endpoint for an App Runner
 
 ### From the Console:
 
-1. Login to the AWS Console using https://console.aws.amazon.com/vpc/
+1. Login to the AWS Console using https://console.aws.amazon.com/vpc/.
 2. On the left hand side, click Endpoints.
 3. Click `Create endpoint`.
 4. Under Service category, choose AWS services.
-5. For Service name, select `com.amazonaws."region".apprunner`. "Region" will
-reflect the region that your are operating in.
+5. For Service name, select `com.amazonaws."region".apprunner`. "Region" will reflect the region that your are operating in.
 6. For VPC, select the VPC from which you'll access App Runner.
 7. For Subnets, select one subnet per Availability Zone.
-8. For Security group, select the security groups to associate with the App Runner
-endpoint network interfaces.
-9. For Policy, select Custom to attach a VPC endpoint policy that controls the
-permissions that principals have for performing actions on resources over the
-VPC endpoint.
+8. For Security group, select the security groups to associate with the App Runner endpoint network interfaces.
+9. For Policy, select Custom to attach a VPC endpoint policy that controls the permissions that principals have for performing actions on resources over the VPC endpoint.
 10. Click `Create endpoint`.

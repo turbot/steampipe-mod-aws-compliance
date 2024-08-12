@@ -8,10 +8,10 @@ Cross-service impersonation can result in the confused deputy problem. Cross-ser
 
 ### From the Console:
 
-1. Login to the AWS Console using https://console.aws.amazon.com/iam/
-2. On the left hand side under Access management, Click on `Roles`
+1. Login to the AWS Console using https://console.aws.amazon.com/iam/.
+2. On the left hand side under Access management, Click on `Roles`.
 3. Search for any roles identified above in the audit.
-4. Click on the role and update the Action AssumeRole, aws:SourceArn to contain the full ARN of the resource
+4. Click on the role and update the Action AssumeRole, aws:SourceArn to contain the full ARN of the resource.
 
 ```
 "aws:SourceArn": ["arn:aws:batch:us-east-1:123456789012:compute-environment/testCE",]

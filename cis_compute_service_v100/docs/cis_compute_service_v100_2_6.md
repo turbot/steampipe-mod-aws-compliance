@@ -2,14 +2,13 @@
 
 Ensure that detailed monitoring is enabled for your Amazon EC2 instances.
 
-Monitoring is an important part of maintaining the reliability, availability, and
-performance of your Amazon EC2 instances.
+Monitoring is an important part of maintaining the reliability, availability, and performance of your Amazon EC2 instances.
 
 ## Remediation
 
 ### From Console:
 
-1. Login to EC2 using https://console.aws.amazon.com/ec2/
+1. Login to EC2 using https://console.aws.amazon.com/ec2/.
 2. On the left Click `INSTANCES`, click `Instances`.
 3. Select the `EC2 instance `you want to review.
 4. Select the `Monitoring` tab.

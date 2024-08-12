@@ -8,18 +8,14 @@ Amazon CloudWatch Lambda Insights allows you to monitor, troubleshoot, and optim
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com/lambda/
+1. Login to AWS Console using https://console.aws.amazon.com/lambda/.
 2. Click `Functions`.
 3. Click on the name of the function.
-4. Click on the `Configuration tab`
+4. Click on the `Configuration tab`.
 5. Click on 'Monitoring and operations tools'.
-6. In the Monitoring and operations tools section click `Edit` to update the monitoring
-configuration
-7. In the CloudWatch Lambda Insights section click the `Enhanced monitoring`
-button to enable
-***Note*** - When you enable the feature using the AWS Management Console,
-Amazon Lambda adds the required permissions to your function's execution role.
-8. Click Save
-9. Repeat steps 2-8 for each Lambda function within the current region that fails the
-Audit.
+6. In the Monitoring and operations tools section click `Edit` to update the monitoring configuration.
+7. In the CloudWatch Lambda Insights section click the `Enhanced monitoring` button to enable.
+***Note*** - When you enable the feature using the AWS Management Console, Amazon Lambda adds the required permissions to your function's execution role.
+8. Click Save.
+9. Repeat steps 2-8 for each Lambda function within the current region that fails the Audit.
 10. Then repeat the Audit process for all other regions.

@@ -11,9 +11,9 @@ A Lambda function's execution role is an Identity and Access Management (IAM) ro
 1. Login to the AWS Console using https://console.aws.amazon.com/lambda/.
 2. In the left column, under `AWS Lambda`, click `Functions`.
 3. Under `Function name` click on the name of the function that you want to update.
-4. Click the Configuration tab
+4. Click the Configuration tab.
 5. In the left column, click `Permissions`.
-6. In the `Execution role` section, click Edit
+6. In the `Execution role` section, click `Edit`.
 7. In the `Edit basic settings` page, perform one of the following actions:
 
 ```

@@ -10,8 +10,8 @@ Allowing anyone to invoke and run your Amazon Lambda functions can lead to data 
 
 1. Login to the AWS Console using https://console.aws.amazon.com/lambda/.
 2. In the left column, under `AWS Lambda`, click `Functions`.
-3. Under `Function name` click on the name of the function that you want to review
-4. Click the Configuration tab
+3. Under `Function name` click on the name of the function that you want to review.
+4. Click the Configuration tab.
 5. In the left column, click `Permissions`.
 6. In the `Resource-based policy section`, perform the following actions:
 - Under Policy statements
@@ -20,7 +20,7 @@ Allowing anyone to invoke and run your Amazon Lambda functions can lead to data 
 - Within the Delete statement confirmation box, click Remove
 - Click Add permissions to add a new policy statement that grants permissions to a trusted entity only.
 - On the Add permissions page configure the new policy statement to grant access to another AWS account, IAM user, IAM role, or to another AWS service.
-- Click Save
+- Click Save.
 7. Repeat steps no. 2 – 6 for each Lambda function that fails the Audit above, withinthe current region.
 8. Repeat this Audit for all the other AWS regions.
 

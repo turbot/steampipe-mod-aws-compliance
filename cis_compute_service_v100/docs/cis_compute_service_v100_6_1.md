@@ -8,14 +8,14 @@ Your application remains in service during the update process with no reduction 
 
 ### From the Console:
 
-1. Login to AWS Console using https://console.aws.amazon.com/elasticbeanstalk
-2. On the left hand side click `Environments`
-3. Click on the `Environment name` that you want to update
-4. Under the environment_name-env in the left column click `Configuration`
-5. Scroll down under Configurations
-6. Under category look for `Managed updates`
-7. Click on Edit
-8. On the Managed Platform Updates page
+1. Login to AWS Console using https://console.aws.amazon.com/elasticbeanstalk.
+2. On the left hand side click `Environments`.
+3. Click on the `Environment name` that you want to update.
+4. Under the environment_name-env in the left column click `Configuration`.
+5. Scroll down under Configurations.
+6. Under category look for `Managed updates`.
+7. Click on `Edit`.
+8. On the Managed Platform Updates page.
 
 ```
 Managed updates - click the Enable checkbox
@@ -24,6 +24,6 @@ Update level- set it to Minor and patch
 Instance replacement - click the Enabled checkbox
 ```
 
-9. Click Apply
+9. Click `Apply`.
 10. Repeat steps 3-8 for each environment within the current region that needs Managed updates set.
 11. Then repeat the remediation process for all other regions identified in the Audit.

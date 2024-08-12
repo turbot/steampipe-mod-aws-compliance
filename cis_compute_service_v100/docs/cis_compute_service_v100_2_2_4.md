@@ -8,7 +8,7 @@ Any Elastic Block Store volume created in your AWS account contains data, regard
 
 ### From Console:
 
-1. Login to the EC2 console using https://console.aws.amazon.com/ec2/
+1. Login to the EC2 console using https://console.aws.amazon.com/ec2/.
 2. Under `Elastic Block Store`, click `Volumes`.
 3. Find the `State` column.
 4. Sort by `Available`.
