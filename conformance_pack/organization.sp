@@ -7,14 +7,19 @@ locals {
 query "organizational_tag_policies_enabled" {
   sql = <<-EOQ
     with tag_policy_enabled as (
-      select,
+      select
         _ctx,
+        account_id,
         region,
         count(*) as count
       from
         aws_organizations_policy
       where
         type = 'TAG_POLICY'
+      group by
+        _ctx,
+        region,
+        account_id
     )
     select
       case
