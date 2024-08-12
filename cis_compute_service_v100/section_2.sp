@@ -356,7 +356,7 @@ control "cis_compute_service_v100_2_13" {
 control "cis_compute_service_v100_2_14" {
   title         = "2.14 Ensure EC2 Auto Scaling Groups Propagate Tags to EC2 Instances that it launches"
   description   = "Tags can help with managing, identifying, organizing, searching for, and filtering resources. Additionally, tags can help with security and compliance. Tags can be propagated from an Auto Scaling group to the EC2 instances that it launches."
-  query         = query.manual_control
+  query         = query.autoscaling_group_propagate_tags_to_ec2_instance_enabled
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_2_14.md")
 
   tags = merge(local.cis_compute_service_v100_2_common_tags, {

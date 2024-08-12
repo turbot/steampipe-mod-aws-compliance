@@ -308,3 +308,35 @@ query "autoscaling_group_uses_ec2_launch_template" {
       aws_ec2_autoscaling_group;
   EOQ
 }
+
+query "autoscaling_group_propagate_tags_to_ec2_instance_enabled" {
+  sql = <<-EOQ
+    with propagate_tags_to_ec2_instance as (
+      select
+        autoscaling_group_arn,
+        count(*) as count
+      from
+        aws_ec2_autoscaling_group,
+        jsonb_array_elements(tags_src) as t
+      where
+        (t ->> 'PropagateAtLaunch' = 'false')
+      group by
+        autoscaling_group_arn
+    )
+    select
+      p.autoscaling_group_arn as resource,
+      case
+        when count > 0 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when count > 0 then title || ' does not propagate all tags to the EC2 instance'
+        else title || ' propagate all tags to the EC2 instance.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_ec2_autoscaling_group as p
+      left join propagate_tags_to_ec2_instance as i on  i.autoscaling_group_arn = p.autoscaling_group_arn;
+  EOQ
+}
