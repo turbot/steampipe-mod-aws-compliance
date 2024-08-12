@@ -1,3 +1,13 @@
+## v0.99 [2024-08-12]
+
+_What's new?_
+
+- Added CIS AWS Compute Services v1.0.0 benchmark (`powerpipe benchmark run aws_compliance.benchmark.cis_compute_service_v100`). ([#814](https://github.com/turbot/steampipe-mod-aws-compliance/pull/814))
+
+_Bug fixes_
+
+- Fixed `iam_root_user_hardware_mfa_enabled` query to correctly return `ok` when hardware MFA is enabled for root user. ([#815](https://github.com/turbot/steampipe-mod-aws-compliance/pull/815))
+
 ## v0.96 [2024-08-02]
 
 _What's new?_
