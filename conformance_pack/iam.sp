@@ -862,7 +862,7 @@ query "iam_user_access_key_age_90" {
       user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
       as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
   EOQ

@@ -8,9 +8,12 @@ benchmark "all_controls_ec2" {
   title       = "EC2"
   description = "This section contains recommendations for configuring EC2 resources."
   children = [
+    control.ec2_ami_ebs_encryption_enabled,
+    control.ec2_ami_not_older_than_90_days,
     control.ec2_ami_restrict_public_access,
     control.ec2_client_vpn_endpoint_client_connection_logging_enabled,
     control.ec2_ebs_default_encryption_enabled,
+    control.ec2_instance_attached_ebs_volume_delete_on_termination_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.ec2_instance_ebs_optimized,
     control.ec2_instance_iam_profile_attached,
@@ -38,6 +41,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_no_iam_role_with_write_permission_on_critical_s3_configuration,
     control.ec2_instance_no_iam_with_write_level_access,
     control.ec2_instance_no_launch_wizard_security_group,
+    control.ec2_instance_not_older_than_180_days,
     control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_not_use_multiple_enis,
     control.ec2_instance_protected_by_backup_plan,
@@ -47,7 +51,9 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_uses_imdsv2,
     control.ec2_instance_virtualization_type_no_paravirtual,
     control.ec2_launch_template_not_publicly_accessible,
+    control.ec2_network_interface_unused,
     control.ec2_stopped_instance_30_days,
+    control.ec2_stopped_instance_90_days,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled
   ]
 

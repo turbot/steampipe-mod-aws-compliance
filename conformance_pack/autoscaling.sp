@@ -112,6 +112,14 @@ control "autoscaling_ec2_launch_configuration_no_sensitive_data" {
   tags = local.conformance_pack_autoscaling_common_tags
 }
 
+control "autoscaling_group_propagate_tags_to_ec2_instance_enabled" {
+  title       = "Ensure EC2 Auto Scaling Groups Propagate Tags to EC2 Instances that it launches"
+  description = "Tags can help with managing, identifying, organizing, searching for, and filtering resources. Additionally, tags can help with security and compliance. Tags can be propagated from an Auto Scaling group to the EC2 instances that it launches."
+  query       = query.autoscaling_group_propagate_tags_to_ec2_instance_enabled
+
+  tags = local.conformance_pack_autoscaling_common_tags
+}
+
 query "autoscaling_launch_config_requires_imdsv2" {
   sql = <<-EOQ
     select
@@ -333,8 +341,8 @@ query "autoscaling_group_propagate_tags_to_ec2_instance_enabled" {
         when count > 0 then title || ' does not propagate all tags to the EC2 instance'
         else title || ' propagate all tags to the EC2 instance.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_ec2_autoscaling_group as p
       left join propagate_tags_to_ec2_instance as i on  i.autoscaling_group_arn = p.autoscaling_group_arn;

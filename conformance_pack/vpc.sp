@@ -1997,21 +1997,3 @@ query "vpc_gateway_endpoint_restrict_public_access" {
   EOQ
 }
 
-query "ec2_network_interface_unused" {
-  sql = <<-EOQ
-    select
-      network_interface_id as resource,
-      case
-        when status = 'available' and attached_instance_id is null then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when status = 'available' and attached_instance_id is null then title || ' not in use.'
-        else title || ' in use.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_network_interface;
-  EOQ
-}

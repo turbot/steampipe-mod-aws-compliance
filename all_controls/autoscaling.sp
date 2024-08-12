@@ -11,6 +11,7 @@ benchmark "all_controls_autoscaling" {
     control.autoscaling_ec2_launch_configuration_no_sensitive_data,
     control.autoscaling_group_multiple_az_configured,
     control.autoscaling_group_no_suspended_process,
+    control.autoscaling_group_propagate_tags_to_ec2_instance_enabled,
     control.autoscaling_group_uses_ec2_launch_template,
     control.autoscaling_group_with_lb_use_health_check,
     control.autoscaling_launch_config_hop_limit,

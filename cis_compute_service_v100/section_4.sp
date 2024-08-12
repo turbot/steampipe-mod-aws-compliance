@@ -185,7 +185,7 @@ control "cis_compute_service_v100_4_11" {
 control "cis_compute_service_v100_4_12" {
   title         = "4.12 Ensure encryption in transit is enabled for Lambda environment variables"
   description   = "As you can set your own environmental variables for Lambda it is important to also encrypt them for in transit protection."
-  query         = query.lambda_function_encryption_is_enabled
+  query         = query.lambda_function_encryption_enabled
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_4_12.md")
 
   tags = merge(local.cis_compute_service_v100_4_common_tags, {

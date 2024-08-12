@@ -459,6 +459,54 @@ control "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_ami_ebs_encryption_enabled" {
+  title       = "Ensure Images (AMI's) are encrypted"
+  description = "Amazon Machine Images should utilize EBS Encrypted snapshots."
+  query       = query.ec2_ami_ebs_encryption_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_ami_not_older_than_90_days" {
+  title       = "Ensure Images (AMI) are not older than 90 days"
+  description = "Ensure that your AMIs are not older than 90 days."
+  query       = query.ec2_ami_not_older_than_90_days
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_not_older_than_180_days" {
+  title       = "Ensure no AWS EC2 Instances are older than 180 days"
+  description = "Identify any running AWS EC2 instances older than 180 days."
+  query       = query.ec2_instance_not_older_than_180_days
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_stopped_instance_90_days" {
+  title       = "Ensure instances stopped for over 90 days are removed"
+  description = "Enable this rule to help with the baseline configuration of Amazon Elastic Compute Cloud (Amazon EC2) instances by checking whether Amazon EC2 instances have been stopped for more than the allowed number of days, according to your organization's standards."
+  query       = query.ec2_stopped_instance_90_days
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_instance_attached_ebs_volume_delete_on_termination_enabled" {
+  title       = "Ensure EBS volumes attached to an EC2 instance is marked for deletion upon instance termination"
+  description = "This rule ensures that Amazon Elastic Block Store volumes that are attached to Amazon Elastic Compute Cloud (Amazon EC2) instances are marked for deletion when an instance is terminated. If an Amazon EBS volume isn't deleted when the instance that it's attached to is terminated, it may violate the concept of least functionality."
+  query       = query.ec2_instance_attached_ebs_volume_delete_on_termination_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_network_interface_unused" {
+  title       = "Ensure unused ENIs are removed"
+  description = "Identify and delete any unused Amazon AWS Elastic Network Interfaces in order to adhere to best practices and to avoid reaching the service limit. An AWS Elastic Network Interface (ENI) is pronounced unused when is not attached anymore to an EC2 instance."
+  query       = query.ec2_network_interface_unused
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -1963,5 +2011,24 @@ query "ec2_instance_attached_ebs_volume_delete_on_termination_enabled" {
     from
       aws_ec2_instance as i
       left join ebs_volume_with_delete_on_termination_enabled as e on e.arn = i.arn;
+  EOQ
+}
+
+query "ec2_network_interface_unused" {
+  sql = <<-EOQ
+    select
+      network_interface_id as resource,
+      case
+        when status = 'available' and attached_instance_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when status = 'available' and attached_instance_id is null then title || ' not in use.'
+        else title || ' in use.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_interface;
   EOQ
 }
