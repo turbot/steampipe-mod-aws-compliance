@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "cis_compute_service_v100_5" {
-  title         = "5 Lambda"
+  title         = "5 Batch"
   description   = "Serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. Serverless addresses some of today's biggest security concerns as it removes infrastructure management tasks, such as operating system patching, updating binaries, etc."
   documentation = file("./cis_compute_service_v100/docs/cis_compute_service_v100_5.md")
   children = [

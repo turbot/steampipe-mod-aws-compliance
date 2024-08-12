@@ -12,7 +12,7 @@ benchmark "cis_compute_service_v100_6" {
     control.cis_compute_service_v100_6_1,
     control.cis_compute_service_v100_6_2,
     control.cis_compute_service_v100_6_3,
-    control.cis_compute_service_v100_6_6
+    control.cis_compute_service_v100_6_4
   ]
 
   tags = merge(local.cis_compute_service_v100_6_common_tags, {

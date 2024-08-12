@@ -27,6 +27,6 @@ control "cis_compute_service_v100_10_1" {
     cis_item_id = "10.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "AWS/Lambda"
+    service     = "AWS/Batch"
   })
 }

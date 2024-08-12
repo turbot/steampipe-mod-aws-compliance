@@ -27,6 +27,6 @@ control "cis_compute_service_v110_11_1" {
     cis_item_id = "11.1"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "AWS/Lambda"
+    service     = "AWS/SimSpaceWeaver"
   })
 }
