@@ -818,18 +818,18 @@ query "iam_root_user_hardware_mfa_enabled" {
     select
       'arn:' || s.partition || ':::' || s.account_id as resource,
       case
-        when account_mfa_enabled and serial_number is null then 'ok'
+        when s.account_mfa_enabled and d.serial_number is null then 'ok'
         else 'alarm'
       end status,
       case
-        when account_mfa_enabled = false then  'MFA not enabled for root account.'
-        when serial_number is not null then 'MFA enabled for root account, but the MFA associated is a virtual device.'
+        when s.account_mfa_enabled = false then  'MFA not enabled for root account.'
+        when d.serial_number is not null then 'MFA enabled for root account, but the MFA associated is a virtual device.'
         else 'Hardware MFA device enabled for root account.'
       end reason
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "s.")}
     from
       aws_iam_account_summary as s
-      left join aws_iam_virtual_mfa_device on serial_number = 'arn:' || s.partition || ':iam::' || s.account_id || ':mfa/root-account-mfa-device';
+      left join aws_iam_virtual_mfa_device as d on (d.user ->> 'Arn') = 'arn:' || s.partition || ':iam::' || s.account_id || ':root';
   EOQ
 }
 

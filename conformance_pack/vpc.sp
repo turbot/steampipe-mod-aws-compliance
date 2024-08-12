@@ -1996,3 +1996,4 @@ query "vpc_gateway_endpoint_restrict_public_access" {
       left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;
   EOQ
 }
+

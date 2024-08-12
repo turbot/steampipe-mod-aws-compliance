@@ -164,6 +164,22 @@ control "lambda_function_variables_no_sensitive_data" {
   tags = local.conformance_pack_lambda_common_tags
 }
 
+control "lambda_function_cloudwatch_insights_enabled" {
+  title       = "Ensure Cloudwatch Lambda insights is enabled"
+  description = "Ensure that Amazon CloudWatch Lambda Insights is enabled for your Amazon Lambda functions for enhanced monitoring."
+  query       = query.lambda_function_cloudwatch_insights_enabled
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
+control "lambda_function_encryption_enabled" {
+  title       = "Ensure encryption in transit is enabled for Lambda environment variables"
+  description = "As you can set your own environmental variables for Lambda it is important to also encrypt them for in transit protection."
+  query       = query.lambda_function_encryption_enabled
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
@@ -476,6 +492,52 @@ query "lambda_function_cors_configuration" {
         when url_config is null then title || ' does not has a URL config.'
         when url_config -> 'Cors' ->> 'AllowOrigins' = '["*"]' then title || ' CORS configuration allows all origins.'
         else title || ' CORS configuration does not allow all origins.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+
+query "lambda_function_cloudwatch_insights_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when exists (
+          select 1
+          from jsonb_array_elements(layers) as l
+          where l ->> 'Arn' like '%:layer:LambdaInsightsExtension:%'
+        ) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when exists (
+          select 1
+          from jsonb_array_elements(layers) as l
+          where l ->> 'Arn' like '%:layer:LambdaInsightsExtension:%'
+        ) then title || ' CloudWatch Insights enabled.'
+        else title || ' CloudWatch Insights disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+
+query "lambda_function_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when kms_key_arn is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when kms_key_arn is null then title || ' encryption is disabled.'
+        else title || ' encryption is enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

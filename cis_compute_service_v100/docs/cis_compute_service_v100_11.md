@@ -1,0 +1,3 @@
+## AWS SimSpace Weaver
+
+AWS SimSpace Weaver is a service used to build and run dynamic, large-scale spatial simulations, such as city-scale digital twins and crowd simulations with millions of people and objects. As part of the simulation you will often have Applications and Clients functioning as part of the simulation. Some of the best practice recommendations will be for the communication between these applications and clients as a separate function outside of SimSpace Weaver. There are no specific Security best practice recommendations related for SimSapce Weaver, but that does not alleviate the end user of this service of the Shared responsibility model and the customer security requirements for service and data access and protection.
