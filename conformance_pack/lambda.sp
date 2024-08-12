@@ -164,6 +164,22 @@ control "lambda_function_variables_no_sensitive_data" {
   tags = local.conformance_pack_lambda_common_tags
 }
 
+control "lambda_function_cloudwatch_insights_enabled" {
+  title       = "Ensure Cloudwatch Lambda insights is enabled"
+  description = "Ensure that Amazon CloudWatch Lambda Insights is enabled for your Amazon Lambda functions for enhanced monitoring."
+  query       = query.lambda_function_cloudwatch_insights_enabled
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
+control "lambda_function_encryption_enabled" {
+  title       = "Ensure encryption in transit is enabled for Lambda environment variables"
+  description = "As you can set your own environmental variables for Lambda it is important to also encrypt them for in transit protection."
+  query       = query.lambda_function_encryption_enabled
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select
@@ -511,7 +527,7 @@ query "lambda_function_cloudwatch_insights_enabled" {
   EOQ
 }
 
-query "lambda_function_encryption_is_enabled" {
+query "lambda_function_encryption_enabled" {
   sql = <<-EOQ
     select
       arn as resource,

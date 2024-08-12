@@ -4,6 +4,38 @@ locals {
   })
 }
 
+control "lightsail_instance_ssh_rdp_http_ports_disabled" {
+  title       = "Disable SSH and RDP ports for Lightsail instances when not needed"
+  description = "Any ports enable within Lightsail by default are open and exposed to the world. For SSH and RDP access you should remove and disable these ports when not is use."
+  query       = query.lightsail_instance_ssh_rdp_http_ports_disabled
+
+  tags = local.conformance_pack_lightsail_common_tags
+}
+
+control "lightsail_instance_ssh_restricted_ip" {
+  title       = "Ensure SSH is restricted to only IP address that should have this access"
+  description = "Any ports enable within Lightsail by default are open and exposed to the world. For SSH and RDP access you should identify which IP address need access."
+  query       = query.lightsail_instance_ssh_restricted_ip
+
+  tags = local.conformance_pack_lightsail_common_tags
+}
+
+control "lightsail_instance_rdp_restricted_ip" {
+  title       = "Ensure RDP is restricted to only IP address that should have this access"
+  description = "Any ports enable within Lightsail by default are open and exposed to the world. For SSH and RDP access you should identify which IP address need access."
+  query       = query.lightsail_instance_rdp_restricted_ip
+
+  tags = local.conformance_pack_lightsail_common_tags
+}
+
+control "lightsail_instance_ipv6_networking_disabled" {
+  title       = "Disable IPv6 Networking if not in use within your organization"
+  description = "Any protocols enable within Lightsail by default that aren't being used should be disabled."
+  query       = query.lightsail_instance_ipv6_networking_disabled
+
+  tags = local.conformance_pack_lightsail_common_tags
+}
+
 query "lightsail_instance_ssh_rdp_http_ports_disabled" {
   sql = <<-EOQ
     with open_ports as (
