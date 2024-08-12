@@ -1,5 +1,5 @@
 locals {
-  cis_compute_service_common_tags = merge(local.aws_compliance_common_tags, {
+  cis_compute_service_v100_common_tags = merge(local.aws_compliance_common_tags, {
     cis         = "true"
     cis_version = "v1.0.0"
   })
@@ -16,7 +16,7 @@ benchmark "cis_compute_service_v100" {
     benchmark.cis_compute_service_v100_5,
     benchmark.cis_compute_service_v100_6,
     benchmark.cis_compute_service_v100_10,
-    benchmark.cis_compute_service_v100_11,
+    benchmark.cis_compute_service_v100_11
   ]
 
   tags = merge(local.cis_compute_service_v100_common_tags, {

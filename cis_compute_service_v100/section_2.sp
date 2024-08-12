@@ -4,6 +4,16 @@ locals {
   })
 }
 
+locals {
+  cis_compute_service_v100_2_1_common_tags = merge(local.cis_compute_service_v100_2_common_tags, {
+    cis_section_id = "2.1"
+  })
+
+  cis_compute_service_v100_2_2_common_tags = merge(local.cis_compute_service_v100_2_common_tags, {
+    cis_section_id = "2.2"
+  })
+}
+
 benchmark "cis_compute_service_v100_2" {
   title         = "2 Elastic Cloud Compute (EC2)"
   description   = "Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. This section will contain recommendations for configuring your compute resources within EC2."
