@@ -1849,12 +1849,20 @@ query "ec2_ami_ebs_encryption_enabled" {
     with encryption_status as (
       select
         image_id as resource,
+        region,
+        account_id,
+        tags,
+        _ctx,
         bool_and(coalesce((mapping -> 'Ebs' ->> 'Encrypted')::text = 'true', false)) as all_encrypted
       from
         aws_ec2_ami
         cross join jsonb_array_elements(block_device_mappings) as mapping
       group by
-        image_id
+        image_id,
+        region,
+        account_id,
+        tags,
+        _ctx
     )
     select
       resource,
