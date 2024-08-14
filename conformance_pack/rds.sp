@@ -1558,3 +1558,22 @@ query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
       aws_rds_db_cluster;
   EOQ
 }
+
+query "rds_db_instance_uses_vpc_security_group" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when vpc_security_groups is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when vpc_security_groups is null then title || ' does not use VPC security group.'
+        else title || ' uses VPC security group.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}

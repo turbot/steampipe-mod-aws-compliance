@@ -360,3 +360,42 @@ query "elasticache_replication_group_encryption_at_rest_enabled_with_kms_cmk" {
       left join kms_keys as k on k.arn = r.kms_key_id;
   EOQ
 }
+
+query "elasticache_cluster_encryption_at_rest_and_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when at_rest_encryption_enabled and transit_encryption_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when at_rest_encryption_enabled and transit_encryption_enabled then title || ' encryption at rest and in transit enabled.'
+        when at_rest_encryption_enabled and not transit_encryption_enabled then title || ' encryption at rest enabled but encryption in transit disabled.'
+        when not at_rest_encryption_enabled and transit_encryption_enabled then title || ' encryption at rest disabled but encryption in transit enabled.'
+        else title || ' encryption at rest and in transit disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_cluster;
+  EOQ
+}
+
+query "elasticache_cluster_network_security_enabled" {
+  sql = <<-EOQ
+    select
+      c.arn as resource,
+      case
+        when c.cache_security_groups is not null and sg.vpc_id is not null and sg.cache_subnet_group_name is not null  then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.cache_security_groups is not null and sg.vpc_id is not null and sg.cache_subnet_group_name is not null then c.title || ' network security enabled.'
+        else c.title || ' network security disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_elasticache_subnet_group as sg
+      join aws_elasticache_cluster as c on sg.cache_subnet_group_name = c.cache_subnet_group_name;
+  EOQ
+}
