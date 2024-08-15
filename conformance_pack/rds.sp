@@ -1559,17 +1559,82 @@ query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   EOQ
 }
 
-query "rds_db_instance_uses_vpc_security_group" {
+query "rds_aurora_db_instance_uses_vpc_security_group" {
   sql = <<-EOQ
     select
       arn as resource,
       case
+        when engine not like '%aurora%' then 'skip'
         when vpc_security_groups is null then 'alarm'
         else 'ok'
       end as status,
       case
+        when engine not like '%aurora%' then title || ' not Aurora resources.'
         when vpc_security_groups is null then title || ' does not use VPC security group.'
         else title || ' uses VPC security group.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_aurora_db_instance_in_vpc" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine not like '%aurora%' then 'skip'
+        when vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when engine not like '%aurora%' then title || ' not Aurora resources.'
+        when vpc_id is null then title || ' is not in VPC.'
+        else title || ' is in VPC ' || vpc_id || '.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_aurora_db_instance_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine not like '%aurora%' then 'skip'
+        when storage_encrypted then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine not like '%aurora%' then title || ' not Aurora resources.'
+        when storage_encrypted then title || ' encrypted at rest.'
+        else title || ' not encrypted at rest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_aurora_db_instance_backup_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine not like '%aurora%' then 'skip'
+        when backup_retention_period < 1 then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when engine not like '%aurora%' then title || ' not Aurora resources.'
+        when backup_retention_period < 1 then title || ' backups not enabled.'
+        else title || ' backups enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
