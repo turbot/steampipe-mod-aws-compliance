@@ -71,6 +71,7 @@ control "redshift_cluster_prohibit_public_access" {
   query       = query.redshift_cluster_prohibit_public_access
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"

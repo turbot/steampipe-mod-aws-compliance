@@ -11,6 +11,10 @@ benchmark "acsc_essential_eight_ml_2" {
   children = [
     benchmark.acsc_essential_eight_ml_2_1,
     benchmark.acsc_essential_eight_ml_2_2,
+    benchmark.acsc_essential_eight_ml_2_5,
+    benchmark.acsc_essential_eight_ml_2_6,
+    benchmark.acsc_essential_eight_ml_2_7,
+    benchmark.acsc_essential_eight_ml_2_8
   ]
 
   tags = local.acsc_essential_eight_ml_2_common_tags
@@ -536,6 +540,218 @@ benchmark "acsc_essential_eight_ml_2_7_7" {
     control.vpc_flow_logs_enabled,
     control.waf_web_acl_logging_enabled,
     control.wafv2_web_acl_logging_enabled
+  ]
+
+  tags = local.acsc_essential_eight_ml_2_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8" {
+  title       = "ACSC-EE-ML2-8: Daily backups ML2"
+  description = "Backups are taken daily and retained for at least 7 days."
+
+  children = [
+    benchmark.acsc_essential_eight_ml_2_8_1,
+    benchmark.acsc_essential_eight_ml_2_8_2,
+    benchmark.acsc_essential_eight_ml_2_8_3,
+    benchmark.acsc_essential_eight_ml_2_8_4,
+    benchmark.acsc_essential_eight_ml_2_8_5,
+    benchmark.acsc_essential_eight_ml_2_8_6,
+    benchmark.acsc_essential_eight_ml_2_8_7,
+    benchmark.acsc_essential_eight_ml_2_8_8,
+  ]
+
+  tags = local.acsc_essential_eight_ml_2_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8_1" {
+  title       = "ACSC-EE-ML2-8.1: Regular backups ML2"
+  description = "Backups of important data, software and configuration settings are performed and retained with a frequency and retention timeframe in accordance with business continuity requirements."
+
+  children = [
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.fsx_file_system_protected_by_backup_plan,
+    control.backup_plan_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.backup_recovery_point_min_retention_35_days,
+    control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.efs_file_system_protected_by_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.rds_db_cluster_aurora_backtracking_enabled,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8_2" {
+  title       = "ACSC-EE-ML2-8.2: Regular backups ML2"
+  description = "Backups of important data, software and configuration settings are synchronised to enable restoration to a common point in time."
+
+  children = [
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.fsx_file_system_protected_by_backup_plan,
+    control.backup_plan_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.backup_recovery_point_min_retention_35_days,
+    control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.efs_file_system_protected_by_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.rds_db_cluster_aurora_backtracking_enabled,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8_3" {
+  title       = "ACSC-EE-ML2-8.3: Regular backups ML2"
+  description = "Backups of important data, software and configuration settings are retained in a secure and resilient manner."
+
+  children = [
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.fsx_file_system_protected_by_backup_plan,
+    control.backup_plan_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.backup_recovery_point_min_retention_35_days,
+    control.ec2_instance_protected_by_backup_plan,
+    control.efs_file_system_in_backup_plan,
+    control.efs_file_system_protected_by_backup_plan,
+    control.elasticache_redis_cluster_automatic_backup_retention_15_days,
+    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.rds_db_cluster_aurora_backtracking_enabled,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_8_5" {
+  title       = "ACSC-EE-ML2-8.5: Regular backups ML2"
+  description = "Unprivileged accounts cannot access backups belonging to other accounts."
+
+  children = [
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.iam_user_in_group,
+    control.ec2_instance_iam_profile_attached,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.opensearch_domain_fine_grained_access_enabled,
+    control.ecs_task_definition_container_readonly_root_filesystem,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8_6" {
+  title       = "ACSC-EE-ML2-8.6: Regular backups ML2"
+  description = "Privileged accounts (excluding backup administrator accounts) cannot access backups belonging to other accounts."
+
+  children = [
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_public_access_block_account,
+    control.efs_access_point_enforce_root_directory,
+    control.efs_access_point_enforce_user_identity,
+    control.neptune_db_cluster_snapshot_prohibit_public_access,
+    control.backup_recovery_point_manual_deletion_disabled,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.codebuild_project_environment_privileged_mode_disabled,
+    control.redshift_cluster_prohibit_public_access,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.iam_root_user_no_access_keys,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_container_readonly_root_filesystem,
+    control.iam_policy_no_star_star,
+    control.ssm_document_prohibit_public_access,
+    control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions,
+    control.rds_db_instance_prohibit_public_access,
+    control.lambda_function_restrict_public_access,
+  ]
+
+  tags = local.acsc_essential_eight_ml_2_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_8_7" {
+  title       = "ACSC-EE-ML2-8.7: Regular backups ML2"
+  description = "Unprivileged accounts are prevented from modifying and deleting backups."
+
+  children = [
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.iam_user_in_group,
+    control.ec2_instance_iam_profile_attached,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.opensearch_domain_fine_grained_access_enabled,
+    control.ecs_task_definition_container_readonly_root_filesystem,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.vpc_security_group_restrict_ingress_ssh_all,
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_2_8_8" {
+  title       = "ACSC-EE-ML2-8.8: Regular backups ML2"
+  description = "Privileged accounts (excluding backup administrator accounts) are prevented from modifying and deleting backups."
+
+  children = [
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_bucket,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_public_access_block_account,
+    control.efs_access_point_enforce_root_directory,
+    control.efs_access_point_enforce_user_identity,
+    control.neptune_db_cluster_snapshot_prohibit_public_access,
+    control.backup_recovery_point_manual_deletion_disabled,
+    control.ebs_snapshot_not_publicly_restorable,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.codebuild_project_environment_privileged_mode_disabled,
+    control.redshift_cluster_prohibit_public_access,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.iam_root_user_no_access_keys,
+    control.dms_replication_instance_not_publicly_accessible,
+    control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_container_readonly_root_filesystem,
+    control.iam_policy_no_star_star,
+    control.ssm_document_prohibit_public_access,
+    control.iam_policy_custom_no_blocked_kms_actions,
+    control.iam_policy_inline_no_blocked_kms_actions,
+    control.rds_db_instance_prohibit_public_access,
+    control.lambda_function_restrict_public_access,
   ]
 
   tags = local.acsc_essential_eight_ml_2_common_tags

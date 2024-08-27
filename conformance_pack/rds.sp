@@ -155,6 +155,7 @@ control "rds_db_instance_prohibit_public_access" {
   query       = query.rds_db_instance_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -204,6 +205,7 @@ control "rds_db_snapshot_prohibit_public_access" {
   query       = query.rds_db_snapshot_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"

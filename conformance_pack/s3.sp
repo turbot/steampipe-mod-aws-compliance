@@ -147,6 +147,7 @@ control "s3_bucket_restrict_public_read_access" {
   query       = query.s3_bucket_restrict_public_read_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -173,6 +174,7 @@ control "s3_bucket_restrict_public_write_access" {
   query       = query.s3_bucket_restrict_public_write_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -233,6 +235,7 @@ control "s3_public_access_block_account" {
   query       = query.s3_public_access_block_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -293,6 +296,7 @@ control "s3_public_access_block_bucket" {
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"

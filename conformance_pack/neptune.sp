@@ -25,7 +25,9 @@ control "neptune_db_cluster_snapshot_prohibit_public_access" {
   description = "This control checks whether a Neptune manual DB cluster snapshot is public. The control fails if a Neptune manual DB cluster snapshot is public."
   query       = query.neptune_db_cluster_snapshot_prohibit_public_access
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_deletion_protection_enabled" {

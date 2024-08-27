@@ -10,6 +10,7 @@ control "ebs_snapshot_not_publicly_restorable" {
   query       = query.ebs_snapshot_not_publicly_restorable
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
