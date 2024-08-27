@@ -57,7 +57,9 @@ control "neptune_db_cluster_iam_authentication_enabled" {
   description = "This control checks if a Neptune DB cluster has IAM database authentication enabled. The control fails if IAM database authentication isn't enabled for a Neptune DB cluster."
   query       = query.neptune_db_cluster_iam_authentication_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_copy_tags_to_snapshot_enabled" {

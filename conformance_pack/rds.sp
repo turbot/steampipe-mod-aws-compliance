@@ -230,6 +230,7 @@ control "rds_db_instance_logging_enabled" {
   query       = query.rds_db_instance_logging_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -321,6 +322,7 @@ control "rds_db_instance_iam_authentication_enabled" {
   query       = query.rds_db_instance_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
@@ -336,8 +338,9 @@ control "rds_db_cluster_iam_authentication_enabled" {
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    acsc_essential_eight = "true"
+    nist_800_171_rev_2   = "true"
+    nist_csf             = "true"
   })
 }
 

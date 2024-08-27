@@ -17,7 +17,9 @@ control "gatewayv2_stage_access_logging_enabled" {
   description = "This control checks if AWS API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
   query       = query.gatewayv2_stage_access_logging_enabled
 
-  tags = local.conformance_pack_apigateway_common_tags
+  tags = local.conformance_pack_apigateway_common_tags {
+    acsc_essential_eight = "true"
+  }
 }
 
 control "apigateway_stage_cache_encryption_at_rest_enabled" {
@@ -49,6 +51,7 @@ control "apigateway_stage_logging_enabled" {
   query       = query.apigateway_stage_logging_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -93,6 +96,7 @@ control "apigateway_rest_api_stage_xray_tracing_enabled" {
   query       = query.apigateway_rest_api_stage_xray_tracing_enabled
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
+    acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_csf                               = "true"
   })

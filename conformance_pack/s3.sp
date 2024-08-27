@@ -102,6 +102,7 @@ control "s3_bucket_logging_enabled" {
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -310,7 +311,8 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -328,6 +330,7 @@ control "s3_bucket_policy_restrict_public_access" {
   query       = query.s3_bucket_policy_restrict_public_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
@@ -383,8 +386,9 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   query       = query.s3_bucket_acls_should_prohibit_user_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf     = "true"
-    rbi_itf_nbfc = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    rbi_itf_nbfc         = "true"
   })
 }
 

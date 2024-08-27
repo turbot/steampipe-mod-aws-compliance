@@ -34,8 +34,9 @@ control "opensearch_domain_fine_grained_access_enabled" {
   query       = query.opensearch_domain_fine_grained_access_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
   })
 }
 

@@ -114,7 +114,9 @@ control "sagemaker_notebook_instance_root_access_disabled" {
   description = "Users with root access have administrator privileges and users can access and edit all files on a notebook instance. It is recommeneded to disable root access to restrict users from accessing and editing all the files."
   query       = query.sagemaker_notebook_instance_root_access_disabled
 
-  tags = local.conformance_pack_sagemaker_common_tags
+  tags = merge(local.conformance_pack_sagemaker_common_tags {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "sagemaker_training_job_in_vpc" {

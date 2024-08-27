@@ -52,6 +52,7 @@ control "cloudtrail_s3_data_events_enabled" {
   query       = query.cloudtrail_s3_data_events_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -104,6 +105,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   query       = query.cloudtrail_multi_region_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -153,6 +155,7 @@ control "cloudtrail_trail_enabled" {
   query       = query.cloudtrail_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"

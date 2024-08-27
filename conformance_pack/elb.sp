@@ -26,6 +26,7 @@ control "elb_application_classic_lb_logging_enabled" {
   query       = query.elb_application_classic_lb_logging_enabled
 
   tags = merge(local.conformance_pack_elb_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -306,7 +307,8 @@ control "elb_classic_lb_desync_mitigation_mode" {
   query       = query.elb_classic_lb_desync_mitigation_mode
 
   tags = merge(local.conformance_pack_elb_common_tags, {
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    pci_dss_v321         = "true"
   })
 }
 

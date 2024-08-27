@@ -10,6 +10,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
   query       = query.backup_recovery_point_manual_deletion_disabled
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"

@@ -228,6 +228,7 @@ control "ec2_instance_iam_profile_attached" {
   query       = query.ec2_instance_iam_profile_attached
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
