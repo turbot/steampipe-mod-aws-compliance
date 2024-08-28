@@ -10,6 +10,9 @@ benchmark "acsc_essential_eight" {
   description   = "."
   documentation = file("./acsc_essential_eight/docs/acsc_essential_eight_overview.md")
   children = [
+    benchmark.acsc_essential_eight_ml_1,
+    benchmark.acsc_essential_eight_ml_2,
+    benchmark.acsc_essential_eight_ml_3,
   ]
 
   tags = merge(local.acsc_essential_eight_common_tags, {

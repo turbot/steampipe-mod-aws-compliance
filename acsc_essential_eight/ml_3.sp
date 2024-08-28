@@ -39,12 +39,12 @@ benchmark "acsc_essential_eight_ml_3_1_6" {
   description = "Allowed and blocked execution events on workstations and servers are centrally logged."
 
   children = [
-    control.cloudtrail_s3_data_events_enabled,
-    control.opensearch_domain_audit_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_multi_region_trail_enabled,
-    control.opensearch_domain_logs_to_cloudwatch,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -55,12 +55,12 @@ benchmark "acsc_essential_eight_ml_3_1_7" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
-    control.s3_public_access_block_bucket,
-    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
-    control.cloudtrail_trail_validation_enabled,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.s3_public_access_block_bucket
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -71,11 +71,11 @@ benchmark "acsc_essential_eight_ml_3_1_8" {
   description = "Event logs are monitored for signs of compromise and actioned when any signs of compromise are detected."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
-    control.securityhub_enabled,
     control.apigateway_rest_api_stage_xray_tracing_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -98,7 +98,7 @@ benchmark "acsc_essential_eight_ml_3_2_2" {
   description = "A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities."
 
   children = [
-    control.ecr_repository_image_scan_on_push_enabled,
+    control.ecr_repository_image_scan_on_push_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -110,13 +110,13 @@ benchmark "acsc_essential_eight_ml_3_2_9" {
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_use_latest_runtime,
+    control.eks_cluster_with_latest_kubernetes_version,
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
-    control.redshift_cluster_maintenance_settings_check,
+    control.lambda_function_use_latest_runtime,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -127,7 +127,7 @@ benchmark "acsc_essential_eight_ml_3_4" {
   description = "Web browsers do not process Java from the internet."
 
   children = [
-    benchmark.acsc_essential_eight_ml_3_4_18,
+    benchmark.acsc_essential_eight_ml_3_4_18
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -138,11 +138,11 @@ benchmark "acsc_essential_eight_ml_3_4_18" {
   description = "Event logs are monitored for signs of compromise and actioned when any signs of compromise are detected."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
-    control.securityhub_enabled,
     control.apigateway_rest_api_stage_xray_tracing_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -243,10 +243,10 @@ benchmark "acsc_essential_eight_ml_3_5_4" {
   description = "Privileged access to systems and applications is limited to only what is required for users and services to undertake their duties."
 
   children = [
+    control.ecs_task_definition_container_readonly_root_filesystem,
     control.iam_user_in_group,
     control.opensearch_domain_fine_grained_access_enabled,
-    control.ecs_task_definition_container_readonly_root_filesystem,
-    control.s3_bucket_policy_restricts_cross_account_permission_changes,
+    control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -274,17 +274,17 @@ benchmark "acsc_essential_eight_ml_3_5_6" {
   description = "Privileged users use separate privileged and unprivileged operating environments."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_iam_profile_attached,
-    control.codebuild_project_source_repo_oauth_configured,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.sagemaker_notebook_instance_root_access_disabled,
-    control.iam_root_user_no_access_keys,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
-    control.iam_policy_no_star_star,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -295,17 +295,17 @@ benchmark "acsc_essential_eight_ml_3_5_7" {
   description = "Privileged operating environments are not virtualised within unprivileged operating environments."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_iam_profile_attached,
-    control.codebuild_project_source_repo_oauth_configured,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.sagemaker_notebook_instance_root_access_disabled,
-    control.iam_root_user_no_access_keys,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
-    control.iam_policy_no_star_star,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -316,10 +316,10 @@ benchmark "acsc_essential_eight_ml_3_5_8" {
   description = "Unprivileged accounts cannot logon to privileged operating environments."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_iam_profile_attached,
     control.codebuild_project_source_repo_oauth_configured,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ec2_instance_iam_profile_attached,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -330,17 +330,17 @@ benchmark "acsc_essential_eight_ml_3_5_9" {
   description = "Privileged accounts (excluding local administrator accounts) cannot logon to unprivileged operating environments."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_iam_profile_attached,
-    control.codebuild_project_source_repo_oauth_configured,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.sagemaker_notebook_instance_root_access_disabled,
-    control.iam_root_user_no_access_keys,
+    control.codebuild_project_source_repo_oauth_configured,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
-    control.iam_policy_no_star_star,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -351,10 +351,10 @@ benchmark "acsc_essential_eight_ml_3_5_11" {
   description = "Administrative activities are conducted through jump servers."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.ec2_instance_iam_profile_attached,
     control.codebuild_project_source_repo_oauth_configured,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ec2_instance_iam_profile_attached,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -383,12 +383,12 @@ benchmark "acsc_essential_eight_ml_3_5_14" {
   description = "Privileged access events are centrally logged."
 
   children = [
-    control.cloudtrail_s3_data_events_enabled,
-    control.opensearch_domain_audit_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_multi_region_trail_enabled,
-    control.opensearch_domain_logs_to_cloudwatch,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -399,12 +399,12 @@ benchmark "acsc_essential_eight_ml_3_5_15" {
   description = "Privileged account and group management events are centrally logged."
 
   children = [
-    control.cloudtrail_s3_data_events_enabled,
-    control.opensearch_domain_audit_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_multi_region_trail_enabled,
-    control.opensearch_domain_logs_to_cloudwatch,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -415,12 +415,12 @@ benchmark "acsc_essential_eight_ml_3_5_16" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
-    control.s3_public_access_block_bucket,
-    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
-    control.cloudtrail_trail_validation_enabled,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.s3_public_access_block_bucket
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -431,11 +431,11 @@ benchmark "acsc_essential_eight_ml_3_5_17" {
   description = "Event logs are monitored for signs of compromise and actioned when any signs of compromise are detected."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
-    control.securityhub_enabled,
     control.apigateway_rest_api_stage_xray_tracing_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -452,7 +452,7 @@ benchmark "acsc_essential_eight_ml_3_6" {
     benchmark.acsc_essential_eight_ml_3_6_5,
     benchmark.acsc_essential_eight_ml_3_6_6,
     benchmark.acsc_essential_eight_ml_3_6_7,
-    benchmark.acsc_essential_eight_ml_3_6_8,
+    benchmark.acsc_essential_eight_ml_3_6_8
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -463,7 +463,7 @@ benchmark "acsc_essential_eight_ml_3_6_2" {
   description = "A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities."
 
   children = [
-    control.ecr_repository_image_scan_on_push_enabled,
+    control.ecr_repository_image_scan_on_push_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -474,7 +474,7 @@ benchmark "acsc_essential_eight_ml_3_6_3" {
   description = "A vulnerability scanner is used at least daily to identify missing patches or updates for security vulnerabilities in operating systems of internet-facing services."
 
   children = [
-    control.ecr_repository_image_scan_on_push_enabled,
+    control.ecr_repository_image_scan_on_push_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -485,7 +485,7 @@ benchmark "acsc_essential_eight_ml_3_6_4" {
   description = "A vulnerability scanner is used at least weekly to identify missing patches or updates for security vulnerabilities in operating systems of workstations, servers and network devices."
 
   children = [
-    control.ecr_repository_image_scan_on_push_enabled,
+    control.ecr_repository_image_scan_on_push_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -497,13 +497,13 @@ benchmark "acsc_essential_eight_ml_3_6_5" {
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_use_latest_runtime,
+    control.eks_cluster_with_latest_kubernetes_version,
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
-    control.redshift_cluster_maintenance_settings_check,
+    control.lambda_function_use_latest_runtime,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -515,13 +515,13 @@ benchmark "acsc_essential_eight_ml_3_6_6" {
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_use_latest_runtime,
+    control.eks_cluster_with_latest_kubernetes_version,
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
-    control.redshift_cluster_maintenance_settings_check,
+    control.lambda_function_use_latest_runtime,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -533,13 +533,13 @@ benchmark "acsc_essential_eight_ml_3_6_7" {
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_use_latest_runtime,
+    control.eks_cluster_with_latest_kubernetes_version,
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
-    control.redshift_cluster_maintenance_settings_check,
+    control.lambda_function_use_latest_runtime,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -551,13 +551,13 @@ benchmark "acsc_essential_eight_ml_3_6_8" {
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_use_latest_runtime,
+    control.eks_cluster_with_latest_kubernetes_version,
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
-    control.redshift_cluster_maintenance_settings_check,
+    control.lambda_function_use_latest_runtime,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
-    control.ssm_managed_instance_compliance_patch_compliant,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.redshift_cluster_maintenance_settings_check,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -577,7 +577,7 @@ benchmark "acsc_essential_eight_ml_3_7" {
     benchmark.acsc_essential_eight_ml_3_7_7,
     benchmark.acsc_essential_eight_ml_3_7_8,
     benchmark.acsc_essential_eight_ml_3_7_9,
-    benchmark.acsc_essential_eight_ml_3_7_10,
+    benchmark.acsc_essential_eight_ml_3_7_10
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -588,10 +588,10 @@ benchmark "acsc_essential_eight_ml_3_7_1" {
   description = "Multi-factor authentication is used by an organisation's users if they authenticate to their organisations internet-facing services."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -602,10 +602,10 @@ benchmark "acsc_essential_eight_ml_3_7_2" {
   description = "Multi-factor authentication is used by an organisations users if they authenticate to third-party internet-facing services that process, store or communicate their organisation's sensitive data."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -616,10 +616,10 @@ benchmark "acsc_essential_eight_ml_3_7_3" {
   description = "Multi-factor authentication is enabled by default for non-organisational users (but users can choose to opt out) if they authenticate to an organisations internet-facing services."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -630,10 +630,10 @@ benchmark "acsc_essential_eight_ml_3_7_4" {
   description = "Multi-factor authentication is enabled by default for non-organisational users (but users can choose to opt out) if they authenticate to an organisations internet-facing services."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -644,10 +644,10 @@ benchmark "acsc_essential_eight_ml_3_7_5" {
   description = "Multi-factor authentication is used to authenticate privileged users of systems."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -658,10 +658,10 @@ benchmark "acsc_essential_eight_ml_3_7_6" {
   description = "Multi-factor authentication is used to authenticate users accessing important data repositories."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -672,10 +672,10 @@ benchmark "acsc_essential_eight_ml_3_7_7" {
   description = "Multi-factor authentication is phishing-resistant and uses either: something users have and something users know, or something users have that is unlocked by something users know or are."
 
   children = [
-    control.iam_user_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
-    control.iam_user_console_access_mfa_enabled,
     control.iam_root_user_mfa_enabled,
+    control.iam_user_console_access_mfa_enabled,
+    control.iam_user_mfa_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -686,12 +686,12 @@ benchmark "acsc_essential_eight_ml_3_7_8" {
   description = "Successful and unsuccessful multi-factor authentication events are centrally logged."
 
   children = [
-    control.cloudtrail_s3_data_events_enabled,
-    control.opensearch_domain_audit_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_multi_region_trail_enabled,
-    control.opensearch_domain_logs_to_cloudwatch,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -702,12 +702,12 @@ benchmark "acsc_essential_eight_ml_3_7_9" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
-    control.s3_public_access_block_bucket,
-    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
-    control.cloudtrail_trail_validation_enabled,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
+    control.cloudtrail_trail_validation_enabled,
     control.log_group_encryption_at_rest_enabled,
+    control.s3_public_access_block_bucket
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -718,11 +718,11 @@ benchmark "acsc_essential_eight_ml_3_7_10" {
   description = "Event logs are monitored for signs of compromise and actioned when any signs of compromise are detected."
 
   children = [
-    control.cloudwatch_alarm_action_enabled,
-    control.securityhub_enabled,
     control.apigateway_rest_api_stage_xray_tracing_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -750,26 +750,26 @@ benchmark "acsc_essential_eight_ml_3_8_1" {
   description = "Backups of important data, software and configuration settings are performed and retained with a frequency and retention timeframe in accordance with business continuity requirements."
 
   children = [
-    control.rds_db_cluster_aurora_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.ebs_volume_protected_by_backup_plan,
-    control.ebs_volume_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
-    control.rds_db_instance_backup_enabled,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.dynamodb_table_in_backup_plan,
-    control.dynamodb_table_protected_by_backup_plan,
-    control.fsx_file_system_protected_by_backup_plan,
     control.backup_plan_min_retention_35_days,
-    control.docdb_cluster_backup_retention_period_7_days,
     control.backup_recovery_point_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
     control.ec2_instance_protected_by_backup_plan,
     control.efs_file_system_in_backup_plan,
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
-    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.fsx_file_system_protected_by_backup_plan,
     control.rds_db_cluster_aurora_backtracking_enabled,
-    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -781,26 +781,26 @@ benchmark "acsc_essential_eight_ml_3_8_2" {
   description = "Backups of important data, software and configuration settings are synchronised to enable restoration to a common point in time."
 
   children = [
-    control.rds_db_cluster_aurora_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.ebs_volume_protected_by_backup_plan,
-    control.ebs_volume_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
-    control.rds_db_instance_backup_enabled,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.dynamodb_table_in_backup_plan,
-    control.dynamodb_table_protected_by_backup_plan,
-    control.fsx_file_system_protected_by_backup_plan,
     control.backup_plan_min_retention_35_days,
-    control.docdb_cluster_backup_retention_period_7_days,
     control.backup_recovery_point_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
     control.ec2_instance_protected_by_backup_plan,
     control.efs_file_system_in_backup_plan,
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
-    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.fsx_file_system_protected_by_backup_plan,
     control.rds_db_cluster_aurora_backtracking_enabled,
-    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -812,26 +812,25 @@ benchmark "acsc_essential_eight_ml_3_8_3" {
   description = "Backups of important data, software and configuration settings are retained in a secure and resilient manner."
 
   children = [
-    control.rds_db_cluster_aurora_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.ebs_volume_protected_by_backup_plan,
-    control.ebs_volume_in_backup_plan,
-    control.rds_db_instance_in_backup_plan,
-    control.rds_db_instance_backup_enabled,
-    control.rds_db_instance_protected_by_backup_plan,
-    control.dynamodb_table_in_backup_plan,
-    control.dynamodb_table_protected_by_backup_plan,
-    control.fsx_file_system_protected_by_backup_plan,
     control.backup_plan_min_retention_35_days,
-    control.docdb_cluster_backup_retention_period_7_days,
     control.backup_recovery_point_min_retention_35_days,
+    control.docdb_cluster_backup_retention_period_7_days,
+    control.dynamodb_table_in_backup_plan,
+    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.dynamodb_table_protected_by_backup_plan,
+    control.ebs_volume_in_backup_plan,
+    control.ebs_volume_protected_by_backup_plan,
     control.ec2_instance_protected_by_backup_plan,
     control.efs_file_system_in_backup_plan,
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
-    control.redshift_cluster_automatic_snapshots_min_7_days,
+    control.fsx_file_system_protected_by_backup_plan,
     control.rds_db_cluster_aurora_backtracking_enabled,
-    control.dynamodb_table_point_in_time_recovery_enabled,
+    control.rds_db_cluster_aurora_protected_by_backup_plan,
+    control.rds_db_instance_backup_enabled,
+    control.rds_db_instance_in_backup_plan,
+    control.rds_db_instance_protected_by_backup_plan,
+    control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -843,14 +842,14 @@ benchmark "acsc_essential_eight_ml_3_8_5" {
   description = "Unprivileged accounts cannot access backups belonging to other accounts, nor their own accounts."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.iam_user_in_group,
-    control.ec2_instance_iam_profile_attached,
     control.codebuild_project_source_repo_oauth_configured,
-    control.opensearch_domain_fine_grained_access_enabled,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.iam_user_in_group,
+    control.opensearch_domain_fine_grained_access_enabled,
     control.s3_bucket_policy_restricts_cross_account_permission_changes,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -862,30 +861,30 @@ benchmark "acsc_essential_eight_ml_3_8_6" {
   description = "Privileged accounts (excluding backup administrator accounts) cannot access backups belonging to other accounts, nor their own accounts."
 
   children = [
-    control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket,
-    control.s3_bucket_restrict_public_read_access,
-    control.s3_public_access_block_account,
-    control.efs_access_point_enforce_root_directory,
-    control.efs_access_point_enforce_user_identity,
-    control.neptune_db_cluster_snapshot_prohibit_public_access,
     control.backup_recovery_point_manual_deletion_disabled,
-    control.ebs_snapshot_not_publicly_restorable,
-    control.rds_db_snapshot_prohibit_public_access,
-    control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.redshift_cluster_prohibit_public_access,
-    control.sagemaker_notebook_instance_root_access_disabled,
-    control.iam_root_user_no_access_keys,
     control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
-    control.iam_policy_no_star_star,
-    control.ssm_document_prohibit_public_access,
+    control.efs_access_point_enforce_root_directory,
+    control.efs_access_point_enforce_user_identity,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.rds_db_instance_prohibit_public_access,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
     control.lambda_function_restrict_public_access,
+    control.neptune_db_cluster_snapshot_prohibit_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.ssm_document_prohibit_public_access
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -896,14 +895,14 @@ benchmark "acsc_essential_eight_ml_3_8_7" {
   description = "Unprivileged accounts are prevented from modifying and deleting backups."
 
   children = [
-    control.ssm_managed_instance_compliance_association_compliant,
-    control.iam_user_in_group,
-    control.ec2_instance_iam_profile_attached,
     control.codebuild_project_source_repo_oauth_configured,
-    control.opensearch_domain_fine_grained_access_enabled,
+    control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.iam_user_in_group,
+    control.opensearch_domain_fine_grained_access_enabled,
     control.s3_bucket_policy_restricts_cross_account_permission_changes,
-    control.vpc_security_group_restrict_ingress_ssh_all,
+    control.ssm_managed_instance_compliance_association_compliant,
+    control.vpc_security_group_restrict_ingress_ssh_all
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -915,30 +914,30 @@ benchmark "acsc_essential_eight_ml_3_8_8" {
   description = "Privileged accounts (including backup administrator accounts) are prevented from modifying and deleting backups during their retention period."
 
   children = [
-    control.s3_bucket_restrict_public_write_access,
-    control.s3_public_access_block_bucket,
-    control.s3_bucket_restrict_public_read_access,
-    control.s3_public_access_block_account,
-    control.efs_access_point_enforce_root_directory,
-    control.efs_access_point_enforce_user_identity,
-    control.neptune_db_cluster_snapshot_prohibit_public_access,
     control.backup_recovery_point_manual_deletion_disabled,
-    control.ebs_snapshot_not_publicly_restorable,
-    control.rds_db_snapshot_prohibit_public_access,
-    control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.redshift_cluster_prohibit_public_access,
-    control.sagemaker_notebook_instance_root_access_disabled,
-    control.iam_root_user_no_access_keys,
     control.dms_replication_instance_not_publicly_accessible,
+    control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
-    control.iam_policy_no_star_star,
-    control.ssm_document_prohibit_public_access,
+    control.efs_access_point_enforce_root_directory,
+    control.efs_access_point_enforce_user_identity,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.rds_db_instance_prohibit_public_access,
+    control.iam_policy_no_star_star,
+    control.iam_root_user_no_access_keys,
     control.lambda_function_restrict_public_access,
+    control.neptune_db_cluster_snapshot_prohibit_public_access,
+    control.rds_db_instance_prohibit_public_access,
+    control.rds_db_snapshot_prohibit_public_access,
+    control.redshift_cluster_prohibit_public_access,
+    control.s3_bucket_restrict_public_read_access,
+    control.s3_bucket_restrict_public_write_access,
+    control.s3_public_access_block_account,
+    control.s3_public_access_block_bucket,
+    control.sagemaker_notebook_instance_direct_internet_access_disabled,
+    control.sagemaker_notebook_instance_root_access_disabled,
+    control.ssm_document_prohibit_public_access
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
