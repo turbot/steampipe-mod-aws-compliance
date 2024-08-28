@@ -26,6 +26,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   query       = query.cloudtrail_trail_integrated_with_logs
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -80,6 +81,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
   query       = query.cloudtrail_trail_logs_encrypted_with_kms_cmk
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -132,6 +134,7 @@ control "cloudtrail_trail_validation_enabled" {
   query       = query.cloudtrail_trail_validation_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -182,14 +185,15 @@ control "cloudtrail_security_trail_enabled" {
   query       = query.cloudtrail_security_trail_enabled
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    cis_controls_v8_ig1 = "true"
-    gdpr                = "true"
-    gxp_21_cfr_part_11  = "true"
-    gxp_eu_annex_11     = "true"
-    nist_800_171_rev_2  = "true"
-    nist_800_53_rev_4   = "true"
-    nist_csf            = "true"
-    soc_2               = "true"
+    acsc_essential_eight = "true"
+    cis_controls_v8_ig1  = "true"
+    gdpr                 = "true"
+    gxp_21_cfr_part_11   = "true"
+    gxp_eu_annex_11      = "true"
+    nist_800_171_rev_2   = "true"
+    nist_800_53_rev_4    = "true"
+    nist_csf             = "true"
+    soc_2                = "true"
   })
 }
 

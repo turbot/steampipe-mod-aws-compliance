@@ -371,6 +371,7 @@ control "iam_user_in_group" {
   query       = query.iam_user_in_group
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"

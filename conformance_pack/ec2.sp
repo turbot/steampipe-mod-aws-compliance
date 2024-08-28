@@ -48,6 +48,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
   query       = query.ec2_instance_detailed_monitoring_enabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
@@ -453,9 +454,9 @@ control "ec2_instance_no_iam_passrole_and_lambda_invoke_function_access" {
 }
 
 control "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
-  title         = "EC2 Client VPN endpoints should have client connection logging enabled"
-  description   = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
-  query         = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
+  title       = "EC2 Client VPN endpoints should have client connection logging enabled"
+  description = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
+  query       = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
 
   tags = local.conformance_pack_ec2_common_tags
 }

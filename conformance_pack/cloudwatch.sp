@@ -18,6 +18,7 @@ control "cloudwatch_alarm_action_enabled" {
   query       = query.cloudwatch_alarm_action_enabled
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    acsc_essential_eight_ml_3              = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"

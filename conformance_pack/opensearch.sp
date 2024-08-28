@@ -62,10 +62,11 @@ control "opensearch_domain_audit_logging_enabled" {
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    soc_2              = "true"
+    acsc_essential_eight = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
+    soc_2                = "true"
   })
 }
 
@@ -75,11 +76,12 @@ control "opensearch_domain_logs_to_cloudwatch" {
   query       = query.opensearch_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    rbi_itf_nbfc       = "true"
-    soc_2              = "true"
+    acsc_essential_eight = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
+    rbi_itf_nbfc         = "true"
+    soc_2                = "true"
   })
 }
 

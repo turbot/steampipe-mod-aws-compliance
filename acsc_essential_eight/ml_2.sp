@@ -392,7 +392,7 @@ benchmark "acsc_essential_eight_ml_2_6_4" {
   ]
 }
 
-benchmark "acsc_essential_eight_ml_1_6_5" {
+benchmark "acsc_essential_eight_ml_2_6_5" {
   title       = "ACSC-EE-ML2-6.5: Patch operating systems ML2"
   description = "Patches, updates or vendor mitigations for security vulnerabilities in operating systems of Internet-facing services are applied within two weeks of release, or within 48 hours if an exploit exists."
 
@@ -410,7 +410,7 @@ benchmark "acsc_essential_eight_ml_1_6_5" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_6_6" {
+benchmark "acsc_essential_eight_ml_2_6_6" {
   title       = "ACSC-EE-ML2-6.6: Patch operating systems ML2 "
   description = "Patches, updates or vendor mitigations for security vulnerabilities in operating systems of workstations, servers and network devices are applied within two weeks of release."
 
@@ -428,7 +428,7 @@ benchmark "acsc_essential_eight_ml_1_6_6" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_6_7" {
+benchmark "acsc_essential_eight_ml_2_6_7" {
   title       = "ACSC-EE-ML2-6.7: Patch operating systems ML2 "
   description = "Operating systems that are no longer supported by vendors are replaced."
 
@@ -461,7 +461,7 @@ benchmark "acsc_essential_eight_ml_2_7" {
   tags = local.acsc_essential_eight_ml_2_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_7_1" {
+benchmark "acsc_essential_eight_ml_2_7_1" {
   title       = "ACSC-EE-ML2-7.1: Multi-factor authentication ML2"
   description = "Multi-factor authentication is used by an organisation's users if they authenticate to their organisations internet-facing services."
 
@@ -475,7 +475,7 @@ benchmark "acsc_essential_eight_ml_1_7_1" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_7_4" {
+benchmark "acsc_essential_eight_ml_2_7_4" {
   title       = "ACSC-EE-ML2-7.4: Multi-factor authentication ML2"
   description = "Multi-factor authentication is enabled by default for non-organisational users (but users can choose to opt out) if they authenticate to an organisations internet-facing services."
 
@@ -489,7 +489,7 @@ benchmark "acsc_essential_eight_ml_1_7_4" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_7_5" {
+benchmark "acsc_essential_eight_ml_2_7_5" {
   title       = "ACSC-EE-ML2-7.5: Multi-factor authentication ML2"
   description = "Multi-factor authentication is used to authenticate privileged users of systems."
 
@@ -503,7 +503,7 @@ benchmark "acsc_essential_eight_ml_1_7_5" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_7_6" {
+benchmark "acsc_essential_eight_ml_2_7_6" {
   title       = "ACSC-EE-ML2-7.6: Multi-factor authentication ML2"
   description = "Multi-factor authentication uses either: something users have and something users know, or something users have that is unlocked by something users know or are."
 
@@ -553,7 +553,6 @@ benchmark "acsc_essential_eight_ml_2_8" {
     benchmark.acsc_essential_eight_ml_2_8_1,
     benchmark.acsc_essential_eight_ml_2_8_2,
     benchmark.acsc_essential_eight_ml_2_8_3,
-    benchmark.acsc_essential_eight_ml_2_8_4,
     benchmark.acsc_essential_eight_ml_2_8_5,
     benchmark.acsc_essential_eight_ml_2_8_6,
     benchmark.acsc_essential_eight_ml_2_8_7,
@@ -653,7 +652,7 @@ benchmark "acsc_essential_eight_ml_2_8_3" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_8_5" {
+benchmark "acsc_essential_eight_ml_2_8_5" {
   title       = "ACSC-EE-ML2-8.5: Regular backups ML2"
   description = "Unprivileged accounts cannot access backups belonging to other accounts."
 
@@ -705,7 +704,7 @@ benchmark "acsc_essential_eight_ml_2_8_6" {
   tags = local.acsc_essential_eight_ml_2_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_8_7" {
+benchmark "acsc_essential_eight_ml_2_8_7" {
   title       = "ACSC-EE-ML2-8.7: Regular backups ML2"
   description = "Unprivileged accounts are prevented from modifying and deleting backups."
 
