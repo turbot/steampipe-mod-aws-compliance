@@ -142,6 +142,7 @@ control "redshift_cluster_maintenance_settings_check" {
   query       = query.redshift_cluster_maintenance_settings_check
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"

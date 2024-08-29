@@ -45,7 +45,9 @@ control "neptune_db_cluster_automated_backup_enabled" {
   description = "This control checks whether a Neptune DB cluster has automated backups enabled, and a backup retention period greater than or equal to 7 days. The control fails if backups aren't enabled for the Neptune DB cluster, or if the retention period is less than 7 days."
   query       = query.neptune_db_cluster_automated_backup_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_snapshot_encryption_at_rest_enabled" {

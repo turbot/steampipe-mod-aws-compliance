@@ -9,7 +9,9 @@ control "elasticache_cluster_auto_minor_version_upgrade_enabled" {
   description = "This control evaluates whether ElastiCache for Redis automatically applies minor version upgrades to cache clusters. This control fails if ElastiCache for Redis cache clusters do not have minor version upgrades automatically applied."
   query       = query.elasticache_cluster_auto_minor_version_upgrade_enabled
 
-  tags = local.conformance_pack_elasticache_common_tags
+  tags = merge local.conformance_pack_elasticache_common_tags, {
+    acsc_essential_eight = "true"
+  }
 }
 
 control "elasticache_replication_group_auto_failover_enabled" {

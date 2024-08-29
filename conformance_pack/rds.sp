@@ -403,6 +403,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight  = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_csf              = "true"
@@ -542,7 +543,9 @@ control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   description = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
   query       = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
 
-  tags = local.foundational_security_rds_common_tags
+  tags = merge(local.foundational_security_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "rds_db_instance_backup_enabled" {

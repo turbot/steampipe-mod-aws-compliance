@@ -139,7 +139,8 @@ control "ecs_service_fargate_using_latest_platform_version" {
   query       = query.ecs_service_fargate_using_latest_platform_version
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 

@@ -65,7 +65,9 @@ control "networkfirewall_firewall_logging_enabled" {
   description   = "This control checks whether logging is enabled for an AWS Network Firewall firewall. The control fails if logging isn't enabled for at least one log type or if the logging destination doesn't exist."
   query         = query.networkfirewall_firewall_logging_enabled
 
-  tags = local.conformance_pack_networkfirewall_common_tags
+  tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "networkfirewall_stateless_rule_group_not_empty" {

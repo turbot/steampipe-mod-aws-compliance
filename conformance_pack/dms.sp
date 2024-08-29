@@ -59,7 +59,9 @@ control "dms_replication_task_target_database_logging_enabled" {
   description = "This control checks whether logging is enabled with the minimum severity level of LOGGER_SEVERITY_DEFAULT for DMS replication tasks TARGET_APPLY and TARGET_LOAD. The control fails if logging isn't enabled for these tasks or if the minimum severity level is less than LOGGER_SEVERITY_DEFAULT."
   query       = query.dms_replication_task_target_database_logging_enabled
 
-  tags = local.conformance_pack_dms_common_tags
+  tags = merge(local.conformance_pack_dms_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "dms_replication_task_source_database_logging_enabled" {
@@ -67,7 +69,9 @@ control "dms_replication_task_source_database_logging_enabled" {
   description = "This control checks whether logging is enabled with the minimum severity level of LOGGER_SEVERITY_DEFAULT for DMS replication tasks SOURCE_CAPTURE and SOURCE_UNLOAD. The control fails if logging isn't enabled for these tasks or if the minimum severity level is less than LOGGER_SEVERITY_DEFAULT."
   query       = query.dms_replication_task_source_database_logging_enabled
 
-  tags = local.conformance_pack_dms_common_tags
+  tags = merge(local.conformance_pack_dms_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "dms_replication_instance_not_publicly_accessible" {

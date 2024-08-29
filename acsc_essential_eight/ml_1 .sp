@@ -37,6 +37,7 @@ benchmark "acsc_essential_eight_ml_1_2_5" {
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
     control.eks_cluster_with_latest_kubernetes_version,
+    control.elastic_beanstalk_environment_managed_updates_enabled,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
     control.opensearch_domain_updated_with_latest_service_software_version,
@@ -190,7 +191,7 @@ benchmark "acsc_essential_eight_ml_1_6_5" {
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
     control.eks_cluster_with_latest_kubernetes_version,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.elastic_beanstalk_environment_managed_updates_enabled,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
     control.opensearch_domain_updated_with_latest_service_software_version,
@@ -209,7 +210,7 @@ benchmark "acsc_essential_eight_ml_1_6_6" {
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
     control.eks_cluster_with_latest_kubernetes_version,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.elastic_beanstalk_environment_managed_updates_enabled,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
     control.opensearch_domain_updated_with_latest_service_software_version,
@@ -228,7 +229,7 @@ benchmark "acsc_essential_eight_ml_1_6_7" {
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
     control.eks_cluster_with_latest_kubernetes_version,
-    control.eks_cluster_with_latest_kubernetes_version,
+    control.elastic_beanstalk_environment_managed_updates_enabled,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
     control.opensearch_domain_updated_with_latest_service_software_version,
@@ -347,6 +348,7 @@ benchmark "acsc_essential_eight_ml_1_8_1" {
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.fsx_file_system_protected_by_backup_plan,
+    control.neptune_db_cluster_automated_backup_enabled,
     control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_instance_backup_enabled,
@@ -377,6 +379,7 @@ benchmark "acsc_essential_eight_ml_1_8_2" {
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.fsx_file_system_protected_by_backup_plan,
+    control.neptune_db_cluster_automated_backup_enabled,
     control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_instance_backup_enabled,
@@ -407,6 +410,7 @@ benchmark "acsc_essential_eight_ml_1_8_3" {
     control.efs_file_system_protected_by_backup_plan,
     control.elasticache_redis_cluster_automatic_backup_retention_15_days,
     control.fsx_file_system_protected_by_backup_plan,
+    control.neptune_db_cluster_automated_backup_enabled,
     control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_instance_backup_enabled,

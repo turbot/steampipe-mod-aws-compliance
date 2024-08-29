@@ -458,7 +458,9 @@ control "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
   description = "This control checks whether an AWS Client VPN endpoint has client connection logging enabled. The control fails if the endpoint doesn't have client connection logging enabled."
   query       = query.ec2_client_vpn_endpoint_client_connection_logging_enabled
 
-  tags = local.conformance_pack_ec2_common_tags
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "ec2_ami_ebs_encryption_enabled" {

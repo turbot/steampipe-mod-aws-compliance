@@ -24,7 +24,19 @@ control "elastic_beanstalk_environment_logs_to_cloudwatch" {
   description   = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
   query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
 
-  tags = local.conformance_pack_elasticbeanstalk_common_tags
+  tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
+    acsc_essential_eight = "true"
+  })
+}
+
+control "elastic_beanstalk_environment_managed_updates_enabled" {
+  title         = "Elastic Beanstalk should have managed updates enabled"
+  description   = "This control checks whether managed platform updates in an AWS Elastic Beanstalk environment is enabled. The rule is COMPLIANT if the value for ManagedActionsEnabled is set to true. The rule is NON_COMPLIANT if the value for ManagedActionsEnabled is set to false, or if a parameter is provided and its value does not match the existing configurations."
+  query       = query.elastic_beanstalk_environment_managed_updates_enabled
+
+  tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "elastic_beanstalk_enhanced_health_reporting_enabled" {
@@ -73,6 +85,39 @@ query "elastic_beanstalk_environment_logs_to_cloudwatch" {
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
+    from
+      aws_elastic_beanstalk_environment as e
+      left join beanstalk_environment_logs_enabled as l on e.arn = l.arn;
+  EOQ
+}
+
+query "elastic_beanstalk_environment_managed_updates_enabled" {
+  sql = <<-EOQ
+    with beanstalk_environment_logs_enabled as (
+      select
+        distinct e.arn
+      from
+        aws_elastic_beanstalk_environment as e,
+        jsonb_array_elements(e.configuration_settings) as c,
+        jsonb_array_elements(c -> 'OptionSettings') as s
+      where
+        s ->> 'OptionName' = 'ManagedActionsEnabled'
+        and s ->> 'Value' = 'true'
+      group by
+        arn
+    )
+    select
+      e.arn as resource,
+      case
+        when l.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when l.arn is not null then title || ' managed actions Enabled.'
+        else title || ' managed actions disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
     from
       aws_elastic_beanstalk_environment as e
       left join beanstalk_environment_logs_enabled as l on e.arn = l.arn;
