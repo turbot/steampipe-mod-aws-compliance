@@ -215,9 +215,10 @@ control "cloudtrail_bucket_not_public" {
   query       = query.cloudtrail_bucket_not_public
 
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
-    gdpr               = "true"
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    acsc_essential_eight = "true"
+    gdpr                 = "true"
+    nist_800_171_rev_2   = "true"
+    nist_csf             = "true"
   })
 }
 

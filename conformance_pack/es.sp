@@ -17,7 +17,9 @@ control "es_domain_audit_logging_enabled" {
   description = "This control checks whether Elasticsearch domains have audit logging enabled. This control fails if an Elasticsearch domain does not have audit logging enabled."
   query       = query.es_domain_audit_logging_enabled
 
-  tags = local.conformance_pack_es_common_tags
+  tags = merge(local.conformance_pack_es_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "es_domain_data_nodes_min_3" {

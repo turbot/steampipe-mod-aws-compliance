@@ -42,6 +42,7 @@ benchmark "acsc_essential_eight_ml_3_1_6" {
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_audit_logging_enabled,
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch
@@ -55,6 +56,7 @@ benchmark "acsc_essential_eight_ml_3_1_7" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
+    control.cloudtrail_bucket_not_public,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -403,6 +405,7 @@ benchmark "acsc_essential_eight_ml_3_5_14" {
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_audit_logging_enabled,
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch
@@ -419,6 +422,7 @@ benchmark "acsc_essential_eight_ml_3_5_15" {
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_audit_logging_enabled,
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch
@@ -432,6 +436,7 @@ benchmark "acsc_essential_eight_ml_3_5_16" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
+    control.cloudtrail_bucket_not_public,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -717,6 +722,7 @@ benchmark "acsc_essential_eight_ml_3_7_8" {
     control.cloudtrail_multi_region_trail_enabled,
     control.cloudtrail_s3_data_events_enabled,
     control.cloudtrail_trail_integrated_with_logs,
+    control.es_domain_audit_logging_enabled,
     control.es_domain_logs_to_cloudwatch,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch
@@ -730,6 +736,7 @@ benchmark "acsc_essential_eight_ml_3_7_9" {
   description = "Event logs are protected from unauthorised modification and deletion."
 
   children = [
+    control.cloudtrail_bucket_not_public,
     control.cloudtrail_security_trail_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -891,9 +898,10 @@ benchmark "acsc_essential_eight_ml_3_8_6" {
 
   children = [
     control.backup_recovery_point_manual_deletion_disabled,
+    control.cloudtrail_bucket_not_public,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.docdb_cluster_snapshot_restrict_public_access,
     control.dms_replication_instance_not_publicly_accessible,
+    control.docdb_cluster_snapshot_restrict_public_access,
     control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
@@ -951,9 +959,10 @@ benchmark "acsc_essential_eight_ml_3_8_8" {
 
   children = [
     control.backup_recovery_point_manual_deletion_disabled,
+    control.cloudtrail_bucket_not_public,
     control.codebuild_project_environment_privileged_mode_disabled,
-    control.docdb_cluster_snapshot_restrict_public_access,
     control.dms_replication_instance_not_publicly_accessible,
+    control.docdb_cluster_snapshot_restrict_public_access,
     control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,

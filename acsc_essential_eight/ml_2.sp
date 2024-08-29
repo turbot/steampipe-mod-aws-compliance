@@ -700,6 +700,7 @@ benchmark "acsc_essential_eight_ml_2_8_6" {
 
   children = [
     control.backup_recovery_point_manual_deletion_disabled,
+    control.cloudtrail_bucket_not_public,
     control.codebuild_project_environment_privileged_mode_disabled,
     control.dms_replication_instance_not_publicly_accessible,
     control.docdb_cluster_snapshot_restrict_public_access,
@@ -759,6 +760,7 @@ benchmark "acsc_essential_eight_ml_2_8_8" {
 
   children = [
     control.backup_recovery_point_manual_deletion_disabled,
+    control.cloudtrail_bucket_not_public,
     control.codebuild_project_environment_privileged_mode_disabled,
     control.dms_replication_instance_not_publicly_accessible,
     control.docdb_cluster_snapshot_restrict_public_access,

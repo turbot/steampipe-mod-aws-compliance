@@ -111,6 +111,7 @@ control "ebs_volume_protected_by_backup_plan" {
   query       = query.ebs_volume_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
