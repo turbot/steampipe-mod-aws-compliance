@@ -113,6 +113,8 @@ benchmark "acsc_essential_eight_ml_2_5_2" {
     control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_user_role_no_inline_policies,
     control.iam_managed_policy_attached_to_role,
@@ -146,6 +148,8 @@ benchmark "acsc_essential_eight_ml_2_5_3" {
     control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_user_role_no_inline_policies,
     control.iam_managed_policy_attached_to_role,
@@ -175,6 +179,8 @@ benchmark "acsc_essential_eight_ml_2_5_4" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -194,6 +200,8 @@ benchmark "acsc_essential_eight_ml_2_5_5" {
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -215,6 +223,8 @@ benchmark "acsc_essential_eight_ml_2_5_6" {
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -234,6 +244,7 @@ benchmark "acsc_essential_eight_ml_2_5_7" {
   children = [
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_iam_profile_attached,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_security_group_restrict_ingress_ssh_all
   ]
@@ -250,6 +261,8 @@ benchmark "acsc_essential_eight_ml_2_5_8" {
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_iam_profile_attached,
     control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_no_root_user,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -269,6 +282,7 @@ benchmark "acsc_essential_eight_ml_2_5_9" {
   children = [
     control.codebuild_project_source_repo_oauth_configured,
     control.ec2_instance_iam_profile_attached,
+    control.eventbridge_custom_bus_resource_based_policy_attached,
     control.ssm_managed_instance_compliance_association_compliant,
     control.vpc_security_group_restrict_ingress_ssh_all
   ]
@@ -283,6 +297,7 @@ benchmark "acsc_essential_eight_ml_2_5_10" {
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
     control.ecs_task_definition_container_non_privileged,
+    control.ecs_task_definition_no_root_user,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -402,6 +417,7 @@ benchmark "acsc_essential_eight_ml_2_6_5" {
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
+    control.opensearch_domain_updated_with_latest_service_software_version,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
     control.ssm_managed_instance_compliance_patch_compliant
@@ -420,6 +436,7 @@ benchmark "acsc_essential_eight_ml_2_6_6" {
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
+    control.opensearch_domain_updated_with_latest_service_software_version,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
     control.ssm_managed_instance_compliance_patch_compliant
@@ -438,6 +455,7 @@ benchmark "acsc_essential_eight_ml_2_6_7" {
     control.eks_cluster_with_latest_kubernetes_version,
     control.elasticache_cluster_auto_minor_version_upgrade_enabled,
     control.lambda_function_use_latest_runtime,
+    control.opensearch_domain_updated_with_latest_service_software_version,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
     control.ssm_managed_instance_compliance_patch_compliant
@@ -469,7 +487,8 @@ benchmark "acsc_essential_eight_ml_2_7_1" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled
+    control.iam_user_mfa_enabled,
+    control.s3_bucket_mfa_delete_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -483,7 +502,8 @@ benchmark "acsc_essential_eight_ml_2_7_4" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled
+    control.iam_user_mfa_enabled,
+    control.s3_bucket_mfa_delete_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -497,7 +517,8 @@ benchmark "acsc_essential_eight_ml_2_7_5" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled
+    control.iam_user_mfa_enabled,
+    control.s3_bucket_mfa_delete_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -511,7 +532,8 @@ benchmark "acsc_essential_eight_ml_2_7_6" {
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
-    control.iam_user_mfa_enabled
+    control.iam_user_mfa_enabled,
+    control.s3_bucket_mfa_delete_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -678,11 +700,14 @@ benchmark "acsc_essential_eight_ml_2_8_6" {
     control.backup_recovery_point_manual_deletion_disabled,
     control.codebuild_project_environment_privileged_mode_disabled,
     control.dms_replication_instance_not_publicly_accessible,
+    control.docdb_cluster_snapshot_restrict_public_access,
     control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.ecs_task_definition_no_root_user,
     control.efs_access_point_enforce_root_directory,
     control.efs_access_point_enforce_user_identity,
+    control.emr_account_public_access_blocked,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -692,6 +717,8 @@ benchmark "acsc_essential_eight_ml_2_8_6" {
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
+    control.s3_access_point_restrict_public_access,
+    control.s3_bucket_mfa_delete_enabled,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,
@@ -730,11 +757,14 @@ benchmark "acsc_essential_eight_ml_2_8_8" {
     control.backup_recovery_point_manual_deletion_disabled,
     control.codebuild_project_environment_privileged_mode_disabled,
     control.dms_replication_instance_not_publicly_accessible,
+    control.docdb_cluster_snapshot_restrict_public_access,
     control.ebs_snapshot_not_publicly_restorable,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
+    control.ecs_task_definition_no_root_user,
     control.efs_access_point_enforce_root_directory,
     control.efs_access_point_enforce_user_identity,
+    control.emr_account_public_access_blocked,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
@@ -744,6 +774,8 @@ benchmark "acsc_essential_eight_ml_2_8_8" {
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
     control.redshift_cluster_prohibit_public_access,
+    control.s3_access_point_restrict_public_access,
+    control.s3_bucket_mfa_delete_enabled,
     control.s3_bucket_restrict_public_read_access,
     control.s3_bucket_restrict_public_write_access,
     control.s3_public_access_block_account,

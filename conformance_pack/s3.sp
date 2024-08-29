@@ -17,7 +17,9 @@ control "s3_bucket_mfa_delete_enabled" {
   description = "Once MFA Delete is enabled on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
   query       = query.s3_bucket_mfa_delete_enabled
 
-  tags = local.conformance_pack_s3_common_tags
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "s3_bucket_cross_region_replication_enabled" {
@@ -409,7 +411,9 @@ control "s3_access_point_restrict_public_access" {
   description = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
   query       = query.s3_access_point_restrict_public_access
 
-  tags = local.conformance_pack_s3_common_tags
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "s3_bucket_cross_region_replication_enabled" {

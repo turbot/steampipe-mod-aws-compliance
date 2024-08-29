@@ -148,7 +148,9 @@ control "ecs_task_definition_no_root_user" {
   description = "This control checks if ECS task definitions have root user. This control fails if the ECS task definitions have root user."
   query       = query.ecs_task_definition_no_root_user
 
-  tags = local.conformance_pack_ecs_common_tags
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "ecs_cluster_no_active_services_count" {

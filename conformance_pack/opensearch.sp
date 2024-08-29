@@ -135,7 +135,9 @@ control "opensearch_domain_updated_with_latest_service_software_version" {
   description = "This control checks whether AWS OpenSearch domain has any updates available. This control is non-compliant if the OpenSearch domain has any updates available."
   query       = query.opensearch_domain_updated_with_latest_service_software_version
 
-  tags = local.conformance_pack_opensearch_common_tags
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "opensearch_domain_encryption_at_rest_enabled" {

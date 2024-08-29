@@ -49,7 +49,9 @@ control "docdb_cluster_snapshot_restrict_public_access" {
   description   = "This control checks whether an Amazon DocumentDB manual cluster snapshot is public. The control fails if the manual cluster snapshot is public."
   query         = query.docdb_cluster_snapshot_restrict_public_access
 
-  tags = local.conformance_pack_docdb_common_tags
+  tags = merge(local.conformance_pack_docdb_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "docdb_cluster_instance_logging_enabled" {
