@@ -17,7 +17,9 @@ control "docdb_cluster_backup_retention_period_7_days" {
   description = "This control checks whether an AWS DocumentDB cluster has a backup retention period greater than or equal to 7 days. The control fails if the backup retention period is less than 7 days."
   query       = query.docdb_cluster_backup_retention_period_7_days
 
-  tags = local.conformance_pack_docdb_common_tags
+  tags = merge(local.conformance_pack_docdb_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "docdb_cluster_instance_logging_enabled" {
@@ -45,9 +47,9 @@ control "docdb_cluster_deletion_protection_enabled" {
 }
 
 control "docdb_cluster_snapshot_restrict_public_access" {
-  title         = "Amazon DocumentDB manual cluster snapshots should not be public"
-  description   = "This control checks whether an Amazon DocumentDB manual cluster snapshot is public. The control fails if the manual cluster snapshot is public."
-  query         = query.docdb_cluster_snapshot_restrict_public_access
+  title       = "Amazon DocumentDB manual cluster snapshots should not be public"
+  description = "This control checks whether an Amazon DocumentDB manual cluster snapshot is public. The control fails if the manual cluster snapshot is public."
+  query       = query.docdb_cluster_snapshot_restrict_public_access
 
   tags = merge(local.conformance_pack_docdb_common_tags, {
     acsc_essential_eight = "true"

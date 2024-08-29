@@ -90,6 +90,7 @@ control "rds_db_instance_backup_enabled" {
   query       = query.rds_db_instance_backup_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -267,6 +268,7 @@ control "rds_db_instance_in_backup_plan" {
   query       = query.rds_db_instance_in_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
@@ -360,6 +362,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   query       = query.rds_db_cluster_aurora_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -382,6 +385,7 @@ control "rds_db_instance_protected_by_backup_plan" {
   query       = query.rds_db_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
@@ -468,7 +472,8 @@ control "rds_db_cluster_aurora_backtracking_enabled" {
   query       = query.rds_db_cluster_aurora_backtracking_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 

@@ -354,7 +354,6 @@ benchmark "acsc_essential_eight_ml_1_8_1" {
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 

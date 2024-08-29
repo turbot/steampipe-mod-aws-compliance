@@ -207,6 +207,7 @@ control "ec2_instance_protected_by_backup_plan" {
   query       = query.ec2_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"

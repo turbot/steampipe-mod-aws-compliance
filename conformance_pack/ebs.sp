@@ -75,6 +75,7 @@ control "ebs_volume_in_backup_plan" {
   query       = query.ebs_volume_in_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"

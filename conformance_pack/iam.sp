@@ -196,6 +196,7 @@ control "iam_root_user_hardware_mfa_enabled" {
   query       = query.iam_root_user_hardware_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -221,6 +222,7 @@ control "iam_root_user_mfa_enabled" {
   query       = query.iam_root_user_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -268,6 +270,7 @@ control "iam_user_console_access_mfa_enabled" {
   query       = query.iam_user_console_access_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -294,6 +297,7 @@ control "iam_user_mfa_enabled" {
   query       = query.iam_user_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"

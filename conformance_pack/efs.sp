@@ -33,6 +33,7 @@ control "efs_file_system_in_backup_plan" {
   query       = query.efs_file_system_in_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
@@ -56,6 +57,7 @@ control "efs_file_system_protected_by_backup_plan" {
   query       = query.efs_file_system_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_efs_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
