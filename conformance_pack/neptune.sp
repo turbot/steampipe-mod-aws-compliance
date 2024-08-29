@@ -17,7 +17,9 @@ control "neptune_db_cluster_audit_logging_enabled" {
   description = "This control checks whether a Neptune DB cluster publishes audit logs to AWS CloudWatch Logs. The control fails if a Neptune DB cluster doesn't publish audit logs to CloudWatch Logs. EnableCloudWatchLogsExport should be set to Audit."
   query       = query.neptune_db_cluster_audit_logging_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_snapshot_prohibit_public_access" {

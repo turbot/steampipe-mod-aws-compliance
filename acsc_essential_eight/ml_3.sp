@@ -76,8 +76,23 @@ benchmark "acsc_essential_eight_ml_3_1_8" {
     control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
     control.securityhub_enabled,
-    control.sns_topic_notification_delivery_status_enabled
+    control.sns_topic_notification_delivery_status_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -144,8 +159,23 @@ benchmark "acsc_essential_eight_ml_3_4_18" {
     control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
     control.securityhub_enabled,
-    control.sns_topic_notification_delivery_status_enabled
+    control.sns_topic_notification_delivery_status_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -456,8 +486,23 @@ benchmark "acsc_essential_eight_ml_3_5_17" {
     control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
     control.securityhub_enabled,
-    control.sns_topic_notification_delivery_status_enabled
+    control.sns_topic_notification_delivery_status_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
@@ -756,8 +801,23 @@ benchmark "acsc_essential_eight_ml_3_7_10" {
     control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
+    control.log_metric_filter_bucket_policy,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.log_metric_filter_config_configuration,
+    control.log_metric_filter_console_authentication_failure,
+    control.log_metric_filter_console_login_mfa,
+    control.log_metric_filter_disable_or_delete_cmk,
+    control.log_metric_filter_iam_policy,
+    control.log_metric_filter_network_acl,
+    control.log_metric_filter_network_gateway,
+    control.log_metric_filter_root_login,
+    control.log_metric_filter_route_table,
+    control.log_metric_filter_security_group,
+    control.log_metric_filter_unauthorized_api,
+    control.log_metric_filter_vpc,
     control.securityhub_enabled,
-    control.sns_topic_notification_delivery_status_enabled
+    control.sns_topic_notification_delivery_status_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags

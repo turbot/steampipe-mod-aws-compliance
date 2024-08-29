@@ -44,7 +44,9 @@ control "wafv2_rule_group_logging_enabled" {
   description = "This control checks whether an AWS WAF rule or rule group has Amazon CloudWatch metrics enabled. The control fails if the rule or rule group doesn't have CloudWatch metrics enabled."
   query       = query.wafv2_rule_group_logging_enabled
 
-  tags = local.conformance_pack_waf_common_tags
+  tags = merge(local.conformance_pack_wafv2_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "wafv2_web_acl_logging_enabled" {
