@@ -227,7 +227,7 @@ benchmark "acsc_essential_eight_ml_2_5_6" {
   tags = local.acsc_essential_eight_ml_2_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_5_7" {
+benchmark "acsc_essential_eight_ml_2_5_7" {
   title       = "ACSC-EE-ML2-5.7: Restrict administrative privileges ML2"
   description = "Unprivileged accounts cannot logon to privileged operating environments."
 
@@ -262,7 +262,7 @@ benchmark "acsc_essential_eight_ml_2_5_8" {
   tags = local.acsc_essential_eight_ml_2_common_tags
 }
 
-benchmark "acsc_essential_eight_ml_1_5_9" {
+benchmark "acsc_essential_eight_ml_2_5_9" {
   title       = "ACSC-EE-ML2-5.9: Restrict administrative privileges ML2"
   description = "Unprivileged accounts cannot logon to privileged operating environments."
 
@@ -411,7 +411,7 @@ benchmark "acsc_essential_eight_ml_2_6_5" {
 }
 
 benchmark "acsc_essential_eight_ml_2_6_6" {
-  title       = "ACSC-EE-ML2-6.6: Patch operating systems ML2 "
+  title       = "ACSC-EE-ML2-6.6: Patch operating systems ML2"
   description = "Patches, updates or vendor mitigations for security vulnerabilities in operating systems of workstations, servers and network devices are applied within two weeks of release."
 
   children = [
@@ -429,7 +429,7 @@ benchmark "acsc_essential_eight_ml_2_6_6" {
 }
 
 benchmark "acsc_essential_eight_ml_2_6_7" {
-  title       = "ACSC-EE-ML2-6.7: Patch operating systems ML2 "
+  title       = "ACSC-EE-ML2-6.7: Patch operating systems ML2"
   description = "Operating systems that are no longer supported by vendors are replaced."
 
   children = [

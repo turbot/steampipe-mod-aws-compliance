@@ -9,6 +9,21 @@ benchmark "acsc_essential_eight_ml_1" {
   description = "The availability category refers to the accessibility of information used by the entity’s systems, as well as the products or services provided to its customers."
 
   children = [
+    benchmark.acsc_essential_eight_ml_1_2,
+    benchmark.acsc_essential_eight_ml_1_5,
+    benchmark.acsc_essential_eight_ml_1_6,
+    benchmark.acsc_essential_eight_ml_1_7,
+    benchmark.acsc_essential_eight_ml_1_8
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_2" {
+  title       = "ACSC-EE-ML1-2: Patch applications ML1"
+  description = "A vulnerability scanner with an up-to-date vulnerability database is used for vulnerability scanning activities."
+
+  children = [
     benchmark.acsc_essential_eight_ml_1_2_5
   ]
 
@@ -27,6 +42,20 @@ benchmark "acsc_essential_eight_ml_1_2_5" {
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
     control.ssm_managed_instance_compliance_patch_compliant
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_5" {
+  title       = "ACSC-EE-ML1-5: Restrict administrative privileges ML1"
+  description = "The restriction of administrative privileges is the practice of limiting the number of privileged accounts and the extent of their access to systems and data."
+
+  children = [
+    benchmark.acsc_essential_eight_ml_1_5_2,
+    benchmark.acsc_essential_eight_ml_1_5_3,
+    benchmark.acsc_essential_eight_ml_1_5_4,
+    benchmark.acsc_essential_eight_ml_1_5_5
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -93,6 +122,22 @@ benchmark "acsc_essential_eight_ml_1_5_5" {
     control.iam_root_user_no_access_keys,
     control.sagemaker_notebook_instance_root_access_disabled,
     control.vpc_security_group_restrict_ingress_ssh_all
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_6" {
+  title       = "ACSC-EE-ML1-6: Patch operating systems ML1"
+  description = "The patching of operating systems is the practice of applying patches, updates or vendor mitigations to security vulnerabilities in operating systems."
+
+  children = [
+    benchmark.acsc_essential_eight_ml_1_6_2,
+    benchmark.acsc_essential_eight_ml_1_6_3,
+    benchmark.acsc_essential_eight_ml_1_6_4,
+    benchmark.acsc_essential_eight_ml_1_6_5,
+    benchmark.acsc_essential_eight_ml_1_6_6,
+    benchmark.acsc_essential_eight_ml_1_6_7
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
@@ -185,6 +230,20 @@ benchmark "acsc_essential_eight_ml_1_6_7" {
   tags = local.acsc_essential_eight_ml_1_common_tags
 }
 
+benchmark "acsc_essential_eight_ml_1_7" {
+  title       = "ACSC-EE-ML1-7: Application control ML1"
+  description = "Application control is the practice of restricting the execution of applications to those that have been authorised and are known to be secure."
+
+  children = [
+    benchmark.acsc_essential_eight_ml_1_7_1,
+    benchmark.acsc_essential_eight_ml_1_7_2,
+    benchmark.acsc_essential_eight_ml_1_7_3,
+    benchmark.acsc_essential_eight_ml_1_7_4
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
 benchmark "acsc_essential_eight_ml_1_7_1" {
   title       = "ACSC-EE-ML1-7.1: Multi-factor authentication ML1"
   description = "Multi-factor authentication is used by an organisation's users if they authenticate to their organisations internet-facing services."
@@ -236,6 +295,21 @@ benchmark "acsc_essential_eight_ml_1_7_4" {
     control.iam_root_user_mfa_enabled,
     control.iam_user_console_access_mfa_enabled,
     control.iam_user_mfa_enabled
+  ]
+
+  tags = local.acsc_essential_eight_ml_1_common_tags
+}
+
+benchmark "acsc_essential_eight_ml_1_8" {
+  title       = "ACSC-EE-ML1-8: Regular backups ML1"
+  description = "Regular backups of important data, software and configuration settings are performed and retained with a frequency and retention timeframe in accordance with business continuity requirements."
+
+  children = [
+    benchmark.acsc_essential_eight_ml_1_8_1,
+    benchmark.acsc_essential_eight_ml_1_8_2,
+    benchmark.acsc_essential_eight_ml_1_8_3,
+    benchmark.acsc_essential_eight_ml_1_8_5,
+    benchmark.acsc_essential_eight_ml_1_8_6
   ]
 
   tags = local.acsc_essential_eight_ml_1_common_tags
