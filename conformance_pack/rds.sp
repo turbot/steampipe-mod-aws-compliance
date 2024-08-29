@@ -33,7 +33,9 @@ control "rds_db_cluster_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_cluster_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_instance_events_subscription" {
@@ -41,7 +43,9 @@ control "rds_db_instance_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_instance_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_parameter_group_events_subscription" {
@@ -49,7 +53,9 @@ control "rds_db_parameter_group_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_parameter_group_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_security_group_events_subscription" {
@@ -57,7 +63,9 @@ control "rds_db_security_group_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_security_group_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_instance_and_cluster_no_default_port" {
