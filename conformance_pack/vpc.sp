@@ -10,6 +10,7 @@ control "vpc_flow_logs_enabled" {
   query       = query.vpc_flow_logs_enabled
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -154,6 +155,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
   query       = query.vpc_security_group_restrict_ingress_ssh_all
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"

@@ -17,7 +17,9 @@ control "s3_bucket_mfa_delete_enabled" {
   description = "Once MFA Delete is enabled on your sensitive and classified S3 bucket it requires the user to have two forms of authentication."
   query       = query.s3_bucket_mfa_delete_enabled
 
-  tags = local.conformance_pack_s3_common_tags
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "s3_bucket_cross_region_replication_enabled" {
@@ -102,6 +104,7 @@ control "s3_bucket_logging_enabled" {
   query       = query.s3_bucket_logging_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -146,6 +149,7 @@ control "s3_bucket_restrict_public_read_access" {
   query       = query.s3_bucket_restrict_public_read_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -172,6 +176,7 @@ control "s3_bucket_restrict_public_write_access" {
   query       = query.s3_bucket_restrict_public_write_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -232,6 +237,7 @@ control "s3_public_access_block_account" {
   query       = query.s3_public_access_block_account
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -292,6 +298,7 @@ control "s3_public_access_block_bucket" {
   query       = query.s3_public_access_block_bucket
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -310,7 +317,8 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   query       = query.s3_bucket_policy_restricts_cross_account_permission_changes
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -328,6 +336,7 @@ control "s3_bucket_policy_restrict_public_access" {
   query       = query.s3_bucket_policy_restrict_public_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
@@ -383,8 +392,9 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   query       = query.s3_bucket_acls_should_prohibit_user_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    nist_csf     = "true"
-    rbi_itf_nbfc = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    rbi_itf_nbfc         = "true"
   })
 }
 
@@ -401,7 +411,9 @@ control "s3_access_point_restrict_public_access" {
   description = "This control checks whether an Amazon S3 access point has block public access settings enabled. The control fails if block public access settings aren't enabled for the access point."
   query       = query.s3_access_point_restrict_public_access
 
-  tags = local.conformance_pack_s3_common_tags
+  tags = merge(local.conformance_pack_s3_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "s3_bucket_cross_region_replication_enabled" {

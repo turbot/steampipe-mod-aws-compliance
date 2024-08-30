@@ -33,7 +33,9 @@ control "rds_db_cluster_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists that has notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_cluster_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_instance_events_subscription" {
@@ -41,7 +43,9 @@ control "rds_db_instance_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_instance_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_parameter_group_events_subscription" {
@@ -49,7 +53,9 @@ control "rds_db_parameter_group_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_parameter_group_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_security_group_events_subscription" {
@@ -57,7 +63,9 @@ control "rds_db_security_group_events_subscription" {
   description = "This control checks whether an AWS RDS event subscription exists with notifications enabled for the following source type, event category key-value pairs."
   query       = query.rds_db_security_group_events_subscription
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "rds_db_instance_and_cluster_no_default_port" {
@@ -82,6 +90,7 @@ control "rds_db_instance_backup_enabled" {
   query       = query.rds_db_instance_backup_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -155,6 +164,7 @@ control "rds_db_instance_prohibit_public_access" {
   query       = query.rds_db_instance_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -204,6 +214,7 @@ control "rds_db_snapshot_prohibit_public_access" {
   query       = query.rds_db_snapshot_prohibit_public_access
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -230,6 +241,7 @@ control "rds_db_instance_logging_enabled" {
   query       = query.rds_db_instance_logging_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -256,6 +268,7 @@ control "rds_db_instance_in_backup_plan" {
   query       = query.rds_db_instance_in_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
@@ -321,6 +334,7 @@ control "rds_db_instance_iam_authentication_enabled" {
   query       = query.rds_db_instance_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
@@ -336,8 +350,9 @@ control "rds_db_cluster_iam_authentication_enabled" {
   query       = query.rds_db_cluster_iam_authentication_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_800_171_rev_2 = "true"
-    nist_csf           = "true"
+    acsc_essential_eight = "true"
+    nist_800_171_rev_2   = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -347,6 +362,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   query       = query.rds_db_cluster_aurora_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -369,6 +385,7 @@ control "rds_db_instance_protected_by_backup_plan" {
   query       = query.rds_db_instance_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"
@@ -390,6 +407,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight  = "true"
     cisa_cyber_essentials = "true"
     ffiec                 = "true"
     nist_csf              = "true"
@@ -454,7 +472,8 @@ control "rds_db_cluster_aurora_backtracking_enabled" {
   query       = query.rds_db_cluster_aurora_backtracking_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -529,7 +548,9 @@ control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   description = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
   query       = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
 
-  tags = local.foundational_security_rds_common_tags
+  tags = merge(local.foundational_security_rds_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "rds_db_instance_backup_enabled" {

@@ -34,8 +34,9 @@ control "opensearch_domain_fine_grained_access_enabled" {
   query       = query.opensearch_domain_fine_grained_access_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
   })
 }
 
@@ -61,10 +62,11 @@ control "opensearch_domain_audit_logging_enabled" {
   query       = query.opensearch_domain_audit_logging_enabled
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    soc_2              = "true"
+    acsc_essential_eight = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
+    soc_2                = "true"
   })
 }
 
@@ -74,11 +76,12 @@ control "opensearch_domain_logs_to_cloudwatch" {
   query       = query.opensearch_domain_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    rbi_itf_nbfc       = "true"
-    soc_2              = "true"
+    acsc_essential_eight = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
+    rbi_itf_nbfc         = "true"
+    soc_2                = "true"
   })
 }
 
@@ -132,7 +135,9 @@ control "opensearch_domain_updated_with_latest_service_software_version" {
   description = "This control checks whether AWS OpenSearch domain has any updates available. This control is non-compliant if the OpenSearch domain has any updates available."
   query       = query.opensearch_domain_updated_with_latest_service_software_version
 
-  tags = local.conformance_pack_opensearch_common_tags
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 query "opensearch_domain_encryption_at_rest_enabled" {

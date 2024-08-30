@@ -10,6 +10,7 @@ control "ebs_snapshot_not_publicly_restorable" {
   query       = query.ebs_snapshot_not_publicly_restorable
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -74,6 +75,7 @@ control "ebs_volume_in_backup_plan" {
   query       = query.ebs_volume_in_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
@@ -110,6 +112,7 @@ control "ebs_volume_protected_by_backup_plan" {
   query       = query.ebs_volume_protected_by_backup_plan
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
+    acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
     ffiec                                  = "true"

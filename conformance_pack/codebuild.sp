@@ -37,6 +37,7 @@ control "codebuild_project_source_repo_oauth_configured" {
   query       = query.codebuild_project_source_repo_oauth_configured
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -63,8 +64,9 @@ control "codebuild_project_environment_privileged_mode_disabled" {
   description = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
   query       = query.codebuild_project_environment_privileged_mode_disabled
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
   })
 }
 
@@ -74,6 +76,7 @@ control "codebuild_project_logging_enabled" {
   query       = query.codebuild_project_logging_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
+    acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
