@@ -20,8 +20,8 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
 }
 
 control "elastic_beanstalk_environment_logs_to_cloudwatch" {
-  title         = "Elastic Beanstalk should stream logs to CloudWatch"
-  description   = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
+  title       = "Elastic Beanstalk should stream logs to CloudWatch"
+  description = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
   query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
@@ -30,8 +30,8 @@ control "elastic_beanstalk_environment_logs_to_cloudwatch" {
 }
 
 control "elastic_beanstalk_environment_managed_updates_enabled" {
-  title         = "Elastic Beanstalk should have managed updates enabled"
-  description   = "This control checks whether managed platform updates in an AWS Elastic Beanstalk environment is enabled. The rule is COMPLIANT if the value for ManagedActionsEnabled is set to true. The rule is NON_COMPLIANT if the value for ManagedActionsEnabled is set to false, or if a parameter is provided and its value does not match the existing configurations."
+  title       = "Elastic Beanstalk environment should have managed updates enabled"
+  description = "This control checks whether managed platform updates in an AWS Elastic Beanstalk environment is enabled. The rule is COMPLIANT if the value for ManagedActionsEnabled is set to true. The rule is NON_COMPLIANT if the value for ManagedActionsEnabled is set to false, or if a parameter is provided and its value does not match the existing configurations."
   query       = query.elastic_beanstalk_environment_managed_updates_enabled
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
