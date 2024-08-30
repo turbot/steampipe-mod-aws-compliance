@@ -10,7 +10,8 @@ control "ecr_repository_image_scan_on_push_enabled" {
   query       = query.ecr_repository_image_scan_on_push_enabled
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 

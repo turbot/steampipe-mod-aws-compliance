@@ -1,0 +1,5 @@
+## Overview
+
+The ACSC Essential Eight is a set of baseline security strategies designed to mitigate cybersecurity incidents. The Essential Eight is a prioritized list of mitigation strategies that organizations can implement to protect their systems against a range of adversaries. The Essential Eight is based on the Australian Signals Directorate (ASD)’s experience in cyber operations and incident response. The Essential Eight is designed to be complementary to other cybersecurity frameworks, such as the NIST Cybersecurity Framework and ISO 27001.
+
+The Essential Eight is divided into two groups: Essential Eight Maturity Model and Essential Eight Strategies. The Essential Eight Maturity Model is a set of maturity levels that organizations can use to assess their cybersecurity posture. The Essential Eight Strategies are a set of mitigation strategies that organizations can implement to protect their systems against a range of adversaries.

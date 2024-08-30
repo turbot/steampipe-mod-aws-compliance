@@ -10,10 +10,11 @@ control "account_part_of_organizations" {
   query       = query.account_part_of_organizations
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    cis_controls_v8_ig1 = "true"
-    gxp_21_cfr_part_11  = "true"
-    nist_800_53_rev_5   = "true"
-    nist_csf            = "true"
+    acsc_essential_eight = "true"
+    cis_controls_v8_ig1  = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_800_53_rev_5    = "true"
+    nist_csf             = "true"
   })
 }
 

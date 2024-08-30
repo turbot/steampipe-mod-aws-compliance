@@ -41,8 +41,9 @@ control "sns_topic_notification_delivery_status_enabled" {
   query       = query.sns_topic_notification_delivery_status_enabled
 
   tags = merge(local.conformance_pack_sns_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
   })
 }
 

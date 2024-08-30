@@ -17,7 +17,9 @@ control "route53_zone_query_logging_enabled" {
   description = "Ensure Route 53 zones have query logging enabled."
   query       = query.route53_zone_query_logging_enabled
 
-  tags = local.conformance_pack_route53_common_tags
+  tags = merge(local.conformance_pack_route53_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "route53_domain_expires_30_days" {

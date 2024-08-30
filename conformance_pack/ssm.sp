@@ -35,6 +35,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
   query       = query.ssm_managed_instance_compliance_association_compliant
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -60,6 +61,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   query       = query.ssm_managed_instance_compliance_patch_compliant
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -85,6 +87,7 @@ control "ssm_document_prohibit_public_access" {
   query       = query.ssm_document_prohibit_public_access
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     gxp_21_cfr_part_11                     = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"

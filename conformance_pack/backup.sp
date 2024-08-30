@@ -10,6 +10,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
   query       = query.backup_recovery_point_manual_deletion_disabled
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"
@@ -30,6 +31,7 @@ control "backup_plan_min_retention_35_days" {
   query       = query.backup_plan_min_retention_35_days
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -71,6 +73,7 @@ control "backup_recovery_point_min_retention_35_days" {
   query       = query.backup_recovery_point_min_retention_35_days
 
   tags = merge(local.conformance_pack_backup_common_tags, {
+    acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"

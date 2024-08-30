@@ -36,7 +36,9 @@ control "eks_cluster_control_plane_audit_logging_enabled" {
   description = "AWS EKS clusters should have control plane audit logging enabled. These logs make it easy to secure and run clusters."
   query       = query.eks_cluster_control_plane_audit_logging_enabled
 
-  tags = local.conformance_pack_eks_common_tags
+  tags = merge(local.conformance_pack_eks_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "eks_cluster_no_default_vpc" {
@@ -53,8 +55,9 @@ control "eks_cluster_with_latest_kubernetes_version" {
   query       = query.eks_cluster_with_latest_kubernetes_version
 
   tags = merge(local.conformance_pack_eks_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v321 = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
   })
 }
 

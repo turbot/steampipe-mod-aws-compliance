@@ -76,7 +76,9 @@ control "ecs_task_definition_logging_enabled" {
   description = "Ensure logging is enabled for task definitions so that you can access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation."
   query       = query.ecs_task_definition_logging_enabled
 
-  tags = local.conformance_pack_ecs_common_tags
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "ecs_cluster_container_insights_enabled" {
@@ -95,7 +97,8 @@ control "ecs_task_definition_container_non_privileged" {
   query       = query.ecs_task_definition_container_non_privileged
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -105,7 +108,8 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
   query       = query.ecs_task_definition_container_readonly_root_filesystem
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -135,7 +139,8 @@ control "ecs_service_fargate_using_latest_platform_version" {
   query       = query.ecs_service_fargate_using_latest_platform_version
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    acsc_essential_eight = "true"
+    nist_csf             = "true"
   })
 }
 
@@ -144,7 +149,9 @@ control "ecs_task_definition_no_root_user" {
   description = "This control checks if ECS task definitions have root user. This control fails if the ECS task definitions have root user."
   query       = query.ecs_task_definition_no_root_user
 
-  tags = local.conformance_pack_ecs_common_tags
+  tags = merge(local.conformance_pack_ecs_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "ecs_cluster_no_active_services_count" {

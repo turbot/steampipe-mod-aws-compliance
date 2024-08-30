@@ -17,7 +17,9 @@ control "neptune_db_cluster_audit_logging_enabled" {
   description = "This control checks whether a Neptune DB cluster publishes audit logs to AWS CloudWatch Logs. The control fails if a Neptune DB cluster doesn't publish audit logs to CloudWatch Logs. EnableCloudWatchLogsExport should be set to Audit."
   query       = query.neptune_db_cluster_audit_logging_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_snapshot_prohibit_public_access" {
@@ -25,7 +27,9 @@ control "neptune_db_cluster_snapshot_prohibit_public_access" {
   description = "This control checks whether a Neptune manual DB cluster snapshot is public. The control fails if a Neptune manual DB cluster snapshot is public."
   query       = query.neptune_db_cluster_snapshot_prohibit_public_access
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_deletion_protection_enabled" {
@@ -41,7 +45,9 @@ control "neptune_db_cluster_automated_backup_enabled" {
   description = "This control checks whether a Neptune DB cluster has automated backups enabled, and a backup retention period greater than or equal to 7 days. The control fails if backups aren't enabled for the Neptune DB cluster, or if the retention period is less than 7 days."
   query       = query.neptune_db_cluster_automated_backup_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_snapshot_encryption_at_rest_enabled" {
@@ -57,7 +63,9 @@ control "neptune_db_cluster_iam_authentication_enabled" {
   description = "This control checks if a Neptune DB cluster has IAM database authentication enabled. The control fails if IAM database authentication isn't enabled for a Neptune DB cluster."
   query       = query.neptune_db_cluster_iam_authentication_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    acsc_essential_eight = "true"
+  })
 }
 
 control "neptune_db_cluster_copy_tags_to_snapshot_enabled" {

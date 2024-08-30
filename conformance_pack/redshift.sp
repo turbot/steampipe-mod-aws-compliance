@@ -43,6 +43,7 @@ control "redshift_cluster_encryption_logging_enabled" {
   query       = query.redshift_cluster_encryption_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -70,6 +71,7 @@ control "redshift_cluster_prohibit_public_access" {
   query       = query.redshift_cluster_prohibit_public_access
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -95,6 +97,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
   query       = query.redshift_cluster_automatic_snapshots_min_7_days
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -140,6 +143,7 @@ control "redshift_cluster_maintenance_settings_check" {
   query       = query.redshift_cluster_maintenance_settings_check
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
+    acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
@@ -184,11 +188,12 @@ control "redshift_cluster_audit_logging_enabled" {
   query       = query.redshift_cluster_audit_logging_enabled
 
   tags = merge(local.conformance_pack_redshift_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    rbi_itf_nbfc       = "true"
-    soc_2              = "true"
+    acsc_essential_eight = "true"
+    gxp_21_cfr_part_11   = "true"
+    nist_csf             = "true"
+    pci_dss_v321         = "true"
+    rbi_itf_nbfc         = "true"
+    soc_2                = "true"
   })
 }
 
