@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "acsc_essential_eight_ml_1" {
-  title       = "A1 Additional Criterial for Availability"
+  title       = "ACSC Essential Eight Maturity Level 1"
   description = "The availability category refers to the accessibility of information used by the entity’s systems, as well as the products or services provided to its customers."
 
   children = [
