@@ -639,7 +639,7 @@ benchmark "acsc_essential_eight_ml_2_8" {
     benchmark.acsc_essential_eight_ml_2_8_5,
     benchmark.acsc_essential_eight_ml_2_8_6,
     benchmark.acsc_essential_eight_ml_2_8_7,
-    benchmark.acsc_essential_eight_ml_2_8_8,
+    benchmark.acsc_essential_eight_ml_2_8_8
   ]
 
   tags = local.acsc_essential_eight_ml_2_common_tags
