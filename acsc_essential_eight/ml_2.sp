@@ -62,7 +62,6 @@ benchmark "acsc_essential_eight_ml_2_1_3" {
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.redshift_cluster_audit_logging_enabled,
-    control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.route53_zone_query_logging_enabled,
     control.s3_bucket_logging_enabled,
@@ -356,7 +355,6 @@ benchmark "acsc_essential_eight_ml_2_5_11" {
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.redshift_cluster_audit_logging_enabled,
-    control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.route53_zone_query_logging_enabled,
     control.s3_bucket_logging_enabled,
@@ -399,7 +397,6 @@ benchmark "acsc_essential_eight_ml_2_5_12" {
     control.rds_db_instance_logging_enabled,
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
-    control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.route53_zone_query_logging_enabled,
@@ -619,7 +616,6 @@ benchmark "acsc_essential_eight_ml_2_7_7" {
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.redshift_cluster_audit_logging_enabled,
-    control.redshift_cluster_audit_logging_enabled,
     control.redshift_cluster_encryption_logging_enabled,
     control.route53_zone_query_logging_enabled,
     control.s3_bucket_logging_enabled,
@@ -673,7 +669,6 @@ benchmark "acsc_essential_eight_ml_2_8_1" {
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
@@ -704,7 +699,6 @@ benchmark "acsc_essential_eight_ml_2_8_2" {
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days
   ]
 
@@ -734,7 +728,6 @@ benchmark "acsc_essential_eight_ml_2_8_3" {
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
-    control.rds_db_instance_protected_by_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
     control.redshift_cluster_automatic_snapshots_min_7_days
   ]

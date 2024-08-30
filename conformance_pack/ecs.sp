@@ -76,7 +76,7 @@ control "ecs_task_definition_logging_enabled" {
   description = "Ensure logging is enabled for task definitions so that you can access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation."
   query       = query.ecs_task_definition_logging_enabled
 
-  ttags = merge(local.conformance_pack_ecs_common_tags, {
+  tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
   })
 }

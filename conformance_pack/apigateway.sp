@@ -17,9 +17,9 @@ control "gatewayv2_stage_access_logging_enabled" {
   description = "This control checks if AWS API Gateway V2 stages have access logging configured. This control fails if access log settings aren't defined."
   query       = query.gatewayv2_stage_access_logging_enabled
 
-  tags = local.conformance_pack_apigateway_common_tags {
+  tags = merge(local.conformance_pack_apigateway_common_tags, {
     acsc_essential_eight = "true"
-  }
+  })
 }
 
 control "apigateway_stage_cache_encryption_at_rest_enabled" {
