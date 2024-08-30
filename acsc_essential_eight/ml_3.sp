@@ -199,7 +199,7 @@ benchmark "acsc_essential_eight_ml_3_5" {
     benchmark.acsc_essential_eight_ml_3_5_14,
     benchmark.acsc_essential_eight_ml_3_5_15,
     benchmark.acsc_essential_eight_ml_3_5_16,
-    benchmark.acsc_essential_eight_ml_3_5_17,
+    benchmark.acsc_essential_eight_ml_3_5_17
   ]
 
   tags = local.acsc_essential_eight_ml_3_common_tags
