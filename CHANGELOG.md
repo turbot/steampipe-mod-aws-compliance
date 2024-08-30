@@ -1,3 +1,9 @@
+## v0.98 [2024-08-30]
+
+_What's new?_
+
+- Added Australian Cyber Security Center (ACSC) Essential Eight benchmark (`powerpipe benchmark run aws_compliance.benchmark.acsc_essential_eight`). ([#823](https://github.com/turbot/steampipe-mod-aws-compliance/pull/823))
+
 ## v0.97 [2024-08-12]
 
 _What's new?_
