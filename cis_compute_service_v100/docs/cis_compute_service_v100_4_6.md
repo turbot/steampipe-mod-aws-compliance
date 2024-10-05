@@ -42,7 +42,7 @@ aws lambda add-permission --function-name "name_of_function" --statement-id "cor
 
 This adds a new policy to the function.
 
-***Note The --principal parameter can be the The ID of the trusted AWS account, another AWS account, IAM user, IAM role, or another AWS service.***
+***Note The --principal parameter can be the ID of the trusted AWS account, another AWS account, IAM user, IAM role, or another AWS service.***
 
 3. The command output should display the new policy created.
 4. Repeat steps 1-2 for each Lambda function from the audit for all regions.
