@@ -354,7 +354,7 @@ query "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
         or o -> 'CustomOriginConfig' ->> 'OriginProtocolPolicy' = 'match-viewer'
     )
     select
-      b.arn as resource,
+      distinct b.arn as resource,
       case
         when o.arn is not null and o.origin_protocol_policy = 'http-only' then 'alarm'
         when o.arn is not null and o.origin_protocol_policy = 'match-viewer' and ( v.arn is not null or (default_cache_behavior ->> 'ViewerProtocolPolicy' = 'allow-all') ) then 'alarm'
