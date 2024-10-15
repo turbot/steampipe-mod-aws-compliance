@@ -1,10 +1,5 @@
 # AWS Compliance Mod for Powerpipe
 
-> [!IMPORTANT]
-> [Powerpipe](https://powerpipe.io) is now the preferred way to run this mod! [Migrating from Steampipe →](https://powerpipe.io/blog/migrating-from-steampipe)
->
-> All v0.x versions of this mod will work in both Steampipe and Powerpipe, but v1.0.0 onwards will be in Powerpipe format only.
-
 540+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including **the latest (v3.0.0) CIS benchmark**, CIS AWS Compute Services, PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, NIST 800-172, Reserve Bank of India, Audit Manager Control Tower, Australian Cyber Security Center (ACSC) Essential Eight, and more!
 
 Run checks in a dashboard:
@@ -89,8 +84,8 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 It's easiest to setup your vars file, starting with the sample:
 
 ```sh
-cp steampipe.spvars.example steampipe.spvars
-vi steampipe.spvars
+cp steampipe.ppvars.example steampipe.ppvars
+vi steampipe.ppvars
 ```
 
 Alternatively you can pass variables on the command line:
