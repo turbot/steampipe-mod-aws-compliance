@@ -176,21 +176,22 @@ query "ssm_managed_instance_compliance_patch_compliant" {
 query "ssm_document_prohibit_public_access" {
   sql = <<-EOQ
     select
-      'arn:' || partition || ':ssm:' || region || ':' || account_id || ':document/' || name as resource,
+      d.arn as resource,
       case
-        when account_ids :: jsonb ? 'all' then 'alarm'
+        when p.account_ids :: jsonb ? 'all' then 'alarm'
         else 'ok'
       end as status,
       case
-        when account_ids :: jsonb ? 'all' then title || ' publicly accesible.'
-        else title || ' not publicly accesible.'
+        when p.account_ids :: jsonb ? 'all' then d.title || ' publicly accesible.'
+        else d.title || ' not publicly accesible.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
-      aws_ssm_document
+      aws_ssm_document as d
+      left join aws_ssm_document_permission as p on p.document_name = d.name and p.region = d.region  and p.account_id = d.account_id
     where
-      owner_type = 'Self';
+      d.owner_type = 'Self';
   EOQ
 }
 
