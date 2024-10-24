@@ -1518,28 +1518,48 @@ query "iam_policy_unused" {
 
 query "iam_access_analyzer_enabled_without_findings" {
   sql = <<-EOQ
+    with accessanalyzer_findings as (
+      select
+        a.status as status,
+        f.access_analyzer_arn as arn,
+        a.region,
+        a.account_id,
+        a.tags,
+        a.name,
+        count(*)
+      from
+        aws_accessanalyzer_analyzer as a
+        left join aws_accessanalyzer_finding as f on f.access_analyzer_arn = a.arn
+      group by
+        f.access_analyzer_arn,
+        a.status,
+        a.region,
+        a.account_id,
+        a.tags,
+        a.name
+    )
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         -- Skip any regions that are disabled in the account.
         when r.opt_in_status = 'not-opted-in' then 'skip'
-        when aa.status = 'ACTIVE' and aa.findings is null then 'ok'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then 'alarm'
-        when aa.status = 'NOT_AVAILABLE' then 'alarm'
+        when f.status = 'ACTIVE' and f.arn is null then 'ok'
+        when f.status = 'ACTIVE' and f.arn is not null then 'alarm'
+        when f.status = 'NOT_AVAILABLE' then 'alarm'
         else 'alarm'
       end as status,
       case
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
-        when aa.status = 'ACTIVE' and aa.findings is null then aa.name || ' does not have active findings in region ' || r.region || '.'
-        when aa.status = 'ACTIVE' and jsonb_array_length(aa.findings) > 0 then aa.name || ' has active findings in region ' || r.region || '.'
-        when aa.status = 'NOT_AVAILABLE' then aa.name || ' is not enabled in region ' || r.region || '.'
+        when f.status = 'ACTIVE' and f.arn is null then f.name || ' does not have active findings in region ' || r.region || '.'
+        when f.status = 'ACTIVE' and f.arn is not null then f.name || ' has active findings in region ' || r.region || '.'
+        when f.status = 'NOT_AVAILABLE' then f.name || ' is not enabled in region ' || r.region || '.'
         else 'IAM Access Analyzer is not active in region ' || r.region || '.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
       aws_region as r
-      left join aws_accessanalyzer_analyzer as aa on r.account_id = aa.account_id and r.region = aa.region;
+      left join accessanalyzer_findings as f on f.region = r.region and f.account_id = r.account_id;
   EOQ
 }
 

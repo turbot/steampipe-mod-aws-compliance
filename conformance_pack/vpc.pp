@@ -659,28 +659,28 @@ query "vpc_security_group_restrict_ingress_common_ports_all" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
             or (
-                from_port >= 21
-                and to_port <= 21
+                from_port <= 21
+                and to_port >= 21
             )
             or (
-                from_port >= 20
-                and to_port <= 20
+                from_port <= 20
+                and to_port >= 20
             )
             or (
-                from_port >= 3306
-                and to_port <= 3306
+                from_port <= 3306
+                and to_port >= 3306
             )
             or (
-                from_port >= 4333
-                and to_port <= 4333
+                from_port <= 4333
+                and to_port >= 4333
             )
         )
       group by
@@ -720,8 +720,8 @@ query "vpc_security_group_restrict_ingress_ssh_all" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
         )
       group by
@@ -923,8 +923,8 @@ query "vpc_security_group_restrict_ingress_redis_port" {
           and from_port is null
           )
           or (
-            from_port >= 6379
-            and to_port <= 6379
+            from_port <= 6379
+            and to_port >= 6379
           )
         )
       group by
@@ -967,8 +967,8 @@ query "vpc_security_group_restrict_ingress_kafka_port" {
             and from_port is null
             )
             or (
-              from_port >= 9092
-              and to_port <= 9092
+              from_port <= 9092
+              and to_port >= 9092
             )
         )
       group by
@@ -1011,12 +1011,12 @@ query "vpc_security_group_restrict_ingress_kibana_port" {
             and from_port is null
             )
             or (
-              from_port >= 9200
-              and to_port <= 9200
+              from_port <= 9200
+              and to_port >= 9200
             )
             or (
-              from_port >= 5601
-              and to_port <= 5601
+              from_port <= 5601
+              and to_port >= 5601
             )
         )
       group by
@@ -1158,12 +1158,12 @@ query "vpc_security_group_allows_ingress_to_mongodb_ports" {
             and from_port is null
             )
             or (
-                from_port >= 27017
-                and to_port <= 27017
+                from_port <= 27017
+                and to_port >= 27017
             )
             or (
-                from_port >= 27018
-                and to_port <= 27018
+                from_port <= 27018
+                and to_port >= 27018
             )
         )
       group by
@@ -1203,14 +1203,14 @@ query "vpc_security_group_allows_ingress_to_cassandra_ports" {
             and from_port is null
             )
             or (
-                from_port >= 7199
-                and to_port <= 7199
+                from_port <= 7199
+                and to_port >= 7199
             ) or (
-                from_port >= 9160
-                and to_port <= 9160
+                from_port <= 9160
+                and to_port >= 9160
             ) or (
-                from_port >= 8888
-                and to_port <= 8888
+                from_port <= 8888
+                and to_port >= 8888
             )
         )
       group by
@@ -1250,11 +1250,11 @@ query "vpc_security_group_allows_ingress_to_oracle_ports" {
             and from_port is null
             )
             or (
-                from_port >= 1521
-                and to_port <= 1521
+                from_port <= 1521
+                and to_port >= 1521
             ) or (
-                from_port >= 2483
-                and to_port <= 2483
+                from_port <= 2483
+                and to_port >= 2483
             )
         )
       group by
@@ -1294,8 +1294,8 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
             and from_port is null
             )
             or (
-                from_port >= 11211
-                and to_port <= 11211
+                from_port <= 11211
+                and to_port >= 11211
             )
         )
       group by
@@ -1338,12 +1338,12 @@ query "vpc_security_group_remote_administration_ipv4" {
                 and from_port is null
                 )
                 or (
-                    from_port >= 22
-                    and to_port <= 22
+                    from_port <= 22
+                    and to_port >= 22
                 )
                 or (
-                    from_port >= 3389
-                    and to_port <= 3389
+                    from_port <= 3389
+                    and to_port >= 3389
                 )
             )
           group by
@@ -1398,12 +1398,12 @@ query "vpc_security_group_remote_administration_ipv6" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1446,12 +1446,12 @@ query "vpc_security_group_remote_administration" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1491,8 +1491,8 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
             and from_port is null
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1567,80 +1567,80 @@ query "vpc_security_group_restricted_common_ports" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
             or (
-                from_port >= 21
-                and to_port <= 21
+                from_port <= 21
+                and to_port >= 21
             )
             or (
-                from_port >= 20
-                and to_port <= 20
+                from_port <= 20
+                and to_port >= 20
             )
             or (
-                from_port >= 3306
-                and to_port <= 3306
+                from_port <= 3306
+                and to_port >= 3306
             )
             or (
-                from_port >= 4333
-                and to_port <= 4333
+                from_port <= 4333
+                and to_port >= 4333
             )
             or (
-                from_port >= 23
-                and to_port <= 23
+                from_port <= 23
+                and to_port >= 23
             )
             or (
-                from_port >= 25
-                and to_port <= 25
+                from_port <= 25
+                and to_port >= 25
             )
             or (
-                from_port >= 445
-                and to_port <= 445
+                from_port <= 445
+                and to_port >= 445
             )
             or (
-                from_port >= 110
-                and to_port <= 110
+                from_port <= 110
+                and to_port >= 110
             )
             or (
-                from_port >= 135
-                and to_port <= 135
+                from_port <= 135
+                and to_port >= 135
             )
             or (
-                from_port >= 143
-                and to_port <= 143
+                from_port <= 143
+                and to_port >= 143
             )
             or (
-                from_port >= 1433
-                and to_port <= 3389
+                from_port <= 1433
+                and to_port >= 3389
             )
             or (
-                from_port >= 3389
-                and to_port <= 1434
+                from_port <= 3389
+                and to_port >= 1434
             )
             or (
-                from_port >= 5432
-                and to_port <= 5432
+                from_port <= 5432
+                and to_port >= 5432
             )
             or (
-                from_port >= 5500
-                and to_port <= 5500
+                from_port <= 5500
+                and to_port >= 5500
             )
             or (
-                from_port >= 5601
-                and to_port <= 5601
+                from_port <= 5601
+                and to_port >= 5601
             )
             or (
-                from_port >= 9200
-                and to_port <= 9300
+                from_port <= 9200
+                and to_port >= 9300
             )
             or (
-                from_port >= 8080
-                and to_port <= 8080
+                from_port <= 8080
+                and to_port >= 8080
             )
         )
       group by
