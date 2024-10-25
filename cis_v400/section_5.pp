@@ -46,7 +46,7 @@ control "cis_v400_5_1_1" {
   title         = "5.1.1 Ensure EBS Volume Encryption is Enabled in all Regions"
   description   = "Elastic Compute Cloud (EC2) supports encryption at rest when using the Elastic Block Store (EBS) service. While disabled by default, forcing encryption at EBS volume creation is supported."
   documentation = file("./cis_v400/docs/cis_v400_5_1_1.md")
-  query         = query.ebs_volume_encryption_at_rest_enabled
+  query         = query.ebs_encryption_by_default_enabled
 
   tags = merge(local.cis_v400_5_1_common_tags, {
     cis_item_id = "5.1.1"
