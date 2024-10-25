@@ -188,21 +188,18 @@ control "ebs_volume_snapshot_exists" {
 query "ebs_encryption_by_default_enabled" {
   sql = <<-EOQ
     select
-      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
       case
-        when r.opt_in_status = 'not-opted-in' then 'skip'
         when not default_ebs_encryption_enabled then 'alarm'
         else 'ok'
       end as status,
       case
-        when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
-        when not default_ebs_encryption_enabled then r.region || ' default EBS encryption disabled.'
-        else r.region || ' default EBS encryption enabled.'
+        when not default_ebs_encryption_enabled then region || ' EBS encryption by default disabled.'
+        else region || ' EBS encryption by default enabled.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+      ${local.common_dimensions_sql}
     from
-      aws_region as r
-      left join aws_ec2_regional_settings as s on s.account_id = r.account_id and s.region = r.region;
+      aws_ec2_regional_settings;
   EOQ
 }
 
