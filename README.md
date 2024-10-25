@@ -1,6 +1,6 @@
 # AWS Compliance Mod for Powerpipe
 
-540+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including **the latest (v3.0.0) CIS benchmark**, CIS AWS Compute Services, PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, NIST 800-172, Reserve Bank of India, Audit Manager Control Tower, Australian Cyber Security Center (ACSC) Essential Eight, and more!
+540+ checks covering industry defined security best practices across all AWS regions. Includes full support for multiple best practice benchmarks including **the latest (v4.0.0) CIS benchmark**, CIS AWS Compute Services, PCI DSS, AWS Foundational Security, CISA Cyber Essentials, FedRAMP, FFIEC, GxP 21 CFR Part 11, GxP EU Annex 11, HIPAA Final Omnibus Security Rule 2013, HIPAA Security Rule 2003, NIST 800-53, NIST CSF, NIST 800-172, Reserve Bank of India, Audit Manager Control Tower, Australian Cyber Security Center (ACSC) Essential Eight, and more!
 
 Run checks in a dashboard:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v300_dashboard.png)
@@ -71,7 +71,7 @@ powerpipe benchmark list
 Run a benchmark:
 
 ```sh
-powerpipe benchmark run aws_compliance.benchmark.cis_v300
+powerpipe benchmark run aws_compliance.benchmark.cis_v400
 ```
 
 Different output formats are also available, for more information please see
@@ -91,7 +91,7 @@ vi powerpipe.ppvars
 Alternatively you can pass variables on the command line:
 
 ```sh
-powerpipe benchmark run aws_compliance.benchmark.cis_v300 --var 'tag_dimensions=["Environment", "Owner"]'
+powerpipe benchmark run aws_compliance.benchmark.cis_v400 --var 'tag_dimensions=["Environment", "Owner"]'
 ```
 
 Or through environment variables:
@@ -99,7 +99,7 @@ Or through environment variables:
 ```sh
 export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
 export PP_VAR_tag_dimensions='["Environment", "Owner"]'
-powerpipe benchmark run aws_compliance.benchmark.cis_v300
+powerpipe benchmark run aws_compliance.benchmark.cis_v400
 ```
 
 ## Open Source & Contributing
