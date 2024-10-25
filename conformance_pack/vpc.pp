@@ -457,6 +457,14 @@ control "vpc_gateway_endpoint_restrict_public_access" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_security_group_allows_ingress_to_port_445" {
+  title       = "Ensure CIFS access is restricted to trusted networks to prevent unauthorized access"
+  description = "Common Internet File System (CIFS) is a network file-sharing protocol that allows systems to share files over a network. However, unrestricted CIFS access can expose your data to unauthorized users, leading to potential security risks. It is important to restrict CIFS access to only trusted networks and users to prevent unauthorized access and data breaches."
+  query       = query.vpc_security_group_allows_ingress_to_port_445
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     with vpcs as (
@@ -1996,6 +2004,48 @@ query "vpc_gateway_endpoint_restrict_public_access" {
     from
       aws_vpc_endpoint as e
       left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;
+  EOQ
+}
+
+query "vpc_security_group_allows_ingress_to_port_445" {
+  sql = <<-EOQ
+    with ingress_cifs_rules as (
+      select
+        group_id,
+        count(*) as num_cifs_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (cidr_ipv4 = '0.0.0.0/0' or cidr_ipv6 = '::/0')
+        and (
+          (
+            ip_protocol = '-1'
+            and from_port is null
+          )
+          or (
+            from_port <= 445
+            and to_port >= 445
+          )
+        )
+        group by
+          group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_cifs_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for ports 445 from 0.0.0.0/0 and ::/0.'
+        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on ports 445 from 0.0.0.0/0 or ::/0..'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_cifs_rules on ingress_cifs_rules.group_id = sg.group_id;
   EOQ
 }
 
