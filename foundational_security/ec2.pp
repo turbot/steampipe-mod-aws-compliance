@@ -104,7 +104,7 @@ control "foundational_security_ec2_7" {
   title         = "7 EBS default encryption should be enabled"
   description   = "This control checks whether account-level encryption is enabled by default for Amazon Elastic Block Store(Amazon EBS). The control fails if the account level encryption is not enabled."
   severity      = "medium"
-  query         = query.ec2_ebs_default_encryption_enabled
+  query         = query.ebs_encryption_by_default_enabled
   documentation = file("./foundational_security/docs/foundational_security_ec2_7.md")
 
   tags = merge(local.foundational_security_ec2_common_tags, {

@@ -1,3 +1,26 @@
+## v1.1.0 [2024-10-25]
+
+_What's new?_
+
+- Added CIS v4.0.0 benchmark (`steampipe check benchmark.cis_v400`). ([#836](https://github.com/turbot/steampipe-mod-aws-compliance/pull/836))
+- Added `ebs_encryption_by_default_enabled` and `vpc_security_group_restrict_ingress_cifs_port_all` controls to the `All Controls` benchmark. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+
+_Enhancements_
+
+- Added the `ebs_encryption_by_default_enabled` control to the `rbi_cyber_security_annex_i_1_3` benchmark. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+- Set `python3.8` as deprecated Lambda runtime in `lambda_function_use_latest_runtime` control. ([#833](https://github.com/turbot/steampipe-mod-aws-compliance/pull/833)) (Thanks to [@sbldevnet](https://github.com/sbldevnet) for the contribution!)
+- Updated `iam_access_analyzer_enabled_without_findings` and `ssm_document_prohibit_public_access` controls to use latest columns and tables from the AWS plugin. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+
+_Bug fixes_
+
+- VPC security group rule controls that check for restricted port access now correctly detect rules with ports in a port range instead of only exact port matches. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+- Fixed the 2.2.1 control in CIS v1.5.0, v2.0.0, v3.0.0 benchmarks to check if EBS encryption by default is enabled instead of individual volume encryption settings. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+- Fixed the `fedramp_moderate_rev_4_sc_28` benchmark to check if EBS encryption by default is enabled instead of individual volume encryption settings. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
+
+_Deprecated_
+
+- Deprecated the `ec2_ebs_default_encryption_enabled` control and query. Please use the `ebs_encryption_by_default` control and query instead.
+
 ## v1.0.1 [2024-10-24]
 
 _Bug fixes_
@@ -7,6 +30,10 @@ _Bug fixes_
 ## v1.0.0 [2024-10-22]
 
 This mod now requires [Powerpipe](https://powerpipe.io). [Steampipe](https://steampipe.io) users should check the [migration guide](https://powerpipe.io/blog/migrating-from-steampipe).
+
+_Bug fixes_
+
+- Cleanup various typos in CIS docs. ([#828](https://github.com/turbot/steampipe-mod-aws-compliance/pull/828)) (Thanks to [@vil02](https://github.com/vil02) for the contribution!)
 
 ## v0.98 [2024-08-30]
 

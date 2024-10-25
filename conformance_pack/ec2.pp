@@ -22,9 +22,8 @@ control "ec2_launch_template_not_publicly_accessible" {
 
 control "ec2_ebs_default_encryption_enabled" {
   title       = "EBS default encryption should be enabled"
-  description = "To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
+  description = "[DEPRECATED] This control has been deprecated and will be removed in a future release, use the ebs_encryption_by_default_enabled control instead. To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ec2_ebs_default_encryption_enabled
-
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"

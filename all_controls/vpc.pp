@@ -32,6 +32,7 @@ benchmark "all_controls_vpc" {
     control.vpc_security_group_remote_administration_ipv4,
     control.vpc_security_group_remote_administration_ipv6,
     control.vpc_security_group_remote_administration,
+    control.vpc_security_group_restrict_ingress_cifs_port_all,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_kafka_port,
     control.vpc_security_group_restrict_ingress_kibana_port,

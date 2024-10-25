@@ -293,7 +293,7 @@ benchmark "nist_csf_pr_ds_1" {
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.es_domain_encryption_at_rest_enabled,

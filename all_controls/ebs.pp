@@ -10,6 +10,7 @@ benchmark "all_controls_ebs" {
   children = [
     control.ebs_attached_volume_delete_on_termination_enabled,
     control.ebs_attached_volume_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ebs_snapshot_encryption_enabled,
     control.ebs_snapshot_not_publicly_restorable,
     control.ebs_volume_encryption_at_rest_enabled,

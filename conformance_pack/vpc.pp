@@ -457,6 +457,14 @@ control "vpc_gateway_endpoint_restrict_public_access" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_security_group_restrict_ingress_cifs_port_all" {
+  title       = "VPC security groups should restrict ingress CIFS access from 0.0.0.0/0 and ::/0"
+  description = "Common Internet File System (CIFS) is a network file-sharing protocol that allows systems to share files over a network. However, unrestricted CIFS access can expose your data to unauthorized users, leading to potential security risks. It is important to restrict CIFS access to only trusted networks and users to prevent unauthorized access and data breaches."
+  query       = query.vpc_security_group_restrict_ingress_cifs_port_all
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     with vpcs as (
@@ -659,28 +667,28 @@ query "vpc_security_group_restrict_ingress_common_ports_all" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
             or (
-                from_port >= 21
-                and to_port <= 21
+                from_port <= 21
+                and to_port >= 21
             )
             or (
-                from_port >= 20
-                and to_port <= 20
+                from_port <= 20
+                and to_port >= 20
             )
             or (
-                from_port >= 3306
-                and to_port <= 3306
+                from_port <= 3306
+                and to_port >= 3306
             )
             or (
-                from_port >= 4333
-                and to_port <= 4333
+                from_port <= 4333
+                and to_port >= 4333
             )
         )
       group by
@@ -720,8 +728,8 @@ query "vpc_security_group_restrict_ingress_ssh_all" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
         )
       group by
@@ -923,8 +931,8 @@ query "vpc_security_group_restrict_ingress_redis_port" {
           and from_port is null
           )
           or (
-            from_port >= 6379
-            and to_port <= 6379
+            from_port <= 6379
+            and to_port >= 6379
           )
         )
       group by
@@ -967,8 +975,8 @@ query "vpc_security_group_restrict_ingress_kafka_port" {
             and from_port is null
             )
             or (
-              from_port >= 9092
-              and to_port <= 9092
+              from_port <= 9092
+              and to_port >= 9092
             )
         )
       group by
@@ -1011,12 +1019,12 @@ query "vpc_security_group_restrict_ingress_kibana_port" {
             and from_port is null
             )
             or (
-              from_port >= 9200
-              and to_port <= 9200
+              from_port <= 9200
+              and to_port >= 9200
             )
             or (
-              from_port >= 5601
-              and to_port <= 5601
+              from_port <= 5601
+              and to_port >= 5601
             )
         )
       group by
@@ -1158,12 +1166,12 @@ query "vpc_security_group_allows_ingress_to_mongodb_ports" {
             and from_port is null
             )
             or (
-                from_port >= 27017
-                and to_port <= 27017
+                from_port <= 27017
+                and to_port >= 27017
             )
             or (
-                from_port >= 27018
-                and to_port <= 27018
+                from_port <= 27018
+                and to_port >= 27018
             )
         )
       group by
@@ -1203,14 +1211,14 @@ query "vpc_security_group_allows_ingress_to_cassandra_ports" {
             and from_port is null
             )
             or (
-                from_port >= 7199
-                and to_port <= 7199
+                from_port <= 7199
+                and to_port >= 7199
             ) or (
-                from_port >= 9160
-                and to_port <= 9160
+                from_port <= 9160
+                and to_port >= 9160
             ) or (
-                from_port >= 8888
-                and to_port <= 8888
+                from_port <= 8888
+                and to_port >= 8888
             )
         )
       group by
@@ -1250,11 +1258,11 @@ query "vpc_security_group_allows_ingress_to_oracle_ports" {
             and from_port is null
             )
             or (
-                from_port >= 1521
-                and to_port <= 1521
+                from_port <= 1521
+                and to_port >= 1521
             ) or (
-                from_port >= 2483
-                and to_port <= 2483
+                from_port <= 2483
+                and to_port >= 2483
             )
         )
       group by
@@ -1294,8 +1302,8 @@ query "vpc_security_group_allows_ingress_to_memcached_port" {
             and from_port is null
             )
             or (
-                from_port >= 11211
-                and to_port <= 11211
+                from_port <= 11211
+                and to_port >= 11211
             )
         )
       group by
@@ -1338,12 +1346,12 @@ query "vpc_security_group_remote_administration_ipv4" {
                 and from_port is null
                 )
                 or (
-                    from_port >= 22
-                    and to_port <= 22
+                    from_port <= 22
+                    and to_port >= 22
                 )
                 or (
-                    from_port >= 3389
-                    and to_port <= 3389
+                    from_port <= 3389
+                    and to_port >= 3389
                 )
             )
           group by
@@ -1398,12 +1406,12 @@ query "vpc_security_group_remote_administration_ipv6" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1446,12 +1454,12 @@ query "vpc_security_group_remote_administration" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1491,8 +1499,8 @@ query "vpc_security_group_restrict_ingress_rdp_all" {
             and from_port is null
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
         )
       group by
@@ -1567,80 +1575,80 @@ query "vpc_security_group_restricted_common_ports" {
             and from_port is null
             )
             or (
-                from_port >= 22
-                and to_port <= 22
+                from_port <= 22
+                and to_port >= 22
             )
             or (
-                from_port >= 3389
-                and to_port <= 3389
+                from_port <= 3389
+                and to_port >= 3389
             )
             or (
-                from_port >= 21
-                and to_port <= 21
+                from_port <= 21
+                and to_port >= 21
             )
             or (
-                from_port >= 20
-                and to_port <= 20
+                from_port <= 20
+                and to_port >= 20
             )
             or (
-                from_port >= 3306
-                and to_port <= 3306
+                from_port <= 3306
+                and to_port >= 3306
             )
             or (
-                from_port >= 4333
-                and to_port <= 4333
+                from_port <= 4333
+                and to_port >= 4333
             )
             or (
-                from_port >= 23
-                and to_port <= 23
+                from_port <= 23
+                and to_port >= 23
             )
             or (
-                from_port >= 25
-                and to_port <= 25
+                from_port <= 25
+                and to_port >= 25
             )
             or (
-                from_port >= 445
-                and to_port <= 445
+                from_port <= 445
+                and to_port >= 445
             )
             or (
-                from_port >= 110
-                and to_port <= 110
+                from_port <= 110
+                and to_port >= 110
             )
             or (
-                from_port >= 135
-                and to_port <= 135
+                from_port <= 135
+                and to_port >= 135
             )
             or (
-                from_port >= 143
-                and to_port <= 143
+                from_port <= 143
+                and to_port >= 143
             )
             or (
-                from_port >= 1433
-                and to_port <= 3389
+                from_port <= 1433
+                and to_port >= 3389
             )
             or (
-                from_port >= 3389
-                and to_port <= 1434
+                from_port <= 3389
+                and to_port >= 1434
             )
             or (
-                from_port >= 5432
-                and to_port <= 5432
+                from_port <= 5432
+                and to_port >= 5432
             )
             or (
-                from_port >= 5500
-                and to_port <= 5500
+                from_port <= 5500
+                and to_port >= 5500
             )
             or (
-                from_port >= 5601
-                and to_port <= 5601
+                from_port <= 5601
+                and to_port >= 5601
             )
             or (
-                from_port >= 9200
-                and to_port <= 9300
+                from_port <= 9200
+                and to_port >= 9300
             )
             or (
-                from_port >= 8080
-                and to_port <= 8080
+                from_port <= 8080
+                and to_port >= 8080
             )
         )
       group by
@@ -1996,6 +2004,48 @@ query "vpc_gateway_endpoint_restrict_public_access" {
     from
       aws_vpc_endpoint as e
       left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;
+  EOQ
+}
+
+query "vpc_security_group_restrict_ingress_cifs_port_all" {
+  sql = <<-EOQ
+    with ingress_cifs_rules as (
+      select
+        group_id,
+        count(*) as num_cifs_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (cidr_ipv4 = '0.0.0.0/0' or cidr_ipv6 = '::/0')
+        and (
+          (
+            ip_protocol = '-1'
+            and from_port is null
+          )
+          or (
+            from_port <= 445
+            and to_port >= 445
+          )
+        )
+        group by
+          group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_cifs_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for CIFS port (445) from 0.0.0.0/0 and ::/0.'
+        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS port (445) from 0.0.0.0/0 or ::/0..'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_cifs_rules on ingress_cifs_rules.group_id = sg.group_id;
   EOQ
 }
 

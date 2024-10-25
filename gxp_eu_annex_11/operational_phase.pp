@@ -75,7 +75,7 @@ benchmark "gxp_eu_annex_11_operational_phase_7_1" {
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_volume_in_backup_plan,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ec2_instance_ebs_optimized,
     control.efs_file_system_encrypt_data_at_rest,
     control.efs_file_system_in_backup_plan,

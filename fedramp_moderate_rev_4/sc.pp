@@ -236,7 +236,7 @@ benchmark "fedramp_moderate_rev_4_sc_28" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.ebs_attached_volume_encryption_enabled,
-    control.ebs_volume_encryption_at_rest_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.es_domain_encryption_at_rest_enabled,
     control.kms_key_not_pending_deletion,
