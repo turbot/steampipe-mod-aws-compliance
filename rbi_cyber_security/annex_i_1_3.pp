@@ -11,6 +11,7 @@ benchmark "rbi_cyber_security_annex_i_1_3" {
     control.dms_replication_instance_not_publicly_accessible,
     control.dynamodb_table_encrypted_with_kms,
     control.ebs_attached_volume_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ebs_snapshot_not_publicly_restorable,
     control.ebs_volume_encryption_at_rest_enabled,
     control.ec2_instance_in_vpc,

@@ -5,7 +5,7 @@ locals {
 }
 
 control "ebs_encryption_by_default_enabled" {
-  title       = "EBS default encryption should be enabled"
+  title       = "EBS encryption by default should be enabled"
   description = "To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ebs_encryption_by_default_enabled
 
