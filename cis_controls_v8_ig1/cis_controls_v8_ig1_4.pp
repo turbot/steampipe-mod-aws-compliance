@@ -37,7 +37,7 @@ benchmark "cis_controls_v8_ig1_4_6" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ec2_instance_iam_profile_attached,
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_group_user_role_no_inline_policies,

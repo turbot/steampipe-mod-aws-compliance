@@ -4,6 +4,28 @@ locals {
   })
 }
 
+control "ebs_encryption_by_default_enabled" {
+  title       = "EBS default encryption should be enabled"
+  description = "To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
+  query       = query.ebs_encryption_by_default_enabled
+
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    gxp_eu_annex_11                        = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    soc_2                                  = "true"
+  })
+}
+
 control "ebs_snapshot_not_publicly_restorable" {
   title       = "EBS snapshots should not be publicly restorable"
   description = "Manage access to the AWS Cloud by ensuring EBS snapshots are not publicly restorable."
@@ -161,6 +183,27 @@ control "ebs_volume_snapshot_exists" {
   query       = query.ebs_volume_snapshot_exists
 
   tags = local.conformance_pack_ebs_common_tags
+}
+
+query "ebs_encryption_by_default_enabled" {
+  sql = <<-EOQ
+    select
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      case
+        when r.opt_in_status = 'not-opted-in' then 'skip'
+        when not default_ebs_encryption_enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
+        when not default_ebs_encryption_enabled then r.region || ' default EBS encryption disabled.'
+        else r.region || ' default EBS encryption enabled.'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_region as r
+      left join aws_ec2_regional_settings as s on s.account_id = r.account_id and s.region = r.region;
+  EOQ
 }
 
 query "ebs_snapshot_not_publicly_restorable" {

@@ -6,7 +6,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_314_b_2_ii" {
     control.dax_cluster_encryption_at_rest_enabled,
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.eks_cluster_secrets_encrypted,
     control.elb_classic_lb_use_tls_https_listeners,
     control.es_domain_encryption_at_rest_enabled,

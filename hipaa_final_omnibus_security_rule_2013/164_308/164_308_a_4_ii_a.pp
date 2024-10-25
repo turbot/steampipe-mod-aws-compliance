@@ -10,7 +10,7 @@ benchmark "hipaa_final_omnibus_security_rule_2013_164_308_a_4_ii_a" {
     control.dynamodb_table_encrypted_with_kms,
     control.dynamodb_table_encryption_enabled,
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.eks_cluster_secrets_encrypted,
     control.elb_application_lb_drop_http_headers,
