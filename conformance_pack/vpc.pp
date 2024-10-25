@@ -457,10 +457,10 @@ control "vpc_gateway_endpoint_restrict_public_access" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
-control "vpc_security_group_allows_ingress_to_cifs_ports" {
-  title       = "Ensure CIFS access is restricted to trusted networks to prevent unauthorized access"
+control "vpc_security_group_restrict_ingress_cifs_port_all" {
+  title       = "VPC security groups should restrict ingress CIFS access from 0.0.0.0/0 and ::/0"
   description = "Common Internet File System (CIFS) is a network file-sharing protocol that allows systems to share files over a network. However, unrestricted CIFS access can expose your data to unauthorized users, leading to potential security risks. It is important to restrict CIFS access to only trusted networks and users to prevent unauthorized access and data breaches."
-  query       = query.vpc_security_group_allows_ingress_to_cifs_ports
+  query       = query.vpc_security_group_restrict_ingress_cifs_port_all
 
   tags = local.conformance_pack_vpc_common_tags
 }
@@ -2007,7 +2007,7 @@ query "vpc_gateway_endpoint_restrict_public_access" {
   EOQ
 }
 
-query "vpc_security_group_allows_ingress_to_cifs_ports" {
+query "vpc_security_group_restrict_ingress_cifs_port_all" {
   sql = <<-EOQ
     with ingress_cifs_rules as (
       select
@@ -2038,8 +2038,8 @@ query "vpc_security_group_allows_ingress_to_cifs_ports" {
         else 'alarm'
       end as status,
       case
-        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for CIFS ports (445) from 0.0.0.0/0 and ::/0.'
-        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS ports (445) from 0.0.0.0/0 or ::/0..'
+        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for CIFS port (445) from 0.0.0.0/0 and ::/0.'
+        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS port (445) from 0.0.0.0/0 or ::/0..'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
