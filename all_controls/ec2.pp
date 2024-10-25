@@ -12,7 +12,7 @@ benchmark "all_controls_ec2" {
     control.ec2_ami_not_older_than_90_days,
     control.ec2_ami_restrict_public_access,
     control.ec2_client_vpn_endpoint_client_connection_logging_enabled,
-    control.ebs_encryption_by_default_enabled,
+    control.ec2_ebs_default_encryption_enabled,
     control.ec2_instance_attached_ebs_volume_delete_on_termination_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.ec2_instance_ebs_optimized,
