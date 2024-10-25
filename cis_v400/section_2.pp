@@ -106,7 +106,10 @@ benchmark "cis_v400_2_2" {
   title         = "2.2 Relational Database Service (RDS)"
   documentation = file("./cis_v400/docs/cis_v400_2_2.md")
   children = [
-    control.cis_v400_2_2_1
+    control.cis_v400_2_2_1,
+    control.cis_v400_2_2_2,
+    control.cis_v400_2_2_3,
+    control.cis_v400_2_2_4
   ]
 
   tags = merge(local.cis_v400_2_2_common_tags, {

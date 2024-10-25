@@ -24,6 +24,7 @@ benchmark "all_controls_vpc" {
     control.vpc_route_table_restrict_public_access_to_igw,
     control.vpc_security_group_allows_ingress_authorized_ports,
     control.vpc_security_group_allows_ingress_to_cassandra_ports,
+    control.vpc_security_group_allows_ingress_to_cifs_ports,
     control.vpc_security_group_allows_ingress_to_memcached_port,
     control.vpc_security_group_allows_ingress_to_mongodb_ports,
     control.vpc_security_group_allows_ingress_to_oracle_ports,

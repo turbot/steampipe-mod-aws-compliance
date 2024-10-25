@@ -19,7 +19,8 @@ benchmark "cis_v400_5" {
     control.cis_v400_5_3,
     control.cis_v400_5_4,
     control.cis_v400_5_5,
-    control.cis_v400_5_6
+    control.cis_v400_5_6,
+    control.cis_v400_5_7
   ]
 
   tags = merge(local.cis_v400_5_common_tags, {
@@ -60,7 +61,7 @@ control "cis_v400_5_1_2" {
   title         = "5.1.2 Ensure CIFS access is restricted to trusted networks to prevent unauthorized access"
   description   = "Common Internet File System (CIFS) is a network file-sharing protocol that allows systems to share files over a network. However, unrestricted CIFS access can expose your data to unauthorized users, leading to potential security risks. It is important to restrict CIFS access to only trusted networks and users to prevent unauthorized access and data breaches."
   documentation = file("./cis_v400/docs/cis_v400_5_1_2.md")
-  query         = query.vpc_security_group_allows_ingress_to_port_445
+  query         = query.vpc_security_group_allows_ingress_to_cifs_ports
 
   tags = merge(local.cis_v400_5_1_common_tags, {
     cis_item_id = "5.1.2"
