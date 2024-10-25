@@ -182,8 +182,8 @@ query "ssm_document_prohibit_public_access" {
         else 'ok'
       end as status,
       case
-        when p.account_ids :: jsonb ? 'all' then d.title || ' publicly accesible.'
-        else d.title || ' not publicly accesible.'
+        when p.account_ids :: jsonb ? 'all' then d.title || ' publicly accessible.'
+        else d.title || ' not publicly accessible.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
