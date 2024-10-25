@@ -36,7 +36,7 @@ benchmark "cis_controls_v8_ig1_11_3" {
   description = "Protect recovery data with equivalent controls to the original data. Reference encryption or data separation, based on requirements."
   children = [
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.rds_db_instance_encryption_at_rest_enabled
   ]
 

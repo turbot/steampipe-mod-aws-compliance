@@ -13,7 +13,7 @@ benchmark "hipaa_security_rule_2003_164_308_a_1_ii_b" {
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_snapshot_not_publicly_restorable,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_ssm_managed,

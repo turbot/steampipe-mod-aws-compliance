@@ -65,7 +65,7 @@ benchmark "cisa_cyber_essentials_your_systems_3" {
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_snapshot_not_publicly_restorable,
     control.ebs_volume_in_backup_plan,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.ec2_instance_ebs_optimized,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,

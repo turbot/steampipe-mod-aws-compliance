@@ -436,7 +436,7 @@ benchmark "nist_800_53_rev_5_au_9_3" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dynamodb_table_encrypted_with_kms,
     control.ebs_volume_encryption_at_rest_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,

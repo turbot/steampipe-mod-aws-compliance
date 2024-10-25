@@ -722,7 +722,7 @@ benchmark "nist_800_53_rev_5_si_19_4" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.dynamodb_table_encrypted_with_kms,
     control.ebs_attached_volume_encryption_enabled,
-    control.ec2_ebs_default_encryption_enabled,
+    control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
     control.es_domain_encryption_at_rest_enabled,
     control.log_group_encryption_at_rest_enabled,
