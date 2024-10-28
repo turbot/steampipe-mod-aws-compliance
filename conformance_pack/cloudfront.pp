@@ -229,16 +229,17 @@ query "cloudfront_distribution_use_secure_cipher" {
         aws_cloudfront_distribution,
         jsonb_array_elements(origins) as o
       where
-        o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["TLSv1.2%", "TLSv1.1%"]'
+        o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["TLSv1"]'
+        or o -> 'CustomOriginConfig' -> 'OriginSslProtocols' -> 'Items' @> '["SSLv3"]'
     )
     select
-      b.arn as resource,
+      distinct b.arn as resource,
       case
-        when o.arn is not null then 'ok'
+        when o.arn is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when o.arn is not null then title || ' use secure cipher.'
+        when o.arn is null then title || ' uses secure cipher.'
         else title || ' does not use secure cipher.'
       end as reason
       ${local.tag_dimensions_sql}
