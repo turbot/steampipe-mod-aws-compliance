@@ -444,19 +444,20 @@ query "elb_application_lb_redirect_http_request_to_https" {
 query "elb_application_lb_waf_enabled" {
   sql = <<-EOQ
     select
-      arn as resource,
+      alb.arn as resource,
       case
-        when load_balancer_attributes @> '[{"Key":"waf.fail_open.enabled","Value":"true"}]' then 'ok'
+        when waf.web_acl_id is not null or wafv2.id is not null then 'ok'
         else 'alarm'
       end as status,
-      case
-        when load_balancer_attributes @> '[{"Key":"waf.fail_open.enabled","Value":"true"}]' then title || ' WAF enabled.'
-        else title || ' WAF disabled.'
+        case
+        when waf.web_acl_id is not null or wafv2.id is not null then alb.title || ' WAF enabled.'
+        else alb.title || ' WAF disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_application_load_balancer;
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "alb.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "alb.")}
+    from aws_ec2_application_load_balancer as alb
+    left join aws_wafregional_web_acl as waf on waf.resources @> jsonb_build_array(alb.arn)
+    left join aws_wafv2_web_acl as wafv2 on wafv2.associated_resources @> jsonb_build_array(alb.arn)
   EOQ
 }
 

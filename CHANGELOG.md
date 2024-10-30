@@ -1,3 +1,11 @@
+## v1.1.1 [2024-10-30]
+
+_Bug fixes_
+
+- Fixed the `elb_application_lb_waf_enabled` query to correctly flag ELB application load balancers as alarm when the associated WAF is disabled. ([#840](https://github.com/turbot/steampipe-mod-aws-compliance/pull/840))
+- Fixed the `cloudfront_distribution_custom_origins_encryption_in_transit_enabled` query to remove duplicate AWS CloudFront distributions from the result. ([#829](https://github.com/turbot/steampipe-mod-aws-compliance/pull/829)) (Thanks to [@sbldevnet](https://github.com/sbldevnet) for the contribution!)
+- Fixed the `where` clause of the `cloudfront_distribution_use_secure_cipher` query to correctly check if the CloudFront distributions have insecure cipher protocols. ([#827](https://github.com/turbot/steampipe-mod-aws-compliance/pull/827)) (Thanks to [@sbldevnet](https://github.com/sbldevnet) for the contribution!)
+
 ## v1.1.0 [2024-10-25]
 
 _What's new?_
