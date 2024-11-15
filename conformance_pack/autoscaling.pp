@@ -39,6 +39,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -60,6 +61,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"

@@ -24,6 +24,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
   })
 }
@@ -65,6 +66,7 @@ control "opensearch_domain_audit_logging_enabled" {
     acsc_essential_eight = "true"
     gxp_21_cfr_part_11   = "true"
     nist_csf             = "true"
+    nydfs_23             = "true"
     pci_dss_v321         = "true"
     soc_2                = "true"
   })
@@ -79,6 +81,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
     acsc_essential_eight = "true"
     gxp_21_cfr_part_11   = "true"
     nist_csf             = "true"
+    nydfs_23             = "true"
     pci_dss_v321         = "true"
     rbi_itf_nbfc         = "true"
     soc_2                = "true"
@@ -97,6 +100,7 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
   })
 }
 
@@ -111,6 +115,7 @@ control "opensearch_domain_in_vpc" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     rbi_itf_nbfc                           = "true"
+    nydfs_23                               = "true"
   })
 }
 

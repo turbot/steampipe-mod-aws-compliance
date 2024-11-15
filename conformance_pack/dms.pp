@@ -23,6 +23,7 @@ control "dms_replication_instance_not_publicly_accessible" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -222,9 +223,9 @@ query "dms_replication_task_source_database_logging_enabled" {
           else title || ' source database logging disabled.'
           end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}      
+      ${local.common_dimensions_sql}
       from
         aws_dms_replication_task as t
-        left join replication_task_logging as l on l.arn = t.arn;    
+        left join replication_task_logging as l on l.arn = t.arn;
   EOQ
 }

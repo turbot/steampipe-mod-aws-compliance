@@ -19,6 +19,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -42,6 +43,7 @@ control "backup_plan_min_retention_35_days" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -62,6 +64,7 @@ control "backup_recovery_point_encryption_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
   })

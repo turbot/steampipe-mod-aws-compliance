@@ -68,6 +68,7 @@ control "ecs_task_definition_user_for_host_mode_check" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
   })
 }
 
