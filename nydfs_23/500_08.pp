@@ -15,7 +15,7 @@ benchmark "nydfs_23_500_08_a" {
 
   children = [
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
-    control.codebuild_project_source_repo_oauth_configured,
+    control.codebuild_project_source_repo_oauth_configured
   ]
 
   tags = local.nydfs_23_common_tags

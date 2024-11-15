@@ -16,22 +16,22 @@ benchmark "nydfs_23_500_06_a" {
 
   children = [
     control.apigateway_stage_logging_enabled,
-    control.cloudtrail_trail_integrated_with_logs,
-    control.cloudtrail_trail_enabled,
-    control.cloudtrail_s3_data_events_enabled,
-    control.elb_application_classic_lb_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
+    control.cloudtrail_s3_data_events_enabled,
+    control.cloudtrail_trail_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
+    control.cloudwatch_log_group_retention_period_365,
+    control.codebuild_project_logging_enabled,
+    control.elb_application_classic_lb_logging_enabled,
+    control.es_domain_logs_to_cloudwatch,
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch,
+    control.rds_db_instance_logging_enabled,
+    control.redshift_cluster_audit_logging_enabled,
+    control.redshift_cluster_encryption_logging_enabled,
     control.s3_bucket_logging_enabled,
     control.vpc_flow_logs_enabled,
-    control.rds_db_instance_logging_enabled,
-    control.codebuild_project_logging_enabled,
-    control.redshift_cluster_audit_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
-    control.opensearch_domain_audit_logging_enabled,
-    control.redshift_cluster_encryption_logging_enabled,
-    control.es_domain_logs_to_cloudwatch,
-    control.opensearch_domain_logs_to_cloudwatch,
-    control.cloudwatch_log_group_retention_period_365
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = local.nydfs_23_common_tags
