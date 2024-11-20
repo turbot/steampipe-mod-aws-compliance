@@ -5,12 +5,12 @@ benchmark "nydfs_23_500_02" {
   children = [
     benchmark.nydfs_23_500_02_a,
     benchmark.nydfs_23_500_02_b_2,
-    benchmark.nydfs_23_500_02_b_3
+    benchmark.nydfs_23_500_02_b_3,
+    benchmark.nydfs_23_500_02_b_5
   ]
 
   tags = local.nydfs_23_common_tags
 }
-
 
 benchmark "nydfs_23_500_02_a" {
   title       = "500.02(a)"

@@ -1,6 +1,6 @@
 benchmark "nydfs_23_500_14" {
   title       = "500.14 Monitoring and training"
-  description = "Malicious software, commonly referred to as “malware”—including viruses, worms, and Trojans—enters the network during many businessapproved activities including employee e-mail and use of the Internet, mobile computers, and storage devices, resulting in the exploitation of system vulnerabilities. Anti-virus software must be used on all systems commonly affected by malware to protect systems from current and evolving malicious software threats"
+  description = "As part of its cybersecurity program, each covered entity shall: (a) implement risk-based policies, procedures and controls designed to monitor the activity of authorized users and detect unauthorized access or use of, or tampering with, nonpublic information by such authorized users; and (b) provide regular cybersecurity awareness training for all personnel that is updated to reflect risks identified by the covered entity in its risk assessment."
 
   children = [
     benchmark.nydfs_23_500_14_a

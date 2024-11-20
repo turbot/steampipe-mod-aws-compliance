@@ -7,7 +7,7 @@ locals {
 
 benchmark "nydfs_23" {
   title         = "NYDFS 23"
-  description   = "."
+  description   = "The NYDFS Cybersecurity Regulation (23 NYCRR 500) is a new set of regulations from the NY Department of Financial Services (NYDFS) that places cybersecurity requirements on all covered financial institutions."
   documentation = file("./nydfs_23/docs/nydfs_23_overview.md")
   children = [
     benchmark.nydfs_23_500_02,
