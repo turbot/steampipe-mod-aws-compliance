@@ -40,6 +40,7 @@ control "cloudwatch_alarm_action_enabled_check" {
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     nist_csf     = "true"
+    nydfs_23     = "true"
     pci_dss_v321 = "true"
     soc_2        = "true"
   })
@@ -71,6 +72,7 @@ control "log_group_encryption_at_rest_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
@@ -94,6 +96,7 @@ control "cloudwatch_log_group_retention_period_365" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"

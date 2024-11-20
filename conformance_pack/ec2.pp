@@ -54,6 +54,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -97,6 +98,7 @@ control "ec2_instance_in_vpc" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -122,6 +124,7 @@ control "ec2_instance_not_publicly_accessible" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -177,6 +180,7 @@ control "ec2_instance_ebs_optimized" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -197,6 +201,7 @@ control "ec2_instance_uses_imdsv2" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
   })
 }
 

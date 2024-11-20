@@ -32,6 +32,7 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -49,6 +50,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -78,6 +80,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
   })
 }
