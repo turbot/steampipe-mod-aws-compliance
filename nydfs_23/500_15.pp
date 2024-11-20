@@ -1,5 +1,5 @@
 benchmark "nydfs_23_500_15" {
-  title       = "500.15 Encryption of nonpublic information"
+  title       = "500.15 Encryption of Nonpublic Information"
   description = "Encryption of nonpublic information Requirement: (a) As part of its cybersecurity program, each covered entity shall implement a written policy requiring encryption that meets industry standards, to protect nonpublic information held or transmitted by the covered entity both in transit over external networks and at rest."
 
   children = [

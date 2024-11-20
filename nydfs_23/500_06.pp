@@ -1,5 +1,5 @@
 benchmark "nydfs_23_500_06" {
-  title       = "500.06 Audit trail"
+  title       = "500.06 Audit Trail"
   description = "Each covered entity shall securely maintain systems that, to the extent applicable and based on its risk assessment: (1) are designed to reconstruct material financial transactions sufficient to support normal operations and obligations of the covered entity; and (2) include audit trails designed to detect and respond to cybersecurity events that have a reasonable likelihood of materially harming any material part of the normal operations of the covered entity. (b) Each covered entity shall maintain records required by paragraph (a)(1) of this section for not fewer than five years and shall maintain records required by paragraph (a)(2) of this section for not fewer than three years."
 
   children = [

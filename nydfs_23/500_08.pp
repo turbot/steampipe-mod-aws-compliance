@@ -1,5 +1,5 @@
 benchmark "nydfs_23_500_08" {
-  title       = "500.08 Application security"
+  title       = "500.08 Application Security"
   description = "Application security Requirement: (b) All such procedures, guidelines and standards shall be reviewed, assessed and updated as necessary by the CISO (or aqualified designee) of the covered entity at least annually."
 
   children = [

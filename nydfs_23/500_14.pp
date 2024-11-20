@@ -1,5 +1,5 @@
 benchmark "nydfs_23_500_14" {
-  title       = "500.14 Monitoring and training"
+  title       = "500.14 Monitoring and Training"
   description = "As part of its cybersecurity program, each covered entity shall: (a) implement risk-based policies, procedures and controls designed to monitor the activity of authorized users and detect unauthorized access or use of, or tampering with, nonpublic information by such authorized users; and (b) provide regular cybersecurity awareness training for all personnel that is updated to reflect risks identified by the covered entity in its risk assessment."
 
   children = [

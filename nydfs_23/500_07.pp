@@ -1,5 +1,5 @@
 benchmark "nydfs_23_500_07" {
-  title       = "500.07 Access privileges and management"
+  title       = "500.07 Access Privileges and Management"
   description = "As part of its cybersecurity program, based on the Covered Entity’s Risk Assessment each Covered Entity shall limit user access privileges to Information Systems that provide access to Nonpublic Information and shall periodically review such access privileges."
 
   children = [
