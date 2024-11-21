@@ -1,3 +1,9 @@
+## v1.2.0 [2024-11-21]
+
+_What's new?_
+
+- Added NYDFS 23 benchmark (`powerpipe benchmark run aws_compliance.benchmark.nydfs_23`). ([#844](https://github.com/turbot/steampipe-mod-aws-compliance/pull/844))
+
 ## v1.1.1 [2024-10-30]
 
 _Bug fixes_
@@ -10,7 +16,7 @@ _Bug fixes_
 
 _What's new?_
 
-- Added CIS v4.0.0 benchmark (`steampipe check benchmark.cis_v400`). ([#836](https://github.com/turbot/steampipe-mod-aws-compliance/pull/836))
+- Added CIS v4.0.0 benchmark (`powerpipe benchmark run aws_compliance.benchmark.cis_v400`). ([#836](https://github.com/turbot/steampipe-mod-aws-compliance/pull/836))
 - Added `ebs_encryption_by_default_enabled` and `vpc_security_group_restrict_ingress_cifs_port_all` controls to the `All Controls` benchmark. ([#835](https://github.com/turbot/steampipe-mod-aws-compliance/pull/835))
 
 _Enhancements_
