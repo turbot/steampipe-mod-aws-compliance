@@ -24,6 +24,7 @@ control "vpc_flow_logs_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -83,6 +84,7 @@ control "vpc_igw_attached_to_authorized_vpc" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -143,6 +145,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -169,6 +172,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -193,6 +197,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -215,6 +220,7 @@ control "vpc_vpn_tunnel_up" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23_common_tags                   = "true"
     rbi_itf_nbfc                           = "true"
   })
 }
@@ -263,6 +269,7 @@ control "vpc_subnet_auto_assign_public_ip_disabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -283,6 +290,7 @@ control "vpc_route_table_restrict_public_access_to_igw" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
   })
@@ -366,7 +374,9 @@ control "vpc_security_group_allows_ingress_authorized_ports" {
   description = "This control checks whether the VPC security groups that are in use allow unrestricted incoming traffic. Optionally the rule checks whether the port numbers are listed in the authorizedTcpPorts parameter. The default values for authorizedTcpPorts are 80 and 443."
   query       = query.vpc_security_group_allows_ingress_authorized_ports
 
-  tags = local.conformance_pack_vpc_common_tags
+  tags = merge(local.conformance_pack_vpc_common_tags, {
+    nydfs_23 = "true"
+  })
 }
 
 control "vpc_security_group_allows_ingress_to_cassandra_ports" {

@@ -9,7 +9,9 @@ control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   description = "This control checks if SageMaker notebook instance storage volumes are encrypted with AWS KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
   query       = query.sagemaker_notebook_instance_encrypted_with_kms_cmk
 
-  tags = local.conformance_pack_sagemaker_common_tags
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    nydfs_23 = "true"
+  })
 }
 
 control "sagemaker_notebook_instance_direct_internet_access_disabled" {
@@ -31,6 +33,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -56,6 +59,7 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
@@ -80,6 +84,7 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
