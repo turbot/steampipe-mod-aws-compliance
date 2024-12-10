@@ -59,6 +59,8 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
   description = "When automatic backups are enabled, AWS ElastiCache creates a backup of the cluster on a daily basis. The backup can be retained for a number of days as specified by your organization. Automatic backups can help guard against data loss."
   query       = query.elasticache_redis_cluster_automatic_backup_retention_15_days
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_elasticache_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"

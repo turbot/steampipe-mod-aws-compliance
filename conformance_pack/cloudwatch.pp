@@ -16,7 +16,7 @@ control "cloudwatch_alarm_action_enabled" {
   title       = "CloudWatch alarm should have an action configured"
   description = "Checks if CloudWatch alarms have an action configured for the ALARM, INSUFFICIENT_DATA, or OK state. Optionally checks if any actions match a named ARN. The rule is non-compliant if there is no action specified for the alarm or optional parameter."
   query       = query.cloudwatch_alarm_action_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     acsc_essential_eight_ml_3              = "true"
     fedramp_low_rev_4                      = "true"

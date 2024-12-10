@@ -9,6 +9,8 @@ control "codebuild_project_build_greater_then_90_days" {
   description = "Ensure CodeBuild projects are curently in use. It is recommended to remove the stale ones."
   query       = query.codebuild_project_build_greater_then_90_days
 
+  severity = "medium"
+
   tags = local.conformance_pack_codebuild_common_tags
 }
 
@@ -16,6 +18,8 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
   title       = "CodeBuild project plaintext environment variables should not contain sensitive AWS values"
   description = "Ensure authentication credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY do not exist within AWS CodeBuild project environments. Do not store these variables in clear text. Storing these variables in clear text leads to unintended data exposure and unauthorized access."
   query       = query.codebuild_project_plaintext_env_variables_no_sensitive_aws_values
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     cisa_cyber_essentials                  = "true"
@@ -58,6 +62,8 @@ control "codebuild_project_with_user_controlled_buildspec" {
   description = "This control checks if buildspec.yml is used from a trusted source which user cant interfere with."
   query       = query.codebuild_project_with_user_controlled_buildspec
 
+  severity = "medium"
+
   tags = local.conformance_pack_codebuild_common_tags
 }
 
@@ -76,7 +82,7 @@ control "codebuild_project_logging_enabled" {
   title       = "CodeBuild projects should have logging enabled"
   description = "This control checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is non-compliant if the status of all present log configurations is set to 'DISABLED'."
   query       = query.codebuild_project_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
@@ -92,6 +98,8 @@ control "codebuild_project_artifact_encryption_enabled" {
   description = "This control checks if a CodeBuild project has encryption enabled for all of its artifacts. The rule is non-compliant if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
   query       = query.codebuild_project_artifact_encryption_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     gxp_21_cfr_part_11    = "true"
     gxp_eu_annex_11       = "true"
@@ -104,6 +112,8 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   title       = "CodeBuild project S3 logs should be encrypted"
   description = "This control checks if S3 logs for a CodeBuild project are encrypted. The control fails if encryption is deactivated for S3 logs for a CodeBuild project."
   query       = query.codebuild_project_s3_logs_encryption_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
     gxp_21_cfr_part_11 = "true"

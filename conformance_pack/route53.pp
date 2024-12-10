@@ -17,6 +17,8 @@ control "route53_zone_query_logging_enabled" {
   description = "Ensure Route 53 zones have query logging enabled."
   query       = query.route53_zone_query_logging_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_route53_common_tags, {
     acsc_essential_eight = "true"
   })

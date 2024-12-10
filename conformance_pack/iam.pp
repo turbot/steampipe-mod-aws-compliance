@@ -98,7 +98,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
   title       = "IAM password policies for users should have strong configurations"
   description = "The identities and the credentials are issued, managed, and verified based on an organizational IAM password policy."
   query       = query.iam_account_password_policy_strong_min_reuse_24
-
+  severity    = "medium"
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -172,7 +172,7 @@ control "iam_root_user_no_access_keys" {
   title       = "IAM root user should not have access keys"
   description = "Access to systems and assets can be controlled by checking that the root user does not have access keys attached to their AWS Identity and Access Management (IAM) role."
   query       = query.iam_root_user_no_access_keys
-
+  severity = "critical"
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -201,6 +201,8 @@ control "iam_root_user_hardware_mfa_enabled" {
   description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the root user."
   query       = query.iam_root_user_hardware_mfa_enabled
 
+  severity = "critical"
+
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -227,6 +229,8 @@ control "iam_root_user_mfa_enabled" {
   title       = "IAM root user MFA should be enabled"
   description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for the root user."
   query       = query.iam_root_user_mfa_enabled
+
+  severity = "critical"
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight                   = "true"
@@ -255,6 +259,8 @@ control "iam_user_access_key_age_90" {
   description = "The credentials are audited for authorized devices, users, and processes by ensuring IAM access keys are rotated as per organizational policy."
   query       = query.iam_user_access_key_age_90
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_iam_common_tags, {
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -277,6 +283,8 @@ control "iam_user_console_access_mfa_enabled" {
   title       = "IAM users with console access should have MFA enabled"
   description = "Manage access to resources in the AWS Cloud by ensuring that MFA is enabled for all AWS Identity and Access Management (IAM) users that have a console password."
   query       = query.iam_user_console_access_mfa_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight                   = "true"
@@ -361,6 +369,8 @@ control "iam_user_unused_credentials_90" {
   description = "AWS Identity and Access Management (IAM) can help you with access permissions and authorizations by checking for IAM passwords and access keys that are not used for a specified time period."
   query       = query.iam_user_unused_credentials_90
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_iam_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -434,6 +444,8 @@ control "iam_support_role" {
   title       = "Ensure a support role has been created to manage incidents with AWS Support"
   description = "AWS provides a support center that can be used for incident notification and response, as well as technical support and customer services."
   query       = query.iam_support_role
+
+  severity = "medium"
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     gdpr = "true"
@@ -584,6 +596,8 @@ control "iam_user_hardware_mfa_enabled" {
   description = "Manage access to resources in the AWS Cloud by ensuring hardware MFA is enabled for the user."
   query       = query.iam_user_hardware_mfa_enabled
 
+  severity = "high"
+
   tags = local.conformance_pack_iam_common_tags
 }
 
@@ -591,6 +605,8 @@ control "iam_user_with_administrator_access_mfa_enabled" {
   title       = "IAM administrator users should have MFA enabled"
   description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for users with administrative privileges."
   query       = query.iam_user_with_administrator_access_mfa_enabled
+
+  severity = "critical"
 
   tags = local.conformance_pack_iam_common_tags
 }

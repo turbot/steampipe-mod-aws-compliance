@@ -32,7 +32,7 @@ control "ecs_cluster_instance_in_vpc" {
   title       = "ECS cluster instances should be in a VPC"
   description = "Deploy AWS ECS cluster instance within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a instance and other services within the AWS VPC."
   query       = query.ecs_cluster_instance_in_vpc
-
+  severity = "high"
   tags = local.conformance_pack_ecs_common_tags
 }
 
@@ -76,7 +76,7 @@ control "ecs_task_definition_logging_enabled" {
   title       = "ECS task definitions should have logging enabled"
   description = "Ensure logging is enabled for task definitions so that you can access your containerized application logs for debugging and auditing purposes. On top of centralized logging, these log drivers often include additional capabilities that are useful for operation."
   query       = query.ecs_task_definition_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
   })

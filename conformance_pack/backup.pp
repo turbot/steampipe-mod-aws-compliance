@@ -9,6 +9,8 @@ control "backup_recovery_point_manual_deletion_disabled" {
   description = "Checks if a backup vault has an attached resource-based policy which prevents deletion of recovery points. The rule is non-compliant if the Backup Vault does not have resource-based policies or has policies without a suitable 'Deny' statement."
   query       = query.backup_recovery_point_manual_deletion_disabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_backup_common_tags, {
     acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
@@ -55,6 +57,8 @@ control "backup_recovery_point_encryption_enabled" {
   description = "Ensure that a recovery point is encrypted. The rule is non-compliant if the recovery point is not encrypted."
   query       = query.backup_recovery_point_encryption_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_backup_common_tags, {
     cisa_cyber_essentials                  = "true"
     ffiec                                  = "true"
@@ -74,6 +78,8 @@ control "backup_recovery_point_min_retention_35_days" {
   title       = "Backup recovery points should not expire before retention period"
   description = "Ensure a recovery point expires no earlier than after the specified period. The rule is non-compliant if the recovery point has a retention point less than 35 days."
   query       = query.backup_recovery_point_min_retention_35_days
+
+  severity = "medium"
 
   tags = merge(local.conformance_pack_backup_common_tags, {
     acsc_essential_eight                   = "true"

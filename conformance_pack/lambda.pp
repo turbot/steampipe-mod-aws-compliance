@@ -48,6 +48,8 @@ control "lambda_function_in_vpc" {
   description = "Deploy AWS Lambda functions within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.lambda_function_in_vpc
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_lambda_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -101,6 +103,8 @@ control "lambda_function_concurrent_execution_limit_configured" {
   description = "Checks whether the AWS Lambda function is configured with function-level concurrent execution limit. The control is non-compliant if the Lambda function is not configured with function-level concurrent execution limit."
   query       = query.lambda_function_concurrent_execution_limit_configured
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_lambda_common_tags, {
     fedramp_low_rev_4                      = "true"
     fedramp_moderate_rev_4                 = "true"
@@ -119,6 +123,8 @@ control "lambda_function_cloudtrail_logging_enabled" {
   description = "Lambda functions logging is essential because once lambdas are triggered, all of the underlying compute resources are automatically managed for you. This control is compliant if CloudTrail logging is enabled."
   query       = query.lambda_function_cloudtrail_logging_enabled
 
+  severity = "medium"
+
   tags = local.conformance_pack_lambda_common_tags
 }
 
@@ -134,6 +140,8 @@ control "lambda_function_multiple_az_configured" {
   title       = "Lambda functions should operate in more than one availability zone"
   description = "This control checks if Lambda has more than one availability zone associated. The rule fails if only one availability zone is associated with Lambda."
   query       = query.lambda_function_multiple_az_configured
+
+  severity = "medium"
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
     nist_csf     = "true"

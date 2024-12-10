@@ -9,6 +9,8 @@ control "fsx_file_system_protected_by_backup_plan" {
   description = "Checks if AWS FSx File Systems are protected by a backup plan. The rule is non-compliant if the AWS FSx File System is not covered by a backup plan."
   query       = query.fsx_file_system_protected_by_backup_plan
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_fsx_common_tags, {
     acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"

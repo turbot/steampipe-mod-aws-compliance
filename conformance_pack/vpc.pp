@@ -9,6 +9,8 @@ control "vpc_flow_logs_enabled" {
   description = "The VPC flow logs provide detailed records for information about the IP traffic going to and from network interfaces in your AWS Virtual Private Cloud (AWS VPC."
   query       = query.vpc_flow_logs_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_vpc_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -209,6 +211,8 @@ control "vpc_vpn_tunnel_up" {
   title       = "Both VPN tunnels provided by AWS Site-to-Site VPN should be in UP status"
   description = "Redundant Site-to-Site VPN tunnels can be implemented to achieve resilience requirements."
   query       = query.vpc_vpn_tunnel_up
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_vpc_common_tags, {
     fedramp_low_rev_4                      = "true"

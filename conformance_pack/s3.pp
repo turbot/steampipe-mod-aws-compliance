@@ -27,6 +27,8 @@ control "s3_bucket_cross_region_replication_enabled" {
   description = "AWS Simple Storage Service (AWS S3) Cross-Region Replication (CRR) supports maintaining adequate capacity and availability."
   query       = query.s3_bucket_cross_region_replication_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -53,6 +55,8 @@ control "s3_bucket_default_encryption_enabled" {
   title       = "S3 bucket default encryption should be enabled"
   description = "To help protect data at rest, ensure encryption is enabled for your AWS Simple Storage Service (AWS S3) buckets."
   query       = query.s3_bucket_default_encryption_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     cis_controls_v8_ig1                    = "true"
@@ -105,6 +109,8 @@ control "s3_bucket_logging_enabled" {
   title       = "S3 bucket logging should be enabled"
   description = "AWS Simple Storage Service (AWS S3) server access logging provides a method to monitor the network for potential cybersecurity events."
   query       = query.s3_bucket_logging_enabled
+
+  severity = "medium"
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     acsc_essential_eight                   = "true"
@@ -336,6 +342,8 @@ control "s3_bucket_object_logging_enabled" {
   title       = "S3 buckets object logging should be enabled"
   description = "Object-Level logging saves events in JSON format in CloudTrail. This is recommended from a security best practice perspective for buckets that contain sensitive data."
   query       = query.s3_bucket_object_logging_enabled
+
+  severity = "medium"
 
   tags = local.conformance_pack_s3_common_tags
 }

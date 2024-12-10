@@ -9,6 +9,8 @@ control "dynamodb_table_auto_scaling_enabled" {
   description = "AWS DynamoDB auto scaling uses the AWS Application Auto Scaling service to adjust provisioned throughput capacity that automatically responds to actual traffic patterns."
   query       = query.dynamodb_table_auto_scaling_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -30,6 +32,8 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
   title       = "DynamoDB table point-in-time recovery should be enabled"
   description = "Enable this rule to check that information has been backed up. It also maintains the backups by ensuring that point-in-time recovery is enabled in AWS DynamoDB."
   query       = query.dynamodb_table_point_in_time_recovery_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     acsc_essential_eight                   = "true"
@@ -81,6 +85,8 @@ control "dynamodb_table_in_backup_plan" {
   description = "To help with data back-up processes, ensure your AWS DynamoDB tables are a part of an AWS Backup plan."
   query       = query.dynamodb_table_in_backup_plan
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -107,6 +113,8 @@ control "dynamodb_table_encryption_enabled" {
   description = "Ensure that encryption is enabled for your AWS DynamoDB tables. Because sensitive data can exist at rest in these tables, enable encryption at rest to help protect that data."
   query       = query.dynamodb_table_encryption_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     gdpr                                   = "true"
     gxp_eu_annex_11                        = "true"
@@ -121,6 +129,8 @@ control "dynamodb_table_protected_by_backup_plan" {
   title       = "DynamoDB table should be protected by backup plan"
   description = "Ensure that AWS DynamoDB tables are protected by a backup plan. The rule is non-compliant if the DynamoDB Table is not covered by a backup plan."
   query       = query.dynamodb_table_protected_by_backup_plan
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_dynamodb_common_tags, {
     acsc_essential_eight                   = "true"

@@ -27,7 +27,7 @@ control "autoscaling_group_with_lb_use_health_check" {
   title       = "Auto Scaling groups with a load balancer should use health checks"
   description = "The Elastic Load Balancer (ELB) health checks for AWS Elastic Compute Cloud (AWS EC2) Auto Scaling groups support maintenance of adequate capacity and availability."
   query       = query.autoscaling_group_with_lb_use_health_check
-
+  severity = "high"
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     cis_controls_v8_ig1                    = "true"
     fedramp_low_rev_4                      = "true"
@@ -80,7 +80,7 @@ control "autoscaling_group_multiple_az_configured" {
   title       = "EC2 auto scaling groups should cover multiple availability zones"
   description = "This control checks whether an AWS EC2 Auto Scaling group spans multiple availability zones. The control fails if an auto scaling group does not span multiple availability zones."
   query       = query.autoscaling_group_multiple_az_configured
-
+  severity = "high"
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     nist_csf = "true"
   })

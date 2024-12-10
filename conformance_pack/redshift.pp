@@ -166,6 +166,8 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
   description = "Ensure that AWS Redshift cluster has 'enhancedVpcRouting' enabled. The rule is non-compliant if 'enhancedVpcRouting' is not enabled or if the configuration.enhancedVpcRouting field is 'false'."
   query       = query.redshift_cluster_enhanced_vpc_routing_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_redshift_common_tags, {
     ffiec                                  = "true"
     gxp_21_cfr_part_11                     = "true"

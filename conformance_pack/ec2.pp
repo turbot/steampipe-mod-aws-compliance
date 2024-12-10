@@ -24,6 +24,9 @@ control "ec2_ebs_default_encryption_enabled" {
   title       = "EBS default encryption should be enabled"
   description = "[DEPRECATED] This control has been deprecated and will be removed in a future release, use the ebs_encryption_by_default_enabled control instead. To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ec2_ebs_default_encryption_enabled
+
+  severity = "high"
+
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -45,7 +48,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
   title       = "EC2 instance detailed monitoring should be enabled"
   description = "Enable this rule to help improve AWS Elastic Compute Cloud (AWS EC2) instance monitoring on the AWS EC2 console, which displays monitoring graphs with a 1-minute period for the instance."
   query       = query.ec2_instance_detailed_monitoring_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_ec2_common_tags, {
     acsc_essential_eight                   = "true"
     fedramp_low_rev_4                      = "true"
@@ -84,7 +87,7 @@ control "ec2_instance_in_vpc" {
   title       = "EC2 instances should be in a VPC"
   description = "Deploy AWS Elastic Compute Cloud (AWS EC2) instances within an AWS Virtual Private Cloud (AWS VPC) to enable secure communication between an instance and other services within the amazon VPC, without requiring an internet gateway, NAT device, or VPN connection."
   query       = query.ec2_instance_in_vpc
-
+  severity = "high"
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -110,6 +113,8 @@ control "ec2_instance_not_publicly_accessible" {
   title       = "EC2 instances should not have a public IP address"
   description = "Manage access to the AWS Cloud by ensuring AWS Elastic Compute Cloud (AWS EC2) instances cannot be publicly accessed."
   query       = query.ec2_instance_not_publicly_accessible
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
@@ -192,6 +197,8 @@ control "ec2_instance_uses_imdsv2" {
   description = "Ensure the Instance Metadata Service Version 2 (IMDSv2) method is enabled to help protect access and control of AWS Elastic Compute Cloud (AWS EC2) instance metadata."
   query       = query.ec2_instance_uses_imdsv2
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
     fedramp_low_rev_4                      = "true"
@@ -209,7 +216,7 @@ control "ec2_instance_protected_by_backup_plan" {
   title       = "EC2 instances should be protected by backup plan"
   description = "Ensure that AWS Elastic Compute Cloud (AWS EC2) instances are protected by a backup plan. The rule is non-compliant if the AWS EC2 instance is not covered by a backup plan."
   query       = query.ec2_instance_protected_by_backup_plan
-
+  severity = "high"
   tags = merge(local.conformance_pack_ec2_common_tags, {
     acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
@@ -233,6 +240,8 @@ control "ec2_instance_iam_profile_attached" {
   description = "Ensure that an AWS Elastic Compute Cloud (AWS EC2) instance has an Identity and Access Management (IAM) profile attached to it. This rule is non-compliant if no IAM profile is attached to the AWS EC2 instance."
   query       = query.ec2_instance_iam_profile_attached
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_ec2_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -251,6 +260,8 @@ control "ec2_instance_publicly_accessible_iam_profile_attached" {
   description = "Ensure AWS Elastic Compute Cloud (AWS EC2) public instances have an Identity and Access Management (IAM) profile attached to them. This rule is non-compliant if no IAM profile is attached to a public AWS EC2 instance."
   query       = query.ec2_instance_publicly_accessible_iam_profile_attached
 
+  severity = "high"
+
   tags = local.conformance_pack_ec2_common_tags
 }
 
@@ -258,6 +269,8 @@ control "ec2_instance_user_data_no_secrets" {
   title       = "EC2 instances user data should not have secrets"
   description = "User data is a metadata field of an EC2 instance that allows custom code to run after the instance is launched. It contains code which is exposed to any entity which has the most basic access to EC2, even read-only configurations. It is recommended to not use secrets in user data."
   query       = query.ec2_instance_user_data_no_secrets
+
+  severity = "high"
 
   tags = local.conformance_pack_ec2_common_tags
 }

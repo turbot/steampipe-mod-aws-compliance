@@ -62,6 +62,8 @@ control "opensearch_domain_audit_logging_enabled" {
   description = "This control checks whether OpenSearch service domains have audit logging enabled. The rule is non-compliant if an OpenSearch service domain does not have audit logging enabled."
   query       = query.opensearch_domain_audit_logging_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     acsc_essential_eight = "true"
     gxp_21_cfr_part_11   = "true"

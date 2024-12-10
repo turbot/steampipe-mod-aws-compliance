@@ -9,6 +9,8 @@ control "account_part_of_organizations" {
   description = "Ensure that an AWS account is part of AWS Organizations. The rule is non-compliant if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId."
   query       = query.account_part_of_organizations
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight = "true"
     cis_controls_v8_ig1  = "true"

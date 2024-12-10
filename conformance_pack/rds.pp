@@ -89,6 +89,8 @@ control "rds_db_instance_backup_enabled" {
   description = "The backup feature of AWS RDS creates backups of your databases and transaction logs."
   query       = query.rds_db_instance_backup_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -117,6 +119,8 @@ control "rds_db_instance_encryption_at_rest_enabled" {
   description = "To help protect data at rest, ensure that encryption is enabled for your AWS Relational Database Service (AWS RDS) instances."
   query       = query.rds_db_instance_encryption_at_rest_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_rds_common_tags, {
     audit_manager_control_tower            = "true"
     cis_controls_v8_ig1                    = "true"
@@ -143,6 +147,8 @@ control "rds_db_instance_multiple_az_enabled" {
   title       = "RDS DB instance multiple az should be enabled"
   description = "Multi-AZ support in AWS Relational Database Service (AWS RDS) provides enhanced availability and durability for database instances."
   query       = query.rds_db_instance_multiple_az_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     cisa_cyber_essentials                  = "true"
@@ -193,6 +199,8 @@ control "rds_db_snapshot_encrypted_at_rest" {
   title       = "RDS DB snapshots should be encrypted at rest"
   description = "Ensure that encryption is enabled for your AWS Relational Database Service (AWS RDS) snapshots."
   query       = query.rds_db_snapshot_encrypted_at_rest
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     cisa_cyber_essentials                  = "true"
@@ -245,7 +253,7 @@ control "rds_db_instance_logging_enabled" {
   title       = "Database logging should be enabled"
   description = "To help with logging and monitoring within your environment, ensure AWS Relational Database Service (AWS RDS) logging is enabled."
   query       = query.rds_db_instance_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -371,6 +379,8 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
   description = "Checks if AWS Aurora DB clusters are protected by a backup plan. The rule is non-compliant if the AWS Relational Database Service (AWS RDS) Database Cluster is not protected by a backup plan."
   query       = query.rds_db_cluster_aurora_protected_by_backup_plan
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight                   = "true"
     cisa_cyber_essentials                  = "true"
@@ -416,6 +426,8 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
   description = "Ensure that AWS Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is non-compliant if the value of 'autoMinorVersionUpgrade' is false."
   query       = query.rds_db_instance_automatic_minor_version_upgrade_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight  = "true"
     cisa_cyber_essentials = "true"
@@ -442,7 +454,7 @@ control "rds_db_instance_cloudwatch_logs_enabled" {
   title       = "RDS DB instances should be integrated with CloudWatch logs"
   description = "Use AWS CloudWatch to centrally collect and manage RDS DB instance activity."
   query       = query.rds_db_instance_cloudwatch_logs_enabled
-
+  severity = "medium"
   tags = local.conformance_pack_rds_common_tags
 }
 
@@ -481,6 +493,8 @@ control "rds_db_cluster_aurora_backtracking_enabled" {
   description = "This control checks whether AWS Aurora clusters have backtracking enabled. Backups help you to recover more quickly from a security incident. They also strengthen the resilience of your systems. Aurora backtracking reduces the time to recover a database to a point in time. It does not require a database restore to so."
   query       = query.rds_db_cluster_aurora_backtracking_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
@@ -491,7 +505,7 @@ control "rds_db_cluster_multiple_az_enabled" {
   title       = "RDS DB clusters should be configured for multiple Availability Zones"
   description = "This control checks whether high availability is enabled for your RDS DB clusters. RDS DB clusters should be configured for multiple Availability Zones to ensure availability of the data that is stored."
   query       = query.rds_db_cluster_multiple_az_enabled
-
+  severity = "high"
   tags = merge(local.conformance_pack_rds_common_tags, {
     nist_csf = "true"
   })

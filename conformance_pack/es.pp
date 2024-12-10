@@ -76,6 +76,8 @@ control "es_domain_in_vpc" {
   description = "Manage access to the AWS Cloud by ensuring AWS Elasticsearch Service (AWS ES) Domains are within an AWS Virtual Private Cloud (AWS VPC)."
   query       = query.es_domain_in_vpc
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_es_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"

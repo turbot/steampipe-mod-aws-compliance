@@ -9,6 +9,8 @@ control "ec2_instance_ssm_managed" {
   description = "An inventory of the software platforms and applications within the organization is possible by managing AWS Elastic Compute Cloud (AWS EC2) instances with AWS Systems Manager."
   query       = query.ec2_instance_ssm_managed
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_ssm_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -60,6 +62,8 @@ control "ssm_managed_instance_compliance_patch_compliant" {
   title       = "SSM managed instance patching should be compliant"
   description = "Enable this rule to help with identification and documentation of AWS Elastic Compute Cloud (AWS EC2) vulnerabilities."
   query       = query.ssm_managed_instance_compliance_patch_compliant
+
+  severity = "medium"
 
   tags = merge(local.conformance_pack_ssm_common_tags, {
     acsc_essential_eight                   = "true"

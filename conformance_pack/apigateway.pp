@@ -50,7 +50,7 @@ control "apigateway_stage_logging_enabled" {
   title       = "API Gateway stage logging should be enabled"
   description = "API Gateway logging displays detailed views of users who accessed the API and the way they accessed the API."
   query       = query.apigateway_stage_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"

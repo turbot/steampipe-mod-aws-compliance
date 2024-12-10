@@ -81,7 +81,7 @@ control "cloudfront_distribution_logging_enabled" {
   title       = "CloudFront distributions access logs should be enabled"
   description = "This control checks if AWS CloudFront distributions are configured to capture information from AWS Simple Storage Service (AWS S3) server access logs. This rule is non-compliant if a CloudFront distribution does not have logging configured."
   query       = query.cloudfront_distribution_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -105,7 +105,7 @@ control "cloudfront_distribution_waf_enabled" {
   title       = "CloudFront distributions should have AWS WAF enabled"
   description = "This control checks whether CloudFront distributions are associated with either AWS WAF or AWS WAFv2 web ACLs. The control fails if the distribution is not associated with a web ACL."
   query       = query.cloudfront_distribution_waf_enabled
-
+  severity = "high"
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     nist_csf = "true"
   })
@@ -115,7 +115,7 @@ control "cloudfront_distribution_configured_with_origin_failover" {
   title       = "CloudFront distributions should have origin failover configured"
   description = "This control checks whether an AWS CloudFront distribution is configured with an origin group that has two or more origins. CloudFront origin failover can increase availability. Origin failover automatically redirects traffic to a secondary origin if the primary origin is unavailable or if it returns specific HTTP response status codes."
   query       = query.cloudfront_distribution_configured_with_origin_failover
-
+  severity = "high"
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     nist_csf = "true"
   })

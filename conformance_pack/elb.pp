@@ -24,7 +24,7 @@ control "elb_application_classic_lb_logging_enabled" {
   title       = "ELB application and classic load balancer logging should be enabled"
   description = "Elastic Load Balancing activity is a central point of communication within an environment."
   query       = query.elb_application_classic_lb_logging_enabled
-
+  severity = "medium"
   tags = merge(local.conformance_pack_elb_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -196,6 +196,8 @@ control "elb_classic_lb_cross_zone_load_balancing_enabled" {
   description = "Enable cross-zone load balancing for your Elastic Load Balancers (ELBs) to help maintain adequate capacity and availability. The cross-zone load balancing reduces the need to maintain equivalent numbers of instances in each enabled availability zone."
   query       = query.elb_classic_lb_cross_zone_load_balancing_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_elb_common_tags, {
     cisa_cyber_essentials                  = "true"
     fedramp_low_rev_4                      = "true"
@@ -325,7 +327,7 @@ control "elb_classic_lb_multiple_az_configured" {
   title       = "ELB classic load balancers should span multiple availability zones"
   description = "This control checks whether a Classic Load Balancer has been configured to span multiple Availability Zones. The control fails if the Classic Load Balancer does not span multiple Availability Zones."
   query       = query.elb_classic_lb_multiple_az_configured
-
+  severity = "high"
   tags = merge(local.conformance_pack_elb_common_tags, {
     nist_csf     = "true"
     rbi_itf_nbfc = "true"
@@ -336,7 +338,7 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   title       = "ELB application, network, and gateway load balancers should span multiple availability zones"
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
-
+  severity = "high"
   tags = merge(local.foundational_security_elb_common_tags, {
     nist_csf     = "true"
     rbi_itf_nbfc = "true"

@@ -9,6 +9,8 @@ control "config_enabled_all_regions" {
   description = "This control checks whether AWS Config is enabled in the account for the local Region and is recording all resources."
   query       = query.config_enabled_all_regions
 
+  severity = "critical"
+
   tags = merge(local.conformance_pack_config_common_tags, {
     gdpr                                   = "true"
     gxp_eu_annex_11                        = "true"

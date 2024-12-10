@@ -9,6 +9,8 @@ control "ebs_encryption_by_default_enabled" {
   description = "To help protect data at rest, ensure that encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ebs_encryption_by_default_enabled
 
+  severity = "high"
+
   tags = merge(local.conformance_pack_ec2_common_tags, {
     cis_controls_v8_ig1                    = "true"
     cisa_cyber_essentials                  = "true"
@@ -58,6 +60,8 @@ control "ebs_volume_encryption_at_rest_enabled" {
   title       = "EBS volume encryption at rest should be enabled"
   description = "Because sensitive data can exist and to help protect data at rest, ensure encryption is enabled for your AWS Elastic Block Store (AWS EBS) volumes."
   query       = query.ebs_volume_encryption_at_rest_enabled
+
+  severity = "high"
 
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_moderate_rev_4 = "true"

@@ -32,7 +32,7 @@ control "acm_certificate_transparency_logging_enabled" {
   title       = "ACM certificates should have transparency logging enabled"
   description = "Ensure ACM certificates transparency logging is enabled as certificate transparency logging guards against SSL/TLS certificates issued by mistake or by a compromised certificate authority."
   query       = query.acm_certificate_transparency_logging_enabled
-
+  severity    = "medium"
   tags = local.conformance_pack_acm_common_tags
 }
 

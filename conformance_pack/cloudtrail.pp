@@ -24,7 +24,7 @@ control "cloudtrail_trail_integrated_with_logs" {
   title       = "CloudTrail trails should be integrated with CloudWatch logs"
   description = "Use AWS CloudWatch to centrally collect and manage log event activity. Inclusion of AWS CloudTrail data provides details of API call activity within your AWS account."
   query       = query.cloudtrail_trail_integrated_with_logs
-
+  severity = "high"
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
@@ -108,7 +108,7 @@ control "cloudtrail_multi_region_trail_enabled" {
   title       = "At least one multi-region AWS CloudTrail should be present in an account"
   description = "AWS CloudTrail records AWS Management Console actions and API calls. You can identify which users and accounts called AWS, the source IP address from where the calls were made, and when the calls occurred. CloudTrail will deliver log files from all AWS Regions to your S3 bucket if MULTI_REGION_CLOUD_TRAIL_ENABLED is enabled."
   query       = query.cloudtrail_multi_region_trail_enabled
-
+  severity = "critical"
   tags = merge(local.conformance_pack_cloudtrail_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"

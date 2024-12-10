@@ -42,6 +42,8 @@ control "waf_web_acl_logging_enabled" {
   description = "To help with logging and monitoring within your environment, enable AWS WAF logging on regional and global web ACLs."
   query       = query.waf_web_acl_logging_enabled
 
+  severity = "medium"
+
   tags = merge(local.conformance_pack_waf_common_tags, {
     acsc_essential_eight                   = "true"
     cis_controls_v8_ig1                    = "true"
