@@ -138,7 +138,7 @@ query "eks_cluster_control_plane_audit_logging_enabled" {
         jsonb_array_elements(logging -> 'ClusterLogging') as log
       where
         log ->> 'Enabled' = 'true'
-        and (log -> 'Types') @> '["api", "audit", "authenticator", "controllerManager", "scheduler"]'
+        and (log -> 'Types') @> '["audit"]'
     )
     select
       c.arn as resource,
@@ -147,11 +147,8 @@ query "eks_cluster_control_plane_audit_logging_enabled" {
         else 'alarm'
       end as status,
       case
-        when l.arn is not null then c.title || ' control plane audit logging enabled for all log types.'
-        else
-          case when logging -> 'ClusterLogging' @> '[{"Enabled": true}]' then c.title || ' control plane audit logging not enabled for all log types.'
-          else c.title || ' control plane audit logging not enabled.'
-          end
+        when l.arn is not null then title || ' control plane audit logging enabled.'
+        else title || ' control plane audit logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "c.")}
