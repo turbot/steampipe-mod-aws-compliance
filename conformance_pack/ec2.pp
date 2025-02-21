@@ -661,8 +661,8 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
         when l.instance_id is null then i.title || ' has no high level finding in inspector scans.'
         else i.title || ' has ' || (select count(*) from severity_list where instance_id = i.instance_id) || ' high level findings in inspector scans.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_ec2_instance as i
       left join ec2_istance_list as l on i.instance_id = l.instance_id;
