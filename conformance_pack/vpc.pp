@@ -1883,7 +1883,7 @@ query "vpc_peering_connection_route_table_least_privilege" {
       r ->> 'VpcPeeringConnectionId'
     )
     select
-      c.id as resource,
+      'arn:' || c.partition || ':ec2:' || c.region || ':' || c.account_id || ':vpc-peering-connection/' || c.id as resource,
       case
         when t.peering_connection_id is not null then 'alarm'
         else 'ok'
@@ -1958,7 +1958,7 @@ query "vpc_vpn_gateway_per_region_less_then_4" {
 query "vpc_peering_connection_no_cross_account_access" {
   sql = <<-EOQ
     select
-      id as resource,
+      'arn:' || partition || ':ec2:' || region || ':' || account_id || ':vpc-peering-connection/' || id as resource,
       case
         when status_code <> 'active' then 'alarm'
         when requester_owner_id <> accepter_owner_id then 'alarm'
