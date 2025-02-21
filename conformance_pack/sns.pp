@@ -103,9 +103,10 @@ query "sns_topic_policy_prohibit_public_access" {
       where
         s ->> 'Effect' = 'Allow'
         and (
-          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          (s -> 'Principal' -> 'AWS') = '["*"]'
           or s ->> 'Principal' = '*'
         )
+        and s -> 'Condition' is null
       group by
         topic_arn
     )
@@ -250,6 +251,7 @@ query "sns_topic_policy_prohibit_cross_account_access" {
           or s ->> 'Principal' = '*'
           or split_part(p, ':', 5) <> account_id
         )
+        and s -> 'Condition' is null
       group by
         topic_arn
     )
