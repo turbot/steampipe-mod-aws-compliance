@@ -32,5 +32,3 @@ query "acmpca_root_certificate_authority_disabled" {
       aws_acmpca_certificate_authority;
   EOQ
 }
-
-

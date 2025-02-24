@@ -614,7 +614,7 @@ query "vpc_network_acl_remote_administration" {
         when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
         else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
-      ${local.tag_dimensions_sql}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
       aws_vpc_network_acls as acl

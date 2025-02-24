@@ -75,7 +75,7 @@ query "route53_domain_auto_renew_enabled" {
         else title || ' auto renew disabled.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
@@ -96,7 +96,7 @@ query "route53_zone_query_logging_enabled" {
         else title || ' query logging to CloudWatch disabled.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_zone;
   EOQ
@@ -111,9 +111,8 @@ query "route53_domain_expires_30_days" {
         else 'alarm'
       end as status,
         title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.' as reason
-
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
@@ -129,7 +128,7 @@ query "route53_domain_expires_7_days" {
       end as status,
         title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.' as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
@@ -148,7 +147,7 @@ query "route53_domain_not_expired" {
         else title || ' set to expire in ' || extract(day from expiration_date - current_date) || ' days.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
@@ -167,7 +166,7 @@ query "route53_domain_privacy_protection_enabled" {
         else title || ' privacy protection disabled.'
         end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
@@ -185,9 +184,8 @@ query "route53_domain_transfer_lock_enabled" {
         when transfer_lock then title || ' transfer lock enabled.'
         else title || ' transfer lock disabled.'
         end reason
-
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_route53_domain;
   EOQ
