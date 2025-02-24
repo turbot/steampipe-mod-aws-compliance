@@ -111,7 +111,7 @@ query "waf_rule_condition_attached" {
         else title || ' has ' || jsonb_array_length(predicates) || ' attached conditions.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_waf_rule;
   EOQ
@@ -130,7 +130,7 @@ query "waf_rule_group_rule_attached" {
         else title || ' has ' || jsonb_array_length(activated_rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_waf_rule_group;
   EOQ
@@ -149,7 +149,7 @@ query "waf_web_acl_rule_attached" {
         else title || ' has ' || jsonb_array_length(rules) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_waf_web_acl;
   EOQ
@@ -168,7 +168,7 @@ query "waf_web_acl_logging_enabled" {
         else title || ' logging enabled.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_waf_web_acl;
   EOQ

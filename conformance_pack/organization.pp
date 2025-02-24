@@ -18,7 +18,6 @@ query "organizational_tag_policies_enabled" {
       select
         _ctx,
         account_id,
-        region,
         count(*) as count
       from
         aws_organizations_policy
@@ -26,7 +25,6 @@ query "organizational_tag_policies_enabled" {
         type = 'TAG_POLICY'
       group by
         _ctx,
-        region,
         account_id
     )
     select
@@ -38,7 +36,7 @@ query "organizational_tag_policies_enabled" {
         when count > 0 then 'Organizational tag policies are enabled.'
         else 'Organizational tag policies are disabled.'
       end as reason
-      ${local.common_dimensions_sql}
+      ${local.common_dimensions_global_sql}
     from
       tag_policy_enabled;
   EOQ
