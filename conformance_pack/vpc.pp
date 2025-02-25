@@ -1890,7 +1890,7 @@ query "vpc_peering_connection_route_table_least_privilege" {
       end as status,
       case
         when t.peering_connection_id is not null then c.title || ' does not have least privilege access.'
-        else c.title || ' have least privilege access.'
+        else c.title || ' has least privilege access.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -1966,7 +1966,7 @@ query "vpc_peering_connection_no_cross_account_access" {
       end as status,
       case
         when status_code <> 'active' then title || ' is not in active state.'
-        when requester_owner_id <> accepter_owner_id then title || ' have cross account access.'
+        when requester_owner_id <> accepter_owner_id then title || ' has cross account access.'
         else title || ' does not have cross account access.'
       end as reason
       ${local.tag_dimensions_sql}
@@ -2007,7 +2007,7 @@ query "vpc_gateway_endpoint_restrict_public_access" {
         when vpc_endpoint_type <> 'Gateway' then e.title || ' is of ' || e.vpc_endpoint_type || ' endpoint type.'
         when p.vpc_endpoint_id is null then e.title || ' does not allow public access.'
         else title || ' contains ' || coalesce(p.statements_num, 0) ||
-        ' statements that allows public access.'
+        ' statements that allow public access.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
