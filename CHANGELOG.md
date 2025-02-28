@@ -1,3 +1,13 @@
+## v1.2.1 [2025-02-28]
+
+_Bug fixes_
+
+- Refactored IAM and Route 53 queries to use global dimension qualifiers. ([#865](https://github.com/turbot/steampipe-mod-aws-compliance/pull/865))
+- Fixed `cloudfront_distribution_no_non_existent_s3_origin` query to correctly check if the distributions are associated with S3 buckets. ([#864](https://github.com/turbot/steampipe-mod-aws-compliance/pull/864))
+- Fixed the `eks_cluster_control_plane_audit_logging_enabled` query to correctly check if audit logging is enabled or not. ([#856](https://github.com/turbot/steampipe-mod-aws-compliance/pull/856))
+- Fixed the resource column of `vpc_peering_connection_route_table_least_privilege` and `vpc_peering_connection_no_cross_account_access` queries to use `arn` instead of `id`. ([#860](https://github.com/turbot/steampipe-mod-aws-compliance/pull/860))
+- Fixed typo in `iam_user_hardware_mfa_enabled` query. ([#851](https://github.com/turbot/steampipe-mod-aws-compliance/pull/851)) (Thanks to [@ramses999](https://github.com/ramses999) for the contribution!)
+
 ## v1.2.0 [2024-11-21]
 
 _What's new?_
