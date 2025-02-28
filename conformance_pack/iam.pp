@@ -1949,7 +1949,7 @@ query "iam_user_one_active_key" {
       k.status = 'active'
       or k.status is null
     group by
-      u.arn, u.name, u.account_id, u.tags, u._ctx;
+      u.arn, u.account_id, u.tags, u._ctx;
   EOQ
 }
 
