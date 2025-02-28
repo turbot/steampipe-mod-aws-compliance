@@ -537,11 +537,11 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
     with distribution_with_non_existent_bucket as (
       select
         distinct d.arn as arn,
-        to_jsonb(string_to_array((string_agg(split_part(o ->> 'Id', '.s3', 1), ',')),',')) as bucket_name_list
+        to_jsonb(string_to_array((string_agg(split_part(o ->> 'DomainName', '.', 1), ',')),',')) as bucket_name_list
       from
         aws_cloudfront_distribution as d,
         jsonb_array_elements(d.origins) as o
-        left join aws_s3_bucket as b on b.name = split_part(o ->> 'Id', '.s3', 1)
+        left join aws_s3_bucket as b on b.name = split_part(o ->> 'DomainName', '.', 1)
       where
         b.name is null
         and o ->> 'DomainName' like '%.s3.%'
@@ -549,7 +549,7 @@ query "cloudfront_distribution_no_non_existent_s3_origin" {
         d.arn
     )
     select
-      distinct b.arn as resource,
+      distinct d.arn as resource,
       case
         when b.arn is null then 'ok'
         else 'alarm'

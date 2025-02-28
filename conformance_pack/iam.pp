@@ -1400,7 +1400,7 @@ query "iam_policy_custom_no_assume_role" {
         else u.name || ' custom policies does not allow STS Role assumption.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u
       left join filter_users as fu on u.user_id = fu.user_id
@@ -1419,12 +1419,12 @@ query "iam_user_hardware_mfa_enabled" {
         else 'ok'
       end as status,
       case
-        when serial_number is null then u.name || ' MFA device not configured.'
+        when serial_number is null then u.name || ' MFA hardware device not configured.'
         when serial_number like any(array['%mfa%','%sms-mfa%']) then u.name || ' MFA enabled, but the MFA associated is a virtual device.'
         else u.name || ' hardware MFA device enabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_virtual_mfa_device as m
       right join aws_iam_user as u on m.user_id = u.user_id;
@@ -1457,7 +1457,7 @@ query "iam_user_with_administrator_access_mfa_enabled" {
         else u.name || ' has MFA token disabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u
       left join admin_users au on u.user_id = au.user_id
@@ -2188,7 +2188,7 @@ query "iam_policy_custom_no_permissive_role_assumption" {
       p.name || ' contains ' || coalesce(b.num, 0) ||
           ' statements that allow overly permissive STS role assumption.' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
       left join bad_policies as b on p.arn = b.arn
@@ -2345,7 +2345,7 @@ query "iam_role_no_administrator_access_policy_attached" {
         else r.name || ' does not have AdministratorAccess policy attached.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
       aws_iam_role as r
       left join admin_roles ar on r.arn = ar.arn
