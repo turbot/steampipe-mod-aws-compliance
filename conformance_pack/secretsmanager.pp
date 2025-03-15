@@ -66,6 +66,7 @@ control "secretsmanager_secret_unused_90_day" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
   })
 }
 

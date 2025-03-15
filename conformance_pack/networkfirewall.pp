@@ -20,7 +20,8 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
   query       = query.networkfirewall_firewall_policy_rule_group_not_empty
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -40,7 +41,8 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -61,11 +63,12 @@ control "networkfirewall_firewall_deletion_protection_enabled" {
 }
 
 control "networkfirewall_firewall_logging_enabled" {
-  title         = "Network Firewall logging should be enabled"
-  description   = "This control checks whether logging is enabled for an AWS Network Firewall firewall. The control fails if logging isn't enabled for at least one log type or if the logging destination doesn't exist."
-  query         = query.networkfirewall_firewall_logging_enabled
+  title       = "Network Firewall logging should be enabled"
+  description = "This control checks whether logging is enabled for an AWS Network Firewall firewall. The control fails if logging isn't enabled for at least one log type or if the logging destination doesn't exist."
+  query       = query.networkfirewall_firewall_logging_enabled
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    pci_dss_v400 = "true",
     acsc_essential_eight = "true"
   })
 }

@@ -48,6 +48,7 @@ control "ebs_snapshot_not_publicly_restorable" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"

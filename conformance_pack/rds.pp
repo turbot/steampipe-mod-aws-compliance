@@ -34,6 +34,7 @@ control "rds_db_cluster_events_subscription" {
   query       = query.rds_db_cluster_events_subscription
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v400         = "true",
     acsc_essential_eight = "true"
   })
 }
@@ -44,6 +45,7 @@ control "rds_db_instance_events_subscription" {
   query       = query.rds_db_instance_events_subscription
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v400         = "true",
     acsc_essential_eight = "true"
   })
 }
@@ -54,6 +56,7 @@ control "rds_db_parameter_group_events_subscription" {
   query       = query.rds_db_parameter_group_events_subscription
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v400         = "true",
     acsc_essential_eight = "true"
   })
 }
@@ -64,6 +67,7 @@ control "rds_db_security_group_events_subscription" {
   query       = query.rds_db_security_group_events_subscription
 
   tags = merge(local.conformance_pack_rds_common_tags, {
+    pci_dss_v400         = "true",
     acsc_essential_eight = "true"
   })
 }
@@ -181,6 +185,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
@@ -233,6 +238,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
@@ -261,6 +267,7 @@ control "rds_db_instance_logging_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
@@ -554,12 +561,28 @@ control "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
 }
 
 control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
-  title       = "Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
-  description = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
+  title       = "Aurora MySQL DB clusters should have audit logging enabled"
+  description = "This control checks whether an Amazon Aurora MySQL DB cluster has audit logging enabled. The control fails if an Aurora MySQL DB cluster doesn't have audit logging enabled."
   query       = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
 
-  tags = merge(local.foundational_security_rds_common_tags, {
-    acsc_essential_eight = "true"
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    acsc_essential_eight                   = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 
@@ -1566,6 +1589,25 @@ query "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_instance_with_non_default_certificate" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when ca_certificate_identifier = 'rds-ca-rsa2048-g1' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when ca_certificate_identifier = 'rds-ca-rsa2048-g1' then title || ' uses default certificate.'
+        else title || ' does not use default certificate.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
   EOQ
 }
 

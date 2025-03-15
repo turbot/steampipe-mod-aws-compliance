@@ -25,6 +25,7 @@ control "wafv2_web_acl_logging_enabled" {
     nist_800_53_rev_5                      = "true"
     nydfs_23                               = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -47,6 +48,7 @@ control "wafv2_rule_group_logging_enabled" {
 
   tags = merge(local.conformance_pack_wafv2_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 

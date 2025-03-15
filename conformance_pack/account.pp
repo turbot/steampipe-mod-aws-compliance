@@ -23,7 +23,9 @@ control "account_alternate_contact_security_registered" {
   description = "This control checks if an AWS Web Services (AWS) account has security contact information. The control fails if security contact information is not provided for the account."
   query       = query.account_alternate_contact_security_registered
 
-  tags = local.conformance_pack_account_common_tags
+  tags = merge(local.conformance_pack_account_common_tags, {
+    pci_dss_v400 = "true"
+  })
 }
 
 query "account_alternate_contact_security_registered" {

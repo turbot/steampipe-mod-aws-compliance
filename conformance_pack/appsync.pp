@@ -11,6 +11,7 @@ control "appsync_graphql_api_field_level_logging_enabled" {
 
   tags = merge(local.conformance_pack_appsync_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 

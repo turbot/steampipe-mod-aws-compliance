@@ -18,6 +18,7 @@ control "route53_zone_query_logging_enabled" {
   query       = query.route53_zone_query_logging_enabled
 
   tags = merge(local.conformance_pack_route53_common_tags, {
+    pci_dss_v400 = "true",
     acsc_essential_eight = "true"
   })
 }

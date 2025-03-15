@@ -49,6 +49,7 @@ control "codebuild_project_source_repo_oauth_configured" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -82,6 +83,7 @@ control "codebuild_project_logging_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -93,10 +95,10 @@ control "codebuild_project_artifact_encryption_enabled" {
   query       = query.codebuild_project_artifact_encryption_enabled
 
   tags = merge(local.conformance_pack_codebuild_common_tags, {
-    gxp_21_cfr_part_11    = "true"
-    gxp_eu_annex_11       = "true"
-    nist_csf              = "true"
-    nydfs_23              = "true"
+    gxp_21_cfr_part_11 = "true"
+    gxp_eu_annex_11    = "true"
+    nist_csf           = "true"
+    nydfs_23           = "true"
   })
 }
 

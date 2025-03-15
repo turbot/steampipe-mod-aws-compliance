@@ -29,6 +29,7 @@ control "cloudwatch_alarm_action_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -74,6 +75,7 @@ control "log_group_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -114,6 +116,7 @@ control "log_metric_filter_unauthorized_api" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -127,6 +130,7 @@ control "log_metric_filter_console_login_mfa" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -143,6 +147,7 @@ control "log_metric_filter_root_login" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
   })
 }
 
@@ -157,6 +162,7 @@ control "log_metric_filter_iam_policy" {
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -169,6 +175,7 @@ control "log_metric_filter_vpc" {
     gdpr               = "true"
     nist_800_171_rev_2 = "true"
     nist_csf           = "true"
+    pci_dss_v400       = "true"
   })
 }
 
@@ -182,6 +189,7 @@ control "log_metric_filter_route_table" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -195,6 +203,7 @@ control "log_metric_filter_network_gateway" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -208,6 +217,7 @@ control "log_metric_filter_network_acl" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -221,6 +231,7 @@ control "log_metric_filter_security_group" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -234,6 +245,7 @@ control "log_metric_filter_config_configuration" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -247,6 +259,7 @@ control "log_metric_filter_bucket_policy" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -259,6 +272,7 @@ control "log_metric_filter_disable_or_delete_cmk" {
     acsc_essential_eight = "true"
     gdpr                 = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -274,6 +288,7 @@ control "log_metric_filter_console_authentication_failure" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
   })
 }
 
@@ -287,6 +302,7 @@ control "log_metric_filter_cloudtrail_configuration" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 

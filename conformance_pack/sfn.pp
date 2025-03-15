@@ -10,6 +10,7 @@ control "sfn_state_machine_logging_enabled" {
   query       = query.sfn_state_machine_logging_enabled
 
   tags = merge(local.conformance_pack_sfn_common_tags, {
+    pci_dss_v400 = "true",
     acsc_essential_eight = "true"
   })
 }

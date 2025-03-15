@@ -88,6 +88,7 @@ control "cloudfront_distribution_logging_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    pci_dss_v400                           = "true"
   })
 }
 
@@ -107,7 +108,8 @@ control "cloudfront_distribution_waf_enabled" {
   query       = query.cloudfront_distribution_waf_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -137,7 +139,8 @@ control "cloudfront_distribution_use_custom_ssl_certificate" {
   query       = query.cloudfront_distribution_use_custom_ssl_certificate
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 

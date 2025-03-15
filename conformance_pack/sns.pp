@@ -45,6 +45,7 @@ control "sns_topic_notification_delivery_status_enabled" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v400         = "true"
   })
 }
 

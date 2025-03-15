@@ -5,12 +5,28 @@ locals {
 }
 
 control "emr_account_public_access_blocked" {
-  title       = "EMR public access should be blocked at account level"
-  description = "The block public access feature prevents a cluster in a public subnet from launching when any security group associated with the cluster has a rule that allows inbound traffic from IPv4 0.0.0.0/0 or IPv6 ::/0 (public access) on a port, unless the port has been specified as an exception - port 22 is an exception by default. This feature is enabled by default for each AWS Region in your AWS account and is not recommended to be turned off."
+  title       = "EMR account public access should be blocked"
+  description = "Manage access to resources in the AWS Cloud by ensuring Amazon EMR clusters cannot be made public."
   query       = query.emr_account_public_access_blocked
 
   tags = merge(local.conformance_pack_emr_common_tags, {
-    acsc_essential_eight = "true"
+    acsc_essential_eight                   = "true"
+    cis_controls_v8_ig1                    = "true"
+    cisa_cyber_essentials                  = "true"
+    fedramp_low_rev_4                      = "true"
+    fedramp_moderate_rev_4                 = "true"
+    ffiec                                  = "true"
+    gxp_21_cfr_part_11                     = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_800_53_rev_5                      = "true"
+    nist_csf                               = "true"
+    pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
+    rbi_cyber_security                     = "true"
+    soc_2                                  = "true"
   })
 }
 

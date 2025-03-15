@@ -101,6 +101,7 @@ control "efs_access_point_enforce_user_identity" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v400         = "true"
     rbi_itf_nbfc         = "true"
   })
 }
@@ -113,6 +114,7 @@ control "efs_access_point_enforce_root_directory" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
     rbi_itf_nbfc         = "true"
   })
 }

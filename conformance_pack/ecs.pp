@@ -88,7 +88,8 @@ control "ecs_cluster_container_insights_enabled" {
   query       = query.ecs_cluster_container_insights_enabled
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -111,6 +112,7 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 

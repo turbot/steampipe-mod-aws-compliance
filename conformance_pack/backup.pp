@@ -21,6 +21,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
