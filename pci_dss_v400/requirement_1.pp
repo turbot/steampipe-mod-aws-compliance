@@ -16,7 +16,7 @@ benchmark "pci_dss_v400_requirement_1" {
 }
 
 benchmark "pci_dss_v400_requirement_1_2" {
-  title       = "Requirement 1.2: Install and Maintain Network Security Controls"
+  title       = "1.2: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2_5,
@@ -111,7 +111,7 @@ benchmark "pci_dss_v400_requirement_1_2_8" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3" {
-  title       = "Requirement 1.3: Install and Maintain Network Security Controls"
+  title       = "1.3: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_3_1,
@@ -245,7 +245,7 @@ benchmark "pci_dss_v400_requirement_1_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4" {
-  title       = "Requirement 1.4: Install and Maintain Network Security Controls"
+  title       = "1.4: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_4_1,
@@ -390,7 +390,7 @@ benchmark "pci_dss_v400_requirement_1_4_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_5" {
-  title       = "Requirement 1.5: Install and Maintain Network Security Controls"
+  title       = "1.5: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_5_1,

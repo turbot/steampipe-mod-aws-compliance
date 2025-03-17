@@ -13,6 +13,8 @@ benchmark "pci_dss_v400" {
     benchmark.pci_dss_v400_appendix_a1,
     benchmark.pci_dss_v400_appendix_a3,
     benchmark.pci_dss_v400_requirement_1,
+    benchmark.pci_dss_v400_requirement_2,
+    benchmark.pci_dss_v400_requirement_4,
   ]
   tags = local.pci_dss_v400_common_tags
 }

@@ -16,7 +16,7 @@ benchmark "pci_dss_v400_appendix_a1" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_1" {
-  title = "Appendix A1.1: Additional PCI DSS Requirements for Multi-Tenant Service Providers"
+  title = "A1.1: Additional PCI DSS Requirements for Multi-Tenant Service Providers"
 
   children = [
     benchmark.pci_dss_v400_appendix_a1_1_2,
@@ -117,7 +117,7 @@ benchmark "pci_dss_v400_appendix_a1_1_3" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_2" {
-  title = "Appendix A1: Additional PCI DSS Requirements for Multi-Tenant Service Providers"
+  title = "A1.2: Additional PCI DSS Requirements for Multi-Tenant Service Providers"
 
   children = [
     benchmark.pci_dss_v400_appendix_a1_2_1,
