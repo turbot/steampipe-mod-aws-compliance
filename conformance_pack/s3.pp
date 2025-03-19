@@ -70,6 +70,7 @@ control "s3_bucket_default_encryption_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -93,9 +94,10 @@ control "s3_bucket_enforces_ssl" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
-    nydfs_23                               = "true"
     nist_csf                               = "true"
+    nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -145,6 +147,7 @@ control "s3_bucket_object_lock_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -170,9 +173,9 @@ control "s3_bucket_restrict_public_read_access" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -199,9 +202,9 @@ control "s3_bucket_restrict_public_write_access" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -230,6 +233,7 @@ control "s3_bucket_versioning_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -303,6 +307,7 @@ control "s3_bucket_default_encryption_enabled_kms" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
   })
 }
@@ -335,6 +340,7 @@ control "s3_bucket_policy_restricts_cross_account_permission_changes" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -360,6 +366,7 @@ control "s3_bucket_policy_restrict_public_access" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -374,6 +381,7 @@ control "s3_bucket_lifecycle_policy_enabled" {
     gxp_21_cfr_part_11 = "true"
     nist_csf           = "true"
     pci_dss_v321       = "true"
+    pci_dss_v400       = "true"
     soc_2              = "true"
   })
 }
@@ -387,6 +395,7 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
     gxp_21_cfr_part_11 = "true"
     nist_csf           = "true"
     pci_dss_v321       = "true"
+    pci_dss_v400       = "true"
     soc_2              = "true"
   })
 }
@@ -412,6 +421,7 @@ control "s3_bucket_acls_should_prohibit_user_access" {
   tags = merge(local.conformance_pack_s3_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
     rbi_itf_nbfc         = "true"
   })
 }
@@ -430,8 +440,8 @@ control "s3_access_point_restrict_public_access" {
   query       = query.s3_access_point_restrict_public_access
 
   tags = merge(local.conformance_pack_s3_common_tags, {
-    pci_dss_v400 = "true",
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true",
   })
 }
 

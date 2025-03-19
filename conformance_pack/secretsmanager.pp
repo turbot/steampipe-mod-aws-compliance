@@ -33,6 +33,7 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -51,6 +52,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -83,6 +85,7 @@ control "secretsmanager_secret_encrypted_with_kms_cmk" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
   })
 }
 
@@ -96,6 +99,7 @@ control "secretsmanager_secret_last_changed_90_day" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
   })
 }
 

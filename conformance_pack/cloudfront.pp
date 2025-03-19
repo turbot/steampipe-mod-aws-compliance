@@ -23,6 +23,7 @@ control "cloudfront_distribution_encryption_in_transit_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     soc_2                                  = "true"
   })
 }
@@ -61,6 +62,7 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
     pci_dss_v321       = "true"
+    pci_dss_v400       = "true"
   })
 }
 
@@ -74,6 +76,7 @@ control "cloudfront_distribution_custom_origins_encryption_in_transit_enabled" {
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
     pci_dss_v321       = "true"
+    pci_dss_v400       = "true"
   })
 }
 
@@ -98,7 +101,8 @@ control "cloudfront_distribution_sni_enabled" {
   query       = query.cloudfront_distribution_sni_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -150,7 +154,8 @@ control "cloudfront_distribution_origin_access_identity_enabled" {
   query       = query.cloudfront_distribution_origin_access_identity_enabled
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 

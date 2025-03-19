@@ -12,6 +12,7 @@ control "ecr_repository_image_scan_on_push_enabled" {
   tags = merge(local.conformance_pack_ecr_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -43,6 +44,7 @@ control "ecr_repository_lifecycle_policy_configured" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
+    pci_dss_v400       = "true"
   })
 }
 

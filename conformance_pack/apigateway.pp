@@ -44,6 +44,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -91,8 +92,8 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -126,6 +127,7 @@ control "apigateway_stage_use_waf_web_acl" {
     nist_csf               = "true"
     nydfs_23               = "true"
     pci_dss_v321           = "true"
+    pci_dss_v400           = "true"
     rbi_cyber_security     = "true"
   })
 }

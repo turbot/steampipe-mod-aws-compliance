@@ -45,6 +45,7 @@ control "emr_cluster_kerberos_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })

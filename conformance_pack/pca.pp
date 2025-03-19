@@ -5,9 +5,9 @@ locals {
 }
 
 control "acmpca_root_certificate_authority_disabled" {
-  title         = "AWS Private CA root certificate authority should be disabled"
-  description   = "This control checks if AWS Private CA has a root certificate authority (CA) that is disabled. The control fails if the root CA is enabled."
-  query         = query.acmpca_root_certificate_authority_disabled
+  title       = "AWS Private CA root certificate authority should be disabled"
+  description = "This control checks if AWS Private CA has a root certificate authority (CA) that is disabled. The control fails if the root CA is enabled."
+  query       = query.acmpca_root_certificate_authority_disabled
 
   tags = local.conformance_pack_pca_common_tags
 }

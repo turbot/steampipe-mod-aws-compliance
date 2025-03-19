@@ -49,6 +49,7 @@ control "neptune_db_cluster_automated_backup_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -67,6 +68,7 @@ control "neptune_db_cluster_iam_authentication_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 

@@ -90,6 +90,7 @@ control "waf_web_acl_resource_associated" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
+    pci_dss_v400 = "true"
   })
 }
 

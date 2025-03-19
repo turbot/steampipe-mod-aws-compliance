@@ -15,6 +15,7 @@ control "eks_cluster_secrets_encrypted" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
   })
 }
 
@@ -72,6 +73,7 @@ control "eks_cluster_with_latest_kubernetes_version" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v400         = "true"
   })
 }
 

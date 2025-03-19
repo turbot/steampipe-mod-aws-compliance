@@ -23,6 +23,7 @@ control "sns_topic_encrypted_at_rest" {
     nist_800_53_rev_5                      = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })

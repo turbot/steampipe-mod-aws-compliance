@@ -19,6 +19,7 @@ control "docdb_cluster_backup_retention_period_7_days" {
 
   tags = merge(local.conformance_pack_docdb_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 

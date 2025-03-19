@@ -77,6 +77,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v400                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -95,8 +96,8 @@ control "ssm_document_prohibit_public_access" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
     nydfs_23                               = "true"
+    pci_dss_v400                           = "true"
   })
 }
 

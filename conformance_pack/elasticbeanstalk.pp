@@ -49,6 +49,7 @@ control "elastic_beanstalk_environment_managed_updates_enabled" {
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 

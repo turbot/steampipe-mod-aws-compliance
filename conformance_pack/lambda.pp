@@ -151,6 +151,7 @@ control "lambda_function_use_latest_runtime" {
   tags = merge(local.conformance_pack_lambda_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 

@@ -79,6 +79,7 @@ control "ecs_task_definition_logging_enabled" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -101,6 +102,7 @@ control "ecs_task_definition_container_non_privileged" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -122,7 +124,8 @@ control "ecs_task_definition_container_environment_no_secret" {
   query       = query.ecs_task_definition_container_environment_no_secret
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -132,7 +135,8 @@ control "ecs_task_definition_no_host_pid_mode" {
   query       = query.ecs_task_definition_no_host_pid_mode
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    pci_dss_v400 = "true"
   })
 }
 
@@ -144,6 +148,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v400         = "true"
   })
 }
 
@@ -154,6 +159,7 @@ control "ecs_task_definition_no_root_user" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v400         = "true"
   })
 }
 
