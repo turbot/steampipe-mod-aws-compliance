@@ -5,22 +5,22 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_1" {
-  title       = "Requirement 1: Install and Maintain Network Security Controls (19)"
+  title = "Requirement 1: Install and Maintain Network Security Controls (19)"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2,
-    benchmark.pci_dss_v400_requirement_1_3,
+    benchmark.pci_dss_v400_requirement_1_3
   ]
 
   tags = local.pci_dss_v400_requirement_1_common_tags
 }
 
 benchmark "pci_dss_v400_requirement_1_2" {
-  title       = "1.2: Install and Maintain Network Security Controls"
+  title = "1.2: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2_5,
-    benchmark.pci_dss_v400_requirement_1_2_8,
+    benchmark.pci_dss_v400_requirement_1_2_8
   ]
 
 
@@ -48,10 +48,10 @@ benchmark "pci_dss_v400_requirement_1_2_5" {
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
-      pci_dss_v400_item_id = "1.2.5"
+    pci_dss_v400_item_id = "1.2.5"
   })
 }
 
@@ -103,7 +103,7 @@ benchmark "pci_dss_v400_requirement_1_2_8" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
     pci_dss_v400_item_id = "1.2.8"
@@ -111,11 +111,11 @@ benchmark "pci_dss_v400_requirement_1_2_8" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3" {
-  title       = "1.3: Install and Maintain Network Security Controls"
+  title = "1.3: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_3_1,
-    benchmark.pci_dss_v400_requirement_1_3_2,
+    benchmark.pci_dss_v400_requirement_1_3_2
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -126,7 +126,7 @@ benchmark "pci_dss_v400_requirement_1_3" {
 benchmark "pci_dss_v400_requirement_1_3_1" {
   title       = "1.3.1: Network access to and from the cardholder data environment is restricted."
   description = "Inbound traffic to the CDE is restricted as follows: To only traffic that is necessary. All other traffic is specifically denied."
-  
+
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
     control.apigateway_rest_api_stage_use_ssl_certificate,
@@ -175,7 +175,7 @@ benchmark "pci_dss_v400_requirement_1_3_1" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -186,8 +186,8 @@ benchmark "pci_dss_v400_requirement_1_3_1" {
 benchmark "pci_dss_v400_requirement_1_3_2" {
   title       = "1.3.2: Network access to and from the cardholder data environment is restricted."
   description = "Outbound traffic from the CDE is restricted as follows: To only traffic that is necessary. All other traffic is specifically denied."
-  
-  
+
+
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
     control.apigateway_rest_api_stage_use_ssl_certificate,
@@ -236,7 +236,7 @@ benchmark "pci_dss_v400_requirement_1_3_2" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -245,14 +245,14 @@ benchmark "pci_dss_v400_requirement_1_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4" {
-  title       = "1.4: Install and Maintain Network Security Controls"
+  title = "1.4: Install and Maintain Network Security Controls"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_4_1,
     benchmark.pci_dss_v400_requirement_1_4_2,
     benchmark.pci_dss_v400_requirement_1_4_3,
     benchmark.pci_dss_v400_requirement_1_4_4,
-    benchmark.pci_dss_v400_requirement_1_4_5,
+    benchmark.pci_dss_v400_requirement_1_4_5
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -273,7 +273,7 @@ benchmark "pci_dss_v400_requirement_1_4_1" {
     control.sagemaker_notebook_instance_in_vpc,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -331,7 +331,7 @@ benchmark "pci_dss_v400_requirement_1_4_2" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -340,13 +340,13 @@ benchmark "pci_dss_v400_requirement_1_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_3" {
-  title = "1.4.3: Network connections between trusted and untrusted networks are controlled."
+  title       = "1.4.3: Network connections between trusted and untrusted networks are controlled."
   description = "Anti-spoofing measures are implemented to detect and block forged source IP addresses from entering the trusted network."
 
   children = [
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
-    control.networkfirewall_firewall_policy_rule_group_not_empty,
+    control.networkfirewall_firewall_policy_rule_group_not_empty
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -367,7 +367,7 @@ benchmark "pci_dss_v400_requirement_1_4_4" {
     control.sagemaker_notebook_instance_in_vpc,
     control.vpc_igw_attached_to_authorized_vpc,
     control.vpc_route_table_restrict_public_access_to_igw,
-    control.vpc_vpn_tunnel_up,
+    control.vpc_vpn_tunnel_up
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -381,7 +381,7 @@ benchmark "pci_dss_v400_requirement_1_4_5" {
 
   children = [
     control.ec2_launch_template_not_publicly_accessible,
-    control.ecs_task_definition_no_host_pid_mode,
+    control.ecs_task_definition_no_host_pid_mode
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -390,10 +390,10 @@ benchmark "pci_dss_v400_requirement_1_4_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_5" {
-  title       = "1.5: Install and Maintain Network Security Controls"
+  title = "1.5: Install and Maintain Network Security Controls"
 
   children = [
-    benchmark.pci_dss_v400_requirement_1_5_1,
+    benchmark.pci_dss_v400_requirement_1_5_1
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {
@@ -448,7 +448,7 @@ benchmark "pci_dss_v400_requirement_1_5_1" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_1_common_tags, {

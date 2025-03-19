@@ -5,21 +5,21 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_2" {
-  title       = "Requirement 2: Apply Secure Configurations to All System Components"
+  title = "Requirement 2: Apply Secure Configurations to All System Components"
 
   children = [
-    benchmark.pci_dss_v400_requirement_2_2,
+    benchmark.pci_dss_v400_requirement_2_2
   ]
 
   tags = local.pci_dss_v400_requirement_2_common_tags
 }
 
 benchmark "pci_dss_v400_requirement_2_2" {
-  title       = "2.2: Apply Secure Configurations to All System Components"
+  title = "2.2: Apply Secure Configurations to All System Components"
 
   children = [
     benchmark.pci_dss_v400_requirement_2_2_5,
-    benchmark.pci_dss_v400_requirement_2_2_7,
+    benchmark.pci_dss_v400_requirement_2_2_7
   ]
 
   tags = merge(local.pci_dss_v400_requirement_2_common_tags, {
@@ -46,7 +46,7 @@ benchmark "pci_dss_v400_requirement_2_2_5" {
     control.redshift_cluster_encryption_in_transit_enabled,
     control.s3_bucket_enforces_ssl,
     control.vpc_security_group_restrict_ingress_common_ports_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.pci_dss_v400_requirement_2_common_tags, {
@@ -71,7 +71,7 @@ benchmark "pci_dss_v400_requirement_2_2_7" {
     control.opensearch_domain_https_required,
     control.opensearch_domain_node_to_node_encryption_enabled,
     control.redshift_cluster_encryption_in_transit_enabled,
-    control.s3_bucket_enforces_ssl,
+    control.s3_bucket_enforces_ssl
   ]
 
   tags = merge(local.pci_dss_v400_requirement_2_common_tags, {

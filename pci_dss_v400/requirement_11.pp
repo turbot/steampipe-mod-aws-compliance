@@ -10,7 +10,7 @@ benchmark "pci_dss_v400_requirement_11" {
   children = [
     benchmark.pci_dss_v400_requirement_11_3,
     benchmark.pci_dss_v400_requirement_11_5,
-    benchmark.pci_dss_v400_requirement_11_6,
+    benchmark.pci_dss_v400_requirement_11_6
   ]
 
   tags = local.pci_dss_v400_requirement_11_common_tags
@@ -20,7 +20,7 @@ benchmark "pci_dss_v400_requirement_11_3" {
   title = "11.3: Perform Penetration Testing"
 
   children = [
-    benchmark.pci_dss_v400_requirement_11_3_1,
+    benchmark.pci_dss_v400_requirement_11_3_1
   ]
 
   tags = merge(local.pci_dss_v400_requirement_11_common_tags, {
@@ -110,7 +110,7 @@ benchmark "pci_dss_v400_requirement_11_5" {
 
   children = [
     benchmark.pci_dss_v400_requirement_11_5_1,
-    benchmark.pci_dss_v400_requirement_11_5_2,
+    benchmark.pci_dss_v400_requirement_11_5_2
   ]
 
   tags = merge(local.pci_dss_v400_requirement_11_common_tags, {

@@ -53,7 +53,7 @@ benchmark "pci_dss_v400_appendix_a1_1_2" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.ssm_document_prohibit_public_access,
+    control.ssm_document_prohibit_public_access
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
@@ -108,7 +108,7 @@ benchmark "pci_dss_v400_appendix_a1_1_3" {
     control.waf_regional_web_acl_rule_attached,
     control.waf_rule_condition_attached,
     control.waf_rule_group_rule_attached,
-    control.waf_web_acl_rule_attached,
+    control.waf_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
@@ -171,7 +171,7 @@ benchmark "pci_dss_v400_appendix_a1_2_1" {
     control.sfn_state_machine_logging_enabled,
     control.vpc_flow_logs_enabled,
     control.waf_web_acl_logging_enabled,
-    control.wafv2_web_acl_logging_enabled,
+    control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
@@ -180,11 +180,11 @@ benchmark "pci_dss_v400_appendix_a1_2_1" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_2_3" {
-  title = "A1.2.3: Multi-tenant service providers facilitate logging and incident response for all customers."
+  title       = "A1.2.3: Multi-tenant service providers facilitate logging and incident response for all customers."
   description = "Processes or mechanisms are implemented for reporting and addressing suspected or confirmed security incidents and vulnerabilities, including: Customers can securely report security incidents and vulnerabilities to the provider. The provider addresses and remediates suspected or confirmed security incidents and vulnerabilities according to Requirement 6.3.1. Applicability Notes This requirement is a best practice until 31 March 2025, after which it will be required and must be fully considered during a PCI DSS assessment."
 
   children = [
-    control.account_alternate_contact_security_registered,
+    control.account_alternate_contact_security_registered
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {

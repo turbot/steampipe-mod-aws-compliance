@@ -8,7 +8,7 @@ benchmark "pci_dss_v400_requirement_12" {
   title = "Requirement 12: Support Information Security with Organizational Policies and Programs"
 
   children = [
-    benchmark.pci_dss_v400_requirement_12_10,
+    benchmark.pci_dss_v400_requirement_12_10
   ]
 
   tags = local.pci_dss_v400_requirement_12_common_tags
@@ -18,7 +18,7 @@ benchmark "pci_dss_v400_requirement_12_10" {
   title = "12.10: Implement an Incident Response Plan"
 
   children = [
-    benchmark.pci_dss_v400_requirement_12_10_5,
+    benchmark.pci_dss_v400_requirement_12_10_5
   ]
 
   tags = merge(local.pci_dss_v400_requirement_12_common_tags, {
@@ -39,7 +39,7 @@ benchmark "pci_dss_v400_requirement_12_10_5" {
     control.log_metric_filter_disable_or_delete_cmk,
     control.log_metric_filter_root_login,
     control.s3_bucket_event_notifications_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_12_common_tags, {

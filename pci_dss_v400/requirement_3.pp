@@ -12,7 +12,7 @@ benchmark "pci_dss_v400_requirement_3" {
     benchmark.pci_dss_v400_requirement_3_3,
     benchmark.pci_dss_v400_requirement_3_5,
     benchmark.pci_dss_v400_requirement_3_6,
-    benchmark.pci_dss_v400_requirement_3_7,
+    benchmark.pci_dss_v400_requirement_3_7
   ]
 
   tags = local.pci_dss_v400_requirement_3_common_tags
@@ -43,7 +43,7 @@ benchmark "pci_dss_v400_requirement_3_2_1" {
     control.ebs_volume_unused,
     control.ecr_repository_lifecycle_policy_configured,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -57,7 +57,7 @@ benchmark "pci_dss_v400_requirement_3_3" {
   children = [
     benchmark.pci_dss_v400_requirement_3_3_1,
     benchmark.pci_dss_v400_requirement_3_3_2,
-    benchmark.pci_dss_v400_requirement_3_3_3,
+    benchmark.pci_dss_v400_requirement_3_3_3
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -71,7 +71,7 @@ benchmark "pci_dss_v400_requirement_3_3_1" {
 
   children = [
     benchmark.pci_dss_v400_requirement_3_3_1_1,
-    benchmark.pci_dss_v400_requirement_3_3_1_3,
+    benchmark.pci_dss_v400_requirement_3_3_1_3
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -92,7 +92,7 @@ benchmark "pci_dss_v400_requirement_3_3_1_1" {
     control.ebs_volume_unused,
     control.ecr_repository_lifecycle_policy_configured,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -113,7 +113,7 @@ benchmark "pci_dss_v400_requirement_3_3_1_3" {
     control.ebs_volume_unused,
     control.ecr_repository_lifecycle_policy_configured,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -134,7 +134,7 @@ benchmark "pci_dss_v400_requirement_3_3_2" {
     control.ebs_volume_unused,
     control.ecr_repository_lifecycle_policy_configured,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -155,7 +155,7 @@ benchmark "pci_dss_v400_requirement_3_3_3" {
     control.ebs_volume_unused,
     control.ecr_repository_lifecycle_policy_configured,
     control.s3_bucket_lifecycle_policy_enabled,
-    control.s3_bucket_versioning_and_lifecycle_policy_enabled,
+    control.s3_bucket_versioning_and_lifecycle_policy_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -167,7 +167,7 @@ benchmark "pci_dss_v400_requirement_3_5" {
   title = "3.5: Protect Cryptographic Keys Used to Protect Stored Account Data"
 
   children = [
-    benchmark.pci_dss_v400_requirement_3_5_1,
+    benchmark.pci_dss_v400_requirement_3_5_1
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -181,7 +181,7 @@ benchmark "pci_dss_v400_requirement_3_5_1" {
 
   children = [
     benchmark.pci_dss_v400_requirement_3_5_1_1,
-    benchmark.pci_dss_v400_requirement_3_5_1_3,
+    benchmark.pci_dss_v400_requirement_3_5_1_3
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -201,7 +201,7 @@ benchmark "pci_dss_v400_requirement_3_5_1_1" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -243,7 +243,7 @@ benchmark "pci_dss_v400_requirement_3_5_1_3" {
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket,
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
-    control.ssm_document_prohibit_public_access,
+    control.ssm_document_prohibit_public_access
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -270,7 +270,7 @@ benchmark "pci_dss_v400_requirement_3_6_1" {
   children = [
     benchmark.pci_dss_v400_requirement_3_6_1_2,
     benchmark.pci_dss_v400_requirement_3_6_1_3,
-    benchmark.pci_dss_v400_requirement_3_6_1_4,
+    benchmark.pci_dss_v400_requirement_3_6_1_4
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -290,7 +290,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_2" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -310,7 +310,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_3" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -330,7 +330,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_4" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -347,7 +347,7 @@ benchmark "pci_dss_v400_requirement_3_7" {
     benchmark.pci_dss_v400_requirement_3_7_4,
     benchmark.pci_dss_v400_requirement_3_7_5,
     benchmark.pci_dss_v400_requirement_3_7_6,
-    benchmark.pci_dss_v400_requirement_3_7_7,
+    benchmark.pci_dss_v400_requirement_3_7_7
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -367,7 +367,7 @@ benchmark "pci_dss_v400_requirement_3_7_1" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -387,7 +387,7 @@ benchmark "pci_dss_v400_requirement_3_7_2" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -408,7 +408,7 @@ benchmark "pci_dss_v400_requirement_3_7_4" {
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.kms_cmk_rotation_enabled,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -422,7 +422,7 @@ benchmark "pci_dss_v400_requirement_3_7_5" {
 
   children = [
     control.acm_certificate_expires_30_days,
-    control.kms_cmk_rotation_enabled,
+    control.kms_cmk_rotation_enabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -442,7 +442,7 @@ benchmark "pci_dss_v400_requirement_3_7_6" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {
@@ -462,7 +462,7 @@ benchmark "pci_dss_v400_requirement_3_7_7" {
     control.elb_classic_lb_use_ssl_certificate,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
-    control.kms_key_not_pending_deletion,
+    control.kms_key_not_pending_deletion
   ]
 
   tags = merge(local.pci_dss_v400_requirement_3_common_tags, {

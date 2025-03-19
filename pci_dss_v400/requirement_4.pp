@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_4" {
-  title       = "Requirement 4: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
+  title = "Requirement 4: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
 
   children = [
     benchmark.pci_dss_v400_requirement_4_2
@@ -15,7 +15,7 @@ benchmark "pci_dss_v400_requirement_4" {
 }
 
 benchmark "pci_dss_v400_requirement_4_2" {
-  title       = "4.2: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
+  title = "4.2: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
   children = [
     benchmark.pci_dss_v400_requirement_4_2_1,
   ]

@@ -10,7 +10,7 @@ benchmark "pci_dss_v400_requirement_6" {
   children = [
     benchmark.pci_dss_v400_requirement_6_3,
     benchmark.pci_dss_v400_requirement_6_4,
-    benchmark.pci_dss_v400_requirement_6_5,
+    benchmark.pci_dss_v400_requirement_6_5
   ]
 
   tags = local.pci_dss_v400_requirement_6_common_tags
@@ -20,7 +20,7 @@ benchmark "pci_dss_v400_requirement_6_3" {
   title = "6.3: Vulnerabilities Are Identified and Addressed"
 
   children = [
-    benchmark.pci_dss_v400_requirement_6_3_3,
+    benchmark.pci_dss_v400_requirement_6_3_3
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -41,7 +41,7 @@ benchmark "pci_dss_v400_requirement_6_3_3" {
     control.opensearch_domain_updated_with_latest_service_software_version,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.redshift_cluster_maintenance_settings_check,
-    control.ssm_managed_instance_compliance_patch_compliant,
+    control.ssm_managed_instance_compliance_patch_compliant
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -54,7 +54,7 @@ benchmark "pci_dss_v400_requirement_6_4" {
 
   children = [
     benchmark.pci_dss_v400_requirement_6_4_1,
-    benchmark.pci_dss_v400_requirement_6_4_2,
+    benchmark.pci_dss_v400_requirement_6_4_2
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -77,7 +77,7 @@ benchmark "pci_dss_v400_requirement_6_4_1" {
     control.waf_rule_group_rule_attached,
     control.waf_web_acl_resource_associated,
     control.waf_web_acl_rule_attached,
-    control.wafv2_web_acl_rule_attached,
+    control.wafv2_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -100,7 +100,7 @@ benchmark "pci_dss_v400_requirement_6_4_2" {
     control.waf_rule_group_rule_attached,
     control.waf_web_acl_resource_associated,
     control.waf_web_acl_rule_attached,
-    control.wafv2_web_acl_rule_attached,
+    control.wafv2_web_acl_rule_attached
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -113,7 +113,7 @@ benchmark "pci_dss_v400_requirement_6_5" {
 
   children = [
     benchmark.pci_dss_v400_requirement_6_5_5,
-    benchmark.pci_dss_v400_requirement_6_5_6,
+    benchmark.pci_dss_v400_requirement_6_5_6
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -126,7 +126,7 @@ benchmark "pci_dss_v400_requirement_6_5_5" {
   description = "Responsibilities for using the change control processes are assigned to appropriate personnel who are also trained in how to use the processes."
 
   children = [
-    control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled,
+    control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {
@@ -139,7 +139,7 @@ benchmark "pci_dss_v400_requirement_6_5_6" {
   description = "Upon completion of a significant change, all relevant PCI DSS requirements are implemented on all new or changed systems and networks, and documentation is updated as applicable."
 
   children = [
-    control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled,
+    control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
   ]
 
   tags = merge(local.pci_dss_v400_requirement_6_common_tags, {

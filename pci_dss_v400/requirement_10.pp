@@ -13,7 +13,7 @@ benchmark "pci_dss_v400_requirement_10" {
     benchmark.pci_dss_v400_requirement_10_4,
     benchmark.pci_dss_v400_requirement_10_5,
     benchmark.pci_dss_v400_requirement_10_6,
-    benchmark.pci_dss_v400_requirement_10_7,
+    benchmark.pci_dss_v400_requirement_10_7
   ]
 
   tags = local.pci_dss_v400_requirement_10_common_tags
@@ -24,7 +24,7 @@ benchmark "pci_dss_v400_requirement_10_2" {
 
   children = [
     benchmark.pci_dss_v400_requirement_10_2_1,
-    benchmark.pci_dss_v400_requirement_10_2_2,
+    benchmark.pci_dss_v400_requirement_10_2_2
   ]
 
   tags = merge(local.pci_dss_v400_requirement_10_common_tags, {
@@ -452,7 +452,7 @@ benchmark "pci_dss_v400_requirement_10_3" {
     benchmark.pci_dss_v400_requirement_10_3_1,
     benchmark.pci_dss_v400_requirement_10_3_2,
     benchmark.pci_dss_v400_requirement_10_3_3,
-    benchmark.pci_dss_v400_requirement_10_3_4,
+    benchmark.pci_dss_v400_requirement_10_3_4
   ]
 
   tags = merge(local.pci_dss_v400_requirement_10_common_tags, {
