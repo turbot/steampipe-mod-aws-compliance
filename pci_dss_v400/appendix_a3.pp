@@ -37,7 +37,6 @@ benchmark "pci_dss_v400_appendix_a3_3_1" {
     control.cloudformation_stack_notifications_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
-    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
@@ -48,7 +47,7 @@ benchmark "pci_dss_v400_appendix_a3_3_1" {
     control.log_metric_filter_iam_policy,
     control.log_metric_filter_network_acl,
     control.log_metric_filter_network_gateway,
-    control.log_metric_filter_root_login
+    control.log_metric_filter_root_login,
     control.log_metric_filter_route_table,
     control.log_metric_filter_security_group,
     control.log_metric_filter_unauthorized_api,
@@ -56,7 +55,7 @@ benchmark "pci_dss_v400_appendix_a3_3_1" {
     control.s3_bucket_event_notifications_enabled,
     control.securityhub_enabled,
     control.sns_topic_notification_delivery_status_enabled,
-    control.wafv2_rule_group_logging_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
@@ -132,7 +131,6 @@ benchmark "pci_dss_v400_appendix_a3_5_1" {
     control.cloudformation_stack_notifications_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
-    control.cloudwatch_alarm_action_enabled,
     control.ec2_instance_detailed_monitoring_enabled,
     control.log_metric_filter_bucket_policy,
     control.log_metric_filter_cloudtrail_configuration,
@@ -143,7 +141,7 @@ benchmark "pci_dss_v400_appendix_a3_5_1" {
     control.log_metric_filter_iam_policy,
     control.log_metric_filter_network_acl,
     control.log_metric_filter_network_gateway,
-    control.log_metric_filter_root_login
+    control.log_metric_filter_root_login,
     control.log_metric_filter_route_table,
     control.log_metric_filter_security_group,
     control.log_metric_filter_unauthorized_api,
@@ -151,7 +149,7 @@ benchmark "pci_dss_v400_appendix_a3_5_1" {
     control.s3_bucket_event_notifications_enabled,
     control.securityhub_enabled,
     control.sns_topic_notification_delivery_status_enabled,
-    control.wafv2_rule_group_logging_enabled,
+    control.wafv2_rule_group_logging_enabled
   ]
 
   tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {

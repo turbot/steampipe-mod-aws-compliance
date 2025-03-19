@@ -142,7 +142,7 @@ benchmark "pci_dss_v400_requirement_11_5_1_1" {
     control.vpc_flow_logs_enabled,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
-    control.vpc_security_group_restrict_ingress_tcp_udp_all,
+    control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
   tags = merge(local.pci_dss_v400_requirement_11_common_tags, {
@@ -165,9 +165,7 @@ benchmark "pci_dss_v400_requirement_11_5_2" {
     control.ec2_instance_not_publicly_accessible,
     control.guardduty_enabled,
     control.iam_account_password_policy_strong_min_reuse_24,
-    control.iam_no_root_access_key,
     control.iam_policy_no_star_star,
-    control.iam_root_mfa_enabled,
     control.iam_user_mfa_enabled,
     control.lambda_function_restrict_public_access,
     control.log_metric_filter_console_authentication_failure,
@@ -193,7 +191,7 @@ benchmark "pci_dss_v400_requirement_11_6" {
   title = "11.6: Respond to Security Control Failures"
 
   children = [
-    benchmark.pci_dss_v400_requirement_11_6_1,
+    benchmark.pci_dss_v400_requirement_11_6_1
   ]
 
   tags = merge(local.pci_dss_v400_requirement_11_common_tags, {
