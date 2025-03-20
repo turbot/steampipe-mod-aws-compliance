@@ -18,7 +18,7 @@ benchmark "pci_dss_v400_requirement_6" {
 }
 
 benchmark "pci_dss_v400_requirement_6_3" {
-  title       = "6.3 Security vulnerabilities are identified and addressed."
+  title       = "6.3 Security vulnerabilities are identified and addressed"
 
   children = [
     benchmark.pci_dss_v400_requirement_6_3_3
@@ -123,7 +123,7 @@ benchmark "pci_dss_v400_requirement_6_5" {
 }
 
 benchmark "pci_dss_v400_requirement_6_5_5" {
-  title       = "6.5.5: Live PANs are not used in pre-production environments, except where those environments are included in the CDE and protected in accordance with all applicable PCI DSS requirements."
+  title       = "6.5.5: Live PANs are not used in pre-production environments, except where those environments are included in the CDE and protected in accordance with all applicable PCI DSS requirements"
   description = "Use of live PANs outside of protected CDEs provides malicious individuals with the opportunity to gain unauthorized access to cardholder data."
 
   children = [
@@ -136,7 +136,7 @@ benchmark "pci_dss_v400_requirement_6_5_5" {
 }
 
 benchmark "pci_dss_v400_requirement_6_5_6" {
-  title       = "6.5.6: Test data and test accounts are removed from system components before the system goes into production."
+  title       = "6.5.6: Test data and test accounts are removed from system components before the system goes into production"
   description = "This data may give away information about the functioning of an application or system and is an easy target for unauthorized individuals to exploit to gain access to systems. Possession of such information could facilitate compromise of the system and related account data."
 
   children = [

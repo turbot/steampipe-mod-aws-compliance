@@ -53,7 +53,7 @@ benchmark "pci_dss_v400_requirement_4_2_1" {
 }
 
 benchmark "pci_dss_v400_requirement_4_2_1_1" {
-  title       = "4.2.1.1: An inventory of the entity's trusted keys and certificates used to protect PAN during transmission is maintained."
+  title       = "4.2.1.1: An inventory of the entity's trusted keys and certificates used to protect PAN during transmission is maintained"
   description = "The inventory of trusted keys helps the entity keep track of the algorithms, protocols, key strength, key custodians, and key expiry dates. This enables the entity to respond quickly to vulnerabilities discovered in encryption software, certificates, and cryptographic algorithms."
 
   children = [

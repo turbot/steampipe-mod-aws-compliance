@@ -16,7 +16,7 @@ benchmark "pci_dss_v400_requirement_7" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2" {
-  title       = "7.2: Access to system components and data is appropriately defined and assigned."
+  title       = "7.2: Access to system components and data is appropriately defined and assigned"
 
   children = [
     benchmark.pci_dss_v400_requirement_7_2_1,
@@ -116,7 +116,7 @@ benchmark "pci_dss_v400_requirement_7_2_2" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_3" {
-  title       = "7.2.3: Required privileges are approved by authorized personnel."
+  title       = "7.2.3: Required privileges are approved by authorized personnel"
   description = "Documented approval (for example, in writing or electronically) assures that those with access and privileges are known and authorized by management, and that their access is necessary for their job function."
 
   children = [
@@ -235,7 +235,7 @@ benchmark "pci_dss_v400_requirement_7_3" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_1" {
-  title       = "7.3.1: An access control system(s) is in place that restricts access based on a user's need to know and covers all system components."
+  title       = "7.3.1: An access control system(s) is in place that restricts access based on a user's need to know and covers all system components"
   description = "Without a mechanism to restrict access based on user's need to know, a user may unknowingly be granted access to cardholder data. Access control systems automate the process of restricting access and assigning privileges."
 
   children = [
@@ -274,7 +274,7 @@ benchmark "pci_dss_v400_requirement_7_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_2" {
-  title       = "7.3.2: The access control system(s) is configured to enforce permissions assigned to individuals, applications, and systems based on job classification and function."
+  title       = "7.3.2: The access control system(s) is configured to enforce permissions assigned to individuals, applications, and systems based on job classification and function"
   description = "Restricting privileged access with an access control system reduces the opportunity for errors in the assignment of permissions to individuals, applications, and systems."
 
   children = [
@@ -310,7 +310,7 @@ benchmark "pci_dss_v400_requirement_7_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_3" {
-  title       = "7.3.3: The access control system(s) is set to “deny all” by default."
+  title       = "7.3.3: The access control system(s) is set to “deny all” by default"
   description = "A default setting of 'deny all' ensures no one is granted access unless a rule is established specifically granting such access."
 
   children = [

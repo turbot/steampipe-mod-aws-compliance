@@ -20,7 +20,7 @@ benchmark "pci_dss_v400_requirement_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_2" {
-  title       = "3.2: Storage of account data is kept to a minimum."
+  title = "3.2: Storage of account data is kept to a minimum"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_2_1,
@@ -33,7 +33,7 @@ benchmark "pci_dss_v400_requirement_3_2" {
 
 benchmark "pci_dss_v400_requirement_3_2_1" {
   title       = "3.2.1: Account data storage is kept to a minimum through implementation of data retention and disposal policies, procedures, and processes"
-  description = "A formal data retention policy identifies what data needs to be retained, for how long, and where that data resides so it can be securely destroyed or deleted as soon as it is no longer needed"
+  description = "A formal data retention policy identifies what data needs to be retained, for how long, and where that data resides so it can be securely destroyed or deleted as soon as it is no longer needed."
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -53,7 +53,7 @@ benchmark "pci_dss_v400_requirement_3_2_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3" {
-  title       = "3.3: Sensitive authentication data (SAD) is not stored after authorization."
+  title = "3.3: Sensitive authentication data (SAD) is not stored after authorization"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_3_1,
@@ -67,7 +67,7 @@ benchmark "pci_dss_v400_requirement_3_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1" {
-  title       = "3.3.1 SAD is not stored after authorization, even if encrypted. All sensitive authentication data received is rendered unrecoverable upon completion of the authorization process."
+  title       = "3.3.1 SAD is not stored after authorization, even if encrypted. All sensitive authentication data received is rendered unrecoverable upon completion of the authorization process"
   description = "SAD is very valuable to malicious individuals as it allows them to generate counterfeit payment cards and create fraudulent transactions. Therefore, the storage of SAD upon completion of the authorization process is prohibited."
 
   children = [
@@ -81,7 +81,7 @@ benchmark "pci_dss_v400_requirement_3_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1_1" {
-  title       = "3.3.1.1: The full contents of any track are not stored upon completion of the authorization process."
+  title       = "3.3.1.1: The full contents of any track are not stored upon completion of the authorization process"
   description = "If full contents of any track (from the magnetic stripe on the back of a card if present, equivalent data contained on a chip, or elsewhere) is stored, malicious individuals who obtain that data can use it to reproduce payment cards and complete fraudulent transactions."
 
   children = [
@@ -102,7 +102,7 @@ benchmark "pci_dss_v400_requirement_3_3_1_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1_3" {
-  title       = "3.3.1.3 The personal identification number (PIN) and the PIN block are not stored upon completion of the authorization process."
+  title       = "3.3.1.3 The personal identification number (PIN) and the PIN block are not stored upon completion of the authorization process"
   description = "PIN and PIN blocks should be known only to the card owner or entity that issued the card. If this data is stolen, malicious individuals can execute fraudulent PIN-based transactions (for example, in-store purchases and ATM withdrawals). Not storing this data reduces the probability of it being compromised."
 
   children = [
@@ -123,7 +123,7 @@ benchmark "pci_dss_v400_requirement_3_3_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_2" {
-  title       = "3.3.2: SAD that is stored electronically prior to completion of authorization is encrypted using strong cryptography."
+  title       = "3.3.2: SAD that is stored electronically prior to completion of authorization is encrypted using strong cryptography"
   description = "SAD can be used by malicious individuals to increase the probability of successfully generating counterfeit payment cards and creating fraudulent transactions."
 
   children = [
@@ -165,7 +165,7 @@ benchmark "pci_dss_v400_requirement_3_3_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_5" {
-  title       = "3.5 Primary account number (PAN) is secured wherever it is stored."
+  title = "3.5 Primary account number (PAN) is secured wherever it is stored"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_5_1
@@ -253,7 +253,7 @@ benchmark "pci_dss_v400_requirement_3_5_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6" {
-  title       = "3.6: Fully Document and Implement Key-Management Processes and Procedures for Cryptographic Keys"
+  title = "3.6: Fully Document and Implement Key-Management Processes and Procedures for Cryptographic Keys"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_6_1,
@@ -300,7 +300,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1_3" {
-  title       = "3.6.1.3: Access to cleartext cryptographic key components is restricted to the fewest number of custodians necessary."
+  title       = "3.6.1.3: Access to cleartext cryptographic key components is restricted to the fewest number of custodians necessary"
   description = "Restricting the number of people who have access to cleartext cryptographic key components reduces the risk of stored account data being retrieved or rendered visible by unauthorized parties."
 
   children = [
@@ -320,7 +320,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1_4" {
-  title       = "3.6.1.4: Cryptographic keys are stored in the fewest possible locations."
+  title       = "3.6.1.4: Cryptographic keys are stored in the fewest possible locations"
   description = "Storing any cryptographic keys in the fewest locations helps an organization track and monitor all key locations and minimizes the potential for keys to be exposed to unauthorized parties."
 
   children = [
@@ -340,7 +340,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_4" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7" {
-  title       = "3.7: Where cryptography is used to protect stored account data, key management processes and procedures covering all aspects of the key lifecycle are defined and implemented."
+  title = "3.7: Where cryptography is used to protect stored account data, key management processes and procedures covering all aspects of the key lifecycle are defined and implemented"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_7_1,
@@ -357,7 +357,7 @@ benchmark "pci_dss_v400_requirement_3_7" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_1" {
-  title       = "3.7.1: Key-management policies and procedures are implemented to include generation of strong cryptographic keys used to protect stored account data."
+  title       = "3.7.1: Key-management policies and procedures are implemented to include generation of strong cryptographic keys used to protect stored account data"
   description = "Use of strong cryptographic keys significantly increases the level of security of encrypted account data."
 
   children = [
@@ -377,7 +377,7 @@ benchmark "pci_dss_v400_requirement_3_7_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_2" {
-  title       = "3.7.2: Key-management policies and procedures are implemented to include secure distribution of cryptographic keys used to protect stored account data."
+  title       = "3.7.2: Key-management policies and procedures are implemented to include secure distribution of cryptographic keys used to protect stored account data"
   description = "Secure distribution or conveyance of secret or private cryptographic keys means that keys are distributed only to authorized custodians."
 
   children = [
@@ -397,7 +397,7 @@ benchmark "pci_dss_v400_requirement_3_7_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_4" {
-  title       = "3.7.4: Key management policies and procedures are implemented for cryptographic key changes for keys that have reached the end of their cryptoperiod, as defined by the associated application vendor or key owner."
+  title       = "3.7.4: Key management policies and procedures are implemented for cryptographic key changes for keys that have reached the end of their cryptoperiod, as defined by the associated application vendor or key owner"
   description = "Changing encryption keys when they reach the end of their cryptoperiod is imperative to minimize the risk of someone obtaining the encryption keys and using them to decrypt data."
 
   children = [
@@ -418,7 +418,7 @@ benchmark "pci_dss_v400_requirement_3_7_4" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_5" {
-  title       = "3.7.5: Key management policies procedures are implemented to include the retirement, replacement, or destruction of keys used to protect stored account data."
+  title       = "3.7.5: Key management policies procedures are implemented to include the retirement, replacement, or destruction of keys used to protect stored account data"
   description = "Keys that are no longer required, keys with weakened integrity, and keys that are known or suspected to be compromised, should be archived, revoked, and/or destroyed to ensure that the keys can no longer be used."
 
   children = [
@@ -432,7 +432,7 @@ benchmark "pci_dss_v400_requirement_3_7_5" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_6" {
-  title       = "3.7.6 Where manual cleartext cryptographic keymanagement operations are performed by personnel, key-management policies and procedures are implemented, including managing these operations using split knowledge and dual control."
+  title       = "3.7.6 Where manual cleartext cryptographic keymanagement operations are performed by personnel, key-management policies and procedures are implemented, including managing these operations using split knowledge and dual control"
   description = "Split knowledge and dual control of keys are used to eliminate the possibility of a single person having access to the whole key and therefore being able to gain unauthorized access to the data."
 
   children = [
@@ -452,7 +452,7 @@ benchmark "pci_dss_v400_requirement_3_7_6" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_7" {
-  title       = "3.7.7 Key management policies and procedures are implemented to include the prevention of unauthorized substitution of cryptographic keys."
+  title       = "3.7.7 Key management policies and procedures are implemented to include the prevention of unauthorized substitution of cryptographic keys"
   description = "If an attacker is able to substitute an entity's key with a key the attacker knows, the attacker will be able to decrypt all data encrypted with that key."
 
   children = [

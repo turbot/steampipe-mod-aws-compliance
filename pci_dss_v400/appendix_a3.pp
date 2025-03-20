@@ -6,7 +6,7 @@ locals {
 
 benchmark "pci_dss_v400_appendix_a3" {
   title       = "Appendix A3: Designated Entities Supplemental Validation (DESV)"
-  description = "This Appendix applies only to entities designated by a payment brand(s) or acquirer as requiring additional validation of existing PCI DSS requirements. An entity is required to undergo an assessment according to this Appendix ONLY if instructed to do so by an acquirer or a payment brand"
+  description = "This Appendix applies only to entities designated by a payment brand(s) or acquirer as requiring additional validation of existing PCI DSS requirements. An entity is required to undergo an assessment according to this Appendix ONLY if instructed to do so by an acquirer or a payment brand."
 
   children = [
     benchmark.pci_dss_v400_appendix_a3_3,
@@ -65,7 +65,7 @@ benchmark "pci_dss_v400_appendix_a3_3_1" {
 }
 
 benchmark "pci_dss_v400_appendix_a3_4" {
-  title       = "A3.4: Logical access to the cardholder data environment is controlled and managed."
+  title       = "A3.4: Logical access to the cardholder data environment is controlled and managed"
 
   children = [
     benchmark.pci_dss_v400_appendix_a3_4_1,
@@ -77,7 +77,7 @@ benchmark "pci_dss_v400_appendix_a3_4" {
 }
 
 benchmark "pci_dss_v400_appendix_a3_4_1" {
-  title       = "A3.4.1: User accounts and access privileges to inscope system components are reviewed at least once every six months to ensure user accounts and access privileges remain appropriate based on job function, and that all access is authorized."
+  title       = "A3.4.1: User accounts and access privileges to inscope system components are reviewed at least once every six months to ensure user accounts and access privileges remain appropriate based on job function, and that all access is authorized"
   description = "Regular review of access rights helps to detect excessive access rights remaining after user job responsibilities change, system functions change, or other modifications. If excessive user rights are not revoked in due time, they may be used by malicious users for unauthorized access."
 
   children = [
@@ -113,7 +113,7 @@ benchmark "pci_dss_v400_appendix_a3_4_1" {
 }
 
 benchmark "pci_dss_v400_appendix_a3_5" {
-  title       = "A3.5: Suspicious events are identified and responded to."
+  title       = "A3.5: Suspicious events are identified and responded to"
 
   children = [
     benchmark.pci_dss_v400_appendix_a3_5_1,

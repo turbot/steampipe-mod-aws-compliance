@@ -113,7 +113,7 @@ benchmark "pci_dss_v400_requirement_1_2_8" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3" {
-  title       = "1.3 Network access to and from the cardholder data environment is restricted."
+  title       = "1.3 Network access to and from the cardholder data environment is restricted"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_3_1,
@@ -127,7 +127,7 @@ benchmark "pci_dss_v400_requirement_1_3" {
 
 benchmark "pci_dss_v400_requirement_1_3_1" {
   title       = "1.3.1: Inbound traffic to the CDE is restricted as follows: To only traffic that is necessary, All other traffic is specifically denied"
-  description = "This requirement aims to prevent malicious individuals from accessing the entity's network via unauthorized IP addresses or from using services, protocols, or ports in an unauthorized manner"
+  description = "This requirement aims to prevent malicious individuals from accessing the entity's network via unauthorized IP addresses or from using services, protocols, or ports in an unauthorized manner."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -263,7 +263,7 @@ benchmark "pci_dss_v400_requirement_1_4" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_1" {
-  title       = "1.4.1: NSCs are implemented between trusted and untrusted networks."
+  title       = "1.4.1: NSCs are implemented between trusted and untrusted networks"
   description = "Implementing NSCs at every connection coming into and out of trusted networks allows the entity to monitor and control access and minimizes the chances of a malicious individual obtaining access to the internal network via an unprotected connection."
 
   children = [
@@ -342,7 +342,7 @@ benchmark "pci_dss_v400_requirement_1_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_3" {
-  title       = "1.4.3 Anti-spoofing measures are implemented to detect and block forged source IP addresses from entering the trusted network."
+  title       = "1.4.3 Anti-spoofing measures are implemented to detect and block forged source IP addresses from entering the trusted network"
   description = "Filtering packets coming into the trusted network helps to, among other things, ensure packets are not “spoofed” to appear as if they are coming from an organization's own internal network. For example, anti-spoofing measures prevent internal addresses originating from the Internet from passing into the DMZ."
 
   children = [
@@ -357,7 +357,7 @@ benchmark "pci_dss_v400_requirement_1_4_3" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_4" {
-  title       = "1.4.4: System components that store cardholder data are not directly accessible from untrusted networks."
+  title       = "1.4.4: System components that store cardholder data are not directly accessible from untrusted networks"
   description = "Cardholder data that is directly accessible from an untrusted network, for example, because it is stored on a system within the DMZ or in a cloud database service, is easier for an external attacker to access because there are fewer defensive layers to penetrate. Using NSCs to ensure that system components that store cardholder data (such as a database or a file) can only be directly accessed from trusted networks can prevent unauthorized network traffic from reaching the system component."
 
   children = [
@@ -378,8 +378,8 @@ benchmark "pci_dss_v400_requirement_1_4_4" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_5" {
-  title       = "1.4.5 The disclosure of internal IP addresses and routing information is limited to only authorized parties."
-  description = "Restricting the disclosure of internal, private, and local IP addresses is useful to prevent a hacker from obtaining knowledge of these IP addresses and using that information to access the network"
+  title       = "1.4.5 The disclosure of internal IP addresses and routing information is limited to only authorized parties"
+  description = "Restricting the disclosure of internal, private, and local IP addresses is useful to prevent a hacker from obtaining knowledge of these IP addresses and using that information to access the network."
 
   children = [
     control.ec2_launch_template_not_publicly_accessible,
@@ -392,7 +392,7 @@ benchmark "pci_dss_v400_requirement_1_4_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_5" {
-  title       = "1.5 Risks to the CDE from computing devices that are able to connect to both untrusted networks and the CDE are mitigated."
+  title       = "1.5 Risks to the CDE from computing devices that are able to connect to both untrusted networks and the CDE are mitigated"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_5_1

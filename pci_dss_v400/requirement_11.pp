@@ -18,7 +18,7 @@ benchmark "pci_dss_v400_requirement_11" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3" {
-  title       = "11.3: External and internal vulnerabilities are regularly identified, prioritized, and addressed."
+  title       = "11.3: External and internal vulnerabilities are regularly identified, prioritized, and addressed"
 
   children = [
     benchmark.pci_dss_v400_requirement_11_3_1
@@ -65,7 +65,7 @@ benchmark "pci_dss_v400_requirement_11_3_1_1" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3_1_2" {
-  title       = "11.3.1.2: Application-layer penetration tests include application components that support or impact the security of cardholder data."
+  title       = "11.3.1.2: Application-layer penetration tests include application components that support or impact the security of cardholder data"
   description = "Application-layer penetration tests include application components."
 
   children = [
@@ -108,7 +108,7 @@ benchmark "pci_dss_v400_requirement_11_3_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5" {
-  title       = "11.5: Network intrusions and unexpected file changes are detected and responded to."
+  title       = "11.5: Network intrusions and unexpected file changes are detected and responded to"
 
   children = [
     benchmark.pci_dss_v400_requirement_11_5_1,
@@ -135,7 +135,7 @@ benchmark "pci_dss_v400_requirement_11_5_1" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5_1_1" {
-  title       = "11.5.1.1: Additional requirement for service providers only: Intrusion-detection and/or intrusion-prevention techniques detect, alert on/prevent, and address covert malware communication channels."
+  title       = "11.5.1.1: Additional requirement for service providers only: Intrusion-detection and/or intrusion-prevention techniques detect, alert on/prevent, and address covert malware communication channels"
   description = "Detecting covert malware communication attempts (for example, DNS tunneling) can help block the spread of malware laterally inside a network and the exfiltration of data. When deciding where to place this control, entities should consider critical locations in the network, and likely routes for covert channels."
 
   children = [

@@ -30,7 +30,7 @@ benchmark "pci_dss_v400_appendix_a1_1" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_1_2" {
-  title       = "A1.1.2: Controls are implemented such that each customer only has permission to access its own cardholder data and CDE."
+  title       = "A1.1.2: Controls are implemented such that each customer only has permission to access its own cardholder data and CDE"
   description = "It is important that a multi-tenant service provider define controls so that each customer can only access their own environment and CDE to prevent unauthorized access from one customer's environment to another."
 
   children = [
@@ -63,7 +63,7 @@ benchmark "pci_dss_v400_appendix_a1_1_2" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_1_3" {
-  title       = "A1.1.3: Controls are implemented such that each customer can only access resources allocated to them."
+  title       = "A1.1.3: Controls are implemented such that each customer can only access resources allocated to them"
   description = "To prevent any inadvertent or intentional impact to other customers' environments or account data, it is important that each customer can access only resources allocated to that customer."
 
   children = [
@@ -118,7 +118,7 @@ benchmark "pci_dss_v400_appendix_a1_1_3" {
 }
 
 benchmark "pci_dss_v400_appendix_a1_2" {
-  title       = "A1.2: 2 Multi-tenant service providers facilitate logging and incident response for all customers."
+  title       = "A1.2: 2 Multi-tenant service providers facilitate logging and incident response for all customers"
   description = "Log information is useful for detecting and troubleshooting security incidents and is invaluable for forensic investigations. Customers therefore need to have access to these logs."
 
   children = [

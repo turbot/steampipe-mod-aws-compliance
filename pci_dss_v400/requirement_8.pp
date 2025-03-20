@@ -19,7 +19,7 @@ benchmark "pci_dss_v400_requirement_8" {
 }
 
 benchmark "pci_dss_v400_requirement_8_2" {
-  title       = "8.2: User identification and related accounts for users and administrators are strictly managed throughout an account's lifecycle."
+  title       = "8.2: User identification and related accounts for users and administrators are strictly managed throughout an account's lifecycle"
 
   children = [
     benchmark.pci_dss_v400_requirement_8_2_1,
@@ -37,8 +37,8 @@ benchmark "pci_dss_v400_requirement_8_2" {
 }
 
 benchmark "pci_dss_v400_requirement_8_2_1" {
-  title       = "8.2.1: All users are assigned a unique ID before access to system components or cardholder data is allowed."
-  description = "The ability to trace actions performed on a computer system to an individual establishes accountability and traceability and is fundamental to establishing effective access controls"
+  title       = "8.2.1: All users are assigned a unique ID before access to system components or cardholder data is allowed"
+  description = "The ability to trace actions performed on a computer system to an individual establishes accountability and traceability and is fundamental to establishing effective access controls."
 
   children = [
     control.ec2_instance_no_amazon_key_pair,
@@ -97,7 +97,7 @@ benchmark "pci_dss_v400_requirement_8_2_4" {
 }
 
 benchmark "pci_dss_v400_requirement_8_2_5" {
-  title       = "8.2.5: Access for terminated users is immediately revoked."
+  title       = "8.2.5: Access for terminated users is immediately revoked"
   description = "If an employee or third party/vendor has left the company and still has access to the network via their user account, unnecessary or malicious access to cardholder data could occur—either by the former employee or by a malicious user who exploits the old and/or unused account."
 
   children = [
@@ -115,7 +115,7 @@ benchmark "pci_dss_v400_requirement_8_2_5" {
 }
 
 benchmark "pci_dss_v400_requirement_8_2_6" {
-  title       = "8.2.6: Inactive user accounts are removed or disabled within 90 days of inactivity."
+  title       = "8.2.6: Inactive user accounts are removed or disabled within 90 days of inactivity"
   description = "Accounts that are not used regularly are often targets of attack since it is less likely that any changes, such as a changed password, will be noticed. As such, these accounts may be more easily exploited and used to access cardholder data."
 
   children = [
@@ -131,7 +131,7 @@ benchmark "pci_dss_v400_requirement_8_2_6" {
 
 benchmark "pci_dss_v400_requirement_8_2_7" {
   title       = "8.2.7: Accounts used by third parties to access, support, or maintain system components via remote access are managed"
-  description = "Allowing third parties to have 24/7 access into an entity's systems and networks in case they need to provide support increases the chances of unauthorized access"
+  description = "Allowing third parties to have 24/7 access into an entity's systems and networks in case they need to provide support increases the chances of unauthorized access."
 
   children = [
     control.account_part_of_organizations,
@@ -161,7 +161,7 @@ benchmark "pci_dss_v400_requirement_8_2_7" {
 }
 
 benchmark "pci_dss_v400_requirement_8_2_8" {
-  title       = "8.2.8: If a user session has been idle for more than 15 minutes, the user is required to re-authenticate to re-activate the terminal or session."
+  title       = "8.2.8: If a user session has been idle for more than 15 minutes, the user is required to re-authenticate to re-activate the terminal or session"
   description = "When users walk away from an open machine with access to system components or cardholder data, there is a risk that the machine may be used by others in the user's absence, resulting in unauthorized account access and/or misuse."
 
   children = [
@@ -194,7 +194,7 @@ benchmark "pci_dss_v400_requirement_8_2_8" {
 }
 
 benchmark "pci_dss_v400_requirement_8_3" {
-  title       = "8.3: Strong authentication for users and administrators is established and managed."
+  title       = "8.3: Strong authentication for users and administrators is established and managed"
 
   children = [
     benchmark.pci_dss_v400_requirement_8_3_2,
@@ -213,7 +213,7 @@ benchmark "pci_dss_v400_requirement_8_3" {
 }
 
 benchmark "pci_dss_v400_requirement_8_3_2" {
-  title       = "8.3.2: Strong cryptography is used to render all authentication factors unreadable during transmission and storage on all system components."
+  title       = "8.3.2: Strong cryptography is used to render all authentication factors unreadable during transmission and storage on all system components"
   description = "Network devices and applications have been known to transmit unencrypted, readable authentication factors (such as passwords and passphrases) across the network and/or store these values without encryption. As a result, a malicious individual can easily intercept this information during transmission using a 'sniffer,' or directly access unencrypted authentication factors in files where they are stored, and then use this data to gain unauthorized access."
 
   children = [
@@ -319,7 +319,7 @@ benchmark "pci_dss_v400_requirement_8_3_5" {
 
 benchmark "pci_dss_v400_requirement_8_3_6" {
   title       = "8.3.6: 6 If passwords/passphrases are used as authentication factors to meet Requirement 8.3.6, they meet the minimum level of complexity"
-  description = "Strong passwords/passphrases may be the first line of defense into a network since a malicious individual will often first try to find accounts with weak, static, or non-existent passwords. If passwords are short or easily guessable, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID"
+  description = "Strong passwords/passphrases may be the first line of defense into a network since a malicious individual will often first try to find accounts with weak, static, or non-existent passwords. If passwords are short or easily guessable, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID."
 
   children = [
     control.iam_account_password_policy_strong_min_reuse_24
@@ -331,7 +331,7 @@ benchmark "pci_dss_v400_requirement_8_3_6" {
 }
 
 benchmark "pci_dss_v400_requirement_8_3_7" {
-  title       = "8.3.7: Individuals are not allowed to submit a new password/passphrase that is the same as any of the last four passwords/passphrases used."
+  title       = "8.3.7: Individuals are not allowed to submit a new password/passphrase that is the same as any of the last four passwords/passphrases used"
   description = "If password history is not maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period reduces the likelihood that passwords that have been guessed or brute-forced will be reused in the future."
 
   children = [
@@ -393,7 +393,7 @@ benchmark "pci_dss_v400_requirement_8_3_10_1" {
 
 benchmark "pci_dss_v400_requirement_8_3_11" {
   title       = "8.3.11: Where authentication factors such as physical or logical security tokens, smart cards, or certificates"
-  description = "If multiple users can use authentication factors such as tokens, smart cards, and certificates, it may be impossible to identify the individual using the authentication mechanism"
+  description = "If multiple users can use authentication factors such as tokens, smart cards, and certificates, it may be impossible to identify the individual using the authentication mechanism."
 
   children = [
     control.ec2_instance_no_amazon_key_pair,
@@ -410,7 +410,7 @@ benchmark "pci_dss_v400_requirement_8_3_11" {
 }
 
 benchmark "pci_dss_v400_requirement_8_4" {
-  title       = "8.4: Multi-factor authentication (MFA) is implemented to secure access into the CDE."
+  title       = "8.4: Multi-factor authentication (MFA) is implemented to secure access into the CDE"
 
   children = [
     benchmark.pci_dss_v400_requirement_8_4_1,
@@ -424,7 +424,7 @@ benchmark "pci_dss_v400_requirement_8_4" {
 }
 
 benchmark "pci_dss_v400_requirement_8_4_1" {
-  title       = "8.4.1: MFA is implemented for all non-console access into the CDE for personnel with administrative access."
+  title       = "8.4.1: MFA is implemented for all non-console access into the CDE for personnel with administrative access"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows such as a password or passphrase."
 
   children = [
@@ -441,7 +441,7 @@ benchmark "pci_dss_v400_requirement_8_4_1" {
 }
 
 benchmark "pci_dss_v400_requirement_8_4_2" {
-  title       = "8.4.2 MFA is implemented for all non-console access into the CDE."
+  title       = "8.4.2 MFA is implemented for all non-console access into the CDE"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows such as a password or passphrase."
 
   children = [
@@ -458,7 +458,7 @@ benchmark "pci_dss_v400_requirement_8_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_8_4_3" {
-  title       = "8.4.3 MFA is implemented for all remote access originating from outside the entity's network that could access or impact the CDE."
+  title       = "8.4.3 MFA is implemented for all remote access originating from outside the entity's network that could access or impact the CDE"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows, such as a password or passphrase."
 
   children = [
@@ -475,7 +475,7 @@ benchmark "pci_dss_v400_requirement_8_4_3" {
 }
 
 benchmark "pci_dss_v400_requirement_8_6" {
-  title       = "8.6: Use of application and system accounts and associated authentication factors is strictly managed."
+  title       = "8.6: Use of application and system accounts and associated authentication factors is strictly managed"
 
   children = [
     benchmark.pci_dss_v400_requirement_8_6_3
