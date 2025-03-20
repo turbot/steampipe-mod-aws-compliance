@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_3" {
-  title = "Requirement 3: Protect Stored Account Data"
+  title       = "Requirement 3: Protect Stored Account Data"
+  description = "Protection methods such as encryption, truncation, masking, and hashing are critical components of account data protection. If an intruder circumvents other security controls and gains access to encrypted account data, the data is unreadable without the proper cryptographic keys and is unusable to that intruder. Other effective methods of protecting stored data should also be considered as potential risk-mitigation opportunities. For example, methods for minimizing risk include not storing account data unless necessary, truncating cardholder data if full PAN is not needed, and not sending unprotected PANs using end-user messaging technologies such as e-mail and instant messaging."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_2,
@@ -19,7 +20,7 @@ benchmark "pci_dss_v400_requirement_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_2" {
-  title = "3.2: Sensitive Authentication Data (SAD) Is Not Stored After Authorization"
+  title       = "3.2: Storage of account data is kept to a minimum."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_2_1,
@@ -31,8 +32,8 @@ benchmark "pci_dss_v400_requirement_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_2_1" {
-  title       = "3.2.1: SAD is not stored after authorization, even if it is encrypted."
-  description = "SAD is not stored after authorization, even if it is encrypted. Applicability Notes If a PAN is stored, the following SAD elements must be rendered unrecoverable: Full track data (Track 1 and Track 2), CVV or similar service code validation value, PIN/PIN-block. The SAD elements listed in this requirement are typically stored on the magnetic stripe of a card or on a chip, and are also input for online payment processes when a customer presents their card for a purchase."
+  title       = "3.2.1: Account data storage is kept to a minimum through implementation of data retention and disposal policies, procedures, and processes"
+  description = "A formal data retention policy identifies what data needs to be retained, for how long, and where that data resides so it can be securely destroyed or deleted as soon as it is no longer needed"
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -52,7 +53,7 @@ benchmark "pci_dss_v400_requirement_3_2_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3" {
-  title = "3.3: Primary Account Number (PAN) Is Secured Wherever It Is Stored"
+  title       = "3.3: Sensitive authentication data (SAD) is not stored after authorization."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_3_1,
@@ -66,8 +67,8 @@ benchmark "pci_dss_v400_requirement_3_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1" {
-  title       = "3.3.1: PANs are masked when displayed so that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN."
-  description = "PANs are masked when displayed so that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN."
+  title       = "3.3.1 SAD is not stored after authorization, even if encrypted. All sensitive authentication data received is rendered unrecoverable upon completion of the authorization process."
+  description = "SAD is very valuable to malicious individuals as it allows them to generate counterfeit payment cards and create fraudulent transactions. Therefore, the storage of SAD upon completion of the authorization process is prohibited."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_3_1_1,
@@ -80,8 +81,8 @@ benchmark "pci_dss_v400_requirement_3_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1_1" {
-  title       = "3.3.1.1: A list of roles that need access to more than the first six/last four digits of the PAN (including unmasked displays of PAN in physical media, applications, logs and analytics) is maintained, along with a documented legitimate business need for each role."
-  description = "A list of roles that need access to more than the first six/last four digits of the PAN (including unmasked displays of PAN in physical media, applications, logs and analytics) is maintained, along with a documented legitimate business need for each role."
+  title       = "3.3.1.1: The full contents of any track are not stored upon completion of the authorization process."
+  description = "If full contents of any track (from the magnetic stripe on the back of a card if present, equivalent data contained on a chip, or elsewhere) is stored, malicious individuals who obtain that data can use it to reproduce payment cards and complete fraudulent transactions."
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -101,8 +102,8 @@ benchmark "pci_dss_v400_requirement_3_3_1_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_1_3" {
-  title       = "3.3.1.3: PAN is masked when displayed so that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN."
-  description = "PAN is masked when displayed so that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN."
+  title       = "3.3.1.3 The personal identification number (PIN) and the PIN block are not stored upon completion of the authorization process."
+  description = "PIN and PIN blocks should be known only to the card owner or entity that issued the card. If this data is stolen, malicious individuals can execute fraudulent PIN-based transactions (for example, in-store purchases and ATM withdrawals). Not storing this data reduces the probability of it being compromised."
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -122,8 +123,8 @@ benchmark "pci_dss_v400_requirement_3_3_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_2" {
-  title       = "3.3.2: The full PAN is only displayed to users whose job requires access to the full PAN."
-  description = "The full PAN is only displayed to users whose job requires access to the full PAN."
+  title       = "3.3.2: SAD that is stored electronically prior to completion of authorization is encrypted using strong cryptography."
+  description = "SAD can be used by malicious individuals to increase the probability of successfully generating counterfeit payment cards and creating fraudulent transactions."
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -143,8 +144,8 @@ benchmark "pci_dss_v400_requirement_3_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_3_3" {
-  title       = "3.3.3: All displays of PAN conform to PCI DSS requirements."
-  description = "All displays of PAN greater than the first six/last four digits require: Assignment of privileges based on job classification and function. Documented approval by management. Presence of a legitimate business need."
+  title       = "3.3.3: Additional requirement for issuers and companies that support issuing services and store sensitive authentication"
+  description = "SAD can be used by malicious individuals to increase the probability of successfully generating counterfeit payment cards and creating fraudulent transactions."
 
   children = [
     control.backup_plan_min_retention_35_days,
@@ -164,7 +165,7 @@ benchmark "pci_dss_v400_requirement_3_3_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_5" {
-  title = "3.5: Protect Cryptographic Keys Used to Protect Stored Account Data"
+  title       = "3.5 Primary account number (PAN) is secured wherever it is stored."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_5_1
@@ -176,8 +177,8 @@ benchmark "pci_dss_v400_requirement_3_5" {
 }
 
 benchmark "pci_dss_v400_requirement_3_5_1" {
-  title       = "3.5.1: Cryptographic keys used to protect stored account data are secured."
-  description = "Access to cryptographic keys is restricted to the fewest number of custodians necessary."
+  title       = "3.5.1 PAN is rendered unreadable anywhere it is stored"
+  description = "Rendering stored PAN unreadable is a defense in depth control designed to protect the data if an unauthorized individual gains access to stored data by taking advantage of a vulnerability or misconfiguration of an entity's primary access control."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_5_1_1,
@@ -190,8 +191,8 @@ benchmark "pci_dss_v400_requirement_3_5_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_5_1_1" {
-  title       = "3.5.1.1: Access to cryptographic keys is restricted to the fewest number of custodians necessary."
-  description = "Access to cryptographic keys is restricted to the fewest number of custodians necessary."
+  title       = "3.5.1.1: Hashes used to render PAN unreadable (per the first bullet of Requirement 3.5.1) are keyed cryptographic hashes of the entire PAN, with associated keymanagement processes and procedures"
+  description = "Rendering stored PAN unreadable is a defense in depth control designed to protect the data if an unauthorized individual gains access to stored data by taking advantage of a vulnerability or misconfiguration of an entity's primary access control."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -210,8 +211,8 @@ benchmark "pci_dss_v400_requirement_3_5_1_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_5_1_3" {
-  title       = "3.5.1.3: Cryptographic keys are stored in the fewest possible locations."
-  description = "Cryptographic keys are stored in the fewest possible locations."
+  title       = "3.5.1.3: If disk-level or partition-level encryption is used (rather than file-, column-, or field-level database encryption) to render PAN unreadable"
+  description = "Disk-level encryption typically encrypts the entire disk or partition using the same key, with all data automatically decrypted when the system runs or when an authorized user requests it."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -252,7 +253,7 @@ benchmark "pci_dss_v400_requirement_3_5_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6" {
-  title = "3.6: Fully Document and Implement Key-Management Processes and Procedures for Cryptographic Keys"
+  title       = "3.6: Fully Document and Implement Key-Management Processes and Procedures for Cryptographic Keys"
 
   children = [
     benchmark.pci_dss_v400_requirement_3_6_1,
@@ -264,8 +265,8 @@ benchmark "pci_dss_v400_requirement_3_6" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1" {
-  title       = "3.6.1: Fully documented and implemented key-management procedures are in place for cryptographic keys used for encryption of stored account data."
-  description = "Key-management procedures include generation of strong cryptographic keys."
+  title       = "3.6.1: Procedures are defined and implemented to protect cryptographic keys used to protect stored account data against disclosure"
+  description = "Cryptographic keys must be strongly protected because those who obtain access will be able to decrypt data."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_6_1_2,
@@ -279,8 +280,8 @@ benchmark "pci_dss_v400_requirement_3_6_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1_2" {
-  title       = "3.6.1.2: Fully documented and implemented key-management procedures include secure cryptographic key distribution."
-  description = "Fully documented and implemented key-management procedures include secure cryptographic key distribution."
+  title       = "3.6.1.2: Secret and private keys used to protect stored account data"
+  description = "Storing cryptographic keys securely prevents unauthorized or unnecessary access that could result in the exposure of stored account data. Storing keys separately means they are stored such that if the location of one key is compromised, the second key is not also compromised."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -299,8 +300,8 @@ benchmark "pci_dss_v400_requirement_3_6_1_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1_3" {
-  title       = "3.6.1.3: Fully documented and implemented key-management procedures include secure cryptographic key storage."
-  description = "Fully documented and implemented key-management procedures include secure cryptographic key storage."
+  title       = "3.6.1.3: Access to cleartext cryptographic key components is restricted to the fewest number of custodians necessary."
+  description = "Restricting the number of people who have access to cleartext cryptographic key components reduces the risk of stored account data being retrieved or rendered visible by unauthorized parties."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -319,8 +320,8 @@ benchmark "pci_dss_v400_requirement_3_6_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_3_6_1_4" {
-  title       = "3.6.1.4: Fully documented and implemented key-management procedures include cryptographic key changes for keys that have reached the end of their cryptoperiod."
-  description = "Fully documented and implemented key-management procedures include cryptographic key changes for keys that have reached the end of their cryptoperiod."
+  title       = "3.6.1.4: Cryptographic keys are stored in the fewest possible locations."
+  description = "Storing any cryptographic keys in the fewest locations helps an organization track and monitor all key locations and minimizes the potential for keys to be exposed to unauthorized parties."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -339,7 +340,7 @@ benchmark "pci_dss_v400_requirement_3_6_1_4" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7" {
-  title = "3.7: Manage and Document Cryptographic Key Management Procedures"
+  title       = "3.7: Where cryptography is used to protect stored account data, key management processes and procedures covering all aspects of the key lifecycle are defined and implemented."
 
   children = [
     benchmark.pci_dss_v400_requirement_3_7_1,
@@ -356,8 +357,8 @@ benchmark "pci_dss_v400_requirement_3_7" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_1" {
-  title       = "3.7.1: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data are documented, in use, and known to all affected parties."
+  title       = "3.7.1: Key-management policies and procedures are implemented to include generation of strong cryptographic keys used to protect stored account data."
+  description = "Use of strong cryptographic keys significantly increases the level of security of encrypted account data."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -376,8 +377,8 @@ benchmark "pci_dss_v400_requirement_3_7_1" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_2" {
-  title       = "3.7.2: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data include masking of PAN when displayed."
+  title       = "3.7.2: Key-management policies and procedures are implemented to include secure distribution of cryptographic keys used to protect stored account data."
+  description = "Secure distribution or conveyance of secret or private cryptographic keys means that keys are distributed only to authorized custodians."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -396,8 +397,8 @@ benchmark "pci_dss_v400_requirement_3_7_2" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_4" {
-  title       = "3.7.4: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data include key-management processes and procedures for cryptographic keys used for encryption of cardholder data."
+  title       = "3.7.4: Key management policies and procedures are implemented for cryptographic key changes for keys that have reached the end of their cryptoperiod, as defined by the associated application vendor or key owner."
+  description = "Changing encryption keys when they reach the end of their cryptoperiod is imperative to minimize the risk of someone obtaining the encryption keys and using them to decrypt data."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -417,8 +418,8 @@ benchmark "pci_dss_v400_requirement_3_7_4" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_5" {
-  title       = "3.7.5: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data include procedures to address failures of any critical security control systems."
+  title       = "3.7.5: Key management policies procedures are implemented to include the retirement, replacement, or destruction of keys used to protect stored account data."
+  description = "Keys that are no longer required, keys with weakened integrity, and keys that are known or suspected to be compromised, should be archived, revoked, and/or destroyed to ensure that the keys can no longer be used."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -431,8 +432,8 @@ benchmark "pci_dss_v400_requirement_3_7_5" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_6" {
-  title       = "3.7.6: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data include periodic procedures to identify and securely delete stored cardholder data that exceeds defined retention requirements."
+  title       = "3.7.6 Where manual cleartext cryptographic keymanagement operations are performed by personnel, key-management policies and procedures are implemented, including managing these operations using split knowledge and dual control."
+  description = "Split knowledge and dual control of keys are used to eliminate the possibility of a single person having access to the whole key and therefore being able to gain unauthorized access to the data."
 
   children = [
     control.acm_certificate_expires_30_days,
@@ -451,8 +452,8 @@ benchmark "pci_dss_v400_requirement_3_7_6" {
 }
 
 benchmark "pci_dss_v400_requirement_3_7_7" {
-  title       = "3.7.7: Security policies and operational procedures for protecting stored account data are documented."
-  description = "Security policies and operational procedures for protecting stored account data include: A data-discovery methodology to confirm PAN is not stored in unintended locations, A response plan for locating and securing PAN if discovered in an unintended location."
+  title       = "3.7.7 Key management policies and procedures are implemented to include the prevention of unauthorized substitution of cryptographic keys."
+  description = "If an attacker is able to substitute an entity's key with a key the attacker knows, the attacker will be able to decrypt all data encrypted with that key."
 
   children = [
     control.acm_certificate_expires_30_days,

@@ -5,8 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_7" {
-  title = "Requirement 7: Restrict Access to System Components and Cardholder Data by Business Need to Know"
-
+  title       = "Requirement 7: Restrict Access to System Components and Cardholder Data by Business Need to Know"
+  description = "Unauthorized individuals may gain access to critical data or systems due to ineffective access control rules and definitions. To ensure critical data can only be accessed by authorized personnel, systems and processes must be in place to limit access based on need to know and according to job responsibilities."
   children = [
     benchmark.pci_dss_v400_requirement_7_2,
     benchmark.pci_dss_v400_requirement_7_3
@@ -16,7 +16,7 @@ benchmark "pci_dss_v400_requirement_7" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2" {
-  title = "7.2: Establish an Access Control System"
+  title       = "7.2: Access to system components and data is appropriately defined and assigned."
 
   children = [
     benchmark.pci_dss_v400_requirement_7_2_1,
@@ -33,8 +33,8 @@ benchmark "pci_dss_v400_requirement_7_2" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_1" {
-  title       = "7.2.1: An access control system is in place that restricts access based on a user's need to know."
-  description = "An access control system is in place that restricts access based on a user's need to know, and is set to 'deny all' unless specifically allowed."
+  title       = "7.2.1: An access control model is defined and includes granting access"
+  description = "Defining an access control model that is appropriate for the entity's technology and access control philosophy supports a consistent and uniform way of allocating access and reduces the possibility of errors such as the granting of excessive rights."
 
   children = [
     control.account_part_of_organizations,
@@ -77,8 +77,8 @@ benchmark "pci_dss_v400_requirement_7_2_1" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_2" {
-  title       = "7.2.2: The access control system(s) includes one or more of these requirements."
-  description = "The access control system(s) includes one or more of these requirements: Role-based access control (RBAC), Discretionary access control (DAC), Mandatory access control (MAC), or Attribute-based access control (ABAC)."
+  title       = "7.2.2: Access is assigned to users, including privileged users"
+  description = "Assigning least privileges helps prevent users without sufficient knowledge about the application from incorrectly or accidentally changing application configuration or altering its security settings. Enforcing least privilege also helps to minimize the scope of damage if an unauthorized person gains access to a user ID."
 
   children = [
     control.account_part_of_organizations,
@@ -116,8 +116,8 @@ benchmark "pci_dss_v400_requirement_7_2_2" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_3" {
-  title       = "7.2.3: Default accounts and credentials are managed."
-  description = "Default accounts and credentials are managed as follows: Default accounts that are not needed are disabled or removed, Default accounts that are needed are renamed (where possible), and Default passwords for needed default accounts are changed, and default passwords for removed/disabled accounts are removed/disabled."
+  title       = "7.2.3: Required privileges are approved by authorized personnel."
+  description = "Documented approval (for example, in writing or electronically) assures that those with access and privileges are known and authorized by management, and that their access is necessary for their job function."
 
   children = [
     control.codebuild_project_environment_privileged_mode_disabled,
@@ -136,8 +136,8 @@ benchmark "pci_dss_v400_requirement_7_2_3" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_4" {
-  title       = "7.2.4: Access to privileged user IDs is restricted."
-  description = "Access to privileged user IDs is restricted as follows: To the minimum number of privileges necessary to perform job responsibilities, To only authorized personnel with a legitimate, business-related need."
+  title       = "7.2.4: All user accounts and related access privileges, including third-party/vendor accounts, are reviewed"
+  description = "Regular review of access rights helps to detect excessive access rights remaining after user job responsibilities change, system functions change, or other modifications. If excessive user rights are not revoked in due time, they may be used by malicious users for unauthorized access."
 
   children = [
     control.iam_group_not_empty,
@@ -151,8 +151,8 @@ benchmark "pci_dss_v400_requirement_7_2_4" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_5" {
-  title       = "7.2.5: Access to application/system accounts and related access privileges is managed."
-  description = "Access to application/system accounts and related access privileges is managed as follows: Based on the principle of least privilege and least functionality, Assigned only to authorized personnel with a legitimate, business-related need, and according to Requirement 7.2.5.1."
+  title       = "7.2.5: All application and system accounts and related access privileges are assigned and managed"
+  description = "It is important to establish the appropriate access level for application or system accounts. If such accounts are compromised, malicious users will receive the same access level as that granted to the application or system."
 
   children = [
     control.account_part_of_organizations,
@@ -185,8 +185,8 @@ benchmark "pci_dss_v400_requirement_7_2_5" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_5_1" {
-  title       = "7.2.5.1: All application and system accounts and related access privileges are assigned and managed in accordance with the entity's access control system(s)."
-  description = "All application and system accounts and related access privileges are assigned and managed in accordance with the entity's access control system(s)."
+  title       = "7.2.5.1: All access by application and system accounts and related access privileges are reviewed"
+  description = "Regular review of access rights helps to detect excessive access rights remaining after system functions change, or other application or system modifications occur. If excessive rights are not removed when no longer needed, they may be used by malicious users for unauthorized access."
 
   children = [
     control.iam_group_not_empty,
@@ -200,8 +200,8 @@ benchmark "pci_dss_v400_requirement_7_2_5_1" {
 }
 
 benchmark "pci_dss_v400_requirement_7_2_6" {
-  title       = "7.2.6: Access to any database containing cardholder data is restricted."
-  description = "Access to any database containing cardholder data is restricted to only necessary users and applications."
+  title       = "7.2.6: All user access to query repositories of stored cardholder data"
+  description = "The misuse of query access to repositories of cardholder data has been a regular cause of data breaches. Limiting such access to administrators reduces the risk of such access being abused by unauthorized users."
 
   children = [
     control.ecs_task_definition_container_readonly_root_filesystem,
@@ -221,7 +221,7 @@ benchmark "pci_dss_v400_requirement_7_2_6" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3" {
-  title = "7.3: Review Access Needs for Users and System Components"
+  title       = "7.3: Access to system components and data is managed via an access control system(s)"
 
   children = [
     benchmark.pci_dss_v400_requirement_7_3_1,
@@ -235,8 +235,8 @@ benchmark "pci_dss_v400_requirement_7_3" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_1" {
-  title       = "7.3.1: User access is authorized before access is granted to system components and cardholder data."
-  description = "User access is authorized before access is granted to system components and cardholder data."
+  title       = "7.3.1: An access control system(s) is in place that restricts access based on a user's need to know and covers all system components."
+  description = "Without a mechanism to restrict access based on user's need to know, a user may unknowingly be granted access to cardholder data. Access control systems automate the process of restricting access and assigning privileges."
 
   children = [
     control.account_part_of_organizations,
@@ -274,8 +274,8 @@ benchmark "pci_dss_v400_requirement_7_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_2" {
-  title       = "7.3.2: Access of users to system components and cardholder data is assigned based on job classification and function."
-  description = "Access of users to system components and cardholder data is assigned based on job classification and function."
+  title       = "7.3.2: The access control system(s) is configured to enforce permissions assigned to individuals, applications, and systems based on job classification and function."
+  description = "Restricting privileged access with an access control system reduces the opportunity for errors in the assignment of permissions to individuals, applications, and systems."
 
   children = [
     control.account_part_of_organizations,
@@ -310,8 +310,8 @@ benchmark "pci_dss_v400_requirement_7_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_7_3_3" {
-  title       = "7.3.3: All access is reviewed at least once every six months."
-  description = "All access is reviewed at least once every six months to ensure individuals have appropriate access based on job responsibilities."
+  title       = "7.3.3: The access control system(s) is set to “deny all” by default."
+  description = "A default setting of 'deny all' ensures no one is granted access unless a rule is established specifically granting such access."
 
   children = [
     control.account_part_of_organizations,

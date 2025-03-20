@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_1" {
-  title = "Requirement 1: Install and Maintain Network Security Controls (19)"
+  title       = "Requirement 1: Install and Maintain Network Security Controls"
+  description = "Network security controls (NSCs), such as firewalls and other network security technologies, are network policy enforcement points that typically control network traffic between two or more logical or physical network segments (or subnets) based on pre-defined policies or rules."
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2,
@@ -16,7 +17,8 @@ benchmark "pci_dss_v400_requirement_1" {
 }
 
 benchmark "pci_dss_v400_requirement_1_2" {
-  title = "1.2: Install and Maintain Network Security Controls"
+  title       = "1.2: Network security controls (NSCs) are configured and maintained"
+  description = "Network configurations, policies, and their supporting processes are defined and implemented to meet security requirements."
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2_5,
@@ -30,8 +32,8 @@ benchmark "pci_dss_v400_requirement_1_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_2_5" {
-  title       = "1.2.5: Network security controls (NSCs) are configured and maintained."
-  description = "All services, protocols and ports allowed are identified, approved, and have a defined business need."
+  title       = "1.2.5: All services, protocols, and ports allowed are identified, approved, and have a defined business need"
+  description = "Compromises often happen due to unused or insecure services (for example, telnet and FTP), protocols, and ports, since these can lead to unnecessary points of access being opened into the CDE. Additionally, services, protocols, and ports that are enabled but not in use are often overlooked and left unsecured and unpatched."
 
   children = [
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
@@ -56,8 +58,8 @@ benchmark "pci_dss_v400_requirement_1_2_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_2_8" {
-  title       = "1.2.8: Network security controls (NSCs) are configured and maintained."
-  description = "Configuration files for NSCs are: Secured from unauthorized access. Kept consistent with active network configurations. Applicability Notes Any file or setting used to configure or synchronize NSCs is considered to be a configuration file. This includes files, automated and system-based controls, scripts, settings, infrastructure as code, or other parameters that are backed up, archived, or stored remotely."
+  title       = "1.2.8: Configuration files for NSCs are secured from unauthorized access and are kept consistent with active network configurations"
+  description = "To prevent unauthorized configurations from being applied to the network, stored files with configurations for network controls need to be kept up to date and secured against unauthorized changes."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -111,7 +113,7 @@ benchmark "pci_dss_v400_requirement_1_2_8" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3" {
-  title = "1.3: Install and Maintain Network Security Controls"
+  title       = "1.3 Network access to and from the cardholder data environment is restricted."
 
   children = [
     benchmark.pci_dss_v400_requirement_1_3_1,
@@ -124,8 +126,8 @@ benchmark "pci_dss_v400_requirement_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3_1" {
-  title       = "1.3.1: Network access to and from the cardholder data environment is restricted."
-  description = "Inbound traffic to the CDE is restricted as follows: To only traffic that is necessary. All other traffic is specifically denied."
+  title       = "1.3.1: Inbound traffic to the CDE is restricted as follows: To only traffic that is necessary, All other traffic is specifically denied"
+  description = "This requirement aims to prevent malicious individuals from accessing the entity's network via unauthorized IP addresses or from using services, protocols, or ports in an unauthorized manner"
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -184,8 +186,8 @@ benchmark "pci_dss_v400_requirement_1_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_1_3_2" {
-  title       = "1.3.2: Network access to and from the cardholder data environment is restricted."
-  description = "Outbound traffic from the CDE is restricted as follows: To only traffic that is necessary. All other traffic is specifically denied."
+  title       = "1.3.2: Outbound traffic from the CDE is restricted as follows: To only traffic that is necessary, All other traffic is specifically denied"
+  description = "This requirement aims to prevent malicious individuals and compromised system components within the entity's network from communicating with an untrusted external host."
 
 
   children = [
@@ -245,7 +247,7 @@ benchmark "pci_dss_v400_requirement_1_3_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4" {
-  title = "1.4: Install and Maintain Network Security Controls"
+  title       = "1.4: Network connections between trusted and untrusted networks are controlled"
 
   children = [
     benchmark.pci_dss_v400_requirement_1_4_1,
@@ -261,8 +263,8 @@ benchmark "pci_dss_v400_requirement_1_4" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_1" {
-  title       = "1.4.1: Network connections between trusted and untrusted networks are controlled."
-  description = "NSCs are implemented between trusted and untrusted networks."
+  title       = "1.4.1: NSCs are implemented between trusted and untrusted networks."
+  description = "Implementing NSCs at every connection coming into and out of trusted networks allows the entity to monitor and control access and minimizes the chances of a malicious individual obtaining access to the internal network via an unprotected connection."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -282,8 +284,8 @@ benchmark "pci_dss_v400_requirement_1_4_1" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_2" {
-  title       = "1.4.2: Network connections between trusted and untrusted networks are controlled."
-  description = "Inbound traffic from untrusted networks to trusted networks is restricted to: Communications with system components that are authorized to provide publicly accessible services, protocols, and ports. Stateful responses to communications initiated by system components in a trusted network. All other traffic is denied. Applicability Notes The intent of this requirement is to address communication sessions between trusted and untrusted networks, rather than the specifics of protocols. This requirement does not limit the use of UDP or other connectionless network protocols if state is maintained by the NSC."
+  title       = "1.4.2: Inbound traffic from untrusted networks to trusted networks is restricted"
+  description = "Ensuring that public access to a system component is specifically authorized reduces the risk of system components being unnecessarily exposed to untrusted networks."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -340,8 +342,8 @@ benchmark "pci_dss_v400_requirement_1_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_3" {
-  title       = "1.4.3: Network connections between trusted and untrusted networks are controlled."
-  description = "Anti-spoofing measures are implemented to detect and block forged source IP addresses from entering the trusted network."
+  title       = "1.4.3 Anti-spoofing measures are implemented to detect and block forged source IP addresses from entering the trusted network."
+  description = "Filtering packets coming into the trusted network helps to, among other things, ensure packets are not “spoofed” to appear as if they are coming from an organization's own internal network. For example, anti-spoofing measures prevent internal addresses originating from the Internet from passing into the DMZ."
 
   children = [
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
@@ -355,8 +357,8 @@ benchmark "pci_dss_v400_requirement_1_4_3" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_4" {
-  title       = "1.4.4: Network connections between trusted and untrusted networks are controlled."
-  description = "System components that store cardholder data are not directly accessible from untrusted networks. Applicability Notes This requirement is not intended to apply to storage of account data in volatile memory but does apply where memory is being treated as persistent storage (for example, RAM disk). Account data can only be stored in volatile memory during the time necessary to support the associated business process (for example, until completion of the related payment card transaction)."
+  title       = "1.4.4: System components that store cardholder data are not directly accessible from untrusted networks."
+  description = "Cardholder data that is directly accessible from an untrusted network, for example, because it is stored on a system within the DMZ or in a cloud database service, is easier for an external attacker to access because there are fewer defensive layers to penetrate. Using NSCs to ensure that system components that store cardholder data (such as a database or a file) can only be directly accessed from trusted networks can prevent unauthorized network traffic from reaching the system component."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
@@ -376,8 +378,8 @@ benchmark "pci_dss_v400_requirement_1_4_4" {
 }
 
 benchmark "pci_dss_v400_requirement_1_4_5" {
-  title       = "1.4.5: Network connections between trusted and untrusted networks are controlled."
-  description = "Publicly accessible services are protected by NSCs."
+  title       = "1.4.5 The disclosure of internal IP addresses and routing information is limited to only authorized parties."
+  description = "Restricting the disclosure of internal, private, and local IP addresses is useful to prevent a hacker from obtaining knowledge of these IP addresses and using that information to access the network"
 
   children = [
     control.ec2_launch_template_not_publicly_accessible,
@@ -390,7 +392,7 @@ benchmark "pci_dss_v400_requirement_1_4_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_5" {
-  title = "1.5: Install and Maintain Network Security Controls"
+  title       = "1.5 Risks to the CDE from computing devices that are able to connect to both untrusted networks and the CDE are mitigated."
 
   children = [
     benchmark.pci_dss_v400_requirement_1_5_1
@@ -402,8 +404,8 @@ benchmark "pci_dss_v400_requirement_1_5" {
 }
 
 benchmark "pci_dss_v400_requirement_1_5_1" {
-  title       = "1.5.1: Risks to the CDE from computing devices that are able to connect to both untrusted networks and the CDE are mitigated."
-  description = "Security controls are implemented on any computing devices, including company- and employee-owned devices, that connect to both untrusted networks (including the Internet) and the CDE as follows. Specific configuration settings are defined to prevent threats being introduced into the entity's network. Security controls are actively running. Security controls are not alterable by users of the computing devices unless specifically documented and authorized by management on a case-by-case basis for a limited period. Applicability Notes These security controls may be temporarily disabled only if there is legitimate technical need, as authorized by management on a case-by-case basis. If these security controls need to be disabled for a specific purpose, it must be formally authorized. Additional security measures may also need to be implemented for the period during which these security controls are not active. This requirement applies to employee-owned and company-owned computing devices. Systems that cannot be managed by corporate policy introduce weaknesses and provide opportunities that malicious individuals may exploit."
+  title       = "1.5.1 Security controls are implemented on any computing devices, including company- and employee-owned devices, that connect to both untrusted networks"
+  description = "Computing devices that are allowed to connect to the Internet from outside the corporate environment—for example, desktops, laptops, tablets, smartphones, and other mobile computing devices used by employees—are more vulnerable to Internet-based threats."
 
   children = [
     control.api_gatewayv2_route_authorization_type_configured,

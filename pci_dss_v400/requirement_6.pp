@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_6" {
-  title = "Requirement 6: Develop and Maintain Secure Systems and Software"
+  title       = "Requirement 6: Develop and Maintain Secure Systems and Software"
+  description = "Actors with bad intentions can use security vulnerabilities to gain privileged access to systems. Many of these vulnerabilities are fixed by vendor provided security patches, which must be installed by the entities that manage the systems. All system components must have all appropriate software patches to protect against the exploitation and compromise of account data by malicious individuals and malicious software."
 
   children = [
     benchmark.pci_dss_v400_requirement_6_3,
@@ -17,7 +18,7 @@ benchmark "pci_dss_v400_requirement_6" {
 }
 
 benchmark "pci_dss_v400_requirement_6_3" {
-  title = "6.3: Vulnerabilities Are Identified and Addressed"
+  title       = "6.3 Security vulnerabilities are identified and addressed."
 
   children = [
     benchmark.pci_dss_v400_requirement_6_3_3
@@ -29,8 +30,8 @@ benchmark "pci_dss_v400_requirement_6_3" {
 }
 
 benchmark "pci_dss_v400_requirement_6_3_3" {
-  title       = "6.3.3: Software patches are installed within an appropriate time frame."
-  description = "Software patches are installed within an appropriate time frame after release by the vendor, based on the entity's risk assessment and criticality. Applicable critical security patches are installed within one month of release. Applicability Notes This may require a phased approach with initial testing and installing (for example, within 1 30 days from release) in pre-production of high-criticality systems with subsequent migration to production systems using a risk-based approach."
+  title       = "6.3.3: All system components are protected from known vulnerabilities by installing applicable security patches/updates"
+  description = "New exploits are constantly being discovered, and these can permit attacks against systems that have previously been considered secure."
 
   children = [
     control.ecs_service_fargate_using_latest_platform_version,
@@ -50,7 +51,7 @@ benchmark "pci_dss_v400_requirement_6_3_3" {
 }
 
 benchmark "pci_dss_v400_requirement_6_4" {
-  title = "6.4: Public-Facing Web Applications Are Protected Against Attacks"
+  title       = "6.4 Public-facing web applications are protected against attacks"
 
   children = [
     benchmark.pci_dss_v400_requirement_6_4_1,
@@ -63,8 +64,8 @@ benchmark "pci_dss_v400_requirement_6_4" {
 }
 
 benchmark "pci_dss_v400_requirement_6_4_1" {
-  title       = "6.4.1: Public-facing web applications are protected against attacks."
-  description = "Public-facing web applications are protected against attacks by applying either of the following methods: Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, as follows: At least once every 12 months and after significant changes. By an entity that specializes in application security. All vulnerabilities are corrected. The application is re-evaluated after the corrections."
+  title       = "6.4.1: For public-facing web applications, new threats and vulnerabilities are addressed on an ongoing basis and these applications are protected against known attacks"
+  description = "Public-facing web applications are those that are available to the public (not only for internal use). These applications are primary targets for attackers, and poorly coded web applications provide an easy path for attackers to gain access to sensitive data and systems."
 
   children = [
     control.apigateway_stage_use_waf_web_acl,
@@ -86,8 +87,8 @@ benchmark "pci_dss_v400_requirement_6_4_1" {
 }
 
 benchmark "pci_dss_v400_requirement_6_4_2" {
-  title       = "6.4.2: Public-facing web applications are protected against attacks."
-  description = "Installing an automated technical solution(s) that continuously detects and prevents web-based attacks, with at least the following: The automated technical solution(s) is located in front of public-facing web applications and is configured to detect and prevent web-based attacks. The automated technical solution(s) is configured to generate audit logs. The automated technical solution(s) is configured to block attacks or generate an alert that is immediately investigated. Applicability Notes Elements in the above requirement that are already covered elsewhere in PCI DSS may be cross-referenced."
+  title       = "6.4.2: For public-facing web applications, an automated technical solution is deployed that continually detects and prevents web-based attacks"
+  description = "Public-facing web applications are primary targets for attackers, and poorly coded web applications provide an easy path for attackers to gain access to sensitive data and systems."
 
   children = [
     control.apigateway_stage_use_waf_web_acl,
@@ -109,7 +110,7 @@ benchmark "pci_dss_v400_requirement_6_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_6_5" {
-  title = "6.5: Changes to All System Components Are Managed Securely"
+  title       = "6.5: Changes to all system components are managed securely"
 
   children = [
     benchmark.pci_dss_v400_requirement_6_5_5,
@@ -122,8 +123,8 @@ benchmark "pci_dss_v400_requirement_6_5" {
 }
 
 benchmark "pci_dss_v400_requirement_6_5_5" {
-  title       = "6.5.5: Change control processes and procedures are followed for all changes to system components."
-  description = "Responsibilities for using the change control processes are assigned to appropriate personnel who are also trained in how to use the processes."
+  title       = "6.5.5: Live PANs are not used in pre-production environments, except where those environments are included in the CDE and protected in accordance with all applicable PCI DSS requirements."
+  description = "Use of live PANs outside of protected CDEs provides malicious individuals with the opportunity to gain unauthorized access to cardholder data."
 
   children = [
     control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled
@@ -135,8 +136,8 @@ benchmark "pci_dss_v400_requirement_6_5_5" {
 }
 
 benchmark "pci_dss_v400_requirement_6_5_6" {
-  title       = "6.5.6: Change control processes and procedures are followed for all changes to system components."
-  description = "Upon completion of a significant change, all relevant PCI DSS requirements are implemented on all new or changed systems and networks, and documentation is updated as applicable."
+  title       = "6.5.6: Test data and test accounts are removed from system components before the system goes into production."
+  description = "This data may give away information about the functioning of an application or system and is an easy target for unauthorized individuals to exploit to gain access to systems. Possession of such information could facilitate compromise of the system and related account data."
 
   children = [
     control.codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled

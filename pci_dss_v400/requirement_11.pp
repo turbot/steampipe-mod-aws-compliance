@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_11" {
-  title = "Requirement 11: Test Security of Systems and Networks Regularly"
+  title       = "Requirement 11: Test Security of Systems and Networks Regularly"
+  description = "Vulnerabilities are being discovered continually by malicious individuals and researchers, as well as being introduced by new software. System components, processes, and bespoke and custom software should be tested frequently to ensure security controls continue to reflect a changing environment."
 
   children = [
     benchmark.pci_dss_v400_requirement_11_3,
@@ -17,7 +18,7 @@ benchmark "pci_dss_v400_requirement_11" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3" {
-  title = "11.3: Perform Penetration Testing"
+  title       = "11.3: External and internal vulnerabilities are regularly identified, prioritized, and addressed."
 
   children = [
     benchmark.pci_dss_v400_requirement_11_3_1
@@ -29,7 +30,8 @@ benchmark "pci_dss_v400_requirement_11_3" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3_1" {
-  title = "11.3.1: Penetration testing is performed."
+  title       = "11.3.1: Internal vulnerability scans are performed"
+  description = "Identifying and addressing vulnerabilities promptly reduces the likelihood of a vulnerability being exploited and the potential compromise of a system component or cardholder data. Vulnerability scans conducted at least every three months provide this detection and identification."
 
   children = [
     benchmark.pci_dss_v400_requirement_11_3_1_1,
@@ -45,8 +47,8 @@ benchmark "pci_dss_v400_requirement_11_3_1" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3_1_1" {
-  title       = "11.3.1.1: Network-layer penetration tests include network and application components that support or impact the security of cardholder data."
-  description = "Network-layer penetration tests include components that support network functions as well as operating systems."
+  title       = "11.3.1.1: All other applicable vulnerabilities (those not ranked as high-risk vulnerabilities or critical vulnerabilities according to the entity's vulnerability risk rankings)"
+  description = "All vulnerabilities, regardless of criticality, provide a potential avenue of attack and must therefore be addressed periodically, with the vulnerabilities that expose the most risk addressed more quickly to limit the potential window of attack."
 
   children = [
     control.guardduty_enabled,
@@ -78,8 +80,8 @@ benchmark "pci_dss_v400_requirement_11_3_1_2" {
 }
 
 benchmark "pci_dss_v400_requirement_11_3_1_3" {
-  title       = "11.3.1.3: Penetration testing covers CDE perimeter, critical system, and applications."
-  description = "The penetration testing includes the CDE perimeter and critical systems that may impact the security of the CDE, with focus on the cardholder data environment and those systems with connectivity to the CDE."
+  title       = "11.3.1.3: 3 Internal vulnerability scans are performed after any significant change"
+  description = "Scanning an environment after any significant changes ensures that changes were completed appropriately such that the security of the environment was not compromised because of the change."
 
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
@@ -106,7 +108,7 @@ benchmark "pci_dss_v400_requirement_11_3_1_3" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5" {
-  title = "11.5: Detect and Protect Against Security Failures"
+  title       = "11.5: Network intrusions and unexpected file changes are detected and responded to."
 
   children = [
     benchmark.pci_dss_v400_requirement_11_5_1,
@@ -119,8 +121,8 @@ benchmark "pci_dss_v400_requirement_11_5" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5_1" {
-  title       = "11.5.1: Intrusion-detection and/or intrusion-prevention techniques detect and protect against intrusions into the network."
-  description = "Intrusion-detection and/or intrusion-prevention techniques detect and protect against intrusions into the network."
+  title       = "11.5.1: Intrusion-detection and/or intrusionprevention techniques are used to detect and/or prevent intrusions into the network"
+  description = "Intrusion-detection and/or intrusion-prevention techniques (such as IDS/IPS) compare the traffic coming into the network with known “signatures” and/or behaviors of thousands of compromise types (hacker tools, Trojans, and other malware), and then send alerts and/or stop the attempt as it happens. Without a proactive approach to detect unauthorized activity, attacks on (or misuse of) computer resources could go unnoticed for long periods of time. The impact of an intrusion into the CDE is, in many ways, a factor of the time that an attacker has in the environment before being detected."
 
   children = [
     benchmark.pci_dss_v400_requirement_11_5_1_1,
@@ -133,8 +135,8 @@ benchmark "pci_dss_v400_requirement_11_5_1" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5_1_1" {
-  title       = "11.5.1.1: All traffic is monitored at the network level."
-  description = "All traffic is monitored at the network level, including traffic from within the CDE to third-party service providers, and from the CDE to outside the network."
+  title       = "11.5.1.1: Additional requirement for service providers only: Intrusion-detection and/or intrusion-prevention techniques detect, alert on/prevent, and address covert malware communication channels."
+  description = "Detecting covert malware communication attempts (for example, DNS tunneling) can help block the spread of malware laterally inside a network and the exfiltration of data. When deciding where to place this control, entities should consider critical locations in the network, and likely routes for covert channels."
 
   children = [
     control.guardduty_enabled,
@@ -151,8 +153,8 @@ benchmark "pci_dss_v400_requirement_11_5_1_1" {
 }
 
 benchmark "pci_dss_v400_requirement_11_5_2" {
-  title       = "11.5.2: Automated security scanning and testing tools are used as follows."
-  description = "Automated security scanning and testing tools are used for continuous monitoring or configuration testing."
+  title       = "11.5.2: A change-detection mechanism (for example, file integrity monitoring tools) is deployed"
+  description = "Changes to critical system, configuration, or content files can be an indicator an attacker has accessed an organization's system. Such changes can allow an attacker to take additional malicious actions, access cardholder data, and/or conduct activities without detection or record."
 
   children = [
     control.apigateway_rest_api_stage_use_ssl_certificate,
@@ -188,7 +190,7 @@ benchmark "pci_dss_v400_requirement_11_5_2" {
 }
 
 benchmark "pci_dss_v400_requirement_11_6" {
-  title = "11.6: Respond to Security Control Failures"
+  title       = "11.6: Unauthorized changes on payment pages are detected and responded to"
 
   children = [
     benchmark.pci_dss_v400_requirement_11_6_1
@@ -200,8 +202,8 @@ benchmark "pci_dss_v400_requirement_11_6" {
 }
 
 benchmark "pci_dss_v400_requirement_11_6_1" {
-  title       = "11.6.1: A security incident response plan exists and is followed in the event of a system breach."
-  description = "A security incident response plan exists and is ready to be activated in the event of a system breach."
+  title       = "11.6.1: A change- and tamper-detection mechanism is deployed"
+  description = "Many web pages now rely on assembling objects, including active content (primarily JavaScript), from multiple internet locations. Additionally, the content of many web pages is defined using content management and tag management systems that may not be possible to monitor using traditional change detection mechanisms."
 
   children = [
     control.cloudformation_stack_notifications_enabled,

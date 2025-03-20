@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_4" {
-  title = "Requirement 4: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
+  title       = "Requirement 4: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
+  description = "The use of strong cryptography provides greater assurance in preserving data confidentiality, integrity, and non-repudiation."
 
   children = [
     benchmark.pci_dss_v400_requirement_4_2
@@ -15,7 +16,7 @@ benchmark "pci_dss_v400_requirement_4" {
 }
 
 benchmark "pci_dss_v400_requirement_4_2" {
-  title = "4.2: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
+  title       = "4.2: PAN is protected with strong cryptography during transmission"
   children = [
     benchmark.pci_dss_v400_requirement_4_2_1,
   ]
@@ -26,8 +27,8 @@ benchmark "pci_dss_v400_requirement_4_2" {
 }
 
 benchmark "pci_dss_v400_requirement_4_2_1" {
-  title       = "4.2.1: PAN is protected with strong cryptography during transmission."
-  description = "Strong cryptography and security protocols are implemented as follows to safeguard PAN during transmission over open, public networks: Only trusted keys and certificates are accepted. Certificates used to safeguard PAN during transmission over open, public networks are confirmed as valid and are not expired or revoked. This bullet is a best practice until its effective date; refer to applicability notes below for details. The protocol in use supports only secure versions or configurations and does not support fallback to, or use of insecure versions, algorithms, key sizes, or implementations. The encryption strength is appropriate for the encryption methodology in use. Applicability Notes There could be occurrences where an entity receives cardholder data unsolicited via an insecure communication channel that was not intended for the purpose of receiving sensitive data. In this situation, the entity can choose to either include the channel in the scope of their CDE and secure it according to PCI DSS or implement measures to prevent the channel from being used for cardholder data. A self-signed certificate may also be acceptable if the certificate is issued by an internal CA within the organization, the certificates author is confirmed, and the certificate is verified, for example, via hash or signature and has not expired. Note that self-signed certificates where the Distinguished Name (DN) field in the issued by and issued to field is the same are not acceptable. The bullet above (for confirming that certificates used to safeguard PAN during transmission over open, public networks are valid and are not expired or revoked) is a best practice until 31 March 2025, after which it will be required as part of Requirement 4.2.1 and must be fully considered during a PCI DSS assessment."
+  title       = "4.2.1: Strong cryptography and security protocols are implemented as follows to safeguard PAN during transmission"
+  description = "Sensitive information must be encrypted during transmission over public networks because it is easy and common for a malicious individual to intercept and/or divert data while in transit."
 
   children = [
     benchmark.pci_dss_v400_requirement_4_2_1_1,
@@ -52,8 +53,8 @@ benchmark "pci_dss_v400_requirement_4_2_1" {
 }
 
 benchmark "pci_dss_v400_requirement_4_2_1_1" {
-  title       = "4.2.1.1: PAN is protected with strong cryptography during transmission."
-  description = "An inventory of the entity's trusted keys and certificates is maintained. Applicability Notes This requirement is a best practice until 31 March 2025, after which it will be required and must be fully considered during a PCI DSS assessment."
+  title       = "4.2.1.1: An inventory of the entity's trusted keys and certificates used to protect PAN during transmission is maintained."
+  description = "The inventory of trusted keys helps the entity keep track of the algorithms, protocols, key strength, key custodians, and key expiry dates. This enables the entity to respond quickly to vulnerabilities discovered in encryption software, certificates, and cryptographic algorithms."
 
   children = [
     control.acm_certificate_expires_30_days,

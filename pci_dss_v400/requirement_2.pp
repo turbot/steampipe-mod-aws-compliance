@@ -5,7 +5,8 @@ locals {
 }
 
 benchmark "pci_dss_v400_requirement_2" {
-  title = "Requirement 2: Apply Secure Configurations to All System Components"
+  title       = "Requirement 2: Apply Secure Configurations to All System Components"
+  description = "Malicious individuals, both external and internal to an entity, often use default passwords and other vendor default settings to compromise systems. These passwords and settings are well known and are easily determined via public information."
 
   children = [
     benchmark.pci_dss_v400_requirement_2_2
@@ -15,7 +16,7 @@ benchmark "pci_dss_v400_requirement_2" {
 }
 
 benchmark "pci_dss_v400_requirement_2_2" {
-  title = "2.2: Apply Secure Configurations to All System Components"
+  title       = "2.2 System components are configured and managed securely."
 
   children = [
     benchmark.pci_dss_v400_requirement_2_2_5,
@@ -28,8 +29,8 @@ benchmark "pci_dss_v400_requirement_2_2" {
 }
 
 benchmark "pci_dss_v400_requirement_2_2_5" {
-  title       = "2.2.5: System components are configured and managed securely."
-  description = "If any insecure services, protocols, or daemons are present: Business justification is documented. Additional security features are documented and implemented that reduce the risk of using insecure services, protocols, or daemons."
+  title       = "2.2.5: System components cannot be compromised by exploiting insecure services, protocols, or daemons."
+  description = "Ensuring that all insecure services, protocols, and daemons are adequately secured with appropriate security features makes it more difficult for malicious individuals to exploit common points of compromise within a network."
 
   children = [
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
@@ -55,8 +56,8 @@ benchmark "pci_dss_v400_requirement_2_2_5" {
 }
 
 benchmark "pci_dss_v400_requirement_2_2_7" {
-  title       = "2.2.7: System components are configured and managed securely."
-  description = "All non-console administrative access is encrypted using strong cryptography. Applicability Notes This includes administrative access via browser-based interfaces and application programming interfaces (APIs)."
+  title       = "2.2.7: All non-console administrative access is encrypted using strong cryptography."
+  description = "If non-console (including remote) administration does not use encrypted communications, administrative authorization factors (such as IDs and passwords) can be revealed to an eavesdropper. A malicious individual could use this information to access the network, become administrator, and steal data."
 
   children = [
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
