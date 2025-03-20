@@ -155,6 +155,7 @@ benchmark "pci_dss_v400_requirement_7_2_5" {
   description = "It is important to establish the appropriate access level for application or system accounts. If such accounts are compromised, malicious users will receive the same access level as that granted to the application or system."
 
   children = [
+    benchmark.pci_dss_v400_requirement_7_2_5_1,
     control.account_part_of_organizations,
     control.backup_recovery_point_manual_deletion_disabled,
     control.ec2_instance_iam_profile_attached,

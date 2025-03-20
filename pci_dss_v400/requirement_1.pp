@@ -10,7 +10,9 @@ benchmark "pci_dss_v400_requirement_1" {
 
   children = [
     benchmark.pci_dss_v400_requirement_1_2,
-    benchmark.pci_dss_v400_requirement_1_3
+    benchmark.pci_dss_v400_requirement_1_3,
+    benchmark.pci_dss_v400_requirement_1_4,
+    benchmark.pci_dss_v400_requirement_1_5
   ]
 
   tags = local.pci_dss_v400_requirement_1_common_tags
