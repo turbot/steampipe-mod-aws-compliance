@@ -11,7 +11,7 @@ control "codedeploy_deployment_group_lambda_allatonce_traffic_shift_disabled" {
 
   tags = merge(local.conformance_pack_codedeploy_common_tags, {
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 

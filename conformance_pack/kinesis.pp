@@ -15,7 +15,7 @@ control "kinesis_stream_server_side_encryption_enabled" {
     nist_csf           = "true"
     nydfs_23           = "true"
     pci_dss_v321       = "true"
-    pci_dss_v400       = "true"
+    pci_dss_v40        = "true"
   })
 }
 

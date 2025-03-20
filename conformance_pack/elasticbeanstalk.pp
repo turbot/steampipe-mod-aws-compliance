@@ -37,7 +37,7 @@ control "elastic_beanstalk_environment_logs_to_cloudwatch" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
   })
 }
@@ -49,7 +49,7 @@ control "elastic_beanstalk_environment_managed_updates_enabled" {
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 

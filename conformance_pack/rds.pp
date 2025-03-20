@@ -35,7 +35,7 @@ control "rds_db_cluster_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true",
+    pci_dss_v40          = "true",
   })
 }
 
@@ -46,7 +46,7 @@ control "rds_db_instance_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true",
+    pci_dss_v40          = "true",
   })
 }
 
@@ -57,7 +57,7 @@ control "rds_db_parameter_group_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true",
+    pci_dss_v40          = "true",
   })
 }
 
@@ -68,7 +68,7 @@ control "rds_db_security_group_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true",
+    pci_dss_v40          = "true",
   })
 }
 
@@ -110,7 +110,7 @@ control "rds_db_instance_backup_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -139,7 +139,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -189,7 +189,7 @@ control "rds_db_instance_prohibit_public_access" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -215,7 +215,7 @@ control "rds_db_snapshot_encrypted_at_rest" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -243,7 +243,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -272,7 +272,7 @@ control "rds_db_instance_logging_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -300,7 +300,7 @@ control "rds_db_instance_in_backup_plan" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -361,7 +361,7 @@ control "rds_db_instance_iam_authentication_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -375,7 +375,7 @@ control "rds_db_cluster_iam_authentication_enabled" {
     acsc_essential_eight = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -397,7 +397,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -421,7 +421,7 @@ control "rds_db_instance_protected_by_backup_plan" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -437,7 +437,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     ffiec                 = "true"
     nist_csf              = "true"
     pci_dss_v321          = "true"
-    pci_dss_v400          = "true"
+    pci_dss_v40           = "true"
     rbi_cyber_security    = "true"
     rbi_itf_nbfc          = "true"
   })
@@ -589,7 +589,7 @@ control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })

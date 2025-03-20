@@ -1,38 +1,38 @@
 locals {
-  pci_dss_v400_requirement_7_common_tags = merge(local.pci_dss_v400_common_tags, {
+  pci_dss_v40_requirement_7_common_tags = merge(local.pci_dss_v40_common_tags, {
     control_set = "7"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7" {
+benchmark "pci_dss_v40_requirement_7" {
   title       = "Requirement 7: Restrict Access to System Components and Cardholder Data by Business Need to Know"
   description = "Unauthorized individuals may gain access to critical data or systems due to ineffective access control rules and definitions. To ensure critical data can only be accessed by authorized personnel, systems and processes must be in place to limit access based on need to know and according to job responsibilities."
   children = [
-    benchmark.pci_dss_v400_requirement_7_2,
-    benchmark.pci_dss_v400_requirement_7_3
+    benchmark.pci_dss_v40_requirement_7_2,
+    benchmark.pci_dss_v40_requirement_7_3
   ]
 
-  tags = local.pci_dss_v400_requirement_7_common_tags
+  tags = local.pci_dss_v40_requirement_7_common_tags
 }
 
-benchmark "pci_dss_v400_requirement_7_2" {
+benchmark "pci_dss_v40_requirement_7_2" {
   title       = "7.2: Access to system components and data is appropriately defined and assigned"
 
   children = [
-    benchmark.pci_dss_v400_requirement_7_2_1,
-    benchmark.pci_dss_v400_requirement_7_2_2,
-    benchmark.pci_dss_v400_requirement_7_2_3,
-    benchmark.pci_dss_v400_requirement_7_2_4,
-    benchmark.pci_dss_v400_requirement_7_2_5,
-    benchmark.pci_dss_v400_requirement_7_2_6
+    benchmark.pci_dss_v40_requirement_7_2_1,
+    benchmark.pci_dss_v40_requirement_7_2_2,
+    benchmark.pci_dss_v40_requirement_7_2_3,
+    benchmark.pci_dss_v40_requirement_7_2_4,
+    benchmark.pci_dss_v40_requirement_7_2_5,
+    benchmark.pci_dss_v40_requirement_7_2_6
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_1" {
+benchmark "pci_dss_v40_requirement_7_2_1" {
   title       = "7.2.1: An access control model is defined and includes granting access"
   description = "Defining an access control model that is appropriate for the entity's technology and access control philosophy supports a consistent and uniform way of allocating access and reduces the possibility of errors such as the granting of excessive rights."
 
@@ -71,12 +71,12 @@ benchmark "pci_dss_v400_requirement_7_2_1" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.1"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_2" {
+benchmark "pci_dss_v40_requirement_7_2_2" {
   title       = "7.2.2: Access is assigned to users, including privileged users"
   description = "Assigning least privileges helps prevent users without sufficient knowledge about the application from incorrectly or accidentally changing application configuration or altering its security settings. Enforcing least privilege also helps to minimize the scope of damage if an unauthorized person gains access to a user ID."
 
@@ -110,12 +110,12 @@ benchmark "pci_dss_v400_requirement_7_2_2" {
     control.sagemaker_notebook_instance_root_access_disabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.2"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_3" {
+benchmark "pci_dss_v40_requirement_7_2_3" {
   title       = "7.2.3: Required privileges are approved by authorized personnel"
   description = "Documented approval (for example, in writing or electronically) assures that those with access and privileges are known and authorized by management, and that their access is necessary for their job function."
 
@@ -130,12 +130,12 @@ benchmark "pci_dss_v400_requirement_7_2_3" {
     control.sagemaker_notebook_instance_root_access_disabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.3"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.3"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_4" {
+benchmark "pci_dss_v40_requirement_7_2_4" {
   title       = "7.2.4: All user accounts and related access privileges, including third-party/vendor accounts, are reviewed"
   description = "Regular review of access rights helps to detect excessive access rights remaining after user job responsibilities change, system functions change, or other modifications. If excessive user rights are not revoked in due time, they may be used by malicious users for unauthorized access."
 
@@ -145,17 +145,17 @@ benchmark "pci_dss_v400_requirement_7_2_4" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.4"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.4"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_5" {
+benchmark "pci_dss_v40_requirement_7_2_5" {
   title       = "7.2.5: All application and system accounts and related access privileges are assigned and managed"
   description = "It is important to establish the appropriate access level for application or system accounts. If such accounts are compromised, malicious users will receive the same access level as that granted to the application or system."
 
   children = [
-    benchmark.pci_dss_v400_requirement_7_2_5_1,
+    benchmark.pci_dss_v40_requirement_7_2_5_1,
     control.account_part_of_organizations,
     control.backup_recovery_point_manual_deletion_disabled,
     control.ec2_instance_iam_profile_attached,
@@ -180,12 +180,12 @@ benchmark "pci_dss_v400_requirement_7_2_5" {
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.5"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.5"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_5_1" {
+benchmark "pci_dss_v40_requirement_7_2_5_1" {
   title       = "7.2.5.1: All access by application and system accounts and related access privileges are reviewed"
   description = "Regular review of access rights helps to detect excessive access rights remaining after system functions change, or other application or system modifications occur. If excessive rights are not removed when no longer needed, they may be used by malicious users for unauthorized access."
 
@@ -195,12 +195,12 @@ benchmark "pci_dss_v400_requirement_7_2_5_1" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.5.1"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.5.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_2_6" {
+benchmark "pci_dss_v40_requirement_7_2_6" {
   title       = "7.2.6: All user access to query repositories of stored cardholder data"
   description = "The misuse of query access to repositories of cardholder data has been a regular cause of data breaches. Limiting such access to administrators reduces the risk of such access being abused by unauthorized users."
 
@@ -216,26 +216,26 @@ benchmark "pci_dss_v400_requirement_7_2_6" {
     control.sagemaker_notebook_instance_direct_internet_access_disabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.2.6"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.2.6"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_3" {
+benchmark "pci_dss_v40_requirement_7_3" {
   title       = "7.3: Access to system components and data is managed via an access control system(s)"
 
   children = [
-    benchmark.pci_dss_v400_requirement_7_3_1,
-    benchmark.pci_dss_v400_requirement_7_3_2,
-    benchmark.pci_dss_v400_requirement_7_3_3
+    benchmark.pci_dss_v40_requirement_7_3_1,
+    benchmark.pci_dss_v40_requirement_7_3_2,
+    benchmark.pci_dss_v40_requirement_7_3_3
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.3"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.3"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_3_1" {
+benchmark "pci_dss_v40_requirement_7_3_1" {
   title       = "7.3.1: An access control system(s) is in place that restricts access based on a user's need to know and covers all system components"
   description = "Without a mechanism to restrict access based on user's need to know, a user may unknowingly be granted access to cardholder data. Access control systems automate the process of restricting access and assigning privileges."
 
@@ -269,12 +269,12 @@ benchmark "pci_dss_v400_requirement_7_3_1" {
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.3.1"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.3.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_3_2" {
+benchmark "pci_dss_v40_requirement_7_3_2" {
   title       = "7.3.2: The access control system(s) is configured to enforce permissions assigned to individuals, applications, and systems based on job classification and function"
   description = "Restricting privileged access with an access control system reduces the opportunity for errors in the assignment of permissions to individuals, applications, and systems."
 
@@ -305,12 +305,12 @@ benchmark "pci_dss_v400_requirement_7_3_2" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.3.2"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.3.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_7_3_3" {
+benchmark "pci_dss_v40_requirement_7_3_3" {
   title       = "7.3.3: The access control system(s) is set to “deny all” by default"
   description = "A default setting of 'deny all' ensures no one is granted access unless a rule is established specifically granting such access."
 
@@ -343,7 +343,7 @@ benchmark "pci_dss_v400_requirement_7_3_3" {
     control.securityhub_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_7_common_tags, {
-    pci_dss_v400_item_id = "7.3.3"
+  tags = merge(local.pci_dss_v40_requirement_7_common_tags, {
+    pci_dss_v40_item_id = "7.3.3"
   })
 } 

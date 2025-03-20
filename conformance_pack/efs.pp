@@ -23,7 +23,7 @@ control "efs_file_system_encrypt_data_at_rest" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -48,7 +48,7 @@ control "efs_file_system_in_backup_plan" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -72,7 +72,7 @@ control "efs_file_system_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -104,7 +104,7 @@ control "efs_access_point_enforce_user_identity" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
     rbi_itf_nbfc         = "true"
   })
 }
@@ -117,7 +117,7 @@ control "efs_access_point_enforce_root_directory" {
   tags = merge(local.conformance_pack_efs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
     rbi_itf_nbfc         = "true"
   })
 }

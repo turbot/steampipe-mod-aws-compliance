@@ -28,7 +28,7 @@ control "codebuild_project_plaintext_env_variables_no_sensitive_aws_values" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -50,7 +50,7 @@ control "codebuild_project_source_repo_oauth_configured" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -71,7 +71,7 @@ control "codebuild_project_environment_privileged_mode_disabled" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -86,7 +86,7 @@ control "codebuild_project_logging_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
   })
 }
@@ -101,7 +101,7 @@ control "codebuild_project_artifact_encryption_enabled" {
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
     nydfs_23           = "true"
-    pci_dss_v400       = "true"
+    pci_dss_v40        = "true"
   })
 }
 
@@ -114,7 +114,7 @@ control "codebuild_project_s3_logs_encryption_enabled" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
-    pci_dss_v400       = "true"
+    pci_dss_v40        = "true"
   })
 }
 

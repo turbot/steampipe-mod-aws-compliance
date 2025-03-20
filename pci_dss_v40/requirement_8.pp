@@ -1,42 +1,42 @@
 locals {
-  pci_dss_v400_requirement_8_common_tags = merge(local.pci_dss_v400_common_tags, {
+  pci_dss_v40_requirement_8_common_tags = merge(local.pci_dss_v40_common_tags, {
     control_set = "8"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8" {
+benchmark "pci_dss_v40_requirement_8" {
   title       = "Requirement 8: Identify Users and Authenticate Access to System Components"
   description = "Identification of an individual or process on a computer system is conducted by associating an identity with a person or process through an identifier, such as a user, system, or application ID. These IDs (also referred to as “accounts”) fundamentally establish the identity of an individual or process by assigning unique identification to each person or process to distinguish one user or process from another. When each user or process can be uniquely identified, it ensures there is accountability for actions performed by that identity. When such accountability is in place, actions taken can be traced to known and authorized users and processes."
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_2,
-    benchmark.pci_dss_v400_requirement_8_3,
-    benchmark.pci_dss_v400_requirement_8_4,
-    benchmark.pci_dss_v400_requirement_8_6
+    benchmark.pci_dss_v40_requirement_8_2,
+    benchmark.pci_dss_v40_requirement_8_3,
+    benchmark.pci_dss_v40_requirement_8_4,
+    benchmark.pci_dss_v40_requirement_8_6
   ]
 
-  tags = local.pci_dss_v400_requirement_8_common_tags
+  tags = local.pci_dss_v40_requirement_8_common_tags
 }
 
-benchmark "pci_dss_v400_requirement_8_2" {
+benchmark "pci_dss_v40_requirement_8_2" {
   title       = "8.2: User identification and related accounts for users and administrators are strictly managed throughout an account's lifecycle"
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_2_1,
-    benchmark.pci_dss_v400_requirement_8_2_2,
-    benchmark.pci_dss_v400_requirement_8_2_4,
-    benchmark.pci_dss_v400_requirement_8_2_5,
-    benchmark.pci_dss_v400_requirement_8_2_6,
-    benchmark.pci_dss_v400_requirement_8_2_7,
-    benchmark.pci_dss_v400_requirement_8_2_8
+    benchmark.pci_dss_v40_requirement_8_2_1,
+    benchmark.pci_dss_v40_requirement_8_2_2,
+    benchmark.pci_dss_v40_requirement_8_2_4,
+    benchmark.pci_dss_v40_requirement_8_2_5,
+    benchmark.pci_dss_v40_requirement_8_2_6,
+    benchmark.pci_dss_v40_requirement_8_2_7,
+    benchmark.pci_dss_v40_requirement_8_2_8
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_1" {
+benchmark "pci_dss_v40_requirement_8_2_1" {
   title       = "8.2.1: All users are assigned a unique ID before access to system components or cardholder data is allowed"
   description = "The ability to trace actions performed on a computer system to an individual establishes accountability and traceability and is fundamental to establishing effective access controls."
 
@@ -49,12 +49,12 @@ benchmark "pci_dss_v400_requirement_8_2_1" {
     control.log_metric_filter_root_login
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.1"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_2" {
+benchmark "pci_dss_v40_requirement_8_2_2" {
   title       = "8.2.2: Group, shared, or generic IDs, or other shared authentication credentials are only used when necessary on an exception basis, and are managed"
   description = "Group, shared, or generic (or default) IDs are typically delivered with software or operating systems—for example, root or with privileges associated with a specific function, such as an administrator."
 
@@ -73,12 +73,12 @@ benchmark "pci_dss_v400_requirement_8_2_2" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.2"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_4" {
+benchmark "pci_dss_v40_requirement_8_2_4" {
   title       = "8.2.4: Addition, deletion, and modification of user IDs, authentication factors, and other identifier objects are managed"
   description = "It is imperative that the lifecycle of a user ID (additions, deletions, and modifications) is controlled so that only authorized accounts can perform functions, actions are auditable, and privileges are limited to only what is required."
 
@@ -91,12 +91,12 @@ benchmark "pci_dss_v400_requirement_8_2_4" {
     control.log_metric_filter_root_login
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.4"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.4"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_5" {
+benchmark "pci_dss_v40_requirement_8_2_5" {
   title       = "8.2.5: Access for terminated users is immediately revoked"
   description = "If an employee or third party/vendor has left the company and still has access to the network via their user account, unnecessary or malicious access to cardholder data could occur—either by the former employee or by a malicious user who exploits the old and/or unused account."
 
@@ -109,12 +109,12 @@ benchmark "pci_dss_v400_requirement_8_2_5" {
     control.log_metric_filter_root_login
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.5"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.5"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_6" {
+benchmark "pci_dss_v40_requirement_8_2_6" {
   title       = "8.2.6: Inactive user accounts are removed or disabled within 90 days of inactivity"
   description = "Accounts that are not used regularly are often targets of attack since it is less likely that any changes, such as a changed password, will be noticed. As such, these accounts may be more easily exploited and used to access cardholder data."
 
@@ -124,12 +124,12 @@ benchmark "pci_dss_v400_requirement_8_2_6" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.6"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.6"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_7" {
+benchmark "pci_dss_v40_requirement_8_2_7" {
   title       = "8.2.7: Accounts used by third parties to access, support, or maintain system components via remote access are managed"
   description = "Allowing third parties to have 24/7 access into an entity's systems and networks in case they need to provide support increases the chances of unauthorized access."
 
@@ -155,12 +155,12 @@ benchmark "pci_dss_v400_requirement_8_2_7" {
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.7"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.7"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_2_8" {
+benchmark "pci_dss_v40_requirement_8_2_8" {
   title       = "8.2.8: If a user session has been idle for more than 15 minutes, the user is required to re-authenticate to re-activate the terminal or session"
   description = "When users walk away from an open machine with access to system components or cardholder data, there is a risk that the machine may be used by others in the user's absence, resulting in unauthorized account access and/or misuse."
 
@@ -188,31 +188,31 @@ benchmark "pci_dss_v400_requirement_8_2_8" {
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.2.8"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.2.8"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3" {
+benchmark "pci_dss_v40_requirement_8_3" {
   title       = "8.3: Strong authentication for users and administrators is established and managed"
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_3_2,
-    benchmark.pci_dss_v400_requirement_8_3_4,
-    benchmark.pci_dss_v400_requirement_8_3_5,
-    benchmark.pci_dss_v400_requirement_8_3_6,
-    benchmark.pci_dss_v400_requirement_8_3_7,
-    benchmark.pci_dss_v400_requirement_8_3_9,
-    benchmark.pci_dss_v400_requirement_8_3_10,
-    benchmark.pci_dss_v400_requirement_8_3_11
+    benchmark.pci_dss_v40_requirement_8_3_2,
+    benchmark.pci_dss_v40_requirement_8_3_4,
+    benchmark.pci_dss_v40_requirement_8_3_5,
+    benchmark.pci_dss_v40_requirement_8_3_6,
+    benchmark.pci_dss_v40_requirement_8_3_7,
+    benchmark.pci_dss_v40_requirement_8_3_9,
+    benchmark.pci_dss_v40_requirement_8_3_10,
+    benchmark.pci_dss_v40_requirement_8_3_11
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_2" {
+benchmark "pci_dss_v40_requirement_8_3_2" {
   title       = "8.3.2: Strong cryptography is used to render all authentication factors unreadable during transmission and storage on all system components"
   description = "Network devices and applications have been known to transmit unencrypted, readable authentication factors (such as passwords and passphrases) across the network and/or store these values without encryption. As a result, a malicious individual can easily intercept this information during transmission using a 'sniffer,' or directly access unencrypted authentication factors in files where they are stored, and then use this data to gain unauthorized access."
 
@@ -265,12 +265,12 @@ benchmark "pci_dss_v400_requirement_8_3_2" {
     control.sns_topic_encrypted_at_rest
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.2"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_4" {
+benchmark "pci_dss_v40_requirement_8_3_4" {
   title       = "8.3.4: Invalid authentication attempts are limited"
   description = "Without account-lockout mechanisms in place, an attacker can continually try to guess a password through manual or automated tools (for example, password cracking) until the attacker succeeds and gains access to a user's account."
 
@@ -296,12 +296,12 @@ benchmark "pci_dss_v400_requirement_8_3_4" {
     control.s3_bucket_policy_restricts_cross_account_permission_changes
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.4"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.4"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_5" {
+benchmark "pci_dss_v40_requirement_8_3_5" {
   title       = "8.3.5: If passwords/passphrases are used as authentication factors to meet Requirement 8.3.1, they are set and reset for each user"
   description = "If the same password/passphrase is used for every new user, an internal user, former employee, or malicious individual may know or easily discover the value and use it to gain access to accounts before the authorized user attempts to use the password."
 
@@ -312,12 +312,12 @@ benchmark "pci_dss_v400_requirement_8_3_5" {
     control.secretsmanager_secret_last_changed_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.5"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.5"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_6" {
+benchmark "pci_dss_v40_requirement_8_3_6" {
   title       = "8.3.6: 6 If passwords/passphrases are used as authentication factors to meet Requirement 8.3.6, they meet the minimum level of complexity"
   description = "Strong passwords/passphrases may be the first line of defense into a network since a malicious individual will often first try to find accounts with weak, static, or non-existent passwords. If passwords are short or easily guessable, it is relatively easy for a malicious individual to find these weak accounts and compromise a network under the guise of a valid user ID."
 
@@ -325,12 +325,12 @@ benchmark "pci_dss_v400_requirement_8_3_6" {
     control.iam_account_password_policy_strong_min_reuse_24
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.6"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.6"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_7" {
+benchmark "pci_dss_v40_requirement_8_3_7" {
   title       = "8.3.7: Individuals are not allowed to submit a new password/passphrase that is the same as any of the last four passwords/passphrases used"
   description = "If password history is not maintained, the effectiveness of changing passwords is reduced, as previous passwords can be reused over and over. Requiring that passwords cannot be reused for a period reduces the likelihood that passwords that have been guessed or brute-forced will be reused in the future."
 
@@ -341,12 +341,12 @@ benchmark "pci_dss_v400_requirement_8_3_7" {
     control.secretsmanager_secret_last_changed_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.7"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.7"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_9" {
+benchmark "pci_dss_v40_requirement_8_3_9" {
   title       = "8.3.9: If passwords/passphrases are used as the only authentication factor for user access (i.e., in any single-factor authentication implementation)"
   description = "Access to in-scope system components that are not in the CDE may be provided using a single authentication factor, such as a password/passphrase, token device or smart card, or biometric attribute. Where passwords/passphrases are employed as the only authentication factor for such access, additional controls are required to protect the integrity of the password/passphrase."
 
@@ -357,25 +357,25 @@ benchmark "pci_dss_v400_requirement_8_3_9" {
     control.secretsmanager_secret_last_changed_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.9"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.9"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_10" {
+benchmark "pci_dss_v40_requirement_8_3_10" {
   title       = "8.3.10: Additional requirement for service providers only: If passwords/passphrases are used as the only authentication factor for customer user access to cardholder data (i.e., in any singlefactor authentication implementation), then guidance is provided to customer users"
   description = "Using a password/passphrase as the only authentication factor provides a single point of failure if compromised. Therefore, in these implementations, controls are needed to minimize how long malicious activity could occur via a compromised password/passphrase."
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_3_10_1
+    benchmark.pci_dss_v40_requirement_8_3_10_1
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.10"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.10"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_10_1" {
+benchmark "pci_dss_v40_requirement_8_3_10_1" {
   title       = "8.3.10.1 Additional requirement for service providers only: If passwords/passphrases are used as the only authentication factor for customer user access (i.e., in any single-factor authentication implementation)"
   description = "Using a password/passphrase as the only authentication factor provides a single point of failure if compromised. Therefore, in these implementations, controls are needed to minimize how long malicious activity could occur via a compromised password/passphrase."
 
@@ -386,12 +386,12 @@ benchmark "pci_dss_v400_requirement_8_3_10_1" {
     control.secretsmanager_secret_last_changed_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.10.1"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.10.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_3_11" {
+benchmark "pci_dss_v40_requirement_8_3_11" {
   title       = "8.3.11: Where authentication factors such as physical or logical security tokens, smart cards, or certificates"
   description = "If multiple users can use authentication factors such as tokens, smart cards, and certificates, it may be impossible to identify the individual using the authentication mechanism."
 
@@ -404,26 +404,26 @@ benchmark "pci_dss_v400_requirement_8_3_11" {
     control.log_metric_filter_root_login
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.3.11"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.3.11"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_4" {
+benchmark "pci_dss_v40_requirement_8_4" {
   title       = "8.4: Multi-factor authentication (MFA) is implemented to secure access into the CDE"
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_4_1,
-    benchmark.pci_dss_v400_requirement_8_4_2,
-    benchmark.pci_dss_v400_requirement_8_4_3
+    benchmark.pci_dss_v40_requirement_8_4_1,
+    benchmark.pci_dss_v40_requirement_8_4_2,
+    benchmark.pci_dss_v40_requirement_8_4_3
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.4"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.4"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_4_1" {
+benchmark "pci_dss_v40_requirement_8_4_1" {
   title       = "8.4.1: MFA is implemented for all non-console access into the CDE for personnel with administrative access"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows such as a password or passphrase."
 
@@ -435,12 +435,12 @@ benchmark "pci_dss_v400_requirement_8_4_1" {
     control.s3_bucket_mfa_delete_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.4.1"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.4.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_4_2" {
+benchmark "pci_dss_v40_requirement_8_4_2" {
   title       = "8.4.2 MFA is implemented for all non-console access into the CDE"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows such as a password or passphrase."
 
@@ -452,12 +452,12 @@ benchmark "pci_dss_v400_requirement_8_4_2" {
     control.s3_bucket_mfa_delete_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.4.2"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.4.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_4_3" {
+benchmark "pci_dss_v40_requirement_8_4_3" {
   title       = "8.4.3 MFA is implemented for all remote access originating from outside the entity's network that could access or impact the CDE"
   description = "Requiring more than one type of authentication factor reduces the probability that an attacker can gain access to a system by masquerading as a legitimate user, because the attacker would need to compromise multiple authentication factors. This is especially true in environments where traditionally the single authentication factor employed was something a user knows, such as a password or passphrase."
 
@@ -469,24 +469,24 @@ benchmark "pci_dss_v400_requirement_8_4_3" {
     control.s3_bucket_mfa_delete_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.4.3"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.4.3"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_6" {
+benchmark "pci_dss_v40_requirement_8_6" {
   title       = "8.6: Use of application and system accounts and associated authentication factors is strictly managed"
 
   children = [
-    benchmark.pci_dss_v400_requirement_8_6_3
+    benchmark.pci_dss_v40_requirement_8_6_3
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.6"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.6"
   })
 }
 
-benchmark "pci_dss_v400_requirement_8_6_3" {
+benchmark "pci_dss_v40_requirement_8_6_3" {
   title       = "8.6.3: 3 Passwords/passphrases for any application and system accounts are protected against misuse"
   description = "Systems and application accounts pose more inherent security risk than user accounts because they often run in an elevated security context, with access to systems that may not be typically granted to user accounts, such as programmatic access to databases, etc. As a result, special consideration must be made to protect passwords/passphrases used for application and system accounts."
 
@@ -498,7 +498,7 @@ benchmark "pci_dss_v400_requirement_8_6_3" {
     control.secretsmanager_secret_last_changed_90_day
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_8_common_tags, {
-    pci_dss_v400_item_id = "8.6.3"
+  tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
+    pci_dss_v40_item_id = "8.6.3"
   })
 } 

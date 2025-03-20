@@ -1,35 +1,35 @@
 locals {
-  pci_dss_v400_appendix_a1_common_tags = merge(local.pci_dss_v400_common_tags, {
+  pci_dss_v40_appendix_a1_common_tags = merge(local.pci_dss_v40_common_tags, {
     control_set = "1"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1" {
+benchmark "pci_dss_v40_appendix_a1" {
   title       = "Appendix A1: Additional PCI DSS Requirements for Multi-Tenant Service Providers"
   description = "All service providers are responsible for meeting PCI DSS requirements for their own environments as applicable to the services offered to their customers. In addition, multi-tenant service providers must meet the requirements in this Appendix."
 
   children = [
-    benchmark.pci_dss_v400_appendix_a1_1,
-    benchmark.pci_dss_v400_appendix_a1_2,
+    benchmark.pci_dss_v40_appendix_a1_1,
+    benchmark.pci_dss_v40_appendix_a1_2,
   ]
 
-  tags = local.pci_dss_v400_appendix_a1_common_tags
+  tags = local.pci_dss_v40_appendix_a1_common_tags
 }
 
-benchmark "pci_dss_v400_appendix_a1_1" {
+benchmark "pci_dss_v40_appendix_a1_1" {
   title       = "A1.1: Multi-tenant service providers protect and separate all customer environments and data"
 
   children = [
-    benchmark.pci_dss_v400_appendix_a1_1_2,
-    benchmark.pci_dss_v400_appendix_a1_1_3
+    benchmark.pci_dss_v40_appendix_a1_1_2,
+    benchmark.pci_dss_v40_appendix_a1_1_3
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.1"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.1"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1_1_2" {
+benchmark "pci_dss_v40_appendix_a1_1_2" {
   title       = "A1.1.2: Controls are implemented such that each customer only has permission to access its own cardholder data and CDE"
   description = "It is important that a multi-tenant service provider define controls so that each customer can only access their own environment and CDE to prevent unauthorized access from one customer's environment to another."
 
@@ -57,12 +57,12 @@ benchmark "pci_dss_v400_appendix_a1_1_2" {
     control.ssm_document_prohibit_public_access
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.1.2"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.1.2"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1_1_3" {
+benchmark "pci_dss_v40_appendix_a1_1_3" {
   title       = "A1.1.3: Controls are implemented such that each customer can only access resources allocated to them"
   description = "To prevent any inadvertent or intentional impact to other customers' environments or account data, it is important that each customer can access only resources allocated to that customer."
 
@@ -112,26 +112,26 @@ benchmark "pci_dss_v400_appendix_a1_1_3" {
     control.waf_web_acl_rule_attached
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.1.3"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.1.3"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1_2" {
+benchmark "pci_dss_v40_appendix_a1_2" {
   title       = "A1.2: 2 Multi-tenant service providers facilitate logging and incident response for all customers"
   description = "Log information is useful for detecting and troubleshooting security incidents and is invaluable for forensic investigations. Customers therefore need to have access to these logs."
 
   children = [
-    benchmark.pci_dss_v400_appendix_a1_2_1,
-    benchmark.pci_dss_v400_appendix_a1_2_3,
+    benchmark.pci_dss_v40_appendix_a1_2_1,
+    benchmark.pci_dss_v40_appendix_a1_2_3,
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.2"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.2"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1_2_1" {
+benchmark "pci_dss_v40_appendix_a1_2_1" {
   title       = "A1.2.1: Audit log capability is enabled for each customer's environment that is consistent"
   description = "Log information is useful for detecting and troubleshooting security incidents and is invaluable for forensic investigations. Customers therefore need to have access to these logs."
 
@@ -176,12 +176,12 @@ benchmark "pci_dss_v400_appendix_a1_2_1" {
     control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.2.1"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.2.1"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a1_2_3" {
+benchmark "pci_dss_v40_appendix_a1_2_3" {
   title       = "A1.2.3: Processes or mechanisms are implemented for reporting and addressing suspected or confirmed security incidents and vulnerabilities"
   description = "Security vulnerabilities in the provided services can impact the security of all the service provider's customers and therefore must be managed in accordance with the service provider's established processes, with priority given to resolving vulnerabilities that have the highest probability of compromise."
 
@@ -189,7 +189,7 @@ benchmark "pci_dss_v400_appendix_a1_2_3" {
     control.account_alternate_contact_security_registered
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a1_common_tags, {
-    pci_dss_v400_item_id = "A1.2.3"
+  tags = merge(local.pci_dss_v40_appendix_a1_common_tags, {
+    pci_dss_v40_item_id = "A1.2.3"
   })
 }

@@ -21,7 +21,7 @@ control "fsx_file_system_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })

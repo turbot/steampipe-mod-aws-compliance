@@ -10,8 +10,8 @@ control "networkfirewall_stateless_rule_group_not_empty" {
   query       = query.networkfirewall_stateless_rule_group_not_empty
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -21,8 +21,8 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
   query       = query.networkfirewall_firewall_policy_rule_group_not_empty
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -32,8 +32,8 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_full_pac
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_full_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -43,8 +43,8 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
   query       = query.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -71,7 +71,7 @@ control "networkfirewall_firewall_logging_enabled" {
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true",
+    pci_dss_v40          = "true",
   })
 }
 

@@ -15,7 +15,7 @@ control "account_part_of_organizations" {
     gxp_21_cfr_part_11   = "true"
     nist_800_53_rev_5    = "true"
     nist_csf             = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -25,7 +25,7 @@ control "account_alternate_contact_security_registered" {
   query       = query.account_alternate_contact_security_registered
 
   tags = merge(local.conformance_pack_account_common_tags, {
-    pci_dss_v400 = "true"
+    pci_dss_v40 = "true"
   })
 }
 

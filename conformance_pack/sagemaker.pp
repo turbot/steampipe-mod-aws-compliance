@@ -35,7 +35,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -62,7 +62,7 @@ control "sagemaker_notebook_instance_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -88,7 +88,7 @@ control "sagemaker_endpoint_configuration_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -116,7 +116,7 @@ control "sagemaker_notebook_instance_in_vpc" {
   query       = query.sagemaker_notebook_instance_in_vpc
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
-    pci_dss_v400 = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -127,7 +127,7 @@ control "sagemaker_notebook_instance_root_access_disabled" {
 
   tags = merge(local.conformance_pack_sagemaker_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 

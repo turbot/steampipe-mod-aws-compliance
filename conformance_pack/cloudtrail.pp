@@ -42,7 +42,7 @@ control "cloudtrail_trail_integrated_with_logs" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -72,7 +72,7 @@ control "cloudtrail_s3_data_events_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -101,7 +101,7 @@ control "cloudtrail_trail_logs_encrypted_with_kms_cmk" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -129,7 +129,7 @@ control "cloudtrail_multi_region_trail_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -157,7 +157,7 @@ control "cloudtrail_trail_validation_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -184,7 +184,7 @@ control "cloudtrail_trail_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -205,7 +205,7 @@ control "cloudtrail_security_trail_enabled" {
     nist_800_171_rev_2   = "true"
     nist_800_53_rev_4    = "true"
     nist_csf             = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
     soc_2                = "true"
   })
 }

@@ -19,7 +19,7 @@ control "docdb_cluster_backup_retention_period_7_days" {
 
   tags = merge(local.conformance_pack_docdb_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -58,7 +58,7 @@ control "docdb_cluster_snapshot_restrict_public_access" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
   })
 }

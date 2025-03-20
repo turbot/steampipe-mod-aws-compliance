@@ -42,7 +42,7 @@ control "elb_application_classic_lb_logging_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -91,7 +91,7 @@ control "elb_application_lb_redirect_http_request_to_https" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -114,7 +114,7 @@ control "elb_application_lb_waf_enabled" {
     nist_csf               = "true"
     nydfs_23               = "true"
     pci_dss_v321           = "true"
-    pci_dss_v400           = "true"
+    pci_dss_v40            = "true"
     rbi_cyber_security     = "true"
     rbi_itf_nbfc           = "true"
     soc_2                  = "true"
@@ -141,7 +141,7 @@ control "elb_classic_lb_use_ssl_certificate" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -189,7 +189,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -235,7 +235,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -324,7 +324,7 @@ control "elb_classic_lb_desync_mitigation_mode" {
   tags = merge(local.conformance_pack_elb_common_tags, {
     acsc_essential_eight = "true"
     pci_dss_v321         = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 

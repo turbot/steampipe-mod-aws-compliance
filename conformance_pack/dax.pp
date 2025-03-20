@@ -16,7 +16,7 @@ control "dax_cluster_encryption_at_rest_enabled" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 

@@ -37,7 +37,7 @@ control "ec2_ebs_default_encryption_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -56,7 +56,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -78,8 +78,8 @@ control "ec2_instance_no_amazon_key_pair" {
   query       = query.ec2_instance_no_amazon_key_pair
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -103,7 +103,7 @@ control "ec2_instance_in_vpc" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -206,7 +206,7 @@ control "ec2_instance_uses_imdsv2" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -228,7 +228,7 @@ control "ec2_instance_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -248,7 +248,7 @@ control "ec2_instance_iam_profile_attached" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
   })
 }
@@ -275,8 +275,8 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
   query       = query.ec2_transit_gateway_auto_cross_account_attachment_disabled
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -486,7 +486,7 @@ control "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })

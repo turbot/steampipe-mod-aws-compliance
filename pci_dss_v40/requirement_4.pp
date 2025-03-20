@@ -1,37 +1,37 @@
 locals {
-  pci_dss_v400_requirement_4_common_tags = merge(local.pci_dss_v400_common_tags, {
+  pci_dss_v40_requirement_4_common_tags = merge(local.pci_dss_v40_common_tags, {
     control_set = "4"
   })
 }
 
-benchmark "pci_dss_v400_requirement_4" {
+benchmark "pci_dss_v40_requirement_4" {
   title       = "Requirement 4: Protect Cardholder Data with Strong Cryptography During Transmission Over Open, Public Networks"
   description = "The use of strong cryptography provides greater assurance in preserving data confidentiality, integrity, and non-repudiation."
 
   children = [
-    benchmark.pci_dss_v400_requirement_4_2
+    benchmark.pci_dss_v40_requirement_4_2
   ]
 
-  tags = local.pci_dss_v400_requirement_4_common_tags
+  tags = local.pci_dss_v40_requirement_4_common_tags
 }
 
-benchmark "pci_dss_v400_requirement_4_2" {
+benchmark "pci_dss_v40_requirement_4_2" {
   title       = "4.2: PAN is protected with strong cryptography during transmission"
   children = [
-    benchmark.pci_dss_v400_requirement_4_2_1,
+    benchmark.pci_dss_v40_requirement_4_2_1,
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_4_common_tags, {
-    pci_dss_v400_item_id = "4.2"
+  tags = merge(local.pci_dss_v40_requirement_4_common_tags, {
+    pci_dss_v40_item_id = "4.2"
   })
 }
 
-benchmark "pci_dss_v400_requirement_4_2_1" {
+benchmark "pci_dss_v40_requirement_4_2_1" {
   title       = "4.2.1: Strong cryptography and security protocols are implemented as follows to safeguard PAN during transmission"
   description = "Sensitive information must be encrypted during transmission over public networks because it is easy and common for a malicious individual to intercept and/or divert data while in transit."
 
   children = [
-    benchmark.pci_dss_v400_requirement_4_2_1_1,
+    benchmark.pci_dss_v40_requirement_4_2_1_1,
     control.cloudfront_distribution_custom_origins_encryption_in_transit_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
@@ -47,12 +47,12 @@ benchmark "pci_dss_v400_requirement_4_2_1" {
     control.s3_bucket_enforces_ssl,
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_4_common_tags, {
-    pci_dss_v400_item_id = "4.2.1"
+  tags = merge(local.pci_dss_v40_requirement_4_common_tags, {
+    pci_dss_v40_item_id = "4.2.1"
   })
 }
 
-benchmark "pci_dss_v400_requirement_4_2_1_1" {
+benchmark "pci_dss_v40_requirement_4_2_1_1" {
   title       = "4.2.1.1: An inventory of the entity's trusted keys and certificates used to protect PAN during transmission is maintained"
   description = "The inventory of trusted keys helps the entity keep track of the algorithms, protocols, key strength, key custodians, and key expiry dates. This enables the entity to respond quickly to vulnerabilities discovered in encryption software, certificates, and cryptographic algorithms."
 
@@ -79,7 +79,7 @@ benchmark "pci_dss_v400_requirement_4_2_1_1" {
     control.s3_bucket_enforces_ssl,
   ]
 
-  tags = merge(local.pci_dss_v400_requirement_4_common_tags, {
-    pci_dss_v400_item_id = "4.2.1.1"
+  tags = merge(local.pci_dss_v40_requirement_4_common_tags, {
+    pci_dss_v40_item_id = "4.2.1.1"
   })
 }

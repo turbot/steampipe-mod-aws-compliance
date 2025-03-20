@@ -10,7 +10,7 @@ control "api_gatewayv2_route_authorization_type_configured" {
   query       = query.api_gatewayv2_route_authorization_type_configured
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
-    pci_dss_v400 = "true"
+    pci_dss_v40 = "true"
   })
 }
 
@@ -21,7 +21,7 @@ control "gatewayv2_stage_access_logging_enabled" {
 
   tags = merge(local.conformance_pack_apigateway_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v400         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -44,7 +44,7 @@ control "apigateway_stage_cache_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -71,7 +71,7 @@ control "apigateway_stage_logging_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -93,7 +93,7 @@ control "apigateway_rest_api_stage_use_ssl_certificate" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -108,7 +108,7 @@ control "apigateway_rest_api_stage_xray_tracing_enabled" {
     acsc_essential_eight                   = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     nist_csf                               = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -127,7 +127,7 @@ control "apigateway_stage_use_waf_web_acl" {
     nist_csf               = "true"
     nydfs_23               = "true"
     pci_dss_v321           = "true"
-    pci_dss_v400           = "true"
+    pci_dss_v40            = "true"
     rbi_cyber_security     = "true"
   })
 }

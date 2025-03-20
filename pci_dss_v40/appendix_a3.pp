@@ -1,35 +1,35 @@
 locals {
-  pci_dss_v400_appendix_a3_common_tags = merge(local.pci_dss_v400_common_tags, {
+  pci_dss_v40_appendix_a3_common_tags = merge(local.pci_dss_v40_common_tags, {
     control_set = "3"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3" {
+benchmark "pci_dss_v40_appendix_a3" {
   title       = "Appendix A3: Designated Entities Supplemental Validation (DESV)"
   description = "This Appendix applies only to entities designated by a payment brand(s) or acquirer as requiring additional validation of existing PCI DSS requirements. An entity is required to undergo an assessment according to this Appendix ONLY if instructed to do so by an acquirer or a payment brand."
 
   children = [
-    benchmark.pci_dss_v400_appendix_a3_3,
-    benchmark.pci_dss_v400_appendix_a3_4,
-    benchmark.pci_dss_v400_appendix_a3_5,
+    benchmark.pci_dss_v40_appendix_a3_3,
+    benchmark.pci_dss_v40_appendix_a3_4,
+    benchmark.pci_dss_v40_appendix_a3_5,
   ]
 
-  tags = local.pci_dss_v400_appendix_a3_common_tags
+  tags = local.pci_dss_v40_appendix_a3_common_tags
 }
 
-benchmark "pci_dss_v400_appendix_a3_3" {
+benchmark "pci_dss_v40_appendix_a3_3" {
   title       = "A3.3: PCI DSS is incorporated into business-as-usual (BAU) activities"
 
   children = [
-    benchmark.pci_dss_v400_appendix_a3_3_1,
+    benchmark.pci_dss_v40_appendix_a3_3_1,
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.3"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.3"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3_3_1" {
+benchmark "pci_dss_v40_appendix_a3_3_1" {
   title       = "A3.3.1: Failures of critical security control systems are detected, alerted, and addressed promptly, including but not limited to failure"
   description = "Without formal processes for the prompt (as soon as possible) detection, alerting, and addressing of critical security control failures, failures may go undetected or remain unresolved for extended periods. In addition, without formalized timebound processes, attackers will have ample time to compromise systems and steal account data from the CDE."
 
@@ -59,24 +59,24 @@ benchmark "pci_dss_v400_appendix_a3_3_1" {
     control.wafv2_rule_group_logging_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.3.1"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.3.1"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3_4" {
+benchmark "pci_dss_v40_appendix_a3_4" {
   title       = "A3.4: Logical access to the cardholder data environment is controlled and managed"
 
   children = [
-    benchmark.pci_dss_v400_appendix_a3_4_1,
+    benchmark.pci_dss_v40_appendix_a3_4_1,
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.3"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.3"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3_4_1" {
+benchmark "pci_dss_v40_appendix_a3_4_1" {
   title       = "A3.4.1: User accounts and access privileges to inscope system components are reviewed at least once every six months to ensure user accounts and access privileges remain appropriate based on job function, and that all access is authorized"
   description = "Regular review of access rights helps to detect excessive access rights remaining after user job responsibilities change, system functions change, or other modifications. If excessive user rights are not revoked in due time, they may be used by malicious users for unauthorized access."
 
@@ -107,24 +107,24 @@ benchmark "pci_dss_v400_appendix_a3_4_1" {
     control.ssm_document_prohibit_public_access,
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.4.1"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.4.1"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3_5" {
+benchmark "pci_dss_v40_appendix_a3_5" {
   title       = "A3.5: Suspicious events are identified and responded to"
 
   children = [
-    benchmark.pci_dss_v400_appendix_a3_5_1,
+    benchmark.pci_dss_v40_appendix_a3_5_1,
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.5"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.5"
   })
 }
 
-benchmark "pci_dss_v400_appendix_a3_5_1" {
+benchmark "pci_dss_v40_appendix_a3_5_1" {
   title       = "A3.5.1: A methodology is implemented for the prompt identification of attack patterns and undesirable behavior across systems"
   description = "The ability to identify attack patterns and undesirable behavior across systems—for example, using centrally managed or automated log-correlation tools— is critical in preventing, detecting, or minimizing the impact of a data compromise. The presence of logs in all environments allows thorough tracking, alerting, and analysis when something goes wrong."
 
@@ -154,7 +154,7 @@ benchmark "pci_dss_v400_appendix_a3_5_1" {
     control.wafv2_rule_group_logging_enabled
   ]
 
-  tags = merge(local.pci_dss_v400_appendix_a3_common_tags, {
-    pci_dss_v400_item_id = "A3.5.1"
+  tags = merge(local.pci_dss_v40_appendix_a3_common_tags, {
+    pci_dss_v40_item_id = "A3.5.1"
   })
 }

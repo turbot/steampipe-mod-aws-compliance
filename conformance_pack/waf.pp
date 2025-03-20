@@ -12,7 +12,7 @@ control "waf_rule_condition_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -24,7 +24,7 @@ control "waf_rule_group_rule_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -36,7 +36,7 @@ control "waf_web_acl_rule_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -53,7 +53,7 @@ control "waf_web_acl_logging_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
-    pci_dss_v400                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }
@@ -66,7 +66,7 @@ control "waf_regional_rule_condition_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -78,7 +78,7 @@ control "waf_regional_rule_group_rule_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -90,7 +90,7 @@ control "waf_web_acl_resource_associated" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 
@@ -102,7 +102,7 @@ control "waf_regional_web_acl_rule_attached" {
   tags = merge(local.conformance_pack_waf_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 

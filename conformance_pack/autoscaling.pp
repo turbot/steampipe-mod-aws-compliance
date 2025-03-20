@@ -20,7 +20,7 @@ control "autoscaling_launch_config_requires_imdsv2" {
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
     nist_csf     = "true"
     pci_dss_v321 = "true"
-    pci_dss_v400 = "true"
+    pci_dss_v40  = "true"
   })
 }
 

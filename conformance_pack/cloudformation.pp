@@ -29,8 +29,8 @@ control "cloudformation_stack_notifications_enabled" {
   query       = query.cloudformation_stack_notifications_enabled
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
-    nist_csf     = "true"
-    pci_dss_v400 = "true"
+    nist_csf    = "true"
+    pci_dss_v40 = "true"
   })
 }
 
