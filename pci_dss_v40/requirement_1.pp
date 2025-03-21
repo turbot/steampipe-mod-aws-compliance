@@ -190,8 +190,6 @@ benchmark "pci_dss_v40_requirement_1_3_1" {
 benchmark "pci_dss_v40_requirement_1_3_2" {
   title       = "1.3.2: Outbound traffic from the CDE is restricted as follows: To only traffic that is necessary, All other traffic is specifically denied"
   description = "This requirement aims to prevent malicious individuals and compromised system components within the entity's network from communicating with an untrusted external host."
-
-
   children = [
     control.api_gatewayv2_route_authorization_type_configured,
     control.apigateway_rest_api_stage_use_ssl_certificate,
