@@ -1,6 +1,6 @@
 locals {
   pci_dss_v40_appendix_a3_common_tags = merge(local.pci_dss_v40_common_tags, {
-    control_set = "3"
+    control_set = "A3"
   })
 }
 
