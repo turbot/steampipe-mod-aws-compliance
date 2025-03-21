@@ -5,7 +5,7 @@ locals {
 }
 
 control "sfn_state_machine_logging_enabled" {
-  title       = "Step Functions state machines should have logging turned on"
+  title       = "Step Function state machines should have logging turned on"
   description = "This controls checks whether an AWS Step Functions state machine has logging turned on. The control fails if a state machine doesn't have logging turned on. If you provide a custom value for the logLevel parameter, the control passes only if the state machine has the specified logging level turned on."
   query       = query.sfn_state_machine_logging_enabled
 
