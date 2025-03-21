@@ -62,7 +62,7 @@ control "dms_replication_task_target_database_logging_enabled" {
   query       = query.dms_replication_task_target_database_logging_enabled
 
   tags = merge(local.conformance_pack_dms_common_tags, {
-    acsc_essential_eight = "true",
+    acsc_essential_eight = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -73,7 +73,7 @@ control "dms_replication_task_source_database_logging_enabled" {
   query       = query.dms_replication_task_source_database_logging_enabled
 
   tags = merge(local.conformance_pack_dms_common_tags, {
-    acsc_essential_eight = "true",
+    acsc_essential_eight = "true"
     pci_dss_v40          = "true"
   })
 }

@@ -441,7 +441,7 @@ control "s3_access_point_restrict_public_access" {
 
   tags = merge(local.conformance_pack_s3_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 

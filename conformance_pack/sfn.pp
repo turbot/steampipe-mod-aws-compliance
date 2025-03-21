@@ -11,7 +11,7 @@ control "sfn_state_machine_logging_enabled" {
 
   tags = merge(local.conformance_pack_sfn_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 

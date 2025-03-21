@@ -35,7 +35,7 @@ control "rds_db_cluster_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 
@@ -46,7 +46,7 @@ control "rds_db_instance_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 
@@ -57,7 +57,7 @@ control "rds_db_parameter_group_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 
@@ -68,7 +68,7 @@ control "rds_db_security_group_events_subscription" {
 
   tags = merge(local.conformance_pack_rds_common_tags, {
     acsc_essential_eight = "true"
-    pci_dss_v40          = "true",
+    pci_dss_v40          = "true"
   })
 }
 
