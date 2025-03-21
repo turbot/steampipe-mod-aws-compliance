@@ -17,6 +17,7 @@ control "config_enabled_all_regions" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
 }

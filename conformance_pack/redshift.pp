@@ -32,6 +32,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -61,6 +62,7 @@ control "redshift_cluster_encryption_logging_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -88,6 +90,7 @@ control "redshift_cluster_prohibit_public_access" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -116,6 +119,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -138,6 +142,7 @@ control "redshift_cluster_kms_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
   })
 }
@@ -156,6 +161,7 @@ control "redshift_cluster_maintenance_settings_check" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -173,6 +179,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -198,6 +205,7 @@ control "redshift_cluster_audit_logging_enabled" {
     nist_csf             = "true"
     nydfs_23             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
     rbi_itf_nbfc         = "true"
     soc_2                = "true"
   })

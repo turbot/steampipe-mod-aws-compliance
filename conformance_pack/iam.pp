@@ -66,7 +66,7 @@ control "iam_user_no_policies" {
   query       = query.iam_user_no_policies
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    nydfs_23  = "true"
+    nydfs_23 = "true"
   })
 }
 
@@ -112,6 +112,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -135,6 +136,7 @@ control "iam_group_not_empty" {
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -162,6 +164,7 @@ control "iam_policy_no_star_star" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -190,6 +193,7 @@ control "iam_root_user_no_access_keys" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -218,6 +222,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -245,6 +250,7 @@ control "iam_root_user_mfa_enabled" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -268,6 +274,7 @@ control "iam_user_access_key_age_90" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -296,6 +303,7 @@ control "iam_user_console_access_mfa_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -323,6 +331,7 @@ control "iam_user_mfa_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -350,6 +359,7 @@ control "iam_user_no_inline_attached_policies" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -377,6 +387,7 @@ control "iam_user_unused_credentials_90" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -401,6 +412,7 @@ control "iam_user_in_group" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
   })
@@ -424,6 +436,7 @@ control "iam_group_user_role_no_inline_policies" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -530,6 +543,7 @@ control "iam_all_policy_no_service_wild_card" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -551,6 +565,7 @@ control "iam_policy_custom_no_blocked_kms_actions" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -568,6 +583,7 @@ control "iam_policy_inline_no_blocked_kms_actions" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -605,6 +621,7 @@ control "iam_managed_policy_attached_to_role" {
     cis_controls_v8_ig1  = "true"
     gxp_21_cfr_part_11   = "true"
     nist_csf             = "true"
+    pci_dss_v40          = "true"
     soc_2                = "true"
   })
 }
@@ -619,6 +636,7 @@ control "iam_policy_unused" {
     cis_controls_v8_ig1  = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    pci_dss_v40          = "true"
     soc_2                = "true"
   })
 }

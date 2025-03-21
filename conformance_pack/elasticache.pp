@@ -11,6 +11,7 @@ control "elasticache_cluster_auto_minor_version_upgrade_enabled" {
 
   tags = merge(local.conformance_pack_elasticache_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -76,6 +77,7 @@ control "elasticache_redis_cluster_automatic_backup_retention_15_days" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"

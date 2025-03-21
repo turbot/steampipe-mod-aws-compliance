@@ -15,6 +15,7 @@ control "eks_cluster_secrets_encrypted" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -28,6 +29,7 @@ control "eks_cluster_endpoint_restrict_public_access" {
     nist_800_171_rev_2  = "true"
     nist_csf            = "true"
     pci_dss_v321        = "true"
+    pci_dss_v40         = "true"
   })
 }
 
@@ -38,6 +40,7 @@ control "eks_cluster_control_plane_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_eks_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -58,6 +61,7 @@ control "eks_cluster_with_latest_kubernetes_version" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
