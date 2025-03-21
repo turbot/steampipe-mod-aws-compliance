@@ -1,3 +1,13 @@
+## v1.3.0 [2025-03-21]
+
+_What's new?_
+
+- Added PCI DSS v4.0 benchmark (`powerpipe benchmark run aws_compliance.benchmark.pci_dss_v40`). ([#871](https://github.com/turbot/steampipe-mod-aws-compliance/pull/871))
+
+_Bug fixes_
+
+- Fixed the `iam_user_one_active_key` query to correctly evaluate IAM access keys across multiple AWS accounts. ([#867](https://github.com/turbot/steampipe-mod-aws-compliance/pull/867)) (Thanks [@adrianstanislaus](https://github.com/adrianstanislaus) for the contribution!!)
+
 ## v1.2.1 [2025-02-28]
 
 _Bug fixes_
