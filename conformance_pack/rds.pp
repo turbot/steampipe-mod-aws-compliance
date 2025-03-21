@@ -1601,25 +1601,6 @@ query "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
   EOQ
 }
 
-query "rds_db_instance_with_non_default_certificate" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when ca_certificate_identifier = 'rds-ca-rsa2048-g1' then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when ca_certificate_identifier = 'rds-ca-rsa2048-g1' then title || ' uses default certificate.'
-        else title || ' does not use default certificate.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_rds_db_instance;
-  EOQ
-}
-
 query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   sql = <<-EOQ
     select
