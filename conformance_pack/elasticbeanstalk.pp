@@ -21,12 +21,13 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
 }
 
 control "elastic_beanstalk_environment_logs_to_cloudwatch" {
-  title       = "Elastic Beanstalk should stream logs to CloudWatch"
-  description = "This control checks whether an Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if an Elastic Beanstalk environment isn't configured to send logs to CloudWatch Logs. Optionally, you can provide a custom value for the RetentionInDays parameter if you want the control to pass only if logs are retained for the specified number of days before expiration."
+  title       = "Elastic Beanstalk environments should have enhanced health reporting enabled"
+  description = "This control checks whether an AWS Elastic Beanstalk environment is configured to send logs to CloudWatch Logs. The control fails if the environment isn't configured to send logs to CloudWatch Logs."
   query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -37,6 +38,7 @@ control "elastic_beanstalk_environment_managed_updates_enabled" {
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 

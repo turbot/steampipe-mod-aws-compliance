@@ -63,6 +63,7 @@ control "lambda_function_in_vpc" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -90,6 +91,7 @@ control "lambda_function_restrict_public_access" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -149,6 +151,7 @@ control "lambda_function_use_latest_runtime" {
   tags = merge(local.conformance_pack_lambda_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    pci_dss_v40          = "true"
   })
 }
 

@@ -26,6 +26,7 @@ control "opensearch_domain_encryption_at_rest_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -38,6 +39,7 @@ control "opensearch_domain_fine_grained_access_enabled" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -53,6 +55,7 @@ control "opensearch_domain_https_required" {
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
   })
 }
@@ -68,6 +71,7 @@ control "opensearch_domain_audit_logging_enabled" {
     nist_csf             = "true"
     nydfs_23             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
     soc_2                = "true"
   })
 }
@@ -83,6 +87,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
     nist_csf             = "true"
     nydfs_23             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
     rbi_itf_nbfc         = "true"
     soc_2                = "true"
   })
@@ -101,6 +106,7 @@ control "opensearch_domain_node_to_node_encryption_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
   })
 }
 
@@ -114,8 +120,9 @@ control "opensearch_domain_in_vpc" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
-    rbi_itf_nbfc                           = "true"
     nydfs_23                               = "true"
+    pci_dss_v40                            = "true"
+    rbi_itf_nbfc                           = "true"
   })
 }
 
@@ -142,6 +149,7 @@ control "opensearch_domain_updated_with_latest_service_software_version" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 

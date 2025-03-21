@@ -19,6 +19,7 @@ control "docdb_cluster_backup_retention_period_7_days" {
 
   tags = merge(local.conformance_pack_docdb_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -47,12 +48,13 @@ control "docdb_cluster_deletion_protection_enabled" {
 }
 
 control "docdb_cluster_snapshot_restrict_public_access" {
-  title       = "Amazon DocumentDB manual cluster snapshots should not be public"
-  description = "This control checks whether an Amazon DocumentDB manual cluster snapshot is public. The control fails if the manual cluster snapshot is public."
+  title       = "Amazon DocumentDB cluster snapshots should not be public"
+  description = "This control checks whether Amazon DocumentDB cluster snapshots are public. The control fails if any existing Amazon DocumentDB cluster snapshots are public."
   query       = query.docdb_cluster_snapshot_restrict_public_access
 
   tags = merge(local.conformance_pack_docdb_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 

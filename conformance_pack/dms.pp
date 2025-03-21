@@ -25,6 +25,7 @@ control "dms_replication_instance_not_publicly_accessible" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -62,6 +63,7 @@ control "dms_replication_task_target_database_logging_enabled" {
 
   tags = merge(local.conformance_pack_dms_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -72,6 +74,7 @@ control "dms_replication_task_source_database_logging_enabled" {
 
   tags = merge(local.conformance_pack_dms_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 

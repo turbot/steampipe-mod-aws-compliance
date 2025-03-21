@@ -19,6 +19,7 @@ control "neptune_db_cluster_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -29,6 +30,7 @@ control "neptune_db_cluster_snapshot_prohibit_public_access" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -47,6 +49,7 @@ control "neptune_db_cluster_automated_backup_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
@@ -65,6 +68,7 @@ control "neptune_db_cluster_iam_authentication_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 

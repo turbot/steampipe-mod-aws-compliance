@@ -23,6 +23,7 @@ control "acm_certificate_expires_30_days" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -69,9 +70,9 @@ control "acm_certificate_no_pending_validation_certificate" {
 }
 
 control "acm_certificate_rsa_key_length_2048_bits_or_greater" {
-  title         = "RSA certificates managed by ACM should use a key length of at least 2,048 bits"
-  description   = "This control checks whether RSA certificates managed by AWS Certificate Manager use a key length of at least 2,048 bits. The control fails if the key length is smaller than 2,048 bits."
-  query         = query.acm_certificate_rsa_key_length_2048_bits_or_greater
+  title       = "RSA certificates managed by ACM should use a key length of at least 2,048 bits"
+  description = "This control checks whether RSA certificates managed by AWS Certificate Manager use a key length of at least 2,048 bits. The control fails if the key length is smaller than 2,048 bits."
+  query       = query.acm_certificate_rsa_key_length_2048_bits_or_greater
 
   tags = local.conformance_pack_acm_common_tags
 }

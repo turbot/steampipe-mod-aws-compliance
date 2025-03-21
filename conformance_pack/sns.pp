@@ -23,6 +23,7 @@ control "sns_topic_encrypted_at_rest" {
     nist_800_53_rev_5                      = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
+    pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     soc_2                                  = "true"
   })
@@ -45,6 +46,7 @@ control "sns_topic_notification_delivery_status_enabled" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v321         = "true"
+    pci_dss_v40          = "true"
   })
 }
 
