@@ -26,19 +26,8 @@ control "elastic_beanstalk_environment_logs_to_cloudwatch" {
   query       = query.elastic_beanstalk_environment_logs_to_cloudwatch
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
-    acsc_essential_eight                   = "true"
-    cis_controls_v8_ig1                    = "true"
-    cisa_cyber_essentials                  = "true"
-    gxp_21_cfr_part_11                     = "true"
-    hipaa_final_omnibus_security_rule_2013 = "true"
-    hipaa_security_rule_2003               = "true"
-    nist_800_171_rev_2                     = "true"
-    nist_800_53_rev_4                      = "true"
-    nist_800_53_rev_5                      = "true"
-    nist_csf                               = "true"
-    pci_dss_v321                           = "true"
-    pci_dss_v40                            = "true"
-    rbi_cyber_security                     = "true"
+    acsc_essential_eight = "true"
+    pci_dss_v40          = "true"
   })
 }
 
