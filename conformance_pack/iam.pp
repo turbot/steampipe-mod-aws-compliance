@@ -1934,23 +1934,22 @@ query "iam_user_one_active_key" {
     select
       u.arn as resource,
       case
-        when count(k.*) > 1 then 'alarm'
+        when count(distinct k.access_key_id) > 1 then 'alarm'
         else 'ok'
       end as status,
-      u.name || ' has ' || count(k.*) || ' active access key(s).' as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
+      u.arn || ' has ' || count(distinct k.access_key_id) || ' active access key(s).' as reason,
+      u.account_id
+      ${replace(local.tag_dimensions_qualifier_sql, "__qualifier__", "u.")}
+      ${replace(local.common_dimensions_qualifier_global_sql, "__qualifier__", "u.")}
     from
       aws_iam_user as u
-      left join aws_iam_access_key as k on u.name = k.user_name and u.account_id = k.account_id
+      left join aws_iam_access_key as k 
+        on k.akas::text like '%' || u.arn || '%'  -- convert jsonb to text and check if arn exists
     where
-      k.status = 'Active' or k.status is null
+      k.status = 'active'
+      or k.status is null
     group by
-      u.arn,
-      u.name,
-      u.account_id,
-      u.tags,
-      u._ctx;
+      u.arn, u.account_id, u.tags, u._ctx;
   EOQ
 }
 
