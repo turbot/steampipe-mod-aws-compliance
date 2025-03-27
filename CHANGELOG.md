@@ -1,3 +1,9 @@
+## v1.3.1 [2025-03-27]
+
+_Bug fixes_
+
+- Fixed the `iam_user_one_active_key` query to correctly return data instead of an error. ([#873](https://github.com/turbot/steampipe-mod-aws-compliance/pull/873))
+
 ## v1.3.0 [2025-03-21]
 
 _What's new?_
