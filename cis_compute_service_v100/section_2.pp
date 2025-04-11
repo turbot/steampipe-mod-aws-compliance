@@ -209,7 +209,7 @@ control "cis_compute_service_v100_2_3" {
     cis_item_id = "2.3"
     cis_level   = "1"
     cis_type    = "manual"
-    service     = "AWS/Organization"
+    service     = "AWS/Organizations"
   })
 }
 
