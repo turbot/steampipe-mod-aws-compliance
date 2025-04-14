@@ -1,3 +1,9 @@
+## v1.3.2 [2025-04-14]
+
+_Bug fixes_
+
+- Fixed typo in the service tag to use `AWS/Organizations` instead of `AWS/Organization`. ([#878](https://github.com/turbot/steampipe-mod-aws-compliance/pull/878))
+
 ## v1.3.1 [2025-03-27]
 
 _Bug fixes_
