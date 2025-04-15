@@ -1956,7 +1956,6 @@ query "iam_user_one_active_key" {
         else 'ok'
       end as status,
       u.arn || ' has ' || count(distinct k.access_key_id) || ' active access key(s).' as reason,
-      u.account_id
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
@@ -1964,7 +1963,7 @@ query "iam_user_one_active_key" {
       left join aws_iam_access_key as k 
         on k.akas::text like '%' || u.arn || '%'  -- convert jsonb to text and check if arn exists
     where
-      k.status = 'active'
+      k.status = 'Active'
       or k.status is null
     group by
       u.arn, u.account_id, u.tags, u._ctx;
