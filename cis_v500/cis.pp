@@ -1,12 +1,12 @@
 locals {
   cis_v500_common_tags = merge(local.aws_compliance_common_tags, {
     cis         = "true"
-    cis_version = "v4.0.0"
+    cis_version = "v5.0.0"
   })
 }
 
 benchmark "cis_v500" {
-  title         = "CIS v4.0.0"
+  title         = "CIS v5.0.0"
   description   = "The CIS Amazon Web Services Foundations Benchmark provides prescriptive guidance for configuring security options for a subset of Amazon Web Services with an emphasis on foundational, testable, and architecture agnostic settings."
   documentation = file("./cis_v500/docs/cis_overview.md")
   children = [
