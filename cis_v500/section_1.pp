@@ -289,7 +289,7 @@ control "cis_v500_1_18" {
 }
 
 control "cis_v500_1_19" {
-  title         = "1.19 Ensure that IAM Access analyzer is enabled for all regions"
+  title         = "1.19 Ensure that IAM External Access Analyzer is enabled for all regions"
   description   = "Enable IAM Access analyzer for IAM policies about all resources in each region. IAM Access Analyzer is a technology introduced at AWS reinvent 2019. After the Analyzer is enabled in IAM, scan results are displayed on the console showing the accessible resources. Scans show resources that other accounts and federated users can access, such as KMS keys and IAM roles. So the results allow you to determine if an unintended user is allowed, making it easier for administrators to monitor least privileges access. Access Analyzer analyzes only policies that are applied to resources in the same AWS Region."
   query         = query.iam_access_analyzer_enabled
   documentation = file("./cis_v500/docs/cis_v500_1_19.md")
