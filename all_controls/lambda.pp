@@ -15,12 +15,13 @@ benchmark "all_controls_lambda" {
     control.lambda_function_dead_letter_queue_configured,
     control.lambda_function_encryption_enabled,
     control.lambda_function_in_vpc,
+    control.lambda_function_logging_config_enabled,
     control.lambda_function_multiple_az_configured,
     control.lambda_function_restrict_public_access,
     control.lambda_function_restrict_public_url,
     control.lambda_function_tracing_enabled,
     control.lambda_function_use_latest_runtime,
-    control.lambda_function_variables_no_sensitive_data
+    control.lambda_function_variables_no_sensitive_data,
   ]
 
   tags = merge(local.all_controls_lambda_common_tags, {
