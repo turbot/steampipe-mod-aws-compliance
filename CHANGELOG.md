@@ -1,3 +1,14 @@
+## v1.4.0 [2025-04-26]
+
+_What's new?_
+
+- Added CIS v5.0.0 benchmark (`powerpipe benchmark run aws_compliance.benchmark.cis_v500`). ([#881](https://github.com/turbot/steampipe-mod-aws-compliance/pull/881))
+- Added `lambda_function_logging_config_enabled` control to `all_controls_lambda` benchmark.
+
+_Bug fixes_
+
+- Fixed `eks_cluster_secrets_encrypted` query to automatically return `ok` instead of an `alarm` for EKS clusters with version greater than `1.27` since they are automatically encrypted by AWS owned KMS keys. ([#883](https://github.com/turbot/steampipe-mod-aws-compliance/pull/883))
+
 ## v1.3.2 [2025-04-14]
 
 _Bug fixes_

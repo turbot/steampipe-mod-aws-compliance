@@ -187,6 +187,33 @@ control "lambda_function_encryption_enabled" {
   tags = local.conformance_pack_lambda_common_tags
 }
 
+control "lambda_function_logging_config_enabled" {
+  title       = "Ensure Lambda function logging config is enabled"
+  description = "Ensure that AWS Lambda function logging config is enabled for your Amazon Lambda functions for enhanced monitoring."
+  query       = query.lambda_function_logging_config_enabled
+
+  tags = local.conformance_pack_lambda_common_tags
+}
+
+query "lambda_function_logging_config_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when logging_config is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when logging_config is null then title || ' logging config is not enabled.'
+        else title || ' logging config is enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_lambda_function;
+  EOQ
+}
+
 query "lambda_function_dead_letter_queue_configured" {
   sql = <<-EOQ
     select

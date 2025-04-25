@@ -90,25 +90,44 @@ query "eks_cluster_secrets_encrypted" {
         aws_eks_cluster,
         jsonb_array_elements(encryption_config) as e
       where
-        e -> 'Resources'  @> '["secrets"]'
+        e -> 'Resources' @> '["secrets"]'
+    ),
+    eks_encryption_status as (
+      select
+        a.arn,
+        a.title,
+        a.encryption_config,
+        a.version,
+        a.tags,
+        a.region,
+        a.account_id,
+        cast(split_part(a.version, '.', 1) as integer) as major_version,
+        cast(split_part(a.version, '.', 2) as integer) as minor_version,
+        b.arn as encrypted
+      from
+        aws_eks_cluster as a
+        left join eks_secrets_encrypted as b on a.arn = b.arn
     )
     select
-      a.arn as resource,
+      arn as resource,
       case
+        when major_version > 1 then 'ok'
+        when major_version = 1 and minor_version >= 28 then 'ok'
         when encryption_config is null then 'alarm'
-        when b.arn is not null then 'ok'
+        when encrypted is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when encryption_config is null then a.title || ' encryption not enabled.'
-        when b.arn is not null then a.title || ' encrypted with EKS secrets.'
-        else a.title || ' not encrypted with EKS secrets.'
+        when major_version > 1 then title || ' uses Kubernetes version ' || version || ' with default envelope encryption.'
+        when major_version = 1 and minor_version >= 28 then title || ' uses Kubernetes version ' || version || ' with default envelope encryption.'
+        when encryption_config is null then title || ' encryption not enabled.'
+        when encrypted is not null then title || ' encrypted with EKS secrets.'
+        else title || ' not encrypted with EKS secrets.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_eks_cluster as a
-      left join eks_secrets_encrypted as b on a.arn = b.arn;
+      eks_encryption_status;
   EOQ
 }
 
