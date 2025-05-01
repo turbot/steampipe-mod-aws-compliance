@@ -143,6 +143,19 @@ query "kms_cmk_policy_prohibit_public_access" {
           ( s -> 'Principal' -> 'AWS') = '["*"]'
           or  s ->> 'Principal' = '*'
         )
+        and (
+          s -> 'Condition' is null
+          or (
+            not (
+              (s -> 'Condition' -> 'StringEquals' -> 'kms:ViaService') is not null
+              or (s -> 'Condition' -> 'StringEquals' -> 'kms:CallerAccount') is not null
+              or (s -> 'Condition' -> 'StringEquals' -> 'aws:PrincipalServiceName') is not null
+              or (s -> 'Condition' -> 'StringEquals' -> 'aws:SourceVpce') is not null
+              or (s -> 'Condition' -> 'StringEquals' -> 'aws:SourceVpc') is not null
+              or (s -> 'Condition' -> 'IpAddress' -> 'aws:SourceIp') is not null
+            )
+          )
+        )
         and key_manager = 'CUSTOMER'
       group by
         arn
