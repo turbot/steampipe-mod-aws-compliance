@@ -12,6 +12,7 @@ benchmark "all_controls_secretsmanager" {
     control.secretsmanager_secret_automatic_rotation_lambda_enabled,
     control.secretsmanager_secret_encrypted_with_kms_cmk,
     control.secretsmanager_secret_last_changed_90_day,
+    control.secretsmanager_secret_last_changed_365_day,
     control.secretsmanager_secret_last_used_1_day,
     control.secretsmanager_secret_rotated_as_scheduled,
     control.secretsmanager_secret_unused_90_day

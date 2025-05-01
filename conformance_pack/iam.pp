@@ -737,13 +737,20 @@ control "iam_role_no_administrator_access_policy_attached" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_user_access_key_age_365" {
+  title       = "IAM user access keys should be rotated at least every 365 days"
+  description = "The credentials are audited for authorized devices, users, and processes by ensuring IAM access keys are rotated as per organizational policy. This control uses a 365-day rotation period which may be more suitable for organizations that find the 90-day rotation period too aggressive."
+  query       = query.iam_user_access_key_age_365
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
       'arn:' || a.partition || ':::' || a.account_id as resource,
       case
-        when
-          minimum_password_length >= 14
+        when minimum_password_length >= 14
           and password_reuse_prevention >= 24
           and require_lowercase_characters = 'true'
           and require_uppercase_characters = 'true'
@@ -2367,5 +2374,22 @@ query "iam_role_no_administrator_access_policy_attached" {
       left join admin_roles ar on r.arn = ar.arn
     order by
       r.name;
+  EOQ
+}
+
+query "iam_user_access_key_age_365" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
+      case
+        when create_date <= (current_date - interval '365' day) then 'alarm'
+        else 'ok'
+      end status,
+      user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
+        ' (' || extract(day from current_timestamp - create_date) || ' days).'
+      as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_access_key;
   EOQ
 }
