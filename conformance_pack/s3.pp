@@ -1172,11 +1172,10 @@ query "s3_bucket_protected_by_macie" {
   sql = <<-EOQ
     with bucket_list as (
       select
-        trim(b::text, '"' ) as bucket_name
+        jsonb_array_elements_text(d -> 'Buckets') as bucket_name
       from
         aws_macie2_classification_job,
-        jsonb_array_elements(s3_job_definition -> 'BucketDefinitions') as d,
-        jsonb_array_elements(d -> 'Buckets') as b
+        jsonb_array_elements(s3_job_definition -> 'BucketDefinitions') as d
     )
     select
       b.arn as resource,
