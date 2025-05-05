@@ -103,6 +103,14 @@ control "secretsmanager_secret_last_changed_90_day" {
   })
 }
 
+control "secretsmanager_secret_last_changed_365_day" {
+  title       = "Secrets Manager secrets should be rotated within 365 days"
+  description = "Ensure that AWS Secrets Manager secrets have been rotated in the past 365 days. The rule is non-compliant if a secret has not been rotated for more than 365 days. This control provides a more lenient rotation period compared to the 90-day requirement, which may be more suitable for some organizations."
+  query       = query.secretsmanager_secret_last_changed_365_day
+
+  tags = local.conformance_pack_secretsmanager_common_tags
+}
+
 query "secretsmanager_secret_automatic_rotation_enabled" {
   sql = <<-EOQ
     select
@@ -229,6 +237,27 @@ query "secretsmanager_secret_last_changed_90_day" {
   EOQ
 }
 
+query "secretsmanager_secret_last_changed_365_day" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when last_changed_date is null then 'alarm'
+        when date(current_date) - date(last_changed_date) <= 365 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when last_changed_date is null then title || ' never rotated.'
+        else
+          title || ' last rotated ' || extract(day from current_timestamp - last_changed_date) || ' day(s) ago.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_secretsmanager_secret;
+  EOQ
+}
+
 query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
   sql = <<-EOQ
     select
@@ -245,7 +274,6 @@ query "secretsmanager_secret_automatic_rotation_lambda_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_secretsmanager_secret;
-
   EOQ
 }
 
