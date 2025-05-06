@@ -46,6 +46,7 @@ benchmark "all_controls_iam" {
     control.iam_server_certificate_not_expired,
     control.iam_support_role,
     control.iam_user_access_key_age_90,
+    control.iam_user_access_key_age_365,
     control.iam_user_access_key_unused_45,
     control.iam_user_access_keys_and_password_at_setup,
     control.iam_user_console_access_mfa_enabled,
