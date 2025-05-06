@@ -642,7 +642,7 @@ query "ec2_instance_no_high_level_finding_in_inspector_scan" {
   sql = <<-EOQ
     with severity_list as (
       select
-        distinct title ,
+        distinct title,
         a ->> 'Value' as instance_id
       from
         aws_inspector_finding,
