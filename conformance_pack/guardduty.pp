@@ -83,7 +83,7 @@ query "guardduty_enabled" {
         else 'alarm'
       end as status,
       case
-        when r.steampipe_available = false then r.region || ' not in aws.spc.'
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then r.region || ' region not supported.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when d.status is null then 'No GuardDuty detector found in ' || r.region || '.'
@@ -168,7 +168,7 @@ query "guardduty_centrally_configured" {
     select
       'arn:' || r.partition || ':guardduty:' || r.region || ':' || r.account_id || ':detector' as resource,
       case
-        -- Skip if region is not in aws.spc (i.e., not available to Steampipe)
+        -- Skip if region is is not available in the current connection configuration (i.e., not available to Steampipe)
         when r.steampipe_available = false then 'skip'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
         when r.opt_in_status = 'not-opted-in' then 'skip'
@@ -178,7 +178,7 @@ query "guardduty_centrally_configured" {
         else 'alarm'
       end as status,
       case
-        when r.steampipe_available = false then r.region || ' not in aws.spc.'
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then r.region || ' region not supported.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when d.status is null then 'No GuardDuty detector found in ' || r.region || '.'
