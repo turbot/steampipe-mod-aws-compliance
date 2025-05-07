@@ -1,5 +1,9 @@
 ## v1.5.0 [2025-05-07]
 
+_Dependencies_
+
+- AWS plugin `v1.12.0` or higher is now required. ([#882](https://github.com/turbot/steampipe-mod-aws-compliance/pull/882))
+
 _What's new?_
 
 - Added `iam_user_access_key_age_365` and `secretsmanager_secret_rotation_enabled` controls to `all_controls_iam` and `all_controls_secretsmanager` benchmarks respectively. ([#886](https://github.com/turbot/steampipe-mod-aws-compliance/pull/886))
