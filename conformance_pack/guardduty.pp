@@ -75,19 +75,20 @@ query "guardduty_enabled" {
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
+        when r.steampipe_available = false then 'skip'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
-        -- Skip any regions that are disabled in the account.
         when r.opt_in_status = 'not-opted-in' then 'skip'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is null then 'ok'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then 'info'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is null then 'ok'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is not null then 'info'
         else 'alarm'
       end as status,
       case
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then r.region || ' region not supported.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
-        when status is null then 'No GuardDuty detector found in ' || r.region || '.'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is null then r.region || ' detector ' || d.title || ' enabled.'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' is managed by account ' || (master_account ->> 'AccountId') ||  ' via delegated admin.'
+        when d.status is null then 'No GuardDuty detector found in ' || r.region || '.'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is null then r.region || ' detector ' || d.title || ' enabled.'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' is managed by account ' || (d.master_account ->> 'AccountId') ||  ' via delegated admin.'
         else r.region || ' detector ' || d.title || ' disabled.'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
@@ -97,20 +98,25 @@ query "guardduty_enabled" {
   EOQ
 }
 
+
 query "guardduty_no_high_severity_findings" {
   sql = <<-EOQ
     with detectors as (
       select
-        detector_id,
-        arn,
-        title
-        region,
-        account_id,
-        status
-
+        d.detector_id,
+        d.arn,
+        d.title,
+        d.region,
+        d.account_id,
+        d.tags,
+        d.status
       from
-        aws_guardduty_detector
-    ), finding_count as (
+        aws_guardduty_detector d
+        join aws_region r on d.account_id = r.account_id and d.region = r.name
+      where
+        r.steampipe_available = true
+    ),
+    finding_count as (
       select
         f.detector_id,
         count(*) as count
@@ -120,24 +126,25 @@ query "guardduty_no_high_severity_findings" {
         f.detector_id
     )
     select
-      arn as resource,
+      d.arn as resource,
       case
-        when status <> 'ENABLED' then 'skip'
-        when fc.count = 0 or fc.count is NULL then 'ok'
+        when d.status <> 'ENABLED' then 'skip'
+        when fc.count = 0 or fc.count is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when status <> 'ENABLED' then d.detector_id || ' is disabled.'
-        when fc.count = 0  or fc.count is NULL then d.detector_id || ' is enabled and does not have high severity findings.'
-        else d.detector_id || ' is enabled and has ' || fc.count ||' high severity findings.'
+        when d.status <> 'ENABLED' then d.detector_id || ' is disabled.'
+        when fc.count = 0 or fc.count is null then d.detector_id || ' is enabled and does not have high severity findings.'
+        else d.detector_id || ' is enabled and has ' || fc.count || ' high severity findings.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
-      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       detectors as d
       left join finding_count as fc on fc.detector_id = d.detector_id;
   EOQ
 }
+
 
 query "guardduty_finding_archived" {
   sql = <<-EOQ
@@ -162,21 +169,23 @@ query "guardduty_centrally_configured" {
     select
       'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
+        -- Skip if region is is not available in the current connection configuration (i.e., not available to Steampipe)
+        when r.steampipe_available = false then 'skip'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
-        -- Skip any regions that are disabled in the account.
         when r.opt_in_status = 'not-opted-in' then 'skip'
-        when status is null then 'info'
-        when status = 'DISABLED' then 'alarm'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then 'ok'
+        when d.status is null then 'info'
+        when d.status = 'DISABLED' then 'alarm'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is not null then 'ok'
         else 'alarm'
       end as status,
       case
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then r.region || ' region not supported.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
-        when status is null then 'No GuardDuty detector found in ' || r.region || '.'
-        when status = 'DISABLED' then r.region || ' detector ' || d.title || ' disabled.'
-        when status = 'ENABLED' and master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' centrally configured.'
-        else r.region || ' detector ' || d.title || ' not centrally configured..'
+        when d.status is null then 'No GuardDuty detector found in ' || r.region || '.'
+        when d.status = 'DISABLED' then r.region || ' detector ' || d.title || ' disabled.'
+        when d.status = 'ENABLED' and d.master_account ->> 'AccountId' is not null then r.region || ' detector ' || d.title || ' centrally configured.'
+        else r.region || ' detector ' || d.title || ' not centrally configured.'
       end as reason
     ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
     from
@@ -184,4 +193,5 @@ query "guardduty_centrally_configured" {
       left join aws_guardduty_detector d on r.account_id = d.account_id and r.name = d.region;
   EOQ
 }
+
 
