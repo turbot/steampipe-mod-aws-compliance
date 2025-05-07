@@ -73,7 +73,7 @@ control "guardduty_centrally_configured" {
 query "guardduty_enabled" {
   sql = <<-EOQ
     select
-      'arn:' || r.partition || ':guardduty:' || r.region || ':' || r.account_id || ':detector' as resource,
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         when r.steampipe_available = false then 'skip'
         when r.region = any(array['af-south-1', 'ap-northeast-3', 'ap-southeast-3', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'me-south-1', 'us-gov-east-1']) then 'skip'
@@ -136,8 +136,8 @@ query "guardduty_no_high_severity_findings" {
         when fc.count = 0 or fc.count is null then d.detector_id || ' is enabled and does not have high severity findings.'
         else d.detector_id || ' is enabled and has ' || fc.count || ' high severity findings.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
-      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "d.")}
     from
       detectors as d
       left join finding_count as fc on fc.detector_id = d.detector_id;
@@ -166,7 +166,7 @@ query "guardduty_finding_archived" {
 query "guardduty_centrally_configured" {
   sql = <<-EOQ
     select
-      'arn:' || r.partition || ':guardduty:' || r.region || ':' || r.account_id || ':detector' as resource,
+      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
       case
         -- Skip if region is is not available in the current connection configuration (i.e., not available to Steampipe)
         when r.steampipe_available = false then 'skip'
