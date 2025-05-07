@@ -223,8 +223,8 @@ query "lambda_function_dead_letter_queue_configured" {
         else 'ok'
       end as status,
       case
-        when dead_letter_config_target_arn is null then title || ' configured with dead-letter queue.'
-        else title || ' not configured with dead-letter queue.'
+        when dead_letter_config_target_arn is null then title || ' not configured with dead-letter queue.'
+        else title || ' configured with dead-letter queue.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
