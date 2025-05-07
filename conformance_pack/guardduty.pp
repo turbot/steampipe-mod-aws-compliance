@@ -108,6 +108,7 @@ query "guardduty_no_high_severity_findings" {
         d.title,
         d.region,
         d.account_id,
+        d.tags,
         d.status
       from
         aws_guardduty_detector d
