@@ -1962,7 +1962,7 @@ query "iam_user_one_active_key" {
         when count(distinct k.access_key_id) > 1 then 'alarm'
         else 'ok'
       end as status,
-      u.arn || ' has ' || count(distinct k.access_key_id) || ' active access key(s).' as reason,
+      u.arn || ' has ' || count(distinct k.access_key_id) || ' active access key(s).' as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "u.")}
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
