@@ -254,8 +254,8 @@ query "sagemaker_notebook_instance_encryption_at_rest_enabled" {
         else 'ok'
       end as status,
       case
-        when kms_key_id is null then title || ' encryption at rest enabled'
-        else title || ' encryption at rest not enabled'
+        when kms_key_id is null then title || ' encryption at rest disabled.'
+        else title || ' encryption at rest enabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
