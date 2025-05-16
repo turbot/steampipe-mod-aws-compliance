@@ -1,3 +1,12 @@
+## v1.5.1 [2025-05-16]
+
+_Bug fixes_
+
+- Fixed the `sagemaker_notebook_instance_encryption_at_rest_enabled` query to correctly return SageMaker notebook instances with encryption at rest disabled. ([#897](https://github.com/turbot/steampipe-mod-aws-compliance/pull/897))
+- Fixed a syntax error in the `iam_user_one_active_key` query. ([#895](https://github.com/turbot/steampipe-mod-aws-compliance/pull/895))
+- Fixed the `lambda_function_dead_letter_queue_configured` query to properly check for Lambda functions with a DLQ (Dead Letter Queue) configured. ([#893](https://github.com/turbot/steampipe-mod-aws-compliance/pull/893))
+- Fixed the `kms_cmk_policy_prohibit_public_access`, `sns_topic_policy_prohibit_public_access`, and `sns_topic_policy_prohibit_cross_account_access` queries to correctly assess whether the associated IAM policies allow public access or cross-account access. ([#858](https://github.com/turbot/steampipe-mod-aws-compliance/pull/858), [#887](https://github.com/turbot/steampipe-mod-aws-compliance/pull/887))
+
 ## v1.5.0 [2025-05-07]
 
 _Dependencies_
