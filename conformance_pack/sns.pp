@@ -95,17 +95,75 @@ query "sns_topic_encrypted_at_rest" {
 
 query "sns_topic_policy_prohibit_public_access" {
   sql = <<-EOQ
-    with wildcard_action_policies as (
-      select
-        topic_arn,
-        count(*) as statements_num
-      from
-        aws_sns_topic,
-        jsonb_array_elements(policy_std -> 'Statement') as s
-      where
-        s ->> 'Effect' = 'Allow'
+      with wildcard_action_policies as (
+        select
+          topic_arn,
+          count(*) as statements_num
+        from
+          aws_sns_topic,
+          jsonb_array_elements(policy_std -> 'Statement') as s
+        where
+          s ->> 'Effect' = 'Allow'
+          -- aws:SourceOwner
+          and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceowner' is null
+          and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceowner' is null
+          and (
+            s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' is null
+            or s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' ? '*'
+        )
+        -- aws:SourceAccount
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceaccount' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceaccount' is null
         and (
-          ( s -> 'Principal' -> 'AWS') = '["*"]'
+          s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' ? '*'
+        )
+        -- aws:PrincipalOrgID
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalorgid' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalorgid' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' ? '*'
+        )
+        -- aws:PrincipalAccount
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalaccount' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalaccount' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' ? '*'
+        )
+        -- aws:PrincipalArn
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalarn' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalarn' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' ? '*'
+        )
+        -- aws:SourceArn
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:sourcearn' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourcearn' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' ? '*'
+        )
+        and (
+          s -> 'Principal' -> 'AWS' = '["*"]'
           or s ->> 'Principal' = '*'
         )
       group by
@@ -252,6 +310,63 @@ query "sns_topic_policy_prohibit_cross_account_access" {
           or s ->> 'Principal' = '*'
           or split_part(p, ':', 5) <> account_id
         )
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceowner' is null
+          and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceowner' is null
+          and (
+            s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' is null
+            or s -> 'Condition' -> 'StringLike' -> 'aws:sourceowner' ? '*'
+        )
+        -- aws:SourceAccount
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:sourceaccount' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceaccount' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:sourceaccount' ? '*'
+        )
+        -- aws:PrincipalOrgID
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalorgid' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalorgid' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalorgid' ? '*'
+        )
+        -- aws:PrincipalAccount
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalaccount' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalaccount' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalaccount' ? '*'
+        )
+        -- aws:PrincipalArn
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:principalarn' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalarn' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:principalarn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' is null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' ? '*'
+        )
+        -- aws:SourceArn
+        and s -> 'Condition' -> 'StringEquals' -> 'aws:sourcearn' is null
+        and s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourcearn' is null
+        and (
+          s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'StringLike' -> 'aws:sourcearn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' ? '*'
+        )
+        and (
+          s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' is null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' ? '*'
+        )
       group by
         topic_arn
     )
@@ -263,7 +378,7 @@ query "sns_topic_policy_prohibit_cross_account_access" {
       end as status,
       case
         when p.topic_arn is null then title || ' does not allow cross account access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allows cross account access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allow cross account access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
