@@ -376,7 +376,7 @@ query "sns_topic_policy_prohibit_cross_account_access" {
       end as status,
       case
         when p.topic_arn is null then title || ' does not allow cross account access.'
-        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allows cross account access.'
+        else title || ' contains ' || coalesce(p.statements_num,0) || ' statements that allow cross account access.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "t.")}
