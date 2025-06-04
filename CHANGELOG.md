@@ -18,10 +18,6 @@ _What's new?_
 - Added `iam_user_access_key_age_365` and `secretsmanager_secret_rotation_enabled` controls to `all_controls_iam` and `all_controls_secretsmanager` benchmarks respectively. ([#886](https://github.com/turbot/steampipe-mod-aws-compliance/pull/886))
 - Refactored GuardDuty queries to skip regions where GuardDuty is not available. ([#882](https://github.com/turbot/steampipe-mod-aws-compliance/pull/882))
 
-_Bug fixes_
-
-- Fixed `eks_cluster_secrets_encrypted` query to automatically return `ok` instead of an `alarm` for EKS clusters with version greater than `1.27` since they are automatically encrypted by AWS owned KMS keys. ([#883](https://github.com/turbot/steampipe-mod-aws-compliance/pull/883))
-
 ## v1.4.0 [2025-04-26]
 
 _What's new?_
