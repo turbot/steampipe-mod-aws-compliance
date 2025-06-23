@@ -10,11 +10,23 @@ benchmark "nist_csf_v2_rc" {
 benchmark "nist_csf_v2_rc_rp" {
   title       = "Incident Recovery Plan Execution (RC.RP)"
   description = "Restoration activities are performed to ensure operational availability of systems and services affected by cybersecurity incidents."
+  children = [
+    benchmark.nist_csf_v2_rc_rp_01,
+    benchmark.nist_csf_v2_rc_rp_02,
+    benchmark.nist_csf_v2_rc_rp_03,
+    benchmark.nist_csf_v2_rc_rp_04,
+    benchmark.nist_csf_v2_rc_rp_05,
+    benchmark.nist_csf_v2_rc_rp_06
+  ]
 }
 
 benchmark "nist_csf_v2_rc_co" {
   title       = "Incident Recovery Communication (RC.CO)"
   description = "Restoration activities are coordinated with internal and external parties."
+  children = [
+    benchmark.nist_csf_v2_rc_co_03,
+    benchmark.nist_csf_v2_rc_co_04
+  ]
 }
 
 benchmark "nist_csf_v2_rc_rp_01" {

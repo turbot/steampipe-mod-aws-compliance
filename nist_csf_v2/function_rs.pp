@@ -12,21 +12,42 @@ benchmark "nist_csf_v2_rs" {
 benchmark "nist_csf_v2_rs_ma" {
   title       = "Incident Management (RS.MA)"
   description = "Responses to detected cybersecurity incidents are managed."
+  children = [
+    benchmark.nist_csf_v2_rs_ma_01,
+    benchmark.nist_csf_v2_rs_ma_02,
+    benchmark.nist_csf_v2_rs_ma_03,
+    benchmark.nist_csf_v2_rs_ma_04,
+    benchmark.nist_csf_v2_rs_ma_05
+  ]
 }
 
 benchmark "nist_csf_v2_rs_an" {
   title       = "Incident Analysis (RS.AN)"
   description = "Investigations are conducted to ensure effective response and support forensics and recovery activities."
+  children = [
+    benchmark.nist_csf_v2_rs_an_03,
+    benchmark.nist_csf_v2_rs_an_06,
+    benchmark.nist_csf_v2_rs_an_07,
+    benchmark.nist_csf_v2_rs_an_08
+  ]
 }
 
 benchmark "nist_csf_v2_rs_co" {
   title       = "Incident Response Reporting and Communication (RS.CO)"
   description = "Response activities are coordinated with internal and external stakeholders as required by laws, regulations, or policies."
+  children = [
+    benchmark.nist_csf_v2_rs_co_02,
+    benchmark.nist_csf_v2_rs_co_03
+  ]
 }
 
 benchmark "nist_csf_v2_rs_mi" {
   title       = "Incident Mitigation (RS.MI)"
   description = "Activities are performed to prevent expansion of an event and mitigate its effects."
+  children = [
+    benchmark.nist_csf_v2_rs_mi_01,
+    benchmark.nist_csf_v2_rs_mi_02
+  ]
 }
 
 benchmark "nist_csf_v2_rs_ma_01" {
