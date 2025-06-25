@@ -21,38 +21,9 @@ benchmark "nist_csf_v2_rs_ma" {
   ]
 }
 
-benchmark "nist_csf_v2_rs_an" {
-  title       = "Incident Analysis (RS.AN)"
-  description = "Investigations are conducted to ensure effective response and support forensics and recovery activities."
-  children = [
-    benchmark.nist_csf_v2_rs_an_03,
-    benchmark.nist_csf_v2_rs_an_06,
-    benchmark.nist_csf_v2_rs_an_07,
-    benchmark.nist_csf_v2_rs_an_08
-  ]
-}
-
-benchmark "nist_csf_v2_rs_co" {
-  title       = "Incident Response Reporting and Communication (RS.CO)"
-  description = "Response activities are coordinated with internal and external stakeholders as required by laws, regulations, or policies."
-  children = [
-    benchmark.nist_csf_v2_rs_co_02,
-    benchmark.nist_csf_v2_rs_co_03
-  ]
-}
-
-benchmark "nist_csf_v2_rs_mi" {
-  title       = "Incident Mitigation (RS.MI)"
-  description = "Activities are performed to prevent expansion of an event and mitigate its effects."
-  children = [
-    benchmark.nist_csf_v2_rs_mi_01,
-    benchmark.nist_csf_v2_rs_mi_02
-  ]
-}
-
 benchmark "nist_csf_v2_rs_ma_01" {
-  title       = "The incident response plan is executed in coordination with relevant third parties once an incident is declared (RS.MA-01)"
-  description = "The incident response plan is executed in coordination with relevant third parties once an incident is declared, ensuring effective and collaborative incident management."
+  title       = "RS.MA-01"
+  description = "The incident response plan is executed in coordination with relevant third parties once an incident is declared."
   children = [
     control.cloudtrail_trail_enabled,
     control.guardduty_enabled,
@@ -63,8 +34,8 @@ benchmark "nist_csf_v2_rs_ma_01" {
 }
 
 benchmark "nist_csf_v2_rs_ma_02" {
-  title       = "Incident reports are triaged and validated (RS.MA-02)"
-  description = "Incident reports are triaged and validated to ensure appropriate response and escalation."
+  title       = "RS.MA-02"
+  description = "Incident reports are triaged and validated."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudwatch_alarm_action_enabled,
@@ -74,8 +45,8 @@ benchmark "nist_csf_v2_rs_ma_02" {
 }
 
 benchmark "nist_csf_v2_rs_ma_03" {
-  title       = "Incidents are categorized and prioritized (RS.MA-03)"
-  description = "Incidents are categorized and prioritized to ensure effective and timely response."
+  title       = "RS.MA-03"
+  description = " Incidents are categorized and prioritized."
   children = [
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
@@ -85,8 +56,8 @@ benchmark "nist_csf_v2_rs_ma_03" {
 }
 
 benchmark "nist_csf_v2_rs_ma_04" {
-  title       = "Incidents are escalated or elevated as needed (RS.MA-04)"
-  description = "Incidents are escalated or elevated as needed to ensure timely and effective response, including notification, alerting, and support access."
+  title       = "RS.MA-04"
+  description = "Incidents are escalated or elevated as needed."
   children = [
     control.cloudformation_stack_notifications_enabled,
     control.cloudwatch_alarm_action_enabled,
@@ -101,8 +72,8 @@ benchmark "nist_csf_v2_rs_ma_04" {
 }
 
 benchmark "nist_csf_v2_rs_ma_05" {
-  title       = "The criteria for initiating incident recovery are applied (RS.MA-05)"
-  description = "The criteria for initiating incident recovery are applied, ensuring that recovery actions are triggered appropriately based on defined thresholds, alerts, and backup integrity."
+  title       = "RS.MA-05"
+  description = "The criteria for initiating incident recovery are applied."
   children = [
     control.backup_plan_min_retention_35_days,
     control.backup_plan_region_configured,
@@ -117,9 +88,20 @@ benchmark "nist_csf_v2_rs_ma_05" {
   ]
 }
 
+benchmark "nist_csf_v2_rs_an" {
+  title       = "Incident Analysis (RS.AN)"
+  description = "Investigations are conducted to ensure effective response and support forensics and recovery activities."
+  children = [
+    benchmark.nist_csf_v2_rs_an_03,
+    benchmark.nist_csf_v2_rs_an_06,
+    benchmark.nist_csf_v2_rs_an_07,
+    benchmark.nist_csf_v2_rs_an_08
+  ]
+}
+
 benchmark "nist_csf_v2_rs_an_03" {
-  title       = "Analysis is performed to establish what has taken place during an incident and the root cause of the incident (RS.AN-03)"
-  description = "Analysis is performed to establish what has taken place during an incident and the root cause of the incident, leveraging forensic evidence, log retention, and centralized findings."
+  title       = "RS.AN-03"
+  description = " Analysis is performed to establish what has taken place during an incident and the root cause of the incident."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -136,8 +118,8 @@ benchmark "nist_csf_v2_rs_an_03" {
 }
 
 benchmark "nist_csf_v2_rs_an_06" {
-  title       = "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved (RS.AN-06)"
-  description = "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved through comprehensive logging, retention, and validation controls."
+  title       = "RS.AN-06"
+  description = "Actions performed during an investigation are recorded, and the records’ integrity and provenance are preserved."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -154,8 +136,8 @@ benchmark "nist_csf_v2_rs_an_06" {
 }
 
 benchmark "nist_csf_v2_rs_an_07" {
-  title       = "Incident data and metadata are collected, and their integrity and provenance are preserved (RS.AN-07)"
-  description = "Incident data and metadata are collected, and their integrity and provenance are preserved through comprehensive logging, retention, and validation controls."
+  title       = "RS.AN-07"
+  description = "Incident data and metadata are collected, and their integrity and provenance are preserved."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -172,8 +154,8 @@ benchmark "nist_csf_v2_rs_an_07" {
 }
 
 benchmark "nist_csf_v2_rs_an_08" {
-  title       = "An incident's magnitude is estimated and validated (RS.AN-08)"
-  description = "An incident's magnitude is estimated and validated using centralized findings, severity filters, alerting, and log validation controls."
+  title       = "RS.AN-08"
+  description = "An incident’s magnitude is estimated and validated."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -188,9 +170,18 @@ benchmark "nist_csf_v2_rs_an_08" {
   ]
 }
 
+benchmark "nist_csf_v2_rs_co" {
+  title       = "Incident Response Reporting and Communication (RS.CO)"
+  description = "Response activities are coordinated with internal and external stakeholders as required by laws, regulations, or policies."
+  children = [
+    benchmark.nist_csf_v2_rs_co_02,
+    benchmark.nist_csf_v2_rs_co_03
+  ]
+}
+
 benchmark "nist_csf_v2_rs_co_02" {
-  title       = "Internal and external stakeholders are notified of incidents (RS.CO-02)"
-  description = "Internal and external stakeholders are notified of incidents through automated notifications, alarms, and event triggers, ensuring timely and secure communication."
+  title       = "RS.CO-02"
+  description = "Internal and external stakeholders are notified of incidents."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -206,8 +197,8 @@ benchmark "nist_csf_v2_rs_co_02" {
 }
 
 benchmark "nist_csf_v2_rs_co_03" {
-  title       = "Information is shared with designated internal and external stakeholders (RS.CO-03)"
-  description = "Information is shared with designated internal and external stakeholders through secure, automated, and auditable notifications, alarms, and event triggers."
+  title       = "RS.CO-03"
+  description = "Information is shared with designated internal and external stakeholders."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -222,9 +213,18 @@ benchmark "nist_csf_v2_rs_co_03" {
   ]
 }
 
+benchmark "nist_csf_v2_rs_mi" {
+  title       = "Incident Mitigation (RS.MI)"
+  description = "Activities are performed to prevent expansion of an event and mitigate its effects."
+  children = [
+    benchmark.nist_csf_v2_rs_mi_01,
+    benchmark.nist_csf_v2_rs_mi_02
+  ]
+}
+
 benchmark "nist_csf_v2_rs_mi_01" {
-  title       = "Incidents are contained (RS.MI-01)"
-  description = "Incidents are contained through detection, alerting, and automated or manual actions to block, restrict, or isolate threats and prevent incident expansion."
+  title       = "RS.MI-01"
+  description = "Incidents are contained."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -245,8 +245,8 @@ benchmark "nist_csf_v2_rs_mi_01" {
 }
 
 benchmark "nist_csf_v2_rs_mi_02" {
-  title       = "Incidents are eradicated (RS.MI-02)"
-  description = "Incidents are eradicated through detection, alerting, and automated or manual actions to remove, remediate, or eliminate threats and prevent recurrence."
+  title       = "RS.MI-02"
+  description = " Incidents are eradicated."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,

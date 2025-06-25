@@ -110,7 +110,6 @@ benchmark "nist_csf_v2_de_cm_09" {
   ]
 }
 
-# Adverse Event Analysis (DE.AE)
 benchmark "nist_csf_v2_de_ae" {
   title       = "Adverse Event Analysis (DE.AE)"
   description = "Anomalies, indicators of compromise, and other potentially adverse events are analyzed to characterize the events and detect cybersecurity incidents."

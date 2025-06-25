@@ -22,8 +22,8 @@ benchmark "nist_csf_v2_pr_aa" {
 }
 
 benchmark "nist_csf_v2_pr_aa_01" {
-  title       = "Identities and credentials for authorized users, services, and hardware are managed by the organization (PR.AA-01)"
-  description = "Identities and credentials for authorized users, services, and hardware are managed through IAM user, group, and role management, password policies, MFA, and access control."
+  title       = "PR.AA-01"
+  description = "Identities and credentials for authorized users, services, and hardware are managed by the organization."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -46,8 +46,8 @@ benchmark "nist_csf_v2_pr_aa_01" {
 }
 
 benchmark "nist_csf_v2_pr_aa_02" {
-  title       = "Identities are proofed and bound to credentials based on the context of interactions (PR.AA-02)"
-  description = "Identities are proofed and bound to credentials based on the context of interactions through strong authentication, credential binding, and verification controls."
+  title       = "PR.AA-02"
+  description = "Identities are proofed and bound to credentials based on the context of interactions."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -66,8 +66,8 @@ benchmark "nist_csf_v2_pr_aa_02" {
 }
 
 benchmark "nist_csf_v2_pr_aa_03" {
-  title       = "Users, services, and hardware are authenticated (PR.AA-03)"
-  description = "Users, services, and hardware are authenticated through strong authentication mechanisms, including MFA, password policies, and authentication logging."
+  title       = "PR.AA-03"
+  description = "Users, services, and hardware are authenticated."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -89,8 +89,8 @@ benchmark "nist_csf_v2_pr_aa_03" {
 }
 
 benchmark "nist_csf_v2_pr_aa_04" {
-  title       = "Identity assertions are protected, conveyed, and verified (PR.AA-04)"
-  description = "Identity assertions are protected, conveyed, and verified through strong authentication, certificate management, encryption, and validation controls."
+  title       = "PR.AA-04"
+  description = " Identity assertions are protected, conveyed, and verified."
   children = [
     control.acm_certificate_expires_30_days,
     control.acm_certificate_no_failed_certificate,
@@ -113,8 +113,8 @@ benchmark "nist_csf_v2_pr_aa_04" {
 }
 
 benchmark "nist_csf_v2_pr_aa_05" {
-  title       = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties (PR.AA-05)"
-  description = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, incorporating least privilege and separation of duties through IAM policy, group, and role management controls."
+  title       = "PR.AA-05"
+  description = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties."
   children = [
     control.iam_all_policy_no_service_wild_card,
     control.iam_custom_policy_unattached_no_star_star,
@@ -134,7 +134,7 @@ benchmark "nist_csf_v2_pr_aa_05" {
 
 benchmark "nist_csf_v2_pr_ds" {
   title       = "Data Security (PR.DS)"
-  description = "Data are managed consistent with the organization's risk strategy to protect the confidentiality, integrity, and availability of information."
+  description = "Data are managed consistent with the organization’s risk strategy to protect the confidentiality, integrity, and availability of information."
   children = [
     benchmark.nist_csf_v2_pr_ds_01,
     benchmark.nist_csf_v2_pr_ds_02,
@@ -143,8 +143,8 @@ benchmark "nist_csf_v2_pr_ds" {
 }
 
 benchmark "nist_csf_v2_pr_ds_01" {
-  title       = "The confidentiality, integrity, and availability of data-at-rest are protected (PR.DS-01)"
-  description = "The confidentiality, integrity, and availability of data-at-rest are protected through encryption, access control, and backup configuration controls."
+  title       = "PR.DS-01"
+  description = "The confidentiality, integrity, and availability of data-at-rest are protected."
   children = [
     control.athena_workgroup_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -174,8 +174,8 @@ benchmark "nist_csf_v2_pr_ds_01" {
 }
 
 benchmark "nist_csf_v2_pr_ds_02" {
-  title       = "The confidentiality, integrity, and availability of data-in-transit are protected (PR.DS-02)"
-  description = "The confidentiality, integrity, and availability of data-in-transit are protected through SSL/TLS, encryption, certificate management, and secure transport controls."
+  title       = "PR.DS-02"
+  description = "The confidentiality, integrity, and availability of data-in-transit are protected."
   children = [
     control.acm_certificate_expires_30_days,
     control.acm_certificate_no_failed_certificate,
@@ -201,8 +201,8 @@ benchmark "nist_csf_v2_pr_ds_02" {
 }
 
 benchmark "nist_csf_v2_pr_ds_11" {
-  title       = "Backups of data are created, protected, maintained, and tested (PR.DS-11)"
-  description = "Backups of data are created, protected, maintained, and tested through backup plan configuration, retention, encryption, and reporting controls."
+  title       = "PR.DS-11"
+  description = "Backups of data are created, protected, maintained, and tested."
   children = [
     control.backup_plan_min_retention_35_days,
     control.backup_plan_region_configured,
@@ -223,7 +223,7 @@ benchmark "nist_csf_v2_pr_ds_11" {
 
 benchmark "nist_csf_v2_pr_ps" {
   title       = "Platform Security (PR.PS)"
-  description = "The hardware, software (e.g., firmware, operating systems, applications), and services of physical and virtual platforms are managed consistent with the organization's risk strategy to protect their confidentiality, integrity, and availability."
+  description = "The hardware, software (e.g., firmware, operating systems, applications), and services of physical and virtual platforms are managed consistent with the organization’s risk strategy to protect their confidentiality, integrity, and availability."
   children = [
     benchmark.nist_csf_v2_pr_ps_01,
     benchmark.nist_csf_v2_pr_ps_02,
@@ -235,8 +235,8 @@ benchmark "nist_csf_v2_pr_ps" {
 }
 
 benchmark "nist_csf_v2_pr_ps_01" {
-  title       = "Configuration management practices are established and applied (PR.PS-01)"
-  description = "Configuration management practices are established and applied through configuration baselines, patch management, compliance associations, and secure configuration controls."
+  title       = "PR.PS-01"
+  description = " Configuration management practices are established and applied."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudtrail_trail_enabled,
@@ -254,8 +254,8 @@ benchmark "nist_csf_v2_pr_ps_01" {
 }
 
 benchmark "nist_csf_v2_pr_ps_02" {
-  title       = "Software is maintained, replaced, and removed commensurate with risk (PR.PS-02)"
-  description = "Software is maintained, replaced, and removed commensurate with risk through patch management, update, maintenance, and software lifecycle controls."
+  title       = "PR.PS-02"
+  description = "Software is maintained, replaced, and removed commensurate with risk."
   children = [
     control.autoscaling_group_no_suspended_process,
     control.ec2_instance_ssm_managed,
@@ -268,8 +268,8 @@ benchmark "nist_csf_v2_pr_ps_02" {
 }
 
 benchmark "nist_csf_v2_pr_ps_03" {
-  title       = "Hardware is maintained, replaced, and removed commensurate with risk (PR.PS-03)"
-  description = "Hardware is maintained, replaced, and removed commensurate with risk through lifecycle management, maintenance, and decommissioning controls."
+  title       = "PR.PS-03"
+  description = "Hardware is maintained, replaced, and removed commensurate with risk"
   children = [
     control.directory_service_directory_snapshots_limit_2,
     control.drs_job_enabled,
@@ -283,8 +283,8 @@ benchmark "nist_csf_v2_pr_ps_03" {
 }
 
 benchmark "nist_csf_v2_pr_ps_04" {
-  title       = "Log records are generated and made available for continuous monitoring (PR.PS-04)"
-  description = "Log records are generated and made available for continuous monitoring through log generation, retention, validation, and monitoring controls."
+  title       = "PR.PS-04"
+  description = "Log records are generated and made available for continuous monitoring."
   children = [
     control.appsync_graphql_api_field_level_logging_enabled,
     control.cloudfront_distribution_logging_enabled,
@@ -314,8 +314,8 @@ benchmark "nist_csf_v2_pr_ps_04" {
 }
 
 benchmark "nist_csf_v2_pr_ps_05" {
-  title       = "Installation and execution of unauthorized software are prevented (PR.PS-05)"
-  description = "Installation and execution of unauthorized software are prevented through application control, SSM management, compliance, and execution restriction controls."
+  title       = "PR.PS-05"
+  description = "Installation and execution of unauthorized software are prevented."
   children = [
     control.autoscaling_ec2_launch_configuration_no_sensitive_data,
     control.ec2_instance_ssm_managed,
@@ -330,8 +330,8 @@ benchmark "nist_csf_v2_pr_ps_05" {
 }
 
 benchmark "nist_csf_v2_pr_ps_06" {
-  title       = "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle (PR.PS-06)"
-  description = "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle through image scanning, secrets management, and monitoring controls."
+  title       = "PR.PS-06"
+  description = "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle"
   children = [
     control.ecr_repository_image_scan_on_push_enabled,
     control.ecr_repository_lifecycle_policy_configured,
@@ -344,7 +344,7 @@ benchmark "nist_csf_v2_pr_ps_06" {
 
 benchmark "nist_csf_v2_pr_ir" {
   title       = "Technology Infrastructure Resilience (PR.IR)"
-  description = "Security architectures are managed with the organization's risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."
+  description = "Security architectures are managed with the organization’s risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."
    children = [
     benchmark.nist_csf_v2_pr_ir_01,
     benchmark.nist_csf_v2_pr_ir_02,
@@ -354,8 +354,8 @@ benchmark "nist_csf_v2_pr_ir" {
 }
 
 benchmark "nist_csf_v2_pr_ir_01" {
-  title       = "Networks and environments are protected from unauthorized logical access and usage (PR.IR-01)"
-  description = "Networks and environments are protected from unauthorized logical access and usage through VPC, security group, firewall, and access control protections."
+  title       = "PR.IR-01"
+  description = "Networks and environments are protected from unauthorized logical access and usage."
   children = [
     control.account_part_of_organizations,
     control.iam_all_policy_no_service_wild_card,
@@ -378,8 +378,8 @@ benchmark "nist_csf_v2_pr_ir_01" {
 }
 
 benchmark "nist_csf_v2_pr_ir_02" {
-  title       = "The organization's technology assets are protected from environmental threats (PR.IR-02)"
-  description = "The organization's technology assets are protected from environmental threats through disaster recovery, backup, redundancy, and high availability controls."
+  title       = "PR.IR-02"
+  description = "The organization’s technology assets are protected from environmental threats."
   children = [
     control.autoscaling_group_multiple_az_configured,
     control.backup_plan_region_configured,
@@ -400,8 +400,8 @@ benchmark "nist_csf_v2_pr_ir_02" {
 }
 
 benchmark "nist_csf_v2_pr_ir_03" {
-  title       = "Mechanisms are implemented to achieve resilience requirements in normal and adverse situations (PR.IR-03)"
-  description = "Mechanisms are implemented to achieve resilience requirements in normal and adverse situations through high availability, redundancy, disaster recovery, and backup controls."
+  title       = "PR.IR-03"
+  description = "Mechanisms are implemented to achieve resilience requirements in normal and adverse situations."
   children = [
     control.autoscaling_group_multiple_az_configured,
     control.autoscaling_group_with_lb_use_health_check,
@@ -421,8 +421,8 @@ benchmark "nist_csf_v2_pr_ir_03" {
 }
 
 benchmark "nist_csf_v2_pr_ir_04" {
-  title       = "Adequate resource capacity to ensure availability is maintained (PR.IR-04)"
-  description = "Adequate resource capacity to ensure availability is maintained through autoscaling, multi-az, redundancy, health checks, and performance monitoring controls."
+  title       = "PR.IR-04"
+  description = "Adequate resource capacity to ensure availability is maintained."
   children = [
     control.autoscaling_group_multiple_az_configured,
     control.autoscaling_group_no_suspended_process,

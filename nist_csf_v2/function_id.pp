@@ -256,7 +256,7 @@ benchmark "nist_csf_v2_id_ra_09" {
 
 benchmark "nist_csf_v2_id_im_01" {
   title       = "ID.IM-01"
-  description = "Improvements are identified from security tests and exercises, including those done in coordination with suppliers and relevant third parties."
+  description = "Improvements are identified from evaluations."
   children = [
     control.ec2_instance_no_high_level_finding_in_inspector_scan,
     control.securityhub_enabled,
