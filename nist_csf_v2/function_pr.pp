@@ -236,7 +236,7 @@ benchmark "nist_csf_v2_pr_ps" {
 
 benchmark "nist_csf_v2_pr_ps_01" {
   title       = "PR.PS-01"
-  description = " Configuration management practices are established and applied."
+  description = "Configuration management practices are established and applied."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.cloudtrail_trail_enabled,
@@ -269,7 +269,7 @@ benchmark "nist_csf_v2_pr_ps_02" {
 
 benchmark "nist_csf_v2_pr_ps_03" {
   title       = "PR.PS-03"
-  description = "Hardware is maintained, replaced, and removed commensurate with risk"
+  description = "Hardware is maintained, replaced, and removed commensurate with risk."
   children = [
     control.directory_service_directory_snapshots_limit_2,
     control.drs_job_enabled,
@@ -331,7 +331,7 @@ benchmark "nist_csf_v2_pr_ps_05" {
 
 benchmark "nist_csf_v2_pr_ps_06" {
   title       = "PR.PS-06"
-  description = "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle"
+  description = "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle."
   children = [
     control.ecr_repository_image_scan_on_push_enabled,
     control.ecr_repository_lifecycle_policy_configured,
@@ -344,8 +344,8 @@ benchmark "nist_csf_v2_pr_ps_06" {
 
 benchmark "nist_csf_v2_pr_ir" {
   title       = "Technology Infrastructure Resilience (PR.IR)"
-  description = "Security architectures are managed with the organization’s risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."
-   children = [
+  description = "Security architectures are managed with the organization's risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."
+  children = [
     benchmark.nist_csf_v2_pr_ir_01,
     benchmark.nist_csf_v2_pr_ir_02,
     benchmark.nist_csf_v2_pr_ir_03,
