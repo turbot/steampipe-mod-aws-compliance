@@ -25,8 +25,8 @@ benchmark "nist_csf_v2_gv_oc_02" {
   description = "Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered."
   children = [
     control.account_part_of_organizations,
-    control.iam_group_user_role_no_inline_policies,
-    control.iam_account_password_policy_strong_min_reuse_24
+    control.iam_account_password_policy_strong_min_reuse_24,
+    control.iam_group_user_role_no_inline_policies
   ]
   tags = local.nist_csf_v2_common_tags
 }
@@ -96,8 +96,8 @@ benchmark "nist_csf_v2_gv_rr_04" {
   title       = "GV.RR-04"
   description = "Cybersecurity is included in human resources practices."
   children = [
-    control.iam_user_in_group,
     control.iam_user_console_access_mfa_enabled,
+    control.iam_user_in_group,
     control.iam_user_mfa_enabled,
     control.iam_user_no_inline_attached_policies,
     control.iam_user_unused_credentials_90
@@ -118,10 +118,10 @@ benchmark "nist_csf_v2_gv_sc_02" {
   title       = "GV.SC-02"
   description = "Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally."
   children = [
+    control.cloudwatch_cross_account_sharing,
+    control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
     control.iam_group_user_role_no_inline_policies,
     control.iam_managed_policy_attached_to_role,
-    control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
-    control.cloudwatch_cross_account_sharing,
     control.sns_topic_policy_prohibit_cross_account_access
   ]
   tags = local.nist_csf_v2_common_tags

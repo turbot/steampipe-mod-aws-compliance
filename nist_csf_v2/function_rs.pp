@@ -54,10 +54,10 @@ benchmark "nist_csf_v2_rs_ma_01" {
   title       = "The incident response plan is executed in coordination with relevant third parties once an incident is declared (RS.MA-01)"
   description = "The incident response plan is executed in coordination with relevant third parties once an incident is declared, ensuring effective and collaborative incident management."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudtrail_trail_enabled,
+    control.guardduty_enabled,
     control.iam_group_user_role_no_inline_policies,
+    control.securityhub_enabled,
     control.sns_topic_notification_delivery_status_enabled
   ]
 }
@@ -66,10 +66,10 @@ benchmark "nist_csf_v2_rs_ma_02" {
   title       = "Incident reports are triaged and validated (RS.MA-02)"
   description = "Incident reports are triaged and validated to ensure appropriate response and escalation."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_finding_archived,
+    control.cloudtrail_trail_enabled,
     control.cloudwatch_alarm_action_enabled,
-    control.cloudtrail_trail_enabled
+    control.guardduty_finding_archived,
+    control.securityhub_enabled
   ]
 }
 
@@ -77,10 +77,10 @@ benchmark "nist_csf_v2_rs_ma_03" {
   title       = "Incidents are categorized and prioritized (RS.MA-03)"
   description = "Incidents are categorized and prioritized to ensure effective and timely response."
   children = [
-    control.securityhub_enabled,
+    control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
     control.guardduty_no_high_severity_findings,
-    control.cloudwatch_alarm_action_enabled
+    control.securityhub_enabled
   ]
 }
 
@@ -88,15 +88,15 @@ benchmark "nist_csf_v2_rs_ma_04" {
   title       = "Incidents are escalated or elevated as needed (RS.MA-04)"
   description = "Incidents are escalated or elevated as needed to ensure timely and effective response, including notification, alerting, and support access."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
-    control.guardduty_no_high_severity_findings,
-    control.guardduty_finding_archived,
-    control.cloudwatch_alarm_action_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
     control.cloudformation_stack_notifications_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.guardduty_no_high_severity_findings,
+    control.iam_security_audit_role,
     control.iam_support_role,
-    control.iam_security_audit_role
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled
   ]
 }
 
@@ -110,9 +110,9 @@ benchmark "nist_csf_v2_rs_ma_05" {
     control.backup_recovery_point_manual_deletion_disabled,
     control.backup_recovery_point_min_retention_35_days,
     control.backup_report_plan_configured,
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.securityhub_enabled,
     control.sns_topic_notification_delivery_status_enabled
   ]
 }
@@ -121,16 +121,16 @@ benchmark "nist_csf_v2_rs_an_03" {
   title       = "Analysis is performed to establish what has taken place during an incident and the root cause of the incident (RS.AN-03)"
   description = "Analysis is performed to establish what has taken place during an incident and the root cause of the incident, leveraging forensic evidence, log retention, and centralized findings."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.log_metric_filter_cloudtrail_configuration,
+    control.guardduty_enabled,
     control.guardduty_finding_archived,
+    control.log_metric_filter_cloudtrail_configuration,
     control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
     control.vpc_flow_logs_enabled
   ]
 }
@@ -144,12 +144,12 @@ benchmark "nist_csf_v2_rs_an_06" {
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled,
-    control.log_metric_filter_cloudtrail_configuration,
-    control.securityhub_enabled,
     control.guardduty_enabled,
-    control.guardduty_finding_archived
+    control.guardduty_finding_archived,
+    control.log_metric_filter_cloudtrail_configuration,
+    control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 }
 
@@ -157,17 +157,17 @@ benchmark "nist_csf_v2_rs_an_07" {
   title       = "Incident data and metadata are collected, and their integrity and provenance are preserved (RS.AN-07)"
   description = "Incident data and metadata are collected, and their integrity and provenance are preserved through comprehensive logging, retention, and validation controls."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
     control.cloudwatch_log_group_retention_period_365,
-    control.s3_bucket_logging_enabled,
-    control.vpc_flow_logs_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
     control.log_metric_filter_cloudtrail_configuration,
-    control.guardduty_finding_archived
+    control.s3_bucket_logging_enabled,
+    control.securityhub_enabled,
+    control.vpc_flow_logs_enabled
   ]
 }
 
@@ -175,15 +175,15 @@ benchmark "nist_csf_v2_rs_an_08" {
   title       = "An incident's magnitude is estimated and validated (RS.AN-08)"
   description = "An incident's magnitude is estimated and validated using centralized findings, severity filters, alerting, and log validation controls."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
-    control.guardduty_no_high_severity_findings,
-    control.guardduty_finding_archived,
-    control.cloudwatch_alarm_action_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
+    control.guardduty_no_high_severity_findings,
+    control.securityhub_enabled,
     control.sns_topic_notification_delivery_status_enabled
   ]
 }
@@ -192,15 +192,15 @@ benchmark "nist_csf_v2_rs_co_02" {
   title       = "Internal and external stakeholders are notified of incidents (RS.CO-02)"
   description = "Internal and external stakeholders are notified of incidents through automated notifications, alarms, and event triggers, ensuring timely and secure communication."
   children = [
-    control.sns_topic_notification_delivery_status_enabled,
-    control.cloudwatch_alarm_action_enabled,
-    control.s3_bucket_event_notifications_enabled,
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.s3_bucket_event_notifications_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled,
     control.sns_topic_policy_prohibit_public_access
   ]
 }
@@ -209,15 +209,15 @@ benchmark "nist_csf_v2_rs_co_03" {
   title       = "Information is shared with designated internal and external stakeholders (RS.CO-03)"
   description = "Information is shared with designated internal and external stakeholders through secure, automated, and auditable notifications, alarms, and event triggers."
   children = [
-    control.sns_topic_notification_delivery_status_enabled,
-    control.cloudwatch_alarm_action_enabled,
-    control.s3_bucket_event_notifications_enabled,
-    control.securityhub_enabled,
-    control.guardduty_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.s3_bucket_event_notifications_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled,
     control.sns_topic_policy_prohibit_public_access
   ]
 }
@@ -226,17 +226,17 @@ benchmark "nist_csf_v2_rs_mi_01" {
   title       = "Incidents are contained (RS.MI-01)"
   description = "Incidents are contained through detection, alerting, and automated or manual actions to block, restrict, or isolate threats and prevent incident expansion."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
-    control.guardduty_finding_archived,
-    control.cloudwatch_alarm_action_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
-    control.s3_bucket_event_notifications_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
     control.networkfirewall_firewall_logging_enabled,
+    control.s3_bucket_event_notifications_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,
@@ -248,17 +248,17 @@ benchmark "nist_csf_v2_rs_mi_02" {
   title       = "Incidents are eradicated (RS.MI-02)"
   description = "Incidents are eradicated through detection, alerting, and automated or manual actions to remove, remediate, or eliminate threats and prevent recurrence."
   children = [
-    control.securityhub_enabled,
-    control.guardduty_enabled,
-    control.guardduty_finding_archived,
-    control.cloudwatch_alarm_action_enabled,
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     control.cloudtrail_trail_validation_enabled,
-    control.sns_topic_notification_delivery_status_enabled,
-    control.s3_bucket_event_notifications_enabled,
+    control.cloudwatch_alarm_action_enabled,
+    control.guardduty_enabled,
+    control.guardduty_finding_archived,
     control.networkfirewall_firewall_logging_enabled,
+    control.s3_bucket_event_notifications_enabled,
+    control.securityhub_enabled,
+    control.sns_topic_notification_delivery_status_enabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_security_group_restrict_ingress_common_ports_all,
     control.vpc_security_group_restrict_ingress_ssh_all,

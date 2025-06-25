@@ -94,6 +94,9 @@ benchmark "nist_csf_v2_rc_rp_04" {
     control.backup_vault_region_configured,
     control.ebs_volume_in_backup_plan,
     control.ebs_volume_protected_by_backup_plan,
+    control.guardduty_enabled,
+    control.iam_all_policy_no_service_wild_card,
+    control.iam_policy_no_star_star,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_cluster_deletion_protection_enabled,
     control.rds_db_cluster_multiple_az_enabled,
@@ -102,10 +105,7 @@ benchmark "nist_csf_v2_rc_rp_04" {
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_multiple_az_enabled,
     control.rds_db_instance_protected_by_backup_plan,
-    control.securityhub_enabled,
-    control.guardduty_enabled,
-    control.iam_all_policy_no_service_wild_card,
-    control.iam_policy_no_star_star
+    control.securityhub_enabled
   ]
 }
 
@@ -116,16 +116,16 @@ benchmark "nist_csf_v2_rc_rp_05" {
     control.backup_recovery_point_encryption_enabled,
     control.backup_recovery_point_manual_deletion_disabled,
     control.backup_recovery_point_min_retention_35_days,
+    control.cloudtrail_trail_validation_enabled,
     control.dynamodb_table_point_in_time_recovery_enabled,
     control.efs_file_system_in_backup_plan,
     control.efs_file_system_protected_by_backup_plan,
     control.fsx_file_system_protected_by_backup_plan,
+    control.guardduty_enabled,
     control.rds_db_instance_backup_enabled,
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_protected_by_backup_plan,
-    control.cloudtrail_trail_validation_enabled,
-    control.securityhub_enabled,
-    control.guardduty_enabled
+    control.securityhub_enabled
   ]
 }
 
@@ -144,9 +144,9 @@ benchmark "nist_csf_v2_rc_co_03" {
   title       = "Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders (RC.CO-03)"
   description = "Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders, ensuring transparency and coordination during recovery."
   children = [
-    control.sns_topic_notification_delivery_status_enabled,
+    control.cloudtrail_trail_integrated_with_logs,
     control.cloudwatch_alarm_action_enabled,
-    control.cloudtrail_trail_integrated_with_logs
+    control.sns_topic_notification_delivery_status_enabled
   ]
 }
 
@@ -154,8 +154,8 @@ benchmark "nist_csf_v2_rc_co_04" {
   title       = "Public updates on incident recovery are shared using approved methods and messaging (RC.CO-04)"
   description = "Public updates on incident recovery are shared using approved methods and messaging, ensuring that external stakeholders are informed appropriately."
   children = [
-    control.sns_topic_policy_prohibit_public_access,
     control.s3_bucket_event_notifications_enabled,
-    control.s3_public_access_block_account
+    control.s3_public_access_block_account,
+    control.sns_topic_policy_prohibit_public_access
   ]
 }
