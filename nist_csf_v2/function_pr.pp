@@ -22,8 +22,8 @@ benchmark "nist_csf_v2_pr_aa" {
 }
 
 benchmark "nist_csf_v2_pr_aa_01" {
-  title       = "Identities and credentials for authorized users, services, and hardware are managed by the organization (PR.AA-01)"
-  description = "Identities and credentials for authorized users, services, and hardware are managed through IAM user, group, and role management, password policies, MFA, and access control."
+  title       = "PR.AA-01"
+  description = "Identities and credentials for authorized users, services, and hardware are managed by the organization."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -46,8 +46,8 @@ benchmark "nist_csf_v2_pr_aa_01" {
 }
 
 benchmark "nist_csf_v2_pr_aa_02" {
-  title       = "Identities are proofed and bound to credentials based on the context of interactions (PR.AA-02)"
-  description = "Identities are proofed and bound to credentials based on the context of interactions through strong authentication, credential binding, and verification controls."
+  title       = "PR.AA-02"
+  description = "Identities are proofed and bound to credentials based on the context of interactions."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -66,8 +66,8 @@ benchmark "nist_csf_v2_pr_aa_02" {
 }
 
 benchmark "nist_csf_v2_pr_aa_03" {
-  title       = "Users, services, and hardware are authenticated (PR.AA-03)"
-  description = "Users, services, and hardware are authenticated through strong authentication mechanisms, including MFA, password policies, and authentication logging."
+  title       = "PR.AA-03"
+  description = "Users, services, and hardware are authenticated."
   children = [
     control.iam_account_password_policy_strong_min_reuse_24,
     control.iam_all_policy_no_service_wild_card,
@@ -89,8 +89,8 @@ benchmark "nist_csf_v2_pr_aa_03" {
 }
 
 benchmark "nist_csf_v2_pr_aa_04" {
-  title       = "Identity assertions are protected, conveyed, and verified (PR.AA-04)"
-  description = "Identity assertions are protected, conveyed, and verified through strong authentication, certificate management, encryption, and validation controls."
+  title       = "PR.AA-04"
+  description = "Identity assertions are protected, conveyed, and verified."
   children = [
     control.acm_certificate_expires_30_days,
     control.acm_certificate_no_failed_certificate,
@@ -113,8 +113,8 @@ benchmark "nist_csf_v2_pr_aa_04" {
 }
 
 benchmark "nist_csf_v2_pr_aa_05" {
-  title       = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties (PR.AA-05)"
-  description = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, incorporating least privilege and separation of duties through IAM policy, group, and role management controls."
+  title       = "PR.AA-05"
+  description = "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties."
   children = [
     control.iam_all_policy_no_service_wild_card,
     control.iam_custom_policy_unattached_no_star_star,
@@ -143,8 +143,8 @@ benchmark "nist_csf_v2_pr_ds" {
 }
 
 benchmark "nist_csf_v2_pr_ds_01" {
-  title       = "The confidentiality, integrity, and availability of data-at-rest are protected (PR.DS-01)"
-  description = "The confidentiality, integrity, and availability of data-at-rest are protected through encryption, access control, and backup configuration controls."
+  title       = "PR.DS-01"
+  description = "The confidentiality, integrity, and availability of data-at-rest are protected."
   children = [
     control.athena_workgroup_encryption_at_rest_enabled,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -174,8 +174,8 @@ benchmark "nist_csf_v2_pr_ds_01" {
 }
 
 benchmark "nist_csf_v2_pr_ds_02" {
-  title       = "The confidentiality, integrity, and availability of data-in-transit are protected (PR.DS-02)"
-  description = "The confidentiality, integrity, and availability of data-in-transit are protected through SSL/TLS, encryption, certificate management, and secure transport controls."
+  title       = "PR.DS-02"
+  description = "The confidentiality, integrity, and availability of data-in-transit are protected."
   children = [
     control.acm_certificate_expires_30_days,
     control.acm_certificate_no_failed_certificate,
@@ -345,7 +345,7 @@ benchmark "nist_csf_v2_pr_ps_06" {
 benchmark "nist_csf_v2_pr_ir" {
   title       = "Technology Infrastructure Resilience (PR.IR)"
   description = "Security architectures are managed with the organization's risk strategy to protect asset confidentiality, integrity, and availability, and organizational resilience."
-   children = [
+  children = [
     benchmark.nist_csf_v2_pr_ir_01,
     benchmark.nist_csf_v2_pr_ir_02,
     benchmark.nist_csf_v2_pr_ir_03,
