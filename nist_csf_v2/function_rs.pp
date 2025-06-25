@@ -46,7 +46,7 @@ benchmark "nist_csf_v2_rs_ma_02" {
 
 benchmark "nist_csf_v2_rs_ma_03" {
   title       = "RS.MA-03"
-  description = " Incidents are categorized and prioritized."
+  description = "Incidents are categorized and prioritized."
   children = [
     control.cloudwatch_alarm_action_enabled,
     control.guardduty_enabled,
@@ -101,7 +101,7 @@ benchmark "nist_csf_v2_rs_an" {
 
 benchmark "nist_csf_v2_rs_an_03" {
   title       = "RS.AN-03"
-  description = " Analysis is performed to establish what has taken place during an incident and the root cause of the incident."
+  description = "Analysis is performed to establish what has taken place during an incident and the root cause of the incident."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -119,7 +119,7 @@ benchmark "nist_csf_v2_rs_an_03" {
 
 benchmark "nist_csf_v2_rs_an_06" {
   title       = "RS.AN-06"
-  description = "Actions performed during an investigation are recorded, and the records’ integrity and provenance are preserved."
+  description = "Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -155,7 +155,7 @@ benchmark "nist_csf_v2_rs_an_07" {
 
 benchmark "nist_csf_v2_rs_an_08" {
   title       = "RS.AN-08"
-  description = "An incident’s magnitude is estimated and validated."
+  description = "An incident's magnitude is estimated and validated."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -246,7 +246,7 @@ benchmark "nist_csf_v2_rs_mi_01" {
 
 benchmark "nist_csf_v2_rs_mi_02" {
   title       = "RS.MI-02"
-  description = " Incidents are eradicated."
+  description = "Incidents are eradicated."
   children = [
     control.cloudtrail_trail_enabled,
     control.cloudtrail_trail_integrated_with_logs,

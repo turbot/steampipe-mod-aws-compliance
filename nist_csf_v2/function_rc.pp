@@ -122,7 +122,7 @@ benchmark "nist_csf_v2_rc_rp_05" {
 
 benchmark "nist_csf_v2_rc_rp_06" {
   title       = "RC.RP-06"
-  description = "The end of incident recovery is declared based on criteria, and incidentrelated documentation is completed."
+  description = "The end of incident recovery is declared based on criteria, and incident-related documentation is completed."
   children = [
     control.backup_report_plan_configured,
     control.cloudtrail_trail_integrated_with_logs,

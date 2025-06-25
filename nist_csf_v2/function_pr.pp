@@ -90,7 +90,7 @@ benchmark "nist_csf_v2_pr_aa_03" {
 
 benchmark "nist_csf_v2_pr_aa_04" {
   title       = "PR.AA-04"
-  description = " Identity assertions are protected, conveyed, and verified."
+  description = "Identity assertions are protected, conveyed, and verified."
   children = [
     control.acm_certificate_expires_30_days,
     control.acm_certificate_no_failed_certificate,
