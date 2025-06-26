@@ -97,7 +97,7 @@ control "efs_file_system_enforces_ssl" {
   query       = query.efs_file_system_enforces_ssl
 
   tags = merge(local.conformance_pack_efs_common_tags, {
-    nist_csf_v2           = "true"
+    nist_csf_v2 = "true"
   })
 }
 
