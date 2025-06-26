@@ -745,6 +745,14 @@ control "iam_user_access_key_age_365" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_role_cross_account_write_access_policy" {
+  title         = "IAM roles should not have cross-account write access policies"
+  description   = "This control checks whether IAM roles have policies that allow write access to resources in other AWS accounts. Such policies can pose a security risk as they may allow unauthorized access to resources in other accounts."
+  query         = query.iam_role_cross_account_write_access_policy
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 query "iam_account_password_policy_strong_min_reuse_24" {
   sql = <<-EOQ
     select
@@ -1967,7 +1975,7 @@ query "iam_user_one_active_key" {
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u
-      left join aws_iam_access_key as k 
+      left join aws_iam_access_key as k
         on k.akas::text like '%' || u.arn || '%'  -- convert jsonb to text and check if arn exists
     where
       k.status = 'Active'
@@ -2391,5 +2399,53 @@ query "iam_user_access_key_age_365" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
+  EOQ
+}
+
+query "iam_role_cross_account_write_access_policy" {
+  sql = <<-EOQ
+    with cross_account_write_policies as (
+      select
+        r.arn as role_arn,
+        r.account_id,
+        r.region,
+        p.arn as policy_arn,
+        p.policy_std
+      from
+        aws_iam_role as r
+        cross join jsonb_array_elements_text(r.attached_policy_arns) as policy_arn
+        join aws_iam_policy as p on p.arn = policy_arn
+      where
+        p.policy_std -> 'Statement' @> '[{"Effect": "Allow", "Principal": {"AWS": ["*"]}}]'
+        or p.policy_std -> 'Statement' @> '[{"Effect": "Allow", "Principal": {"Service": ["*"]}}]'
+        and (
+          p.policy_std -> 'Statement' @> '[{"Action": ["*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Put*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Delete*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Create*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Update*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Modify*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Attach*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Detach*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Replace*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Tag*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Untag*"]}]'
+        )
+    )
+    select
+      r.arn as resource,
+      case
+        when c.role_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.role_arn is null then 'Role does not have cross-account write access'
+        else 'Role has cross-account write access'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_iam_role as r
+      left join cross_account_write_policies as c on r.arn = c.role_arn;
   EOQ
 }
