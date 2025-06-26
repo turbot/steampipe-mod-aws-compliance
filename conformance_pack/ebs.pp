@@ -21,6 +21,7 @@ control "ebs_encryption_by_default_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     soc_2                                  = "true"
@@ -63,6 +64,7 @@ control "ebs_volume_encryption_at_rest_enabled" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_moderate_rev_4 = "true"
     gdpr                   = "true"
+    nist_csf_v2            = "true"
     nist_800_53_rev_5      = "true"
     rbi_cyber_security     = "true"
   })
@@ -88,6 +90,7 @@ control "ebs_attached_volume_encryption_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -114,6 +117,7 @@ control "ebs_volume_in_backup_plan" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -131,6 +135,7 @@ control "ebs_attached_volume_delete_on_termination_enabled" {
   tags = merge(local.conformance_pack_ebs_common_tags, {
     fedramp_moderate_rev_4 = "true"
     ffiec                  = "true"
+    nist_csf_v2            = "true"
     nist_800_53_rev_4      = "true"
   })
 }
@@ -151,6 +156,7 @@ control "ebs_volume_protected_by_backup_plan" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     soc_2                                  = "true"
@@ -173,6 +179,7 @@ control "ebs_volume_unused" {
     nist_800_171_rev_2          = "true"
     nist_800_53_rev_5           = "true"
     nist_csf                    = "true"
+    nist_csf_v2                 = "true"
     pci_dss_v40                 = "true"
     rbi_itf_nbfc                = "true"
   })
@@ -183,7 +190,9 @@ control "ebs_snapshot_encryption_enabled" {
   description = "Ensure that EBS snapshots are encrypted. This rule is non-compliant if the EBS snapshot is not encrypted."
   query       = query.ebs_snapshot_encryption_enabled
 
-  tags = local.conformance_pack_ebs_common_tags
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ebs_volume_snapshot_exists" {
@@ -191,7 +200,9 @@ control "ebs_volume_snapshot_exists" {
   description = "Ensure that EBS volume snapshots exist. This rule is non-compliant if the EBS volume does not have any snapshot."
   query       = query.ebs_volume_snapshot_exists
 
-  tags = local.conformance_pack_ebs_common_tags
+  tags = merge(local.conformance_pack_ebs_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "ebs_encryption_by_default_enabled" {

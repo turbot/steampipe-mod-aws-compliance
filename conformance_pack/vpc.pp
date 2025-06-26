@@ -24,6 +24,7 @@ control "vpc_flow_logs_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -123,6 +124,7 @@ control "vpc_security_group_restrict_ingress_tcp_udp_all" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
@@ -149,6 +151,7 @@ control "vpc_security_group_restrict_ingress_common_ports_all" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
@@ -177,6 +180,7 @@ control "vpc_security_group_restrict_ingress_ssh_all" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -203,6 +207,7 @@ control "vpc_default_security_group_restricts_all_traffic" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
@@ -243,6 +248,7 @@ control "vpc_eip_associated" {
     ffiec                 = "true"
     nist_800_171_rev_2    = "true"
     nist_csf              = "true"
+    nist_csf_v2           = "true"
     pci_dss_v321          = "true"
     soc_2                 = "true"
   })
@@ -353,6 +359,7 @@ control "vpc_network_acl_unused" {
     cis_controls_v8_ig1   = "true"
     cisa_cyber_essentials = "true"
     nist_csf              = "true"
+    nist_csf_v2           = "true"
     pci_dss_v40           = "true"
   })
 }
@@ -366,6 +373,7 @@ control "vpc_configured_to_use_vpc_endpoints" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
   })

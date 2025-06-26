@@ -11,6 +11,7 @@ control "networkfirewall_stateless_rule_group_not_empty" {
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -22,6 +23,7 @@ control "networkfirewall_firewall_policy_rule_group_not_empty" {
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -33,6 +35,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_full_pac
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -44,6 +47,7 @@ control "networkfirewall_firewall_policy_default_stateless_action_check_fragment
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -53,7 +57,9 @@ control "networkfirewall_firewall_in_vpc" {
   description = "Deploy AWS Networkfirewall firewall within an AWS Virtual Private Cloud (AWS VPC) for a secure communication between a function and other services within the AWS VPC."
   query       = query.networkfirewall_firewall_in_vpc
 
-  tags = local.conformance_pack_networkfirewall_common_tags
+  tags = merge(local.conformance_pack_networkfirewall_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "networkfirewall_firewall_deletion_protection_enabled" {
@@ -71,6 +77,7 @@ control "networkfirewall_firewall_logging_enabled" {
 
   tags = merge(local.conformance_pack_networkfirewall_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }

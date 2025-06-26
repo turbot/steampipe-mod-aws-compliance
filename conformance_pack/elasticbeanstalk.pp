@@ -27,6 +27,7 @@ control "elastic_beanstalk_environment_logs_to_cloudwatch" {
 
   tags = merge(local.conformance_pack_elasticbeanstalk_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }

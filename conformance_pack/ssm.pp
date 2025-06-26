@@ -22,6 +22,7 @@ control "ec2_instance_ssm_managed" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -48,6 +49,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -76,6 +78,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
@@ -106,7 +109,9 @@ control "ssm_parameter_encryption_enabled" {
   description = "This control checks if SSM parameter has encryption enabled."
   query       = query.ssm_parameter_encryption_enabled
 
-  tags = local.conformance_pack_ssm_common_tags
+  tags = merge(local.conformance_pack_ssm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "ec2_instance_ssm_managed" {

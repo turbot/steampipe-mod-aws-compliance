@@ -9,7 +9,9 @@ control "neptune_db_cluster_encryption_at_rest_enabled" {
   description = "This control checks whether a Neptune DB cluster is encrypted at rest. The control fails if a Neptune DB cluster isn't encrypted at rest."
   query       = query.neptune_db_cluster_encryption_at_rest_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "neptune_db_cluster_audit_logging_enabled" {
@@ -19,6 +21,7 @@ control "neptune_db_cluster_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -39,7 +42,9 @@ control "neptune_db_cluster_deletion_protection_enabled" {
   description = "This control checks if a Neptune DB cluster has deletion protection enabled. The control fails if a Neptune DB cluster doesn't have deletion protection enabled."
   query       = query.neptune_db_cluster_deletion_protection_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "neptune_db_cluster_automated_backup_enabled" {
@@ -49,6 +54,7 @@ control "neptune_db_cluster_automated_backup_enabled" {
 
   tags = merge(local.conformance_pack_neptune_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -58,7 +64,9 @@ control "neptune_db_cluster_snapshot_encryption_at_rest_enabled" {
   description = "This control checks whether a Neptune DB cluster snapshot is encrypted at rest. The control fails if a Neptune DB cluster isn't encrypted at rest."
   query       = query.neptune_db_cluster_snapshot_encryption_at_rest_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "neptune_db_cluster_iam_authentication_enabled" {
@@ -77,7 +85,9 @@ control "neptune_db_cluster_copy_tags_to_snapshot_enabled" {
   description = "This control checks if a Neptune DB cluster is configured to copy all tags to snapshots when the snapshots are created. The control fails if a Neptune DB cluster isn't configured to copy tags to snapshots."
   query       = query.neptune_db_cluster_copy_tags_to_snapshot_enabled
 
-  tags = local.conformance_pack_neptune_common_tags
+  tags = merge(local.conformance_pack_neptune_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "neptune_db_cluster_no_public_subnet" {

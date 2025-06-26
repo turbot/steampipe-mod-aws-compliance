@@ -9,7 +9,9 @@ control "dlm_ebs_snapshot_lifecycle_policy_enabled" {
   description = "Ensure DLM EBS snapshot lifecycle policy is enabled in all the regions with EBS snapshots."
   query       = query.dlm_ebs_snapshot_lifecycle_policy_enabled
 
-  tags = local.conformance_pack_dlm_common_tags
+  tags = merge(local.conformance_pack_dlm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "dlm_ebs_snapshot_lifecycle_policy_enabled" {

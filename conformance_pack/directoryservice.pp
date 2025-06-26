@@ -9,7 +9,9 @@ control "directory_service_directory_snapshots_limit_2" {
   description = "Ensure you keep track of the number of manual snapshots for your monitor to guarantee sufficient capacity when it becomes necessary."
   query       = query.directory_service_directory_snapshots_limit_2
 
-  tags = local.conformance_pack_directoryservice_common_tags
+  tags = merge(local.conformance_pack_directoryservice_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "directory_service_directory_sns_notifications_enabled" {
@@ -25,7 +27,9 @@ control "directory_service_certificate_expires_90_days" {
   description = "Is is recommended to monitor certificate expiration and implement automated alerts to notify the responsible team for timely certificate replacement or removal."
   query       = query.directory_service_certificate_expires_90_days
 
-  tags = local.conformance_pack_directoryservice_common_tags
+  tags = merge(local.conformance_pack_directoryservice_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "directory_service_directory_snapshots_limit_2" {

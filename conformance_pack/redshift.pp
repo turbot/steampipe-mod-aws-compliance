@@ -9,7 +9,9 @@ control "redshift_cluster_automatic_upgrade_major_versions_enabled" {
   description = "This control checks whether automatic major version upgrades are enabled for the AWS Redshift cluster."
   query       = query.redshift_cluster_automatic_upgrade_major_versions_enabled
 
-  tags = local.conformance_pack_redshift_common_tags
+  tags = merge(local.conformance_pack_redshift_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "redshift_cluster_encryption_in_transit_enabled" {
@@ -30,6 +32,7 @@ control "redshift_cluster_encryption_in_transit_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -60,6 +63,7 @@ control "redshift_cluster_encryption_logging_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -117,6 +121,7 @@ control "redshift_cluster_automatic_snapshots_min_7_days" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -161,6 +166,7 @@ control "redshift_cluster_maintenance_settings_check" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -179,6 +185,7 @@ control "redshift_cluster_enhanced_vpc_routing_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
   })
 }

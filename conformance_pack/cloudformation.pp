@@ -30,6 +30,7 @@ control "cloudformation_stack_notifications_enabled" {
 
   tags = merge(local.conformance_pack_cloudformation_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }

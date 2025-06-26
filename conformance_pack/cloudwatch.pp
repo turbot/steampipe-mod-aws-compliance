@@ -29,6 +29,7 @@ control "cloudwatch_alarm_action_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
     soc_2                                  = "true"
   })
@@ -41,6 +42,7 @@ control "cloudwatch_alarm_action_enabled_check" {
 
   tags = merge(local.conformance_pack_cloudwatch_common_tags, {
     nist_csf     = "true"
+    nist_csf_v2  = "true"
     nydfs_23     = "true"
     pci_dss_v321 = "true"
     soc_2        = "true"
@@ -52,7 +54,9 @@ control "cloudwatch_cross_account_sharing" {
   description = "Ensure that your AWS CloudWatch is configured to allow access only to friendly AWS accounts in order to prevent unauthorized users from sharing their CloudWatch events."
   query       = query.cloudwatch_cross_account_sharing
 
-  tags = local.conformance_pack_cloudwatch_common_tags
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    nist_csf_v2  = "true"
+  })
 }
 
 control "log_group_encryption_at_rest_enabled" {
@@ -73,6 +77,7 @@ control "log_group_encryption_at_rest_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -98,6 +103,7 @@ control "cloudwatch_log_group_retention_period_365" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -117,6 +123,7 @@ control "log_metric_filter_unauthorized_api" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -131,6 +138,7 @@ control "log_metric_filter_console_login_mfa" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -147,6 +155,7 @@ control "log_metric_filter_root_login" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
   })
@@ -162,6 +171,7 @@ control "log_metric_filter_iam_policy" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v321         = "true"
     pci_dss_v40          = "true"
   })
@@ -176,6 +186,7 @@ control "log_metric_filter_vpc" {
     gdpr               = "true"
     nist_800_171_rev_2 = "true"
     nist_csf           = "true"
+    nist_csf_v2        = "true"
     pci_dss_v40        = "true"
   })
 }
@@ -190,6 +201,7 @@ control "log_metric_filter_route_table" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -204,6 +216,7 @@ control "log_metric_filter_network_gateway" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -218,6 +231,7 @@ control "log_metric_filter_network_acl" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -232,6 +246,7 @@ control "log_metric_filter_security_group" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -246,6 +261,7 @@ control "log_metric_filter_config_configuration" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -260,6 +276,7 @@ control "log_metric_filter_bucket_policy" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -273,6 +290,7 @@ control "log_metric_filter_disable_or_delete_cmk" {
     acsc_essential_eight = "true"
     gdpr                 = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -289,6 +307,7 @@ control "log_metric_filter_console_authentication_failure" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
   })
 }
@@ -303,6 +322,7 @@ control "log_metric_filter_cloudtrail_configuration" {
     gdpr                 = "true"
     nist_800_171_rev_2   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }

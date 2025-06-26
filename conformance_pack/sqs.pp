@@ -9,7 +9,9 @@ control "sqs_queue_encrypted_at_rest" {
   description = "This control checks whether AWS SQS queues are encrypted at rest."
   query       = query.sqs_queue_encrypted_at_rest
 
-  tags = local.conformance_pack_sqs_common_tags
+  tags = merge(local.conformance_pack_sqs_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "sqs_queue_policy_prohibit_public_access" {
@@ -33,7 +35,9 @@ control "sqs_queue_encrypted_with_kms_cmk" {
   description = "To help protect sensitive data at rest, ensure encryption is enabled for your AWS SQS queues with KMS CMK."
   query       = query.sqs_queue_encrypted_with_kms_cmk
 
-  tags = local.conformance_pack_sqs_common_tags
+  tags = merge(local.conformance_pack_sqs_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "sqs_queue_policy_prohibit_public_access" {

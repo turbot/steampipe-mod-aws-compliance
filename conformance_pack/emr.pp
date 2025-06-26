@@ -83,7 +83,9 @@ control "emr_cluster_encryption_in_transit_enabled" {
   description = "This control checks whether EMR clusters have encryption in transit enabled. This control fails if an EMR cluster isn't encrypted in transit."
   query       = query.emr_cluster_encryption_in_transit_enabled
 
-  tags = local.conformance_pack_emr_common_tags
+  tags = merge(local.conformance_pack_emr_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "emr_cluster_local_disk_encryption_enabled" {
