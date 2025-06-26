@@ -85,6 +85,7 @@ control "codebuild_project_logging_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -114,6 +115,7 @@ control "codebuild_project_s3_logs_encryption_enabled" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
+    nist_csf_v2        = "true"
     pci_dss_v40        = "true"
   })
 }

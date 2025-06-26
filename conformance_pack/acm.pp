@@ -21,6 +21,7 @@ control "acm_certificate_expires_30_days" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -34,7 +35,9 @@ control "acm_certificate_transparency_logging_enabled" {
   description = "Ensure ACM certificates transparency logging is enabled as certificate transparency logging guards against SSL/TLS certificates issued by mistake or by a compromised certificate authority."
   query       = query.acm_certificate_transparency_logging_enabled
 
-  tags = local.conformance_pack_acm_common_tags
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "acm_certificate_no_wildcard_domain_name" {
@@ -50,7 +53,9 @@ control "acm_certificate_not_expired" {
   description = "This control ensures that all expired ACM certificates are removed from AWS account."
   query       = query.acm_certificate_not_expired
 
-  tags = local.conformance_pack_acm_common_tags
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "acm_certificate_no_failed_certificate" {
@@ -58,7 +63,9 @@ control "acm_certificate_no_failed_certificate" {
   description = "This control ensures that ACM certificates are not in failed state."
   query       = query.acm_certificate_no_failed_certificate
 
-  tags = local.conformance_pack_acm_common_tags
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "acm_certificate_no_pending_validation_certificate" {
@@ -66,7 +73,9 @@ control "acm_certificate_no_pending_validation_certificate" {
   description = "This control ensures that ACM certificates are not in pending validation state. When certificates are not validated within 72 hours after the request is made, those certificates become invalid."
   query       = query.acm_certificate_no_pending_validation_certificate
 
-  tags = local.conformance_pack_acm_common_tags
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "acm_certificate_rsa_key_length_2048_bits_or_greater" {
@@ -74,7 +83,9 @@ control "acm_certificate_rsa_key_length_2048_bits_or_greater" {
   description = "This control checks whether RSA certificates managed by AWS Certificate Manager use a key length of at least 2,048 bits. The control fails if the key length is smaller than 2,048 bits."
   query       = query.acm_certificate_rsa_key_length_2048_bits_or_greater
 
-  tags = local.conformance_pack_acm_common_tags
+  tags = merge(local.conformance_pack_acm_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "acm_certificate_expires_30_days" {

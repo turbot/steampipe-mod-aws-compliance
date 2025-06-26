@@ -85,7 +85,9 @@ control "rds_db_cluster_encryption_at_rest_enabled" {
   description = "This control checks if an RDS DB cluster is encrypted at rest. The control fails if an RDS DB cluster isn't encrypted at rest."
   query       = query.rds_db_cluster_encryption_at_rest_enabled
 
-  tags = local.conformance_pack_rds_common_tags
+  tags = merge(local.conformance_pack_rds_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "rds_db_instance_backup_enabled" {
@@ -108,6 +110,7 @@ control "rds_db_instance_backup_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -137,6 +140,7 @@ control "rds_db_instance_encryption_at_rest_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -162,6 +166,7 @@ control "rds_db_instance_multiple_az_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -298,6 +303,7 @@ control "rds_db_instance_in_backup_plan" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -322,6 +328,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -343,6 +350,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
     soc_2                                  = "true"
@@ -396,6 +404,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -420,6 +429,7 @@ control "rds_db_instance_protected_by_backup_plan" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     soc_2                                  = "true"
@@ -450,7 +460,8 @@ control "rds_db_cluster_deletion_protection_enabled" {
   query       = query.rds_db_cluster_deletion_protection_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_csf = "true"
+    nist_csf    = "true"
+    nist_csf_v2 = "true"
   })
 }
 
@@ -509,7 +520,8 @@ control "rds_db_cluster_multiple_az_enabled" {
   query       = query.rds_db_cluster_multiple_az_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {
-    nist_csf = "true"
+    nist_csf    = "true"
+    nist_csf_v2 = "true"
   })
 }
 

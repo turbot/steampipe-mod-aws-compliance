@@ -55,6 +55,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -141,7 +142,9 @@ control "ec2_instance_no_high_level_finding_in_inspector_scan" {
   description = "AWS Inspector scans operating system packages installed on your AWS EC2 instances for vulnerabilities and network reachability issues. Each finding has the name of the detected vulnerability and provides a severity rating, information about the affected resource, and details such as how to remediate the reported vulnerability."
   query       = query.ec2_instance_no_high_level_finding_in_inspector_scan
 
-  tags = local.conformance_pack_ec2_common_tags
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ec2_stopped_instance_30_days" {
@@ -162,6 +165,7 @@ control "ec2_stopped_instance_30_days" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     rbi_itf_nbfc                           = "true"
   })
 }
@@ -227,6 +231,7 @@ control "ec2_instance_protected_by_backup_plan" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -276,6 +281,7 @@ control "ec2_transit_gateway_auto_cross_account_attachment_disabled" {
 
   tags = merge(local.conformance_pack_ec2_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -482,7 +488,9 @@ control "ec2_ami_ebs_encryption_enabled" {
   description = "Amazon Machine Images should utilize EBS Encrypted snapshots."
   query       = query.ec2_ami_ebs_encryption_enabled
 
-  tags = local.conformance_pack_ec2_common_tags
+  tags = merge(local.conformance_pack_ec2_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ec2_ami_not_older_than_90_days" {

@@ -21,6 +21,7 @@ control "efs_file_system_encrypt_data_at_rest" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -46,6 +47,7 @@ control "efs_file_system_in_backup_plan" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -71,6 +73,7 @@ control "efs_file_system_protected_by_backup_plan" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     soc_2                                  = "true"
@@ -84,6 +87,7 @@ control "efs_file_system_encrypted_with_cmk" {
 
   tags = merge(local.conformance_pack_efs_common_tags, {
     cisa_cyber_essentials = "true"
+    nist_csf_v2           = "true"
   })
 }
 
@@ -92,7 +96,9 @@ control "efs_file_system_enforces_ssl" {
   description = "To help protect data in transit, ensure that your EFS file systems require requests to use Secure Socket Layer (SSL)."
   query       = query.efs_file_system_enforces_ssl
 
-  tags = local.conformance_pack_efs_common_tags
+  tags = merge(local.conformance_pack_efs_common_tags, {
+    nist_csf_v2           = "true"
+  })
 }
 
 control "efs_access_point_enforce_user_identity" {

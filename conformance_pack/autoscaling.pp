@@ -9,7 +9,9 @@ control "autoscaling_group_uses_ec2_launch_template" {
   description = "This control checks whether an AWS EC2 Auto Scaling group is created from an EC2 launch template. This control fails if an AWS EC2 Auto Scaling group is not created with a launch template or if a launch template is not specified in a mixed instances policy."
   query       = query.autoscaling_group_uses_ec2_launch_template
 
-  tags = local.conformance_pack_autoscaling_common_tags
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "autoscaling_launch_config_requires_imdsv2" {
@@ -40,6 +42,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
@@ -74,7 +77,9 @@ control "autoscaling_group_no_suspended_process" {
   description = "Ensure that there are no Auto Scaling Groups (ASGs) with suspended processes provisioned in your AWS account in order to avoid disrupting the auto scaling workflow."
   query       = query.autoscaling_group_no_suspended_process
 
-  tags = local.conformance_pack_autoscaling_common_tags
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf_v2  = "true"
+  })
 }
 
 control "autoscaling_group_multiple_az_configured" {
@@ -83,7 +88,8 @@ control "autoscaling_group_multiple_az_configured" {
   query       = query.autoscaling_group_multiple_az_configured
 
   tags = merge(local.conformance_pack_autoscaling_common_tags, {
-    nist_csf = "true"
+    nist_csf     = "true"
+    nist_csf_v2  = "true"
   })
 }
 
@@ -112,7 +118,9 @@ control "autoscaling_ec2_launch_configuration_no_sensitive_data" {
   description = "Ensure that sensitive information is not included in the user data of the launch configuration. It is recommended to utilize Secrets Manager as an alternative for securely managing sensitive data."
   query       = query.autoscaling_ec2_launch_configuration_no_sensitive_data
 
-  tags = local.conformance_pack_autoscaling_common_tags
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf_v2  = "true"
+  })
 }
 
 control "autoscaling_group_propagate_tags_to_ec2_instance_enabled" {
@@ -120,7 +128,9 @@ control "autoscaling_group_propagate_tags_to_ec2_instance_enabled" {
   description = "Tags can help with managing, identifying, organizing, searching for, and filtering resources. Additionally, tags can help with security and compliance. Tags can be propagated from an Auto Scaling group to the EC2 instances that it launches."
   query       = query.autoscaling_group_propagate_tags_to_ec2_instance_enabled
 
-  tags = local.conformance_pack_autoscaling_common_tags
+  tags = merge(local.conformance_pack_autoscaling_common_tags, {
+    nist_csf_v2  = "true"
+  })
 }
 
 query "autoscaling_launch_config_requires_imdsv2" {

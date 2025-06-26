@@ -25,7 +25,9 @@ control "ecs_cluster_encryption_at_rest_enabled" {
   description = "This control checks whether ECS Clustes have encryption at rest enabled. The check fails if encryption at rest is not enabled as sensitive data should be protected."
   query       = query.ecs_cluster_encryption_at_rest_enabled
 
-  tags = local.conformance_pack_ecs_common_tags
+  tags = merge(local.conformance_pack_cloudwatch_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ecs_cluster_instance_in_vpc" {
@@ -68,6 +70,7 @@ control "ecs_task_definition_user_for_host_mode_check" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
   })
 }
@@ -79,6 +82,7 @@ control "ecs_task_definition_logging_enabled" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -102,6 +106,7 @@ control "ecs_task_definition_container_non_privileged" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -114,6 +119,7 @@ control "ecs_task_definition_container_readonly_root_filesystem" {
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -125,6 +131,7 @@ control "ecs_task_definition_container_environment_no_secret" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -136,6 +143,7 @@ control "ecs_task_definition_no_host_pid_mode" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }
@@ -159,6 +167,7 @@ control "ecs_task_definition_no_root_user" {
 
   tags = merge(local.conformance_pack_ecs_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }

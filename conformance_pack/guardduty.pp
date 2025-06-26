@@ -23,6 +23,7 @@ control "guardduty_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -47,6 +48,7 @@ control "guardduty_finding_archived" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -59,7 +61,9 @@ control "guardduty_no_high_severity_findings" {
   description = "GuardDuty generates a finding whenever it detects unexpected and potentially malicious activity in your AWS environment. If critical findings are not addressed threats can spread in the environment. This rule is non-compliant if there are high severity findings."
   query       = query.guardduty_no_high_severity_findings
 
-  tags = local.conformance_pack_guardduty_common_tags
+  tags = merge(local.conformance_pack_guardduty_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "guardduty_centrally_configured" {
