@@ -36,6 +36,7 @@ benchmark "all_controls_iam" {
     control.iam_policy_no_star_star,
     control.iam_policy_unused,
     control.iam_role_cross_account_read_only_access_policy,
+    control.iam_role_cross_account_write_access_policy,
     control.iam_role_no_administrator_access_policy_attached,
     control.iam_role_unused_60,
     control.iam_root_last_used,
