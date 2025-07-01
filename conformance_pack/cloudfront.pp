@@ -91,6 +91,7 @@ control "cloudfront_distribution_logging_enabled" {
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
   })
 }
@@ -144,6 +145,7 @@ control "cloudfront_distribution_use_custom_ssl_certificate" {
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
     nist_csf    = "true"
+    nist_csf_v2 = "true"
     pci_dss_v40 = "true"
   })
 }

@@ -15,6 +15,7 @@ control "account_part_of_organizations" {
     gxp_21_cfr_part_11   = "true"
     nist_800_53_rev_5    = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
