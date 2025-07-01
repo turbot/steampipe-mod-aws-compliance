@@ -9,7 +9,9 @@ control "elb_network_lb_tls_listener_security_policy_configured" {
   description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy could make the TLS connection between the client and the load balancer vulnerable to exploits."
   query       = query.elb_network_lb_tls_listener_security_policy_configured
 
-  tags = local.conformance_pack_elb_common_tags
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ec2_classic_lb_connection_draining_enabled" {
@@ -40,6 +42,7 @@ control "elb_application_classic_lb_logging_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -66,6 +69,7 @@ control "elb_application_lb_deletion_protection_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
   })
@@ -139,6 +143,7 @@ control "elb_classic_lb_use_ssl_certificate" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -187,6 +192,7 @@ control "elb_classic_lb_use_tls_https_listeners" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -233,6 +239,7 @@ control "elb_application_network_lb_use_ssl_certificate" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -246,7 +253,9 @@ control "elb_listener_use_secure_ssl_cipher" {
   description = "Ensure that ELB listeners do not have any insecure SSL ciphers. Using insecure and deprecated ciphers for your ELB Predefined Security Policy or Custom Security Policy could make the SSL connection between the client and the load balancer vulnerable to exploits."
   query       = query.elb_listener_use_secure_ssl_cipher
 
-  tags = local.conformance_pack_elb_common_tags
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "elb_application_classic_network_lb_prohibit_public_access" {
@@ -302,7 +311,9 @@ control "elb_tls_listener_protocol_version" {
   description = "Using insecure ciphers for your ELB Predefined or Custom Security Policy, could make the SSL connection between the client and the load balancer vulnerable to exploits. TLS 1.0 was recommended to be disabled by PCI Council after June 30, 2016."
   query       = query.elb_tls_listener_protocol_version
 
-  tags = local.conformance_pack_elb_common_tags
+   tags = merge(local.conformance_pack_elb_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "elb_application_lb_desync_mitigation_mode" {

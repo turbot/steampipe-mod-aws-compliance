@@ -18,6 +18,7 @@ control "sns_topic_encrypted_at_rest" {
     gxp_eu_annex_11                        = "true"
     hipaa_final_omnibus_security_rule_2013 = "true"
     hipaa_security_rule_2003               = "true"
+    nist_csf_v2                            = "true"
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
@@ -34,7 +35,9 @@ control "sns_topic_policy_prohibit_public_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring AWS SNS topics cannot be publicly accessed."
   query       = query.sns_topic_policy_prohibit_public_access
 
-  tags = local.conformance_pack_sns_common_tags
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "sns_topic_notification_delivery_status_enabled" {
@@ -45,6 +48,7 @@ control "sns_topic_notification_delivery_status_enabled" {
   tags = merge(local.conformance_pack_sns_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v321         = "true"
     pci_dss_v40          = "true"
   })
@@ -55,7 +59,9 @@ control "sns_topic_policy_prohibit_publishing_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot be accessed publicly for publishing."
   query       = query.sns_topic_policy_prohibit_publishing_access
 
-  tags = local.conformance_pack_sns_common_tags
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "sns_topic_policy_prohibit_subscription_access" {
@@ -63,7 +69,9 @@ control "sns_topic_policy_prohibit_subscription_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring SNS topics cannot be accessed publicly for subscription."
   query       = query.sns_topic_policy_prohibit_subscription_access
 
-  tags = local.conformance_pack_sns_common_tags
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "sns_topic_policy_prohibit_cross_account_access" {
@@ -71,7 +79,9 @@ control "sns_topic_policy_prohibit_cross_account_access" {
   description = "Manage access to resources in the AWS Cloud by ensuring SNS topics does not have cross account access."
   query       = query.sns_topic_policy_prohibit_cross_account_access
 
-  tags = local.conformance_pack_sns_common_tags
+  tags = merge(local.conformance_pack_sns_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 query "sns_topic_encrypted_at_rest" {

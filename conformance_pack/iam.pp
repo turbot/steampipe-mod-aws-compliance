@@ -110,6 +110,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_4                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -162,6 +163,7 @@ control "iam_policy_no_star_star" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -220,6 +222,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -249,6 +252,7 @@ control "iam_root_user_mfa_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -273,6 +277,7 @@ control "iam_user_access_key_age_90" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -301,6 +306,7 @@ control "iam_user_console_access_mfa_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -329,6 +335,7 @@ control "iam_user_mfa_enabled" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -357,6 +364,7 @@ control "iam_user_no_inline_attached_policies" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -385,6 +393,7 @@ control "iam_user_unused_credentials_90" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
@@ -411,6 +420,7 @@ control "iam_user_in_group" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
@@ -436,6 +446,7 @@ control "iam_group_user_role_no_inline_policies" {
     nist_800_53_rev_4                      = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
@@ -449,7 +460,8 @@ control "iam_support_role" {
   query       = query.iam_support_role
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    gdpr = "true"
+    gdpr        = "true"
+    nist_csf_v2 = "true"
   })
 }
 
@@ -542,6 +554,7 @@ control "iam_all_policy_no_service_wild_card" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
@@ -582,6 +595,7 @@ control "iam_policy_inline_no_blocked_kms_actions" {
     hipaa_security_rule_2003               = "true"
     nist_800_171_rev_2                     = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
   })
@@ -608,7 +622,9 @@ control "iam_user_with_administrator_access_mfa_enabled" {
   description = "Manage access to resources in the AWS Cloud by ensuring MFA is enabled for users with administrative privileges."
   query       = query.iam_user_with_administrator_access_mfa_enabled
 
-  tags = local.conformance_pack_iam_common_tags
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "iam_managed_policy_attached_to_role" {
@@ -621,6 +637,7 @@ control "iam_managed_policy_attached_to_role" {
     cis_controls_v8_ig1  = "true"
     gxp_21_cfr_part_11   = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
     soc_2                = "true"
   })
@@ -662,7 +679,9 @@ control "iam_custom_policy_unattached_no_star_star" {
   description = "AWS Identity and Access Management (IAM) can help you incorporate the principles of least privilege and separation of duties with access permissions and authorizations, restricting policies from containing 'Effect': 'Allow' with 'Action': '*' over 'Resource': '*'."
   query       = query.iam_custom_policy_unattached_no_star_star
 
-  tags = local.conformance_pack_iam_common_tags
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "iam_policy_no_full_access_to_cloudtrail" {
@@ -694,7 +713,9 @@ control "iam_security_audit_role" {
   description = "Ensure IAM Security Audit role is created. By creating an IAM role with a security audit policy, a distinct segregation of responsibilities is established between the security team and other teams within the organization."
   query       = query.iam_security_audit_role
 
-  tags = local.conformance_pack_iam_common_tags
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "iam_policy_custom_no_permissive_role_assumption" {
@@ -726,7 +747,9 @@ control "iam_user_access_key_unused_45" {
   description = "AWS IAM users can access AWS resources using access keys. It is recommended that access keys that have been unused in 45 or greater days be deactivated or removed."
   query       = query.iam_user_access_key_unused_45
 
-  tags = local.conformance_pack_iam_common_tags
+  tags = merge(local.conformance_pack_iam_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "iam_role_no_administrator_access_policy_attached" {
@@ -741,6 +764,14 @@ control "iam_user_access_key_age_365" {
   title       = "IAM user access keys should be rotated at least every 365 days"
   description = "The credentials are audited for authorized devices, users, and processes by ensuring IAM access keys are rotated as per organizational policy. This control uses a 365-day rotation period which may be more suitable for organizations that find the 90-day rotation period too aggressive."
   query       = query.iam_user_access_key_age_365
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_role_cross_account_write_access_policy" {
+  title         = "IAM roles should not have cross-account write access policies"
+  description   = "This control checks whether IAM roles have policies that allow write access to resources in other AWS accounts. Such policies can pose a security risk as they may allow unauthorized access to resources in other accounts."
+  query         = query.iam_role_cross_account_write_access_policy
 
   tags = local.conformance_pack_iam_common_tags
 }
@@ -1967,7 +1998,7 @@ query "iam_user_one_active_key" {
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "u.")}
     from
       aws_iam_user as u
-      left join aws_iam_access_key as k 
+      left join aws_iam_access_key as k
         on k.akas::text like '%' || u.arn || '%'  -- convert jsonb to text and check if arn exists
     where
       k.status = 'Active'
@@ -2391,5 +2422,53 @@ query "iam_user_access_key_age_365" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
+  EOQ
+}
+
+query "iam_role_cross_account_write_access_policy" {
+  sql = <<-EOQ
+    with cross_account_write_policies as (
+      select
+        r.arn as role_arn,
+        r.account_id,
+        r.region,
+        p.arn as policy_arn,
+        p.policy_std
+      from
+        aws_iam_role as r
+        cross join jsonb_array_elements_text(r.attached_policy_arns) as policy_arn
+        join aws_iam_policy as p on p.arn = policy_arn
+      where
+        p.policy_std -> 'Statement' @> '[{"Effect": "Allow", "Principal": {"AWS": ["*"]}}]'
+        or p.policy_std -> 'Statement' @> '[{"Effect": "Allow", "Principal": {"Service": ["*"]}}]'
+        and (
+          p.policy_std -> 'Statement' @> '[{"Action": ["*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Put*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Delete*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Create*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Update*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Modify*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Attach*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Detach*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Replace*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Tag*"]}]'
+          or p.policy_std -> 'Statement' @> '[{"Action": ["*:Untag*"]}]'
+        )
+    )
+    select
+      r.arn as resource,
+      case
+        when c.role_arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when c.role_arn is null then 'Role does not have cross-account write access'
+        else 'Role has cross-account write access'
+      end as reason
+      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
+    from
+      aws_iam_role as r
+      left join cross_account_write_policies as c on r.arn = c.role_arn;
   EOQ
 }

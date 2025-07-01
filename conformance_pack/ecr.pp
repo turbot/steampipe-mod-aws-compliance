@@ -12,6 +12,7 @@ control "ecr_repository_image_scan_on_push_enabled" {
   tags = merge(local.conformance_pack_ecr_common_tags, {
     acsc_essential_eight = "true"
     nist_csf             = "true"
+    nist_csf_v2          = "true"
     pci_dss_v40          = "true"
   })
 }
@@ -21,7 +22,9 @@ control "ecr_repository_prohibit_public_access" {
   description = "Ensure there are no ECR repositories set as public."
   query       = query.ecr_repository_prohibit_public_access
 
-  tags = local.conformance_pack_ecr_common_tags
+  tags = merge(local.conformance_pack_ecr_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "ecr_repository_tag_immutability_enabled" {
@@ -31,6 +34,7 @@ control "ecr_repository_tag_immutability_enabled" {
 
   tags = merge(local.conformance_pack_ecr_common_tags, {
     nist_csf     = "true"
+    nist_csf_v2  = "true"
     rbi_itf_nbfc = "true"
   })
 }
@@ -44,6 +48,7 @@ control "ecr_repository_lifecycle_policy_configured" {
     gxp_21_cfr_part_11 = "true"
     gxp_eu_annex_11    = "true"
     nist_csf           = "true"
+    nist_csf_v2        = "true"
     pci_dss_v40        = "true"
   })
 }

@@ -9,7 +9,9 @@ control "es_domain_error_logging_enabled" {
   description = "This control checks whether Elasticsearch domains are configured to send error logs to CloudWatch Logs."
   query       = query.es_domain_error_logging_enabled
 
-  tags = local.conformance_pack_es_common_tags
+  tags = merge(local.conformance_pack_es_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "es_domain_audit_logging_enabled" {
@@ -19,6 +21,7 @@ control "es_domain_audit_logging_enabled" {
 
   tags = merge(local.conformance_pack_es_common_tags, {
     acsc_essential_eight = "true"
+    nist_csf_v2          = "true"
   })
 }
 
@@ -43,7 +46,9 @@ control "es_domain_encrypted_using_tls_1_2" {
   description = "This control checks whether connections to Elasticsearch domains are required to use TLS 1.2. The check fails if the Elasticsearch domain TLSSecurityPolicy is not Policy-Min-TLS-1-2-2019-07."
   query       = query.es_domain_encrypted_using_tls_1_2
 
-  tags = local.conformance_pack_es_common_tags
+  tags = merge(local.conformance_pack_es_common_tags, {
+    nist_csf_v2 = "true"
+  })
 }
 
 control "es_domain_encryption_at_rest_enabled" {
@@ -142,6 +147,7 @@ control "es_domain_logs_to_cloudwatch" {
     nist_800_171_rev_2                     = "true"
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
+    nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
