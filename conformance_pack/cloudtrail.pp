@@ -645,8 +645,8 @@ query "cloudtrail_multi_region_read_write_enabled" {
         else 'ok'
       end as status,
         case
-        when d.account_id is null and ad.account_id is null then 'Trail disabled for account ' || a.account_id || '.'
-        else 'Trail enabled for account ' || a.account_id || '.'
+        when d.account_id is null and ad.account_id is null then 'CloudTrail disabled for account ' || a.account_id || '.'
+        else 'CloudTrail enabled for account ' || a.account_id || '.'
       end as reason
 
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
