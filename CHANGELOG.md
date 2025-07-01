@@ -1,3 +1,10 @@
+## v1.6.0 [2025-07-01]
+
+_What's new?_
+
+- Added `NIST CSF v2.0` benchmark (`powerpipe benchmark run aws_compliance.benchmark.nist_csf_v2`). ([#899](https://github.com/turbot/steampipe-mod-aws-compliance/pull/899))
+- Added `iam_role_cross_account_write_access_policy` control to the `all_controls_iam` benchmark. ([#900](https://github.com/turbot/steampipe-mod-aws-compliance/pull/900))
+
 ## v1.5.1 [2025-05-16]
 
 _Bug fixes_
