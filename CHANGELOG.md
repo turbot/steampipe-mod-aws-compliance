@@ -1,3 +1,9 @@
+## v1.6.1 [2025-07-01]
+
+_Bug fixes_
+
+- Renamed the `NIST CSF v2.0` benchmark to `NIST Cybersecurity Framework (CSF) v2.0`.
+
 ## v1.6.0 [2025-07-01]
 
 _What's new?_
