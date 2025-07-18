@@ -949,6 +949,8 @@ query "iam_user_access_key_age_90" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
+    where
+      status='Active';
   EOQ
 }
 
