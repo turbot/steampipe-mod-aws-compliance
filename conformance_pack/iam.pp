@@ -842,40 +842,57 @@ query "iam_policy_no_star_star" {
   sql = <<-EOQ
     with bad_policies as (
       select
-        arn,
+        p.arn,
         count(*) as num_bad_statements
       from
-        aws_iam_policy,
-        jsonb_array_elements(policy_std -> 'Statement') as s,
-        jsonb_array_elements_text(s -> 'Resource') as resource,
-        jsonb_array_elements_text(s -> 'Action') as action
+        aws_iam_policy p,
+        lateral jsonb_array_elements(p.policy_std -> 'Statement') as s
       where
-        not is_aws_managed
+        not p.is_aws_managed
         and s ->> 'Effect' = 'Allow'
-        and resource = '*'
         and (
-          (action = '*'
-          or action = '*:*'
+          (
+            -- Resource is exactly "*"
+            (s -> 'Resource')::text = '"*"'
+            or
+            -- Resource is an array containing "*"
+            exists (
+              select 1
+              from jsonb_array_elements_text(s -> 'Resource') as r
+              where r = '*'
+            )
+          )
+          and (
+            -- Action is exactly "*" or "*:*"
+            (s -> 'Action')::text in ('"*"','"*:*"')
+            or
+            -- Action is an array containing "*" or "*:*"
+            exists (
+              select 1
+              from jsonb_array_elements_text(s -> 'Action') as a
+              where a in ('*', '*:*')
+            )
           )
         )
       group by
-        arn
+        p.arn
     )
     select
       p.arn as resource,
       case
         when bad.arn is null then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       p.name || ' contains ' || coalesce(bad.num_bad_statements,0)  ||
         ' statements that allow action "*" on resource "*".' as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
+        ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "p.")}
+        ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
       aws_iam_policy as p
       left join bad_policies as bad on p.arn = bad.arn
     where
       not p.is_aws_managed;
+
   EOQ
 }
 
@@ -2133,43 +2150,64 @@ query "iam_role_cross_account_read_only_access_policy" {
   sql = <<-EOQ
     with read_only_access_roles as (
       select
-        *
+        r.arn,
+        r.title,
+        r.account_id,
+        r.assume_role_policy_std
       from
-        aws_iam_role,
-        jsonb_array_elements_text(attached_policy_arns) as a
-      where
-        a = 'arn:aws:iam::aws:policy/ReadOnlyAccess'
-    ), read_only_access_roles_with_cross_account_access as (
+        aws_iam_role r
+        join lateral (
+          select 1
+          from jsonb_array_elements_text(r.attached_policy_arns) as a
+          where a = 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+          limit 1
+        ) as has_read_only on true
+    ),
+    cross_account as (
       select
-        arn
+        r.arn
       from
-        read_only_access_roles,
-        jsonb_array_elements(assume_role_policy_std -> 'Statement') as stmt,
-        jsonb_array_elements_text( stmt -> 'Principal' -> 'AWS' ) as p
+        read_only_access_roles r,
+        jsonb_array_elements(r.assume_role_policy_std -> 'Statement') as stmt
       where
         stmt ->> 'Effect' = 'Allow'
         and (
-          p = '*'
-          or not (p like '%' || account_id || '%')
+          -- Principal is "*" (open to all)
+          (stmt -> 'Principal' -> 'AWS')::text = '"*"'
+          -- Or principal is an array and not the current account
+          or exists (
+            select 1
+            from jsonb_array_elements_text(stmt -> 'Principal' -> 'AWS') as p
+            where p != r.account_id
+          )
         )
     )
     select
       r.arn as resource,
       case
-        when ar.arn is null then 'skip'
         when c.arn is not null then 'alarm'
         else 'ok'
       end as status,
       case
-        when ar.arn is null then r.title || ' not associated with ReadOnlyAccess policy.'
         when c.arn is not null then r.title || ' associated with ReadOnlyAccess cross account access.'
         else r.title || ' associated ReadOnlyAccess without cross account access.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "r.")}
     from
-      aws_iam_role as r
-      left join read_only_access_roles as ar on r.arn = ar.arn
-      left join read_only_access_roles_with_cross_account_access as c on c.arn = r.arn;
+      read_only_access_roles r
+      left join cross_account c on r.arn = c.arn
+    union all
+    select
+      r.arn as resource,
+      'skip' as status,
+      r.title || ' not associated with ReadOnlyAccess policy.' as reason
+    from
+      aws_iam_role r
+    where
+      not exists (
+        select 1
+        from jsonb_array_elements_text(r.attached_policy_arns) as a
+        where a = 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+      );
   EOQ
 }
 
@@ -2264,7 +2302,11 @@ query "iam_inline_policy_no_administrative_privileges" {
         'iam_user' as type
       from
         aws_iam_user
-      union
+      wher
+        inline_policies_std is not null
+
+      union all
+
       select
         arn,
         inline_policies_std,
@@ -2272,10 +2314,14 @@ query "iam_inline_policy_no_administrative_privileges" {
         account_id,
         region,
         _ctx,
-        'iam_role' as type
+          'iam_role' as type
       from
         aws_iam_role
-      union
+      where
+        inline_policies_std is not null
+
+      union all
+
       select
         arn,
         inline_policies_std,
@@ -2286,40 +2332,51 @@ query "iam_inline_policy_no_administrative_privileges" {
         'iam_group' as type
       from
         aws_iam_group
+      where
+        inline_policies_std is not null
     ),
     bad_policies as (
       select
-        arn,
+        p.arn,
         count(*) as statements_num
       from
-        full_administrative_privilege_policies,
-        jsonb_array_elements(inline_policies_std) as policy_std,
-        jsonb_array_elements(policy_std -> 'PolicyDocument' -> 'Statement') as s,
-        jsonb_array_elements_text(s -> 'Resource') as resource,
-        jsonb_array_elements_text(s -> 'Action') as action
+        full_administrative_privilege_policies p,
+        lateral jsonb_array_elements(p.inline_policies_std) as policy_std,
+        lateral jsonb_array_elements(policy_std -> 'PolicyDocument' -> 'Statement') as s
       where
         s ->> 'Effect' = 'Allow'
-        and resource = '*'
         and (
-          (action = '*'
-          or action = '*:*'
+          -- Resource is "*" (string or in array)
+          (s -> 'Resource')::text = '"*"'
+          or exists (
+            select 1
+            from jsonb_array_elements_text(s -> 'Resource') as r
+            where r = '*'
+          )
+        )
+        and (
+          -- Action is "*" or "*:*" (string or in array)
+          (s -> 'Action')::text in ('"*"','"*:*"')
+          or exists (
+            select 1
+            from jsonb_array_elements_text(s -> 'Action') as a
+            where a in ('*', '*:*')
           )
         )
       group by
-        arn
+        p.arn
     )
     select
       p.arn as resource,
       case
         when bad.arn is null then 'ok'
         else 'alarm'
-      end status,
+      end as status,
       p.name || ' contains ' || coalesce(bad.statements_num,0)  ||
         ' statements that allow action "*" on resource "*".' as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "p.")}
     from
-      full_administrative_privilege_policies as p
-      left join bad_policies as bad on p.arn = bad.arn;
+      full_administrative_privilege_policies p
+      left join bad_policies bad on p.arn = bad.arn;
   EOQ
 }
 

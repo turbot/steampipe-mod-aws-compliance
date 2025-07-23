@@ -495,7 +495,7 @@ control "vpc_security_group_restrict_ingress_cifs_port_all" {
 
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
-    with vpcs as (
+    with vpcs as materialized (
       select
         arn,
         account_id,
@@ -506,18 +506,14 @@ query "vpc_flow_logs_enabled" {
         _ctx
       from
         aws_vpc
-      order by
-        vpc_id
     ),
-    flowlogs as (
+    flowlogs as materialized (
       select
         resource_id,
         account_id,
         region
       from
         aws_vpc_flow_log
-      order by
-        resource_id
     )
     select
       v.arn as resource,
@@ -533,9 +529,8 @@ query "vpc_flow_logs_enabled" {
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
-    from
-      vpcs as v
-      left join flowlogs as f on v.vpc_id = f.resource_id;
+    from vpcs v
+    left join flowlogs f on v.vpc_id = f.resource_id;
   EOQ
 }
 
@@ -564,79 +559,60 @@ query "vpc_igw_attached_to_authorized_vpc" {
 
 query "vpc_network_acl_remote_administration" {
   sql = <<-EOQ
-    with bad_rules as (
+    with bad_rules as materialized (
       select
         network_acl_id,
         count(*) as num_bad_rules,
         tags,
         region,
         account_id
-      from
-        aws_vpc_network_acl,
+      from aws_vpc_network_acl,
         jsonb_array_elements(entries) as att
       where
-        att ->> 'Egress' = 'false' -- as per aws egress = false indicates the ingress
+        att ->> 'Egress' = 'false'
         and (
           att ->> 'CidrBlock' = '0.0.0.0/0'
-          or att ->> 'Ipv6CidrBlock' =  '::/0'
+          or att ->> 'Ipv6CidrBlock' = '::/0'
         )
         and att ->> 'RuleAction' = 'allow'
         and (
-          (
-            att ->> 'Protocol' = '-1' -- all traffic
-            and att ->> 'PortRange' is null
+          (att ->> 'Protocol' = '-1' and att ->> 'PortRange' is null)
+          or (
+            (att -> 'PortRange' ->> 'From')::int <= 22
+            and (att -> 'PortRange' ->> 'To')::int >= 22
+            and att ->> 'Protocol' in ('6', '17')
           )
           or (
-            (att -> 'PortRange' ->> 'From') :: int <= 22
-            and (att -> 'PortRange' ->> 'To') :: int >= 22
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
+            (att -> 'PortRange' ->> 'From')::int <= 3389
+            and (att -> 'PortRange' ->> 'To')::int >= 3389
+            and att ->> 'Protocol' in ('6', '17')
           )
-          or (
-            (att -> 'PortRange' ->> 'From') :: int <= 3389
-            and (att -> 'PortRange' ->> 'To') :: int >= 3389
-            and att ->> 'Protocol' in('6', '17')  -- TCP or UDP
         )
-      )
-      group by
-        network_acl_id,
-        region,
-        account_id,
-        tags
-      order by
-        network_acl_id,
-        region,
-        account_id,
-        tags
+      group by network_acl_id, region, account_id, tags
     ),
-    aws_vpc_network_acls as (
+    network_acls as materialized (
       select
         network_acl_id,
         tags,
         partition,
         region,
         account_id
-      from
-        aws_vpc_network_acl
-      order by
-        network_acl_id,
-        region,
-        account_id
+      from aws_vpc_network_acl
     )
     select
-      'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id  as resource,
+      'arn:' || acl.partition || ':ec2:' || acl.region || ':' || acl.account_id || ':network-acl/' || acl.network_acl_id as resource,
       case
-        when bad_rules.network_acl_id is null then 'ok'
+        when br.network_acl_id is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when bad_rules.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-        else acl.network_acl_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+        when br.network_acl_id is null then acl.network_acl_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+        else acl.network_acl_id || ' contains ' || br.num_bad_rules || ' rule(s) allowing ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "acl.")}
     from
-      aws_vpc_network_acls as acl
-      left join bad_rules on bad_rules.network_acl_id = acl.network_acl_id;
+      network_acls acl left join bad_rules br using (network_acl_id);
   EOQ
 }
 
@@ -1147,34 +1123,33 @@ query "vpc_network_acl_unused" {
 
 query "vpc_configured_to_use_vpc_endpoints" {
   sql = <<-EOQ
+    with vpc_endpoints as materialized (
+      select distinct
+        vpc_id
+      from aws_vpc_endpoint
+      where service_name like 'com.amazonaws.' || region || '.ec2'
+    ),
+    vpcs as materialized (
+      select
+        arn,
+        vpc_id,
+        title
+      from aws_vpc
+    )
     select
-      arn as resource,
+      v.arn as resource,
       case
-        when vpc_id not in (
-          select
-            vpc_id
-          from
-            aws_vpc_endpoint
-          where
-            service_name like 'com.amazonaws.' || region || '.ec2'
-        ) then 'alarm'
+        when e.vpc_id is null then 'alarm'
         else 'ok'
       end as status,
       case
-        when vpc_id not in (
-          select
-            vpc_id
-          from
-            aws_vpc_endpoint
-          where
-            service_name like 'com.amazonaws.' || region || '.ec2'
-        ) then title || ' not configured to use VPC endpoints.'
-        else title || ' configured to use VPC endpoints.'
+        when e.vpc_id is null then v.title || ' not configured to use VPC endpoints.'
+        else v.title || ' configured to use VPC endpoints.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
-    from
-      aws_vpc;
+    from vpcs v
+    left join vpc_endpoints e using (vpc_id);
   EOQ
 }
 
@@ -1589,114 +1564,41 @@ query "vpc_security_group_unused" {
 
 query "vpc_security_group_restricted_common_ports" {
   sql = <<-EOQ
-    with ingress_ssh_rules as (
+    with common_ports as (
+      select unnest(array[
+        20, 21, 22, 23, 25, 80, 110, 135, 143, 445, 443, 1433, 1434, 3306, 3389, 4333, 445, 5432, 5500, 5601, 8080, 9200, 9300
+      ]) as port
+    ),
+    ingress_common_port_rules as (
       select
-        group_id,
-        count(*) as num_ssh_rules
+        sgr.group_id,
+        count(*) as num_common_port_rules
       from
-        aws_vpc_security_group_rule
+        aws_vpc_security_group_rule sgr
+        join common_ports cp
+          on (
+            (sgr.from_port is not null and sgr.to_port is not null and cp.port between sgr.from_port and sgr.to_port)
+            or (sgr.ip_protocol = '-1' and sgr.from_port is null)
+          )
       where
-        type = 'ingress'
-        and cidr_ipv4 = '0.0.0.0/0'
-        and (
-            ( ip_protocol = '-1'
-            and from_port is null
-            )
-            or (
-                from_port <= 22
-                and to_port >= 22
-            )
-            or (
-                from_port <= 3389
-                and to_port >= 3389
-            )
-            or (
-                from_port <= 21
-                and to_port >= 21
-            )
-            or (
-                from_port <= 20
-                and to_port >= 20
-            )
-            or (
-                from_port <= 3306
-                and to_port >= 3306
-            )
-            or (
-                from_port <= 4333
-                and to_port >= 4333
-            )
-            or (
-                from_port <= 23
-                and to_port >= 23
-            )
-            or (
-                from_port <= 25
-                and to_port >= 25
-            )
-            or (
-                from_port <= 445
-                and to_port >= 445
-            )
-            or (
-                from_port <= 110
-                and to_port >= 110
-            )
-            or (
-                from_port <= 135
-                and to_port >= 135
-            )
-            or (
-                from_port <= 143
-                and to_port >= 143
-            )
-            or (
-                from_port <= 1433
-                and to_port >= 3389
-            )
-            or (
-                from_port <= 3389
-                and to_port >= 1434
-            )
-            or (
-                from_port <= 5432
-                and to_port >= 5432
-            )
-            or (
-                from_port <= 5500
-                and to_port >= 5500
-            )
-            or (
-                from_port <= 5601
-                and to_port >= 5601
-            )
-            or (
-                from_port <= 9200
-                and to_port >= 9300
-            )
-            or (
-                from_port <= 8080
-                and to_port >= 8080
-            )
-        )
+        sgr.type = 'ingress'
+        and sgr.cidr_ipv4 = '0.0.0.0/0'
       group by
-        group_id
+        sgr.group_id
     )
     select
-      arn as resource,
+      sg.arn as resource,
       case
-        when ingress_ssh_rules.group_id is null then 'ok'
+        when icpr.group_id is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when ingress_ssh_rules.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0..'
-        else sg.group_id || ' contains ' || ingress_ssh_rules.num_ssh_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
+        when icpr.group_id is null then sg.group_id || ' ingress restricted for common ports from 0.0.0.0/0.'
+        else sg.group_id || ' contains ' || icpr.num_common_port_rules || ' ingress rule(s) allowing access for common ports from 0.0.0.0/0.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
     from
-      aws_vpc_security_group as sg
-      left join ingress_ssh_rules on ingress_ssh_rules.group_id = sg.group_id;
+      aws_vpc_security_group sg
+      left join ingress_common_port_rules icpr on icpr.group_id = sg.group_id;
   EOQ
 }
 
@@ -1996,12 +1898,11 @@ query "vpc_peering_connection_no_cross_account_access" {
 
 query "vpc_gateway_endpoint_restrict_public_access" {
   sql = <<-EOQ
-    with wildcard_action_policies as (
+    with wildcard_action_policies as materialized (
       select
         vpc_endpoint_id,
         count(*) as statements_num
-      from
-        aws_vpc_endpoint,
+      from aws_vpc_endpoint,
         jsonb_array_elements(policy_std -> 'Statement') as s
       where
         s ->> 'Effect' = 'Allow'
@@ -2011,27 +1912,31 @@ query "vpc_gateway_endpoint_restrict_public_access" {
           or s ->> 'Principal' = '*'
         )
         and s ->> 'Action' = '["*"]'
-      group by
-        vpc_endpoint_id
-    )
+      group by vpc_endpoint_id
+  ),
+  vpc_endpoints as materialized (
     select
-      e.vpc_endpoint_id as resource,
-      case
-        when e.vpc_endpoint_type <> 'Gateway' then 'skip'
-        when p.vpc_endpoint_id is null then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when vpc_endpoint_type <> 'Gateway' then e.title || ' is of ' || e.vpc_endpoint_type || ' endpoint type.'
-        when p.vpc_endpoint_id is null then e.title || ' does not allow public access.'
-        else title || ' contains ' || coalesce(p.statements_num, 0) ||
-        ' statements that allow public access.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
-    from
-      aws_vpc_endpoint as e
-      left join wildcard_action_policies as p on p.vpc_endpoint_id = e.vpc_endpoint_id;
+      vpc_endpoint_id,
+      title,
+      vpc_endpoint_type
+    from aws_vpc_endpoint
+  )
+  select
+    e.vpc_endpoint_id as resource,
+    case
+      when e.vpc_endpoint_type <> 'Gateway' then 'skip'
+      when p.vpc_endpoint_id is null then 'ok'
+      else 'alarm'
+    end as status,
+    case
+      when e.vpc_endpoint_type <> 'Gateway' then e.title || ' is of ' || e.vpc_endpoint_type || ' endpoint type.'
+      when p.vpc_endpoint_id is null then e.title || ' does not allow public access.'
+      else e.title || ' contains ' || coalesce(p.statements_num, 0) || ' statements that allow public access.'
+    end as reason
+    ${local.tag_dimensions_sql}
+    ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
+  from vpc_endpoints e
+  left join wildcard_action_policies p using (vpc_endpoint_id);
   EOQ
 }
 
