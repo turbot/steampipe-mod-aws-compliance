@@ -49,8 +49,7 @@ query "config_enabled_all_regions" {
     select
       'arn:aws::' || a.region || ':' || a.account_id as resource,
       case
-      -- When any of the region satisfies with above CTE
-      -- In left join of <aws_config_configuration_recorder> table, regions now having
+        when a.steampipe_available = false then 'skip'
       -- 'Recording' and 'LastStatus' matching criteria can be considered as OK
         when
           g.global_config_recorders >= 1
@@ -63,6 +62,7 @@ query "config_enabled_all_regions" {
       end as status,
       -- Below cases are for citing respective reasons for control state
       case
+        when a.steampipe_available = false then a.region || ' is not available in the current connection configuration.'
         when a.opt_in_status = 'not-opted-in' then a.region || ' region is disabled.'
         else
       case

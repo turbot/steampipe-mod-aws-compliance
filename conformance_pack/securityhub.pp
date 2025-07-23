@@ -36,8 +36,9 @@ control "securityhub_enabled" {
 query "securityhub_enabled" {
   sql = <<-EOQ
     select
-      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      h.hub_arn as resource,
       case
+        when r.steampipe_available = false then 'skip'
         when r.region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'ap-northeast-3']) then 'skip'
         -- Skip any regions that are disabled in the account.
         when r.opt_in_status = 'not-opted-in' then 'skip'
@@ -45,6 +46,7 @@ query "securityhub_enabled" {
         else 'alarm'
       end as status,
       case
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1', 'ap-northeast-3']) then r.region ||  ' region not supported.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when h.hub_arn is not null then 'Security Hub enabled in ' || r.region || '.'

@@ -1609,9 +1609,10 @@ query "iam_access_analyzer_enabled_without_findings" {
         a.name
     )
     select
-      'arn:' || r.partition || '::' || r.region || ':' || r.account_id as resource,
+      f.arn as resource,
       case
         -- Skip any regions that are disabled in the account.
+        when r.steampipe_available = false then 'skip'
         when r.opt_in_status = 'not-opted-in' then 'skip'
         when f.status = 'ACTIVE' and f.arn is null then 'ok'
         when f.status = 'ACTIVE' and f.arn is not null then 'alarm'
@@ -1619,6 +1620,7 @@ query "iam_access_analyzer_enabled_without_findings" {
         else 'alarm'
       end as status,
       case
+        when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when r.opt_in_status = 'not-opted-in' then r.region || ' region is disabled.'
         when f.status = 'ACTIVE' and f.arn is null then f.name || ' does not have active findings in region ' || r.region || '.'
         when f.status = 'ACTIVE' and f.arn is not null then f.name || ' has active findings in region ' || r.region || '.'
