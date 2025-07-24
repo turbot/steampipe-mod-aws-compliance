@@ -948,7 +948,7 @@ query "iam_user_access_key_age_90" {
         when status <> 'Active' then user_name ||' ' || access_key_id || ' status is ' || status || '.'
         else user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
-      end as reason
+      end reason
       ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
