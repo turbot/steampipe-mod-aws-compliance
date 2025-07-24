@@ -67,7 +67,7 @@ query "account_alternate_contact_security_registered" {
       ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
     from
       account as a
-      left join alternate_security_contact as c on  c.account_id = a.account_id;;
+      left join alternate_security_contact as c on  c.account_id = a.account_id;
   EOQ
 }
 
