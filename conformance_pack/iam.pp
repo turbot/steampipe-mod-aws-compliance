@@ -938,7 +938,7 @@ query "iam_root_user_mfa_enabled" {
 query "iam_user_access_key_age_90" {
   sql = <<-EOQ
     select
-      'arn:' || partition || ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
+      'arn:' || partition |g| ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
       case
         when status <> 'Active' then 'skip'
         when create_date <= (current_date - interval '90' day) then 'alarm'
@@ -949,7 +949,7 @@ query "iam_user_access_key_age_90" {
         else user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
       end as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_iam_access_key;
   EOQ
