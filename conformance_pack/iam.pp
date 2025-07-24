@@ -938,7 +938,7 @@ query "iam_root_user_mfa_enabled" {
 query "iam_user_access_key_age_90" {
   sql = <<-EOQ
     select
-      'arn:' || partition |g| ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
+      'arn:' || partition || ':iam::' || account_id || ':user/' || user_name || '/accesskey/' || access_key_id as resource,
       case
         when status <> 'Active' then 'skip'
         when create_date <= (current_date - interval '90' day) then 'alarm'
