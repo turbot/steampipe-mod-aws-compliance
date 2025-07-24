@@ -1,3 +1,11 @@
+## v1.6.2 [2025-07-24]
+
+_Bug fixes_
+
+- Fixed the `account_alternate_contact_security_registered` query to correctly list all the available accounts. ([#917](https://github.com/turbot/steampipe-mod-aws-compliance/pull/917))
+- Fixed the `iam_user_access_key_age_90` query to skip the inactive access keys. ([#912](https://github.com/turbot/steampipe-mod-aws-compliance/pull/912))
+- Fixed `config_enabled_all_regions`, `iam_access_analyzer_enabled_without_findings` and `securityhub_enabled` queries to skip regions not defined in the `aws.spc` file. ([#908](https://github.com/turbot/steampipe-mod-aws-compliance/pull/908))
+
 ## v1.6.1 [2025-07-01]
 
 _Bug fixes_
