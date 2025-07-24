@@ -1920,7 +1920,7 @@ query "ec2_client_vpn_endpoint_client_connection_logging_enabled" {
 
 query "ec2_ami_ebs_encryption_enabled" {
   sql = <<-EOQ
-    with encryption_status as (
+    with encryption_status as materialized (
       select
         image_id as resource,
         region,
@@ -1928,15 +1928,9 @@ query "ec2_ami_ebs_encryption_enabled" {
         tags,
         _ctx,
         bool_and(coalesce((mapping -> 'Ebs' ->> 'Encrypted')::text = 'true', false)) as all_encrypted
-      from
-        aws_ec2_ami
+      from aws_ec2_ami
         cross join jsonb_array_elements(block_device_mappings) as mapping
-      group by
-        image_id,
-        region,
-        account_id,
-        tags,
-        _ctx
+      group by image_id, region, account_id, tags, _ctx
     )
     select
       resource,
@@ -1950,8 +1944,7 @@ query "ec2_ami_ebs_encryption_enabled" {
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
-    from
-      encryption_status;
+    from encryption_status;
   EOQ
 }
 
@@ -2010,33 +2003,35 @@ query "ec2_stopped_instance_90_days" {
 
 query "ec2_instance_attached_ebs_volume_delete_on_termination_enabled" {
   sql = <<-EOQ
-    with ebs_volume_with_delete_on_termination_enabled as (
-      select
-        count(*) as count,
-        arn
-      from
-        aws_ec2_instance,
-        jsonb_array_elements(block_device_mappings) as p
-      where
-        p -> 'Ebs' ->> 'DeleteOnTermination' = 'false'
-      group by
-        arn
-    )
+    with ebs_volume_with_delete_on_termination_enabled as materialized (
     select
-      i.arn as resource,
-      case
-        when e.count > 0 then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when e.count > 0 then ' EBS volume(s) attached to ' || title || ' has delete on termination disabled.'
-        else ' EBS volume(s) attached to ' || title || ' has delete on termination enabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_ec2_instance as i
-      left join ebs_volume_with_delete_on_termination_enabled as e on e.arn = i.arn;
+      count(*) as count,
+      arn
+    from aws_ec2_instance,
+      jsonb_array_elements(block_device_mappings) as p
+    where p -> 'Ebs' ->> 'DeleteOnTermination' = 'false'
+    group by arn
+  ),
+  instances as materialized (
+    select
+      arn,
+      title
+    from aws_ec2_instance
+  )
+  select
+    i.arn as resource,
+    case
+      when e.count > 0 then 'alarm'
+      else 'ok'
+    end as status,
+    case
+      when e.count > 0 then ' EBS volume(s) attached to ' || i.title || ' has delete on termination disabled.'
+      else ' EBS volume(s) attached to ' || i.title || ' has delete on termination enabled.'
+    end as reason
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+  from
+    instances i left join ebs_volume_with_delete_on_termination_enabled e using (arn);
   EOQ
 }
 
