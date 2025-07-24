@@ -945,7 +945,7 @@ query "iam_user_access_key_age_90" {
         else 'ok'
       end status,
       case
-        when status <> 'Active' then user_name ||' ' || access_key_id || ' status is ' || status || '.'
+        when status <> 'Active' then user_name || ' ' || access_key_id || ' status is ' || status || '.'
         else user_name || ' ' || access_key_id || ' created ' || to_char(create_date , 'DD-Mon-YYYY') ||
         ' (' || extract(day from current_timestamp - create_date) || ' days).'
       end reason
