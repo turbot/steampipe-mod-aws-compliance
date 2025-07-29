@@ -564,3 +564,314 @@ select
   -- ${local.common_dimensions_sql}
 from route_tables rt
 left join public_routes pr using (route_table_id);
+
+
+## 7. query: vpc_security_group_restrict_ingress_cifs_port_all
+
+  #### Old: Time: 7.8s. Rows returned: 898. Rows fetched: 4,620. Hydrate calls: 898. Scans: 26. Connections: 13.
+
+    with ingress_cifs_rules as (
+      select
+        group_id,
+        count(*) as num_cifs_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (cidr_ipv4 = '0.0.0.0/0' or cidr_ipv6 = '::/0')
+        and (
+          (
+            ip_protocol = '-1'
+            and from_port is null
+          )
+          or (
+            from_port <= 445
+            and to_port >= 445
+          )
+        )
+        group by
+          group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_cifs_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for CIFS port (445) from 0.0.0.0/0 and ::/0.'
+        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS port (445) from 0.0.0.0/0 or ::/0..'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_cifs_rules on ingress_cifs_rules.group_id = sg.group_id;
+
+  #### New Time: 7.4s. Rows returned: 898. Rows fetched: 4,620. Hydrate calls: 898. Scans: 26. Connections: 13.
+
+    with ingress_cifs_rules as materialized (
+      select
+        group_id,
+        count(*) as num_cifs_rules
+      from
+        aws_vpc_security_group_rule
+      where
+        type = 'ingress'
+        and (cidr_ipv4 = '0.0.0.0/0' or cidr_ipv6 = '::/0')
+        and (
+          (
+            ip_protocol = '-1'
+            and from_port is null
+          )
+          or (
+            from_port <= 445
+            and to_port >= 445
+          )
+        )
+        group by
+          group_id
+    )
+    select
+      arn as resource,
+      case
+        when ingress_cifs_rules.group_id is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when ingress_cifs_rules.group_id is null then sg.group_id || ' ingress restricted for CIFS port (445) from 0.0.0.0/0 and ::/0.'
+        else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS port (445) from 0.0.0.0/0 or ::/0..'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc_security_group as sg
+      left join ingress_cifs_rules on ingress_cifs_rules.group_id = sg.group_id;
+
+## 8. query: vpc_peering_connection_route_table_least_privilege
+
+  #### Old: Time: 8.9s. Rows returned: 8. Rows fetched: 5,074 (4,752 cached). Hydrate calls: 8. Scans: 2,393. Connections: 13.
+
+    with vpc_peering_routing_tables as (
+      select
+        r ->> 'VpcPeeringConnectionId' as peering_connection_id
+      from
+        aws_vpc_route_table,
+        jsonb_array_elements(routes) as r
+        inner join aws_vpc_peering_connection as c on r ->> 'VpcPeeringConnectionId' = c.id
+      where
+        ( r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+          or r ->> 'DestinationCidrBlock' = '::/0'
+          or (r ->> 'DestinationCidrBlock')::cidr = c.accepter_cidr_block
+          or (r ->> 'DestinationCidrBlock')::cidr = c.requester_cidr_block
+        )
+      group by
+      r ->> 'VpcPeeringConnectionId'
+    )
+    select
+      'arn:' || c.partition || ':ec2:' || c.region || ':' || c.account_id || ':vpc-peering-connection/' || c.id as resource,
+      case
+        when t.peering_connection_id is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when t.peering_connection_id is not null then c.title || ' does not have least privilege access.'
+        else c.title || ' has least privilege access.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection as c
+      left join vpc_peering_routing_tables as t on t.peering_connection_id = c.id;
+
+  #### New Time: 8.5s. Rows returned: 8. Rows fetched: 5,074 (4,752 cached). Hydrate calls: 8. Scans: 2,393. Connections: 13.
+
+    with vpc_peering_routing_tables as materialized (
+      select
+        r ->> 'VpcPeeringConnectionId' as peering_connection_id
+      from
+        aws_vpc_route_table,
+        jsonb_array_elements(routes) as r
+        inner join aws_vpc_peering_connection as c on r ->> 'VpcPeeringConnectionId' = c.id
+      where
+        ( r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+          or r ->> 'DestinationCidrBlock' = '::/0'
+          or (r ->> 'DestinationCidrBlock')::cidr = c.accepter_cidr_block
+          or (r ->> 'DestinationCidrBlock')::cidr = c.requester_cidr_block
+        )
+      group by
+      r ->> 'VpcPeeringConnectionId'
+    )
+    select
+      'arn:' || c.partition || ':ec2:' || c.region || ':' || c.account_id || ':vpc-peering-connection/' || c.id as resource,
+      case
+        when t.peering_connection_id is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when t.peering_connection_id is not null then c.title || ' does not have least privilege access.'
+        else c.title || ' has least privilege access.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc_peering_connection as c
+      left join vpc_peering_routing_tables as t on t.peering_connection_id = c.id;
+
+## 9. query: vpc_subnet_public_and_private
+
+  #### Old: Time: 9.9s. Rows returned: 246. Rows fetched: 1,889 (314 cached). Hydrate calls: 560. Scans: 65. Connections: 13.
+     ```
+
+    with subnets_with_explicit_route as (
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as (
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        aws_vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+    select
+      subnet_id,
+      vpc_id,
+      case
+        when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+        when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+        else 'private'
+      end as access
+    from
+    aws_vpc_subnet as s
+    left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    )
+    select
+      arn as resource,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then 'alarm'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'ok'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        end as status,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then v.title || ' has no subnet.'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having both private and public subnet(s).'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only public subnet(s).'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only private subnet(s).'
+        end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc as v;
+   ```
+
+
+  #### New Time: 6.6s. Rows returned: 246. Rows fetched: 1,261. Hydrate calls: 874. Scans: 39. Connections: 13.
+
+  ```
+  with vpc_route_table as materialized (
+    select
+      *
+    from
+    aws_vpc_route_table
+ ), subnets_with_explicit_route as  materialized(
+      select
+        distinct ( a ->> 'SubnetId') as all_sub
+      from
+        vpc_route_table as t,
+        jsonb_array_elements(associations) as a
+      where
+        a ->> 'SubnetId' is not null
+    ), public_subnets_with_explicit_route as materialized (
+      select
+        distinct a ->> 'SubnetId' as SubnetId
+      from
+        vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and
+          (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+        and a ->> 'SubnetId' is not null
+    ), public_subnets_with_implicit_route as  materialized(
+        select
+        distinct route_table_id,
+        vpc_id,
+        region
+      from
+        vpc_route_table as t,
+        jsonb_array_elements(associations) as a,
+        jsonb_array_elements(routes) as r
+      where
+        a ->> 'Main' = 'true'
+        and r ->> 'DestinationCidrBlock' = '0.0.0.0/0'
+        and (
+            r ->> 'GatewayId' like 'igw-%'
+            or r ->> 'NatGatewayId' like 'nat-%'
+          )
+    ), subnet_accessibility as (
+    select
+      subnet_id,
+      vpc_id,
+      case
+        when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+        when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+        else 'private'
+      end as access
+    from
+    aws_vpc_subnet as s
+    left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+    )
+    select
+      arn as resource,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then 'alarm'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'ok'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then 'alarm'
+        end as status,
+      case
+        when v.vpc_id not in (select vpc_id from subnet_accessibility) then v.title || ' has no subnet.'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having both private and public subnet(s).'
+        when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only public subnet(s).'
+        when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only private subnet(s).'
+        end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc as v;
+   ```

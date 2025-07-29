@@ -595,7 +595,7 @@ query "vpc_network_acl_remote_administration" {
         )
       group by network_acl_id, region, account_id, tags
     ),
-    network_acls as materialized (
+    network_acls as (
       select
         network_acl_id,
         tags,
@@ -847,28 +847,21 @@ query "vpc_security_group_associated_to_eni" {
       from aws_ec2_network_interface,
         jsonb_array_elements(groups) as sg
       group by sg ->> 'GroupId'
-    ),
-    security_groups as materialized (
-      select
-        arn,
-        group_id,
-        title
-      from aws_vpc_security_group
-  )
-  select
-    sg.arn as resource,
-    case
-      when asg.secgrp_id is not null then 'ok'
-      else 'alarm'
-    end as status,
-    case
-      when asg.secgrp_id is not null then sg.title || ' is associated with ' || asg.eni_count || ' ENI(s).'
-      else sg.title || ' not associated to any ENI.'
-    end as reason
-    ${local.tag_dimensions_sql}
-    ${local.common_dimensions_sql}
-  from security_groups sg
-  left join associated_sg asg on sg.group_id = asg.secgrp_id;
+    )
+    select
+      sg.arn as resource,
+      case
+        when asg.secgrp_id is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when asg.secgrp_id is not null then sg.title || ' is associated with ' || asg.eni_count || ' ENI(s).'
+        else sg.title || ' not associated to any ENI.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from aws_vpc_security_group sg
+    left join associated_sg asg on sg.group_id = asg.secgrp_id;
   EOQ
 }
 
@@ -1135,18 +1128,13 @@ query "vpc_network_acl_unused" {
 
 query "vpc_configured_to_use_vpc_endpoints" {
   sql = <<-EOQ
-    with vpc_endpoints as materialized (
+    with vpc_endpoints as (
       select distinct
         vpc_id
-      from aws_vpc_endpoint
-      where service_name like 'com.amazonaws.' || region || '.ec2'
-    ),
-    vpcs as materialized (
-      select
-        arn,
-        vpc_id,
-        title
-      from aws_vpc
+      from
+        aws_vpc_endpoint
+      where
+        service_name like 'com.amazonaws.' || region || '.ec2'
     )
     select
       v.arn as resource,
@@ -1160,7 +1148,7 @@ query "vpc_configured_to_use_vpc_endpoints" {
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
-    from vpcs v
+    from aws_vpc v
     left join vpc_endpoints e using (vpc_id);
   EOQ
 }
@@ -1725,19 +1713,26 @@ query "vpc_subnet_multi_az_enabled" {
 
 query "vpc_subnet_public_and_private" {
   sql = <<-EOQ
-    with subnets_with_explicit_route as (
+    with vpc_route_table as materialized (
+      select
+        *
+      from
+      aws_vpc_route_table
+    ),
+    subnets_with_explicit_route as  materialized(
       select
         distinct ( a ->> 'SubnetId') as all_sub
       from
-        aws_vpc_route_table as t,
+        vpc_route_table as t,
         jsonb_array_elements(associations) as a
       where
         a ->> 'SubnetId' is not null
-    ), public_subnets_with_explicit_route as (
+    ),
+    public_subnets_with_explicit_route as materialized (
       select
         distinct a ->> 'SubnetId' as SubnetId
       from
-        aws_vpc_route_table as t,
+        vpc_route_table as t,
         jsonb_array_elements(associations) as a,
         jsonb_array_elements(routes) as r
       where
@@ -1748,13 +1743,14 @@ query "vpc_subnet_public_and_private" {
             or r ->> 'NatGatewayId' like 'nat-%'
           )
         and a ->> 'SubnetId' is not null
-    ), public_subnets_with_implicit_route as (
-        select
+    ),
+    public_subnets_with_implicit_route as  materialized(
+      select
         distinct route_table_id,
         vpc_id,
         region
       from
-        aws_vpc_route_table as t,
+        vpc_route_table as t,
         jsonb_array_elements(associations) as a,
         jsonb_array_elements(routes) as r
       where
@@ -1764,18 +1760,19 @@ query "vpc_subnet_public_and_private" {
             r ->> 'GatewayId' like 'igw-%'
             or r ->> 'NatGatewayId' like 'nat-%'
           )
-    ), subnet_accessibility as (
-    select
-      subnet_id,
-      vpc_id,
-      case
-        when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
-        when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
-        else 'private'
-      end as access
-    from
-    aws_vpc_subnet as s
-    left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
+        ),
+    subnet_accessibility as (
+      select
+        subnet_id,
+        vpc_id,
+        case
+          when s.subnet_id in (select all_sub from subnets_with_explicit_route where all_sub not in (select SubnetId from public_subnets_with_explicit_route )) then 'private'
+          when p.SubnetId is not null or s.vpc_id in ( select vpc_id from public_subnets_with_implicit_route) then 'public'
+          else 'private'
+        end as access
+      from
+        aws_vpc_subnet as s
+        left join public_subnets_with_explicit_route as p on p.SubnetId = s.subnet_id
     )
     select
       arn as resource,
@@ -1791,16 +1788,16 @@ query "vpc_subnet_public_and_private" {
         when 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only public subnet(s).'
         when 'private' in (select access from subnet_accessibility where vpc_id = v.vpc_id) and not 'public' in (select access from subnet_accessibility where vpc_id = v.vpc_id) then v.title || ' having only private subnet(s).'
         end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_vpc as v;
+        ${local.tag_dimensions_sql}
+        ${local.common_dimensions_sql}
+      from
+        aws_vpc as v;
   EOQ
 }
 
 query "vpc_peering_connection_route_table_least_privilege" {
   sql = <<-EOQ
-    with vpc_peering_routing_tables as (
+    with vpc_peering_routing_tables as materialized (
       select
         r ->> 'VpcPeeringConnectionId' as peering_connection_id
       from
@@ -1927,13 +1924,6 @@ query "vpc_gateway_endpoint_restrict_public_access" {
         )
         and s ->> 'Action' = '["*"]'
       group by vpc_endpoint_id
-  ),
-  vpc_endpoints as materialized (
-    select
-      vpc_endpoint_id,
-      title,
-      vpc_endpoint_type
-    from aws_vpc_endpoint
   )
   select
     e.vpc_endpoint_id as resource,
@@ -1949,14 +1939,14 @@ query "vpc_gateway_endpoint_restrict_public_access" {
     end as reason
     ${local.tag_dimensions_sql}
     ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "e.")}
-  from vpc_endpoints e
+  from aws_vpc_endpoint e
   left join wildcard_action_policies p using (vpc_endpoint_id);
   EOQ
 }
 
 query "vpc_security_group_restrict_ingress_cifs_port_all" {
   sql = <<-EOQ
-    with ingress_cifs_rules as (
+    with ingress_cifs_rules as materialized (
       select
         group_id,
         count(*) as num_cifs_rules
@@ -1989,7 +1979,7 @@ query "vpc_security_group_restrict_ingress_cifs_port_all" {
         else sg.group_id || ' contains ' || ingress_cifs_rules.num_cifs_rules || ' ingress rule(s) allowing access on CIFS port (445) from 0.0.0.0/0 or ::/0..'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+       ${local.common_dimensions_sql}
     from
       aws_vpc_security_group as sg
       left join ingress_cifs_rules on ingress_cifs_rules.group_id = sg.group_id;
