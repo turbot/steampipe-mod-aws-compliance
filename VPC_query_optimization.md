@@ -4,10 +4,7 @@ Query optimization:
 
   Key Point:
     -- Subquery executed twice now we are uisng just one single join operation,
-    -- Added Materialized CTEs -- Caches expensive operations
     -- Used LEFT JOIN Instead of NOT IN
-    -- Use as materialized by default for queries, especially when dealing with AWS resources that involve JSON parsing, filtering, or aggregations.
-    -   With large amounts of data, as materialized can provide significant performance benefits even for single-use CTEs.
 
   #### Old: Time: 5.3s. Rows returned: 40. Rows fetched: 42 (1 cached). Hydrate calls: 41. Scans: 3
 
@@ -42,7 +39,7 @@ Query optimization:
 
   #### New Time: 4.7s. Rows returned: 40. Rows fetched: 41. Hydrate calls: 41. Scans: 2.
 
-    with vpc_endpoints as materialized (
+    with vpc_endpoints as (
       select distinct
         vpc_id
       from aws_vpc_endpoint
@@ -415,7 +412,7 @@ from
         account_id,
         tags
     ),
-    network_acls as materialized (
+    network_acls as (
       select
         network_acl_id,
         tags,
@@ -458,7 +455,7 @@ from
 )
 select
   distinct s.arn as resource,
-  caseq
+  case
     when a.secgrp_id = s.group_id then 'ok'
     else 'alarm'
   end as status,
@@ -481,13 +478,6 @@ from
     from aws_ec2_network_interface,
       jsonb_array_elements(groups) as sg
     group by sg ->> 'GroupId'
-  ),
-  security_groups as materialized (
-    select
-      arn,
-      group_id,
-      title
-    from aws_vpc_security_group
   )
   select
     sg.arn as resource,
@@ -501,7 +491,7 @@ from
     end as reason
     -- ${local.tag_dimensions_sql}
     -- ${local.common_dimensions_sql}
-  from security_groups sg
+  from aws_vpc_security_group sg
   left join associated_sg asg on sg.group_id = asg.secgrp_id;
 
 
