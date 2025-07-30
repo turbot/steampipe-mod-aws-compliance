@@ -640,6 +640,9 @@ query "vpc_security_group_restrict_ingress_tcp_udp_all" {
     security_groups as materialized (
       select
         arn,
+        region,
+        account_id,
+        _ctx,
         group_id
       from aws_vpc_security_group
     )
@@ -890,7 +893,10 @@ query "vpc_route_table_restrict_public_access_to_igw" {
       select
         route_table_id,
         title,
-        routes
+        routes,
+        account_id,
+        region,
+        _ctx
       from aws_vpc_route_table
     ),
     public_routes as materialized (
@@ -915,7 +921,7 @@ query "vpc_route_table_restrict_public_access_to_igw" {
         else rt.title || ' contains ' || pr.num || ' rule(s) which have public routes to an Internet Gateway (IGW)'
       end as reason
       ${local.tag_dimensions_sql}
-      -${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from route_tables rt
     left join public_routes pr using (route_table_id);
   EOQ
