@@ -167,11 +167,11 @@ with ingress_ssh_rules as (
           )
           or (
               from_port <= 1433
-              and to_port >= 3389
+              and to_port >= 1433
           )
           or (
               from_port <= 3389
-              and to_port >= 1434
+              and to_port >= 3389
           )
           or (
               from_port <= 5432

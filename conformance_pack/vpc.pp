@@ -904,7 +904,7 @@ query "vpc_route_table_restrict_public_access_to_igw" {
         rt.route_table_id,
         count(*) as num
       from route_tables rt,
-        lateral jsonb_array_elements(rt.routes) as r
+        lateral jsonb_array_elements(rt.routes) as r(value)
       where (r.value ->> 'DestinationCidrBlock' = '0.0.0.0/0'
           or r.value ->> 'DestinationCidrBlock' = '::/0')
         and r.value ->> 'GatewayId' like 'igw%'
@@ -1118,7 +1118,7 @@ query "vpc_network_acl_unused" {
     select
       network_acl_id as resource,
       case
-        when jsonb_array_length(associations) >= 1  then 'ok'
+        when jsonb_array_length(associations) >= 1 then 'ok'
         else 'alarm'
       end status,
       case
@@ -1482,7 +1482,7 @@ query "vpc_security_group_remote_administration" {
       end as status,
       case
         when bad_rules.group_id is null then sg.group_id || ' does not allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
-        else  sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
+        else sg.group_id || ' contains ' || bad_rules.num_bad_rules || ' rule(s) that allow ingress to port 22 or 3389 from 0.0.0.0/0 or ::/0.'
       end as reason
       ${local.tag_dimensions_sql}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "sg.")}
@@ -1572,7 +1572,7 @@ query "vpc_security_group_restricted_common_ports" {
   sql = <<-EOQ
     with common_ports as (
       select unnest(array[
-        20, 21, 22, 23, 25, 80, 110, 135, 143, 445, 443, 1433, 1434, 3306, 3389, 4333, 445, 5432, 5500, 5601, 8080, 9200, 9300
+        20, 21, 22, 23, 25, 80, 110, 135, 143, 443, 1433, 1434, 3306, 3389, 4333, 445, 5432, 5500, 5601, 8080, 9200, 9300
       ]) as port
     ),
     ingress_common_port_rules as (
@@ -1725,7 +1725,7 @@ query "vpc_subnet_public_and_private" {
       from
       aws_vpc_route_table
     ),
-    subnets_with_explicit_route as  materialized(
+    subnets_with_explicit_route as materialized(
       select
         distinct ( a ->> 'SubnetId') as all_sub
       from
@@ -1750,7 +1750,7 @@ query "vpc_subnet_public_and_private" {
           )
         and a ->> 'SubnetId' is not null
     ),
-    public_subnets_with_implicit_route as  materialized(
+    public_subnets_with_implicit_route as materialized(
       select
         distinct route_table_id,
         vpc_id,
