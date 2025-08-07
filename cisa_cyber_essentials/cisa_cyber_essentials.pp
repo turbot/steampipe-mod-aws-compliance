@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "cisa_cyber_essentials" {
-  title         = "CISA Cyber Essentials"
+  title         = "AWS CISA Cyber Essentials"
   description   = "CISA's Cyber Essentials is a guide for leaders of small businesses as well as leaders of small and local government agencies to develop an actionable understanding of where to start implementing organizational cybersecurity practices."
   documentation = file("./cisa_cyber_essentials/docs/cisa_cyber_essentials_overview.md")
   children = [
