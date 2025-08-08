@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "nist_800_172" {
-  title         = "NIST 800-172"
+  title         = "AWS NIST 800-172"
   description   = "NIST Special Publication (SP) 800-172 provides federal agencies with a set of enhanced security requirements for protecting the confidentiality, integrity, and availability of controlled unclassified information (CUI) in nonfederal systems and organizations from the advanced persistent threat when the CUI is associated with a critical program or high value asset."
   documentation = file("./nist_800_172/docs/nist_800_172_overview.md")
 

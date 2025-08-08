@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "nist_800_53_rev_4" {
-  title       = "NIST 800-53 Revision 4"
+  title       = "AWS NIST 800-53 Revision 4"
   description = "NIST 800-53 is a regulatory standard that defines the minimum baseline of security controls for all U.S. federal information systems except those related to national security."
   documentation = file("./nist_800_53_rev_4/docs/nist_800_53_rev_4_overview.md")
 

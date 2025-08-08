@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "soc_2" {
-  title         = "SOC 2"
+  title         = "AWS SOC 2"
   description   = "System and Organization Controls (SOC) 2 is an auditing procedure that ensures a company's data is securely managed. AWS Audit Manager provides a prebuilt framework that supports SOC 2 to assist you with your audit preparation."
   documentation = file("./soc_2/docs/soc_2_overview.md")
   children = [

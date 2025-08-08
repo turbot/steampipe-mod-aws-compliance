@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "acsc_essential_eight" {
-  title         = "Australian Cyber Security Center (ACSC) Essential Eight"
+  title         = "AWS Australian Cyber Security Center (ACSC) Essential Eight"
   description   = "The Australian Cyber Security Center (ACSC) Essential Eight is a set of baseline security strategies designed to mitigate cyber security incidents. The Essential Eight is a prioritized list of mitigation strategies that organizations can implement to protect their systems against a range of adversaries. The Essential Eight is based on the Australian Signals Directorate (ASD) Strategies to Mitigate Cyber Security Incidents."
   documentation = file("./acsc_essential_eight/docs/acsc_essential_eight_overview.md")
   children = [

@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "ffiec" {
-  title       = "Federal Financial Institutions Examination Council (FFIEC)"
+  title       = "AWS Federal Financial Institutions Examination Council (FFIEC)"
   description = "Federal Financial Institutions Examination Council (FFIEC) developed the Cybersecurity Assessment Tool (Assessment) to help institutions identify their risks and determine their cybersecurity preparedness."
   documentation = file("./ffiec/docs/ffiec_overview.md")
   children = [

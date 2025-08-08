@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "all_controls" {
-  title       = "All Controls"
+  title       = "All AWS Compliance Controls"
   description = "This benchmark contains all controls grouped by service to help you detect resource configurations that do not meet best practices."
   children = [
     benchmark.all_controls_account,

@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "cis_controls_v8_ig1" {
-  title         = "CIS Controls v8 IG1"
+  title         = "AWS CIS Controls v8 IG1"
   description   = "The CIS Critical Security Controls (CIS Controls) are a prioritized set of Safeguards to mitigate the most prevalent cyber-attacks against systems and networks. They are mapped to and referenced by multiple legal, regulatory, and policy frameworks."
   documentation = file("./cis_controls_v8_ig1/docs/cis_overview.md")
   children = [
