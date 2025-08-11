@@ -513,6 +513,7 @@ query "vpc_flow_logs_enabled" {
       select
         resource_id,
         account_id,
+        flow_log_status,
         region
       from
         aws_vpc_flow_log
@@ -523,16 +524,18 @@ query "vpc_flow_logs_enabled" {
       v.arn as resource,
       case
         when v.account_id <> v.owner_id then 'skip'
-        when f.resource_id is not null then 'ok'
+        when f.resource_id is not null and f.flow_log_status = 'ACTIVE' then 'ok'
+        when f.resource_id is not null and f.flow_log_status <> 'ACTIVE' then 'alarm'
         else 'alarm'
       end as status,
       case
         when v.account_id <> v.owner_id then v.vpc_id || ' is a shared VPC.'
-        when f.resource_id is not null then v.vpc_id || ' flow logging enabled.'
+        when f.resource_id is not null and f.flow_log_status = 'ACTIVE' then v.vpc_id || ' flow logging enabled.'
+        when f.resource_id is not null and f.flow_log_status <> 'ACTIVE' then v.vpc_id || ' flow log inactive.'
         else v.vpc_id || ' flow logging disabled.'
       end as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
-      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
       vpcs as v
       left join flowlogs as f on v.vpc_id = f.resource_id;

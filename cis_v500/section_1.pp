@@ -263,7 +263,7 @@ control "cis_v500_1_16" {
 control "cis_v500_1_17" {
   title         = "1.17 Ensure IAM instance roles are used for AWS resource access from instances"
   description   = "AWS access from within AWS instances can be done by either encoding AWS keys into AWS API calls or by assigning the instance to a role which has an appropriate permissions policy for the required access. \"AWS Access\" means accessing the APIs of AWS in order to access AWS resources or manage AWS account resources."
-  query         = query.manual_control
+  query         = query.ec2_instance_uses_iam_instance_role
   documentation = file("./cis_v500/docs/cis_v500_1_17.md")
 
   tags = merge(local.cis_v500_1_common_tags, {

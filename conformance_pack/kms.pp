@@ -112,8 +112,10 @@ query "kms_cmk_rotation_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
+      customer_master_key_spec,
       case
         when origin = 'EXTERNAL' then 'skip'
+        when customer_master_key_spec <> 'SYMMETRIC_DEFAULT' then 'skip'
         when key_state = 'PendingDeletion' then 'skip'
         when key_state = 'Disabled' then 'skip'
         when not key_rotation_enabled then 'alarm'
@@ -121,13 +123,14 @@ query "kms_cmk_rotation_enabled" {
       end as status,
       case
         when origin = 'EXTERNAL' then title || ' has imported key material.'
+        when customer_master_key_spec <> 'SYMMETRIC_DEFAULT' then title || ' is non-symmetric customer key.'
         when key_state = 'PendingDeletion' then title || ' is pending deletion.'
         when key_state = 'Disabled' then title || ' is disabled.'
         when not key_rotation_enabled then title || ' key rotation disabled.'
         else title || ' key rotation enabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      -- ${local.tag_dimensions_sql}
+     --  ${local.common_dimensions_sql}
     from
       aws_kms_key
     where

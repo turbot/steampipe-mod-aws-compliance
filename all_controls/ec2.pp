@@ -48,6 +48,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_publicly_accessible_iam_profile_attached,
     control.ec2_instance_termination_protection_enabled,
     control.ec2_instance_user_data_no_secrets,
+    control.ec2_instance_uses_iam_instance_role,
     control.ec2_instance_uses_imdsv2,
     control.ec2_instance_virtualization_type_no_paravirtual,
     control.ec2_launch_template_not_publicly_accessible,

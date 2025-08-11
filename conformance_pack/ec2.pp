@@ -533,6 +533,14 @@ control "ec2_network_interface_unused" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_instance_uses_iam_instance_role" {
+  title         = "Ensure IAM instance roles are used for AWS resource access from instances"
+  description   = "AWS access from within AWS instances can be done by either encoding AWS keys into AWS API calls or by assigning the instance to a role which has an appropriate permissions policy for the required access. \"AWS Access\" means accessing the APIs of AWS in order to access AWS resources or manage AWS account resources."
+  query         = query.ec2_instance_uses_iam_instance_role
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -730,12 +738,12 @@ query "ec2_instance_uses_imdsv2" {
     select
       arn as resource,
       case
-        when metadata_options ->> 'HttpTokens' = 'optional' then 'alarm'
-        else 'ok'
+        when metadata_options ->> 'HttpTokens' = 'required' and metadata_options ->> 'State' = 'applied' then 'ok'
+        else 'alarm'
       end as status,
       case
-        when metadata_options ->> 'HttpTokens' = 'optional' then title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
-        else title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        when metadata_options ->> 'HttpTokens' = 'required' and metadata_options ->> 'State' = 'applied' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -2056,5 +2064,24 @@ query "ec2_network_interface_unused" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_network_interface;
+  EOQ
+}
+
+query "ec2_instance_uses_iam_instance_role" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when iam_instance_profile_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_instance_profile_arn is not null then title || ' uses IAM role for access.'
+        else title || ' does nor use IAM role for access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
   EOQ
 }
