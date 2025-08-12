@@ -534,8 +534,8 @@ query "vpc_flow_logs_enabled" {
         when f.resource_id is not null and f.flow_log_status <> 'ACTIVE' then v.vpc_id || ' flow log inactive.'
         else v.vpc_id || ' flow logging disabled.'
       end as reason
-      --${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
-      --${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}
     from
       vpcs as v
       left join flowlogs as f on v.vpc_id = f.resource_id;
@@ -617,7 +617,8 @@ query "vpc_network_acl_remote_administration" {
         tags,
         partition,
         region,
-        account_id
+        account_id,
+        ._ctx
       from
         aws_vpc_network_acl
       order by

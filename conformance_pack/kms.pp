@@ -129,8 +129,8 @@ query "kms_cmk_rotation_enabled" {
         when not key_rotation_enabled then title || ' key rotation disabled.'
         else title || ' key rotation enabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-     --  ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_kms_key
     where
