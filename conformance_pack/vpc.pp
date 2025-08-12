@@ -618,7 +618,7 @@ query "vpc_network_acl_remote_administration" {
         partition,
         region,
         account_id,
-        ._ctx
+        _ctx
       from
         aws_vpc_network_acl
       order by

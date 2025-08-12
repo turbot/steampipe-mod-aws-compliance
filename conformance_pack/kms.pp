@@ -112,7 +112,6 @@ query "kms_cmk_rotation_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
-      customer_master_key_spec,
       case
         when origin = 'EXTERNAL' then 'skip'
         when customer_master_key_spec <> 'SYMMETRIC_DEFAULT' then 'skip'
