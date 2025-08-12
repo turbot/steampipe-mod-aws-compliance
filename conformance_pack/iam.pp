@@ -945,8 +945,8 @@ query "iam_root_user_account_console_access_mfa_enabled" {
       end as status,
       case
         when not account_password_present then 'Console sign-in disabled for root account.'
-        when account_password_present and not account_mfa_enabled then 'Console sign-in enabled but no MFA device configured.'
-        else  'Console sign-in enabled and MFA device configured.'
+        when account_password_present and not account_mfa_enabled then 'Console sign-in enabled for root account but no MFA device configured.'
+        else 'Console sign-in enabled for root account and MFA device configured.'
       end as reason
       ${local.common_dimensions_global_sql}
     from

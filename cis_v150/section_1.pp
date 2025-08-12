@@ -95,7 +95,7 @@ control "cis_v150_1_4" {
 control "cis_v150_1_5" {
   title         = "1.5 Ensure MFA is enabled for the 'root' user account"
   description   = "The 'root' user account is the most privileged user in an AWS account. Multi-factor Authentication (MFA) adds an extra layer of protection on top of a username and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their username and password as well as for an authentication code from their AWS MFA device."
-  query         = query.iam_root_user_mfa_enabled
+  query         = query.iam_root_user_account_console_access_mfa_enabled
   documentation = file("./cis_v150/docs/cis_v150_1_5.md")
 
   tags = merge(local.cis_v150_1_common_tags, {
