@@ -922,13 +922,32 @@ query "iam_root_user_mfa_enabled" {
     select
       'arn:' || partition || ':::' || account_id as resource,
       case
-        when account_mfa_enabled or not account_password_present then 'ok'
+        when account_mfa_enabled then 'ok'
         else 'alarm'
       end status,
       case
-        when account_mfa_enabled or not account_password_present then 'MFA enabled for root account.'
+        when account_mfa_enabled then 'MFA enabled for root account.'
         else 'MFA not enabled for root account.'
       end reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_account_summary;
+  EOQ
+}
+
+query "iam_root_user_account_console_access_mfa_enabled" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':::' || account_id as resource,
+      case
+        when account_password_present and not account_mfa_enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not account_password_present then 'Console sign-in disabled for root account.'
+        when account_password_present and not account_mfa_enabled then 'Console sign-in enabled but no MFA device configured.'
+        else  'Console sign-in enabled and MFA device configured.'
+      end as reason
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;
