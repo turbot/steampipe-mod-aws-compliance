@@ -935,6 +935,25 @@ query "iam_root_user_mfa_enabled" {
   EOQ
 }
 
+query "iam_root_user_account_console_access_mfa_enabled" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':::' || account_id as resource,
+      case
+        when account_password_present and not account_mfa_enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not account_password_present then 'Console sign-in disabled for root account.'
+        when account_password_present and not account_mfa_enabled then 'Console sign-in enabled for root account but no MFA device configured.'
+        else 'Console sign-in enabled for root account and MFA device configured.'
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_account_summary;
+  EOQ
+}
+
 query "iam_user_access_key_age_90" {
   sql = <<-EOQ
     select
