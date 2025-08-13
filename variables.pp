@@ -55,3 +55,9 @@ locals {
   common_dimensions_global_sql = replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "")
   tag_dimensions_sql           = replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "")
 }
+
+variable "database" {
+  type        = connection.steampipe
+  description = "Steampipe database connection string."
+  default     = connection.steampipe.default
+}

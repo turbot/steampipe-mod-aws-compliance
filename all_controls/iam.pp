@@ -8,8 +8,8 @@ benchmark "all_controls_iam" {
   title       = "IAM"
   description = "This section contains recommendations for configuring IAM resources."
   children = [
-    control.iam_access_analyzer_enabled,
     control.iam_access_analyzer_enabled_without_findings,
+    control.iam_access_analyzer_enabled,
     control.iam_account_password_policy_min_length_14,
     control.iam_account_password_policy_one_lowercase_letter,
     control.iam_account_password_policy_one_number,
@@ -40,14 +40,15 @@ benchmark "all_controls_iam" {
     control.iam_role_no_administrator_access_policy_attached,
     control.iam_role_unused_60,
     control.iam_root_last_used,
+    control.iam_root_user_account_console_access_mfa_enabled,
     control.iam_root_user_hardware_mfa_enabled,
     control.iam_root_user_mfa_enabled,
     control.iam_root_user_no_access_keys,
     control.iam_security_audit_role,
     control.iam_server_certificate_not_expired,
     control.iam_support_role,
-    control.iam_user_access_key_age_90,
     control.iam_user_access_key_age_365,
+    control.iam_user_access_key_age_90,
     control.iam_user_access_key_unused_45,
     control.iam_user_access_keys_and_password_at_setup,
     control.iam_user_console_access_mfa_enabled,

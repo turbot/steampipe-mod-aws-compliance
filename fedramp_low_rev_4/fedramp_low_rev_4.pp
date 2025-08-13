@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "fedramp_low_rev_4" {
-  title         = "FedRAMP Low Revision 4"
+  title         = "AWS FedRAMP Low Revision 4"
   description   = "The Federal Risk and Authorization Management Program (FedRAMP) is a US government-wide program that delivers a standard approach to the security assessment, authorization, and continuous monitoring for cloud products and services."
   documentation = file("./fedramp_low_rev_4/docs/fedramp_low_rev_4_overview.md")
   children = [

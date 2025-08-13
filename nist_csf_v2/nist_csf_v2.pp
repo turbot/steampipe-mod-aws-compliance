@@ -6,7 +6,7 @@ locals {
 }
 
 benchmark "nist_csf_v2" {
-  title         = "NIST Cybersecurity Framework (CSF) v2.0"
+  title         = "AWS NIST Cybersecurity Framework (CSF) v2.0"
   description   = "The NIST Cybersecurity Framework (CSF) v2.0 provides a comprehensive framework for managing cybersecurity risk in AWS environments."
   documentation = file("./nist_csf_v2/docs/nist_csf_v2_overview.md")
 

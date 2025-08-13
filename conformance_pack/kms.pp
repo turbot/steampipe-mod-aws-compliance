@@ -114,6 +114,7 @@ query "kms_cmk_rotation_enabled" {
       arn as resource,
       case
         when origin = 'EXTERNAL' then 'skip'
+        when customer_master_key_spec <> 'SYMMETRIC_DEFAULT' then 'skip'
         when key_state = 'PendingDeletion' then 'skip'
         when key_state = 'Disabled' then 'skip'
         when not key_rotation_enabled then 'alarm'
@@ -121,6 +122,7 @@ query "kms_cmk_rotation_enabled" {
       end as status,
       case
         when origin = 'EXTERNAL' then title || ' has imported key material.'
+        when customer_master_key_spec <> 'SYMMETRIC_DEFAULT' then title || ' is non-symmetric customer key.'
         when key_state = 'PendingDeletion' then title || ' is pending deletion.'
         when key_state = 'Disabled' then title || ' is disabled.'
         when not key_rotation_enabled then title || ' key rotation disabled.'

@@ -517,22 +517,25 @@ query "s3_bucket_enforces_ssl" {
   sql = <<-EOQ
     with ssl_ok as (
       select
-        distinct name,
-        arn,
+        distinct b.name,
+        b.arn,
         'ok' as status
       from
-        aws_s3_bucket,
-        jsonb_array_elements(policy_std -> 'Statement') as s,
+        aws_s3_bucket b,
+        jsonb_array_elements(b.policy_std -> 'Statement') as s,
         jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p,
         jsonb_array_elements_text(s -> 'Action') as a,
         jsonb_array_elements_text(s -> 'Resource') as r,
-        jsonb_array_elements_text(
-          s -> 'Condition' -> 'Bool' -> 'aws:securetransport'
-        ) as ssl
+        jsonb_array_elements_text (
+          case
+          when (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion') is not null then (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion')
+          when (s -> 'Condition' -> 'Bool' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'Bool' -> 'aws:securetransport')
+            else null end
+          ) as ssl
       where
         p = '*'
         and s ->> 'Effect' = 'Deny'
-        and ssl :: bool = false
+        and (ssl = '1.2' or ssl :: bool = false)
     )
     select
       b.arn as resource,
