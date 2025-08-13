@@ -83,7 +83,7 @@ control "dms_endpoint_neptune_database_iam_authorization_enabled" {
   description   = "This control checks whether an AWS DMS endpoint for an Amazon Neptune database is configured with IAM authorization. The control fails if the DMS endpoint doesn't have IAM authorization enabled."
   query         = query.dms_endpoint_neptune_database_iam_authorization_enabled
 
-  tags = local.foundational_security_dms_common_tags
+  tags = local.conformance_pack_dms_common_tags
 }
 
 control "dms_endpoint_redis_tls_enabled" {
@@ -91,7 +91,7 @@ control "dms_endpoint_redis_tls_enabled" {
   description   = "This control checks whether an AWS DMS endpoint for Redis OSS is configured with a TLS connection. The control fails if the endpoint doesn't have TLS enabled."
   query         = query.dms_endpoint_redis_tls_enabled
 
-  tags = local.foundational_security_dms_common_tags
+  tags = local.conformance_pack_dms_common_tags
 }
 
 control "dms_endpoint_mongo_db_authentication_enabled" {
@@ -99,7 +99,7 @@ control "dms_endpoint_mongo_db_authentication_enabled" {
   description   = "This control checks whether an AWS DMS endpoint for MongoDB is configured with an authentication mechanism. The control fails if an authentication type isn't set for the endpoint."
   query         = query.dms_endpoint_mongo_db_authentication_enabled
 
-  tags = local.foundational_security_dms_common_tags
+  tags = local.conformance_pack_dms_common_tags
 }
 
 

@@ -493,6 +493,54 @@ control "vpc_security_group_restrict_ingress_cifs_port_all" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_configured_to_use_interface_endpoint_for_ecr_api" {
+  title         = "VPCs should be configured with an interface endpoint for ECR API"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for Amazon ECR API. The control fails if the VPC doesn't have an interface VPC endpoint for ECR API. This control evaluates resources in a single account."
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ecr_api
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_configured_to_use_interface_endpoint_for_docker_registry" {
+  title         = "VPCs should be configured with an interface endpoint for Docker Registry"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for Docker Registry. The control fails if the VPC doesn't have an interface VPC endpoint for Docker Registry. This control evaluates resources in a single account."
+  query         = query.vpc_configured_to_use_interface_endpoint_for_docker_registry
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_configured_to_use_interface_endpoint_for_ssm" {
+  title         = "VPCs should be configured with an interface endpoint for Systems Manager"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager. This control evaluates resources in a single account."
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_configured_to_use_interface_endpoint_for_ssm_contacts" {
+  title         = "VPCs should be configured with an interface endpoint for Systems Manager Incident Manager Contacts"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager Incident Manager Contacts. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager Incident Manager Contacts. This control evaluates resources in a single account."
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm_contacts
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_configured_to_use_interface_endpoint_for_ssm_incidents" {
+  title         = "VPCs should be configured with an interface endpoint for Systems Manager Incident Manager"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager Incident Manager. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager Incident Manager. This control evaluates resources in a single account."
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm_incidents
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
+control "vpc_vpn_connection_logging_enabled" {
+  title         = "EC2 VPN connections should have logging enabled"
+  description   = "This control checks whether an AWS Site-to-Site VPN connection has Amazon CloudWatch Logs enabled for both tunnels. The control fails if a Site-to-Site VPN connection doesn't have CloudWatch Logs enabled for both tunnels."
+  query         = query.vpc_vpn_connection_logging_enabled
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     with vpcs as (
@@ -2077,3 +2125,169 @@ query "vpc_security_group_restrict_ingress_cifs_port_all" {
   EOQ
 }
 
+query "vpc_configured_to_use_interface_endpoint_for_ecr_api" {
+  sql = <<-EOQ
+    with vpc_endpoints as (
+      select distinct
+        vpc_id
+      from
+        aws_vpc_endpoint
+      where
+        service_name  like 'com.amazonaws.' || region || '.ecr.api'
+    )
+    select
+      v.arn as resource,
+      case
+        when e.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.vpc_id is null then v.title || ' not configured to use interface endpoint for ECR API.'
+        else v.title || ' configured to use interface endpoint for ECR API.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+     --  ${local.common_dimensions_sql}
+    from
+      aws_vpc v left join vpc_endpoints e using (vpc_id);
+  EOQ
+}
+
+query "vpc_configured_to_use_interface_endpoint_for_docker_registry" {
+  sql = <<-EOQ
+    with vpc_endpoints as (
+      select distinct
+        vpc_id
+      from
+        aws_vpc_endpoint
+      where
+        service_name  like 'com.amazonaws.' || region || '.ecr.dkr'
+    )
+    select
+      v.arn as resource,
+      case
+        when e.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.vpc_id is null then v.title || ' not configured to use interface endpoint for docker registry.'
+        else v.title || ' configured to use interface endpoint for docker registry.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc v left join vpc_endpoints e using (vpc_id);
+  EOQ
+}
+
+query "vpc_configured_to_use_interface_endpoint_for_ssm" {
+  sql = <<-EOQ
+    with vpc_endpoints as (
+      select distinct
+        vpc_id
+      from
+        aws_vpc_endpoint
+      where
+        service_name  like 'com.amazonaws.' || region || '.ssm'
+    )
+    select
+      v.arn as resource,
+      case
+        when e.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.vpc_id is null then v.title || ' not configured to use interface endpoint for SSM.'
+        else v.title || ' configured to use interface endpoint for SSM.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc v left join vpc_endpoints e using (vpc_id);
+  EOQ
+}
+
+query "vpc_configured_to_use_interface_endpoint_for_ssm_contacts" {
+  sql = <<-EOQ
+    with vpc_endpoints as (
+      select distinct
+        vpc_id
+      from
+        aws_vpc_endpoint
+      where
+        service_name  like 'com.amazonaws.' || region || '.ssm-contacts'
+    )
+    select
+      v.arn as resource,
+      case
+        when e.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.vpc_id is null then v.title || ' not configured to use interface endpoint for SSM contacts.'
+        else v.title || ' configured to use interface endpoint for SSM contacts.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+     --  ${local.common_dimensions_sql}
+    from
+      aws_vpc v left join vpc_endpoints e using (vpc_id);
+  EOQ
+}
+
+query "vpc_configured_to_use_interface_endpoint_for_ssm_incidents" {
+  sql = <<-EOQ
+    with vpc_endpoints as (
+      select distinct
+        vpc_id
+      from
+        aws_vpc_endpoint
+      where
+        service_name  like 'com.amazonaws.' || region || '.ssm-incidents'
+    )
+    select
+      v.arn as resource,
+      case
+        when e.vpc_id is null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when e.vpc_id is null then v.title || ' not configured to use interface endpoint for SSM incidents.'
+        else v.title || ' configured to use interface endpoint for SSM incidents.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc v left join vpc_endpoints e using (vpc_id);
+  EOQ
+}
+
+query "vpc_vpn_connection_logging_enabled" {
+  sql = <<-EOQ
+    with tunnel_logging as (
+      select
+        distinct arn,
+        count(*)
+      from
+        aws_vpc_vpn_connection,
+        jsonb_array_elements(options -> 'TunnelOptions') as t
+      where
+        (t -> 'LogOptions' -> 'CloudWatchLogOptions' ->> 'LogEnabled')::bool
+      group by arn
+    )
+    select
+      a.arn as resource,
+      case
+        when b.count >= 1 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when b.count = 1 then a.title || ' has logging enabled for one tunnel.'
+        when b.count = 2 then a.title || ' has logging enabled for both tunnels.'
+        else a.title || ' has logging disabled for both tunnels.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_vpc_vpn_connection as a
+      left join tunnel_logging as b on a.arn = b.arn;
+  EOQ
+}

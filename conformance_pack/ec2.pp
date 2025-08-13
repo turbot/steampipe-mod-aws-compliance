@@ -533,6 +533,22 @@ control "ec2_network_interface_unused" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_launch_template_default_version_uses_imdsv2" {
+  title         = "EC2 launch templates should use Instance Metadata Service Version 2 (IMDSv2)"
+  description   = "This control checks whether an Amazon EC2 launch template is configured with Instance Metadata Service Version 2 (IMDSv2). The control fails if HttpTokens is set to optional."
+  query         = query.ec2_launch_template_default_version_uses_imdsv2
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_network_inteface_source_destination_check_enabled" {
+  title         = "EC2 network interfaces should have source/destination checking enabled"
+  description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
+  query         = query.ec2_network_inteface_source_destination_check_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 query "ec2_ebs_default_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -2051,6 +2067,47 @@ query "ec2_network_interface_unused" {
       case
         when status = 'available' and attached_instance_id is null then title || ' not in use.'
         else title || ' in use.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_network_interface;
+  EOQ
+}
+
+query "ec2_launch_template_default_version_uses_imdsv2" {
+  sql = <<-EOQ
+    select
+      launch_template_id as resource,
+      case
+        when launch_template_data -> 'MetadataOptions' ->> 'HttpTokens' = 'required' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when launch_template_data -> 'MetadataOptions' ->> 'HttpTokens' = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_template_version
+    where
+      default_version;
+  EOQ
+}
+
+query "ec2_network_inteface_source_destination_check_enabled" {
+  sql = <<-EOQ
+    select
+      network_interface_id as resource,
+      case
+        when interface_type not in ('aws_codestar_connections_managed', 'branch', 'efa', 'interface', 'lambda', 'quicksight') then 'skip'
+        when source_dest_check then 'ok'
+        else 'ok'
+      end as status,
+      case
+        when interface_type not in ('aws_codestar_connections_managed', 'branch', 'efa', 'interface', 'lambda', 'quicksight') then title || ' is of ' || interface_type || ' network interface.'
+        when source_dest_check then title || ' source destination check enabled.'
+        else title || ' source destination check disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

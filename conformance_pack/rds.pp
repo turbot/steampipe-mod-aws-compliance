@@ -578,7 +578,7 @@ control "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
   description = "This control checks if automatic minor version upgrade is enabled for an Amazon RDS database cluster. The control fails if automatic minor version upgrade isn't enabled for an RDS cluster."
   query       = query.rds_db_cluster_automatic_minor_version_upgrade_enabled
 
-  tags = local.foundational_security_rds_common_tags
+  tags = local.conformance_pack_rds_common_tags
 }
 
 control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {

@@ -45,7 +45,13 @@ benchmark "all_controls_vpc" {
     control.vpc_subnet_auto_assign_public_ip_disabled,
     control.vpc_subnet_multi_az_enabled,
     control.vpc_subnet_public_and_private,
-    control.vpc_vpn_tunnel_up
+    control.vpc_vpn_tunnel_up,
+    control.vpc_configured_to_use_interface_endpoint_for_ecr_api,
+    control.vpc_configured_to_use_interface_endpoint_for_docker_registry,
+    control.vpc_configured_to_use_interface_endpoint_for_ssm,
+    control.vpc_configured_to_use_interface_endpoint_for_ssm_contacts,
+    control.vpc_configured_to_use_interface_endpoint_for_ssm_incidents,
+    control.vpc_vpn_connection_logging_enabled,
   ]
 
   tags = merge(local.all_controls_vpc_common_tags, {

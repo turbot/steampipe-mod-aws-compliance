@@ -355,7 +355,7 @@ control "elb_application_gateway_network_lb_multiple_az_configured" {
   description = "This control checks whether an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones. The control fails if an Elastic Load Balancer V2 has instances registered in fewer than two Availability Zones."
   query       = query.elb_application_gateway_network_lb_multiple_az_configured
 
-  tags = merge(local.foundational_security_elb_common_tags, {
+  tags = merge(local.conformance_pack_elb_common_tags, {
     nist_csf     = "true"
     rbi_itf_nbfc = "true"
   })
@@ -366,7 +366,7 @@ control "elb_classic_lb_no_registered_instance" {
   description = "This control checks whether an ELB classic load balancer has registered instances. The control fails if an ELB classic load balancer has zero instances registered."
   query       = query.elb_classic_lb_no_registered_instance
 
-  tags = local.foundational_security_elb_common_tags
+  tags = local.conformance_pack_elb_common_tags
 }
 
 control "elb_classic_lb_with_inbound_rule" {
@@ -374,7 +374,7 @@ control "elb_classic_lb_with_inbound_rule" {
   description = "Ensure classic load balancer have at least one inbound rule in all the attached security groups."
   query       = query.elb_classic_lb_with_inbound_rule
 
-  tags = local.foundational_security_elb_common_tags
+  tags = local.conformance_pack_elb_common_tags
 }
 
 query "elb_application_classic_lb_logging_enabled" {

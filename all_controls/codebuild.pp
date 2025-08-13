@@ -15,7 +15,8 @@ benchmark "all_controls_codebuild" {
     control.codebuild_project_plaintext_env_variables_no_sensitive_aws_values,
     control.codebuild_project_s3_logs_encryption_enabled,
     control.codebuild_project_source_repo_oauth_configured,
-    control.codebuild_project_with_user_controlled_buildspec
+    control.codebuild_project_with_user_controlled_buildspec,
+    control.codebuild_report_group_export_encryption_at_rest_enabled,
   ]
 
   tags = merge(local.all_controls_codebuild_common_tags, {

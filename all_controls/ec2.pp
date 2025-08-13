@@ -54,7 +54,9 @@ benchmark "all_controls_ec2" {
     control.ec2_network_interface_unused,
     control.ec2_stopped_instance_30_days,
     control.ec2_stopped_instance_90_days,
-    control.ec2_transit_gateway_auto_cross_account_attachment_disabled
+    control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
+    control.ec2_launch_template_default_version_uses_imdsv2,
+    control.ec2_network_inteface_source_destination_check_enabled,
   ]
 
   tags = merge(local.all_controls_ec2_common_tags, {

@@ -12,7 +12,8 @@ benchmark "foundational_security_codebuild" {
     control.foundational_security_codebuild_2,
     control.foundational_security_codebuild_3,
     control.foundational_security_codebuild_4,
-    control.foundational_security_codebuild_5
+    control.foundational_security_codebuild_5,
+    control.foundational_security_codebuild_7
   ]
 
   tags = merge(local.foundational_security_codebuild_common_tags, {
@@ -83,5 +84,18 @@ control "foundational_security_codebuild_5" {
   tags = merge(local.foundational_security_codebuild_common_tags, {
     foundational_security_item_id  = "codebuild_5"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_codebuild_7" {
+  title         = "7 CodeBuild report group exports should be encrypted at rest"
+  description   = "This control checks whether the test results of an AWS CodeBuild report group that are exported to an Amazon Simple Storage Service (Amazon S3) bucket are encrypted at rest. The control fails if the report group export isn't encrypted at rest."
+  severity      = "medium"
+  query         = query.codebuild_report_group_export_encryption_at_rest_enabled
+  documentation = file("./foundational_security/docs/foundational_security_codebuild_7.md")
+
+  tags = merge(local.foundational_security_codebuild_common_tags, {
+    foundational_security_item_id  = "codebuild_7"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
