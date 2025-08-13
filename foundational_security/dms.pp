@@ -12,7 +12,9 @@ benchmark "foundational_security_dms" {
     control.foundational_security_dms_6,
     control.foundational_security_dms_7,
     control.foundational_security_dms_8,
-    control.foundational_security_dms_9
+    control.foundational_security_dms_9,
+    control.foundational_security_dms_10,
+    control.foundational_security_dms_12,
   ]
 
   tags = merge(local.foundational_security_dms_common_tags, {
@@ -82,5 +84,44 @@ control "foundational_security_dms_9" {
   tags = merge(local.foundational_security_dms_common_tags, {
     foundational_security_item_id  = "dms_9"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_dms_10" {
+  title         = "10 DMS endpoints for Neptune databases should have IAM authorization enabled"
+  description   = "This control checks whether an AWS DMS endpoint for an Amazon Neptune database is configured with IAM authorization. The control fails if the DMS endpoint doesn't have IAM authorization enabled."
+  severity      = "medium"
+  query         = query.dms_endpoint_neptune_database_iam_authorization_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dms_10.md")
+
+  tags = merge(local.foundational_security_dms_common_tags, {
+    foundational_security_item_id  = "dms_10"
+    foundational_security_category = "passwordless_authentication"
+  })
+}
+
+control "foundational_security_dms_11" {
+  title         = "11 DMS endpoints for MongoDB should have an authentication mechanism enabled"
+  description   = "This control checks whether an AWS DMS endpoint for MongoDB is configured with an authentication mechanism. The control fails if an authentication type isn't set for the endpoint."
+  severity      = "medium"
+  query         = query.dms_endpoint_mongo_db_authentication_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dms_11.md")
+
+  tags = merge(local.foundational_security_dms_common_tags, {
+    foundational_security_item_id  = "dms_11"
+    foundational_security_category = "passwordless_authentication"
+  })
+}
+
+control "foundational_security_dms_12" {
+  title         = "12 DMS endpoints for Redis OSS should have TLS enabled"
+  description   = "This control checks whether an AWS DMS endpoint for Redis OSS is configured with a TLS connection. The control fails if the endpoint doesn't have TLS enabled."
+  severity      = "medium"
+  query         = query.dms_endpoint_redis_tls_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dms_12.md")
+
+  tags = merge(local.foundational_security_dms_common_tags, {
+    foundational_security_item_id  = "dms_12"
+    foundational_security_category = "encryption_of_data_intransit"
   })
 }

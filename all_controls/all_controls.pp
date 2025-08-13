@@ -72,7 +72,8 @@ benchmark "all_controls" {
     benchmark.all_controls_vpc,
     benchmark.all_controls_waf,
     benchmark.all_controls_wafv2,
-    benchmark.all_controls_workspaces
+    benchmark.all_controls_workspaces,
+    benchmark.all_controls_datasync,
   ]
 
   tags = local.all_controls_common_tags

@@ -78,6 +78,31 @@ control "dms_replication_task_source_database_logging_enabled" {
   })
 }
 
+control "dms_endpoint_neptune_database_iam_authorization_enabled" {
+  title         = "DMS endpoints for Neptune databases should have IAM authorization enabled"
+  description   = "This control checks whether an AWS DMS endpoint for an Amazon Neptune database is configured with IAM authorization. The control fails if the DMS endpoint doesn't have IAM authorization enabled."
+  query         = query.dms_endpoint_neptune_database_iam_authorization_enabled
+
+  tags = local.foundational_security_dms_common_tags
+}
+
+control "dms_endpoint_redis_tls_enabled" {
+  title         = "12 DMS endpoints for Redis OSS should have TLS enabled"
+  description   = "This control checks whether an AWS DMS endpoint for Redis OSS is configured with a TLS connection. The control fails if the endpoint doesn't have TLS enabled."
+  query         = query.dms_endpoint_redis_tls_enabled
+
+  tags = local.foundational_security_dms_common_tags
+}
+
+control "dms_endpoint_mongo_db_authentication_enabled" {
+  title         = "DMS endpoints for MongoDB should have an authentication mechanism enabled"
+  description   = "This control checks whether an AWS DMS endpoint for MongoDB is configured with an authentication mechanism. The control fails if an authentication type isn't set for the endpoint."
+  query         = query.dms_endpoint_mongo_db_authentication_enabled
+
+  tags = local.foundational_security_dms_common_tags
+}
+
+
 query "dms_replication_instance_not_publicly_accessible" {
   sql = <<-EOQ
     select
@@ -230,5 +255,74 @@ query "dms_replication_task_source_database_logging_enabled" {
       from
         aws_dms_replication_task as t
         left join replication_task_logging as l on l.arn = t.arn;
+  EOQ
+}
+
+query "dms_endpoint_neptune_database_iam_authorization_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when endpoint_type <> 'TARGET' then 'skip'
+        when neptune_settings is null then 'skip'
+        when (neptune_settings -> 'IamAuthEnabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when endpoint_type <> 'TARGET' then title || ' endpoint is not of target type.'
+        when neptune_settings is null then title || ' endpoint is not of neptune engine type.'
+        when (neptune_settings -> 'IamAuthEnabled')::bool then title || ' IAM authorization for neptune database enabled.'
+        else title || ' IAM authorization for neptune database disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_endpoint;
+  EOQ
+}
+
+query "dms_endpoint_redis_tls_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when endpoint_type <> 'TARGET' then 'skip'
+        when redis_settings is null then 'skip'
+        when (redis_settings ->> 'SslCaCertificateArn') is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when endpoint_type <> 'TARGET' then title || ' endpoint is not of target type.'
+        when redis_settings is null then title || ' endpoint is not of redis engine type.'
+        when (redis_settings ->> 'SslCaCertificateArn') is not null then title || ' TLS/SSL enabled for redis data stores.'
+        else title || ' TLS/SSL disabled for redis data stores.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_endpoint;
+  EOQ
+}
+
+query "dms_endpoint_mongo_db_authentication_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when endpoint_type <> 'SOURCE' then 'skip'
+        when mongo_db_settings is null then 'skip'
+        when (mongo_db_settings ->> 'AuthMechanism') = 'default' then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when endpoint_type <> 'SOURCE' then title || ' endpoint is not of source type.'
+        when mongo_db_settings is null then title || ' endpoint is not of mongodb engine type.'
+        when (mongo_db_settings ->> 'AuthMechanism') = 'default' then title || ' authentication mechanism disabled.'
+        else title || ' ' || (mongo_db_settings ->> 'AuthMechanism') || ' authentication mechanism enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_endpoint;
   EOQ
 }

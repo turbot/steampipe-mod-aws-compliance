@@ -56,7 +56,8 @@ benchmark "foundational_security" {
     benchmark.foundational_security_sns,
     benchmark.foundational_security_sqs,
     benchmark.foundational_security_ssm,
-    benchmark.foundational_security_waf
+    benchmark.foundational_security_waf,
+    benchmark.foundational_security_datafirehose,
   ]
 
   tags = merge(local.foundational_security_common_tags, {
