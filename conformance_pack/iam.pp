@@ -20,6 +20,14 @@ control "iam_access_analyzer_enabled" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_root_user_account_console_access_mfa_enabled" {
+  title       = "Ensure that the root user account has MFA enabled for console access"
+  description = "This control checks whether the root user account has multi-factor authentication (MFA) enabled for console access. The control fails if the root user account does not have MFA enabled for console access."
+  query       = query.iam_root_user_account_console_access_mfa_enabled
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 control "iam_user_group_role_cloudshell_fullaccess_restricted" {
   title       = "Ensure access to AWSCloudShellFullAccess is restricted"
   description = "This control checks whether the AWSCloudShellFullAccess policy is attached to any IAM user, group, or role. The control fails if the policy is attached to any IAM user, group, or role."
