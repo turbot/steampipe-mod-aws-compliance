@@ -46,7 +46,13 @@ benchmark "all_controls_rds" {
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.rds_db_snapshot_encrypted_at_rest,
-    control.rds_db_snapshot_prohibit_public_access
+    control.rds_db_snapshot_prohibit_public_access,
+    control.rds_db_instance_postgres_logging_enabled,
+    control.rds_db_cluster_aurora_postgres_logging_enabled,
+    control.rds_db_instance_sql_server_encryption_in_transit_enabled,
+    control.rds_db_instance_sql_server_logging_enabled,
+    control.rds_db_instance_mariadb_logging_enabled,
+    control.rds_db_instance_mariadb_encryption_in_transit_enabled,
   ]
 
   tags = merge(local.all_controls_rds_common_tags, {

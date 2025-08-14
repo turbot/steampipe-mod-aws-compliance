@@ -35,6 +35,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_60,
     control.foundational_security_ec2_170,
     control.foundational_security_ec2_171,
+    control.foundational_security_ec2_172,
     control.foundational_security_ec2_180
   ]
 
@@ -391,6 +392,19 @@ control "foundational_security_ec2_171" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_171"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_ec2_172" {
+  title         = "172 EC2 VPC Block Public Access settings should block internet gateway traffic"
+  description   = "This control checks whether Amazon EC2 VPC Block Public Access (BPA) settings are configured to block internet gateway traffic for all Amazon VPCs in the AWS account. The control fails if VPC BPA settings aren't configured to block internet gateway traffic. For the control to pass, the VPC BPA InternetGatewayBlockMode must be set to block-bidirectional or block-ingress. If the parameter vpcBpaInternetGatewayBlockMode is provided, the control passes only if the VPC BPA value for InternetGatewayBlockMode matches the parameter."
+  severity      = "medium"
+  query         = query.vpc_block_public_access_restrict_internet_gateway_traffic
+  documentation = file("./foundational_security/docs/foundational_security_ec2_172.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_172"
+    foundational_security_category = "resources_not_publicly_accessible"
   })
 }
 

@@ -592,6 +592,54 @@ control "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   })
 }
 
+control "rds_db_instance_postgres_logging_enabled" {
+  title         = "RDS for PostgreSQL DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for PostgreSQL DB instance is configured to publish logs to Amazon CloudWatch Logs. The control fails if the PostgreSQL DB instance isn't configured to publish the log types mentioned in the logTypes parameter to CloudWatch Logs."
+  query         = query.rds_db_instance_postgres_logging_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_cluster_aurora_postgres_logging_enabled" {
+  title         = "Aurora PostgreSQL DB clusters should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon Aurora PostgreSQL DB cluster is configured to publish logs to Amazon CloudWatch Logs. The control fails if the Aurora PostgreSQL DB cluster isn't configured to publish PostgreSQL logs to CloudWatch Logs."
+  query         = query.rds_db_cluster_aurora_postgres_logging_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_sql_server_encryption_in_transit_enabled" {
+  title         = "RDS for SQL Server DB instances should be encrypted in transit"
+  description   = "This control checks whether a connection to an Amazon RDS for Microsoft SQL Server DB instance is encrypted in transit. The control fails if the rds.force_ssl parameter of the parameter group associated with the DB instance is set to 0 (off)."
+  query         = query.rds_db_instance_sql_server_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_sql_server_logging_enabled" {
+  title         = "RDS for SQL Server DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for Microsoft SQL Server DB instance is configured to publish logs to Amazon CloudWatch Logs. The control fails if the RDS for SQL Server DB instance isn't configured to publish logs to CloudWatch Logs. You can optionally specify the types of logs that a DB instance should be configured to publish."
+  query         = query.rds_db_instance_sql_server_logging_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_mariadb_logging_enabled" {
+  title         = "42 RDS for MariaDB DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for MariaDB DB instance is configured to publish certain types of logs to Amazon CloudWatch Logs. The control fails if the MariaDB DB instance isn't configured to publish the logs to CloudWatch Logs. You can optionally specify which types of logs a MariaDB DB instance should be configured to publish."
+  query         = query.rds_db_instance_mariadb_logging_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_instance_mariadb_encryption_in_transit_enabled" {
+  title         = "RDS for MariaDB DB instances should be encrypted in transit"
+  description   = "This control checks whether connections to an Amazon RDS for MariaDB DB instance are encrypted in transit. The control fails if the DB parameter group associated with the DB instance is not in sync, or the require_secure_transport parameter of the parameter group is not set to ON."
+  query         = query.rds_db_instance_mariadb_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -1600,21 +1648,224 @@ query "rds_db_cluster_automatic_minor_version_upgrade_enabled" {
 
 query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
   sql = <<-EOQ
+    with pg_with_audit_logging_enabled as (
+      select
+        pg.name,
+        pg.account_id,
+        pg.region
+      from
+        aws_rds_db_cluster as c,
+        aws_rds_db_cluster_parameter_group as pg,
+        jsonb_array_elements(parameters) as p
+      where
+        pg.name = c.db_cluster_parameter_group
+        and pg.account_id = c.account_id
+        and pg.region = c.region
+        and p ->> 'ParameterName' = 'server_audit_logging'
+        and p ->> 'ParameterValue' = '1'
+    )
     select
       arn as resource,
       case
-        when engine not ilike '%aurora-mysql%' then 'skip'
-        when enabled_cloudwatch_logs_exports @> '["audit"]' then 'ok'
+        when engine <> 'aurora-mysql' then 'skip'
+        when p.name is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when engine not ilike '%aurora-mysql%' then title || ' is not Aurora MySQL-compatible edition.'
-        when enabled_cloudwatch_logs_exports @> '["audit"]' then title || ' audit logging enabled.'
+        when engine <> 'aurora-mysql' then title || ' is not Aurora MySQL-compatible edition.'
+        when p.name is not null then title || ' audit logging enabled.'
         else title || ' audit logging disabled.'
       end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
     from
-      aws_rds_db_cluster;
+      aws_rds_db_cluster as i
+      left join pg_with_audit_logging_enabled as p on p.name = i.db_cluster_parameter_group and p.account_id = i.account_id and p.region = i.region;
+  EOQ
+}
+
+query "rds_db_instance_postgres_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'postgres' then 'skip'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'postgres' then title || ' is of ' || engine || ' type.'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_postgres_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'aurora-postgresql' then 'skip'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then 'ok'
+        else 'ok'
+      end as status,
+      case
+        when engine <> 'aurora-postgresql' then title || ' is of ' || engine || ' type.
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_sql_server_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not i.engine like 'sqlserver%' then 'skip'
+        when enabled_cloudwatch_logs_exports ?& array ['error'] then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not i.engine like 'sqlserver% then title || ' is of ' || engine || ' type.'
+        when enabled_cloudwatch_logs_exports ?& array ['error'] then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_sql_server_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    with instance_pg as (
+      select
+        g ->> 'DBParameterGroupName' as pg_name,
+        i.engine,
+        i.title,
+        i.arn,
+        i.tags,
+        i.region,
+        i.account_id,
+        i._ctx
+      from
+        aws_rds_db_instance as i,
+        jsonb_array_elements(db_parameter_groups) as g
+    ), pg_with_ssl_enabled as (
+      select
+        g.name
+      from
+        instance_pg as i,
+        aws_rds_db_parameter_group as g,
+        jsonb_array_elements(parameters) as p
+      where
+        i.pg_name = g.name
+        and g.account_id = i.account_id
+        and g.region = i.region
+        and p ->> 'ParameterName' = 'rds.force_ssl'
+        and p ->> 'ParameterValue' = '1'
+    )
+    select
+      i.arn as resource,
+      i.engine,
+      case
+        when not i.engine like 'sqlserver%' then 'skip'
+        when p.name is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not i.engine like 'sqlserver%'  then title || ' has ' || engine || ' engine type.'
+        when p.name is not null then title || ' encryption in transit enabled.'
+        else title || ' encryption in transit disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      instance_pg as i
+      left join pg_with_ssl_enabled as p on p.name = i.pg_name;
+  EOQ
+}
+
+query "rds_db_instance_mariadb_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'mariadb' then 'skip'
+        when enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery'] then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'mariadb' then title || ' is of ' || engine || ' type.'
+        when enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery'] then title || ' logging enabled.'
+        else title || ' logging disabled.'
+      end as reason
+      --${local.tag_dimensions_sql}
+      --${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
+  EOQ
+}
+
+query "rds_db_instance_mariadb_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+     with instance_pg as (
+      select
+        g ->> 'DBParameterGroupName' as pg_name,
+        i.engine,
+        i.title,
+        i.arn,
+        i.tags,
+        i.region,
+        i.account_id,
+        i._ctx
+      from
+        aws_rds_db_instance as i,
+        jsonb_array_elements(db_parameter_groups) as g
+    ), pg_with_encryption_in_transit_enabled as (
+      select
+        g.name,
+        g.account_id,
+        g.region
+      from
+        instance_pg as i,
+        aws_rds_db_parameter_group as g,
+        jsonb_array_elements(parameters) as p
+      where
+        i.pg_name = g.name
+        and g.account_id = i.account_id
+        and g.region = i.region
+        and p ->> 'ParameterName' = 'require_secure_transport'
+        and p ->> 'ParameterValue' = '1'
+    )
+    select
+      i.arn as resource,
+      engine,
+      case
+        when engine <> 'mariadb' then 'skip'
+        when p.name is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'mariadb' then title || ' is of ' || engine || ' type.'
+        when p.name is not null then title || ' encryption in transit enabled.'
+        else title || ' encryption in transit disabled.'
+      end as reason
+      --${local.tag_dimensions_sql}a
+      --${local.common_dimensions_sql}
+    from
+      instance_pg as i
+      left join pg_with_encryption_in_transit_enabled as p on p.name = i.pg_name and p.account_id = i.account_id and p.region = i.region;
   EOQ
 }

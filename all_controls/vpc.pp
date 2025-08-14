@@ -52,6 +52,7 @@ benchmark "all_controls_vpc" {
     control.vpc_configured_to_use_interface_endpoint_for_ssm_contacts,
     control.vpc_configured_to_use_interface_endpoint_for_ssm_incidents,
     control.vpc_vpn_connection_logging_enabled,
+    control.vpc_block_public_access_restrict_internet_gateway_traffic,
   ]
 
   tags = merge(local.all_controls_vpc_common_tags, {
