@@ -10,6 +10,7 @@ benchmark "all_controls_rds" {
   children = [
     control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_cluster_aurora_mysql_audit_logging_enabled,
+    control.rds_db_cluster_aurora_postgres_logging_enabled,
     control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
     control.rds_db_cluster_automatic_minor_version_upgrade_enabled,
@@ -37,22 +38,21 @@ benchmark "all_controls_rds" {
     control.rds_db_instance_in_backup_plan,
     control.rds_db_instance_in_vpc,
     control.rds_db_instance_logging_enabled,
+    control.rds_db_instance_mariadb_encryption_in_transit_enabled,
+    control.rds_db_instance_mariadb_logging_enabled,
     control.rds_db_instance_multiple_az_enabled,
     control.rds_db_instance_no_default_admin_name,
     control.rds_db_instance_no_public_subnet,
+    control.rds_db_instance_postgres_logging_enabled,
     control.rds_db_instance_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_instance_prohibit_public_access,
     control.rds_db_instance_protected_by_backup_plan,
+    control.rds_db_instance_sql_server_encryption_in_transit_enabled,
+    control.rds_db_instance_sql_server_logging_enabled,
     control.rds_db_parameter_group_events_subscription,
     control.rds_db_security_group_events_subscription,
     control.rds_db_snapshot_encrypted_at_rest,
-    control.rds_db_snapshot_prohibit_public_access,
-    control.rds_db_instance_postgres_logging_enabled,
-    control.rds_db_cluster_aurora_postgres_logging_enabled,
-    control.rds_db_instance_sql_server_encryption_in_transit_enabled,
-    control.rds_db_instance_sql_server_logging_enabled,
-    control.rds_db_instance_mariadb_logging_enabled,
-    control.rds_db_instance_mariadb_encryption_in_transit_enabled,
+    control.rds_db_snapshot_prohibit_public_access
   ]
 
   tags = merge(local.all_controls_rds_common_tags, {

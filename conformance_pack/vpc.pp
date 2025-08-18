@@ -2149,8 +2149,8 @@ query "vpc_configured_to_use_interface_endpoint_for_ecr_api" {
         when e.vpc_id is null then v.title || ' not configured to use interface endpoint for ECR API.'
         else v.title || ' configured to use interface endpoint for ECR API.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-     --  ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_vpc v left join vpc_endpoints e using (vpc_id);
   EOQ
@@ -2230,8 +2230,8 @@ query "vpc_configured_to_use_interface_endpoint_for_ssm_contacts" {
         when e.vpc_id is null then v.title || ' not configured to use interface endpoint for SSM contacts.'
         else v.title || ' configured to use interface endpoint for SSM contacts.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-     --  ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_vpc v left join vpc_endpoints e using (vpc_id);
   EOQ

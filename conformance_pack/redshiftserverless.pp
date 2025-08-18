@@ -164,8 +164,8 @@ query "redshiftserverless_workgroup_restrict_public_access" {
         when not publicly_accessible  then title || ' restrict public access.'
         else title || ' allow public access.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_redshiftserverless_workgroup;
   EOQ

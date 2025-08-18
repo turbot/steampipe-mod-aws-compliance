@@ -22,7 +22,7 @@ control "foundational_security_workspaces_1" {
   description   = "This control checks whether a user volume in an Amazon WorkSpaces WorkSpace is encrypted at rest. The control fails if the WorkSpace user volume isn't encrypted at rest."
   severity      = "medium"
   query         = query.workspaces_workspace_user_volume_encryption_enabled
-  documentation = file("./foundational_security/docs/foundational_security_workspaces_2.md")
+  documentation = file("./foundational_security/docs/foundational_security_workspaces_1.md")
 
   tags = merge(local.foundational_security_workspaces_common_tags, {
     foundational_security_item_id  = "workspaces_1"
