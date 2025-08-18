@@ -38,3 +38,22 @@ query "dax_cluster_encryption_at_rest_enabled" {
       aws_dax_cluster;
   EOQ
 }
+
+query "dax_cluster_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cluster_endpoint_encryption_type = 'TLS' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cluster_endpoint_encryption_type = 'TLS' then title || ' encryption in transit rest enabled.'
+        else title || '  encryption in transit disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dax_cluster;
+  EOQ
+}
