@@ -20,6 +20,14 @@ control "iam_access_analyzer_enabled" {
   tags = local.conformance_pack_iam_common_tags
 }
 
+control "iam_root_user_account_console_access_mfa_enabled" {
+  title       = "Ensure that the root user account has MFA enabled for console access"
+  description = "This control checks whether the root user account has multi-factor authentication (MFA) enabled for console access. The control fails if the root user account does not have MFA enabled for console access."
+  query       = query.iam_root_user_account_console_access_mfa_enabled
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
 control "iam_user_group_role_cloudshell_fullaccess_restricted" {
   title       = "Ensure access to AWSCloudShellFullAccess is restricted"
   description = "This control checks whether the AWSCloudShellFullAccess policy is attached to any IAM user, group, or role. The control fails if the policy is attached to any IAM user, group, or role."
@@ -929,6 +937,25 @@ query "iam_root_user_mfa_enabled" {
         when account_mfa_enabled then 'MFA enabled for root account.'
         else 'MFA not enabled for root account.'
       end reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_account_summary;
+  EOQ
+}
+
+query "iam_root_user_account_console_access_mfa_enabled" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':::' || account_id as resource,
+      case
+        when account_password_present and not account_mfa_enabled then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when not account_password_present then 'Console sign-in disabled for root account.'
+        when account_password_present and not account_mfa_enabled then 'Console sign-in enabled for root account but no MFA device configured.'
+        else 'Console sign-in enabled for root account and MFA device configured.'
+      end as reason
       ${local.common_dimensions_global_sql}
     from
       aws_iam_account_summary;

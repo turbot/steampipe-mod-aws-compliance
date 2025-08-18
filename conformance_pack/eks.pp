@@ -101,6 +101,7 @@ query "eks_cluster_secrets_encrypted" {
         a.tags,
         a.region,
         a.account_id,
+        a._ctx,
         cast(split_part(a.version, '.', 1) as integer) as major_version,
         cast(split_part(a.version, '.', 2) as integer) as minor_version,
         b.arn as encrypted

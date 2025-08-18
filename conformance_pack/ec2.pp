@@ -533,11 +533,18 @@ control "ec2_network_interface_unused" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_instance_using_iam_instance_role" {
+  title         = "Ensure IAM instance roles are used for AWS resource access from instances"
+  description   = "AWS access from within AWS instances can be done by either encoding AWS keys into AWS API calls or by assigning the instance to a role which has an appropriate permissions policy for the required access. \"AWS Access\" means accessing the APIs of AWS in order to access AWS resources or manage AWS account resources."
+  query         = query.ec2_instance_using_iam_instance_role
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 control "ec2_launch_template_default_version_uses_imdsv2" {
   title         = "EC2 launch templates should use Instance Metadata Service Version 2 (IMDSv2)"
   description   = "This control checks whether an Amazon EC2 launch template is configured with Instance Metadata Service Version 2 (IMDSv2). The control fails if HttpTokens is set to optional."
   query         = query.ec2_launch_template_default_version_uses_imdsv2
-
   tags = local.conformance_pack_ec2_common_tags
 }
 
@@ -545,7 +552,6 @@ control "ec2_network_inteface_source_destination_check_enabled" {
   title         = "EC2 network interfaces should have source/destination checking enabled"
   description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
   query         = query.ec2_network_inteface_source_destination_check_enabled
-
   tags = local.conformance_pack_ec2_common_tags
 }
 
@@ -746,12 +752,12 @@ query "ec2_instance_uses_imdsv2" {
     select
       arn as resource,
       case
-        when metadata_options ->> 'HttpTokens' = 'optional' then 'alarm'
-        else 'ok'
+        when metadata_options ->> 'HttpTokens' = 'required' and metadata_options ->> 'State' = 'applied' then 'ok'
+        else 'alarm'
       end as status,
       case
-        when metadata_options ->> 'HttpTokens' = 'optional' then title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
-        else title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        when metadata_options ->> 'HttpTokens' = 'required' and metadata_options ->> 'State' = 'applied' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
+        else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -2072,6 +2078,25 @@ query "ec2_network_interface_unused" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_network_interface;
+  EOQ
+}
+
+query "ec2_instance_using_iam_instance_role" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when iam_instance_profile_arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when iam_instance_profile_arn is not null then title || ' uses IAM role for access.'
+        else title || ' does not use IAM role for access.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_instance;
   EOQ
 }
 

@@ -1,3 +1,20 @@
+## v1.7.0 [2025-08-13]
+
+_Enhancements_
+
+- Updated all top-level benchmark titles to include `AWS` for clearer cloud provider identification. ([#924](https://github.com/turbot/steampipe-mod-aws-compliance/pull/924))
+- Added `database` variable to configure the Steampipe database connection string, defaulting to `connection.steampipe.default`. ([#926](https://github.com/turbot/steampipe-mod-aws-compliance/pull/926))
+- Added new automated query implementations for the following CIS controls: ([#927](https://github.com/turbot/steampipe-mod-aws-compliance/pull/927))
+  - `cis_v120_1_19`
+  - `cis_v130_1_18`
+  - `cis_v140_1_18`
+  - `cis_v150_1_18`
+  - `cis_v200_1_18`
+  - `cis_v300_1_18`
+  - `cis_v400_1_18`
+  - `cis_v500_1_17`
+- Added `ec2_instance_using_iam_instance_role` and `iam_root_user_account_console_access_mfa_enabled` queries to the `All AWS Compliance Controls` benchmark. ([#927](https://github.com/turbot/steampipe-mod-aws-compliance/pull/927))
+
 ## v1.6.2 [2025-07-24]
 
 _Bug fixes_
