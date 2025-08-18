@@ -10,7 +10,8 @@ benchmark "foundational_security_kms" {
   children = [
     control.foundational_security_kms_1,
     control.foundational_security_kms_2,
-    control.foundational_security_kms_3
+    control.foundational_security_kms_3,
+    control.foundational_security_kms_5
   ]
 
   tags = merge(local.foundational_security_kms_common_tags, {
@@ -56,3 +57,17 @@ control "foundational_security_kms_3" {
     foundational_security_category = "data_deletion_protection"
   })
 }
+
+control "foundational_security_kms_5" {
+  title         = "5 KMS keys should not be publicly accessible"
+  description   = "This controls checks whether an AWS KMS key is publicly accessible. The control fails if the KMS key is publicly accessible."
+  severity      = "critical"
+  query         = query.kms_cmk_policy_prohibit_public_access
+  documentation = file("./foundational_security/docs/foundational_security_kms_5.md")
+
+  tags = merge(local.foundational_security_kms_common_tags, {
+    foundational_security_item_id  = "kms_5"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+

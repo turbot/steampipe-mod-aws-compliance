@@ -1,6 +1,6 @@
 locals {
   all_controls_redshiftserverless_common_tags = merge(local.all_controls_common_tags, {
-    service = "AWS/PrivateCertificateAuthority"
+    service = "AWS/RedshiftServerless"
   })
 }
 

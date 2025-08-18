@@ -1677,7 +1677,7 @@ query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
         else title || ' audit logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       aws_rds_db_cluster as i
       left join pg_with_audit_logging_enabled as p on p.name = i.db_cluster_parameter_group and p.account_id = i.account_id and p.region = i.region;
@@ -1862,10 +1862,31 @@ query "rds_db_instance_mariadb_encryption_in_transit_enabled" {
         when p.name is not null then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
       end as reason
-      ${local.tag_dimensions_sql}a
-      ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "i.")}
     from
       instance_pg as i
       left join pg_with_encryption_in_transit_enabled as p on p.name = i.pg_name and p.account_id = i.account_id and p.region = i.region;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_mysql_publish_audit_log_to_cloudwatch" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'aurora-mysql' then 'skip'
+        when enabled_cloudwatch_logs_exports ?& array ['audit'] then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'aurora-mysql' then title || ' is of ' || engine || ' type.'
+        when enabled_cloudwatch_logs_exports ?& array ['audit'] then title || ' publish audit logs to CloudWatch.'
+        else title || ' does not publish audit logs to CloudWatch.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_instance;
   EOQ
 }

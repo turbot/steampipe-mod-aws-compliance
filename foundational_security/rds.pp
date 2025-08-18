@@ -392,7 +392,7 @@ control "foundational_security_rds_34" {
   title         = "34 Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
   description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
   severity      = "medium"
-  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+  query         = query.rds_db_cluster_aurora_mysql_publish_audit_log_to_cloudwatch
   documentation = file("./foundational_security/docs/foundational_security_rds_34.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
