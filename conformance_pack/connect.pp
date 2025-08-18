@@ -14,20 +14,31 @@ control "connect_instance_logging_enabled" {
 
 query "connect_instance_logging_enabled" {
   sql = <<-EOQ
+    with contactflow_logs_attribute as (
+      select
+        concat('arn:', a.partition, ':connect:', a.region, ':', a.account_id, ':instance/', a.instance_id) as instance_id
+      from
+        aws_connect_instance as i
+        left join aws_connect_instance_attribute as a on i.arn = concat('arn:', a.partition, ':connect:', a.region, ':', a.account_id, ':instance/', a.instance_id)
+      where
+        attribute_type = 'CONTACTFLOW_LOGS'
+        and value = 'true'
+    )
     select
       arn as resource,
       case
-        when (contactflow_logs)::bool then 'ok'
+        when a.instance_id is not null then 'ok'
         else 'alarm'
       end as status,
       case
-        when (contactflow_logs)::bool then title || ' logging enabled.'
+        when a.instance_id is not null then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_connect_instance;
+      aws_connect_instance as i
+      left join contactflow_logs_attribute as a on a.instance_id = i.arn;
   EOQ
 }
 

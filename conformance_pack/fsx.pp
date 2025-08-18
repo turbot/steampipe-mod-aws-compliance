@@ -133,8 +133,8 @@ query "fsx_lustre_file_system_copy_tags_to_backup_enabled" {
         when (lustre_configuration ->> 'CopyTagsToBackups')::bool then title || ' copy tags to backup enabled.'
         else title || ' copy tags to backup disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_fsx_file_system;
   EOQ
@@ -154,8 +154,8 @@ query "fsx_openzfs_file_system_multi_az_deployment_enabled" {
         when open_zfs_configuration ->> 'DeploymentType' = 'MULTI_AZ_1' then title || ' Multi-AZ deployment enabled.'
         else title || ' Multi-AZ deployment disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_fsx_file_system;
   EOQ
@@ -175,8 +175,8 @@ query "fsx_netapp_ontap_file_system_multi_az_deployment_enabled" {
         when (ontap_configuration ->> 'DeploymentType') in ('MULTI_AZ_1', 'MULTI_AZ_2') then title || ' Multi-AZ deployment enabled.'
         else title || ' Multi-AZ deployment disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_fsx_file_system;
   EOQ
@@ -196,8 +196,8 @@ query "fsx_windows_file_system_multi_az_deployment_enabled" {
         when (windows_configuration ->> 'DeploymentType') = 'MULTI_AZ_1' then title || ' Multi-AZ deployment enabled.'
         else title || ' Multi-AZ deployment disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_fsx_file_system;
   EOQ

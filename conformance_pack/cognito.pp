@@ -24,8 +24,8 @@ query "cognito_identity_pools_restrict_unauthenticated_identities" {
         when not allow_unauthenticated_identities then title || ' restrict unauthenticated identities.'
         else title || ' allow unauthenticated identities.'
       end as reason
-      ${local.tag_dimensions_qualifier_sql}
-      ${local.common_dimensions_qualifier_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_cognito_identity_pool;
   EOQ

@@ -14,6 +14,7 @@ benchmark "foundational_security_dms" {
     control.foundational_security_dms_8,
     control.foundational_security_dms_9,
     control.foundational_security_dms_10,
+    control.foundational_security_dms_11,
     control.foundational_security_dms_12,
   ]
 

@@ -1676,8 +1676,8 @@ query "rds_db_cluster_aurora_mysql_audit_logging_enabled" {
         when p.name is not null then title || ' audit logging enabled.'
         else title || ' audit logging disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_rds_db_cluster as i
       left join pg_with_audit_logging_enabled as p on p.name = i.db_cluster_parameter_group and p.account_id = i.account_id and p.region = i.region;
@@ -1698,8 +1698,8 @@ query "rds_db_instance_postgres_logging_enabled" {
         when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
   EOQ
@@ -1715,12 +1715,12 @@ query "rds_db_cluster_aurora_postgres_logging_enabled" {
         else 'ok'
       end as status,
       case
-        when engine <> 'aurora-postgresql' then title || ' is of ' || engine || ' type.
-        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then title || ' logging enabled.'
+        when engine <> 'aurora-postgresql' then title || ' is of ' || engine || ' type.'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql', 'upgrade'] then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
   EOQ
@@ -1731,17 +1731,17 @@ query "rds_db_instance_sql_server_logging_enabled" {
     select
       arn as resource,
       case
-        when not i.engine like 'sqlserver%' then 'skip'
+        when not engine like 'sqlserver%' then 'skip'
         when enabled_cloudwatch_logs_exports ?& array ['error'] then 'ok'
         else 'alarm'
       end as status,
       case
-        when not i.engine like 'sqlserver% then title || ' is of ' || engine || ' type.'
+        when not engine like 'sqlserver%' then title || ' is of ' || engine || ' type.'
         when enabled_cloudwatch_logs_exports ?& array ['error'] then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
   EOQ
@@ -1789,8 +1789,8 @@ query "rds_db_instance_sql_server_encryption_in_transit_enabled" {
         when p.name is not null then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       instance_pg as i
       left join pg_with_ssl_enabled as p on p.name = i.pg_name;
@@ -1811,8 +1811,8 @@ query "rds_db_instance_mariadb_logging_enabled" {
         when enabled_cloudwatch_logs_exports ?& array ['audit','error','general','slowquery'] then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
-      --${local.tag_dimensions_sql}
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_rds_db_instance;
   EOQ
@@ -1862,8 +1862,8 @@ query "rds_db_instance_mariadb_encryption_in_transit_enabled" {
         when p.name is not null then title || ' encryption in transit enabled.'
         else title || ' encryption in transit disabled.'
       end as reason
-      --${local.tag_dimensions_sql}a
-      --${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}a
+      ${local.common_dimensions_sql}
     from
       instance_pg as i
       left join pg_with_encryption_in_transit_enabled as p on p.name = i.pg_name and p.account_id = i.account_id and p.region = i.region;

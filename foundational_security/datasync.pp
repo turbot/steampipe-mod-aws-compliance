@@ -8,7 +8,7 @@ benchmark "foundational_security_datasync" {
   title         = "DataSync"
   documentation = file("./foundational_security/docs/foundational_security_datasync.md")
   children = [
-    control.foundational_security_config_1
+    control.foundational_security_datasync_1
   ]
 
   tags = merge(local.foundational_security_datasync_common_tags, {

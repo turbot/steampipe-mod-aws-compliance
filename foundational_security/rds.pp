@@ -475,7 +475,7 @@ control "foundational_security_rds_42" {
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_42"
-    foundational_security_category = "Logging"
+    foundational_security_category = "logging"
   })
 }
 
@@ -501,7 +501,7 @@ control "foundational_security_rds_45" {
 
   tags = merge(local.foundational_security_rds_common_tags, {
     foundational_security_item_id  = "rds_45"
-    foundational_security_category = "Logging"
+    foundational_security_category = "logging"
   })
 }
 
