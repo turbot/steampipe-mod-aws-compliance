@@ -23,6 +23,8 @@ benchmark "all_controls" {
     benchmark.all_controls_codebuild,
     benchmark.all_controls_codedeploy,
     benchmark.all_controls_config,
+    benchmark.all_controls_connect,
+    benchmark.all_controls_datasync,
     benchmark.all_controls_dax,
     benchmark.all_controls_directoryservice,
     benchmark.all_controls_dlm,
@@ -60,6 +62,7 @@ benchmark "all_controls" {
     benchmark.all_controls_pca,
     benchmark.all_controls_rds,
     benchmark.all_controls_redshift,
+    benchmark.all_controls_redshiftserverless,
     benchmark.all_controls_route53,
     benchmark.all_controls_s3,
     benchmark.all_controls_sagemaker,
@@ -73,8 +76,6 @@ benchmark "all_controls" {
     benchmark.all_controls_waf,
     benchmark.all_controls_wafv2,
     benchmark.all_controls_workspaces,
-    benchmark.all_controls_datasync,
-    benchmark.all_controls_connect,
   ]
 
   tags = local.all_controls_common_tags
