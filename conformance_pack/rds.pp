@@ -1711,18 +1711,18 @@ query "rds_db_cluster_aurora_postgres_logging_enabled" {
       arn as resource,
       case
         when engine <> 'aurora-postgresql' then 'skip'
-        when enabled_cloudwatch_logs_exports ?& array ['postgresql','upgrade'] then 'ok'
-        else 'ok'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql'] then 'ok'
+        else 'alarm'
       end as status,
       case
         when engine <> 'aurora-postgresql' then title || ' is of ' || engine || ' type.'
-        when enabled_cloudwatch_logs_exports ?& array ['postgresql', 'upgrade'] then title || ' logging enabled.'
+        when enabled_cloudwatch_logs_exports ?& array ['postgresql'] then title || ' logging enabled.'
         else title || ' logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_rds_db_instance;
+      aws_rds_db_cluster;
   EOQ
 }
 
@@ -1887,6 +1887,6 @@ query "rds_db_cluster_aurora_mysql_publish_audit_log_to_cloudwatch" {
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
-      aws_rds_db_instance;
+      aws_rds_db_cluster;
   EOQ
 }

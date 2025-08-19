@@ -123,6 +123,6 @@ control "foundational_security_dms_12" {
 
   tags = merge(local.foundational_security_dms_common_tags, {
     foundational_security_item_id  = "dms_12"
-    foundational_security_category = "encryption_of_data_intransit"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }

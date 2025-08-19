@@ -32,7 +32,7 @@ control "foundational_security_sqs_1" {
 
 control "foundational_security_sqs_3" {
   title         = "3 SQS queue access policies should not allow public access"
-  description   = "This control checks whether Amazon SQS queues are encrypted at rest."
+  description   = "This controls checks whether an Amazon SQS access policy allows public access to an SQS queue. The control fails if an SQS access policy allows public access to the queue."
   severity      = "medium"
   query         = query.sqs_queue_policy_prohibit_public_access
   documentation = file("./foundational_security/docs/foundational_security_sqs_3.md")

@@ -23,7 +23,7 @@ control "foundational_security_connect_2" {
   query         = query.connect_instance_logging_enabled
   documentation = file("./foundational_security/docs/foundational_security_connect_2.md")
 
-  tags = merge(local.foundational_security_config_common_tags, {
+  tags = merge(local.foundational_security_connect_common_tags, {
     foundational_security_item_id  = "connect_2"
     foundational_security_category = "logging"
   })

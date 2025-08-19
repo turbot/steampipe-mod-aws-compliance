@@ -2127,7 +2127,7 @@ query "ec2_network_inteface_source_destination_check_enabled" {
       case
         when interface_type not in ('aws_codestar_connections_managed', 'branch', 'efa', 'interface', 'lambda', 'quicksight') then 'skip'
         when source_dest_check then 'ok'
-        else 'ok'
+        else 'alarm'
       end as status,
       case
         when interface_type not in ('aws_codestar_connections_managed', 'branch', 'efa', 'interface', 'lambda', 'quicksight') then title || ' is of ' || interface_type || ' network interface.'
