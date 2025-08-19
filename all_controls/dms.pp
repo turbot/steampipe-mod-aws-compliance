@@ -11,6 +11,7 @@ benchmark "all_controls_dms" {
     control.dms_certificate_not_expired,
     control.dms_endpoint_mongo_db_authentication_enabled,
     control.dms_endpoint_neptune_database_iam_authorization_enabled,
+    control.dms_endpoint_redis_tls_enabled,
     control.dms_endpoint_ssl_configured,
     control.dms_replication_instance_automatic_minor_version_upgrade_enabled,
     control.dms_replication_instance_not_publicly_accessible,

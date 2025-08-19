@@ -22,6 +22,7 @@ benchmark "all_controls" {
     benchmark.all_controls_cloudwatch,
     benchmark.all_controls_codebuild,
     benchmark.all_controls_codedeploy,
+    benchmark.all_controls_cognito,
     benchmark.all_controls_config,
     benchmark.all_controls_connect,
     benchmark.all_controls_datasync,
