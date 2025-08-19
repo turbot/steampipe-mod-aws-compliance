@@ -17,7 +17,7 @@ control "appsync_graphql_api_field_level_logging_enabled" {
 
 control "appsync_graphql_api_cache_encryption_in_transit_enabled" {
   title         = "AWS AppSync API caches should be encrypted in transit"
-  description   = "This control checks whether an AWS AppSync API cache is encrypted in transit. The control fails if the API cache isn't encrypted in transit.."
+  description   = "This control checks whether an AWS AppSync API cache is encrypted in transit. The control fails if the API cache isn't encrypted in transit."
   query         = query.appsync_graphql_api_cache_encryption_in_transit_enabled
 
   tags = local.conformance_pack_appsync_common_tags

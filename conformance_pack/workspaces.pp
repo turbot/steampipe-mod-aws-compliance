@@ -12,6 +12,22 @@ control "workspaces_workspace_volume_encryption_enabled" {
   tags = local.conformance_pack_workspaces_common_tags
 }
 
+control "workspaces_workspace_user_volume_encryption_enabled" {
+  title         = "WorkSpaces user volumes should be encrypted at rest"
+  description   = "This control checks whether a user volume in an Amazon WorkSpaces WorkSpace is encrypted at rest. The control fails if the WorkSpace user volume isn't encrypted at rest."
+  query         = query.workspaces_workspace_user_volume_encryption_enabled
+
+  tags = local.conformance_pack_workspaces_common_tags
+}
+
+control "workspaces_workspace_root_volume_encryption_enabled" {
+  title         = "WorkSpaces root volumes should be encrypted at rest"
+  description   = "This control checks whether a root volume in an Amazon WorkSpaces WorkSpace is encrypted at rest. The control fails if the WorkSpace root volume isn't encrypted at rest."
+  query         = query.workspaces_workspace_root_volume_encryption_enabled
+
+  tags = local.conformance_pack_workspaces_common_tags
+}
+
 query "workspaces_workspace_volume_encryption_enabled" {
   sql = <<-EOQ
     select

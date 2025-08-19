@@ -87,7 +87,7 @@ control "dms_endpoint_neptune_database_iam_authorization_enabled" {
 }
 
 control "dms_endpoint_redis_tls_enabled" {
-  title         = "1DMS endpoints for Redis OSS should have TLS enabled"
+  title         = "DMS endpoints for Redis OSS should have TLS enabled"
   description   = "This control checks whether an AWS DMS endpoint for Redis OSS is configured with a TLS connection. The control fails if the endpoint doesn't have TLS enabled."
   query         = query.dms_endpoint_redis_tls_enabled
 

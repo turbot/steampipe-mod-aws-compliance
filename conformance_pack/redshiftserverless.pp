@@ -44,6 +44,14 @@ control "redshiftserverless_workgroup_restrict_public_access" {
   tags = local.conformance_pack_redshiftserverless_common_tags
 }
 
+control "redshiftserverless_namespace_export_connection_and_user_log_to_cloudwatch" {
+  title         = "Redshift Serverless namespaces should export logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon Redshift Serverless namespace is configured to export connection and user logs to Amazon CloudWatch Logs. The control fails if the Redshift Serverless namespace isn't configured to export the logs to CloudWatch Logs."
+  query         = query.redshiftserverless_namespace_export_connection_and_user_log_to_cloudwatch
+
+  tags = local.conformance_pack_redshiftserverless_common_tags
+}
+
 query "redshiftserverless_namespace_no_default_admin_username" {
   sql = <<-EOQ
     select

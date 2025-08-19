@@ -8,6 +8,7 @@ benchmark "all_controls_redshiftserverless" {
   title       = "Redshift Serverless"
   description = "This section contains recommendations for configuring Redshift Serverless resources."
   children = [
+    control.redshiftserverless_namespace_export_connection_and_user_log_to_cloudwatch,
     control.redshiftserverless_namespace_no_default_admin_username,
     control.redshiftserverless_namespace_no_default_database_username,
     control.redshiftserverless_workgroup_encryption_in_transit_enabled,

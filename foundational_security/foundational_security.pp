@@ -60,7 +60,9 @@ benchmark "foundational_security" {
     benchmark.foundational_security_sns,
     benchmark.foundational_security_sqs,
     benchmark.foundational_security_ssm,
+    benchmark.foundational_security_transfer,
     benchmark.foundational_security_waf,
+    benchmark.foundational_security_workspaces,
     benchmark.foundational_security_redshiftserverless
   ]
 

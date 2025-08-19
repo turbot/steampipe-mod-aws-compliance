@@ -155,14 +155,6 @@ control "dynamodb_table_deletion_protection_enabled" {
   tags = local.conformance_pack_dynamodb_common_tags
 }
 
-control "dax_cluster_encryption_in_transit_enabled" {
-  title         = "DynamoDB Accelerator clusters should be encrypted in transit"
-  description   = "This control checks whether an Amazon DynamoDB Accelerator (DAX) cluster is encrypted in transit, with the endpoint encryption type set to TLS. The control fails if the DAX cluster isn't encrypted in transit."
-  query         = query.dax_cluster_encryption_in_transit_enabled
-
-  tags = local.conformance_pack_dynamodb_common_tags
-}
-
 query "dynamodb_table_auto_scaling_enabled" {
   sql = <<-EOQ
     with table_with_autocaling as (

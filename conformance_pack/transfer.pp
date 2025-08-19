@@ -5,7 +5,7 @@ locals {
 }
 
 control "transfer_server_no_ftp_protocol" {
-  title         = "2 Transfer Family servers should not use FTP protocol for endpoint connection"
+  title         = "Transfer Family servers should not use FTP protocol for endpoint connection"
   description   = "This control checks whether an AWS Transfer Family server uses a protocol other than FTP for endpoint connection. The control fails if the server uses FTP protocol for a client to connect to the server's endpoint."
   query         = query.transfer_server_no_ftp_protocol
 

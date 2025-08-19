@@ -30,7 +30,6 @@ control "foundational_security_workspaces_1" {
   })
 }
 
-
 control "foundational_security_workspaces_2" {
   title         = "2 WorkSpaces root volumes should be encrypted at rest"
   description   = "This control checks whether a root volume in an Amazon WorkSpaces WorkSpace is encrypted at rest. The control fails if the WorkSpace root volume isn't encrypted at rest."

@@ -625,7 +625,7 @@ control "rds_db_instance_sql_server_logging_enabled" {
 }
 
 control "rds_db_instance_mariadb_logging_enabled" {
-  title         = "42 RDS for MariaDB DB instances should publish logs to CloudWatch Logs"
+  title         = "RDS for MariaDB DB instances should publish logs to CloudWatch Logs"
   description   = "This control checks whether an Amazon RDS for MariaDB DB instance is configured to publish certain types of logs to Amazon CloudWatch Logs. The control fails if the MariaDB DB instance isn't configured to publish the logs to CloudWatch Logs. You can optionally specify which types of logs a MariaDB DB instance should be configured to publish."
   query         = query.rds_db_instance_mariadb_logging_enabled
 

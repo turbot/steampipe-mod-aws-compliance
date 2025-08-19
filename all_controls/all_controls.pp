@@ -72,6 +72,7 @@ benchmark "all_controls" {
     benchmark.all_controls_sns,
     benchmark.all_controls_sqs,
     benchmark.all_controls_ssm,
+    benchmark.all_controls_transfer,
     benchmark.all_controls_vpc,
     benchmark.all_controls_waf,
     benchmark.all_controls_wafv2,
