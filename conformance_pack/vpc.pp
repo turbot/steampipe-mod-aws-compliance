@@ -2295,3 +2295,21 @@ query "vpc_vpn_connection_logging_enabled" {
       left join tunnel_logging as b on a.arn = b.arn;
   EOQ
 }
+
+query "vpc_block_public_access_restrict_internet_gateway_traffic" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || '::' || region || ':' || account_id as resource,
+      case
+        when internet_gateway_block_mode in ('block-bidirectional', 'block-ingress') then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when internet_gateway_block_mode in ('block-bidirectional', 'block-ingress') then title || ' restrict internet gateway traffic.'
+        else title || ' allow internet gateway traffic.'
+      end as reason
+      -- ${local.common_dimensions_sql}
+    from
+      aws_vpc_block_public_access_options;
+  EOQ
+}

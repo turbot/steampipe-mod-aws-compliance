@@ -1281,3 +1281,54 @@ query "s3_access_point_restrict_public_access" {
       aws_s3_access_point;
   EOQ
 }
+
+query "s3_multi_region_access_point_public_access_block" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':s3::' || account_id || ':accesspoint/' || alias as resource,
+      case
+        when (public_access_block -> 'BlockPublicAcls')::bool
+          and (public_access_block -> 'BlockPublicPolicy')::bool
+          and (public_access_block -> 'IgnorePublicAcls')::bool
+          and (public_access_block -> 'RestrictPublicBuckets')::bool
+          then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (public_access_block -> 'BlockPublicAcls')::bool
+          and (public_access_block -> 'BlockPublicPolicy')::bool
+          and (public_access_block -> 'IgnorePublicAcls')::bool
+          and (public_access_block -> 'RestrictPublicBuckets')::bool
+          then title || ' block public access settings enabled.'
+        else title || ' public access settings not enabled for: ' ||
+          concat_ws(', ',
+            case when not (public_access_block -> 'BlockPublicAcls')::bool then 'BlockPublicAcls' end,
+            case when not (public_access_block -> 'BlockPublicPolicy')::bool then 'BlockPublicPolicy' end,
+            case when not (public_access_block -> 'IgnorePublicAcls')::bool then 'IgnorePublicAcls' end,
+            case when not (public_access_block -> 'RestrictPublicBuckets')::bool then 'RestrictPublicBuckets' end
+          ) || '.'
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_s3_multi_region_access_point;
+  EOQ
+}
+
+query "s3_bucket_lifecycle_policy_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when lifecycle_rules is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when lifecycle_rules is not null then name || ' lifecycle policy configured.'
+        else name || ' lifecycle policy not configured.'
+      end reason
+      -- ${local.tag_dimensions_qualifier_sql}
+      -- ${local.common_dimensions_qualifier_sql}
+    from
+      aws_s3_directory_bucket;
+  EOQ
+}

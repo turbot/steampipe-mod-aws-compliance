@@ -52,6 +52,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_pca,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
+    benchmark.foundational_security_redshiftserverless,
     benchmark.foundational_security_route53,
     benchmark.foundational_security_s3,
     benchmark.foundational_security_sagemaker,
@@ -62,8 +63,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_ssm,
     benchmark.foundational_security_transfer,
     benchmark.foundational_security_waf,
-    benchmark.foundational_security_workspaces,
-    benchmark.foundational_security_redshiftserverless
+    benchmark.foundational_security_workspaces
   ]
 
   tags = merge(local.foundational_security_common_tags, {

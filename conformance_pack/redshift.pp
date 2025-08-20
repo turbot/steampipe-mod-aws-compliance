@@ -501,3 +501,88 @@ query "redshift_cluster_encrypted_with_cmk" {
       left join kms_keys as c on r.kms_key_id = c.arn;
   EOQ
 }
+
+query "redshift_cluster_multiple_az_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when multi_az then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when multi_az then title || ' Multi-AZ enabled.'
+        else title || ' Multi-AZ disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster;
+  EOQ
+}
+
+query "redshift_cluster_sg_restrict_ingress_redshift_port" {
+  sql = <<-EOQ
+    with redshift_security_groups as (
+      select
+        arn,
+        sg ->> 'VpcSecurityGroupId' as security_group_id,
+        region,
+        account_id,
+        coalesce((endpoint ->> 'Port')::int, 5439) as redshift_port
+      from
+        aws_redshift_cluster,
+        jsonb_array_elements(vpc_security_groups) as sg
+    ), ingress_redshift_port as (
+      select
+        distinct rsg.arn as redshift_arn,
+        group_id as sg_id,
+        redshift_port
+      from
+        redshift_security_groups as rsg
+        left join aws_vpc_security_group_rule as sgr on sgr.group_id = rsg.security_group_id
+      where
+        type = 'ingress'
+        and
+          (cidr_ipv4 = '0.0.0.0/0'
+          or cidr_ipv6 = '::/0')
+        and
+        (
+          ( ip_protocol = '-1'
+          and from_port is null
+          )
+          or (
+            from_port <= redshift_port
+            and to_port >= redshift_port
+          )
+        )
+      group by
+        group_id,
+        rsg.arn,
+        rsg.redshift_port
+    ), redshift_sg_agg as (
+      select
+        redshift_arn,
+        redshift_port,
+        array_agg(distinct sg_id) as offending_sgs,
+        count(distinct sg_id)  as offending_sg_count
+      from ingress_redshift_port
+      group by redshift_arn, redshift_port
+    )
+    select
+      arn as resource,
+      case
+        when offending_sg_count > 0  then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when offending_sg_count > 0  then title || ' contains ' || offending_sg_count || ' security groups ' || array_to_string(coalesce(offending_sgs, array[]::text[]), ', ') || ' with ingress rule(s) from 0.0.0.0/0 or ::/0 to Redshift port ' ||  p.redshift_port || '.'
+        else title || ' has no security groups with ingress from 0.0.0.0/0 or ::/0 to Redshift port.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_redshift_cluster as r
+      left join redshift_sg_agg as p on p.redshift_arn = r.arn;
+  EOQ
+}

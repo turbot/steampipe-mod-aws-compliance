@@ -30,3 +30,22 @@ query "transfer_server_no_ftp_protocol" {
       aws_transfer_server;
   EOQ
 }
+
+query "transfer_connector_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when logging_role is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when logging_role is not null then title || ' logging enabled'
+        else title || ' logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_transfer_connector;
+  EOQ
+}

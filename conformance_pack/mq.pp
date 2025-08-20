@@ -30,3 +30,41 @@ query "mq_broker_restrict_public_access" {
       aws_mq_broker;
   EOQ
 }
+
+query "mq_broker_audit_log_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (logs -> 'Audit')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (logs -> 'Audit')::bool then title || ' audit log enabled.'
+        else title || ' audit log disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_mq_broker;
+  EOQ
+}
+
+query "mq_broker_auto_minor_version_upgrade_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when auto_minor_version_upgrade then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when auto_minor_version_upgrade then title || ' auto minor version upgrade enabled.'
+        else title || ' auto minor version upgrade disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_mq_broker;
+  EOQ
+}

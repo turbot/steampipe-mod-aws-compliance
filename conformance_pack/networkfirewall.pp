@@ -221,3 +221,22 @@ query "networkfirewall_firewall_logging_enabled" {
       aws_networkfirewall_firewall;
   EOQ
 }
+
+query "networkfirewall_firewall_subnet_change_protection_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when subnet_change_protection then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when subnet_change_protection then title || ' subnet change protection enabled.'
+        else title || ' subnet change protection disabled.'
+      end reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_networkfirewall_firewall;
+  EOQ
+}

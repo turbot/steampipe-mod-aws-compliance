@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "https_tls_listener_recommended_ssl_policy" {
+  type        = list(string)
+  description = "A list of latest lambda runtimes."
+  default     = ["ELBSecurityPolicy-TLS13-1-2-2021-06", "ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04" ,"ELBSecurityPolicy-TLS13-1-3-2021-06", "ELBSecurityPolicy-TLS13-1-3-FIPS-2023-04" ,"ELBSecurityPolicy-TLS13-1-2-Res-2021-06", "ELBSecurityPolicy-TLS13-1-2-Res-FIPS-2023-04"]
+}
+
 control "elb_network_lb_tls_listener_security_policy_configured" {
   title       = "ELB network load balancers should have TLS listener security policy configured"
   description = "Ensure that your Network Load Balancers (NLBs) are configured with a TLS listener security policy. Using insecure ciphers for your NLB Predefined or Custom Security Policy could make the TLS connection between the client and the load balancer vulnerable to exploits."
@@ -1110,5 +1116,125 @@ query "elb_classic_lb_with_inbound_rule" {
     from
       aws_ec2_classic_load_balancer as c
       left join classic_lb_without_inbound as i on c.arn = i.arn;
+  EOQ
+}
+
+query "elb_application_network_lb_https_tls_listener_recommended_security_policy" {
+  sql = <<-EOQ
+    with lbs as (
+      select arn, title, region, account_id, tags, _ctx, 'application'::text as lb_type
+      from aws_ec2_application_load_balancer
+      union all
+      select arn, title, region, account_id, tags, _ctx, 'network'::text as lb_type
+      from aws_ec2_network_load_balancer
+    ),
+    listeners as (
+      select
+        l.arn                 as listener_arn,
+        l.load_balancer_arn   as lb_arn,
+        l.protocol,
+        l.port,
+        l.ssl_policy,
+        lb.title,
+        lb.region,
+        lb.account_id,
+        lb.tags,
+        lb._ctx,
+        lb.lb_type
+      from aws_ec2_load_balancer_listener l
+      join lbs lb on lb.arn = l.load_balancer_arn
+    )
+  select
+    listener_arn as resource,
+    case
+      when lb_type = 'application' and protocol = 'HTTPS' then case when ssl_policy is null or not (ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
+      when lb_type = 'network' and protocol = 'TLS' then case when ssl_policy is null or not (ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
+      else 'alarm'
+    end as status,
+    case
+      when lb_type = 'application' and protocol = 'HTTPS' and ssl_policy is null then title || ' listener ' || port || ' uses HTTPS with no SSL policy.'
+      when lb_type = 'application' and protocol = 'HTTPS' and not (ssl_policy = ANY($1::text[])) then title || ' listener ' || port || ' uses HTTPS with non-recommended policy ' || ssl_policy || '.'
+      when lb_type = 'application' and protocol = 'HTTPS' then title || ' listener ' || port || ' uses HTTPS with recommended policy ' || ssl_policy || '.'
+      when lb_type = 'network' and protocol = 'TLS' and ssl_policy is null then title || ' listener ' || port || ' uses TLS with no SSL policy.'
+      when lb_type = 'network' and protocol = 'TLS' and not (ssl_policy = ANY($1::text[])) then title || ' listener ' || port || ' uses TLS with non-recommended policy ' || ssl_policy || '.'
+      when lb_type = 'network' and protocol = 'TLS' then title || ' listener ' || port || ' uses TLS with recommended policy ' || ssl_policy || '.'
+      when lb_type = 'application' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected HTTPS).'
+      when lb_type = 'network' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected TLS).'
+    end as reason
+    --${local.tag_dimensions_sql}
+    --${local.common_dimensions_sql}
+    from listeners;
+  EOQ
+
+  param "https_tls_listener_recommended_ssl_policy" {
+    description = "A list of latest lambda runtimes."
+    default     = var.https_tls_listener_recommended_ssl_policy
+  }
+}
+
+query "elb_application_network_listener_uses_secure_protocol" {
+  sql = <<-EOQ
+    with lbs as (
+      select
+        arn,
+        title,
+        region,
+        account_id,
+        tags,
+        _ctx,
+        'application'::text as lb_type
+      from
+        aws_ec2_application_load_balancer
+      union all
+      select
+        arn,
+        title,
+        region,
+        account_id,
+        tags,
+        _ctx,
+        'network'::text as lb_type
+      from
+        aws_ec2_network_load_balancer
+    ), lst as (
+       select
+        l.arn as listener_arn,
+        l.load_balancer_arn as lb_arn,
+        l.protocol,
+        l.port
+      from
+        aws_ec2_load_balancer_listener l
+    ), joined as (
+      select
+        lb.arn as lb_arn,
+        lb.title,
+        lb.lb_type,
+        lb.region,
+        lb.account_id,
+        lb.tags,
+        lb._ctx,
+        lst.listener_arn,
+        lst.protocol,
+        lst.port
+      from
+        lst join lbs lb on lb.arn = lst.lb_arn
+    )
+    select
+      listener_arn as resource,
+      case
+        when lb_type = 'application' and protocol = 'HTTPS' then 'ok'
+        when lb_type = 'network'     and protocol = 'TLS'   then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when lb_type = 'application' and protocol = 'HTTPS' then title || ' listener ' || port || ' uses HTTPS.'
+        when lb_type = 'network' and protocol = 'TLS' then title || ' listener ' || port || ' uses TLS.'
+        when lb_type = 'application' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected HTTPS).'
+        when lb_type = 'network' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected TLS).'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      joined;
   EOQ
 }
