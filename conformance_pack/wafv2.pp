@@ -93,7 +93,7 @@ query "wafv2_web_acl_rule_attached" {
       end as status,
       case
         when rules is null or jsonb_array_length(rules) = 0 then title || ' has no attached rules.'
-        else title || ' has ' || c.rule_group_count || ' rule group(s) and ' || (jsonb_array_length(rules) - c.rule_group_count) || ' rule(s) attached.'
+        else title || ' has ' || coalesce(c.rule_group_count, 0) || ' rule group(s) and ' || (jsonb_array_length(rules) - (coalesce(c.rule_group_count, 0))) || ' rule(s) attached.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

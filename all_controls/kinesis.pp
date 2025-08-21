@@ -10,6 +10,7 @@ benchmark "all_controls_kinesis" {
   children = [
     control.kinesis_firehose_delivery_stream_server_side_encryption_enabled,
     control.kinesis_stream_encrypted_with_kms_cmk,
+    control.kinesis_stream_retention_period_168_hours,
     control.kinesis_stream_server_side_encryption_enabled
   ]
 

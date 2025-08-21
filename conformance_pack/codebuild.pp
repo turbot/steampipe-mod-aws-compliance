@@ -120,6 +120,14 @@ control "codebuild_project_s3_logs_encryption_enabled" {
   })
 }
 
+control "codebuild_report_group_export_encryption_at_rest_enabled" {
+  title         = "CodeBuild report group exports should be encrypted at rest"
+  description   = "This control checks whether the test results of an AWS CodeBuild report group that are exported to an Amazon Simple Storage Service (Amazon S3) bucket are encrypted at rest. The control fails if the report group export isn't encrypted at rest."
+  query         = query.codebuild_report_group_export_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_codebuild_common_tags
+}
+
 query "codebuild_project_build_greater_then_90_days" {
   sql = <<-EOQ
     with latest_codebuild_build as (
@@ -334,3 +342,23 @@ query "codebuild_project_s3_logs_encryption_enabled" {
       aws_codebuild_project;
   EOQ
 }
+
+query "codebuild_report_group_export_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not (export_config -> 'S3Destination' -> 'EncryptionDisabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not (export_config -> 'S3Destination' -> 'EncryptionDisabled')::bool then title || ' export encryption at rest enabled.'
+        else title || ' export encryption at rest disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_codebuild_report_group;
+  EOQ
+}
+

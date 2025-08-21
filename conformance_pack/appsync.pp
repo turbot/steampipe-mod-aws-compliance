@@ -15,10 +15,26 @@ control "appsync_graphql_api_field_level_logging_enabled" {
   })
 }
 
+control "appsync_graphql_api_cache_encryption_in_transit_enabled" {
+  title         = "AWS AppSync API caches should be encrypted in transit"
+  description   = "This control checks whether an AWS AppSync API cache is encrypted in transit. The control fails if the API cache isn't encrypted in transit."
+  query         = query.appsync_graphql_api_cache_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_appsync_common_tags
+}
+
+control "appsync_graphql_api_cache_encryption_at_rest_enabled" {
+  title         = "AWS AppSync API caches should be encrypted at rest"
+  description   = "This control checks whether an AWS AppSync API cache is encrypted at rest. The control fails if the API cache isn't encrypted at rest."
+  query         = query.appsync_graphql_api_cache_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_appsync_common_tags
+}
+
 query "appsync_graphql_api_field_level_logging_enabled" {
   sql = <<-EOQ
     select
-      name as resource,
+      arn as resource,
       case
         when log_config ->>  'FieldLogLevel' in ('ERROR', 'ALL') then 'ok'
         else 'alarm'
@@ -26,6 +42,44 @@ query "appsync_graphql_api_field_level_logging_enabled" {
       case
         when log_config ->>  'FieldLogLevel' in ('ERROR', 'ALL') then title || ' field level logging enabled.'
         else name || ' field level logging disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_appsync_graphql_api;
+  EOQ
+}
+
+query "appsync_graphql_api_cache_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (api_cache ->> 'AtRestEncryptionEnabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (api_cache ->> 'AtRestEncryptionEnabled')::bool then title || ' encryption at rest enabled.'
+        else name || ' encryption at rest disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_appsync_graphql_api;
+  EOQ
+}
+
+query "appsync_graphql_api_cache_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when (api_cache ->> 'TransitEncryptionEnabled')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (api_cache ->> 'TransitEncryptionEnabled')::bool then title || ' encryption in transit enabled.'
+        else name || ' encryption in transit disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

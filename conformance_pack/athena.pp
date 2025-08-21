@@ -22,6 +22,14 @@ control "athena_workgroup_enforce_configuration_enabled" {
   tags = local.conformance_pack_athena_common_tags
 }
 
+control "athena_workgroup_logging_enabled" {
+  title         = "Athena workgroups should have logging enabled"
+  description   = "This control checks whether an Amazon Athena workgroup has logging enabled. The control fails if the workgroup doesn't have logging enabled."
+  query         = query.athena_workgroup_logging_enabled
+
+  tags = local.conformance_pack_athena_common_tags
+}
+
 query "athena_workgroup_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -51,6 +59,24 @@ query "athena_workgroup_enforce_configuration_enabled" {
       case
         when enforce_workgroup_configuration then name || ' has enforce workgroup configuration enabled.'
         else name || ' has enforce workgroup configuration disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_athena_workgroup;
+  EOQ
+}
+
+query "athena_workgroup_logging_enabled" {
+  sql = <<-EOQ
+    select
+      name as resource,
+      case
+        when publish_cloudwatch_metrics_enabled then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when publish_cloudwatch_metrics_enabled then name || ' workgroup logging enabled.'
+        else name || ' workgroup logging disabled.'
       end as reason
       ${local.common_dimensions_sql}
     from

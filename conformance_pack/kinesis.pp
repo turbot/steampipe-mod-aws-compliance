@@ -35,6 +35,14 @@ control "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
   tags = local.conformance_pack_kinesis_common_tags
 }
 
+control "kinesis_stream_retention_period_168_hours" {
+  title         = "Kinesis streams should have an adequate data retention period"
+  description   = "This control checks whether an Amazon Kinesis data stream has a data retention period greater than or equal to the specified time frame. The control fails if the data retention period is less than the specified time frame. Unless you provide a custom parameter value for the data retention period, Security Hub uses a default value of 168 hours."
+  query         = query.kinesis_stream_retention_period_168_hours
+
+  tags = local.conformance_pack_kinesis_common_tags
+}
+
 query "kinesis_stream_server_side_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -89,5 +97,21 @@ query "kinesis_firehose_delivery_stream_server_side_encryption_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_kinesis_firehose_delivery_stream;
+  EOQ
+}
+
+query "kinesis_stream_retention_period_168_hours" {
+  sql = <<-EOQ
+    select
+      stream_arn as resource,
+      case
+        when retention_period_hours = 168 then 'ok'
+        else 'alarm'
+      end as status,
+      title || ' retention period set to ' || retention_period_hours || ' hours.' as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_kinesis_stream;
   EOQ
 }
