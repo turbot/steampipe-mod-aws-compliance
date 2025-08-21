@@ -224,3 +224,42 @@ query "ssm_parameter_encryption_enabled" {
   EOQ
 }
 
+query "ssm_document_block_public_sharing_setting_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when setting_value = 'Enable' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when setting_value = 'Enable' then title || ' public sharing setting enabled for region ' || region || '(' || account_id || ').'
+        else title || ' public sharing setting disabled for region ' || region || '(' || account_id || ').'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_service_setting
+    where
+      setting_id = '/ssm/documents/console/public-sharing-permission';
+  EOQ
+}
+
+query "ssm_automation_cloudwatch_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when setting_value = 'CloudWatch' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when setting_value = 'CloudWatch' then title || ' CloudWatch logging enabled for region ' || region || '(' || account_id || ').'
+        else title || ' CloudWatch logging disabled for region ' || region || '(' || account_id || ').'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_service_setting
+    where
+      setting_id = '/ssm/automation/customer-script-log-destination';
+  EOQ
+}
