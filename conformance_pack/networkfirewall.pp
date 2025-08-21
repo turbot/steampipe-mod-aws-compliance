@@ -82,6 +82,14 @@ control "networkfirewall_firewall_logging_enabled" {
   })
 }
 
+control "networkfirewall_firewall_subnet_change_protection_enabled" {
+  title         = "Network Firewall firewalls should have subnet change protection enabled"
+  description   = "This control checks whether subnet change protection is enabled for an AWS Network Firewall firewall. The control fails if subnet change protection isn't enabled for the firewall."
+  query         = query.networkfirewall_firewall_subnet_change_protection_enabled
+
+  tags = local.conformance_pack_networkfirewall_common_tags
+}
+
 query "networkfirewall_stateless_rule_group_not_empty" {
   sql = <<-EOQ
     select

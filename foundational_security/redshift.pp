@@ -16,7 +16,9 @@ benchmark "foundational_security_redshift" {
     control.foundational_security_redshift_7,
     control.foundational_security_redshift_8,
     control.foundational_security_redshift_9,
-    control.foundational_security_redshift_10
+    control.foundational_security_redshift_10,
+    control.foundational_security_redshift_15,
+    control.foundational_security_redshift_18
   ]
 
   tags = merge(local.foundational_security_redshift_common_tags, {
@@ -138,5 +140,31 @@ control "foundational_security_redshift_10" {
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_10"
     foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
+control "foundational_security_redshift_15" {
+  title         = "15 Redshift security groups should allow ingress on the cluster port only from restricted origins"
+  description   = "This control checks whether a security group associated with an Amazon Redshift cluster has ingress rules that permit access to the cluster port from the internet (0.0.0.0/0 or ::/0). The control fails if the security group ingress rules permit access to the cluster port from the internet."
+  severity      = "high"
+  query         = query.redshift_cluster_sg_restrict_ingress_redshift_port
+  documentation = file("./foundational_security/docs/foundational_security_redshift_15.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_15"
+    foundational_security_category = "security_group_configuration"
+  })
+}
+
+control "foundational_security_redshift_18" {
+  title         = "18 Redshift clusters should have Multi-AZ deployments enabled"
+  description   = "This control checks whether multiple Availability Zones (Multi-AZ) deployments are enabled for an Amazon Redshift cluster. The control fails if Multi-AZ deployments aren't enabled for the Amazon Redshift cluster."
+  severity      = "medium"
+  query         = query.redshift_cluster_multiple_az_enabled
+  documentation = file("./foundational_security/docs/foundational_security_redshift_18.md")
+
+  tags = merge(local.foundational_security_redshift_common_tags, {
+    foundational_security_item_id  = "redshift_18"
+    foundational_security_category = "high_availability"
   })
 }

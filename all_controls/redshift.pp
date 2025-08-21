@@ -17,9 +17,11 @@ benchmark "all_controls_redshift" {
     control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.redshift_cluster_kms_enabled,
     control.redshift_cluster_maintenance_settings_check,
+    control.redshift_cluster_multiple_az_enabled,
     control.redshift_cluster_no_default_admin_name,
     control.redshift_cluster_no_default_database_name,
-    control.redshift_cluster_prohibit_public_access
+    control.redshift_cluster_prohibit_public_access,
+    control.redshift_cluster_sg_restrict_ingress_redshift_port
   ]
 
   tags = merge(local.all_controls_redshift_common_tags, {

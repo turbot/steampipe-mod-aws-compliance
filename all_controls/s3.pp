@@ -11,8 +11,8 @@ benchmark "all_controls_s3" {
     control.s3_access_point_restrict_public_access,
     control.s3_bucket_acls_should_prohibit_user_access,
     control.s3_bucket_cross_region_replication_enabled,
-    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_default_encryption_enabled_kms,
+    control.s3_bucket_default_encryption_enabled,
     control.s3_bucket_enforces_ssl,
     control.s3_bucket_event_notifications_enabled,
     control.s3_bucket_lifecycle_policy_enabled,
@@ -29,9 +29,11 @@ benchmark "all_controls_s3" {
     control.s3_bucket_static_website_hosting_disabled,
     control.s3_bucket_versioning_and_lifecycle_policy_enabled,
     control.s3_bucket_versioning_enabled,
+    control.s3_directory_bucket_lifecycle_policy_configured,
+    control.s3_multi_region_access_point_public_access_block,
     control.s3_public_access_block_account,
-    control.s3_public_access_block_bucket,
-    control.s3_public_access_block_bucket_account
+    control.s3_public_access_block_bucket_account,
+    control.s3_public_access_block_bucket
   ]
 
   tags = merge(local.all_controls_s3_common_tags, {

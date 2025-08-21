@@ -466,6 +466,23 @@ control "s3_access_point_restrict_public_access" {
   })
 }
 
+control "s3_multi_region_access_point_public_access_block" {
+  title         = "S3 Multi-Region Access Points should have block public access settings enabled"
+  description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
+  query         = query.s3_multi_region_access_point_public_access_block
+  documentation = file("./foundational_security/docs/foundational_security_s3_24.md")
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
+control "s3_directory_bucket_lifecycle_policy_configured" {
+  title         = "S3 directory buckets should have lifecycle configurations"
+  description   = "This control checks whether lifecycle rules are configured for an S3 directory bucket. The control fails if lifecycle rules aren't configured for the directory bucket, or a lifecycle rule for the bucket specifies expiration settings that don't match the parameter value that you optionally specify."
+  query         = query.s3_directory_bucket_lifecycle_policy_configured
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
 query "s3_bucket_cross_region_replication_enabled" {
   sql = <<-EOQ
     with bucket_with_replication as (
@@ -1314,7 +1331,7 @@ query "s3_multi_region_access_point_public_access_block" {
   EOQ
 }
 
-query "s3_bucket_lifecycle_policy_configured" {
+query "s3_directory_bucket_lifecycle_policy_configured" {
   sql = <<-EOQ
     select
       arn as resource,

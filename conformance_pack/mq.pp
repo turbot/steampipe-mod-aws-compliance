@@ -12,6 +12,22 @@ control "mq_broker_restrict_public_access" {
   tags = local.conformance_pack_mq_common_tags
 }
 
+control "mq_broker_audit_log_enabled" {
+  title         = "Active MQ brokers should stream audit logs to CloudWatch"
+  description   = "This control checks whether an Amazon MQ ActiveMQ broker streams audit logs to Amazon CloudWatch Logs. The control fails if the broker doesn't stream audit logs to CloudWatch Logs."
+  query         = query.mq_broker_audit_log_enabled
+
+  tags = local.conformance_pack_mq_common_tags
+}
+
+control "mq_broker_auto_minor_version_upgrade_enabled" {
+  title         = "Amazon MQ brokers should have automatic minor version upgrade enabled"
+  description   = "This control checks whether an Amazon MQ broker has automatic minor version upgrade enabled. The control fails if the broker doesn't have automatic minor version upgrade enabled."
+  query         = query.mq_broker_auto_minor_version_upgrade_enabled
+
+  tags = local.conformance_pack_mq_common_tags
+}
+
 query "mq_broker_restrict_public_access" {
   sql = <<-EOQ
     select

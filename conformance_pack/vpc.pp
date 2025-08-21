@@ -541,6 +541,14 @@ control "vpc_vpn_connection_logging_enabled" {
   tags = local.conformance_pack_vpc_common_tags
 }
 
+control "vpc_block_public_access_restrict_internet_gateway_traffic" {
+  title         = "EC2 VPC Block Public Access settings should block internet gateway traffic"
+  description   = "This control checks whether Amazon EC2 VPC Block Public Access (BPA) settings are configured to block internet gateway traffic for all Amazon VPCs in the AWS account. The control fails if VPC BPA settings aren't configured to block internet gateway traffic. For the control to pass, the VPC BPA InternetGatewayBlockMode must be set to block-bidirectional or block-ingress. If the parameter vpcBpaInternetGatewayBlockMode is provided, the control passes only if the VPC BPA value for InternetGatewayBlockMode matches the parameter."
+  query         = query.vpc_block_public_access_restrict_internet_gateway_traffic
+
+  tags = local.conformance_pack_vpc_common_tags
+}
+
 query "vpc_flow_logs_enabled" {
   sql = <<-EOQ
     with vpcs as (

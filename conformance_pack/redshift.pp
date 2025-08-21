@@ -236,6 +236,22 @@ control "redshift_cluster_encrypted_with_cmk" {
   tags = local.conformance_pack_redshift_common_tags
 }
 
+control "redshift_cluster_sg_restrict_ingress_redshift_port" {
+  title         = "Redshift security groups should allow ingress on the cluster port only from restricted origins"
+  description   = "This control checks whether a security group associated with an Amazon Redshift cluster has ingress rules that permit access to the cluster port from the internet (0.0.0.0/0 or ::/0). The control fails if the security group ingress rules permit access to the cluster port from the internet."
+  query         = query.redshift_cluster_sg_restrict_ingress_redshift_port
+
+  tags = local.conformance_pack_redshift_common_tags
+}
+
+control "redshift_cluster_multiple_az_enabled" {
+  title         = "Redshift clusters should have Multi-AZ deployments enabled"
+  description   = "This control checks whether multiple Availability Zones (Multi-AZ) deployments are enabled for an Amazon Redshift cluster. The control fails if Multi-AZ deployments aren't enabled for the Amazon Redshift cluster."
+  query         = query.redshift_cluster_multiple_az_enabled
+
+  tags = local.conformance_pack_redshift_common_tags
+}
+
 query "redshift_cluster_encryption_in_transit_enabled" {
   sql = <<-EOQ
     with pg_with_ssl as (

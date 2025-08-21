@@ -12,6 +12,14 @@ control "transfer_server_no_ftp_protocol" {
   tags = local.conformance_pack_transfer_common_tags
 }
 
+control "transfer_connector_logging_enabled" {
+  title         = "Transfer Family connectors should have logging enabled"
+  description   = "This control checks whether Amazon CloudWatch logging is enabled for an AWS Transfer Family connector. The control fails if CloudWatch logging isn't enabled for the connector."
+  query         = query.transfer_connector_logging_enabled
+
+  tags = local.conformance_pack_transfer_common_tags
+}
+
 query "transfer_server_no_ftp_protocol" {
   sql = <<-EOQ
     select

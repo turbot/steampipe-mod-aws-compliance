@@ -114,6 +114,22 @@ control "ssm_parameter_encryption_enabled" {
   })
 }
 
+control "ssm_automation_cloudwatch_logging_enabled" {
+  title         = "SSM Automation should have CloudWatch logging enabled"
+  description   = "This control checks whether Amazon CloudWatch logging is enabled for AWS Systems Manager (SSM) Automation. The control fails if CloudWatch logging isn't enabled for SSM Automation."
+  query         = query.ssm_automation_cloudwatch_logging_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
+control "ssm_document_block_public_sharing_setting_enabled" {
+  title         = "SSM documents should have the block public sharing setting enabled"
+  description   = "This control checks whether the block public sharing setting is enabled for AWS Systems Manager documents. The control fails if the block public sharing setting is disabled for Systems Manager documents."
+  query         = query.ssm_document_block_public_sharing_setting_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select

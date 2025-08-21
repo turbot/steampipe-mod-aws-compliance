@@ -14,6 +14,42 @@ control "msk_cluster_encryption_in_transit_with_tls_enabled" {
   })
 }
 
+control "mskconnect_connector_encryption_in_transit_with_tls_enabled" {
+  title         = "MSK Connect connectors should be encrypted in transit"
+  description   = "This control checks whether an Amazon MSK Connect connector is encrypted in transit. This control fails if the connector isn't encrypted in transit."
+  severity      = "medium"
+  query         = query.mskconnect_connector_encryption_in_transit_with_tls_enabled
+
+  tags = local.conformance_pack_msk_common_tags
+}
+
+control "msk_cluster_restrict_public_access" {
+  title         = "MSK clusters should have public access disabled"
+  description   = "This control checks whether public access is disabled for an Amazon MSK cluster. The control fails if public access is enabled for the MSK cluster."
+  severity      = "medium"
+  query         = query.msk_cluster_restrict_public_access
+
+  tags = local.conformance_pack_msk_common_tags
+}
+
+control "mskconnect_connector_logging_enabled" {
+  title         = "MSK connectors should have logging enabled"
+  description   = "This control checks whether logging is enabled for an Amazon MSK connector. The control fails if logging is disabled for the MSK connector."
+  severity      = "medium"
+  query         = query.mskconnect_connector_logging_enabled
+
+  tags = local.conformance_pack_msk_common_tags
+}
+
+control "msk_cluster_unauthenticated_access_disabled" {
+  title         = "MSK clusters should disable unauthenticated access"
+  description   = "This control checks whether unauthenticated access is enabled for an Amazon MSK cluster. The control fails if unauthenticated access is enabled for the MSK cluster."
+  severity      = "medium"
+  query         = query.msk_cluster_unauthenticated_access_disabled
+
+  tags = local.conformance_pack_msk_common_tags
+}
+
 query "msk_cluster_encryption_in_transit_with_tls_enabled" {
   sql = <<-EOQ
     select

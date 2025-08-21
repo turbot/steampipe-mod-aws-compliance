@@ -14,6 +14,7 @@ benchmark "all_controls_networkfirewall" {
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,
+    control.networkfirewall_firewall_subnet_change_protection_enabled,
     control.networkfirewall_stateless_rule_group_not_empty
   ]
 

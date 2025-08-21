@@ -11,7 +11,9 @@ benchmark "foundational_security_ssm" {
     control.foundational_security_ssm_1,
     control.foundational_security_ssm_2,
     control.foundational_security_ssm_3,
-    control.foundational_security_ssm_4
+    control.foundational_security_ssm_4,
+    control.foundational_security_ssm_6,
+    control.foundational_security_ssm_7
   ]
 
   tags = merge(local.foundational_security_ssm_common_tags, {
@@ -67,6 +69,32 @@ control "foundational_security_ssm_4" {
 
   tags = merge(local.foundational_security_ssm_common_tags, {
     foundational_security_item_id  = "ssm_4"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+
+control "foundational_security_ssm_6" {
+  title         = "6 SSM Automation should have CloudWatch logging enabled"
+  description   = "This control checks whether Amazon CloudWatch logging is enabled for AWS Systems Manager (SSM) Automation. The control fails if CloudWatch logging isn't enabled for SSM Automation."
+  severity      = "medium"
+  query         = query.ssm_automation_cloudwatch_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ssm_6.md")
+
+  tags = merge(local.foundational_security_ssm_common_tags, {
+    foundational_security_item_id  = "ssm_6"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_ssm_7" {
+  title         = "7 SSM documents should have the block public sharing setting enabled"
+  description   = "This control checks whether the block public sharing setting is enabled for AWS Systems Manager documents. The control fails if the block public sharing setting is disabled for Systems Manager documents."
+  severity      = "critical"
+  query         = query.ssm_document_block_public_sharing_setting_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ssm_7.md")
+
+  tags = merge(local.foundational_security_ssm_common_tags, {
+    foundational_security_item_id  = "ssm_7"
     foundational_security_category = "resources_not_publicly_accessible"
   })
 }

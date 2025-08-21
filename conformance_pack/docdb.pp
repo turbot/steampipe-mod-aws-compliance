@@ -58,6 +58,14 @@ control "docdb_cluster_snapshot_restrict_public_access" {
   })
 }
 
+control "docdb_cluster_encryption_in_transit_enabled" {
+  title         = "Amazon DocumentDB clusters should be encrypted in transit"
+  description   = "This controls checks whether an Amazon DocumentDB cluster requires TLS for connections to the cluster. The control fails if the cluster parameter group associated with the cluster is not in sync, or the TLS cluster parameter is set to disabled or enabled."
+  query         = query.docdb_cluster_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 query "docdb_cluster_instance_logging_enabled" {
   sql = <<-EOQ
     select
