@@ -43,7 +43,7 @@ control "foundational_security_redshiftserverless_2" {
 
   tags = merge(local.foundational_security_redshiftserverless_common_tags, {
     foundational_security_item_id  = "redshiftserverless_2"
-    foundational_security_category = "Encryption_of_data_in_transit"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
 
