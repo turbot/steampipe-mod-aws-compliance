@@ -6,4 +6,4 @@ In Kinesis Data Streams, a data stream is an ordered sequence of data records me
 
 ## Remediation
 
-To change the backup retention period for your Kinesis Data Streams, see [Change the data retention period](https://docs.aws.amazon.com/streams/latest/dev/kinesis-extended-retention.html) in the Amazon Kinesis Data Streams Developer Guid
+To change the backup retention period for your Kinesis Data Streams, see [Change the data retention period](https://docs.aws.amazon.com/streams/latest/dev/kinesis-extended-retention.html) in the Amazon Kinesis Data Streams Developer Guide

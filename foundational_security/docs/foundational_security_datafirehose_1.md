@@ -6,4 +6,4 @@ Server-side encryption is a feature in Amazon Data Firehose delivery streams tha
 
 ## Remediation
 
-To enable server-side encryption on Firehose delivery streams,, see [Data Protection in Amazon Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/encryption.html)in the Amazon Data Firehose Developer Guide.
+To enable server-side encryption on Firehose delivery streams, see [Data Protection in Amazon Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/encryption.html) in the Amazon Data Firehose Developer Guide.
