@@ -6,4 +6,4 @@ If enhanced VPC routing is disabled for an Amazon Redshift Serverless workgroup,
 
 ## Remediation
 
-For more information about enhanced VPC routing and how to enable it for a workgroup, see [Controlling network traffic with Redshift enhanced VPC routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)in the Amazon Redshift Management Guide.
+For more information about enhanced VPC routing and how to enable it for a workgroup, see [Controlling network traffic with Redshift enhanced VPC routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html) in the Amazon Redshift Management Guide.
