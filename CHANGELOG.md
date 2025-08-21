@@ -1,3 +1,13 @@
+## v1.8.0 [2025-08-21]
+
+_Dependencies_
+
+- AWS plugin `v1.22.0` or higher is now required. ([#930](https://github.com/turbot/steampipe-mod-aws-compliance/pull/930))
+
+_Enhancements_
+
+- Added 47 new controls to the `AWS Foundational Security Best Practices` benchmark, expanding coverage across multiple AWS services, including **AppSync**, **Athena**, **CodeBuild**, **Cognito**, **Data Firehose**, **DataSync**, **DMS**, **EC2**, **EFS**, **FSx**, **RDS**, **Kinesis**, **KMS**, **Redshift Serverless**, **SQS**, **SNS**, **Transfer**, **WorkSpaces**, **SageMaker**, and **DynamoDB**. ([#930](https://github.com/turbot/steampipe-mod-aws-compliance/pull/930))
+
 ## v1.7.0 [2025-08-13]
 
 _Enhancements_

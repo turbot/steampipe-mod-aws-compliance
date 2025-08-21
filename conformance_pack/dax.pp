@@ -20,6 +20,14 @@ control "dax_cluster_encryption_at_rest_enabled" {
   })
 }
 
+control "dax_cluster_encryption_in_transit_enabled" {
+  title         = "DynamoDB Accelerator clusters should be encrypted in transit"
+  description   = "This control checks whether an Amazon DynamoDB Accelerator (DAX) cluster is encrypted in transit, with the endpoint encryption type set to TLS. The control fails if the DAX cluster isn't encrypted in transit."
+  query         = query.dax_cluster_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_dax_common_tags
+}
+
 query "dax_cluster_encryption_at_rest_enabled" {
   sql = <<-EOQ
     select
@@ -31,6 +39,25 @@ query "dax_cluster_encryption_at_rest_enabled" {
       case
         when sse_description ->> 'Status' = 'ENABLED' then title || ' encryption at rest enabled.'
         else title || ' encryption at rest not enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dax_cluster;
+  EOQ
+}
+
+query "dax_cluster_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when cluster_endpoint_encryption_type = 'TLS' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when cluster_endpoint_encryption_type = 'TLS' then title || ' encryption in transit rest enabled.'
+        else title || '  encryption in transit disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

@@ -11,7 +11,8 @@ benchmark "foundational_security_dynamodb" {
     control.foundational_security_dynamodb_1,
     control.foundational_security_dynamodb_2,
     control.foundational_security_dynamodb_3,
-    control.foundational_security_dynamodb_6
+    control.foundational_security_dynamodb_6,
+    control.foundational_security_dynamodb_7
   ]
 
   tags = merge(local.foundational_security_dynamodb_common_tags, {
@@ -68,5 +69,18 @@ control "foundational_security_dynamodb_6" {
   tags = merge(local.foundational_security_dynamodb_common_tags, {
     foundational_security_item_id  = "dynamodb_6"
     foundational_security_category = "data_deletion_protection"
+  })
+}
+
+control "foundational_security_dynamodb_7" {
+  title         = "7 DynamoDB Accelerator clusters should be encrypted in transit"
+  description   = "This control checks whether an Amazon DynamoDB Accelerator (DAX) cluster is encrypted in transit, with the endpoint encryption type set to TLS. The control fails if the DAX cluster isn't encrypted in transit."
+  severity      = "medium"
+  query         = query.dax_cluster_encryption_in_transit_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dynamodb_7.md")
+
+  tags = merge(local.foundational_security_dynamodb_common_tags, {
+    foundational_security_item_id  = "dynamodb_7"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }

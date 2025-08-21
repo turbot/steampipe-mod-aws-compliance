@@ -9,7 +9,8 @@ benchmark "foundational_security_sns" {
   documentation = file("./foundational_security/docs/foundational_security_sns.md")
   children = [
     control.foundational_security_sns_1,
-    control.foundational_security_sns_2
+    control.foundational_security_sns_2,
+    control.foundational_security_sns_4
   ]
 
   tags = merge(local.foundational_security_sns_common_tags, {
@@ -42,3 +43,17 @@ control "foundational_security_sns_2" {
     foundational_security_category = "resource_configuration"
   })
 }
+
+control "foundational_security_sns_4" {
+  title         = "4 SNS topic access policies should not allow public access"
+  description   = "This control checks if the Amazon SNS topic access policy allows public access. This control fails if the SNS topic access policy allows public access."
+  severity      = "high"
+  query         = query.sns_topic_policy_prohibit_public_access
+  documentation = file("./foundational_security/docs/foundational_security_sns_4.md")
+
+  tags = merge(local.foundational_security_sns_common_tags, {
+    foundational_security_item_id  = "sns_4"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+

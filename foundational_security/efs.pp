@@ -11,7 +11,9 @@ benchmark "foundational_security_efs" {
     control.foundational_security_efs_1,
     control.foundational_security_efs_2,
     control.foundational_security_efs_3,
-    control.foundational_security_efs_4
+    control.foundational_security_efs_4,
+    control.foundational_security_efs_7,
+    control.foundational_security_efs_8
   ]
 
   tags = merge(local.foundational_security_efs_common_tags, {
@@ -36,7 +38,7 @@ control "foundational_security_efs_2" {
   title         = "2 Amazon EFS volumes should be in backup plans"
   description   = "This control checks whether Amazon Elastic File System (Amazon EFS) file systems are added to the backup plans in AWS Backup. The control fails if Amazon EFS file systems are not included in the backup plans."
   severity      = "medium"
-  query         = query.efs_file_system_in_backup_plan
+  query         = query.efs_file_system_protected_by_backup_plan
   documentation = file("./foundational_security/docs/foundational_security_efs_2.md")
 
   tags = merge(local.foundational_security_efs_common_tags, {
@@ -68,5 +70,31 @@ control "foundational_security_efs_4" {
   tags = merge(local.foundational_security_efs_common_tags, {
     foundational_security_item_id  = "efs_4"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_efs_7" {
+  title         = "7 EFS file systems should have automatic backups enabled"
+  description   = "This control checks whether an Amazon EFS file system has automatic backups enabled. This control fails if the EFS file system doesn't have automatic backups enabled."
+  severity      = "medium"
+  query         = query.efs_file_system_in_backup_plan
+  documentation = file("./foundational_security/docs/foundational_security_efs_7.md")
+
+  tags = merge(local.foundational_security_efs_common_tags, {
+    foundational_security_item_id  = "efs_7"
+    foundational_security_category = "backups_enabled"
+  })
+}
+
+control "foundational_security_efs_8" {
+  title         = "8 EFS file systems should be encrypted at rest"
+  description   = "This control checks whether an Amazon EFS file system encrypts data with AWS Key Management Service (AWS KMS). The control fails if a file system isn't encrypted."
+  severity      = "medium"
+  query         = query.efs_file_system_encrypted_with_cmk
+  documentation = file("./foundational_security/docs/foundational_security_efs_8.md")
+
+  tags = merge(local.foundational_security_efs_common_tags, {
+    foundational_security_item_id  = "efs_8"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
