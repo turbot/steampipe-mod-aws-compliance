@@ -6,4 +6,4 @@ When creating an Amazon Redshift Serverless namespace, you should specify a uniq
 
 ## Remediation
 
-You can't change the database name for an Amazon Redshift Serverless namespace after you create the namespace. You can, however, specify a custom database name for a Redshift Serverless namespace when you create the namespace. For information about creating a namespace, see [Workgroups and namespaces](https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-workgroup-namespace.html) in the Amazon Redshift Management Guide
+You can't change the database name for an Amazon Redshift Serverless namespace after you create the namespace. You can, however, specify a custom database name for a Redshift Serverless namespace when you create the namespace. For information about creating a namespace, see [Workgroups and namespaces](https://docs.aws.amazon.com/redshift/latest/mgmt/serverless-workgroup-namespace.html) in the Amazon Redshift Management Guide.
