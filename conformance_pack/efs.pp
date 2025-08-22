@@ -136,6 +136,14 @@ control "efs_file_system_restrict_public_access" {
   tags = local.conformance_pack_efs_common_tags
 }
 
+control "efs_mount_target_not_publicly_accessible" {
+  title         = "EFS mount targets should not be associated with subnets that assign public IP addresses on launch"
+  description   = "This control checks whether an Amazon EFS mount target is associated with subnets that assign public IP addresses on launch. The control fails if the mount target is associated with subnets that assign public IP addresses on launch."
+  query         = query.efs_mount_target_not_publicly_accessible
+
+  tags = local.conformance_pack_efs_common_tags
+}
+
 query "efs_file_system_encrypt_data_at_rest" {
   sql = <<-EOQ
     select
@@ -375,5 +383,25 @@ query "efs_file_system_restrict_public_access" {
     from
       aws_efs_file_system as f
       left join wildcard_action_policies as p on p.arn = f.arn;
+  EOQ
+}
+
+query "efs_mount_target_not_publicly_accessible" {
+  sql = <<-EOQ
+    select
+      mt.mount_target_id as resource,
+      case
+        when s.map_public_ip_on_launch then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when s.map_public_ip_on_launch then mt.file_system_id || ' mount target ' || mt.mount_target_id || ' is in subnet ' || s.subnet_id || ' that assigns public IPs on launch.'
+        else mt.file_system_id || ' mount target ' || mt.mount_target_id || ' is in subnet ' || s.subnet_id || ' that does not assign public IPs on launch.'
+      end as reason
+      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "mt.")}
+      ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "mt.")}
+    from
+      aws_efs_mount_target mt
+      join aws_vpc_subnet s on mt.subnet_id = s.subnet_id;
   EOQ
 }
