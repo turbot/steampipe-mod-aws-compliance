@@ -76,6 +76,22 @@ control "glue_connection_ssl_enabled" {
   tags = local.conformance_pack_glue_common_tags
 }
 
+control "glue_ml_transform_encryption_at_rest_enabled" {
+  title         = "AWS Glue machine learning transforms should be encrypted at rest"
+  description   = "This control checks whether an AWS Glue machine learning transform is encrypted at rest. The control fails if the machine learning transform isn't encrypted at rest."
+  query         = query.glue_ml_transform_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_glue_common_tags
+}
+
+control "glue_spark_job_run_on_versions_3_or_more" {
+  title         = "AWS Glue Spark jobs should run on supported versions of AWS Glue"
+  description   = "This control checks whether an AWS Glue for Spark job is configured to run on a supported version of AWS Glue. The control fails if the Spark job is configured to run on a version of AWS Glue that's earlier than the minimum supported version."
+  query         = query.glue_spark_job_run_on_versions_3_or_more
+
+  tags = local.conformance_pack_glue_common_tags
+}
+
 query "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   sql = <<-EOQ
     select
@@ -245,3 +261,42 @@ query "glue_connection_ssl_enabled" {
       aws_glue_connection;
   EOQ
 }
+
+query "glue_spark_job_run_on_versions_3_or_more" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when not default_arguments @> '{"--enable-spark-ui": "true"}'::jsonb then 'skip'
+        when cast(glue_version AS DECIMAL) >= 3.0 then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when not default_arguments @> '{"--enable-spark-ui": "true"}'::jsonb then title  || ' is not a spark job.'
+        else title  || ' uses ' || glue_version || ' glue version.'
+      end as reason
+      -- ${local.common_dimensions_sql}
+    from
+      aws_glue_job;
+  EOQ
+}
+
+query "glue_ml_transform_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      transform_id as resource,
+      case
+        when transform_encryption is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when transform_encryption is not null then title  || ' encryption at rest enabled.'
+        else title  || ' encryption at rest disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_glue_ml_transform;
+  EOQ
+}
+
+

@@ -40,6 +40,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_es,
     benchmark.foundational_security_eventbridge,
     benchmark.foundational_security_fsx,
+    benchmark.foundational_security_glue,
     benchmark.foundational_security_guardduty,
     benchmark.foundational_security_iam,
     benchmark.foundational_security_kinesis,
