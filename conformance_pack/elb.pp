@@ -383,6 +383,23 @@ control "elb_classic_lb_with_inbound_rule" {
   tags = local.conformance_pack_elb_common_tags
 }
 
+control "elb_application_network_lb_https_tls_listener_recommended_security_policy" {
+  title         = "Application and Network Load Balancers with listeners should use recommended security policies"
+  description   = "This control checks whether the HTTPS listener for an Application Load Balancer or the TLS listener for a Network Load Balancer is configured to encrypt data in transit by using a recommended security policy. The control fails if the HTTPS or TLS listener for a load balancer isn't configured to use a recommended security policy."
+  query         = query.elb_application_network_lb_https_tls_listener_recommended_security_policy
+
+  tags = local.conformance_pack_elb_common_tags
+}
+
+control "elb_application_network_listener_uses_secure_protocol" {
+  title         = "18 Application and Network Load Balancer listeners should use secure protocols to encrypt data in transit"
+  description   = "This control checks whether the listener for an Application Load Balancer or Network Load Balancer is configured to use a secure protocol for encryption of data in transit. The control fails if an Application Load Balancer listener isn't configured to use the HTTPS protocol, or a Network Load Balancer listener isn't configured to use the TLS protocol."
+  query         = query.elb_application_network_listener_uses_secure_protocol
+
+  tags = local.conformance_pack_elb_common_tags
+}
+
+
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ
     (
@@ -1145,32 +1162,44 @@ query "elb_application_network_lb_https_tls_listener_recommended_security_policy
       join lbs lb on lb.arn = l.load_balancer_arn
     )
   select
-    listener_arn as resource,
+    l.listener_arn as resource,
     case
-      when lb_type = 'application' and protocol = 'HTTPS' then case when ssl_policy is null or not (ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
-      when lb_type = 'network' and protocol = 'TLS' then case when ssl_policy is null or not (ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
+      when l.lb_type = 'application' and l.protocol = 'HTTPS'
+        then case when l.ssl_policy is null or not (l.ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
+      when l.lb_type = 'network' and l.protocol = 'TLS'
+        then case when l.ssl_policy is null or not (l.ssl_policy = ANY($1::text[])) then 'alarm' else 'ok' end
       else 'alarm'
     end as status,
     case
-      when lb_type = 'application' and protocol = 'HTTPS' and ssl_policy is null then title || ' listener ' || port || ' uses HTTPS with no SSL policy.'
-      when lb_type = 'application' and protocol = 'HTTPS' and not (ssl_policy = ANY($1::text[])) then title || ' listener ' || port || ' uses HTTPS with non-recommended policy ' || ssl_policy || '.'
-      when lb_type = 'application' and protocol = 'HTTPS' then title || ' listener ' || port || ' uses HTTPS with recommended policy ' || ssl_policy || '.'
-      when lb_type = 'network' and protocol = 'TLS' and ssl_policy is null then title || ' listener ' || port || ' uses TLS with no SSL policy.'
-      when lb_type = 'network' and protocol = 'TLS' and not (ssl_policy = ANY($1::text[])) then title || ' listener ' || port || ' uses TLS with non-recommended policy ' || ssl_policy || '.'
-      when lb_type = 'network' and protocol = 'TLS' then title || ' listener ' || port || ' uses TLS with recommended policy ' || ssl_policy || '.'
-      when lb_type = 'application' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected HTTPS).'
-      when lb_type = 'network' then title || ' listener ' || port || ' uses ' || lower(protocol) || ' (expected TLS).'
+      when l.lb_type = 'application' and l.protocol = 'HTTPS' and l.ssl_policy is null
+        then l.title || ' listener ' || l.port || ' uses HTTPS with no SSL policy.'
+      when l.lb_type = 'application' and l.protocol = 'HTTPS' and not (l.ssl_policy = ANY($1::text[]))
+        then l.title || ' listener ' || l.port || ' uses HTTPS with non-recommended policy ' || l.ssl_policy || '.'
+      when l.lb_type = 'application' and l.protocol = 'HTTPS'
+        then l.title || ' listener ' || l.port || ' uses HTTPS with recommended policy ' || l.ssl_policy || '.'
+      when l.lb_type = 'network' and l.protocol = 'TLS' and l.ssl_policy is null
+        then l.title || ' listener ' || l.port || ' uses TLS with no SSL policy.'
+      when l.lb_type = 'network' and l.protocol = 'TLS' and not (l.ssl_policy = ANY($1::text[]))
+        then l.title || ' listener ' || l.port || ' uses TLS with non-recommended policy ' || l.ssl_policy || '.'
+      when l.lb_type = 'network' and l.protocol = 'TLS'
+        then l.title || ' listener ' || l.port || ' uses TLS with recommended policy ' || l.ssl_policy || '.'
+      when l.lb_type = 'application'
+        then l.title || ' listener ' || l.port || ' uses ' || lower(l.protocol) || ' (expected HTTPS).'
+      when l.lb_type = 'network'
+        then l.title || ' listener ' || l.port || ' uses ' || lower(l.protocol) || ' (expected TLS).'
     end as reason
-    --${local.tag_dimensions_sql}
-    --${local.common_dimensions_sql}
-    from listeners;
+    ${local.tag_dimensions_sql}
+    ${local.common_dimensions_sql}
+  from
+    listeners l;
   EOQ
 
   param "https_tls_listener_recommended_ssl_policy" {
-    description = "A list of latest lambda runtimes."
+    description = "A list of recommended SSL policies."
     default     = var.https_tls_listener_recommended_ssl_policy
   }
 }
+
 
 query "elb_application_network_listener_uses_secure_protocol" {
   sql = <<-EOQ
