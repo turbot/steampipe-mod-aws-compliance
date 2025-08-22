@@ -74,6 +74,78 @@ control "guardduty_centrally_configured" {
   tags = local.conformance_pack_guardduty_common_tags
 }
 
+control "guardduty_detector_eks_audit_log_monitoring_enabled" {
+  title         = "GuardDuty EKS Audit Log Monitoring should be enabled"
+  description   = "This control checks whether GuardDuty EKS Audit Log Monitoring is enabled. For a standalone account, the control fails if GuardDuty EKS Audit Log Monitoring is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS Audit Log Monitoring enabled."
+  query         = query.guardduty_detector_eks_audit_log_monitoring_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_lambda_protection_enabled" {
+  title         = "GuardDuty Lambda Protection should be enabled"
+  description   = "This control checks whether GuardDuty Lambda Protection is enabled. For a standalone account, the control fails if GuardDuty Lambda Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Lambda Protection enabled."
+  query         = query.guardduty_detector_lambda_protection_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_eks_runtime_monitoring_enabled" {
+  title         = "GuardDuty EKS Runtime Monitoring should be enabled"
+  description   = "This control checks whether GuardDuty EKS Runtime Monitoring with automated agent management is enabled. For a standalone account, the control fails if GuardDuty EKS Runtime Monitoring with automated agent management is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS Runtime Monitoring with automated agent management enabled."
+  query         = query.guardduty_detector_eks_runtime_monitoring_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_ec2_malware_protection_enabled" {
+  title         = "GuardDuty Malware Protection for EC2 should be enabled"
+  description   = "This control checks whether GuardDuty Malware Protection is enabled. For a standalone account, the control fails if GuardDuty Malware Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Malware Protection enabled."
+  query         = query.guardduty_detector_ec2_malware_protection_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_rds_protection_enabled" {
+  title         = "GuardDuty RDS Protection should be enabled"
+  description   = "This control checks whether GuardDuty RDS Protection is enabled. For a standalone account, the control fails if GuardDuty RDS Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have RDS Protection enabled."
+  query         = query.guardduty_detector_rds_protection_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_s3_protection_enabled" {
+  title         = "10 GuardDuty S3 Protection should be enabled"
+  description   = "This control checks whether GuardDuty S3 Protection is enabled. For a standalone account, the control fails if GuardDuty S3 Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have S3 Protection enabled."
+  query         = query.guardduty_detector_s3_protection_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_runtime_monitoring_enabled" {
+  title         = "GuardDuty Runtime Monitoring should be enabled"
+  description   = "This control checks whether Runtime Monitoring is enabled in Amazon GuardDuty. For a standalone account, the control fails if GuardDuty Runtime Monitoring is disabled for the account. In a multi-account environment, the control fails if GuardDuty Runtime Monitoring is disabled for the delegated GuardDuty administrator account and all member accounts."
+  query         = query.guardduty_detector_runtime_monitoring_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_ecs_runtime_monitoring_enabled" {
+  title         = "GuardDuty ECS Runtime Monitoring should be enabled"
+  description   = "This control checks whether the Amazon GuardDuty automated security agent is enabled for runtime monitoring of Amazon ECS clusters on AWS Fargate. For a standalone account, the control fails if the security agent is disabled for the account. In a multi-account environment, the control fails if the security agent is disabled for the delegated GuardDuty administrator account and all member accounts."
+  query         = query.guardduty_detector_ecs_runtime_monitoring_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
+control "guardduty_detector_ec2_runtime_monitoring_enabled" {
+  title         = "GuardDuty EC2 Runtime Monitoring should be enabled"
+  description   = "This control checks whether the Amazon GuardDuty automated security agent is enabled for runtime monitoring of Amazon EC2 instances. For a standalone account, the control fails if the security agent is disabled for the account. In a multi-account environment, the control fails if the security agent is disabled for the delegated GuardDuty administrator account and all member accounts."
+  query         = query.guardduty_detector_ec2_runtime_monitoring_enabled
+
+  tags = local.conformance_pack_guardduty_common_tags
+}
+
 query "guardduty_enabled" {
   sql = <<-EOQ
     select
@@ -101,7 +173,6 @@ query "guardduty_enabled" {
       left join aws_guardduty_detector d on r.account_id = d.account_id and r.name = d.region;
   EOQ
 }
-
 
 query "guardduty_no_high_severity_findings" {
   sql = <<-EOQ
@@ -149,7 +220,6 @@ query "guardduty_no_high_severity_findings" {
       left join finding_count as fc on fc.detector_id = d.detector_id;
   EOQ
 }
-
 
 query "guardduty_finding_archived" {
   sql = <<-EOQ
@@ -199,4 +269,276 @@ query "guardduty_centrally_configured" {
   EOQ
 }
 
+query "guardduty_detector_eks_audit_log_monitoring_enabled" {
+  sql = <<-EOQ
+    with eks_audit_log_monitoring as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'EKS_AUDIT_LOGS'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' EKS audit log monitoring enabled.'
+        else title || ' EKS audit log monitoring disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join eks_audit_log_monitoring as m on m.arn = d.arn
+  EOQ
+}
 
+query "guardduty_detector_lambda_protection_enabled" {
+  sql = <<-EOQ
+    with lambda_protection as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'LAMBDA_NETWORK_LOGS'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' Lambda protection enabled.'
+        else title || ' Lambda protection disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join lambda_protection as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_eks_runtime_monitoring_enabled" {
+  sql = <<-EOQ
+    with eks_runtime_monitoring as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'EKS_RUNTIME_MONITORING'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' EKS runtime monitoring enabled.'
+        else title || ' EKS runtime monitoring disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join eks_runtime_monitoring as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_rds_protection_enabled" {
+  sql = <<-EOQ
+    with rds_protection as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'RDS_LOGIN_EVENTS'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' RDS protection enabled.'
+        else title || ' RDS protection disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join rds_protection as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_s3_protection_enabled" {
+  sql = <<-EOQ
+    with s3_protection as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'S3_DATA_EVENTS'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' S3 protection enabled.'
+        else title || ' S3 protection disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join s3_protection as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_runtime_monitoring_enabled" {
+  sql = <<-EOQ
+    with runtime_monitoring as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'RUNTIME_MONITORING'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' runtime monitoring enabled.'
+        else title || ' runtime monitoring disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join runtime_monitoring as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_ecs_runtime_monitoring_enabled" {
+  sql = <<-EOQ
+    with ecs_runtime_monitoring as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f,
+        jsonb_array_elements(f -> 'AdditionalConfiguration') as c
+      where
+        f ->> 'Name' = 'RUNTIME_MONITORING'
+        and c ->> 'Name' = 'ECS_FARGATE_AGENT_MANAGEMENT'
+        and c ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' ECS runtime monitoring enabled.'
+        else title || ' ECS runtime monitoring disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join ecs_runtime_monitoring as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_ec2_runtime_monitoring_enabled" {
+  sql = <<-EOQ
+    with ec2_runtime_monitoring as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f,
+        jsonb_array_elements(f -> 'AdditionalConfiguration') as c
+      where
+        f ->> 'Name' = 'RUNTIME_MONITORING'
+        and c ->> 'Name' = 'EC2_AGENT_MANAGEMENT'
+        and c ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' EC2 runtime monitoring enabled.'
+        else title || ' EC2 runtime monitoring disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join ec2_runtime_monitoring as m on m.arn = d.arn
+  EOQ
+}
+
+query "guardduty_detector_ec2_malware_protection_enabled" {
+  sql = <<-EOQ
+    with ec2_malware_protection as (
+      select
+        arn
+      from
+        aws_guardduty_detector,
+        jsonb_array_elements(features) as f
+      where
+        f ->> 'Name' = 'EBS_MALWARE_PROTECTION'
+        and f ->> 'Status' = 'ENABLED'
+    )
+    select
+      d.arn as resource,
+      case
+        when m.arn is not null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when m.arn is not null then title || ' EC2 malware protection enabled.'
+        else title || ' EC2 malware protection disabled.'
+      end as reason
+      -- ${local.tag_dimensions_sql}
+      -- ${local.common_dimensions_sql}
+    from
+      aws_guardduty_detector as d
+      left join ec2_malware_protection as m on m.arn = d.arn
+  EOQ
+}

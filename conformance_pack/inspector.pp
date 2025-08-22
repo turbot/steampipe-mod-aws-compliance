@@ -1,7 +1,39 @@
 locals {
-  conformance_pack_inspector_common_tags = {
+  conformance_pack_inspector_common_tags = merge(local.aws_compliance_common_tags, {
     service = "AWS/Inspector"
-  }
+  })
+}
+
+control "inspector_ec2_scanning_enabled" {
+  title         = "Amazon Inspector EC2 scanning should be enabled"
+  description   = "This control checks whether Amazon Inspector EC2 scanning is enabled. For a standalone account, the control fails if Amazon Inspector EC2 scanning is disabled in the account. In a multi-account environment, the control fails if the delegated Amazon Inspector administrator account and all member accounts don't have EC2 scanning enabled."
+  query         = query.inspector_ec2_scanning_enabled
+
+  tags = local.conformance_pack_inspector_common_tags
+}
+
+control "inspector_ecr_scanning_enabled" {
+  title         = "Amazon Inspector ECR scanning should be enabled"
+  description   = "This control checks whether Amazon Inspector ECR scanning is enabled. For a standalone account, the control fails if Amazon Inspector ECR scanning is disabled in the account. In a multi-account environment, the control fails if the delegated Amazon Inspector administrator account and all member accounts don't have ECR scanning enabled."
+  query         = query.inspector_ecr_scanning_enabled
+
+  tags = local.conformance_pack_inspector_common_tags
+}
+
+control "inspector_lambda_code_scanning_enabled" {
+  title         = "Amazon Inspector Lambda code scanning should be enabled"
+  description   = "This control checks whether Amazon Inspector Lambda code scanning is enabled. For a standalone account, the control fails if Amazon Inspector Lambda code scanning is disabled in the account. In a multi-account environment, the control fails if the delegated Amazon Inspector administrator account and all member accounts don't have Lambda code scanning enabled."
+  query         = query.inspector_lambda_code_scanning_enabled
+
+  tags = local.conformance_pack_inspector_common_tags
+}
+
+control "inspector_lambda_scanning_enabled" {
+  title         = "Amazon Inspector Lambda standard scanning should be enabled"
+  description   = "This control checks whether Amazon Inspector Lambda standard scanning is enabled. For a standalone account, the control fails if Amazon Inspector Lambda standard scanning is disabled in the account. In a multi-account environment, the control fails if the delegated Amazon Inspector administrator account and all member accounts don't have Lambda standard scanning enabled."
+  query         = query.inspector_lambda_scanning_enabled
+
+  tags = local.conformance_pack_inspector_common_tags
 }
 
 query "inspector_ec2_scanning_enabled" {
