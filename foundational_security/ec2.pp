@@ -36,6 +36,7 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_170,
     control.foundational_security_ec2_171,
     control.foundational_security_ec2_172,
+    control.foundational_security_ec2_173,
     control.foundational_security_ec2_180
   ]
 
@@ -408,6 +409,19 @@ control "foundational_security_ec2_172" {
   })
 }
 
+control "foundational_security_ec2_173" {
+  title         = "173 EC2 Spot Fleet requests with launch parameters should enable encryption for attached EBS volumes"
+  description   = "This control checks whether an Amazon EC2 Spot Fleet request that specifies launch parameters is configured to enable encryption for all Amazon Elastic Block Store (Amazon EBS) volumes attached to EC2 instances. The control fails if the Spot Fleet request specifies launch parameters and doesn't enable encryption for one or more EBS volumes specified in the request."
+  severity      = "medium"
+  query         = query.ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ec2_173.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_173"
+    foundational_security_category = "encryption_of_data_at_rest"
+  })
+}
+
 control "foundational_security_ec2_180" {
   title         = "180 EC2 network interfaces should have source/destination checking enabled"
   description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
@@ -420,3 +434,4 @@ control "foundational_security_ec2_180" {
     foundational_security_category = "network_security"
   })
 }
+
