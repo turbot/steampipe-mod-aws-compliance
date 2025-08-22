@@ -275,7 +275,7 @@ query "glue_spark_job_run_on_versions_3_or_more" {
         when not default_arguments @> '{"--enable-spark-ui": "true"}'::jsonb then title  || ' is not a spark job.'
         else title  || ' uses ' || glue_version || ' glue version.'
       end as reason
-      -- ${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_glue_job;
   EOQ

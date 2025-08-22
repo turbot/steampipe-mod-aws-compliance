@@ -291,8 +291,8 @@ query "guardduty_detector_eks_audit_log_monitoring_enabled" {
         when m.arn is not null then title || ' EKS audit log monitoring enabled.'
         else title || ' EKS audit log monitoring disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join eks_audit_log_monitoring as m on m.arn = d.arn
@@ -321,8 +321,8 @@ query "guardduty_detector_lambda_protection_enabled" {
         when m.arn is not null then title || ' Lambda protection enabled.'
         else title || ' Lambda protection disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join lambda_protection as m on m.arn = d.arn
@@ -351,8 +351,8 @@ query "guardduty_detector_eks_runtime_monitoring_enabled" {
         when m.arn is not null then title || ' EKS runtime monitoring enabled.'
         else title || ' EKS runtime monitoring disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join eks_runtime_monitoring as m on m.arn = d.arn
@@ -381,8 +381,8 @@ query "guardduty_detector_rds_protection_enabled" {
         when m.arn is not null then title || ' RDS protection enabled.'
         else title || ' RDS protection disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join rds_protection as m on m.arn = d.arn
@@ -411,8 +411,8 @@ query "guardduty_detector_s3_protection_enabled" {
         when m.arn is not null then title || ' S3 protection enabled.'
         else title || ' S3 protection disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join s3_protection as m on m.arn = d.arn
@@ -441,8 +441,8 @@ query "guardduty_detector_runtime_monitoring_enabled" {
         when m.arn is not null then title || ' runtime monitoring enabled.'
         else title || ' runtime monitoring disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join runtime_monitoring as m on m.arn = d.arn
@@ -473,8 +473,8 @@ query "guardduty_detector_ecs_runtime_monitoring_enabled" {
         when m.arn is not null then title || ' ECS runtime monitoring enabled.'
         else title || ' ECS runtime monitoring disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join ecs_runtime_monitoring as m on m.arn = d.arn
@@ -505,8 +505,8 @@ query "guardduty_detector_ec2_runtime_monitoring_enabled" {
         when m.arn is not null then title || ' EC2 runtime monitoring enabled.'
         else title || ' EC2 runtime monitoring disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join ec2_runtime_monitoring as m on m.arn = d.arn
@@ -535,8 +535,8 @@ query "guardduty_detector_ec2_malware_protection_enabled" {
         when m.arn is not null then title || ' EC2 malware protection enabled.'
         else title || ' EC2 malware protection disabled.'
       end as reason
-      -- ${local.tag_dimensions_sql}
-      -- ${local.common_dimensions_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_guardduty_detector as d
       left join ec2_malware_protection as m on m.arn = d.arn

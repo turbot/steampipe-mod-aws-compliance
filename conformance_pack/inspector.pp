@@ -52,7 +52,7 @@ query "inspector_ec2_scanning_enabled" {
         when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null ) then 'AWS Inspector EC2 scanning siabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_region as r
       left join aws_inspector2_organization_configuration as c on r.account_id = c.account_id and r.region = c.region;
@@ -75,7 +75,7 @@ query "inspector_ecr_scanning_enabled" {
         when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null ) then 'AWS Inspector ECR scanning siabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_region as r
       left join aws_inspector2_organization_configuration as c on r.account_id = c.account_id and r.region = c.region;
@@ -100,7 +100,7 @@ query "inspector_lambda_scanning_enabled" {
         when c.account_id is not null and (not lambda_auto_enable or lambda_auto_enable is null ) then 'AWS Inspector Lambda scanning disabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_region as r
       left join aws_inspector2_organization_configuration as c on r.account_id = c.account_id and r.region = c.region;
@@ -123,7 +123,7 @@ query "inspector_lambda_code_scanning_enabled" {
         when c.account_id is not null and (not lambda_code_auto_enable or lambda_code_auto_enable is null ) then 'AWS Inspector Lambda code scanning disabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
-      --${local.common_dimensions_global_sql}
+      ${local.common_dimensions_global_sql}
     from
       aws_region as r
       left join aws_inspector2_organization_configuration as c on r.account_id = c.account_id and r.region = c.region;

@@ -392,13 +392,12 @@ control "elb_application_network_lb_https_tls_listener_recommended_security_poli
 }
 
 control "elb_application_network_listener_uses_secure_protocol" {
-  title         = "18 Application and Network Load Balancer listeners should use secure protocols to encrypt data in transit"
+  title         = "Application and Network Load Balancer listeners should use secure protocols to encrypt data in transit"
   description   = "This control checks whether the listener for an Application Load Balancer or Network Load Balancer is configured to use a secure protocol for encryption of data in transit. The control fails if an Application Load Balancer listener isn't configured to use the HTTPS protocol, or a Network Load Balancer listener isn't configured to use the TLS protocol."
   query         = query.elb_application_network_listener_uses_secure_protocol
 
   tags = local.conformance_pack_elb_common_tags
 }
-
 
 query "elb_application_classic_lb_logging_enabled" {
   sql = <<-EOQ
@@ -1199,7 +1198,6 @@ query "elb_application_network_lb_https_tls_listener_recommended_security_policy
     default     = var.https_tls_listener_recommended_ssl_policy
   }
 }
-
 
 query "elb_application_network_listener_uses_secure_protocol" {
   sql = <<-EOQ

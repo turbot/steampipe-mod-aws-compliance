@@ -20,7 +20,7 @@ benchmark "all_controls_guardduty" {
     control.guardduty_detector_s3_protection_enabled,
     control.guardduty_enabled,
     control.guardduty_finding_archived,
-    control.guardduty_no_high_severity_findings,
+    control.guardduty_no_high_severity_findings
   ]
 
   tags = merge(local.all_controls_guardduty_common_tags, {

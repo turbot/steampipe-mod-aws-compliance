@@ -470,7 +470,6 @@ control "s3_multi_region_access_point_public_access_block" {
   title         = "S3 Multi-Region Access Points should have block public access settings enabled"
   description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
   query         = query.s3_multi_region_access_point_public_access_block
-  documentation = file("./foundational_security/docs/foundational_security_s3_24.md")
 
   tags = local.conformance_pack_s3_common_tags
 }
@@ -1343,8 +1342,8 @@ query "s3_directory_bucket_lifecycle_policy_configured" {
         when lifecycle_rules is not null then name || ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
       end reason
-      -- ${local.tag_dimensions_qualifier_sql}
-      -- ${local.common_dimensions_qualifier_sql}
+      ${local.tag_dimensions_qualifier_sql}
+      ${local.common_dimensions_qualifier_sql}
     from
       aws_s3_directory_bucket;
   EOQ

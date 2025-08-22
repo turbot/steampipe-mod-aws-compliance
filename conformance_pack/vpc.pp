@@ -2316,7 +2316,7 @@ query "vpc_block_public_access_restrict_internet_gateway_traffic" {
         when internet_gateway_block_mode in ('block-bidirectional', 'block-ingress') then title || ' restrict internet gateway traffic.'
         else title || ' allow internet gateway traffic.'
       end as reason
-      -- ${local.common_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_vpc_block_public_access_options;
   EOQ
