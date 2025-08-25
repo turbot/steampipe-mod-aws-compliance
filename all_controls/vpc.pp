@@ -8,6 +8,7 @@ benchmark "all_controls_vpc" {
   title       = "VPC"
   description = "This section contains recommendations for configuring VPC resources."
   children = [
+    control.vpc_block_public_access_restrict_internet_gateway_traffic,
     control.vpc_configured_to_use_interface_endpoint_for_docker_registry,
     control.vpc_configured_to_use_interface_endpoint_for_ecr_api,
     control.vpc_configured_to_use_interface_endpoint_for_ssm_contacts,

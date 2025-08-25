@@ -8,6 +8,7 @@ benchmark "all_controls_transfer" {
   title       = "Transfer"
   description = "This section contains recommendations for configuring Transfer resources."
   children = [
+    control.transfer_connector_logging_enabled,
     control.transfer_server_no_ftp_protocol
   ]
 
