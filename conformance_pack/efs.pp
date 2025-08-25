@@ -398,7 +398,6 @@ query "efs_mount_target_not_publicly_accessible" {
         when s.map_public_ip_on_launch then mt.file_system_id || ' mount target ' || mt.mount_target_id || ' is in subnet ' || s.subnet_id || ' that assigns public IPs on launch.'
         else mt.file_system_id || ' mount target ' || mt.mount_target_id || ' is in subnet ' || s.subnet_id || ' that does not assign public IPs on launch.'
       end as reason
-      ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "mt.")}
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "mt.")}
     from
       aws_efs_mount_target mt
