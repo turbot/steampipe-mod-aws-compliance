@@ -680,7 +680,7 @@ query "vpc_network_acl_remote_administration" {
 
 query "vpc_security_group_restrict_ingress_tcp_udp_all" {
   sql = <<-EOQ
-    with bad_rules as materialized (
+    with bad_rules as (
       select
         group_id,
         count(*) as num_bad_rules
@@ -694,7 +694,7 @@ query "vpc_security_group_restrict_ingress_tcp_udp_all" {
         )
       group by group_id
     ),
-    security_groups as materialized (
+    security_groups as (
       select
         arn,
         region,
@@ -1782,7 +1782,7 @@ query "vpc_subnet_public_and_private" {
       from
       aws_vpc_route_table
     ),
-    subnets_with_explicit_route as materialized(
+    subnets_with_explicit_route as (
       select
         distinct ( a ->> 'SubnetId') as all_sub
       from
@@ -2009,7 +2009,7 @@ query "vpc_gateway_endpoint_restrict_public_access" {
 
 query "vpc_security_group_restrict_ingress_cifs_port_all" {
   sql = <<-EOQ
-    with ingress_cifs_rules as materialized (
+    with ingress_cifs_rules as (
       select
         group_id,
         count(*) as num_cifs_rules
