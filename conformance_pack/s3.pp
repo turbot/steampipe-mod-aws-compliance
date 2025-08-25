@@ -421,7 +421,6 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
 control "s3_bucket_event_notifications_enabled" {
   title       = "S3 buckets should have event notifications enabled"
   description = "This control checks whether S3 Event Notifications are enabled on an AWS S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
-  severity    = "medium"
   query       = query.s3_bucket_event_notifications_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {

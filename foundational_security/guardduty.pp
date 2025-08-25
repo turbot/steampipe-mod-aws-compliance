@@ -121,7 +121,7 @@ control "foundational_security_guardduty_11" {
   description   = "This control checks whether Runtime Monitoring is enabled in Amazon GuardDuty. For a standalone account, the control fails if GuardDuty Runtime Monitoring is disabled for the account. In a multi-account environment, the control fails if GuardDuty Runtime Monitoring is disabled for the delegated GuardDuty administrator account and all member accounts."
   severity      = "high"
   query         = query.guardduty_detector_runtime_monitoring_enabled
-  documentation = file("./foundational_security/docs/foundational_security_guardduty_1.md")
+  documentation = file("./foundational_security/docs/foundational_security_guardduty_11.md")
 
   tags = merge(local.foundational_security_guardduty_common_tags, {
     foundational_security_item_id  = "guardduty_11"
