@@ -20,7 +20,11 @@ benchmark "foundational_security" {
     benchmark.foundational_security_cloudfront,
     benchmark.foundational_security_cloudtrail,
     benchmark.foundational_security_codebuild,
+    benchmark.foundational_security_cognito,
     benchmark.foundational_security_config,
+    benchmark.foundational_security_connect,
+    benchmark.foundational_security_datafirehose,
+    benchmark.foundational_security_datasync,
     benchmark.foundational_security_dms,
     benchmark.foundational_security_docdb,
     benchmark.foundational_security_dynamodb,
@@ -48,6 +52,7 @@ benchmark "foundational_security" {
     benchmark.foundational_security_pca,
     benchmark.foundational_security_rds,
     benchmark.foundational_security_redshift,
+    benchmark.foundational_security_redshiftserverless,
     benchmark.foundational_security_route53,
     benchmark.foundational_security_s3,
     benchmark.foundational_security_sagemaker,
@@ -56,7 +61,9 @@ benchmark "foundational_security" {
     benchmark.foundational_security_sns,
     benchmark.foundational_security_sqs,
     benchmark.foundational_security_ssm,
-    benchmark.foundational_security_waf
+    benchmark.foundational_security_transfer,
+    benchmark.foundational_security_waf,
+    benchmark.foundational_security_workspaces
   ]
 
   tags = merge(local.foundational_security_common_tags, {

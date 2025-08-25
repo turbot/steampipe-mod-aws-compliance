@@ -35,7 +35,14 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_25,
     control.foundational_security_rds_27,
     control.foundational_security_rds_34,
-    control.foundational_security_rds_35
+    control.foundational_security_rds_35,
+    control.foundational_security_rds_36,
+    control.foundational_security_rds_37,
+    control.foundational_security_rds_40,
+    control.foundational_security_rds_41,
+    control.foundational_security_rds_42,
+    control.foundational_security_rds_44,
+    control.foundational_security_rds_45
   ]
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -385,7 +392,7 @@ control "foundational_security_rds_34" {
   title         = "34 Aurora MySQL DB clusters should publish audit logs to CloudWatch Logs"
   description   = "This control checks whether an Amazon Aurora MySQL DB cluster is configured to publish audit logs to Amazon CloudWatch Logs. The control fails if the cluster isn't configured to publish audit logs to CloudWatch Logs."
   severity      = "medium"
-  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+  query         = query.rds_db_cluster_aurora_mysql_publish_audit_log_to_cloudwatch
   documentation = file("./foundational_security/docs/foundational_security_rds_34.md")
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -407,4 +414,94 @@ control "foundational_security_rds_35" {
   })
 }
 
+control "foundational_security_rds_36" {
+  title         = "36 RDS for PostgreSQL DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for PostgreSQL DB instance is configured to publish logs to Amazon CloudWatch Logs. The control fails if the PostgreSQL DB instance isn't configured to publish the log types mentioned in the logTypes parameter to CloudWatch Logs."
+  severity      = "medium"
+  query         = query.rds_db_instance_postgres_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_36.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_36"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_rds_37" {
+  title         = "37 Aurora PostgreSQL DB clusters should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon Aurora PostgreSQL DB cluster is configured to publish logs to Amazon CloudWatch Logs. The control fails if the Aurora PostgreSQL DB cluster isn't configured to publish PostgreSQL logs to CloudWatch Logs."
+  severity      = "medium"
+  query         = query.rds_db_cluster_aurora_postgres_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_37.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_37"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_rds_40" {
+  title         = "40 RDS for SQL Server DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for Microsoft SQL Server DB instance is configured to publish logs to Amazon CloudWatch Logs. The control fails if the RDS for SQL Server DB instance isn't configured to publish logs to CloudWatch Logs. You can optionally specify the types of logs that a DB instance should be configured to publish."
+  severity      = "medium"
+  query         = query.rds_db_instance_sql_server_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_40.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_40"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_rds_41" {
+  title         = "41 RDS for SQL Server DB instances should be encrypted in transit"
+  description   = "This control checks whether a connection to an Amazon RDS for Microsoft SQL Server DB instance is encrypted in transit. The control fails if the rds.force_ssl parameter of the parameter group associated with the DB instance is set to 0 (off)."
+  severity      = "medium"
+  query         = query.rds_db_instance_sql_server_encryption_in_transit_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_41.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_41"
+    foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_rds_42" {
+  title         = "42 RDS for MariaDB DB instances should publish logs to CloudWatch Logs"
+  description   = "This control checks whether an Amazon RDS for MariaDB DB instance is configured to publish certain types of logs to Amazon CloudWatch Logs. The control fails if the MariaDB DB instance isn't configured to publish the logs to CloudWatch Logs. You can optionally specify which types of logs a MariaDB DB instance should be configured to publish."
+  severity      = "medium"
+  query         = query.rds_db_instance_mariadb_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_42.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_42"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_rds_44" {
+  title         = "44 RDS for MariaDB DB instances should be encrypted in transit"
+  description   = "This control checks whether connections to an Amazon RDS for MariaDB DB instance are encrypted in transit. The control fails if the DB parameter group associated with the DB instance is not in sync, or the require_secure_transport parameter of the parameter group is not set to ON."
+  severity      = "medium"
+  query         = query.rds_db_instance_mariadb_encryption_in_transit_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_44.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_44"
+    foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_rds_45" {
+  title         = "45 Aurora MySQL DB clusters should have audit logging enabled"
+  description   = "This control checks whether an Amazon Aurora MySQL DB cluster has audit logging enabled. The control fails if the DB parameter group associated with the DB cluster is not in sync, the server_audit_logging parameter is not set to 1, or the server_audit_events parameter is set to an empty value."
+  severity      = "medium"
+  query         = query.rds_db_cluster_aurora_mysql_audit_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_45.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_45"
+    foundational_security_category = "logging"
+  })
+}
 

@@ -113,7 +113,8 @@ query "guardduty_no_high_severity_findings" {
         d.region,
         d.account_id,
         d.tags,
-        d.status
+        d.status,
+        d._ctx
       from
         aws_guardduty_detector d
         join aws_region r on d.account_id = r.account_id and d.region = r.name

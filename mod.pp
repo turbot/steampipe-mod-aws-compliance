@@ -6,6 +6,7 @@ mod "aws_compliance" {
   documentation = file("./docs/index.md")
   icon          = "/images/mods/turbot/aws-compliance.svg"
   categories    = ["aws", "cis", "compliance", "pci dss", "public cloud", "security"]
+  database      = var.database
 
   opengraph {
     title       = "Powerpipe Mod for AWS Compliance"
@@ -15,7 +16,7 @@ mod "aws_compliance" {
 
   require {
     plugin "aws" {
-      min_version = "1.12.0"
+      min_version = "1.22.0"
     }
   }
 }

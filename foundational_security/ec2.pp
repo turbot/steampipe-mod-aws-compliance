@@ -27,7 +27,15 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_23,
     control.foundational_security_ec2_24,
     control.foundational_security_ec2_25,
-    control.foundational_security_ec2_51
+    control.foundational_security_ec2_51,
+    control.foundational_security_ec2_55,
+    control.foundational_security_ec2_56,
+    control.foundational_security_ec2_57,
+    control.foundational_security_ec2_58,
+    control.foundational_security_ec2_60,
+    control.foundational_security_ec2_170,
+    control.foundational_security_ec2_171,
+    control.foundational_security_ec2_180
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -292,5 +300,109 @@ control "foundational_security_ec2_51" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_51"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_ec2_55" {
+  title         = "55 VPCs should be configured with an interface endpoint for ECR API"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for Amazon ECR API. The control fails if the VPC doesn't have an interface VPC endpoint for ECR API. This control evaluates resources in a single account."
+  severity      = "medium"
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ecr_api
+  documentation = file("./foundational_security/docs/foundational_security_ec2_55.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_55"
+    foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_ec2_56" {
+  title         = "56 VPCs should be configured with an interface endpoint for Docker Registry"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for Docker Registry. The control fails if the VPC doesn't have an interface VPC endpoint for Docker Registry. This control evaluates resources in a single account."
+  severity      = "medium"
+  query         = query.vpc_configured_to_use_interface_endpoint_for_docker_registry
+  documentation = file("./foundational_security/docs/foundational_security_ec2_56.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_56"
+    foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_ec2_57" {
+  title         = "57 VPCs should be configured with an interface endpoint for Systems Manager"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager. This control evaluates resources in a single account."
+  severity      = "medium"
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm
+  documentation = file("./foundational_security/docs/foundational_security_ec2_57.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_57"
+    foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_ec2_58" {
+  title         = "58 VPCs should be configured with an interface endpoint for Systems Manager Incident Manager Contacts"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager Incident Manager Contacts. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager Incident Manager Contacts. This control evaluates resources in a single account."
+  severity      = "medium"
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm_contacts
+  documentation = file("./foundational_security/docs/foundational_security_ec2_58.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_58"
+    foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_ec2_60" {
+  title         = "60 VPCs should be configured with an interface endpoint for Systems Manager Incident Manager"
+  description   = "This control checks whether a virtual private cloud (VPC) that you manage has an interface VPC endpoint for AWS Systems Manager Incident Manager. The control fails if the VPC doesn't have an interface VPC endpoint for Systems Manager Incident Manager. This control evaluates resources in a single account."
+  severity      = "medium"
+  query         = query.vpc_configured_to_use_interface_endpoint_for_ssm_incidents
+  documentation = file("./foundational_security/docs/foundational_security_ec2_60.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_60"
+    foundational_security_category = "access_control"
+  })
+}
+
+control "foundational_security_ec2_170" {
+  title         = "170 EC2 launch templates should use Instance Metadata Service Version 2 (IMDSv2)"
+  description   = "This control checks whether an Amazon EC2 launch template is configured with Instance Metadata Service Version 2 (IMDSv2). The control fails if HttpTokens is set to optional."
+  severity      = "low"
+  query         = query.ec2_launch_template_default_version_uses_imdsv2
+  documentation = file("./foundational_security/docs/foundational_security_ec2_170.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_170"
+    foundational_security_category = "network_security"
+  })
+}
+
+control "foundational_security_ec2_171" {
+  title         = "171 EC2 VPN connections should have logging enabled"
+  description   = "This control checks whether an AWS Site-to-Site VPN connection has Amazon CloudWatch Logs enabled for both tunnels. The control fails if a Site-to-Site VPN connection doesn't have CloudWatch Logs enabled for both tunnels."
+  severity      = "medium"
+  query         = query.vpc_vpn_connection_logging_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ec2_171.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_171"
+    foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_ec2_180" {
+  title         = "180 EC2 network interfaces should have source/destination checking enabled"
+  description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
+  severity      = "medium"
+  query         = query.ec2_network_inteface_source_destination_check_enabled
+  documentation = file("./foundational_security/docs/foundational_security_ec2_180.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_180"
+    foundational_security_category = "network_security"
   })
 }

@@ -10,7 +10,8 @@ benchmark "foundational_security_sagemaker" {
   children = [
     control.foundational_security_sagemaker_1,
     control.foundational_security_sagemaker_2,
-    control.foundational_security_sagemaker_3
+    control.foundational_security_sagemaker_3,
+    control.foundational_security_sagemaker_5
   ]
 
   tags = merge(local.foundational_security_sagemaker_common_tags, {
@@ -56,3 +57,17 @@ control "foundational_security_sagemaker_3" {
     foundational_security_category = "root_user_access_restrictions"
   })
 }
+
+control "foundational_security_sagemaker_5" {
+  title         = "5 SageMaker models should have network isolation enabled"
+  description   = "This control checks whether an Amazon SageMaker AI hosted model has network isolation enabled. The control fails if the EnableNetworkIsolation parameter for the hosted model is set to False."
+  severity      = "medium"
+  query         = query.sagemaker_model_network_isolation_enabled
+  documentation = file("./foundational_security/docs/foundational_security_sagemaker_5.md")
+
+  tags = merge(local.foundational_security_sagemaker_common_tags, {
+    foundational_security_item_id  = "sagemaker_5"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+
