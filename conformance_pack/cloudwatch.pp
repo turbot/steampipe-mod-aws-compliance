@@ -607,41 +607,34 @@ query "log_metric_filter_console_login_mfa" {
 
 query "log_metric_filter_root_login" {
   sql = <<-EOQ
-    with trails as (
+    with trails as materialized (
       select
         trail.account_id,
         trail.name as trail_name,
         trail.is_logging,
         split_part(trail.log_group_arn, ':', 7) as log_group_name
-      from
-        aws_cloudtrail_trail as trail,
+      from aws_cloudtrail_trail as trail,
         jsonb_array_elements(trail.event_selectors) as se
-      where
-        trail.is_multi_region_trail is true
+      where trail.is_multi_region_trail is true
         and trail.is_logging
         and se ->> 'ReadWriteType' = 'All'
         and trail.log_group_arn is not null
-      order by
-        trail_name
+      order by trail_name
     ),
-    alarms as (
+    alarms as materialized (
       select
         metric_name,
         action_arn as topic_arn
-      from
-        aws_cloudwatch_alarm,
+      from aws_cloudwatch_alarm,
         jsonb_array_elements_text(aws_cloudwatch_alarm.alarm_actions) as action_arn
-      order by
-        metric_name
+      order by metric_name
     ),
     topic_subscriptions as (
       select
         subscription_arn,
         topic_arn
-      from
-        aws_sns_topic_subscription
-      order by
-        subscription_arn
+      from aws_sns_topic_subscription
+      order by subscription_arn
     ),
     metric_filters as (
       select
@@ -649,26 +642,19 @@ query "log_metric_filter_root_login" {
         filter_pattern,
         log_group_name,
         metric_transformation_name
-      from
-        aws_cloudwatch_log_metric_filter as filter
-      where
-        filter.filter_pattern ~ '\s*\$\.userIdentity\.type\s*=\s*"Root".+\$\.userIdentity\.invokedBy NOT EXISTS.+\$\.eventType\s*!=\s*"AwsServiceEvent"'
-      order by
-        filter_name
+      from aws_cloudwatch_log_metric_filter as filter
+      where filter.filter_pattern ~ 'userIdentity.*type.*Root.*invokedBy NOT EXISTS.*eventType.*AwsServiceEvent'
+      order by filter_name
     ),
-    filter_data as (
+    filter_data as materialized (
       select
         t.account_id,
         t.trail_name,
         f.filter_name
-      from
-        trails as t
-      join
-        metric_filters as f on f.log_group_name = t.log_group_name
-      join
-        alarms as alarm on alarm.metric_name = f.metric_transformation_name
-      join
-        topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
+      from trails as t
+      join metric_filters as f on f.log_group_name = t.log_group_name
+      join alarms as alarm on alarm.metric_name = f.metric_transformation_name
+      join topic_subscriptions as subscription on subscription.topic_arn = alarm.topic_arn
     )
     select
       distinct 'arn:' || a.partition || ':::' || a.account_id as resource,
@@ -680,10 +666,9 @@ query "log_metric_filter_root_login" {
         when f.trail_name is null then 'No log metric filter and alarm exist for usage of "root" account.'
         else filter_name || ' forwards events for usage of "root" account.'
       end as reason
-      ${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
-    from
-      aws_account as a
-      left join filter_data as f on a.account_id = f.account_id;
+      --${replace(local.common_dimensions_qualifier_global_sql, "__QUALIFIER__", "a.")}
+    from aws_account a
+    left join filter_data as f on a.account_id = f.account_id;
   EOQ
 }
 
@@ -771,7 +756,7 @@ query "log_metric_filter_iam_policy" {
 
 query "log_metric_filter_vpc" {
   sql = <<-EOQ
-    with trails as (
+    with trails as  materialized (
       select
         trail.account_id,
         trail.name as trail_name,
@@ -788,7 +773,7 @@ query "log_metric_filter_vpc" {
       order by
         trail_name
     ),
-    alarms as (
+    alarms as materialized (
       select
         metric_name,
         action_arn as topic_arn
@@ -820,7 +805,7 @@ query "log_metric_filter_vpc" {
       order by
         filter_name
     ),
-    filter_data as (
+    filter_data as materialized (
       select
         t.account_id,
         t.trail_name,
