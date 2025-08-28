@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "cloudfront_distribution_tls_security_policy" {
+  type        = list(string)
+  description = "A list of CloudFront distributions SSL policy."
+  default     = ["TLSv1.2_2021"]
+}
+
 control "cloudfront_distribution_no_non_existent_s3_origin" {
   title       = "CloudFront distributions should not point to non-existent S3 origins"
   description = "This control checks whether AWS CloudFront distributions are pointing to non-existent AWS S3 origins. The control fails for a CloudFront distribution if the origin is configured to point to a non-existent bucket. This control only applies to CloudFront distributions where an S3 bucket without static website hosting is the S3 origin."
@@ -173,6 +179,14 @@ control "cloudfront_distribution_latest_tls_version" {
   title       = "CloudFront distributions should have latest TLS version"
   description = "This control checks whether CloudFront distribution uses latest TLS version."
   query       = query.cloudfront_distribution_latest_tls_version
+
+  tags = local.conformance_pack_cloudfront_common_tags
+}
+
+control "cloudfront_distribution_uses_recommended_tls_security_policy" {
+  title       = "CloudFront distributions should use the recommended TLS security policy"
+  description = "This control checks whether an Amazon CloudFront distribution is configured to use the recommended TLS security policy. The control fails if the CloudFront distribution is not configured to use the recommended TLS security policy."
+  query       = query.cloudfront_distribution_uses_recommended_tls_security_policy
 
   tags = local.conformance_pack_cloudfront_common_tags
 }
@@ -603,4 +617,30 @@ query "cloudfront_distribution_latest_tls_version" {
     from
       aws_cloudfront_distribution;
   EOQ
+}
+
+query "cloudfront_distribution_uses_recommended_tls_security_policy" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when viewer_certificate is null then 'alarm'
+        when not (viewer_certificate ->> 'MinimumProtocolVersion' = ANY($1::text[])) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when viewer_certificate is null then title || ' has no MinimumProtocolVersion set.'
+        when not (viewer_certificate ->> 'MinimumProtocolVersion' = ANY($1::text[])) then title || ' uses non-recommended MinimumProtocolVersion: ' || (viewer_certificate ->> 'MinimumProtocolVersion') || '.'
+        else title || ' uses recommended MinimumProtocolVersion: ' || (viewer_certificate ->> 'MinimumProtocolVersion') || '.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_cloudfront_distribution
+  EOQ
+
+  param "cloudfront_distribution_tls_security_policy" {
+    description = "A list of CloudFront distributions SSL policy."
+    default     = var.cloudfront_distribution_tls_security_policy
+  }
 }

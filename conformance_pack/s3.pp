@@ -1341,8 +1341,8 @@ query "s3_directory_bucket_lifecycle_policy_configured" {
         when lifecycle_rules is not null then name || ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
       end reason
-      ${local.tag_dimensions_qualifier_sql}
-      ${local.common_dimensions_qualifier_sql}
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
     from
       aws_s3_directory_bucket;
   EOQ
