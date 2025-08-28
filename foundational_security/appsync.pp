@@ -10,6 +10,7 @@ benchmark "foundational_security_appsync" {
   children = [
     control.foundational_security_appsync_1,
     control.foundational_security_appsync_2,
+    control.foundational_security_appsync_5,
     control.foundational_security_appsync_6,
   ]
 
@@ -41,6 +42,20 @@ control "foundational_security_appsync_2" {
   tags = merge(local.foundational_security_appsync_common_tags, {
     foundational_security_item_id  = "appsync_2"
     foundational_security_category = "logging"
+  })
+}
+
+control "foundational_security_appsync_5" {
+  title         = "5 AWS AppSync GraphQL APIs should not be authenticated with API keys"
+  description   = "This control checks whether your application uses an API key to interact with an AWS AppSync GraphQL API. The control fails if an AWS AppSync GraphQL API is authenticated with an API key."
+  severity      = "high"
+  query         = query.appsync_graphql_api_no_authentication_with_api_keys
+
+  documentation = file("./foundational_security/docs/foundational_security_appsync_5.md")
+
+  tags = merge(local.foundational_security_appsync_common_tags, {
+    foundational_security_item_id  = "appsync_5"
+    foundational_security_category = "passwordless_authentication"
   })
 }
 
