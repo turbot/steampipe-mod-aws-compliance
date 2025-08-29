@@ -14,7 +14,7 @@ variable "common_dimensions" {
   # - account_id
   # - connection_name (_ctx ->> 'connection_name')
   # - region
-  default = ["account_id", "region", "connection_name"]
+  default = ["account_id", "region"]
 }
 
 variable "tag_dimensions" {
@@ -24,7 +24,7 @@ variable "tag_dimensions" {
   # tags (e.g. "Owner", "Environment"). Default to empty since tag names are
   # a personal choice - for commonly used tag names see
   # https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-categories
-  default = [ "foo" ]
+  default = []
 }
 
 locals {
