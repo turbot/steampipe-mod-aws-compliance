@@ -49,7 +49,7 @@ control "foundational_security_appsync_5" {
   title         = "5 AWS AppSync GraphQL APIs should not be authenticated with API keys"
   description   = "This control checks whether your application uses an API key to interact with an AWS AppSync GraphQL API. The control fails if an AWS AppSync GraphQL API is authenticated with an API key."
   severity      = "high"
-  query         = query.appsync_graphql_api_no_authentication_with_api_keys
+  query         = query.appsync_graphql_api_no_authentication_with_api_key
 
   documentation = file("./foundational_security/docs/foundational_security_appsync_5.md")
 

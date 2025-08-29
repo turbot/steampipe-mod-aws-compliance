@@ -465,10 +465,10 @@ control "s3_access_point_restrict_public_access" {
   })
 }
 
-control "s3_multi_region_access_point_public_access_block" {
+control "s3_multi_region_access_point_public_access_blocked" {
   title         = "S3 Multi-Region Access Points should have block public access settings enabled"
   description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
-  query         = query.s3_multi_region_access_point_public_access_block
+  query         = query.s3_multi_region_access_point_public_access_blocked
 
   tags = local.conformance_pack_s3_common_tags
 }
@@ -1297,7 +1297,7 @@ query "s3_access_point_restrict_public_access" {
   EOQ
 }
 
-query "s3_multi_region_access_point_public_access_block" {
+query "s3_multi_region_access_point_public_access_blocked" {
   sql = <<-EOQ
     select
       'arn:' || partition || ':s3::' || account_id || ':accesspoint/' || alias as resource,
@@ -1341,7 +1341,6 @@ query "s3_directory_bucket_lifecycle_policy_configured" {
         when lifecycle_rules is not null then name || ' lifecycle policy configured.'
         else name || ' lifecycle policy not configured.'
       end reason
-      ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_s3_directory_bucket;

@@ -34,7 +34,7 @@ control "foundational_security_glue_4" {
   title         = "4 AWS Glue Spark jobs should run on supported versions of AWS Glue"
   description   = "This control checks whether an AWS Glue for Spark job is configured to run on a supported version of AWS Glue. The control fails if the Spark job is configured to run on a version of AWS Glue that's earlier than the minimum supported version."
   severity      = "medium"
-  query         = query.glue_spark_job_run_on_versions_3_or_more
+  query         = query.glue_spark_job_runs_on_version_3_or_higher
   documentation = file("./foundational_security/docs/foundational_security_glue_4.md")
 
   tags = merge(local.foundational_security_glue_common_tags, {

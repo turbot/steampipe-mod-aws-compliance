@@ -189,7 +189,7 @@ control "foundational_security_s3_24" {
   title         = "24 S3 Multi-Region Access Points should have block public access settings enabled"
   description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
   severity      = "high"
-  query         = query.s3_multi_region_access_point_public_access_block
+  query         = query.s3_multi_region_access_point_public_access_blocked
   documentation = file("./foundational_security/docs/foundational_security_s3_24.md")
 
   tags = merge(local.foundational_security_s3_common_tags, {

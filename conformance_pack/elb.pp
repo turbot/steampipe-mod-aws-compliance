@@ -4,9 +4,9 @@ locals {
   })
 }
 
-variable "https_tls_listener_recommended_ssl_policy" {
+variable "elb_application_network_lb_https_tls_listener_recommended_ssl_policy" {
   type        = list(string)
-  description = "A list of recommended SSL policies for applicationand networkload balancers."
+  description = "A list of recommended SSL policies for application and network load balancers."
   default     = ["ELBSecurityPolicy-TLS13-1-2-2021-06", "ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04" ,"ELBSecurityPolicy-TLS13-1-3-2021-06", "ELBSecurityPolicy-TLS13-1-3-FIPS-2023-04" ,"ELBSecurityPolicy-TLS13-1-2-Res-2021-06", "ELBSecurityPolicy-TLS13-1-2-Res-FIPS-2023-04"]
 }
 
@@ -1146,8 +1146,8 @@ query "elb_application_network_lb_https_tls_listener_recommended_security_policy
     ),
     listeners as (
       select
-        l.arn                 as listener_arn,
-        l.load_balancer_arn   as lb_arn,
+        l.arn as listener_arn,
+        l.load_balancer_arn as lb_arn,
         l.protocol,
         l.port,
         l.ssl_policy,
@@ -1193,9 +1193,9 @@ query "elb_application_network_lb_https_tls_listener_recommended_security_policy
     listeners l;
   EOQ
 
-  param "https_tls_listener_recommended_ssl_policy" {
+  param "elb_application_network_lb_https_tls_listener_recommended_ssl_policy" {
     description = "A list of recommended SSL policies for applicationand networkload balancers."
-    default     = var.https_tls_listener_recommended_ssl_policy
+    default     = var.elb_application_network_lb_https_tls_listener_recommended_ssl_policy
   }
 }
 

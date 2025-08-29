@@ -30,7 +30,7 @@ benchmark "all_controls_s3" {
     control.s3_bucket_versioning_and_lifecycle_policy_enabled,
     control.s3_bucket_versioning_enabled,
     control.s3_directory_bucket_lifecycle_policy_configured,
-    control.s3_multi_region_access_point_public_access_block,
+    control.s3_multi_region_access_point_public_access_blocked,
     control.s3_public_access_block_account,
     control.s3_public_access_block_bucket_account,
     control.s3_public_access_block_bucket

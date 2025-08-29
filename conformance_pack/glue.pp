@@ -84,10 +84,10 @@ control "glue_ml_transform_encryption_at_rest_enabled" {
   tags = local.conformance_pack_glue_common_tags
 }
 
-control "glue_spark_job_run_on_versions_3_or_more" {
+control "glue_spark_job_runs_on_version_3_or_higher" {
   title         = "AWS Glue Spark jobs should run on supported versions of AWS Glue"
   description   = "This control checks whether an AWS Glue for Spark job is configured to run on a supported version of AWS Glue. The control fails if the Spark job is configured to run on a version of AWS Glue that's earlier than the minimum supported version."
-  query         = query.glue_spark_job_run_on_versions_3_or_more
+  query         = query.glue_spark_job_runs_on_version_3_or_higher
 
   tags = local.conformance_pack_glue_common_tags
 }
@@ -262,7 +262,7 @@ query "glue_connection_ssl_enabled" {
   EOQ
 }
 
-query "glue_spark_job_run_on_versions_3_or_more" {
+query "glue_spark_job_runs_on_version_3_or_higher" {
   sql = <<-EOQ
     select
       arn as resource,

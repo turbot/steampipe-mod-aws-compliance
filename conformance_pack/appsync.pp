@@ -31,10 +31,10 @@ control "appsync_graphql_api_cache_encryption_at_rest_enabled" {
   tags = local.conformance_pack_appsync_common_tags
 }
 
-control "appsync_graphql_api_no_authentication_with_api_keys" {
+control "appsync_graphql_api_no_authentication_with_api_key" {
   title         = "AWS AppSync GraphQL APIs should not be authenticated with API keys"
   description   = "This control checks whether your application uses an API key to interact with an AWS AppSync GraphQL API. The control fails if an AWS AppSync GraphQL API is authenticated with an API key."
-  query         = query.appsync_graphql_api_no_authentication_with_api_keys
+  query         = query.appsync_graphql_api_no_authentication_with_api_key
 
   tags = local.conformance_pack_appsync_common_tags
 }
@@ -97,7 +97,7 @@ query "appsync_graphql_api_cache_encryption_in_transit_enabled" {
   EOQ
 }
 
-query "appsync_graphql_api_no_authentication_with_api_keys" {
+query "appsync_graphql_api_no_authentication_with_api_key" {
   sql = <<-EOQ
     select
       arn as resource,
@@ -105,7 +105,7 @@ query "appsync_graphql_api_no_authentication_with_api_keys" {
         when authentication_type = 'API_KEY' then 'alarm'
         else 'ok'
       end as status,
-      name || ' uses ' || authentication_type || ' authentication.' as reason
+      name || ' uses ' || authentication_type || ' authentication method.' as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from

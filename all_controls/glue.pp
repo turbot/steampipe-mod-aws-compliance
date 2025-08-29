@@ -18,7 +18,7 @@ benchmark "all_controls_glue" {
     control.glue_job_cloudwatch_logs_encryption_enabled,
     control.glue_job_s3_encryption_enabled,
     control.glue_ml_transform_encryption_at_rest_enabled,
-    control.glue_spark_job_run_on_versions_3_or_more,
+    control.glue_spark_job_runs_on_version_3_or_higher,
   ]
 
   tags = merge(local.all_controls_glue_common_tags, {
