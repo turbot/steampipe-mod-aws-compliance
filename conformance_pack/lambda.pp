@@ -579,6 +579,3 @@ query "lambda_function_encryption_enabled" {
       aws_lambda_function;
   EOQ
 }
-
-
-

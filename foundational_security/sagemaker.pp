@@ -98,5 +98,3 @@ control "foundational_security_sagemaker_8" {
     foundational_security_category = "vulnerability_patch_and_version_management"
   })
 }
-
-

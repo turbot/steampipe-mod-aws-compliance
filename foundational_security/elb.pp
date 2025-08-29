@@ -189,7 +189,7 @@ control "foundational_security_elb_17" {
   description   = "This control checks whether the HTTPS listener for an Application Load Balancer or the TLS listener for a Network Load Balancer is configured to encrypt data in transit by using a recommended security policy. The control fails if the HTTPS or TLS listener for a load balancer isn't configured to use a recommended security policy."
   severity      = "medium"
   query         = query.elb_application_network_lb_https_tls_listener_recommended_security_policy
-   documentation = file("./foundational_security/docs/foundational_security_elb_17.md")
+  documentation = file("./foundational_security/docs/foundational_security_elb_17.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_17"
