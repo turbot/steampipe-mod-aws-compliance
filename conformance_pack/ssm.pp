@@ -114,6 +114,22 @@ control "ssm_parameter_encryption_enabled" {
   })
 }
 
+control "ssm_automation_cloudwatch_logging_enabled" {
+  title         = "SSM Automation should have CloudWatch logging enabled"
+  description   = "This control checks whether Amazon CloudWatch logging is enabled for AWS Systems Manager (SSM) Automation. The control fails if CloudWatch logging isn't enabled for SSM Automation."
+  query         = query.ssm_automation_cloudwatch_logging_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
+control "ssm_document_block_public_sharing_setting_enabled" {
+  title         = "SSM documents should have the block public sharing setting enabled"
+  description   = "This control checks whether the block public sharing setting is enabled for AWS Systems Manager documents. The control fails if the block public sharing setting is disabled for Systems Manager documents."
+  query         = query.ssm_document_block_public_sharing_setting_enabled
+
+  tags = local.conformance_pack_ssm_common_tags
+}
+
 query "ec2_instance_ssm_managed" {
   sql = <<-EOQ
     select
@@ -224,3 +240,42 @@ query "ssm_parameter_encryption_enabled" {
   EOQ
 }
 
+query "ssm_document_block_public_sharing_setting_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when setting_value = 'Enable' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when setting_value = 'Enable' then title || ' public sharing setting enabled for region ' || region || '(' || account_id || ').'
+        else title || ' public sharing setting disabled for region ' || region || '(' || account_id || ').'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_service_setting
+    where
+      setting_id = '/ssm/documents/console/public-sharing-permission';
+  EOQ
+}
+
+query "ssm_automation_cloudwatch_logging_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when setting_value = 'CloudWatch' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when setting_value = 'CloudWatch' then title || ' CloudWatch logging enabled for region ' || region || '(' || account_id || ').'
+        else title || ' CloudWatch logging disabled for region ' || region || '(' || account_id || ').'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ssm_service_setting
+    where
+      setting_id = '/ssm/automation/customer-script-log-destination';
+  EOQ
+}

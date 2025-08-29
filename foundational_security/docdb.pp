@@ -12,7 +12,8 @@ benchmark "foundational_security_docdb" {
     control.foundational_security_docdb_2,
     control.foundational_security_docdb_3,
     control.foundational_security_docdb_4,
-    control.foundational_security_docdb_5
+    control.foundational_security_docdb_5,
+    control.foundational_security_docdb_6
   ]
 
   tags = merge(local.foundational_security_docdb_common_tags, {
@@ -82,5 +83,18 @@ control "foundational_security_docdb_5" {
   tags = merge(local.foundational_security_docdb_common_tags, {
     foundational_security_item_id  = "docdb_5"
     foundational_security_category = "data_deletion_protection"
+  })
+}
+
+control "foundational_security_docdb_6" {
+  title         = "6 Amazon DocumentDB clusters should be encrypted in transit"
+  description   = "This controls checks whether an Amazon DocumentDB cluster requires TLS for connections to the cluster. The control fails if the cluster parameter group associated with the cluster is not in sync, or the TLS cluster parameter is set to disabled or enabled."
+  severity      = "medium"
+  query         = query.docdb_cluster_encryption_in_transit_enabled
+  documentation = file("./foundational_security/docs/foundational_security_docdb_6.md")
+
+  tags = merge(local.foundational_security_docdb_common_tags, {
+    foundational_security_item_id  = "docdb_6"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }
