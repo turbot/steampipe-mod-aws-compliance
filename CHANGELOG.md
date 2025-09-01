@@ -1,3 +1,13 @@
+## v1.9.0 [2025-09-01]
+
+_Dependencies_
+
+- AWS plugin `v1.23.0` or higher is now required. ([#932](https://github.com/turbot/steampipe-mod-aws-compliance/pull/932))
+
+_Enhancements_
+
+- Added 42 new controls to the `AWS Foundational Security Best Practices` benchmark, expanding coverage across multiple AWS services, including **DocumentDB**, **EC2**, **EFS**, **ELB**, **EMR**, **Glue**, **GuardDuty**, **Inspector**, **MQ**, **MSK**, **NetworkFirewall**, **Redshift**, **S3**, **SageMaker**, **Service Catalog**, **SSM**, and **Transfer**. ([#932](https://github.com/turbot/steampipe-mod-aws-compliance/pull/932))
+
 ## v1.8.0 [2025-08-21]
 
 _Dependencies_
