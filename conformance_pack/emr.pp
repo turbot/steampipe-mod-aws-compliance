@@ -120,6 +120,22 @@ control "emr_cluster_encryption_at_rest_with_cse_cmk" {
   tags = local.conformance_pack_emr_common_tags
 }
 
+control "emr_security_configuration_encryption_at_rest_enabled" {
+  title         = "Amazon EMR security configurations should be encrypted at rest"
+  description   = "This control checks whether an Amazon EMR security configuration has encryption at rest enabled. The control fails if the security configuration doesn't enable encryption at rest."
+  query         = query.emr_security_configuration_encryption_at_rest_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
+control "emr_security_configuration_encryption_in_transit_enabled" {
+  title         = "Amazon EMR security configurations should be encrypted in transit"
+  description   = "This control checks whether an Amazon EMR security configuration has encryption in transit enabled. The control fails if the security configuration doesn't enable encryption in transit."
+  query         = query.emr_security_configuration_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_emr_common_tags
+}
+
 query "emr_account_public_access_blocked" {
   sql = <<-EOQ
     with emr_port_configuration as(
@@ -356,5 +372,41 @@ query "emr_cluster_encryption_at_rest_with_cse_cmk" {
     from
       aws_emr_cluster as c
       left join aws_emr_security_configuration as s on c.security_configuration = s.name and s.region = s.region and s.account_id = c.account_id;
+  EOQ
+}
+
+query "emr_security_configuration_encryption_at_rest_enabled" {
+  sql = <<-EOQ
+    select
+      name as resource,
+      case
+        when (encryption_configuration -> 'EnableAtRestEncryption')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (encryption_configuration -> 'EnableAtRestEncryption')::bool then title || ' encryption at rest enabled.'
+        else title || ' encryption at rest disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_security_configuration;
+  EOQ
+}
+
+query "emr_security_configuration_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    select
+      name as resource,
+      case
+        when (encryption_configuration -> 'EnableInTransitEncryption')::bool then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (encryption_configuration -> 'EnableInTransitEncryption')::bool then title || ' encryption in transit enabled.'
+        else title || ' encryption in transit disabled.'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_emr_security_configuration;
   EOQ
 }

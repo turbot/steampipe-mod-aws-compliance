@@ -1,0 +1,11 @@
+## Description
+
+Parameters: sslPolicies: ELBSecurityPolicy-TLS13-1-2-2021-06, ELBSecurityPolicy-TLS13-1-2-FIPS-2023-04, ELBSecurityPolicy-TLS13-1-3-2021-06, ELBSecurityPolicy-TLS13-1-3-FIPS-2023-04, ELBSecurityPolicy-TLS13-1-2-Res-2021-06, ELBSecurityPolicy-TLS13-1-2-Res-FIPS-2023-04 (not customizable)
+
+This control checks whether the HTTPS listener for an Application Load Balancer or the TLS listener for a Network Load Balancer is configured to encrypt data in transit by using a recommended security policy. The control fails if the HTTPS or TLS listener for a load balancer isn't configured to use a recommended security policy.
+
+Elastic Load Balancing uses an SSL negotiation configuration, known as a security policy, to negotiate connections between a client and a load balancer. The security policy specifies a combination of protocols and ciphers. The protocol establishes a secure connection between a client and a server. A cipher is an encryption algorithm that uses encryption keys to create a coded message. During the connection negotiation process, the client and the load balancer present a list of ciphers and protocols that they each support, in order of preference. Using a recommended security policy for a load balancer can help you meet compliance and security standards.
+
+## Remediation
+
+For information about recommended security policies and how to update listeners, see the following sections of the Elastic Load Balancing User Guides: [Security policies for Application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-listener.html), [Security policies for Network Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/describe-ssl-policies.html), [Update an HTTPS listener for your Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/listener-update-certificates.html), and [Update a listener for your Network Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/listener-update-rules.html).

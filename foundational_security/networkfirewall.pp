@@ -13,7 +13,8 @@ benchmark "foundational_security_networkfirewall" {
     control.foundational_security_networkfirewall_4,
     control.foundational_security_networkfirewall_5,
     control.foundational_security_networkfirewall_6,
-    control.foundational_security_networkfirewall_9
+    control.foundational_security_networkfirewall_9,
+    control.foundational_security_networkfirewall_10
   ]
 
   tags = merge(local.foundational_security_networkfirewall_common_tags, {
@@ -96,5 +97,18 @@ control "foundational_security_networkfirewall_9" {
   tags = merge(local.foundational_security_networkfirewall_common_tags, {
     foundational_security_item_id  = "networkfirewall_9"
     foundational_security_category = "high_availability"
+  })
+}
+
+control "foundational_security_networkfirewall_10" {
+  title         = "10 Network Firewall firewalls should have subnet change protection enabled"
+  description   = "This control checks whether subnet change protection is enabled for an AWS Network Firewall firewall. The control fails if subnet change protection isn't enabled for the firewall."
+  severity      = "medium"
+  query         = query.networkfirewall_firewall_subnet_change_protection_enabled
+  documentation = file("./foundational_security/docs/foundational_security_networkfirewall_10.md")
+
+  tags = merge(local.foundational_security_networkfirewall_common_tags, {
+    foundational_security_item_id  = "networkfirewall_10"
+    foundational_security_category = "network_security"
   })
 }

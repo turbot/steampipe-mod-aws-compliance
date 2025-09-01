@@ -19,7 +19,9 @@ benchmark "foundational_security_s3" {
     control.foundational_security_s3_11,
     control.foundational_security_s3_12,
     control.foundational_security_s3_13,
-    control.foundational_security_s3_19
+    control.foundational_security_s3_19,
+    control.foundational_security_s3_24,
+    control.foundational_security_s3_25
   ]
 
   tags = merge(local.foundational_security_s3_common_tags, {
@@ -180,5 +182,31 @@ control "foundational_security_s3_19" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_19"
     foundational_security_category = "resource_not_publicly_accessible"
+  })
+}
+
+control "foundational_security_s3_24" {
+  title         = "24 S3 Multi-Region Access Points should have block public access settings enabled"
+  description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
+  severity      = "high"
+  query         = query.s3_multi_region_access_point_public_access_blocked
+  documentation = file("./foundational_security/docs/foundational_security_s3_24.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_24"
+    foundational_security_category = "resources_not_publicly_accessible"
+  })
+}
+
+control "foundational_security_s3_25" {
+  title         = "25 S3 directory buckets should have lifecycle configurations"
+  description   = "This control checks whether lifecycle rules are configured for an S3 directory bucket. The control fails if lifecycle rules aren't configured for the directory bucket, or a lifecycle rule for the bucket specifies expiration settings that don't match the parameter value that you optionally specify."
+  severity      = "low"
+  query         = query.s3_directory_bucket_lifecycle_policy_configured
+  documentation = file("./foundational_security/docs/foundational_security_s3_25.md")
+
+  tags = merge(local.foundational_security_s3_common_tags, {
+    foundational_security_item_id  = "s3_25"
+    foundational_security_category = "data_protection"
   })
 }

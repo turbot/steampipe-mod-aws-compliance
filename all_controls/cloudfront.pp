@@ -23,6 +23,7 @@ benchmark "all_controls_cloudfront" {
     control.cloudfront_distribution_sni_enabled,
     control.cloudfront_distribution_use_custom_ssl_certificate,
     control.cloudfront_distribution_use_secure_cipher,
+    control.cloudfront_distribution_uses_recommended_tls_security_policy,
     control.cloudfront_distribution_waf_enabled
   ]
 

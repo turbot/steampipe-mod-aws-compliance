@@ -456,7 +456,6 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
 control "rds_db_cluster_deletion_protection_enabled" {
   title       = "RDS clusters should have deletion protection enabled"
   description = "This control checks whether RDS clusters have deletion protection enabled. This control is intended for RDS DB instances. However, it can also generate findings for Aurora DB instances, Neptune DB instances, and AWS DocumentDB clusters. If these findings are not useful,then you can suppress them."
-  severity    = "low"
   query       = query.rds_db_cluster_deletion_protection_enabled
 
   tags = merge(local.conformance_pack_rds_common_tags, {

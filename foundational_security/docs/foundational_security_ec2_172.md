@@ -1,0 +1,9 @@
+## Description
+
+This control checks whether Amazon EC2 VPC Block Public Access (BPA) settings are configured to block internet gateway traffic for all Amazon VPCs in the AWS account. The control fails if VPC BPA settings aren't configured to block internet gateway traffic. For the control to pass, the VPC BPA InternetGatewayBlockMode must be set to block-bidirectional or block-ingress. If the parameter vpcBpaInternetGatewayBlockMode is provided, the control passes only if the VPC BPA value for InternetGatewayBlockMode matches the parameter.
+
+Configuring the VPC BPA settings for your account in an AWS Region lets you block resources in VPCs and subnets that you own in that Region from reaching or being reached from the internet through internet gateways and egress-only internet gateways. If you need specific VPCs and subnets to be able to reach or be reachable from the internet, you can exclude them by configuring VPC BPA exclusions. For instructions on creating and deleting exclusions, see [Create and delete exclusions](https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa-basics.html#security-vpc-bpa-exclusions) in the Amazon VPC User Guide.
+
+## Remediation
+
+To enable bi-directional BPA at the account level, see [Enable BPA bidirectional mode for your account](https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa-basics.html#security-vpc-bpa-enable-bidir) in the Amazon VPC User Guide. To enable ingress-only BPA, see [Change VPC BPA mode to ingress-only](https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa-basics.html#security-vpc-bpa-ingress-only). To enable VPC BPA at the Organization level, see [Enable VPC BPA at the Organization level.](https://docs.aws.amazon.com/vpc/latest/userguide/security-vpc-bpa-basics.html#security-vpc-bpa-exclusions-orgs)

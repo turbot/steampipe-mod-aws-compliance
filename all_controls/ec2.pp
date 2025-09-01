@@ -55,6 +55,7 @@ benchmark "all_controls_ec2" {
     control.ec2_launch_template_not_publicly_accessible,
     control.ec2_network_inteface_source_destination_check_enabled,
     control.ec2_network_interface_unused,
+    control.ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled,
     control.ec2_stopped_instance_30_days,
     control.ec2_stopped_instance_90_days,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled

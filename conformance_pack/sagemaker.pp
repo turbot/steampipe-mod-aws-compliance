@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "sagemaker_notebook_instance_supported_platform_version" {
+  type        = list(string)
+  description = "A list of supported platform versions for SageMaker notebook instance."
+  default     = ["notebook-al2-v3"]
+}
+
 control "sagemaker_notebook_instance_encrypted_with_kms_cmk" {
   title       = "SageMaker notebook instances should be encrypted using CMK"
   description = "This control checks if SageMaker notebook instance storage volumes are encrypted with AWS KMS Customer Master Keys (CMKs) instead of AWS managed-keys."
@@ -159,6 +165,22 @@ control "sagemaker_training_job_volume_and_data_encryption_enabled" {
   title       = "SageMaker training jobs volumes and outputs should have KMS encryption enabled"
   description = "Ensure that SageMaker training jobs have volumes and outputs with KMS encryption enabled in order to have a more granular control over the data-at-rest encryption/decryption process and to meet compliance requirements."
   query       = query.sagemaker_training_job_volume_and_data_encryption_enabled
+
+  tags = local.conformance_pack_sagemaker_common_tags
+}
+
+control "sagemaker_notebook_instance_supported_platform_version" {
+  title       = "SageMaker notebook instances should run on supported platforms"
+  description = "This control checks whether an Amazon SageMaker AI notebook instance is configured to run on a supported platform, based on the platform identifier specified for the notebook instance. The control fails if the notebook instance is configured to run on a platform that's no longer supported."
+  query       = query.sagemaker_notebook_instance_supported_platform_version
+
+  tags = local.conformance_pack_sagemaker_common_tags
+}
+
+control "sagemaker_endpoint_configuration_prod_instance_count_greater_than_one" {
+  title         = "SageMaker endpoint production variants should have an initial instance count greater than 1"
+  description   = "This control checks whether production variants of an Amazon SageMaker AI endpoint have an initial instance count greater than 1. The control fails if the endpoint's production variants have only 1 initial instance."
+  query         = query.sagemaker_endpoint_configuration_prod_instance_count_greater_than_one
 
   tags = local.conformance_pack_sagemaker_common_tags
 }
@@ -432,5 +454,58 @@ query "sagemaker_training_job_volume_and_data_encryption_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_sagemaker_training_job;
+  EOQ
+}
+
+query "sagemaker_notebook_instance_supported_platform_version" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when platform_identifier like any ($1) then  'ok'
+        else 'alarm'
+      end as status,
+      case
+        when platform_identifier like any ($1) then title || ' runs on supported platform version(' || platform_identifier || ').'
+        else title || ' does not run on supported platform version(' || platform_identifier || ').'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_notebook_instance;
+  EOQ
+
+  param "sagemaker_notebook_instance_supported_platform_version" {
+    description = "A list of supported platform versions for SageMaker notebook instance."
+    default     = var.sagemaker_notebook_instance_supported_platform_version
+  }
+}
+
+query "sagemaker_endpoint_configuration_prod_instance_count_greater_than_one" {
+  sql = <<-EOQ
+    with prod_instance_count as (
+      select
+        distinct arn
+      from
+        aws_sagemaker_endpoint_configuration,
+        jsonb_array_elements(production_variants) as v
+      where
+        (v ->> 'InitialInstanceCount')::int = 1
+    )
+    select
+      c.arn as resource,
+      case
+        when p.arn is null then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when p.arn is null then title || ' prod instance count is greater than one.'
+        else title || ' prod instance count is not greater than one.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_sagemaker_endpoint_configuration as c
+      left join prod_instance_count as p on p.arn = c.arn;
   EOQ
 }

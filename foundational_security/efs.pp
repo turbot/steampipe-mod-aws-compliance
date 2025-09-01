@@ -12,6 +12,7 @@ benchmark "foundational_security_efs" {
     control.foundational_security_efs_2,
     control.foundational_security_efs_3,
     control.foundational_security_efs_4,
+    control.foundational_security_efs_6,
     control.foundational_security_efs_7,
     control.foundational_security_efs_8
   ]
@@ -70,6 +71,19 @@ control "foundational_security_efs_4" {
   tags = merge(local.foundational_security_efs_common_tags, {
     foundational_security_item_id  = "efs_4"
     foundational_security_category = "secure_access_management"
+  })
+}
+
+control "foundational_security_efs_6" {
+  title         = "6 EFS mount targets should not be associated with subnets that assign public IP addresses on launch"
+  description   = "This control checks whether an Amazon EFS mount target is associated with subnets that assign public IP addresses on launch. The control fails if the mount target is associated with subnets that assign public IP addresses on launch."
+  severity      = "medium"
+  query         = query.efs_mount_target_not_publicly_accessible
+  documentation = file("./foundational_security/docs/foundational_security_efs_6.md")
+
+  tags = merge(local.foundational_security_efs_common_tags, {
+    foundational_security_item_id  = "efs_6"
+    foundational_security_category = "resources_not_publicly_accessible"
   })
 }
 
