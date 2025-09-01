@@ -545,6 +545,7 @@ control "ec2_launch_template_default_version_uses_imdsv2" {
   title         = "EC2 launch templates should use Instance Metadata Service Version 2 (IMDSv2)"
   description   = "This control checks whether an Amazon EC2 launch template is configured with Instance Metadata Service Version 2 (IMDSv2). The control fails if HttpTokens is set to optional."
   query         = query.ec2_launch_template_default_version_uses_imdsv2
+
   tags = local.conformance_pack_ec2_common_tags
 }
 
@@ -552,6 +553,15 @@ control "ec2_network_inteface_source_destination_check_enabled" {
   title         = "EC2 network interfaces should have source/destination checking enabled"
   description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
   query         = query.ec2_network_inteface_source_destination_check_enabled
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
+control "ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled" {
+  title         = "EC2 Spot Fleet requests with launch parameters should enable encryption for attached EBS volumes"
+  description   = "This control checks whether an Amazon EC2 Spot Fleet request that specifies launch parameters is configured to enable encryption for all Amazon Elastic Block Store (Amazon EBS) volumes attached to EC2 instances. The control fails if the Spot Fleet request specifies launch parameters and doesn't enable encryption for one or more EBS volumes specified in the request."
+  query         = query.ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled
+
   tags = local.conformance_pack_ec2_common_tags
 }
 
@@ -2138,5 +2148,39 @@ query "ec2_network_inteface_source_destination_check_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_ec2_network_interface;
+  EOQ
+}
+
+query "ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      spot_fleet_request_id as resource,
+      case
+        when launch_specifications is null then 'skip'
+        when exists (
+          select 1
+          from jsonb_array_elements(launch_specifications) spec,
+               jsonb_array_elements(spec -> 'BlockDeviceMappings') bdm
+          where (bdm -> 'Ebs' ->> 'Encrypted')::boolean = false
+             or bdm -> 'Ebs' ->> 'Encrypted' is null
+        ) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when launch_specifications is null then title || ' does not define any launch specifications.'
+        when exists (
+          select 1
+          from jsonb_array_elements(launch_specifications) spec,
+               jsonb_array_elements(spec -> 'BlockDeviceMappings') bdm
+          where (bdm -> 'Ebs' ->> 'Encrypted')::boolean = false
+             or bdm -> 'Ebs' ->> 'Encrypted' is null
+        )
+          then title || ' has launch parameters with unencrypted EBS volumes.'
+        else title || ' has all launch parameters with encrypted EBS volumes.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_spot_fleet_request;
   EOQ
 }

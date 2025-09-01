@@ -19,7 +19,9 @@ benchmark "foundational_security_elb" {
     control.foundational_security_elb_10,
     control.foundational_security_elb_12,
     control.foundational_security_elb_13,
-    control.foundational_security_elb_14
+    control.foundational_security_elb_14,
+    control.foundational_security_elb_17,
+    control.foundational_security_elb_18
   ]
 
   tags = merge(local.foundational_security_elb_common_tags, {
@@ -179,5 +181,31 @@ control "foundational_security_elb_14" {
   tags = merge(local.foundational_security_elb_common_tags, {
     foundational_security_item_id  = "elb_14"
     foundational_security_category = "data_integrity"
+  })
+}
+
+control "foundational_security_elb_17" {
+  title         = "17 Application and Network Load Balancers with listeners should use recommended security policies"
+  description   = "This control checks whether the HTTPS listener for an Application Load Balancer or the TLS listener for a Network Load Balancer is configured to encrypt data in transit by using a recommended security policy. The control fails if the HTTPS or TLS listener for a load balancer isn't configured to use a recommended security policy."
+  severity      = "medium"
+  query         = query.elb_application_network_lb_https_tls_listener_recommended_security_policy
+  documentation = file("./foundational_security/docs/foundational_security_elb_17.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_17"
+    foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_elb_18" {
+  title         = "18 Application and Network Load Balancer listeners should use secure protocols to encrypt data in transit"
+  description   = "This control checks whether the listener for an Application Load Balancer or Network Load Balancer is configured to use a secure protocol for encryption of data in transit. The control fails if an Application Load Balancer listener isn't configured to use the HTTPS protocol, or a Network Load Balancer listener isn't configured to use the TLS protocol."
+  severity      = "medium"
+  query         = query.elb_application_network_listener_uses_secure_protocol
+  documentation = file("./foundational_security/docs/foundational_security_elb_18.md")
+
+  tags = merge(local.foundational_security_elb_common_tags, {
+    foundational_security_item_id  = "elb_18"
+    foundational_security_category = "encryption_of_data_in_transit"
   })
 }

@@ -58,6 +58,14 @@ control "docdb_cluster_snapshot_restrict_public_access" {
   })
 }
 
+control "docdb_cluster_encryption_in_transit_enabled" {
+  title         = "Amazon DocumentDB clusters should be encrypted in transit"
+  description   = "This controls checks whether an Amazon DocumentDB cluster requires TLS for connections to the cluster. The control fails if the cluster parameter group associated with the cluster is not in sync, or the TLS cluster parameter is set to disabled or enabled."
+  query         = query.docdb_cluster_encryption_in_transit_enabled
+
+  tags = local.conformance_pack_docdb_common_tags
+}
+
 query "docdb_cluster_instance_logging_enabled" {
   sql = <<-EOQ
     select
@@ -169,5 +177,53 @@ query "docdb_cluster_snapshot_restrict_public_access" {
     from
       aws_docdb_cluster_snapshot,
       jsonb_array_elements(db_cluster_snapshot_attributes) as cluster_snapshot;
+  EOQ
+}
+
+query "docdb_cluster_encryption_in_transit_enabled" {
+  sql = <<-EOQ
+    with docdb_cluster as materialized (
+      select
+        db_cluster_parameter_group,
+        arn,
+        account_id,
+        region,
+        engine,
+        tags,
+        title,
+        _ctx
+      from
+        aws_docdb_cluster
+    ), docdb_pg_tls_settings as (
+      select
+        g.name,
+        p ->> 'ParameterValue'
+      from
+        docdb_cluster as c,
+        aws_rds_db_cluster_parameter_group as g,
+        jsonb_array_elements(parameters) as p
+      where
+        c.db_cluster_parameter_group = g.name
+        and g.account_id = c.account_id
+        and g.region = c.region
+        and p ->> 'ParameterName' = 'tls'
+       and p ->> 'ParameterValue' in ('disabled', 'enabled')
+    )
+    select
+      c.arn as resource,
+      c.engine,
+      case
+        when p.name is not null then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when p.name is not null then title || ' encryption in transit disabled.'
+        else title || ' encryption in transit enabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      docdb_cluster as c
+      left join docdb_pg_tls_settings as p on p.name = c.db_cluster_parameter_group;
   EOQ
 }

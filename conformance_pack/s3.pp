@@ -421,7 +421,6 @@ control "s3_bucket_versioning_and_lifecycle_policy_enabled" {
 control "s3_bucket_event_notifications_enabled" {
   title       = "S3 buckets should have event notifications enabled"
   description = "This control checks whether S3 Event Notifications are enabled on an AWS S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
-  severity    = "medium"
   query       = query.s3_bucket_event_notifications_enabled
 
   tags = merge(local.conformance_pack_s3_common_tags, {
@@ -464,6 +463,22 @@ control "s3_access_point_restrict_public_access" {
     pci_dss_v40          = "true"
     nist_csf_v2          = "true"
   })
+}
+
+control "s3_multi_region_access_point_public_access_blocked" {
+  title         = "S3 Multi-Region Access Points should have block public access settings enabled"
+  description   = "This control checks whether an Amazon S3 Multi-Region Access Point has block public access settings enabled. The control fails when the Multi-Region Access Point doesn't have block public access settings enabled."
+  query         = query.s3_multi_region_access_point_public_access_blocked
+
+  tags = local.conformance_pack_s3_common_tags
+}
+
+control "s3_directory_bucket_lifecycle_policy_configured" {
+  title         = "S3 directory buckets should have lifecycle configurations"
+  description   = "This control checks whether lifecycle rules are configured for an S3 directory bucket. The control fails if lifecycle rules aren't configured for the directory bucket, or a lifecycle rule for the bucket specifies expiration settings that don't match the parameter value that you optionally specify."
+  query         = query.s3_directory_bucket_lifecycle_policy_configured
+
+  tags = local.conformance_pack_s3_common_tags
 }
 
 query "s3_bucket_cross_region_replication_enabled" {
@@ -1279,5 +1294,55 @@ query "s3_access_point_restrict_public_access" {
       ${local.common_dimensions_sql}
     from
       aws_s3_access_point;
+  EOQ
+}
+
+query "s3_multi_region_access_point_public_access_blocked" {
+  sql = <<-EOQ
+    select
+      'arn:' || partition || ':s3::' || account_id || ':accesspoint/' || alias as resource,
+      case
+        when (public_access_block -> 'BlockPublicAcls')::bool
+          and (public_access_block -> 'BlockPublicPolicy')::bool
+          and (public_access_block -> 'IgnorePublicAcls')::bool
+          and (public_access_block -> 'RestrictPublicBuckets')::bool
+          then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when (public_access_block -> 'BlockPublicAcls')::bool
+          and (public_access_block -> 'BlockPublicPolicy')::bool
+          and (public_access_block -> 'IgnorePublicAcls')::bool
+          and (public_access_block -> 'RestrictPublicBuckets')::bool
+          then title || ' block public access settings enabled.'
+        else title || ' public access settings not enabled for: ' ||
+          concat_ws(', ',
+            case when not (public_access_block -> 'BlockPublicAcls')::bool then 'BlockPublicAcls' end,
+            case when not (public_access_block -> 'BlockPublicPolicy')::bool then 'BlockPublicPolicy' end,
+            case when not (public_access_block -> 'IgnorePublicAcls')::bool then 'IgnorePublicAcls' end,
+            case when not (public_access_block -> 'RestrictPublicBuckets')::bool then 'RestrictPublicBuckets' end
+          ) || '.'
+      end as reason
+      ${local.common_dimensions_global_sql}
+    from
+      aws_s3_multi_region_access_point;
+  EOQ
+}
+
+query "s3_directory_bucket_lifecycle_policy_configured" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when lifecycle_rules is not null then 'ok'
+        else 'alarm'
+      end status,
+      case
+        when lifecycle_rules is not null then name || ' lifecycle policy configured.'
+        else name || ' lifecycle policy not configured.'
+      end reason
+      ${local.common_dimensions_sql}
+    from
+      aws_s3_directory_bucket;
   EOQ
 }
