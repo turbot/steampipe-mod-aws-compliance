@@ -6,4 +6,4 @@ Amazon MSK supports client authentication and authorization mechanisms to contro
 
 ## Remediation
 
-For information about changing the authentication settings for an Amazon MSK cluster, see the following sections of the Amazon Managed Streaming for Apache Kafka Developer Guide: [Update security settings of an Amazon MSK cluster](.amazon.com/msk/latest/developerguide/msk-update-security.html) and [Authentication and authorization for Apache Kafka APIs.](https://docs.aws.amazon.com/msk/latest/developerguide/kafka_apis_iam.html)
+For information about changing the authentication settings for an Amazon MSK cluster, see the following sections of the Amazon Managed Streaming for Apache Kafka Developer Guide: [Update security settings of an Amazon MSK cluster](https://docs.aws.amazon.com/msk/latest/developerguide/msk-update-security.html) and [Authentication and authorization for Apache Kafka APIs.](https://docs.aws.amazon.com/msk/latest/developerguide/kafka_apis_iam.html)
