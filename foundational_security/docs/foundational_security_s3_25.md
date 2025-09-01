@@ -6,4 +6,4 @@ In Amazon S3, a lifecycle configuration is a set of rules that define actions fo
 
 ## Remediation
 
-To define a lifecycle configuration for an S3 directory bucket, create a lifecycle rule for the bucket. For more information, see [Creating and managing a lifecycle configuration for your directory bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-create-lc.html) in the Amazon Simple Storage Service User Guid
+To define a lifecycle configuration for an S3 directory bucket, create a lifecycle rule for the bucket. For more information, see [Creating and managing a lifecycle configuration for your directory bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-bucket-create-lc.html) in the Amazon Simple Storage Service User Guide
