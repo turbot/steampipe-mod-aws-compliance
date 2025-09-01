@@ -6,4 +6,4 @@ Running AWS Glue Spark jobs on current versions of AWS Glue can optimize perform
 
 ## Remediation
 
-For information about migrating a Spark job to a supported version of AWS Glue, see [Migrating AWS Glue for Spark jobs](https://docs.aws.amazon.com/glue/latest/dg/migrating-version-40.html)in the AWS Glue User Guide.
+For information about migrating a Spark job to a supported version of AWS Glue, see [Migrating AWS Glue for Spark jobs](https://docs.aws.amazon.com/glue/latest/dg/migrating-version-40.html) in the AWS Glue User Guide.
