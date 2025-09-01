@@ -175,9 +175,6 @@ control "foundational_security_cloudfront_15" {
   description = "This control checks whether an Amazon CloudFront distribution is configured to use the recommended TLS security policy. The control fails if the CloudFront distribution is not configured to use the recommended TLS security policy."
   severity      = "medium"
   query         = query.cloudfront_distribution_uses_recommended_tls_security_policy
-  documentation = file("./foundational_security/docs/foundational_security_cloudfront_15.md")
-
-
   tags = merge(local.foundational_security_cloudfront_common_tags, {
     foundational_security_item_id  = "cloudfront_15"
     foundational_security_category = "encryption_of_data_in_transit"
