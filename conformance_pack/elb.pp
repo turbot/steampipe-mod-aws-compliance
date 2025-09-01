@@ -1193,6 +1193,7 @@ query "elb_application_network_lb_https_tls_listener_recommended_security_policy
     listeners l;
   EOQ
 
+  param "elb_application_network_lb_https_tls_listener_recommended_ssl_policy" {
     description = "A list of recommended SSL policies for application and network load balancers."
     default     = var.elb_application_network_lb_https_tls_listener_recommended_ssl_policy
   }
