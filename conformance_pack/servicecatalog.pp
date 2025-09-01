@@ -5,7 +5,7 @@ locals {
 }
 
 control "servicecatalog_portfolio_shared_only_with_aws_organization" {
-  title       = "Service Catalog portfolios should be shared within an AWS organization only"
+  title       = "Service Catalog portfolios should be shared only within an AWS organization"
   description = "This control checks whether AWS Service Catalog shares portfolios within an organization when the integration with AWS Organizations is enabled. The control fails if portfolios aren't shared within an organization."
   query       = query.servicecatalog_portfolio_shared_only_with_aws_organization
 
@@ -14,7 +14,7 @@ control "servicecatalog_portfolio_shared_only_with_aws_organization" {
 
 query "servicecatalog_portfolio_shared_only_with_aws_organization" {
   sql = <<-EOQ
-    with test as (
+    with account_type_servicecatalog_portfolio_share as (
       select
         portfolio_id,
         account_id,
@@ -39,6 +39,6 @@ query "servicecatalog_portfolio_shared_only_with_aws_organization" {
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "a.")}
     from
       aws_account as a
-      left join test t on t.account_id = a.account_id;
+      left join account_type_servicecatalog_portfolio_share t on t.account_id = a.account_id;
   EOQ
 }

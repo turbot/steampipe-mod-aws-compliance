@@ -147,7 +147,7 @@ control "foundational_security_redshift_15" {
   title         = "15 Redshift security groups should allow ingress on the cluster port only from restricted origins"
   description   = "This control checks whether a security group associated with an Amazon Redshift cluster has ingress rules that permit access to the cluster port from the internet (0.0.0.0/0 or ::/0). The control fails if the security group ingress rules permit access to the cluster port from the internet."
   severity      = "high"
-  query         = query.redshift_cluster_sg_restrict_ingress_redshift_port
+  query         = query.redshift_cluster_security_group_restrict_ingress_redshift_port
   documentation = file("./foundational_security/docs/foundational_security_redshift_15.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {

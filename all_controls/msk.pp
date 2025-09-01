@@ -9,7 +9,7 @@ benchmark "all_controls_msk" {
   description = "This section contains recommendations for configuring MSK resources."
   children = [
     control.msk_cluster_encryption_in_transit_with_tls_enabled,
-    control.msk_cluster_restrict_public_access,
+    control.msk_cluster_not_publicly_accessible,
     control.msk_cluster_unauthenticated_access_disabled,
     control.mskconnect_connector_encryption_in_transit_with_tls_enabled,
     control.mskconnect_connector_logging_enabled

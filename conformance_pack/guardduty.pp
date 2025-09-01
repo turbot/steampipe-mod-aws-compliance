@@ -75,63 +75,63 @@ control "guardduty_centrally_configured" {
 }
 
 control "guardduty_detector_eks_audit_log_monitoring_enabled" {
-  title         = "GuardDuty EKS Audit Log Monitoring should be enabled"
-  description   = "This control checks whether GuardDuty EKS Audit Log Monitoring is enabled. For a standalone account, the control fails if GuardDuty EKS Audit Log Monitoring is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS Audit Log Monitoring enabled."
+  title         = "GuardDuty EKS audit log monitoring should be enabled"
+  description   = "This control checks whether GuardDuty EKS audit log monitoring is enabled. For a standalone account, the control fails if GuardDuty EKS audit log monitoring is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS audit log monitoring enabled."
   query         = query.guardduty_detector_eks_audit_log_monitoring_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_lambda_protection_enabled" {
-  title         = "GuardDuty Lambda Protection should be enabled"
-  description   = "This control checks whether GuardDuty Lambda Protection is enabled. For a standalone account, the control fails if GuardDuty Lambda Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Lambda Protection enabled."
+  title         = "GuardDuty Lambda protection should be enabled"
+  description   = "This control checks whether GuardDuty Lambda protection is enabled. For a standalone account, the control fails if GuardDuty Lambda protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Lambda protection enabled."
   query         = query.guardduty_detector_lambda_protection_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_eks_runtime_monitoring_enabled" {
-  title         = "GuardDuty EKS Runtime Monitoring should be enabled"
-  description   = "This control checks whether GuardDuty EKS Runtime Monitoring with automated agent management is enabled. For a standalone account, the control fails if GuardDuty EKS Runtime Monitoring with automated agent management is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS Runtime Monitoring with automated agent management enabled."
+  title         = "GuardDuty EKS runtime monitoring should be enabled"
+  description   = "This control checks whether GuardDuty EKS runtime monitoring with automated agent management is enabled. For a standalone account, the control fails if GuardDuty EKS runtime monitoring with automated agent management is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have EKS runtime monitoring with automated agent management enabled."
   query         = query.guardduty_detector_eks_runtime_monitoring_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_ec2_malware_protection_enabled" {
-  title         = "GuardDuty Malware Protection for EC2 should be enabled"
-  description   = "This control checks whether GuardDuty Malware Protection is enabled. For a standalone account, the control fails if GuardDuty Malware Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Malware Protection enabled."
+  title         = "GuardDuty Malware protection for EC2 should be enabled"
+  description   = "This control checks whether GuardDuty Malware protection is enabled. For a standalone account, the control fails if GuardDuty Malware protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have Malware protection enabled."
   query         = query.guardduty_detector_ec2_malware_protection_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_rds_protection_enabled" {
-  title         = "GuardDuty RDS Protection should be enabled"
-  description   = "This control checks whether GuardDuty RDS Protection is enabled. For a standalone account, the control fails if GuardDuty RDS Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have RDS Protection enabled."
+  title         = "GuardDuty RDS protection should be enabled"
+  description   = "This control checks whether GuardDuty RDS protection is enabled. For a standalone account, the control fails if GuardDuty RDS protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have RDS protection enabled."
   query         = query.guardduty_detector_rds_protection_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_s3_protection_enabled" {
-  title         = "GuardDuty S3 Protection should be enabled"
-  description   = "This control checks whether GuardDuty S3 Protection is enabled. For a standalone account, the control fails if GuardDuty S3 Protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have S3 Protection enabled."
+  title         = "GuardDuty S3 protection should be enabled"
+  description   = "This control checks whether GuardDuty S3 protection is enabled. For a standalone account, the control fails if GuardDuty S3 protection is disabled in the account. In a multi-account environment, the control fails if the delegated GuardDuty administrator account and all member accounts don't have S3 protection enabled."
   query         = query.guardduty_detector_s3_protection_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_runtime_monitoring_enabled" {
-  title         = "GuardDuty Runtime Monitoring should be enabled"
-  description   = "This control checks whether Runtime Monitoring is enabled in Amazon GuardDuty. For a standalone account, the control fails if GuardDuty Runtime Monitoring is disabled for the account. In a multi-account environment, the control fails if GuardDuty Runtime Monitoring is disabled for the delegated GuardDuty administrator account and all member accounts."
+  title         = "GuardDuty runtime monitoring should be enabled"
+  description   = "This control checks whether runtime monitoring is enabled in Amazon GuardDuty. For a standalone account, the control fails if GuardDuty runtime monitoring is disabled for the account. In a multi-account environment, the control fails if GuardDuty runtime monitoring is disabled for the delegated GuardDuty administrator account and all member accounts."
   query         = query.guardduty_detector_runtime_monitoring_enabled
 
   tags = local.conformance_pack_guardduty_common_tags
 }
 
 control "guardduty_detector_ecs_runtime_monitoring_enabled" {
-  title         = "GuardDuty ECS Runtime Monitoring should be enabled"
+  title         = "GuardDuty ECS runtime monitoring should be enabled"
   description   = "This control checks whether the Amazon GuardDuty automated security agent is enabled for runtime monitoring of Amazon ECS clusters on AWS Fargate. For a standalone account, the control fails if the security agent is disabled for the account. In a multi-account environment, the control fails if the security agent is disabled for the delegated GuardDuty administrator account and all member accounts."
   query         = query.guardduty_detector_ecs_runtime_monitoring_enabled
 
@@ -139,7 +139,7 @@ control "guardduty_detector_ecs_runtime_monitoring_enabled" {
 }
 
 control "guardduty_detector_ec2_runtime_monitoring_enabled" {
-  title         = "GuardDuty EC2 Runtime Monitoring should be enabled"
+  title         = "GuardDuty EC2 runtime monitoring should be enabled"
   description   = "This control checks whether the Amazon GuardDuty automated security agent is enabled for runtime monitoring of Amazon EC2 instances. For a standalone account, the control fails if the security agent is disabled for the account. In a multi-account environment, the control fails if the security agent is disabled for the delegated GuardDuty administrator account and all member accounts."
   query         = query.guardduty_detector_ec2_runtime_monitoring_enabled
 
@@ -288,8 +288,8 @@ query "guardduty_detector_eks_audit_log_monitoring_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' EKS audit log monitoring enabled.'
-        else title || ' EKS audit log monitoring disabled.'
+        when m.arn is not null then title || ' has EKS audit log monitoring enabled.'
+        else title || ' has EKS audit log monitoring disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -318,8 +318,8 @@ query "guardduty_detector_lambda_protection_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' Lambda protection enabled.'
-        else title || ' Lambda protection disabled.'
+        when m.arn is not null then title || ' has Lambda protection enabled.'
+        else title || 'has Lambda protection disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -348,8 +348,8 @@ query "guardduty_detector_eks_runtime_monitoring_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' EKS runtime monitoring enabled.'
-        else title || ' EKS runtime monitoring disabled.'
+        when m.arn is not null then title || ' has EKS runtime monitoring enabled.'
+        else title || ' has EKS runtime monitoring disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -378,8 +378,8 @@ query "guardduty_detector_rds_protection_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' RDS protection enabled.'
-        else title || ' RDS protection disabled.'
+        when m.arn is not null then title || ' has RDS protection enabled.'
+        else title || ' has RDS protection disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -408,8 +408,8 @@ query "guardduty_detector_s3_protection_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' S3 protection enabled.'
-        else title || ' S3 protection disabled.'
+        when m.arn is not null then title || ' has S3 protection enabled.'
+        else title || ' has S3 protection disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -438,8 +438,8 @@ query "guardduty_detector_runtime_monitoring_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' runtime monitoring enabled.'
-        else title || ' runtime monitoring disabled.'
+        when m.arn is not null then title || ' has runtime monitoring enabled.'
+        else title || ' has runtime monitoring disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -470,8 +470,8 @@ query "guardduty_detector_ecs_runtime_monitoring_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' ECS runtime monitoring enabled.'
-        else title || ' ECS runtime monitoring disabled.'
+        when m.arn is not null then title || ' has ECS runtime monitoring enabled.'
+        else title || ' has ECS runtime monitoring disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -502,8 +502,8 @@ query "guardduty_detector_ec2_runtime_monitoring_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' EC2 runtime monitoring enabled.'
-        else title || ' EC2 runtime monitoring disabled.'
+        when m.arn is not null then title || ' has EC2 runtime monitoring enabled.'
+        else title || ' has EC2 runtime monitoring disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -532,8 +532,8 @@ query "guardduty_detector_ec2_malware_protection_enabled" {
         else 'alarm'
       end as status,
       case
-        when m.arn is not null then title || ' EC2 malware protection enabled.'
-        else title || ' EC2 malware protection disabled.'
+        when m.arn is not null then title || ' has EC2 malware protection enabled.'
+        else title || ' has EC2 malware protection disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

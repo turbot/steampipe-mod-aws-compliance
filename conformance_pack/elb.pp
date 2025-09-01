@@ -1250,7 +1250,7 @@ query "elb_application_network_listener_uses_secure_protocol" {
       listener_arn as resource,
       case
         when lb_type = 'application' and protocol = 'HTTPS' then 'ok'
-        when lb_type = 'network'     and protocol = 'TLS'   then 'ok'
+        when lb_type = 'network' and protocol = 'TLS'   then 'ok'
         else 'alarm'
       end as status,
       case

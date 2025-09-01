@@ -22,10 +22,10 @@ control "mskconnect_connector_encryption_in_transit_with_tls_enabled" {
   tags = local.conformance_pack_msk_common_tags
 }
 
-control "msk_cluster_restrict_public_access" {
+control "msk_cluster_not_publicly_accessible" {
   title         = "MSK clusters should have public access disabled"
   description   = "This control checks whether public access is disabled for an Amazon MSK cluster. The control fails if public access is enabled for the MSK cluster."
-  query         = query.msk_cluster_restrict_public_access
+  query         = query.msk_cluster_not_publicly_accessible
 
   tags = local.conformance_pack_msk_common_tags
 }
@@ -65,7 +65,7 @@ query "msk_cluster_encryption_in_transit_with_tls_enabled" {
   EOQ
 }
 
-query "msk_cluster_restrict_public_access" {
+query "msk_cluster_not_publicly_accessible" {
   sql = <<-EOQ
     select
       arn as resource,
@@ -74,8 +74,8 @@ query "msk_cluster_restrict_public_access" {
         else 'alarm'
       end as status,
       case
-        when provisioned -> 'BrokerNodeGroupInfo' -> 'ConnectivityInfo' -> 'PublicAccess' ->> 'Type' = 'DISABLED' then title || ' restrict public access.'
-        else title || ' allow public access.'
+        when provisioned -> 'BrokerNodeGroupInfo' -> 'ConnectivityInfo' -> 'PublicAccess' ->> 'Type' = 'DISABLED' then title || ' restricts public access.'
+        else title || ' allows public access.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

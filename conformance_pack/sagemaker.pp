@@ -6,7 +6,7 @@ locals {
 
 variable "sagemaker_notebook_instance_supported_platform_version" {
   type        = list(string)
-  description = "A list of supported platform version for SageMaker notebook instance."
+  description = "A list of supported platform versions for SageMaker notebook instance."
   default     = ["notebook-al2-v3"]
 }
 
@@ -467,7 +467,7 @@ query "sagemaker_notebook_instance_supported_platform_version" {
       end as status,
       case
         when platform_identifier like any ($1) then title || ' runs on supported platform version(' || platform_identifier || ').'
-        else title || ' does not runs on supported platform version(' || platform_identifier || ').'
+        else title || ' does not run on supported platform version(' || platform_identifier || ').'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
@@ -476,7 +476,7 @@ query "sagemaker_notebook_instance_supported_platform_version" {
   EOQ
 
   param "sagemaker_notebook_instance_supported_platform_version" {
-    description = "A list of supported platform version for SageMaker notebook instance."
+    description = "A list of supported platform versions for SageMaker notebook instance."
     default     = var.sagemaker_notebook_instance_supported_platform_version
   }
 }

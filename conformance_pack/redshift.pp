@@ -236,10 +236,10 @@ control "redshift_cluster_encrypted_with_cmk" {
   tags = local.conformance_pack_redshift_common_tags
 }
 
-control "redshift_cluster_sg_restrict_ingress_redshift_port" {
+control "redshift_cluster_security_group_restrict_ingress_redshift_port" {
   title         = "Redshift security groups should allow ingress on the cluster port only from restricted origins"
   description   = "This control checks whether a security group associated with an Amazon Redshift cluster has ingress rules that permit access to the cluster port from the internet (0.0.0.0/0 or ::/0). The control fails if the security group ingress rules permit access to the cluster port from the internet."
-  query         = query.redshift_cluster_sg_restrict_ingress_redshift_port
+  query         = query.redshift_cluster_security_group_restrict_ingress_redshift_port
 
   tags = local.conformance_pack_redshift_common_tags
 }
@@ -537,7 +537,7 @@ query "redshift_cluster_multiple_az_enabled" {
   EOQ
 }
 
-query "redshift_cluster_sg_restrict_ingress_redshift_port" {
+query "redshift_cluster_security_group_restrict_ingress_redshift_port" {
   sql = <<-EOQ
     with redshift_security_groups as (
       select

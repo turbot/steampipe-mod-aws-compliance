@@ -6,7 +6,7 @@ locals {
 
 variable "cloudfront_distribution_tls_security_policy" {
   type        = list(string)
-  description = "A list of CloudFront distributions SSL policies."
+  description = "A list of SSL policies for CloudFront distributions."
   default     = ["TLSv1.2_2021"]
 }
 
@@ -640,7 +640,7 @@ query "cloudfront_distribution_uses_recommended_tls_security_policy" {
   EOQ
 
   param "cloudfront_distribution_tls_security_policy" {
-    description = "A list of CloudFront distributions SSL policies."
+    description = "A list of SSL policies for CloudFront distributions."
     default     = var.cloudfront_distribution_tls_security_policy
   }
 }

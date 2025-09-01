@@ -75,8 +75,8 @@ query "mq_broker_auto_minor_version_upgrade_enabled" {
         else 'alarm'
       end as status,
       case
-        when auto_minor_version_upgrade then title || ' auto minor version upgrade enabled.'
-        else title || ' auto minor version upgrade disabled.'
+        when auto_minor_version_upgrade then title || ' has automatic minor version upgrade enabled.'
+        else title || ' has automatic minor version upgrade disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

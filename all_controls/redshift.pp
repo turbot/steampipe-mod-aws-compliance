@@ -21,7 +21,7 @@ benchmark "all_controls_redshift" {
     control.redshift_cluster_no_default_admin_name,
     control.redshift_cluster_no_default_database_name,
     control.redshift_cluster_prohibit_public_access,
-    control.redshift_cluster_sg_restrict_ingress_redshift_port
+    control.redshift_cluster_security_group_restrict_ingress_redshift_port
   ]
 
   tags = merge(local.all_controls_redshift_common_tags, {

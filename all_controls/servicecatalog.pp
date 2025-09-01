@@ -5,7 +5,7 @@ locals {
 }
 
 benchmark "all_controls_servicecatalog" {
-  title       = "ServiceCatalog"
+  title       = "Service Catalog"
   description = "This section contains recommendations for configuring Service Catalog resources."
   children = [
     control.servicecatalog_portfolio_shared_only_with_aws_organization

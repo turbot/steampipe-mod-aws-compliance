@@ -2176,7 +2176,7 @@ query "ec2_spot_fleet_request_with_launch_parameter_ebs_encryption_enabled" {
              or bdm -> 'Ebs' ->> 'Encrypted' is null
         )
           then title || ' has launch parameters with unencrypted EBS volumes.'
-        else title || ' has all launch parameters with EBS encryption enabled.'
+        else title || ' has all launch parameters with encrypted EBS volumes.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

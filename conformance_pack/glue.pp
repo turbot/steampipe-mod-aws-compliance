@@ -4,6 +4,12 @@ locals {
   }
 }
 
+variable "glue_spark_job_supported_version" {
+  type        = number
+  description = "Minimum supported Glue version."
+  default     = 3.0
+}
+
 control "glue_dev_endpoint_cloudwatch_logs_encryption_enabled" {
   title       = "Glue dev endpoints CloudWatch logs encryption should be enabled"
   description = "Ensure Glue dev endpoints have CloudWatch logs encryption enabled to protect sensitive information at rest."
@@ -268,7 +274,7 @@ query "glue_spark_job_runs_on_version_3_or_higher" {
       arn as resource,
       case
         when not default_arguments @> '{"--enable-spark-ui": "true"}'::jsonb then 'skip'
-        when cast(glue_version AS DECIMAL) >= 3.0 then 'ok'
+        when cast(glue_version AS DECIMAL) >= $1 then 'ok'
         else 'alarm'
       end as status,
       case
@@ -279,6 +285,11 @@ query "glue_spark_job_runs_on_version_3_or_higher" {
     from
       aws_glue_job;
   EOQ
+
+  param "glue_spark_job_supported_version" {
+    description = "Minimum supported Glue version."
+    default     = var.glue_spark_job_supported_version
+  }
 }
 
 query "glue_ml_transform_encryption_at_rest_enabled" {

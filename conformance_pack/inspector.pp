@@ -43,13 +43,13 @@ query "inspector_ec2_scanning_enabled" {
       case
         when r.steampipe_available = false then 'skip'
         when ec2_auto_enable then 'ok'
-        when c.account_id is not null and (not ec2_auto_enable or ec2_auto_enable is null ) then 'alarm'
+        when c.account_id is not null and (not ec2_auto_enable or ec2_auto_enable is null) then 'alarm'
         else 'alarm'
       end status,
       case
         when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when ec2_auto_enable then 'AWS Inspector EC2 scanning enabled for region ' || c.region || '(' || c.account_id || ').'
-        when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null ) then 'AWS Inspector EC2 scanning siabled for region ' || r.region || '(' || r.account_id || ').'
+        when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null ) then 'AWS Inspector EC2 scanning disabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
@@ -72,7 +72,7 @@ query "inspector_ecr_scanning_enabled" {
       case
         when r.steampipe_available = false then r.region || ' is not available in the current connection configuration.'
         when ec2_auto_enable then 'AWS Inspector ECR scanning enabled for region ' || c.region || '(' || c.account_id || ').'
-        when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null ) then 'AWS Inspector ECR scanning siabled for region ' || r.region || '(' || r.account_id || ').'
+        when c.account_id is not null and (not ec2_auto_enable and ec2_auto_enable is null) then 'AWS Inspector ECR scanning disabled for region ' || r.region || '(' || r.account_id || ').'
         else 'AWS Inspector deactivated for region ' || r.region || '(' || r.account_id || ').'
       end as reason
       ${replace(local.common_dimensions_qualifier_sql, "__QUALIFIER__", "r.")}
@@ -91,7 +91,7 @@ query "inspector_lambda_scanning_enabled" {
       case
         when r.steampipe_available = false then 'skip'
         when lambda_auto_enable then 'ok'
-        when c.account_id is not null and (not lambda_auto_enable or lambda_auto_enable is null ) then 'alarm'
+        when c.account_id is not null and (not lambda_auto_enable or lambda_auto_enable is null) then 'alarm'
         else 'alarm'
       end status,
       case
@@ -114,7 +114,7 @@ query "inspector_lambda_code_scanning_enabled" {
       case
         when r.steampipe_available = false then 'skip'
         when lambda_code_auto_enable then 'ok'
-        when c.account_id is not null and (not lambda_code_auto_enable or lambda_code_auto_enable is null ) then 'alarm'
+        when c.account_id is not null and (not lambda_code_auto_enable or lambda_code_auto_enable is null) then 'alarm'
         else 'alarm'
       end status,
       case

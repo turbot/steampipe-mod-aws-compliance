@@ -50,7 +50,7 @@ control "foundational_security_msk_4" {
   title         = "4 MSK clusters should have public access disabled"
   description   = "This control checks whether public access is disabled for an Amazon MSK cluster. The control fails if public access is enabled for the MSK cluster."
   severity      = "medium"
-  query         = query.msk_cluster_restrict_public_access
+  query         = query.msk_cluster_not_publicly_accessible
   documentation = file("./foundational_security/docs/foundational_security_msk_4.md")
 
   tags = merge(local.foundational_security_msk_common_tags, {
