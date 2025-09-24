@@ -93,7 +93,7 @@ benchmark "fedramp_low_rev_4_ac_17" {
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,

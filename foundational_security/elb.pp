@@ -68,10 +68,10 @@ control "foundational_security_elb_3" {
 }
 
 control "foundational_security_elb_4" {
-  title         = "4 Application load balancers should be configured to drop HTTP headers"
+  title         = "4 Application Load Balancer should be configured to drop invalid http headers"
   description   = "This control evaluates AWS Application Load Balancers (ALB) to ensure they are configured to drop invalid HTTP headers. The control fails if the value of routing.http.drop_invalid_header_fields.enabled is set to false. By default, ALBs are not configured to drop invalid HTTP header values. Removing these header values prevents HTTP desync attacks."
   severity      = "medium"
-  query         = query.elb_application_lb_drop_http_headers
+  query         = query.elb_application_lb_http_drop_invalid_header_enabled
   documentation = file("./foundational_security/docs/foundational_security_elb_4.md")
 
   tags = merge(local.foundational_security_elb_common_tags, {

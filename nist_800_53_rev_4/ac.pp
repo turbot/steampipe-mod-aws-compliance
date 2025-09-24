@@ -241,7 +241,7 @@ benchmark "nist_800_53_rev_4_ac_17_2" {
   description = "The information system implements cryptographic mechanisms to protect the confidentiality and integrity of remote access sessions."
   children = [
     control.acm_certificate_expires_30_days,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,

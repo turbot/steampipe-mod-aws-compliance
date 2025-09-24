@@ -17,7 +17,7 @@ benchmark "rbi_cyber_security_annex_i_1_3" {
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
     control.efs_file_system_encrypt_data_at_rest,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,
