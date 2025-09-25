@@ -159,10 +159,10 @@ control "elb_classic_lb_use_ssl_certificate" {
   })
 }
 
-control "elb_application_lb_drop_http_headers" {
-  title       = "ELB application load balancers should be drop HTTP headers"
-  description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop http headers."
-  query       = query.elb_application_lb_drop_http_headers
+control "elb_application_lb_http_drop_invalid_header_enabled" {
+  title       = "Application Load Balancer should be configured to drop invalid http headers"
+  description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop invalid http header."
+  query       = query.elb_application_lb_http_drop_invalid_header_enabled
 
   tags = merge(local.conformance_pack_elb_common_tags, {
     fedramp_low_rev_4                      = "true"
@@ -542,7 +542,7 @@ query "elb_classic_lb_use_ssl_certificate" {
   EOQ
 }
 
-query "elb_application_lb_drop_http_headers" {
+query "elb_application_lb_http_drop_invalid_header_enabled" {
   sql = <<-EOQ
     select
       arn as resource,
@@ -551,8 +551,8 @@ query "elb_application_lb_drop_http_headers" {
         else 'alarm'
       end as status,
       case
-        when load_balancer_attributes @> '[{"Key": "routing.http.drop_invalid_header_fields.enabled", "Value": "true"}]' then title || ' configured to drop http headers.'
-        else title || ' not configured to drop http headers.'
+        when load_balancer_attributes @> '[{"Key": "routing.http.drop_invalid_header_fields.enabled", "Value": "true"}]' then title || ' is configured to drop invalid HTTP headers.'
+        else title || ' is not configured to drop invalid HTTP headers.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

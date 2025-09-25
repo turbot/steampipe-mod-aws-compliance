@@ -34,7 +34,7 @@ benchmark "nydfs_23_500_02_a" {
     control.efs_file_system_encrypt_data_at_rest,
     control.elastic_beanstalk_enhanced_health_reporting_enabled,
     control.elb_application_lb_deletion_protection_enabled,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,

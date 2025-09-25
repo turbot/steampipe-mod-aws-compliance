@@ -703,7 +703,7 @@ control "iam_policy_no_full_access_to_cloudtrail" {
 control "iam_policy_no_full_access_to_kms" {
   title       = "IAM policy should not grant full access to KMS service"
   description = "KMS is a critical service and IAM policies should follow least privilege model for this service in particular. This control is non-compliant if the managed IAM policy allows full access to KMS service."
-  query       = query.iam_policy_no_full_access_to_cloudtrail
+  query       = query.iam_policy_no_full_access_to_kms
 
   tags = local.conformance_pack_iam_common_tags
 }

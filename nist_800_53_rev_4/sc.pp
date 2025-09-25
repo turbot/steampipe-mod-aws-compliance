@@ -66,7 +66,7 @@ benchmark "nist_800_53_rev_4_sc_7" {
     control.ebs_snapshot_not_publicly_restorable,
     control.ec2_instance_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_lb_waf_enabled,
     control.elb_classic_lb_use_ssl_certificate,
@@ -130,7 +130,7 @@ benchmark "nist_800_53_rev_4_sc_8" {
   description = "The information system protects the [Selection (one or more): confidentiality; integrity] of transmitted information."
   children = [
     benchmark.nist_800_53_rev_4_sc_8_1,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
@@ -146,7 +146,7 @@ benchmark "nist_800_53_rev_4_sc_8_1" {
   title       = "SC-8(1) Cryptographic Or Alternate Physical Protection"
   description = "The information system implements cryptographic mechanisms to [Selection (one or more): prevent unauthorized disclosure of information; detect changes to information] during transmission unless otherwise protected by [Assignment: organization-defined alternative physical safeguards]."
   children = [
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
@@ -186,7 +186,7 @@ benchmark "nist_800_53_rev_4_sc_23" {
   title       = "Session Authenticity (SC-23)"
   description = "TThe information system protects the authenticity of communications sessions."
   children = [
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_tls_https_listeners
   ]

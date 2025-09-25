@@ -24,7 +24,7 @@ benchmark "nydfs_23_500_15_a" {
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_encryption_by_default_enabled,
     control.efs_file_system_encrypt_data_at_rest,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,

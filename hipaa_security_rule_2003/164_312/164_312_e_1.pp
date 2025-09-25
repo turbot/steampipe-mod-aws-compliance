@@ -5,7 +5,7 @@ benchmark "hipaa_security_rule_2003_164_312_e_1" {
     control.acm_certificate_expires_30_days,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.cloudfront_distribution_encryption_in_transit_enabled,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
