@@ -1,3 +1,10 @@
+## v1.9.1 [2025-09-25]
+
+_Bug fixes_
+
+- Fixed control and query name by renaming `elb_application_lb_drop_http_headers` to `elb_application_lb_http_drop_invalid_header_enabled` to correctly indicate that it checks whether Application Load Balancers are configured to drop invalid HTTP headers (not all headers). ([#936](https://github.com/turbot/steampipe-mod-aws-compliance/pull/936))
+- Fixed the `iam_policy_no_full_access_to_kms` control to correctly reference `iam_policy_no_full_access_to_kms` query instead of `iam_policy_no_full_access_to_cloudtrail`. ([#938](https://github.com/turbot/steampipe-mod-aws-compliance/pull/938))
+
 ## v1.9.0 [2025-09-01]
 
 _Dependencies_
