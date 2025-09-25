@@ -130,7 +130,7 @@ benchmark "rbi_itf_nbfc_3_1_i" {
   children = [
     control.acm_certificate_expires_30_days,
     control.apigateway_rest_api_stage_use_ssl_certificate,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,

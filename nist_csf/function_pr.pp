@@ -327,7 +327,7 @@ benchmark "nist_csf_pr_ds_2" {
     control.cloudfront_distribution_encryption_in_transit_enabled,
     control.cloudfront_distribution_no_deprecated_ssl_protocol,
     control.cloudfront_distribution_use_custom_ssl_certificate,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_application_network_lb_use_ssl_certificate,
     control.elb_classic_lb_use_ssl_certificate,

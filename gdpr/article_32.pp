@@ -19,7 +19,7 @@ benchmark "article_32" {
     control.ebs_attached_volume_encryption_enabled,
     control.ebs_volume_encryption_at_rest_enabled,
     control.efs_file_system_encrypt_data_at_rest,
-    control.elb_application_lb_drop_http_headers,
+    control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_redirect_http_request_to_https,
     control.elb_classic_lb_use_ssl_certificate,
     control.elb_classic_lb_use_tls_https_listeners,
