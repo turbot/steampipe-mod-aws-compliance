@@ -38,8 +38,7 @@ benchmark "cis_v600_2" {
 
 control "cis_v600_2_1" {
   title         = "2.1 Maintain current contact details"
-  description   = "Ensure contact email and telephone details for AWS accounts are current and map to
-more than one individual in your organization."
+  description   = "Ensure contact email and telephone details for AWS accounts are current and map to more than one individual in your organization."
   query         = query.manual_control
   documentation = file("./cis_v600/docs/cis_v600_2_1.md")
 
@@ -53,8 +52,7 @@ more than one individual in your organization."
 
 control "cis_v600_2_2" {
   title         = "2.2 Ensure security contact information is registered"
-  description   = "AWS provides customers with the option of specifying the contact information for
-account's security team. It is recommended that this information be provided."
+  description   = "AWS provides customers with the option of specifying the contact information for account's security team. It is recommended that this information be provided."
   query         = query.account_alternate_contact_security_registered
   documentation = file("./cis_v600/docs/cis_v600_2_2.md")
 
@@ -83,7 +81,7 @@ control "cis_v600_2_3" {
 control "cis_v600_2_4" {
   title         = "2.4 Ensure MFA is enabled for the 'root' user account"
   description   = "The 'root' user account is the most privileged user in an AWS account. Multi-factor Authentication (MFA) adds an extra layer of protection on top of a username and password. With MFA enabled, when a user signs in to an AWS website, they will be prompted for their username and password as well as for an authentication code from their AWS MFA device."
-  query         = query.iam_root_user_mfa_enabled
+  query         = query.iam_root_user_account_console_access_mfa_enabled
   documentation = file("./cis_v600/docs/cis_v600_2_4.md")
 
   tags = merge(local.cis_v600_2_common_tags, {
@@ -265,7 +263,7 @@ control "cis_v600_2_16" {
 control "cis_v600_2_17" {
   title         = "2.17 Ensure IAM instance roles are used for AWS resource access from instances"
   description   = "AWS access from within AWS instances can be done by either encoding AWS keys into AWS API calls or by assigning the instance to a role which has an appropriate permissions policy for the required access."
-  query         = query.manual_control
+  query         = query.ec2_instance_using_iam_instance_role
   documentation = file("./cis_v600/docs/cis_v600_2_17.md")
 
   tags = merge(local.cis_v600_2_common_tags, {

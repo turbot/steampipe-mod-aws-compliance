@@ -4,6 +4,18 @@ locals {
   })
 }
 
+locals {
+  cis_v600_3_1_common_tags = merge(local.cis_v600_3_common_tags, {
+    cis_section_id = "3.1"
+  })
+  cis_v600_3_2_common_tags = merge(local.cis_v600_3_common_tags, {
+    cis_section_id = "3.2"
+  })
+  cis_v600_3_3_common_tags = merge(local.cis_v600_3_common_tags, {
+    cis_section_id = "3.3"
+  })
+}
+
 benchmark "cis_v600_3" {
   title         = "3 Storage"
   documentation = file("./cis_v600/docs/cis_v600_3.md")
@@ -28,8 +40,9 @@ benchmark "cis_v600_3_1" {
     control.cis_v600_3_1_4
   ]
 
-  tags = merge(local.cis_v600_3_common_tags, {
-    type = "Benchmark"
+  tags = merge(local.cis_v600_3_1_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
   })
 }
 
@@ -43,8 +56,9 @@ benchmark "cis_v600_3_2" {
     control.cis_v600_3_2_4
   ]
 
-  tags = merge(local.cis_v600_3_common_tags, {
-    type = "Benchmark"
+  tags = merge(local.cis_v600_3_2_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
   })
 }
 
@@ -55,19 +69,19 @@ benchmark "cis_v600_3_3" {
     control.cis_v600_3_3_1
   ]
 
-  tags = merge(local.cis_v600_3_common_tags, {
-    type = "Benchmark"
+  tags = merge(local.cis_v600_3_3_common_tags, {
+    service = "AWS/S3"
+    type    = "Benchmark"
   })
 }
 
 control "cis_v600_3_1_1" {
   title         = "3.1.1 Ensure S3 Bucket Policy is set to deny HTTP requests"
-  description   = "At the Amazon S3 bucket level, you can configure permissions through a bucket policy,
-making the objects accessible only through HTTPS."
+  description   = "At the Amazon S3 bucket level, you can configure permissions through a bucket policy, making the objects accessible only through HTTPS."
   query         = query.s3_bucket_enforces_ssl
   documentation = file("./cis_v600/docs/cis_v600_3_1_1.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_1_common_tags, {
     cis_item_id = "3.1.1"
     cis_level   = "2"
     cis_type    = "automated"
@@ -81,7 +95,7 @@ control "cis_v600_3_1_2" {
   query         = query.s3_bucket_mfa_delete_enabled
   documentation = file("./cis_v600/docs/cis_v600_3_1_2.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_1_common_tags, {
     cis_item_id = "3.1.2"
     cis_level   = "2"
     cis_type    = "manual"
@@ -95,7 +109,7 @@ control "cis_v600_3_1_3" {
   query         = query.s3_bucket_protected_by_macie
   documentation = file("./cis_v600/docs/cis_v600_3_1_3.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_1_common_tags, {
     cis_item_id = "3.1.3"
     cis_level   = "2"
     cis_type    = "manual"
@@ -109,7 +123,7 @@ control "cis_v600_3_1_4" {
   query         = query.s3_public_access_block_bucket_account
   documentation = file("./cis_v600/docs/cis_v600_3_1_4.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_1_common_tags, {
     cis_item_id = "3.1.4"
     cis_level   = "1"
     cis_type    = "automated"
@@ -123,7 +137,7 @@ control "cis_v600_3_2_1" {
   query         = query.rds_db_instance_encryption_at_rest_enabled
   documentation = file("./cis_v600/docs/cis_v600_3_2_1.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_2_common_tags, {
     cis_item_id = "3.2.1"
     cis_level   = "1"
     cis_type    = "automated"
@@ -137,7 +151,7 @@ control "cis_v600_3_2_2" {
   query         = query.rds_db_instance_automatic_minor_version_upgrade_enabled
   documentation = file("./cis_v600/docs/cis_v600_3_2_2.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_2_common_tags, {
     cis_item_id = "3.2.2"
     cis_level   = "1"
     cis_type    = "automated"
@@ -151,7 +165,7 @@ control "cis_v600_3_2_3" {
   query         = query.rds_db_instance_prohibit_public_access
   documentation = file("./cis_v600/docs/cis_v600_3_2_3.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_2_common_tags, {
     cis_item_id = "3.2.3"
     cis_level   = "1"
     cis_type    = "automated"
@@ -162,10 +176,10 @@ control "cis_v600_3_2_3" {
 control "cis_v600_3_2_4" {
   title         = "3.2.4 Ensure Multi-AZ deployments are used for enhanced availability in Amazon RDS"
   description   = "Amazon RDS offers Multi-AZ deployments that provide enhanced availability and durability for your databases, using synchronous replication to replicate data to a standby instance in a different Availability Zone (AZ). In the event of an infrastructure failure, Amazon RDS automatically fails over to the standby to minimize downtime and ensure business continuity."
-  query         = query.manual_control
+  query         = query.rds_db_instance_multiple_az_enabled
   documentation = file("./cis_v600/docs/cis_v600_3_2_4.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_2_common_tags, {
     cis_item_id = "3.2.4"
     cis_level   = "1"
     cis_type    = "manual"
@@ -179,7 +193,7 @@ control "cis_v600_3_3_1" {
   query         = query.efs_file_system_encrypt_data_at_rest
   documentation = file("./cis_v600/docs/cis_v600_3_3_1.md")
 
-  tags = merge(local.cis_v600_3_common_tags, {
+  tags = merge(local.cis_v600_3_3_common_tags, {
     cis_item_id = "3.3.1"
     cis_level   = "1"
     cis_type    = "automated"

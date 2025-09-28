@@ -110,7 +110,7 @@ control "cis_v600_4_6" {
 
 control "cis_v600_4_7" {
   title         = "4.7 Ensure VPC flow logging is enabled in all VPCs"
-  description   = "VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. After you've created a flow log, you can view and retrieve its data in Amazon CloudWatch Logs. It is recommended that VPC Flow Logs be enabled for packet "Rejects" for VPCs."
+  description   = "VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. After you've created a flow log, you can view and retrieve its data in Amazon CloudWatch Logs. It is recommended that VPC Flow Logs be enabled for packet Rejects for VPCs."
   query         = query.vpc_flow_logs_enabled
   documentation = file("./cis_v600/docs/cis_v600_4_7.md")
 
