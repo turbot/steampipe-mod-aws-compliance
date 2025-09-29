@@ -107,7 +107,7 @@ control "cis_v600_6_4" {
 
 control "cis_v600_6_5" {
   title         = "6.5 Ensure the default security group of every VPC restricts all traffic"
-  description   = "A VPC comes with a default security group whose initial settings deny all inbound traffic, allow all outbound traffic, and allow all traffic between instances assigned to the security group. If a security group is not specified when an instance is launched, it isautomatically assigned to this default security group. Security groups provide stateful filtering of ingress/egress network traffic to AWS resources. It is recommended that the default security group restrict all traffic, both inbound and outbound."
+  description   = "A VPC comes with a default security group whose initial settings deny all inbound traffic, allow all outbound traffic, and allow all traffic between instances assigned to the security group. If a security group is not specified when an instance is launched, it is automatically assigned to this default security group. Security groups provide stateful filtering of ingress/egress network traffic to AWS resources. It is recommended that the default security group restrict all traffic, both inbound and outbound."
   query         = query.vpc_default_security_group_restricts_all_traffic
   documentation = file("./cis_v600/docs/cis_v600_6_5.md")
 

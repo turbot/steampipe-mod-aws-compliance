@@ -57,7 +57,7 @@ benchmark "cis_v600_3_2" {
   ]
 
   tags = merge(local.cis_v600_3_2_common_tags, {
-    service = "AWS/S3"
+    service = "AWS/RDS"
     type    = "Benchmark"
   })
 }
@@ -70,7 +70,7 @@ benchmark "cis_v600_3_3" {
   ]
 
   tags = merge(local.cis_v600_3_3_common_tags, {
-    service = "AWS/S3"
+    service = "AWS/EFS"
     type    = "Benchmark"
   })
 }
