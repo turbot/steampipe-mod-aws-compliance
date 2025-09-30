@@ -25,7 +25,6 @@ In addition, CIS has developed CIS [Build Kits](https://www.cisecurity.org/cis-s
 
 When remediating systems (changing configuration settings on deployed systems as per the CIS BenchmarksTM Recommendations), please approach this with caution and test thoroughly.
 
-
 The following is a reasonable remediation approach to follow:
 
 1. NEVER deploy a CIS Build Kit, or any internally developed remediation method, to production systems without proper testing.
