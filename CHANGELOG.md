@@ -1,3 +1,9 @@
+## v1.9.2 [2025-10-02]
+
+_Bug fixes_
+
+- Re-add control `elb_application_lb_drop_http_headers` to avoid breaking dependencies in other mods. ([#943](https://github.com/turbot/steampipe-mod-aws-compliance/pull/943))
+
 ## v1.9.1 [2025-09-25]
 
 _Bug fixes_
