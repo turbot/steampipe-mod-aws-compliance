@@ -159,6 +159,27 @@ control "elb_classic_lb_use_ssl_certificate" {
   })
 }
 
+control "elb_application_lb_drop_http_headers" {
+  title       = "ELB application load balancers should be drop HTTP headers"
+  description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop http headers."
+  query       = query.elb_application_lb_drop_http_headers
+
+  tags = merge(local.conformance_pack_elb_common_tags, {
+    fedramp_low_rev_4                      = "true"
+    gdpr                                   = "true"
+    hipaa_final_omnibus_security_rule_2013 = "true"
+    hipaa_security_rule_2003               = "true"
+    nist_800_171_rev_2                     = "true"
+    nist_800_53_rev_4                      = "true"
+    nist_csf                               = "true"
+    nydfs_23                               = "true"
+    pci_dss_v321                           = "true"
+    rbi_cyber_security                     = "true"
+    rbi_itf_nbfc                           = "true"
+    soc_2                                  = "true"
+  })
+}
+
 control "elb_application_lb_http_drop_invalid_header_enabled" {
   title       = "Application Load Balancer should be configured to drop invalid http headers"
   description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop invalid http header."
@@ -539,6 +560,25 @@ query "elb_classic_lb_use_ssl_certificate" {
     from
       aws_ec2_classic_load_balancer as a
       left join detailed_classic_listeners as b on a.name = b.name;
+  EOQ
+}
+
+query "elb_application_lb_drop_http_headers" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when load_balancer_attributes @> '[{"Key": "routing.http.drop_invalid_header_fields.enabled", "Value": "true"}]' then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when load_balancer_attributes @> '[{"Key": "routing.http.drop_invalid_header_fields.enabled", "Value": "true"}]' then title || ' configured to drop http headers.'
+        else title || ' not configured to drop http headers.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_application_load_balancer;
   EOQ
 }
 
