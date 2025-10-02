@@ -14,6 +14,7 @@ benchmark "all_controls_elb" {
     control.elb_application_gateway_network_lb_multiple_az_configured,
     control.elb_application_lb_deletion_protection_enabled,
     control.elb_application_lb_desync_mitigation_mode,
+    control.elb_application_lb_drop_http_headers,
     control.elb_application_lb_http_drop_invalid_header_enabled,
     control.elb_application_lb_listener_certificate_expire_30_days,
     control.elb_application_lb_listener_certificate_expire_7_days,
