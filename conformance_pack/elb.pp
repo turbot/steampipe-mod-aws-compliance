@@ -160,7 +160,7 @@ control "elb_classic_lb_use_ssl_certificate" {
 }
 
 control "elb_application_lb_drop_http_headers" {
-  title       = "ELB application load balancers should be drop HTTP headers"
+  title       = "ELB application load balancers should be configured to drop HTTP headers"
   description = "Ensure that your Elastic Load Balancers (ELB) are configured to drop http headers."
   query       = query.elb_application_lb_drop_http_headers
 
