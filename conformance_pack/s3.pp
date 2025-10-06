@@ -543,15 +543,19 @@ query "s3_bucket_enforces_ssl" {
         jsonb_array_elements_text(s -> 'Resource') as r,
         jsonb_array_elements_text (
           case
-          when (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion') is not null then (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion')
-          when (s -> 'Condition' -> 'Bool' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'Bool' -> 'aws:securetransport')
-            else null end
-          ) as ssl
-      where
-        p = '*'
-        and s ->> 'Effect' = 'Deny'
-        and (ssl = '1.2' or ssl :: bool = false)
-    )
+            when (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion') is not null then (s -> 'Condition' -> 'NumericLessThan' -> 's3:tlsversion')
+            when (s -> 'Condition' -> 'Bool' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'Bool' -> 'aws:securetransport')
+            when (s -> 'Condition' -> 'BoolIfExists' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'BoolIfExists' -> 'aws:securetransport')
+            when (s -> 'Condition' -> 'ForAllValues:Bool' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'ForAllValues:Bool' -> 'aws:securetransport')
+            when (s -> 'Condition' -> 'ForAllValues:BoolIfExists' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'ForAllValues:BoolIfExists' -> 'aws:securetransport')
+            when (s -> 'Condition' -> 'ForAnyValue:Bool' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'ForAnyValue:Bool' -> 'aws:securetransport')
+            when (s -> 'Condition' -> 'ForAnyValue:BoolIfExists' -> 'aws:securetransport') is not null then (s -> 'Condition' -> 'ForAnyValue:BoolIfExists' -> 'aws:securetransport')
+      else null end ) as ssl
+  where
+    p = '*'
+    and s ->> 'Effect' = 'Deny'
+    and (ssl = '1.2' or ssl :: bool = false)
+  )
     select
       b.arn as resource,
       case
