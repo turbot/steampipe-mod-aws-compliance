@@ -4,6 +4,12 @@ locals {
   })
 }
 
+locals {
+  cis_v600_6_1_common_tags = merge(local.cis_v600_6_common_tags, {
+    cis_section_id = "6.1"
+  })
+}
+
 benchmark "cis_v600_6" {
   title         = "6 Networking"
   documentation = file("./cis_v600/docs/cis_v600_6.md")
@@ -30,7 +36,7 @@ benchmark "cis_v600_6_1" {
     control.cis_v600_6_1_2
   ]
 
-  tags = merge(local.cis_v600_6_common_tags, {
+  tags = merge(local.cis_v600_6_1_common_tags, {
     type = "Benchmark"
   })
 }
@@ -41,7 +47,7 @@ control "cis_v600_6_1_1" {
   query         = query.ebs_encryption_by_default_enabled
   documentation = file("./cis_v600/docs/cis_v600_6_1_1.md")
 
-  tags = merge(local.cis_v600_6_common_tags, {
+  tags = merge(local.cis_v600_6_1_common_tags, {
     cis_item_id = "6.1.1"
     cis_level   = "1"
     cis_type    = "automated"
@@ -55,7 +61,7 @@ control "cis_v600_6_1_2" {
   query         = query.vpc_security_group_restrict_ingress_cifs_port_all
   documentation = file("./cis_v600/docs/cis_v600_6_1_2.md")
 
-  tags = merge(local.cis_v600_6_common_tags, {
+  tags = merge(local.cis_v600_6_1_common_tags, {
     cis_item_id = "6.1.2"
     cis_level   = "1"
     cis_type    = "automated"

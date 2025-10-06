@@ -48,7 +48,7 @@ control "cis_v600_5_1" {
 control "cis_v600_5_2" {
   title         = "5.2 Ensure management console sign-in without MFA is monitored"
   description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs or an external Security Information and Event Management (SIEM) environment, and establishing corresponding metric filters and alarms."
-  query         = query.manual_control
+  query         = query.log_metric_filter_console_login_mfa
   documentation = file("./cis_v600/docs/cis_v600_5_2.md")
 
   tags = merge(local.cis_v600_5_common_tags, {
@@ -174,7 +174,7 @@ control "cis_v600_5_10" {
 control "cis_v600_5_11" {
   title         = "5.11 Ensure Network Access Control List (NACL) changes are monitored"
   description   = "Real-time monitoring of API calls can be achieved by directing CloudTrail Logs to CloudWatch Logs or an external Security Information and Event Management (SIEM) environment, and establishing corresponding metric filters and alarms. NACLs are used as a stateless packet filter to control ingress and egress traffic for subnets within a VPC. It is recommended that a metric filter and alarm be established for any changes made to NACLs."
-  query         = query.manual_control
+  query         = query.log_metric_filter_network_acl
   documentation = file("./cis_v600/docs/cis_v600_5_11.md")
 
   tags = merge(local.cis_v600_5_common_tags, {
