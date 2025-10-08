@@ -1,3 +1,13 @@
+## v1.10.0 [2025-10-08]
+
+_What's new?_
+
+- Added CIS v6.0.0 benchmark (`powerpipe benchmark run aws_compliance.benchmark.cis_v600`). ([#941](https://github.com/turbot/steampipe-mod-aws-compliance/pull/941))
+
+_Bug fixes_
+
+- Fixed the `foundational_security_redshift_4` control to correctly reference `redshift_cluster_audit_logging_enabled` query instead of `redshift_cluster_automatic_snapshots_min_7_days`. ([#945](https://github.com/turbot/steampipe-mod-aws-compliance/pull/945))
+
 ## v1.9.2 [2025-10-02]
 
 _Bug fixes_
