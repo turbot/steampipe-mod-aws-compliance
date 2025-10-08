@@ -69,7 +69,7 @@ control "foundational_security_redshift_4" {
   title         = "4 Amazon Redshift clusters should have audit logging enabled"
   description   = "This control checks whether an Amazon Redshift cluster has audit logging enabled."
   severity      = "medium"
-  query         = query.redshift_cluster_automatic_snapshots_min_7_days
+  query         = query.redshift_cluster_audit_logging_enabled
   documentation = file("./foundational_security/docs/foundational_security_redshift_4.md")
 
   tags = merge(local.foundational_security_redshift_common_tags, {
