@@ -317,6 +317,8 @@ query "guardduty_detector_lambda_protection_enabled" {
         when m.arn is not null then 'ok'
         else 'alarm'
       end as status,
+      case
+        when m.arn is not null then title || ' has Lambda protection enabled.'
         else title || ' has Lambda protection disabled.'
       end as reason
       ${local.tag_dimensions_sql}
