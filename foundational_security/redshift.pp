@@ -127,7 +127,7 @@ control "foundational_security_redshift_9" {
   tags = merge(local.foundational_security_redshift_common_tags, {
     foundational_security_item_id  = "redshift_9"
     foundational_security_category = "resource_configuration"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 

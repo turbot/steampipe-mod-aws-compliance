@@ -71,7 +71,7 @@ control "foundational_security_autoscaling_4" {
   tags = merge(local.foundational_security_autoscaling_common_tags, {
     foundational_security_item_id  = "autoscaling_4"
     foundational_security_category = "secure_network_configuration"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 

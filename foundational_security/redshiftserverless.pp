@@ -96,7 +96,7 @@ control "foundational_security_redshiftserverless_7" {
   tags = merge(local.foundational_security_redshiftserverless_common_tags, {
     foundational_security_item_id  = "redshiftserverless_7"
     foundational_security_category = "resource_configuration"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 

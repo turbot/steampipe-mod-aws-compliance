@@ -84,7 +84,7 @@ control "foundational_security_codebuild_5" {
   tags = merge(local.foundational_security_codebuild_common_tags, {
     foundational_security_item_id  = "codebuild_5"
     foundational_security_category = "secure_access_management"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 

@@ -28,7 +28,7 @@ control "foundational_security_sns_1" {
   tags = merge(local.foundational_security_sns_common_tags, {
     foundational_security_item_id  = "sns_1"
     foundational_security_category = "encryption_of_data_at_rest"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 
@@ -42,7 +42,7 @@ control "foundational_security_sns_2" {
   tags = merge(local.foundational_security_sns_common_tags, {
     foundational_security_item_id  = "sns_2"
     foundational_security_category = "resource_configuration"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 

@@ -130,7 +130,7 @@ control "foundational_security_s3_10" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_10"
     foundational_security_category = "logging"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 
@@ -144,7 +144,7 @@ control "foundational_security_s3_11" {
   tags = merge(local.foundational_security_s3_common_tags, {
     foundational_security_item_id  = "s3_11"
     foundational_security_category = "logging"
-    lifecycle                      = "deprecated"
+    deprecated                      = "true"
   })
 }
 
