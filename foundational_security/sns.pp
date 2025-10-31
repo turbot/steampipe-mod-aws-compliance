@@ -33,7 +33,7 @@ control "foundational_security_sns_1" {
 }
 
 control "foundational_security_sns_2" {
-  title         = "2 Logging of delivery status should be enabled for notification messages sent to a topic (Deprecated)"
+  title         = "[Deprecated] 2 Logging of delivery status should be enabled for notification messages sent to a topic"
   description   = "This control checks whether logging is enabled for the delivery status of notification messages sent to an Amazon SNS topic for the endpoints. This control fails if the delivery status notification for messages is not enabled."
   severity      = "medium"
   query         = query.sns_topic_notification_delivery_status_enabled

@@ -18,7 +18,7 @@ benchmark "foundational_security_athena" {
 }
 
 control "foundational_security_athena_1" {
-  title         = "1 Athena workgroups should be encrypted at rest (Deprecated)"
+  title         = "[Deprecated] 1 Athena workgroups should be encrypted at rest"
   description   = "This control checks if an Athena workgroup is encrypted at rest. The control fails if an Athena workgroup isn't encrypted at rest."
   severity      = "medium"
   query         = query.athena_workgroup_encryption_at_rest_enabled

@@ -121,7 +121,7 @@ control "foundational_security_s3_9" {
 }
 
 control "foundational_security_s3_10" {
-  title         = "10 S3 buckets with versioning enabled should have lifecycle policies configured (Deprecated)"
+  title         = "[Deprecated] 10 S3 buckets with versioning enabled should have lifecycle policies configured"
   description   = "This control checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. This rule fails if Amazon S3 lifecycle policy is not enabled."
   severity      = "medium"
   query         = query.s3_bucket_versioning_and_lifecycle_policy_enabled
@@ -135,7 +135,7 @@ control "foundational_security_s3_10" {
 }
 
 control "foundational_security_s3_11" {
-  title         = "11 S3 buckets should have event notifications enabled (Deprecated)"
+  title         = "[Deprecated] 11 S3 buckets should have event notifications enabled"
   description   = "This control checks whether S3 Event Notifications are enabled on an Amazon S3 bucket. This control fails if S3 Event Notifications are not enabled on a bucket."
   severity      = "medium"
   query         = query.s3_bucket_event_notifications_enabled

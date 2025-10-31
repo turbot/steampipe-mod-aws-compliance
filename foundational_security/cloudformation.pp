@@ -17,7 +17,7 @@ benchmark "foundational_security_cloudformation" {
 }
 
 control "foundational_security_cloudformation_1" {
-  title         = "1 CloudFormation stacks should be integrated with Simple Notification Service (SNS) (Deprecated)"
+  title         = "[Deprecated] 1 CloudFormation stacks should be integrated with Simple Notification Service (SNS)"
   description   = "This control checks whether an Amazon Simple Notification Service notification is integrated with a CloudFormation stack. The control fails for a CloudFormation stack if there is no SNS notification associated with it."
   severity      = "low"
   query         = query.cloudformation_stack_notifications_enabled

@@ -75,7 +75,7 @@ control "foundational_security_codebuild_4" {
 }
 
 control "foundational_security_codebuild_5" {
-  title         = "5 CodeBuild project environments should not have privileged mode enabled (Deprecated)"
+  title         = "[Deprecated] 5 CodeBuild project environments should not have privileged mode enabled"
   description   = "This control checks if an AWS CodeBuild project environment has privileged mode enabled. This control fails when an AWS CodeBuild project environment has privileged mode enabled."
   severity      = "high"
   query         = query.codebuild_project_environment_privileged_mode_disabled

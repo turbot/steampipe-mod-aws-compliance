@@ -87,7 +87,7 @@ control "foundational_security_redshiftserverless_6" {
 }
 
 control "foundational_security_redshiftserverless_7" {
-  title         = "7 Redshift Serverless namespaces should not use the default database name (Deprecated)"
+  title         = "[Deprecated] 7 Redshift Serverless namespaces should not use the default database name"
   description   = "This control checks whether an Amazon Redshift Serverless namespace uses the default database name, dev. The control fails if the Redshift Serverless namespace uses the default database name, dev."
   severity      = "medium"
   query         = query.redshiftserverless_namespace_no_default_database_username

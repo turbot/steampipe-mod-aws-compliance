@@ -272,7 +272,7 @@ control "foundational_security_rds_17" {
 }
 
 control "foundational_security_rds_18" {
-  title         = "18 RDS instances should be deployed in a VPC (Deprecated)"
+  title         = "[Deprecated] 18 RDS instances should be deployed in a VPC"
   description   = "This control checks whether an RDS instance is deployed in a VPC (EC2-VPC)."
   severity      = "high"
   query         = query.rds_db_instance_in_vpc

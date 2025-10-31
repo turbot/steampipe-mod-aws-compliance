@@ -62,7 +62,7 @@ control "foundational_security_autoscaling_3" {
 }
 
 control "foundational_security_autoscaling_4" {
-  title         = "4 Auto Scaling group launch configuration should not have metadata response hop limit greater than 1 (Deprecated)"
+  title         = "[Deprecated] 4 Auto Scaling group launch configuration should not have metadata response hop limit greater than 1"
   description   = "This control checks the number of network hops that a metadata token can travel. The control fails if the metadata response hop limit is greater than 1."
   severity      = "high"
   query         = query.autoscaling_launch_config_hop_limit
