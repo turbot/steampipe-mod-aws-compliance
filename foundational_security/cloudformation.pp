@@ -26,5 +26,6 @@ control "foundational_security_cloudformation_1" {
   tags = merge(local.foundational_security_cloudformation_common_tags, {
     foundational_security_item_id  = "cloudformation_1"
     foundational_security_category = "application_monitoring"
+    lifecycle                      = "deprecated"
   })
 }

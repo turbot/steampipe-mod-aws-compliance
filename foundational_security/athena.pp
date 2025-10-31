@@ -27,6 +27,7 @@ control "foundational_security_athena_1" {
   tags = merge(local.foundational_security_athena_common_tags, {
     foundational_security_item_id  = "athena_1"
     foundational_security_category = "encryption_of_data_at_rest"
+    lifecycle                      = "deprecated"
   })
 }
 
