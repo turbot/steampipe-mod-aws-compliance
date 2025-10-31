@@ -19,7 +19,7 @@ benchmark "foundational_security_sns" {
 }
 
 control "foundational_security_sns_1" {
-  title         = "1 SNS topics should be encrypted at rest using AWS KMS"
+  title         = "1 SNS topics should be encrypted at rest using AWS KMS (Deprecated)"
   description   = "This control checks whether an SNS topic is encrypted at rest using AWS KMS."
   severity      = "medium"
   query         = query.sns_topic_encrypted_at_rest
@@ -33,7 +33,7 @@ control "foundational_security_sns_1" {
 }
 
 control "foundational_security_sns_2" {
-  title         = "2 Logging of delivery status should be enabled for notification messages sent to a topic"
+  title         = "2 Logging of delivery status should be enabled for notification messages sent to a topic (Deprecated)"
   description   = "This control checks whether logging is enabled for the delivery status of notification messages sent to an Amazon SNS topic for the endpoints. This control fails if the delivery status notification for messages is not enabled."
   severity      = "medium"
   query         = query.sns_topic_notification_delivery_status_enabled
