@@ -1,3 +1,10 @@
+## v1.10.1 [2025-11-03]
+
+_Bug fixes_
+
+- Fixed syntax error in `guardduty_detector_lambda_protection_enabled` query. ([#949](https://github.com/turbot/steampipe-mod-aws-compliance/pull/949))
+- Fixed typos in several CIS docs. ([#950](https://github.com/turbot/steampipe-mod-aws-compliance/pull/950))
+
 ## v1.10.0 [2025-10-08]
 
 _What's new?_
