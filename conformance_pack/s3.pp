@@ -1012,16 +1012,93 @@ query "s3_bucket_object_logging_enabled" {
 
 query "s3_bucket_policy_restrict_public_access" {
   sql = <<-EOQ
-    with public_buckets as (
+    with policy_statements as (
       select
-        distinct arn as arn
+        b.arn,
+        s,
+        (
+          s ->> 'Principal' = '*'
+          or s -> 'Principal' = '"*"'::jsonb
+          or s -> 'Principal' ->> 'AWS' = '*'
+          or s -> 'Principal' ->> 'CanonicalUser' = '*'
+          or exists (
+            select
+              1
+            from
+              jsonb_array_elements_text(
+                case
+                  when jsonb_typeof(s -> 'Principal') = 'array' then s -> 'Principal'
+                  when jsonb_typeof(s -> 'Principal' -> 'AWS') = 'array' then s -> 'Principal' -> 'AWS'
+                  when jsonb_typeof(s -> 'Principal' -> 'CanonicalUser') = 'array' then s -> 'Principal' -> 'CanonicalUser'
+                  when jsonb_typeof(s -> 'Principal' -> 'Federated') = 'array' then s -> 'Principal' -> 'Federated'
+                  else '[]'::jsonb
+                end
+              ) as principal_value
+            where
+              principal_value = '*'
+          )
+        ) as has_wildcard_principal,
+        (
+          s -> 'Condition' -> 'StringEquals' -> 'aws:principalorgid' is not null
+          or s -> 'Condition' -> 'StringEqualsIfExists' -> 'aws:principalorgid' is not null
+          or s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalorgid' is not null
+          or s -> 'Condition' -> 'ForAnyValue:StringEquals' -> 'aws:principalorgid' is not null
+          or s -> 'Condition' -> 'ForAllValues:StringEquals' -> 'aws:principalorgid' is not null
+          or s -> 'Condition' -> 'StringEquals' -> 'aws:sourceaccount' is not null
+          or s -> 'Condition' -> 'StringEqualsIfExists' -> 'aws:sourceaccount' is not null
+          or s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceaccount' is not null
+          or s -> 'Condition' -> 'ForAnyValue:StringEquals' -> 'aws:sourceaccount' is not null
+          or s -> 'Condition' -> 'ForAllValues:StringEquals' -> 'aws:sourceaccount' is not null
+          or s -> 'Condition' -> 'StringEquals' -> 'aws:principalaccount' is not null
+          or s -> 'Condition' -> 'StringEqualsIfExists' -> 'aws:principalaccount' is not null
+          or s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:principalaccount' is not null
+          or s -> 'Condition' -> 'ForAnyValue:StringEquals' -> 'aws:principalaccount' is not null
+          or s -> 'Condition' -> 'ForAllValues:StringEquals' -> 'aws:principalaccount' is not null
+          or s -> 'Condition' -> 'StringEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'StringEqualsIfExists' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAnyValue:StringEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAllValues:StringEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAnyValue:ArnEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAllValues:ArnEquals' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAnyValue:ArnLike' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ForAllValues:ArnLike' -> 'aws:principalarn' is not null
+          or s -> 'Condition' -> 'ArnEquals' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'ArnLike' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'ForAnyValue:ArnEquals' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'ForAllValues:ArnEquals' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'ForAnyValue:ArnLike' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'ForAllValues:ArnLike' -> 'aws:sourcearn' is not null
+          or s -> 'Condition' -> 'StringEquals' -> 'aws:sourceowner' is not null
+          or s -> 'Condition' -> 'StringEqualsIfExists' -> 'aws:sourceowner' is not null
+          or s -> 'Condition' -> 'StringEqualsIgnoreCase' -> 'aws:sourceowner' is not null
+          or s -> 'Condition' -> 'ForAnyValue:StringEquals' -> 'aws:sourceowner' is not null
+          or s -> 'Condition' -> 'ForAllValues:StringEquals' -> 'aws:sourceowner' is not null
+        ) as has_restrictive_condition
       from
-        aws_s3_bucket,
-        jsonb_array_elements(policy_std -> 'Statement') as s,
-        jsonb_array_elements_text(s -> 'Principal' -> 'AWS') as p
+        aws_s3_bucket as b,
+        jsonb_array_elements(b.policy_std -> 'Statement') as s
       where
-        p = '*'
-        and s ->> 'Effect' = 'Allow'
+        s ->> 'Effect' = 'Allow'
+    ),
+    public_buckets as (
+      select
+        distinct arn
+      from
+        policy_statements
+      where
+        has_wildcard_principal
+        and not has_restrictive_condition
+    ),
+    restricted_wildcard_buckets as (
+      select
+        distinct arn
+      from
+        policy_statements
+      where
+        has_wildcard_principal
+        and has_restrictive_condition
     )
     select
       b.arn as resource,
@@ -1033,13 +1110,15 @@ query "s3_bucket_policy_restrict_public_access" {
       case
         when b.policy_std is null then title || ' does not have defined policy or insufficient access to the policy.'
         when p.arn is not null then title || ' publicly accessible.'
+        when r.arn is not null then title || ' grants cross-account access restricted by policy conditions.'
         else title || ' not publicly accessible.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_s3_bucket as b
-      left join public_buckets as p on p.arn = b.arn;
+      left join public_buckets as p on p.arn = b.arn
+      left join restricted_wildcard_buckets as r on r.arn = b.arn;
   EOQ
 }
 
