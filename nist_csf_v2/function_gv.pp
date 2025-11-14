@@ -77,7 +77,7 @@ benchmark "nist_csf_v2_gv_rr_01" {
   description = "Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving."
   children = [
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role
+    control.iam_custom_managed_policy_attached_to_role
   ]
   tags = local.nist_csf_v2_common_tags
 }
@@ -87,7 +87,7 @@ benchmark "nist_csf_v2_gv_rr_02" {
   description = "Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced."
   children = [
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role
+    control.iam_custom_managed_policy_attached_to_role
   ]
   tags = local.nist_csf_v2_common_tags
 }
@@ -121,7 +121,7 @@ benchmark "nist_csf_v2_gv_sc_02" {
     control.cloudwatch_cross_account_sharing,
     control.ec2_transit_gateway_auto_cross_account_attachment_disabled,
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role,
+    control.iam_custom_managed_policy_attached_to_role,
     control.sns_topic_policy_prohibit_cross_account_access
   ]
   tags = local.nist_csf_v2_common_tags

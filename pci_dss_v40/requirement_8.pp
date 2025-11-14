@@ -43,7 +43,7 @@ benchmark "pci_dss_v40_requirement_8_2_1" {
   children = [
     control.ec2_instance_no_amazon_key_pair,
     control.iam_group_not_empty,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.log_metric_filter_root_login
@@ -63,7 +63,7 @@ benchmark "pci_dss_v40_requirement_8_2_2" {
     control.ec2_instance_no_amazon_key_pair,
     control.ecs_task_definition_container_environment_no_secret,
     control.iam_group_not_empty,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.log_metric_filter_root_login,
@@ -85,7 +85,7 @@ benchmark "pci_dss_v40_requirement_8_2_4" {
   children = [
     control.ec2_instance_no_amazon_key_pair,
     control.iam_group_not_empty,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.log_metric_filter_root_login
@@ -103,7 +103,7 @@ benchmark "pci_dss_v40_requirement_8_2_5" {
   children = [
     control.ec2_instance_no_amazon_key_pair,
     control.iam_group_not_empty,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.log_metric_filter_root_login
@@ -140,11 +140,11 @@ benchmark "pci_dss_v40_requirement_8_2_7" {
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role,
+    control.iam_custom_managed_policy_attached_to_role,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_user_no_inline_attached_policies,
     control.neptune_db_cluster_iam_authentication_enabled,
     control.opensearch_domain_fine_grained_access_enabled,
@@ -173,11 +173,11 @@ benchmark "pci_dss_v40_requirement_8_2_8" {
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role,
+    control.iam_custom_managed_policy_attached_to_role,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_user_no_inline_attached_policies,
     control.neptune_db_cluster_iam_authentication_enabled,
     control.opensearch_domain_fine_grained_access_enabled,
@@ -281,11 +281,11 @@ benchmark "pci_dss_v40_requirement_8_3_4" {
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.iam_all_policy_no_service_wild_card,
     control.iam_group_user_role_no_inline_policies,
-    control.iam_managed_policy_attached_to_role,
+    control.iam_custom_managed_policy_attached_to_role,
     control.iam_policy_custom_no_blocked_kms_actions,
     control.iam_policy_inline_no_blocked_kms_actions,
     control.iam_policy_no_star_star,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_user_no_inline_attached_policies,
     control.neptune_db_cluster_iam_authentication_enabled,
     control.opensearch_domain_fine_grained_access_enabled,
@@ -398,7 +398,7 @@ benchmark "pci_dss_v40_requirement_8_3_11" {
   children = [
     control.ec2_instance_no_amazon_key_pair,
     control.iam_group_not_empty,
-    control.iam_policy_unused,
+    control.iam_custom_policy_unused,
     control.iam_root_user_no_access_keys,
     control.iam_user_in_group,
     control.log_metric_filter_root_login
@@ -501,4 +501,4 @@ benchmark "pci_dss_v40_requirement_8_6_3" {
   tags = merge(local.pci_dss_v40_requirement_8_common_tags, {
     pci_dss_v40_item_id = "8.6.3"
   })
-} 
+}
