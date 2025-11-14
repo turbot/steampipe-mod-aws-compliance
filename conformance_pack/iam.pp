@@ -1605,7 +1605,6 @@ query "iam_custom_managed_policy_attached_to_role" {
     )
     select
       arn as resource,
-      is_aws_managed,
       case
         when arn in (select policy_arn from role_attached_policies) then 'ok'
         else 'alarm'
@@ -1695,7 +1694,7 @@ query "iam_custom_policy_unused" {
     from
       aws_iam_policy
     where
-      not coalesce(is_aws_managed, false);
+      not is_aws_managed;
   EOQ
 }
 
