@@ -40,5 +40,6 @@ control "foundational_security_sqs_3" {
   tags = merge(local.foundational_security_sqs_common_tags, {
     foundational_security_item_id  = "sqs_3"
     foundational_security_category = "resource_not_publicly_accessible"
+     deprecated                      = "false"
   })
 }

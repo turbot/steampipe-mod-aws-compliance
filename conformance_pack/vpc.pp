@@ -587,7 +587,7 @@ query "vpc_flow_logs_enabled" {
       case
         when v.account_id <> v.owner_id then v.vpc_id || ' is a shared VPC.'
         when f.resource_id is not null and f.flow_log_status = 'ACTIVE' then v.vpc_id || ' flow logging enabled and active.'
-        when f.resource_id is not null and f.flow_log_status <> 'ACTIVE' then v.vpc_id || ' flow logging enabled but inactive.'
+        when f.resource_id is not null and f.flow_log_status <> 'ACTIVE' then v.vpc_id || ' s
         else v.vpc_id || ' flow logging disabled.'
       end as reason
       ${replace(local.tag_dimensions_qualifier_sql, "__QUALIFIER__", "v.")}

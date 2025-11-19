@@ -56,6 +56,7 @@ control "foundational_security_sns_4" {
   tags = merge(local.foundational_security_sns_common_tags, {
     foundational_security_item_id  = "sns_4"
     foundational_security_category = "resources_not_publicly_accessible"
+    deprecated                      = "false"
   })
 }
 
