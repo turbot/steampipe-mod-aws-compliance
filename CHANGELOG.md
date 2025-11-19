@@ -1,3 +1,13 @@
+## v1.11.0 [2025-11-19]
+
+_Enhancements_
+
+- Added new `iam_custom_managed_policy_attached_to_role` and `iam_custom_policy_unused` controls to exclude AWS managed policies from compliance checks, reducing report noise. ([#957](https://github.com/turbot/steampipe-mod-aws-compliance/pull/957))
+
+_Bug fixes_
+
+- Fixed the `s3_bucket_policy_restrict_public_access` query to prevent false positives for S3 bucket policies with `Principal:*` restricted via AWS Organization conditions (`aws:PrincipalOrgID`) or specific AWS accounts. ([#954](https://github.com/turbot/steampipe-mod-aws-compliance/pull/954))
+
 ## v1.10.1 [2025-11-03]
 
 _Bug fixes_
