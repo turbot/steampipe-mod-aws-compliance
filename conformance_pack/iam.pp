@@ -640,6 +640,14 @@ control "iam_managed_policy_attached_to_role" {
   description = "This control checks if all AWS managed policies specified in the list of managed policies are attached to the AWS Identity and Access Management (IAM) role. The rule is non-compliant if an AWS managed policy is not attached to the IAM role."
   query       = query.iam_managed_policy_attached_to_role
 
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_custom_managed_policy_attached_to_role" {
+  title       = "IAM customer managed policies should be attached to IAM role"
+  description = "This control checks if customer managed IAM policies are attached to an AWS Identity and Access Management (IAM) role. The rule is non-compliant if a customer managed IAM policy is not attached to any IAM role."
+  query       = query.iam_custom_managed_policy_attached_to_role
+
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight = "true"
     cis_controls_v8_ig1  = "true"
@@ -655,6 +663,14 @@ control "iam_policy_unused" {
   title       = "IAM policy should be in use"
   description = "This control checks whether the IAM policy ARN is attached to an IAM user, or a group with one or more IAM users, or an IAM role with one or more trusted entity."
   query       = query.iam_policy_unused
+
+  tags = local.conformance_pack_iam_common_tags
+}
+
+control "iam_custom_policy_unused" {
+  title       = "IAM customer managed policy should be in use"
+  description = "This control checks whether customer managed IAM policies are attached to an IAM user, or a group with one or more IAM users, or an IAM role with one or more trusted entity."
+  query       = query.iam_custom_policy_unused
 
   tags = merge(local.conformance_pack_iam_common_tags, {
     acsc_essential_eight = "true"
@@ -1579,6 +1595,33 @@ query "iam_managed_policy_attached_to_role" {
   EOQ
 }
 
+query "iam_custom_managed_policy_attached_to_role" {
+  sql = <<-EOQ
+    with role_attached_policies as (
+      select
+        jsonb_array_elements_text(attached_policy_arns) as policy_arn
+      from
+        aws_iam_role
+    )
+    select
+      arn as resource,
+      case
+        when arn in (select policy_arn from role_attached_policies) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when arn in (select policy_arn from role_attached_policies) then title || ' attached to IAM role.'
+        else title || ' not attached to IAM role.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_policy
+    where
+      not is_aws_managed;
+  EOQ
+}
+
 query "iam_policy_unused" {
   sql = <<-EOQ
     with in_use_policies as (
@@ -1613,6 +1656,45 @@ query "iam_policy_unused" {
       ${local.common_dimensions_global_sql}
     from
       aws_iam_policy;
+  EOQ
+}
+
+query "iam_custom_policy_unused" {
+  sql = <<-EOQ
+    with in_use_policies as (
+      select
+        attached_policy_arns
+      from
+        aws_iam_user
+      union
+      select
+        attached_policy_arns
+      from
+        aws_iam_group
+      where
+        jsonb_array_length(users) > 0
+      union
+      select
+        attached_policy_arns
+      from
+        aws_iam_role
+    )
+    select
+      arn as resource,
+      case
+        when arn in (select jsonb_array_elements_text(attached_policy_arns) from in_use_policies) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when arn in (select jsonb_array_elements_text(attached_policy_arns) from in_use_policies) then title || ' in use.'
+        else title || ' not in use.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_global_sql}
+    from
+      aws_iam_policy
+    where
+      not is_aws_managed;
   EOQ
 }
 
