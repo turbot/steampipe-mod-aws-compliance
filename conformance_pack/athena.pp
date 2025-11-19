@@ -44,7 +44,7 @@ query "athena_workgroup_encryption_at_rest_enabled" {
         when managed_query_results_enabled then name || ' MQR enabled (encrypted with AWS-owned key).'
         when encryption_option in ('SSE_KMS','CSE_KMS') then name || ' classic results ' || encryption_option || ' with KMS ' || coalesce(result_configuration_kms_key,'(unspecified)') || '.'
         when encryption_option = 'SSE_S3' then name || ' classic results SSE_S3.'
-        else name || 'no result encryption configured.'
+        else name || ' no result encryption configured.'
       end as reason
       ${local.common_dimensions_sql}
     from
