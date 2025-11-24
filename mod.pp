@@ -16,7 +16,7 @@ mod "aws_compliance" {
 
   require {
     plugin "aws" {
-      min_version = "1.23.0"
+      min_version = "1.28.0"
     }
   }
 }
