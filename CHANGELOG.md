@@ -1,3 +1,13 @@
+## v1.12.0 [2025-11-24]
+
+_Dependencies_
+
+- AWS plugin `1.28.0` or higher is now required. ([#955](https://github.com/turbot/steampipe-mod-aws-compliance/pull/955))
+
+_Bug fixes_
+
+- Fixed the `athena_workgroup_encryption_at_rest_enabled` query to remove false alarms. ([#955](https://github.com/turbot/steampipe-mod-aws-compliance/pull/955))
+
 ## v1.11.0 [2025-11-19]
 
 _Enhancements_
