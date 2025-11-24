@@ -35,12 +35,16 @@ query "athena_workgroup_encryption_at_rest_enabled" {
     select
       name as resource,
       case
-        when encryption_option is not null then 'ok'
+        when coalesce(managed_query_results_enabled, false) then 'ok'
+        when encryption_option in ('SSE_S3','SSE_KMS','CSE_KMS') then 'ok'
         else 'alarm'
       end as status,
       case
-        when encryption_option is not null then name || ' encryption at rest enabled.'
-        else name || ' encryption at rest disabled.'
+        when managed_query_results_enabled and managed_query_results_kms_key is not null then name || ' MQR enabled with customer-managed KMS key ' || managed_query_results_kms_key || '.'
+        when managed_query_results_enabled then name || ' MQR enabled (encrypted with AWS-owned key).'
+        when encryption_option in ('SSE_KMS','CSE_KMS') then name || ' classic results ' || encryption_option || ' with KMS ' || coalesce(result_configuration_kms_key,'(unspecified)') || '.'
+        when encryption_option = 'SSE_S3' then name || ' classic results SSE_S3.'
+        else name || ' no result encryption configured.'
       end as reason
       ${local.common_dimensions_sql}
     from
