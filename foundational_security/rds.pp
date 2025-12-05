@@ -41,8 +41,11 @@ benchmark "foundational_security_rds" {
     control.foundational_security_rds_40,
     control.foundational_security_rds_41,
     control.foundational_security_rds_42,
+    control.foundational_security_rds_43,
     control.foundational_security_rds_44,
-    control.foundational_security_rds_45
+    control.foundational_security_rds_45,
+    control.foundational_security_rds_47,
+    control.foundational_security_rds_48
   ]
 
   tags = merge(local.foundational_security_rds_common_tags, {
@@ -479,6 +482,19 @@ control "foundational_security_rds_42" {
   })
 }
 
+control "foundational_security_rds_43" {
+  title         = "43 RDS DB proxies should require TLS encryption for connections"
+  description   = "This control checks whether an Amazon RDS DB proxy requires TLS for all connections between the proxy and the underlying RDS DB instance. The control fails if the proxy doesn't require TLS for all connections between the proxy and the RDS DB instance."
+  severity      = "medium"
+  query         = query.rds_db_proxy_tls_encryption_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_43.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_43"
+    foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
 control "foundational_security_rds_44" {
   title         = "44 RDS for MariaDB DB instances should be encrypted in transit"
   description   = "This control checks whether connections to an Amazon RDS for MariaDB DB instance are encrypted in transit. The control fails if the DB parameter group associated with the DB instance is not in sync, or the require_secure_transport parameter of the parameter group is not set to ON."
@@ -505,3 +521,28 @@ control "foundational_security_rds_45" {
   })
 }
 
+control "foundational_security_rds_47" {
+  title         = "47 RDS for PostgreSQL DB clusters should be configured to copy tags to DB snapshots"
+  description   = "This control checks whether an Amazon RDS for PostgreSQL DB cluster is configured to automatically copy tags to snapshots of the DB cluster when the snapshots are created. The control fails if the CopyTagsToSnapshot parameter is set to false for the RDS for PostgreSQL DB cluster."
+  severity      = "low"
+  query         = query.rds_db_cluster_aurora_postgres_copy_tags_to_snapshot_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_47.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_47"
+    foundational_security_category = "tagging"
+  })
+}
+
+control "foundational_security_rds_48" {
+  title         = "48 RDS for MySQL DB clusters should be configured to copy tags to DB snapshots"
+  description   = "This control checks whether an Amazon RDS for MySQL DB cluster is configured to automatically copy tags to snapshots of the DB cluster when the snapshots are created. The control fails if the CopyTagsToSnapshot parameter is set to false for the RDS for MySQL DB cluster."
+  severity      = "low"
+  query         = query.rds_db_cluster_aurora_mysql_copy_tags_to_snapshot_enabled
+  documentation = file("./foundational_security/docs/foundational_security_rds_48.md")
+
+  tags = merge(local.foundational_security_rds_common_tags, {
+    foundational_security_item_id  = "rds_48"
+    foundational_security_category = "tagging"
+  })
+}

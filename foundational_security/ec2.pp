@@ -37,7 +37,8 @@ benchmark "foundational_security_ec2" {
     control.foundational_security_ec2_171,
     control.foundational_security_ec2_172,
     control.foundational_security_ec2_173,
-    control.foundational_security_ec2_180
+    control.foundational_security_ec2_180,
+    control.foundational_security_ec2_181
   ]
 
   tags = merge(local.foundational_security_ec2_common_tags, {
@@ -432,6 +433,19 @@ control "foundational_security_ec2_180" {
   tags = merge(local.foundational_security_ec2_common_tags, {
     foundational_security_item_id  = "ec2_180"
     foundational_security_category = "network_security"
+  })
+}
+
+control "foundational_security_ec2_181" {
+  title         = "181 EC2 launch templates should enable encryption for attached EBS volumes"
+  description   = "This control checks whether an Amazon EC2 launch template enables encryption for all attached EBS volumes. The control fails if the encryption parameter is set to False for any EBS volumes specified by the EC2 launch template."
+  severity      = "medium"
+  query         = query.ec2_launch_template_ebs_volume_encrypted
+  documentation = file("./foundational_security/docs/foundational_security_ec2_181.md")
+
+  tags = merge(local.foundational_security_ec2_common_tags, {
+    foundational_security_item_id  = "ec2_181"
+    foundational_security_category = "encryption_of_data_at_rest"
   })
 }
 

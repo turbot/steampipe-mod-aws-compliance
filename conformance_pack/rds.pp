@@ -639,6 +639,30 @@ control "rds_db_instance_mariadb_encryption_in_transit_enabled" {
   tags = local.conformance_pack_rds_common_tags
 }
 
+control "rds_db_cluster_aurora_mysql_copy_tags_to_snapshot_enabled" {
+  title         = "RDS for MySQL DB clusters should be configured to copy tags to DB snapshots"
+  description   = "This control checks whether an Amazon RDS for MySQL DB cluster is configured to automatically copy tags to snapshots of the DB cluster when the snapshots are created. The control fails if the CopyTagsToSnapshot parameter is set to false for the RDS for MySQL DB cluster."
+  query         = query.rds_db_cluster_aurora_mysql_copy_tags_to_snapshot_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_proxy_tls_encryption_enabled" {
+  title       = "RDS DB proxy should require TLS for all connections"
+  description = "This control checks whether an Amazon RDS DB proxy requires TLS for all connections between the proxy and the underlying RDS DB instance. The control fails if the proxy doesn't require TLS for all connections between the proxy and the RDS DB instance."
+  query       = query.rds_db_proxy_tls_encryption_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
+control "rds_db_cluster_aurora_postgres_copy_tags_to_snapshot_enabled" {
+  title         = "RDS for PostgreSQL DB clusters should be configured to copy tags to DB snapshots"
+  description   = "This control checks whether an Amazon RDS for PostgreSQL DB cluster is configured to automatically copy tags to snapshots of the DB cluster when the snapshots are created. The control fails if the CopyTagsToSnapshot parameter is set to false for the RDS for PostgreSQL DB cluster."
+  query         = query.rds_db_cluster_aurora_postgres_copy_tags_to_snapshot_enabled
+
+  tags = local.conformance_pack_rds_common_tags
+}
+
 query "rds_db_instance_backup_enabled" {
   sql = <<-EOQ
     select
@@ -1777,7 +1801,6 @@ query "rds_db_instance_sql_server_encryption_in_transit_enabled" {
     )
     select
       i.arn as resource,
-      i.engine,
       case
         when not i.engine like 'sqlserver%' then 'skip'
         when p.name is not null then 'ok'
@@ -1882,6 +1905,67 @@ query "rds_db_cluster_aurora_mysql_publish_audit_log_to_cloudwatch" {
         when engine <> 'aurora-mysql' then title || ' is of ' || engine || ' type.'
         when enabled_cloudwatch_logs_exports ?& array ['audit'] then title || ' publish audit logs to CloudWatch.'
         else title || ' does not publish audit logs to CloudWatch.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_mysql_copy_tags_to_snapshot_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'aurora-mysql' then 'skip'
+        when copy_tags_to_snapshot then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'aurora-mysql' then title || ' is of ' || engine || ' type.'
+        when copy_tags_to_snapshot then title || ' copy tags to snapshot enabled.'
+        else title || ' copy tags to snapshot disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_cluster;
+  EOQ
+}
+
+query "rds_db_proxy_tls_encryption_enabled" {
+  sql = <<-EOQ
+    select
+      db_proxy_arn as resource,
+      case
+        when require_tls then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when require_tls then title || ' requires TLS for all connections.'
+        else title || ' does not require TLS for all connections.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_rds_db_proxy;
+  EOQ
+}
+
+query "rds_db_cluster_aurora_postgres_copy_tags_to_snapshot_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when engine <> 'aurora-postgresql' then 'skip'
+        when copy_tags_to_snapshot then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when engine <> 'aurora-postgresql' then title || ' is of ' || engine || ' type.'
+        when copy_tags_to_snapshot then title || ' copy tags to snapshot enabled.'
+        else title || ' copy tags to snapshot disabled.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}

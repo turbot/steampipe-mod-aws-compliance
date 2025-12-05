@@ -8,7 +8,8 @@ benchmark "foundational_security_cognito" {
   title         = "Cognito"
   documentation = file("./foundational_security/docs/foundational_security_cognito.md")
   children = [
-    control.foundational_security_cognito_2
+    control.foundational_security_cognito_2,
+    control.foundational_security_cognito_3
   ]
 
   tags = merge(local.foundational_security_cognito_common_tags, {
@@ -26,5 +27,18 @@ control "foundational_security_cognito_2" {
   tags = merge(local.foundational_security_cognito_common_tags, {
     foundational_security_item_id  = "cognito_2"
     foundational_security_category = "passwordless_authentication"
+  })
+}
+
+control "foundational_security_cognito_3" {
+  title         = "3 Password policies for Cognito user pools should have strong configurations"
+  description   = "This control checks whether the password policy for an Amazon Cognito user pool requires the use of strong passwords, based on recommended settings for password policies. The control fails if the password policy for the user pool doesn't require strong passwords. You can optionally specify custom values for the policy settings that the control checks."
+  severity      = "medium"
+  query         = query.cognito_user_pool_password_policy_with_strong_configuration
+  documentation = file("./foundational_security/docs/foundational_security_cognito_3.md")
+
+  tags = merge(local.foundational_security_cognito_common_tags, {
+    foundational_security_item_id  = "cognito_3"
+    foundational_security_category = "secure_access_management"
   })
 }
