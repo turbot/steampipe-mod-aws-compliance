@@ -10,6 +10,8 @@ benchmark "all_controls_rds" {
   children = [
     control.rds_db_cluster_aurora_backtracking_enabled,
     control.rds_db_cluster_aurora_mysql_audit_logging_enabled,
+    control.rds_db_cluster_aurora_mysql_copy_tags_to_snapshot_enabled,
+    control.rds_db_cluster_aurora_postgres_copy_tags_to_snapshot_enabled,
     control.rds_db_cluster_aurora_postgres_logging_enabled,
     control.rds_db_cluster_aurora_postgres_not_exposed_to_local_file_read_vulnerability,
     control.rds_db_cluster_aurora_protected_by_backup_plan,
@@ -50,6 +52,7 @@ benchmark "all_controls_rds" {
     control.rds_db_instance_sql_server_encryption_in_transit_enabled,
     control.rds_db_instance_sql_server_logging_enabled,
     control.rds_db_parameter_group_events_subscription,
+    control.rds_db_proxy_tls_encryption_enabled,
     control.rds_db_security_group_events_subscription,
     control.rds_db_snapshot_encrypted_at_rest,
     control.rds_db_snapshot_prohibit_public_access

@@ -14,6 +14,7 @@ benchmark "all_controls_dms" {
     control.dms_endpoint_redis_tls_enabled,
     control.dms_endpoint_ssl_configured,
     control.dms_replication_instance_automatic_minor_version_upgrade_enabled,
+    control.dms_replication_instance_multiple_az_enabled,
     control.dms_replication_instance_not_publicly_accessible,
     control.dms_replication_task_source_database_logging_enabled,
     control.dms_replication_task_target_database_logging_enabled

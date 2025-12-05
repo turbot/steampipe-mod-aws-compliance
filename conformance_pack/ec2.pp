@@ -549,6 +549,14 @@ control "ec2_launch_template_default_version_uses_imdsv2" {
   tags = local.conformance_pack_ec2_common_tags
 }
 
+control "ec2_launch_template_ebs_volume_encrypted" {
+  title         = "EC2 launch templates should enable encryption for attached EBS volumes"
+  description   = "This control checks whether an Amazon EC2 launch template enables encryption for all attached EBS volumes. The control fails if the encryption parameter is set to False for any EBS volumes specified by the EC2 launch template."
+  query         = query.ec2_launch_template_ebs_volume_encrypted
+
+  tags = local.conformance_pack_ec2_common_tags
+}
+
 control "ec2_network_inteface_source_destination_check_enabled" {
   title         = "EC2 network interfaces should have source/destination checking enabled"
   description   = "This control checks whether source/destination checking is enabled for an Amazon EC2 elastic network interface (ENI) that's managed by users. The control fails if source/destination checking is disabled for the user-managed ENI. This control checks only the following types of ENIs: aws_codestar_connections_managed, branch, efa, interface, lambda, and quicksight."
@@ -2121,6 +2129,46 @@ query "ec2_launch_template_default_version_uses_imdsv2" {
       case
         when launch_template_data -> 'MetadataOptions' ->> 'HttpTokens' = 'required' then title || ' configured to use Instance Metadata Service Version 2 (IMDSv2).'
         else title || ' not configured to use Instance Metadata Service Version 2 (IMDSv2).'
+      end as reason
+      ${local.common_dimensions_sql}
+    from
+      aws_ec2_launch_template_version
+    where
+      default_version;
+  EOQ
+}
+
+query "ec2_launch_template_ebs_volume_encrypted" {
+  sql = <<-EOQ
+    select
+      launch_template_id as resource,
+      case
+        when launch_template_data -> 'BlockDeviceMappings' is null or launch_template_data -> 'BlockDeviceMappings' = 'null' then 'skip'
+        when jsonb_typeof(launch_template_data -> 'BlockDeviceMappings') <> 'array' then 'skip'
+        when exists (
+          select 1
+          from jsonb_array_elements(launch_template_data -> 'BlockDeviceMappings') bdm
+          where bdm -> 'Ebs' is not null
+            and (
+              (bdm -> 'Ebs' ->> 'Encrypted')::boolean = false
+              or bdm -> 'Ebs' ->> 'Encrypted' is null
+            )
+        ) then 'alarm'
+        else 'ok'
+      end as status,
+      case
+        when launch_template_data -> 'BlockDeviceMappings' is null or launch_template_data -> 'BlockDeviceMappings' = 'null' then title || ' does not define any block device mappings.'
+        when jsonb_typeof(launch_template_data -> 'BlockDeviceMappings') <> 'array' then title || ' block device mappings is not an array.'
+        when exists (
+          select 1
+          from jsonb_array_elements(launch_template_data -> 'BlockDeviceMappings') bdm
+          where bdm -> 'Ebs' is not null
+            and (
+              (bdm -> 'Ebs' ->> 'Encrypted')::boolean = false
+              or bdm -> 'Ebs' ->> 'Encrypted' is null
+            )
+        ) then title || ' has unencrypted EBS volumes.'
+        else title || ' has all EBS volumes encrypted.'
       end as reason
       ${local.common_dimensions_sql}
     from
