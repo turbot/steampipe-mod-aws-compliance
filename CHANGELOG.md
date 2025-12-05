@@ -1,3 +1,15 @@
+## v1.13.0 [2025-12-05]
+
+_Enhancements_
+
+- Added five new AWS Foundational Security Best Practices (FSBP) controls: ([#961](https://github.com/turbot/steampipe-mod-aws-compliance/pull/961))
+  - `foundational_security_cognito_3`: Password policies for Cognito user pools should have strong configurations
+  - `foundational_security_dms_13`: DMS replication instances should be configured to use multiple Availability Zones
+  - `foundational_security_ec2_181`: EC2 launch templates should enable encryption for attached EBS volumes
+  - `foundational_security_rds_43`: RDS DB proxies should require TLS encryption for connections
+  - `foundational_security_rds_47`: RDS for PostgreSQL DB clusters should be configured to copy tags to DB snapshots
+  - `foundational_security_rds_48`: RDS for MySQL DB clusters should be configured to copy tags to DB snapshots
+
 ## v1.12.0 [2025-11-24]
 
 _Dependencies_
