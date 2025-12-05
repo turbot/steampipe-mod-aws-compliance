@@ -52,6 +52,7 @@ benchmark "all_controls_ec2" {
     control.ec2_instance_using_iam_instance_role,
     control.ec2_instance_virtualization_type_no_paravirtual,
     control.ec2_launch_template_default_version_uses_imdsv2,
+    control.ec2_launch_template_ebs_volume_encrypted,
     control.ec2_launch_template_not_publicly_accessible,
     control.ec2_network_inteface_source_destination_check_enabled,
     control.ec2_network_interface_unused,

@@ -102,6 +102,14 @@ control "dms_endpoint_mongo_db_authentication_enabled" {
   tags = local.conformance_pack_dms_common_tags
 }
 
+control "dms_replication_instance_multiple_az_enabled" {
+  title         = "DMS replication instances should be configured to use multiple Availability Zones"
+  description   = "This control checks whether an AWS Database Migration Service (AWS DMS) replication instance is configured to use multiple Availability Zones (Multi-AZ deployment). The control fails if the AWS DMS replication instance isn't configured to use a Multi-AZ deployment."
+  query         = query.dms_replication_instance_multiple_az_enabled
+
+  tags = local.conformance_pack_dms_common_tags
+}
+
 
 query "dms_replication_instance_not_publicly_accessible" {
   sql = <<-EOQ
@@ -324,5 +332,24 @@ query "dms_endpoint_mongo_db_authentication_enabled" {
       ${local.common_dimensions_sql}
     from
       aws_dms_endpoint;
+  EOQ
+}
+
+query "dms_replication_instance_multiple_az_enabled" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when multi_az then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when multi_az then title || ' Multi-AZ enabled.'
+        else title || ' Multi-AZ disabled.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_dms_replication_instance;
   EOQ
 }

@@ -16,6 +16,7 @@ benchmark "foundational_security_dms" {
     control.foundational_security_dms_10,
     control.foundational_security_dms_11,
     control.foundational_security_dms_12,
+    control.foundational_security_dms_13
   ]
 
   tags = merge(local.foundational_security_dms_common_tags, {
@@ -124,5 +125,18 @@ control "foundational_security_dms_12" {
   tags = merge(local.foundational_security_dms_common_tags, {
     foundational_security_item_id  = "dms_12"
     foundational_security_category = "encryption_of_data_in_transit"
+  })
+}
+
+control "foundational_security_dms_13" {
+  title         = "13 DMS replication instances should be configured to use multiple Availability Zones"
+  description   = "This control checks whether an AWS Database Migration Service (AWS DMS) replication instance is configured to use multiple Availability Zones (Multi-AZ deployment). The control fails if the AWS DMS replication instance isn't configured to use a Multi-AZ deployment."
+  severity      = "medium"
+  query         = query.dms_replication_instance_multiple_az_enabled
+  documentation = file("./foundational_security/docs/foundational_security_dms_13.md")
+
+  tags = merge(local.foundational_security_dms_common_tags, {
+    foundational_security_item_id  = "dms_13"
+    foundational_security_category = "high_availability"
   })
 }
