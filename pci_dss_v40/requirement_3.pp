@@ -191,7 +191,7 @@ benchmark "pci_dss_v40_requirement_3_5_1" {
 }
 
 benchmark "pci_dss_v40_requirement_3_5_1_1" {
-  title       = "3.5.1.1: Hashes used to render PAN unreadable (per the first bullet of Requirement 3.5.1) are keyed cryptographic hashes of the entire PAN, with associated keymanagement processes and procedures"
+  title       = "3.5.1.1: Hashes used to render PAN unreadable (per the first bullet of Requirement 3.5.1) are keyed cryptographic hashes of the entire PAN, with associated key-management processes and procedures"
   description = "Rendering stored PAN unreadable is a defense in depth control designed to protect the data if an unauthorized individual gains access to stored data by taking advantage of a vulnerability or misconfiguration of an entity's primary access control."
 
   children = [
@@ -432,7 +432,7 @@ benchmark "pci_dss_v40_requirement_3_7_5" {
 }
 
 benchmark "pci_dss_v40_requirement_3_7_6" {
-  title       = "3.7.6 Where manual cleartext cryptographic keymanagement operations are performed by personnel, key-management policies and procedures are implemented, including managing these operations using split knowledge and dual control"
+  title       = "3.7.6 Where manual cleartext cryptographic key-management operations are performed by personnel, key-management policies and procedures are implemented, including managing these operations using split knowledge and dual control"
   description = "Split knowledge and dual control of keys are used to eliminate the possibility of a single person having access to the whole key and therefore being able to gain unauthorized access to the data."
 
   children = [
