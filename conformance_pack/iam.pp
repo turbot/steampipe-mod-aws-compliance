@@ -834,6 +834,7 @@ query "iam_account_password_policy_strong_min_reuse_24" {
             case when not (require_uppercase_characters = 'true') then 'uppercase characters not required' end,
             case when not (require_numbers) then 'numbers not required' end,
             case when not (require_symbols) then 'symbols not required' end,
+            case when max_password_age is null then 'max password age not set' end,
             case when max_password_age > 90 then ('max password age set to ' || max_password_age) end
           ) || '.'
       end as reason
