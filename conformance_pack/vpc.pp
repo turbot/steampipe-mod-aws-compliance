@@ -1712,10 +1712,10 @@ query "vpc_security_group_restricted_common_ports" {
             )
             or (
                 from_port <= 1433
-                and to_port >= 3389
+                and to_port >= 1433
             )
             or (
-                from_port <= 3389
+                from_port <= 1434
                 and to_port >= 1434
             )
             or (
@@ -1732,6 +1732,10 @@ query "vpc_security_group_restricted_common_ports" {
             )
             or (
                 from_port <= 9200
+                and to_port >= 9200
+            )
+            or (
+                from_port <= 9300
                 and to_port >= 9300
             )
             or (
