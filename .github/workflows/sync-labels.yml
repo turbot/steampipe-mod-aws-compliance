@@ -4,6 +4,10 @@ on:
     - cron: "30 22 * * 1"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   sync_labels_workflow:
     uses: turbot/steampipe-workflows/.github/workflows/sync-labels.yml@main
