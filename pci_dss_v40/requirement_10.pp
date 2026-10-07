@@ -531,7 +531,7 @@ benchmark "pci_dss_v40_requirement_10_3_2" {
 }
 
 benchmark "pci_dss_v40_requirement_10_3_3" {
-  title       = "10.3.3: Audit log files, including those for externalfacing technologies, are promptly backed up to a secure, central, internal log server(s) or other media that is difficult to modify"
+  title       = "10.3.3: Audit log files, including those for external facing technologies, are promptly backed up to a secure, central, internal log server(s) or other media that is difficult to modify"
   description = "Promptly backing up the logs to a centralized log server or media that is difficult to alter keeps the logs protected, even if the system generating the logs becomes compromised."
 
   children = [

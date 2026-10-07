@@ -363,7 +363,7 @@ benchmark "pci_dss_v40_requirement_8_3_9" {
 }
 
 benchmark "pci_dss_v40_requirement_8_3_10" {
-  title       = "8.3.10: Additional requirement for service providers only: If passwords/passphrases are used as the only authentication factor for customer user access to cardholder data (i.e., in any singlefactor authentication implementation), then guidance is provided to customer users"
+  title       = "8.3.10: Additional requirement for service providers only: If passwords/passphrases are used as the only authentication factor for customer user access to cardholder data (i.e., in any single-factor authentication implementation), then guidance is provided to customer users"
   description = "Using a password/passphrase as the only authentication factor provides a single point of failure if compromised. Therefore, in these implementations, controls are needed to minimize how long malicious activity could occur via a compromised password/passphrase."
 
   children = [

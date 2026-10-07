@@ -1,3 +1,11 @@
+## v1.13.1 [2026-10-07]
+
+_Bug fixes_
+
+- Fixed the `vpc_security_group_restricted_common_ports` query to correctly check MSSQL (`1433`, `1434`) and Elasticsearch (`9200`, `9300`) ports, removing false positives and false negatives. ([#978](https://github.com/turbot/steampipe-mod-aws-compliance/pull/978)) (Thanks to [@cristianchiriac](https://github.com/cristianchiriac) for the contribution!)
+- Fixed typos in several PCI DSS v4.0 control titles. ([#963](https://github.com/turbot/steampipe-mod-aws-compliance/pull/963))
+- Renamed `acsc_essential_eight/ml_1 .pp` to `acsc_essential_eight/ml_1.pp` to remove the space in the file name. ([#964](https://github.com/turbot/steampipe-mod-aws-compliance/pull/964)) (Thanks to [@steakunderscore](https://github.com/steakunderscore) for the contribution!)
+
 ## v1.13.0 [2025-12-05]
 
 _Enhancements_
