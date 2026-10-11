@@ -216,11 +216,13 @@ query "opensearch_domain_audit_logging_enabled" {
     select
       arn as resource,
       case
-        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then 'ok'
-        else 'ok'
+        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true'
+          and log_publishing_options -> 'AUDIT_LOGS' ->> 'CloudWatchLogsLogGroupArn' is not null then 'ok'
+        else 'alarm'
       end as status,
       case
-        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true' then title || ' audit logging enabled.'
+        when log_publishing_options -> 'AUDIT_LOGS' ->> 'Enabled' = 'true'
+          and log_publishing_options -> 'AUDIT_LOGS' ->> 'CloudWatchLogsLogGroupArn' is not null then title || ' audit logging enabled.'
         else title || ' audit logging disabled.'
       end as reason
       ${local.tag_dimensions_sql}
