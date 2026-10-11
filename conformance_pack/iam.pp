@@ -2018,8 +2018,8 @@ query "iam_root_last_used" {
       user_arn as resource,
       case
         when password_last_used >= (current_date - interval '90' day) then 'alarm'
-        when access_key_1_last_used_date <= (current_date - interval '90' day)  then 'alarm'
-        when access_key_2_last_used_date <= (current_date - interval '90' day)  then 'alarm'
+        when access_key_1_last_used_date >= (current_date - interval '90' day) then 'alarm'
+        when access_key_2_last_used_date >= (current_date - interval '90' day) then 'alarm'
         else 'ok'
       end as status,
       case
