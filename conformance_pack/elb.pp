@@ -535,25 +535,28 @@ query "elb_classic_lb_use_ssl_certificate" {
   sql = <<-EOQ
     with detailed_classic_listeners as (
       select
-        name
+        name,
+        count(*) as secure_listener_count,
+        count(*) filter (where listener_description -> 'Listener' ->> 'SSLCertificateId' like 'arn:aws:acm%') as acm_listener_count
       from
         aws_ec2_classic_load_balancer,
         jsonb_array_elements(listener_descriptions) as listener_description
       where
         listener_description -> 'Listener' ->> 'Protocol' in ('HTTPS', 'SSL', 'TLS')
-        and listener_description -> 'Listener' ->> 'SSLCertificateId' like 'arn:aws:acm%'
+      group by
+        name
     )
     select
       'arn:' || a.partition || ':elasticloadbalancing:' || a.region || ':' || a.account_id || ':loadbalancer/' || a.name as resource,
       case
         when a.listener_descriptions is null then 'skip'
-        when b.name is not null then 'alarm'
-        else 'ok'
+        when b.acm_listener_count = b.secure_listener_count then 'ok'
+        else 'alarm'
       end as status,
       case
         when a.listener_descriptions is null then a.title || ' has no listener.'
-        when b.name is not null then a.title || ' does not use certificates provided by ACM.'
-        else a.title || ' uses certificates provided by ACM.'
+        when b.acm_listener_count = b.secure_listener_count then a.title || ' uses certificates provided by ACM.'
+        else a.title || ' does not use certificates provided by ACM.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
