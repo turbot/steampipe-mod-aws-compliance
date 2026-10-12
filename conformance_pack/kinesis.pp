@@ -105,7 +105,7 @@ query "kinesis_stream_retention_period_168_hours" {
     select
       stream_arn as resource,
       case
-        when retention_period_hours = 168 then 'ok'
+        when retention_period_hours >= 168 then 'ok'
         else 'alarm'
       end as status,
       title || ' retention period set to ' || retention_period_hours || ' hours.' as reason
