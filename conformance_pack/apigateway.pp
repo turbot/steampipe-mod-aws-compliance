@@ -366,11 +366,11 @@ query "api_gatewayv2_route_authorization_type_configured" {
     select
       'arn:' || partition || ':apigateway:' || region || '::/apis/' || api_id || '/routes/' || route_id as resource,
       case
-        when authorization_type is null then 'alarm'
+        when authorization_type is null or authorization_type = 'NONE' then 'alarm'
         else 'ok'
       end as status,
       case
-        when authorization_type is null then route_id || ' authorization type not configured.'
+        when authorization_type is null or authorization_type = 'NONE' then route_id || ' authorization type not configured.'
         else route_id || ' authorization type ' || authorization_type || ' configured.'
       end as reason
       ${local.common_dimensions_sql}
