@@ -116,10 +116,10 @@ control "foundational_security_opensearch_7" {
 }
 
 control "foundational_security_opensearch_8" {
-  title         = "8 Connections to OpenSearch domains should be encrypted using TLS 1.2"
-  description   = "This control checks whether connections to OpenSearch domains are required to use TLS 1.2. The check fails if the OpenSearch domain TLSSecurityPolicy is not Policy-Min-TLS-1-2-2019-07."
+  title         = "8 Connections to OpenSearch domains should be encrypted using the latest TLS security policy"
+  description   = "This control checks whether an OpenSearch domain endpoint is configured to use the latest TLS security policy. The control fails if the OpenSearch domain endpoint isn't configured to use the latest supported policy or if HTTPS isn't enabled."
   severity      = "medium"
-  query         = query.opensearch_domain_https_required
+  query         = query.opensearch_domain_uses_latest_tls_security_policy
   documentation = file("./foundational_security/docs/foundational_security_opensearch_8.md")
 
   tags = merge(local.foundational_security_opensearch_common_tags, {

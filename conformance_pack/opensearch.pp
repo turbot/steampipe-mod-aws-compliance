@@ -4,6 +4,12 @@ locals {
   })
 }
 
+variable "opensearch_domain_latest_tls_security_policies" {
+  type        = list(string)
+  description = "A list of TLS security policies considered the latest for OpenSearch domains."
+  default     = ["Policy-Min-TLS-1-2-PFS-2023-10"]
+}
+
 control "opensearch_domain_data_node_fault_tolerance" {
   title       = "OpenSearch domains should have at least three data nodes"
   description = "This control checks whether OpenSearch domains are configured with at least three data nodes and zoneAwarenessEnabled is true. This control fails for an OpenSearch domain if instanceCount is less than 3 or zoneAwarenessEnabled is false."
@@ -58,6 +64,14 @@ control "opensearch_domain_https_required" {
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
   })
+}
+
+control "opensearch_domain_uses_latest_tls_security_policy" {
+  title       = "OpenSearch domains should use the latest TLS security policy"
+  description = "This control checks whether an OpenSearch domain endpoint enforces HTTPS and uses the latest TLS security policy. The control fails if HTTPS is not enforced or the TLS security policy is not one of the latest policies."
+  query       = query.opensearch_domain_uses_latest_tls_security_policy
+
+  tags = local.conformance_pack_opensearch_common_tags
 }
 
 control "opensearch_domain_audit_logging_enabled" {
@@ -210,6 +224,31 @@ query "opensearch_domain_https_required" {
     from
       aws_opensearch_domain;
   EOQ
+}
+
+query "opensearch_domain_uses_latest_tls_security_policy" {
+  sql = <<-EOQ
+    select
+      arn as resource,
+      case
+        when domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' = any($1::text[]) then 'ok'
+        else 'alarm'
+      end as status,
+      case
+        when coalesce(domain_endpoint_options ->> 'EnforceHTTPS', 'false') <> 'true' then title || ' does not enforce HTTPS.'
+        when domain_endpoint_options ->> 'TLSSecurityPolicy' = any($1::text[]) then title || ' uses the latest TLS security policy ' || (domain_endpoint_options ->> 'TLSSecurityPolicy') || '.'
+        else title || ' uses TLS security policy ' || coalesce(domain_endpoint_options ->> 'TLSSecurityPolicy', 'none') || ', which is not the latest.'
+      end as reason
+      ${local.tag_dimensions_sql}
+      ${local.common_dimensions_sql}
+    from
+      aws_opensearch_domain;
+  EOQ
+
+  param "opensearch_domain_latest_tls_security_policies" {
+    description = "A list of TLS security policies considered the latest for OpenSearch domains."
+    default     = var.opensearch_domain_latest_tls_security_policies
+  }
 }
 
 query "opensearch_domain_audit_logging_enabled" {
