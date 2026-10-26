@@ -121,7 +121,7 @@ benchmark "pci_dss_v40_requirement_11_5" {
 }
 
 benchmark "pci_dss_v40_requirement_11_5_1" {
-  title       = "11.5.1: Intrusion-detection and/or intrusionprevention techniques are used to detect and/or prevent intrusions into the network"
+  title       = "11.5.1: Intrusion-detection and/or intrusion-prevention techniques are used to detect and/or prevent intrusions into the network"
   description = "Intrusion-detection and/or intrusion-prevention techniques (such as IDS/IPS) compare the traffic coming into the network with known “signatures” and/or behaviors of thousands of compromise types (hacker tools, Trojans, and other malware), and then send alerts and/or stop the attempt as it happens. Without a proactive approach to detect unauthorized activity, attacks on (or misuse of) computer resources could go unnoticed for long periods of time. The impact of an intrusion into the CDE is, in many ways, a factor of the time that an attacker has in the environment before being detected."
 
   children = [

@@ -77,7 +77,7 @@ benchmark "pci_dss_v40_appendix_a3_4" {
 }
 
 benchmark "pci_dss_v40_appendix_a3_4_1" {
-  title       = "A3.4.1: User accounts and access privileges to inscope system components are reviewed at least once every six months to ensure user accounts and access privileges remain appropriate based on job function, and that all access is authorized"
+  title       = "A3.4.1: User accounts and access privileges to in-scope system components are reviewed at least once every six months to ensure user accounts and access privileges remain appropriate based on job function, and that all access is authorized"
   description = "Regular review of access rights helps to detect excessive access rights remaining after user job responsibilities change, system functions change, or other modifications. If excessive user rights are not revoked in due time, they may be used by malicious users for unauthorized access."
 
   children = [

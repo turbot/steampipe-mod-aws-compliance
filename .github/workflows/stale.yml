@@ -10,6 +10,11 @@ on:
         default: "false"
         type: string
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   stale_workflow:
     uses: turbot/steampipe-workflows/.github/workflows/stale.yml@main
