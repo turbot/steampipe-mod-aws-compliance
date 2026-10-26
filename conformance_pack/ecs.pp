@@ -392,30 +392,30 @@ query "ecs_task_definition_container_non_privileged" {
 
 query "ecs_task_definition_container_readonly_root_filesystem" {
   sql = <<-EOQ
-    with privileged_container_definition as (
+    with writable_root_container_definition as (
       select
         distinct task_definition_arn as arn
       from
         aws_ecs_task_definition,
         jsonb_array_elements(container_definitions) as c
       where
-        c ->> 'ReadonlyRootFilesystem' = 'true'
+        coalesce(c ->> 'ReadonlyRootFilesystem', 'false') <> 'true'
     )
     select
       d.task_definition_arn as resource,
       case
-        when c.arn is not null then 'ok'
+        when c.arn is null then 'ok'
         else 'alarm'
       end as status,
       case
-        when c.arn is not null then d.title || ' containers limited to read-only access to root filesystems.'
+        when c.arn is null then d.title || ' containers limited to read-only access to root filesystems.'
         else d.title || ' containers not limited to read-only access to root filesystems.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
     from
       aws_ecs_task_definition as d
-      left join privileged_container_definition as c on d.task_definition_arn = c.arn;
+      left join writable_root_container_definition as c on d.task_definition_arn = c.arn;
   EOQ
 }
 
