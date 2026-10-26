@@ -45,7 +45,7 @@ control "opensearch_domain_fine_grained_access_enabled" {
 
 control "opensearch_domain_https_required" {
   title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non-compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non-compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or its 'TLSSecurityPolicy' allows TLS versions below 1.2."
   query       = query.opensearch_domain_https_required
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
@@ -197,12 +197,13 @@ query "opensearch_domain_https_required" {
     select
       arn as resource,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
-        else 'ok'
+        when domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' like 'Policy-Min-TLS-1-2-%' then 'ok'
+        else 'alarm'
       end status,
       case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' does not use HTTPS.'
-        else title || ' uses HTTPS.'
+        when domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' like 'Policy-Min-TLS-1-2-%' then title || ' uses HTTPS.'
+        when domain_endpoint_options ->> 'EnforceHTTPS' = 'true' then title || ' uses HTTPS with a TLS security policy that allows TLS versions below 1.2.'
+        else title || ' does not use HTTPS.'
       end as reason
       ${local.tag_dimensions_sql}
       ${local.common_dimensions_sql}
