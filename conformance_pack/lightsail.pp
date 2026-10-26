@@ -63,7 +63,7 @@ query "lightsail_instance_ssh_rdp_http_ports_disabled" {
         port_cidrs
       where
         from_port in (22, 3389, 80)
-        and to_port in (22, 338, 80)
+        and to_port in (22, 3389, 80)
         and protocol = 'tcp'
         and (cidr = '0.0.0.0/0' or ipv6_cidr = '::/0')
     )

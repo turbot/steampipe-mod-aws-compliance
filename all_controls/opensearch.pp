@@ -18,7 +18,8 @@ benchmark "all_controls_opensearch" {
     control.opensearch_domain_internal_user_database_disabled,
     control.opensearch_domain_logs_to_cloudwatch,
     control.opensearch_domain_node_to_node_encryption_enabled,
-    control.opensearch_domain_updated_with_latest_service_software_version
+    control.opensearch_domain_updated_with_latest_service_software_version,
+    control.opensearch_domain_uses_latest_tls_security_policy
   ]
 
   tags = merge(local.all_controls_opensearch_common_tags, {
