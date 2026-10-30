@@ -201,6 +201,7 @@ query "guardduty_no_high_severity_findings" {
       where
         -- GuardDuty severity: 7.0-8.9 is High, 9.0 and above is Critical
         f.severity >= 7
+        and f.service ->> 'Archived' = 'false'
       group by
         f.detector_id
     )
