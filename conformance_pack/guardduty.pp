@@ -198,6 +198,10 @@ query "guardduty_no_high_severity_findings" {
         count(*) as count
       from
         aws_guardduty_finding as f
+      where
+        -- GuardDuty severity: 7.0-8.9 is High, 9.0 and above is Critical
+        f.severity >= 7
+        and f.service ->> 'Archived' = 'false'
       group by
         f.detector_id
     )
