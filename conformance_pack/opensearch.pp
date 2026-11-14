@@ -63,6 +63,7 @@ control "opensearch_domain_https_required" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -71,7 +72,9 @@ control "opensearch_domain_uses_latest_tls_security_policy" {
   description = "This control checks whether an OpenSearch domain endpoint enforces HTTPS and uses the latest TLS security policy. The control fails if HTTPS is not enforced or the TLS security policy is not one of the latest policies."
   query       = query.opensearch_domain_uses_latest_tls_security_policy
 
-  tags = local.conformance_pack_opensearch_common_tags
+  tags = merge(local.conformance_pack_opensearch_common_tags, {
+    rbi_nbfc_cyber_2026 = "true"
+  })
 }
 
 control "opensearch_domain_audit_logging_enabled" {
@@ -103,6 +106,7 @@ control "opensearch_domain_logs_to_cloudwatch" {
     pci_dss_v321         = "true"
     pci_dss_v40          = "true"
     rbi_itf_nbfc         = "true"
+    rbi_nbfc_cyber_2026  = "true"
     soc_2                = "true"
   })
 }
@@ -138,6 +142,7 @@ control "opensearch_domain_in_vpc" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -165,6 +170,7 @@ control "opensearch_domain_updated_with_latest_service_software_version" {
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     acsc_essential_eight = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 

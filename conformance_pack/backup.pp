@@ -24,6 +24,7 @@ control "backup_recovery_point_manual_deletion_disabled" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -50,6 +51,7 @@ control "backup_plan_min_retention_35_days" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -95,6 +97,7 @@ control "backup_recovery_point_min_retention_35_days" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }

@@ -26,6 +26,7 @@ control "acm_certificate_expires_30_days" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }

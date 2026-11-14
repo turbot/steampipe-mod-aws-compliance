@@ -124,6 +124,7 @@ control "iam_account_password_policy_strong_min_reuse_24" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -147,6 +148,7 @@ control "iam_group_not_empty" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -177,6 +179,7 @@ control "iam_policy_no_star_star" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -206,6 +209,7 @@ control "iam_root_user_no_access_keys" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -235,6 +239,7 @@ control "iam_root_user_hardware_mfa_enabled" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -264,6 +269,7 @@ control "iam_root_user_mfa_enabled" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -289,6 +295,7 @@ control "iam_user_access_key_age_90" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -319,6 +326,7 @@ control "iam_user_console_access_mfa_enabled" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -348,6 +356,7 @@ control "iam_user_mfa_enabled" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -378,6 +387,7 @@ control "iam_user_no_inline_attached_policies" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -406,6 +416,7 @@ control "iam_user_unused_credentials_90" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -432,6 +443,7 @@ control "iam_user_in_group" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -458,6 +470,7 @@ control "iam_group_user_role_no_inline_policies" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -567,6 +580,7 @@ control "iam_all_policy_no_service_wild_card" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -631,7 +645,8 @@ control "iam_user_with_administrator_access_mfa_enabled" {
   query       = query.iam_user_with_administrator_access_mfa_enabled
 
   tags = merge(local.conformance_pack_iam_common_tags, {
-    nist_csf_v2 = "true"
+    nist_csf_v2         = "true"
+    rbi_nbfc_cyber_2026 = "true"
   })
 }
 

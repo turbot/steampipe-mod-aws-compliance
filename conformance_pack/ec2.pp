@@ -59,6 +59,7 @@ control "ec2_instance_detailed_monitoring_enabled" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -107,6 +108,7 @@ control "ec2_instance_in_vpc" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -133,6 +135,7 @@ control "ec2_instance_not_publicly_accessible" {
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -167,6 +170,7 @@ control "ec2_stopped_instance_30_days" {
     nist_csf                               = "true"
     nist_csf_v2                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -191,6 +195,7 @@ control "ec2_instance_ebs_optimized" {
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -235,6 +240,7 @@ control "ec2_instance_protected_by_backup_plan" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -255,6 +261,7 @@ control "ec2_instance_iam_profile_attached" {
     nist_csf                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 

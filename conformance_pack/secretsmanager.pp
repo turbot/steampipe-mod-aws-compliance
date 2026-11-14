@@ -37,6 +37,7 @@ control "secretsmanager_secret_automatic_rotation_enabled" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -56,6 +57,7 @@ control "secretsmanager_secret_rotated_as_scheduled" {
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }

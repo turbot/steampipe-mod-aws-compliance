@@ -39,6 +39,7 @@ control "lambda_function_dead_letter_queue_configured" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -66,6 +67,7 @@ control "lambda_function_in_vpc" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -94,6 +96,7 @@ control "lambda_function_restrict_public_access" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -112,6 +115,7 @@ control "lambda_function_concurrent_execution_limit_configured" {
     nist_800_53_rev_5                      = "true"
     nist_csf                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -138,8 +142,9 @@ control "lambda_function_multiple_az_configured" {
   query       = query.lambda_function_multiple_az_configured
 
   tags = merge(local.conformance_pack_lambda_common_tags, {
-    nist_csf     = "true"
-    rbi_itf_nbfc = "true"
+    nist_csf            = "true"
+    rbi_itf_nbfc        = "true"
+    rbi_nbfc_cyber_2026 = "true"
   })
 }
 
@@ -152,6 +157,7 @@ control "lambda_function_use_latest_runtime" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 

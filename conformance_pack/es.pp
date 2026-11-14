@@ -47,7 +47,8 @@ control "es_domain_encrypted_using_tls_1_2" {
   query       = query.es_domain_encrypted_using_tls_1_2
 
   tags = merge(local.conformance_pack_es_common_tags, {
-    nist_csf_v2 = "true"
+    nist_csf_v2         = "true"
+    rbi_nbfc_cyber_2026 = "true"
   })
 }
 
@@ -100,6 +101,7 @@ control "es_domain_in_vpc" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -153,6 +155,7 @@ control "es_domain_logs_to_cloudwatch" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }

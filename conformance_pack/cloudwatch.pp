@@ -109,6 +109,7 @@ control "cloudwatch_log_group_retention_period_365" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -125,6 +126,7 @@ control "log_metric_filter_unauthorized_api" {
     nist_csf             = "true"
     nist_csf_v2          = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 
@@ -158,6 +160,7 @@ control "log_metric_filter_root_login" {
     nist_csf_v2                            = "true"
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -174,6 +177,7 @@ control "log_metric_filter_iam_policy" {
     nist_csf_v2          = "true"
     pci_dss_v321         = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 
@@ -309,6 +313,7 @@ control "log_metric_filter_console_authentication_failure" {
     nist_csf                               = "true"
     nist_csf_v2                            = "true"
     pci_dss_v40                            = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
