@@ -24,6 +24,7 @@ control "dynamodb_table_auto_scaling_enabled" {
     nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -53,6 +54,7 @@ control "dynamodb_table_point_in_time_recovery_enabled" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -104,6 +106,7 @@ control "dynamodb_table_in_backup_plan" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }

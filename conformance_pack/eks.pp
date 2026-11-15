@@ -62,6 +62,7 @@ control "eks_cluster_with_latest_kubernetes_version" {
     nist_csf             = "true"
     pci_dss_v321         = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 

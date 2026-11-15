@@ -116,6 +116,7 @@ control "rds_db_instance_backup_enabled" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -169,6 +170,7 @@ control "rds_db_instance_multiple_az_enabled" {
     nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -197,6 +199,7 @@ control "rds_db_instance_prohibit_public_access" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -251,6 +254,7 @@ control "rds_db_snapshot_prohibit_public_access" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -280,6 +284,7 @@ control "rds_db_instance_logging_enabled" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -309,6 +314,7 @@ control "rds_db_instance_in_backup_plan" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -331,6 +337,7 @@ control "rds_db_instance_and_cluster_enhanced_monitoring_enabled" {
     nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -353,6 +360,7 @@ control "rds_db_instance_deletion_protection_enabled" {
     nist_csf_v2                            = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -408,6 +416,7 @@ control "rds_db_cluster_aurora_protected_by_backup_plan" {
     pci_dss_v321                           = "true"
     pci_dss_v40                            = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -450,6 +459,7 @@ control "rds_db_instance_automatic_minor_version_upgrade_enabled" {
     pci_dss_v40           = "true"
     rbi_cyber_security    = "true"
     rbi_itf_nbfc          = "true"
+    rbi_nbfc_cyber_2026   = "true"
   })
 }
 

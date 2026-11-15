@@ -157,6 +157,7 @@ control "ecs_service_fargate_using_latest_platform_version" {
     acsc_essential_eight = "true"
     nist_csf             = "true"
     pci_dss_v40          = "true"
+    rbi_nbfc_cyber_2026  = "true"
   })
 }
 

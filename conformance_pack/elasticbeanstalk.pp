@@ -17,6 +17,7 @@ control "elastic_beanstalk_enhanced_health_reporting_enabled" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 

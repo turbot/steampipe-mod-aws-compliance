@@ -46,6 +46,7 @@ control "autoscaling_group_with_lb_use_health_check" {
     nydfs_23                               = "true"
     pci_dss_v321                           = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 
@@ -69,6 +70,7 @@ control "autoscaling_launch_config_public_ip_disabled" {
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 

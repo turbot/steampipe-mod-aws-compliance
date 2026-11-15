@@ -47,7 +47,9 @@ control "cloudfront_distribution_use_secure_cipher" {
   description = "Ensure that CloudFront distributions do not have any insecure SSL ciphers. Using insecure and deprecated ciphers could make the SSL connection between the CloudFront and the origins vulnerable to exploits."
   query       = query.cloudfront_distribution_use_secure_cipher
 
-  tags = local.conformance_pack_cloudfront_common_tags
+  tags = merge(local.conformance_pack_cloudfront_common_tags, {
+    rbi_nbfc_cyber_2026 = "true"
+  })
 }
 
 control "cloudfront_distribution_non_s3_origins_encryption_in_transit_enabled" {
@@ -64,11 +66,12 @@ control "cloudfront_distribution_no_deprecated_ssl_protocol" {
   query       = query.cloudfront_distribution_no_deprecated_ssl_protocol
 
   tags = merge(local.conformance_pack_cloudfront_common_tags, {
-    gxp_21_cfr_part_11 = "true"
-    gxp_eu_annex_11    = "true"
-    nist_csf           = "true"
-    pci_dss_v321       = "true"
-    pci_dss_v40        = "true"
+    gxp_21_cfr_part_11  = "true"
+    gxp_eu_annex_11     = "true"
+    nist_csf            = "true"
+    pci_dss_v321        = "true"
+    pci_dss_v40         = "true"
+    rbi_nbfc_cyber_2026 = "true"
   })
 }
 

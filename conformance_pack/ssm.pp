@@ -26,6 +26,7 @@ control "ec2_instance_ssm_managed" {
     pci_dss_v321                           = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -55,6 +56,7 @@ control "ssm_managed_instance_compliance_association_compliant" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -83,6 +85,7 @@ control "ssm_managed_instance_compliance_patch_compliant" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -101,6 +104,7 @@ control "ssm_document_prohibit_public_access" {
     nist_csf                               = "true"
     nydfs_23                               = "true"
     pci_dss_v40                            = "true"
+    rbi_nbfc_cyber_2026                    = "true"
   })
 }
 

@@ -44,6 +44,7 @@ control "sagemaker_notebook_instance_direct_internet_access_disabled" {
     pci_dss_v40                            = "true"
     rbi_cyber_security                     = "true"
     rbi_itf_nbfc                           = "true"
+    rbi_nbfc_cyber_2026                    = "true"
     soc_2                                  = "true"
   })
 }
@@ -174,7 +175,9 @@ control "sagemaker_notebook_instance_supported_platform_version" {
   description = "This control checks whether an Amazon SageMaker AI notebook instance is configured to run on a supported platform, based on the platform identifier specified for the notebook instance. The control fails if the notebook instance is configured to run on a platform that's no longer supported."
   query       = query.sagemaker_notebook_instance_supported_platform_version
 
-  tags = local.conformance_pack_sagemaker_common_tags
+  tags = merge(local.conformance_pack_sagemaker_common_tags, {
+    rbi_nbfc_cyber_2026 = "true"
+  })
 }
 
 control "sagemaker_endpoint_configuration_prod_instance_count_greater_than_one" {
